@@ -407,6 +407,16 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return mensajes;
         }
 
+        public IEnumerable<Mensaje> GetMensajesDeUsuario(int[] empresas, int[] lineas)
+        {
+            var dc = GetMensajeDetachedCriteria(false, empresas, lineas);
+            //dc.Add(Restrictions.Eq("TipoMensaje.DeRechazo", true));
+
+            var crit = GetMensajeCriteria(0, dc, null);
+            var mensajes = crit.List<Mensaje>().Where(m => m.TipoMensaje.DeUsuario).ToList();
+            return mensajes;
+        }
+
         #endregion
 
         #region Private Methods
