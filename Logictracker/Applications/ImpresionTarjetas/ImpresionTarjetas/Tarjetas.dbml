@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="tarjetas" Class="TarjetasDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="upcode" Member="upcodes">
+    <Type Name="upcode">
+      <Column Name="code" Type="System.String" DbType="nVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="image" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="used" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="choferes" Member="chofers">
+    <Type Name="chofer">
+      <Column Name="legajo" Type="System.String" DbType="nVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="apellido" Type="System.String" DbType="nVarChar(200)" CanBeNull="true" />
+      <Column Name="nombre" Type="System.String" DbType="nVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="documento" Type="System.String" DbType="nVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="puesto" Type="System.String" DbType="nVarChar(200)" CanBeNull="true" />
+      <Column Name="upcode" Type="System.String" DbType="nVarChar(50)" CanBeNull="true" />
+      <Column Name="foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="code" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="legajo2" Type="System.String" DbType="nVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="apellido2" Type="System.String" DbType="nVarChar(200)" CanBeNull="true" />
+      <Column Name="nombre2" Type="System.String" DbType="nVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="documento2" Type="System.String" DbType="nVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="puesto2" Type="System.String" DbType="nVarChar(200)" CanBeNull="true" />
+      <Column Name="upcode2" Type="System.String" DbType="nVarChar(50)" CanBeNull="true" />
+      <Column Name="foto2" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="code2" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="imprimir" Member="imprimirs">
+    <Type Name="imprimir">
+      <Column Name="legajo" Type="System.String" DbType="nVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="apellido" Type="System.String" DbType="nVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="nVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="documento" Type="System.String" DbType="nVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="upcode" Type="System.String" DbType="nVarChar(50)" CanBeNull="true" />
+      <Column Name="foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="code" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="empleados">
+    <Type Name="empleado">
+      <Column Name="legajo" Type="System.String" DbType="nVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="apellido" Type="System.String" DbType="nVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="nVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="documento" Type="System.String" DbType="nVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="puesto" Type="System.String" DbType="nVarChar(200)" CanBeNull="true" />
+      <Column Name="upcode" Type="System.String" DbType="nVarChar(50)" CanBeNull="true" />
+      <Column Name="foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="code" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="alta" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="editado" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="impreso" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="empresa" Type="System.Int32" DbType="Int" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="back" Member="backs">
+    <Type Name="back">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="nVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="image" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="print_legajo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="print_documento" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="print_upcode" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="print_nombre" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="print_apellido" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="print_foto" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="legajo_top" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="legajo_left" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="documento_top" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="documento_left" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="upcode_top" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="upcode_left" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nombre_top" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nombre_left" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="apellido_top" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="apellido_left" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="foto_top" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="foto_left" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="empresa" Member="empresas">
+    <Type Name="empresa">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

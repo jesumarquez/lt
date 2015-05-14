@@ -1,0 +1,74 @@
+﻿**** C:\Users\rnr\Desktop\urbetrack.20100726.mcastro.merge_framework3\Urbetrack.Backend.sln ****
+==========================================
+ * Urbetrack.Global
+==========================================
+  - Items 
+   >Urbetrack.Toolkit
+   >Urbetrack.Types
+   >Urbetrack.Common.Utils
+   >Urbetrack.Common.Services.Helpers
+   >Urbetrack.Compression
+   >Urbetrack.Messaging
+   >Urbetrack.Hacking
+   >Urbetrack.Common.ExpressionEvaluator
+   >Urbetrack.Common.Mailing
+   >Urbetrack.Common.Web.Helpers
+           
+==========================================
+ * External.Libs
+==========================================
+  - Items 
+   >libzmq
+   >ZeroMQ
+   >Quartz
+   >BeIT
+           
+==========================================
+ * Urbetrack.Dispatcher
+==========================================
+  - Items 
+   >Urbetrack.Dispatcher.Handlers
+   >Urbetrack.Data
+           
+==========================================
+ * Framework
+==========================================
+  - Items 
+   >Agent
+   >Fundation
+   >Enterprise
+   >Core
+   >FrontEnd
+   >run
+   >Common
+   >Templates
+           
+==========================================
+ * Arena
+==========================================
+  - Items 
+   >Arena
+           
+==========================================
+ * Codecs
+==========================================
+  - Items 
+   >Unex
+   >Torino
+   >Gobalsat
+   >Gte
+   >Generic
+   >Enfora
+           
+==========================================
+ * HelperApps
+==========================================
+  - Items 
+   >PosicionConverter
+   >FilesMaker
+   >logTimeDiffs
+           
+==========================================
+ * Miscellaneous Files
+==========================================
+           

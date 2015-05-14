@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{9D4CEC38-B3C4-43DE-A05F-6B9EB2BFE35C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Geocoder.Logic</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Geocoder.Logic.Evaluators\CharMatchEvaluator.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\Evaluador.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\ExactMatchEvaluator.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\IEvaluator.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\MixedMatchEvaluator.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\PuntajeEvaluator.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\StartMatchEvaluator.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\TokenPosicionado.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\TokenPosicionadoComparer.cs" />
+    <Compile Include="Geocoder.Logic.Evaluators\WordMatchEvaluator.cs" />
+    <Compile Include="Geocoder.Logic\Abreviaturas.cs" />
+    <Compile Include="Geocoder.Logic\AddresserService.cs" />
+    <Compile Include="Geocoder.Logic\BaseNomenclador.cs" />
+    <Compile Include="Geocoder.Logic\Cleaning.cs" />
+    <Compile Include="Geocoder.Logic\Distancia.cs" />
+    <Compile Include="Geocoder.Logic\FraseSinonimo.cs" />
+    <Compile Include="Geocoder.Logic\Nomenclador.cs" />
+    <Compile Include="Geocoder.Logic\Normalizer.cs" />
+    <Compile Include="Geocoder.Logic\ObjetoPuntuado.cs" />
+    <Compile Include="Geocoder.Logic\Sinonimos.cs" />
+    <Compile Include="Geocoder.Logic\SpecialWords.cs" />
+    <Compile Include="Geocoder.Logic\Tokenizer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Geocoder.Core.csproj">
+      <Project>{52186FB0-923B-48A5-8411-D60F88CFAE1B}</Project>
+      <Name>Geocoder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="Geocoder.Data.csproj">
+      <Project>{2D9BE189-E399-49D8-8B76-1C8E7ADB017F}</Project>
+      <Name>Geocoder.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="Geocoder.SmartSearch.csproj">
+      <Project>{BBC3C696-0916-401E-929C-3D15F5AC3AE0}</Project>
+      <Name>Geocoder.SmartSearch</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

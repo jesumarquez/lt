@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ControlDeCombustible.EventoCombustible,Logictracker.Types" table="opeeven02" lazy="true">
+    <id name="Id" column="id_opeeven02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opeeven02_fecha" type="DateTime" name="Fecha" not-null="true" />
+    <property column="opeeven02_fecha_alta" type="DateTime" name="FechaAlta" not-null="true" />
+    <property column="opeeven02_mensaje" type="String" name="MensajeDescri" not-null="true" />
+
+    <many-to-one column="rela_parenti36" name="Tanque" lazy="proxy" />
+    <many-to-one column="rela_parenti39" name="Motor" lazy="proxy" />
+    <many-to-one column="rela_pareven01" name="Mensaje" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_pareven02" name="Accion" lazy="proxy" />
+  </class>
+</hibernate-mapping>

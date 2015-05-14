@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.ViajeDistribucion,Logictracker.Types" table="[ope.ope_tick_03_cab_viajedistri]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick03" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
+    <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+    <many-to-one name="CentroDeCostos" column="rela_parenti37" lazy="proxy" />
+    <many-to-one name="SubCentroDeCostos" column="rela_parenti99" lazy="proxy" />
+    <many-to-one name="Vehiculo" column="rela_parenti03" lazy="proxy" />
+    <many-to-one name="Empleado" column="rela_parenti09" lazy="proxy" />
+    <many-to-one name="UsuarioControl" column="rela_socusua01_control" lazy="proxy" />
+
+    <property column="opetick03_codigo" name="Codigo" />
+    <property column="opetick03_numero" name="NumeroViaje" />
+    <property column="opetick03_inicio" name="Inicio" />
+    <property column="opetick03_fin" name="Fin" />
+    <property column="opetick03_estado" name="Estado" />
+    <property column="opetick03_tipo" name="Tipo" />
+    <property column="opetick03_desvio" name="Desvio" />
+    <property column="opetick03_regresoabase" name="RegresoABase" />
+    <property column="opetick03_inicio_real" name="InicioReal" />
+
+    <property column="opetick03_controlado" name="Controlado" />
+    <property column="opetick03_fechacontrol" name="FechaControl" />
+    <property column="opetick03_motivo" name="Motivo" />
+    <property column="opetick03_comentario" name="Comentario" />
+    <property column="opetick03_umbral" name="Umbral" />
+    <property column="opetick03_alta" name="Alta" />
+    <property column="opetick03_programacion_dinamica" name="ProgramacionDinamica" />
+    <property column="opetick03_recepcion" name="Recepcion" />
+
+    <property name="MinTiempoProgramado" formula="(select min(A.opetick04_programado) from opetick04 A where A.rela_opetick03 = id_opetick03)" lazy="true" />
+    <property name="MaxTiempoProgramado" formula="(select max(A.opetick04_programado) from opetick04 A where A.rela_opetick03 = id_opetick03)" lazy="true" />
+
+    <property name="EntregasTotalCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03)" lazy="true" />
+    <property name="EntregasTotalCountConBases" formula="(select count(*) from opetick04 A WHERE A.rela_opetick03 = id_opetick03)" lazy="true" />
+
+    <property name="EntregasPendientesCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03 and  A.opetick04_estado = 0)" lazy="true" />
+    <property name="EntregasEnSitioCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03 and  A.opetick04_estado = 1)" lazy="true" />
+    <property name="EntregasVisitadosCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03 and  A.opetick04_estado = 2)" lazy="true" />
+    <property name="EntregasNoVisitadosCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03 and  A.opetick04_estado = 3)" lazy="true" />
+    <property name="EntregasEnZonaCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03 and  A.opetick04_estado = 4)" lazy="true" />
+    <property name="EntregasNoCompletadosCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03 and  A.opetick04_estado = 8)" lazy="true" />
+    <property name="EntregasCompletadosCount" formula="(select count(*) from opetick04 A where A.rela_parenti44 is not null AND A.rela_opetick03 = id_opetick03 and  A.opetick04_estado = 9)" lazy="true" />
+    
+    <property name="EntregasNomencladasCount" formula="(select count(*) from opetick04 A inner join parenti44 B on B.id_parenti44 = A.rela_parenti44 where A.rela_opetick03 = id_opetick03 AND B.parenti44_nomenclado = 1)" lazy="true" />
+    
+    <bag name="Detalles"
+          table="[ope.ope_tick_04_det_entregadistri]"
+          order-by="opetick04_orden, opetick04_programado ASC"   
+          inverse="true"
+          cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_opetick03" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EntregaDistribucion, Logictracker.Types" />
+    </bag>
+
+    <bag name="Recorrido"
+          table="[ope.ope_tick_05_det_recorrido]"
+          order-by="opetick05_orden ASC"
+          inverse="true"
+          cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_opetick03" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.RecorridoDistribucion, Logictracker.Types" />
+    </bag>
+
+    <bag name="EventosDistri"
+          table="[ope.ope_even_09_even_distri]"          
+          inverse="true" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_opetick03" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Messages.EvenDistri, Logictracker.Types" />
+    </bag>    
+  </class>
+</hibernate-mapping>

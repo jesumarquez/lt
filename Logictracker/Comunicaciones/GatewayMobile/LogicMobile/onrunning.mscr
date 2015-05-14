@@ -1,0 +1,12 @@
+# UrbeMobile, para Windows Mobile 5
+# Inicia la aplicacion de usuario (Inspecciones)
+
+ErrorLevel ( "off" )
+
+USRAPP_PATH="\My Documents\xInspecciones\"
+USRAPP_PROC="Inspecciones.exe"
+USRAPP_BIN=USRAPP_PATH & USRAPP_PROC
+
+Run ( USRAPP_BIN )
+
+

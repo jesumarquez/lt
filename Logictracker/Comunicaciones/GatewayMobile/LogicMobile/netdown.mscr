@@ -1,0 +1,7 @@
+# UrbeMobile, para Windows Mobile 5
+# Desconectar Internet
+
+ErrorLevel ( "off" )
+
+Disconnect
+

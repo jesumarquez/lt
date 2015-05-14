@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Empleado.hbm.xml 392 2007-08-24 18:56:45Z rbugallo $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Empleado,Logictracker.Types" table="parenti09" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti09" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti09_legajo" type="String" name="Legajo" not-null="true" length="10" />
+    <property column="parenti09_falta" type="DateTime" not-null="false" name="Falta" />
+    <property column="parenti09_antiguedad" type="Int32" name="Antiguedad" />
+    <property column="parenti09_art" type="String" name="Art" length="20" />
+    <property column="parenti09_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="parenti09_pin" type="String" name="Pin" />
+    <property column="parenti09_liccond" type="String" name="Licencia" />
+    <property column="parenti09_fecvencim" type="DateTime" not-null="false" name="Vencimiento" />
+    <property column="parenti09_telefono" type="String" name="Telefono" />
+    <property column="paren09_mail" type="String" name="Mail" />
+    <property column="paren09_es_responsable" type="Boolean" name="EsResponsable" />
+
+    <many-to-one column="rela_socusua05" name="Entidad" cascade="all" />
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" not-null="false" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" not-null="false" />
+    <many-to-one column="rela_parenti23" name="Tarjeta" unique="true" cascade="all" lazy="false" />
+    <many-to-one column="rela_parenti07" name="Transportista" lazy="proxy" />
+    <many-to-one column="rela_parenti43" name="TipoEmpleado" lazy="proxy" />
+    <many-to-one column="pae09_reporta1" name="Reporta1" lazy="proxy" />
+    <many-to-one column="pae09_reporta2" name="Reporta2" lazy="proxy" />
+    <many-to-one column="pae09_reporta3" name="Reporta3" lazy="proxy" />
+    <many-to-one column="rela_parenti04" name="Departamento" lazy="proxy" />
+    <many-to-one column="rela_parenti37" name="CentroDeCostos" lazy="proxy" />
+    <many-to-one column="rela_parenti15" name="Categoria" lazy="proxy" />
+    <many-to-one column="rela_parenti08" name="Dispositivo" lazy="proxy" />
+  </class>
+</hibernate-mapping>

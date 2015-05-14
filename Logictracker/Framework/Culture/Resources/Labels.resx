@@ -1,0 +1,4628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ACTIONTYPE_MAIL" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="ACTIONTYPE_PAINT" xml:space="preserve">
+    <value>Pintado</value>
+  </data>
+  <data name="ACTIONTYPE_POPUP" xml:space="preserve">
+    <value>PopUp</value>
+  </data>
+  <data name="ADDRESS" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="ALPHA" xml:space="preserve">
+    <value>Alpha</value>
+  </data>
+  <data name="ASSIGNED_ROLES" xml:space="preserve">
+    <value>Perfiles Asignados</value>
+  </data>
+  <data name="ASSIGNED_VEHICLES" xml:space="preserve">
+    <value>Vehículos Asignados</value>
+  </data>
+  <data name="AVAILABLE_ROLES" xml:space="preserve">
+    <value>Perfiles Disponibles</value>
+  </data>
+  <data name="AVAILABLE_VEHICLES" xml:space="preserve">
+    <value>Vehículos Disponibles</value>
+  </data>
+  <data name="CANTIDAD" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="CANTIDAD_ACUMULADA" xml:space="preserve">
+    <value>Acumulada</value>
+  </data>
+  <data name="CANTIDAD_CARGA" xml:space="preserve">
+    <value>mts</value>
+  </data>
+  <data name="CANTIDAD_CARGA_REAL" xml:space="preserve">
+    <value>mts Reales</value>
+  </data>
+  <data name="DIFERENCIA_CARGA" xml:space="preserve">
+    <value>Diferencia</value>
+  </data>
+  <data name="CANTIDAD_PEDIDO" xml:space="preserve">
+    <value>Cantidad Pedido</value>
+  </data>
+  <data name="CLASS" xml:space="preserve">
+    <value>Clase</value>
+  </data>
+  <data name="CODE" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="COLOR" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="COMMENT_1" xml:space="preserve">
+    <value>Comentario 1</value>
+  </data>
+  <data name="COMMENT_2" xml:space="preserve">
+    <value>Comentario 2</value>
+  </data>
+  <data name="COMMENT_3" xml:space="preserve">
+    <value>Comentario 3</value>
+  </data>
+  <data name="CONFIG_PERFILES" xml:space="preserve">
+    <value>Configuración de Perfiles</value>
+  </data>
+  <data name="CONFIG_REGIONAL" xml:space="preserve">
+    <value>Configuración Regional</value>
+  </data>
+  <data name="CONFIG_VISUAL" xml:space="preserve">
+    <value>Configuración Visual</value>
+  </data>
+  <data name="CONFIRM_PASSWORD" xml:space="preserve">
+    <value>Confirmar contraseña</value>
+  </data>
+  <data name="CREATE" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="CUIL" xml:space="preserve">
+    <value>CUIL</value>
+  </data>
+  <data name="DATE" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="CULTURA" xml:space="preserve">
+    <value>Cultura</value>
+  </data>
+  <data name="DATOS_PERSONALES" xml:space="preserve">
+    <value>Datos Personales</value>
+  </data>
+  <data name="DATOS_USUARIO" xml:space="preserve">
+    <value>Datos de Usuario</value>
+  </data>
+  <data name="DELETE" xml:space="preserve">
+    <value>Baja</value>
+  </data>
+  <data name="DEVICESTATE_ACTIVE" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="DEVICESTATE_INACTIVE" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+  <data name="DEVICESTATE_REPAIR" xml:space="preserve">
+    <value>En Mantenimiento</value>
+  </data>
+  <data name="DOCUMENT_NUMBER" xml:space="preserve">
+    <value>Número de Documento</value>
+  </data>
+  <data name="DOCUMENT_TYPE" xml:space="preserve">
+    <value>Tipo de Documento</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>Mod.</value>
+  </data>
+  <data name="ESTABLECER_PREDETERMINADO" xml:space="preserve">
+    <value>Establecer como predeterminado</value>
+  </data>
+  <data name="FULLNAME" xml:space="preserve">
+    <value>Nombre Completo</value>
+  </data>
+  <data name="FUNCTIONTYPE_ASPX" xml:space="preserve">
+    <value>ASPX</value>
+  </data>
+  <data name="FUNCTIONTYPE_HTML" xml:space="preserve">
+    <value>HTML</value>
+  </data>
+  <data name="FUNCTIONTYPE_JS" xml:space="preserve">
+    <value>JavaScript</value>
+  </data>
+  <data name="FUNCTIONTYPE_OTHER" xml:space="preserve">
+    <value>Otro</value>
+  </data>
+  <data name="GRUPO_RECURSOS" xml:space="preserve">
+    <value>Conjunto de Recursos</value>
+  </data>
+  <data name="ICON" xml:space="preserve">
+    <value>Icono</value>
+  </data>
+  <data name="LOGO" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="MAP" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="NAME" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="ORDER" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="PARAMETERS" xml:space="preserve">
+    <value>Parámetros</value>
+  </data>
+  <data name="PASSWORD" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="PLUGIN_DLL" xml:space="preserve">
+    <value>Plugin DLL</value>
+  </data>
+  <data name="POPUP_TITLE" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="PRODUCT_CODE" xml:space="preserve">
+    <value>Código Producto</value>
+  </data>
+  <data name="PRODUCT_DESCRIPCION" xml:space="preserve">
+    <value>Descripción Producto</value>
+  </data>
+  <data name="REFFERENCE" xml:space="preserve">
+    <value>Referencia</value>
+  </data>
+  <data name="REPORT" xml:space="preserve">
+    <value>Rep.</value>
+  </data>
+  <data name="SOUND" xml:space="preserve">
+    <value>Sonido</value>
+  </data>
+  <data name="STATE" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="STORED_PROCEDURE" xml:space="preserve">
+    <value>Stored Procedure</value>
+  </data>
+  <data name="SUBJECT" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+  <data name="TARGETTYPE_MAIL" xml:space="preserve">
+    <value>Lista de Mails</value>
+  </data>
+  <data name="TARGETTYPE_MOBILE" xml:space="preserve">
+    <value>Movil</value>
+  </data>
+  <data name="TARGETTYPE_PAGER" xml:space="preserve">
+    <value>Lista de números Pager</value>
+  </data>
+  <data name="TARGETTYPE_SMS" xml:space="preserve">
+    <value>Lista de números SMS</value>
+  </data>
+  <data name="TARGETTYPE_SYSTEM" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="TARGET_TYPE" xml:space="preserve">
+    <value>Tipo de Destino</value>
+  </data>
+  <data name="TEXT" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="THEME" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TICKETSTATE_CLOSED" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="TICKETSTATE_CURRENT" xml:space="preserve">
+    <value>En Curso</value>
+  </data>
+  <data name="TICKETSTATE_PROGRAMMED" xml:space="preserve">
+    <value>Programado</value>
+  </data>
+  <data name="TICKETSTATE_ANULADO" xml:space="preserve">
+    <value>Anulado</value>
+  </data>
+  <data name="TIME_AUTOMATIC" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="TIME_MANUAL" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="TIME_PROGRAMMED" xml:space="preserve">
+    <value>Programado</value>
+  </data>
+  <data name="TYPE" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="UNIT" xml:space="preserve">
+    <value>Unidad</value>
+  </data>
+  <data name="URL" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="USO_HORARIO" xml:space="preserve">
+    <value>Huso Horario</value>
+  </data>
+  <data name="VEHICLESTATE_ACTIVE" xml:space="preserve">
+    <value>Operativo</value>
+  </data>
+  <data name="VEHICLESTATE_INACTIVE" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+  <data name="VEHICLESTATE_TALLER" xml:space="preserve">
+    <value>En Taller</value>
+  </data>
+  <data name="VIEW" xml:space="preserve">
+    <value>Cons.</value>
+  </data>
+  <data name="DEFAULT_REPORT_REGIONAL_INFORMATION" xml:space="preserve">
+    <value>Cultura: es-AR - Uso Horario: GMT</value>
+  </data>
+  <data name="REPORT_REGIONAL_INFORMATION" xml:space="preserve">
+    <value>Cultura: {0} - Uso Horario: GMT{1}</value>
+  </data>
+  <data name="CON_ACTIVIDAD" xml:space="preserve">
+    <value>Con Actividad</value>
+  </data>
+  <data name="DETENCION" xml:space="preserve">
+    <value>Detención</value>
+  </data>
+  <data name="DIAS" xml:space="preserve">
+    <value>Días</value>
+  </data>
+  <data name="INFRACCIONES" xml:space="preserve">
+    <value>Infracciones</value>
+  </data>
+  <data name="INTERNO_Y_DISPOSITIVO" xml:space="preserve">
+    <value>Interno: {0} ({1}) - {2} - Dispositivo {3}</value>
+  </data>
+  <data name="MAXIMA_ALCANZADA" xml:space="preserve">
+    <value>Máxima Alcanzada</value>
+  </data>
+  <data name="MOVIMIENTO" xml:space="preserve">
+    <value>Movimiento</value>
+  </data>
+  <data name="MOVIMIENTO_Y_EVENTOS" xml:space="preserve">
+    <value>D&amp;iacute;as: {0} - Horas: {1:00}:{2:00}:{3:00} ({4} eventos)</value>
+  </data>
+  <data name="PROMEDIO" xml:space="preserve">
+    <value>Promedio</value>
+  </data>
+  <data name="PROMEDIO_DIARIO" xml:space="preserve">
+    <value>Promedio Diario</value>
+  </data>
+  <data name="RECORRIDO" xml:space="preserve">
+    <value>Recorrido</value>
+  </data>
+  <data name="SIN_ACTIVIDAD" xml:space="preserve">
+    <value>Sin Actividad</value>
+  </data>
+  <data name="SIN_REPORTAR" xml:space="preserve">
+    <value>Sin Reportar</value>
+  </data>
+  <data name="TIEMPO" xml:space="preserve">
+    <value>Tiempo</value>
+  </data>
+  <data name="TIEMPOS" xml:space="preserve">
+    <value>Tiempos</value>
+  </data>
+  <data name="TOTAL" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TOTALES" xml:space="preserve">
+    <value>Totales</value>
+  </data>
+  <data name="VELOCIDAD" xml:space="preserve">
+    <value>Velocidad</value>
+  </data>
+  <data name="DIA" xml:space="preserve">
+    <value>D&amp;iacute;a</value>
+  </data>
+  <data name="DESCRIPCION" xml:space="preserve">
+    <value>Descripci&amp;oacute;n</value>
+  </data>
+  <data name="DESCRIPCION_CORTA" xml:space="preserve">
+    <value>Descripci&amp;oacute;n corta</value>
+  </data>
+  <data name="TELEFONO" xml:space="preserve">
+    <value>Tel&amp;eacute;fono</value>
+  </data>
+  <data name="AÑO" xml:space="preserve">
+    <value>Año</value>
+    <comment>ABM Vehiculos</comment>
+  </data>
+  <data name="CHOFER" xml:space="preserve">
+    <value>Chofer</value>
+  </data>
+  <data name="DIFERENCIAL" xml:space="preserve">
+    <value>Diferencial</value>
+  </data>
+  <data name="DOCUMENTOS_RELACIONADOS" xml:space="preserve">
+    <value>Documentos</value>
+  </data>
+  <data name="INTERNO" xml:space="preserve">
+    <value>Interno</value>
+  </data>
+  <data name="MARCA" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="MODELO" xml:space="preserve">
+    <value>Modelo</value>
+  </data>
+  <data name="NUMERO_CHASIS" xml:space="preserve">
+    <value>Nº Chasis</value>
+  </data>
+  <data name="NUMERO_MOTOR" xml:space="preserve">
+    <value>Nº Motor</value>
+  </data>
+  <data name="POLIZA" xml:space="preserve">
+    <value>Poliza</value>
+  </data>
+  <data name="RAMPA" xml:space="preserve">
+    <value>Rampa</value>
+  </data>
+  <data name="VENCIMIENTO" xml:space="preserve">
+    <value>Vencimiento</value>
+  </data>
+  <data name="VENCIMIENTO_POLIZA" xml:space="preserve">
+    <value>Vencimiento póliza</value>
+  </data>
+  <data name="PARAMETRO" xml:space="preserve">
+    <value>Par&amp;aacute;metro</value>
+  </data>
+  <data name="REVISION" xml:space="preserve">
+    <value>Revisi&amp;oacute;n</value>
+  </data>
+  <data name="VALOR" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="VALOR_DEFAULT" xml:space="preserve">
+    <value>Valor por defecto</value>
+  </data>
+  <data name="MIN" xml:space="preserve">
+    <value>MIN</value>
+  </data>
+  <data name="CODIGO_DISPLAY" xml:space="preserve">
+    <value>Código display</value>
+  </data>
+  <data name="ENTRADA" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="GEOCERCA" xml:space="preserve">
+    <value>Geocerca</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="POLL_INTERVAL" xml:space="preserve">
+    <value>Poll interval</value>
+  </data>
+  <data name="PUERTO" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="SALIDA" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="TABLAS" xml:space="preserve">
+    <value>Tablas</value>
+  </data>
+  <data name="CAMARAS" xml:space="preserve">
+    <value>Camaras</value>
+  </data>
+  <data name="CLAVE" xml:space="preserve">
+    <value>Clave</value>
+  </data>
+  <data name="EN_GEOCERCA" xml:space="preserve">
+    <value>En geocerca</value>
+  </data>
+  <data name="EN_VIAJE" xml:space="preserve">
+    <value>En viaje</value>
+  </data>
+  <data name="TODOS" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="CANTIDAD_VEHICULOS" xml:space="preserve">
+    <value>Cantidad de Vehículos</value>
+  </data>
+  <data name="EN_DETENCION" xml:space="preserve">
+    <value>En detención</value>
+  </data>
+  <data name="EN_INFRACCION" xml:space="preserve">
+    <value>En infracción</value>
+  </data>
+  <data name="EN_MOVIMIENTO" xml:space="preserve">
+    <value>En movimiento</value>
+  </data>
+  <data name="GROUP_VEHICULO" xml:space="preserve">
+    <value>Vehiculo: {0}</value>
+  </data>
+  <data name="LEGAJO" xml:space="preserve">
+    <value>Legajo</value>
+  </data>
+  <data name="MAXIMAS_DIARIAS" xml:space="preserve">
+    <value>Maximas Diarias</value>
+  </data>
+  <data name="MOVIMIENTO_SIN_EVENTOS" xml:space="preserve">
+    <value>D&amp;iacute;as: {0} - Horas: {1:00}:{2:00}:{3:00}</value>
+  </data>
+  <data name="CALIFICACION" xml:space="preserve">
+    <value>Calificación</value>
+  </data>
+  <data name="CALIFICACION_STR" xml:space="preserve">
+    <value>Calificacion</value>
+  </data>
+  <data name="DESDE" xml:space="preserve">
+    <value>Desde</value>
+  </data>
+  <data name="DURACION" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="ESQUINA" xml:space="preserve">
+    <value>Esquina</value>
+  </data>
+  <data name="EVENTO" xml:space="preserve">
+    <value>Evento</value>
+  </data>
+  <data name="EXCESO" xml:space="preserve">
+    <value>Exceso</value>
+  </data>
+  <data name="FECHA_HORA" xml:space="preserve">
+    <value>Fecha y Hora</value>
+  </data>
+  <data name="FIN" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="GRAVE" xml:space="preserve">
+    <value>Grave</value>
+  </data>
+  <data name="GRAVES" xml:space="preserve">
+    <value>Graves</value>
+  </data>
+  <data name="HASTA" xml:space="preserve">
+    <value>Hasta</value>
+  </data>
+  <data name="HORA" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="INICIO" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="KILOMETROS" xml:space="preserve">
+    <value>Kilómetros</value>
+  </data>
+  <data name="KM_SUPERADOS" xml:space="preserve">
+    <value>Kilómetros Superados</value>
+  </data>
+  <data name="LEVE" xml:space="preserve">
+    <value>Leve</value>
+  </data>
+  <data name="LEVES" xml:space="preserve">
+    <value>Leves</value>
+  </data>
+  <data name="MEDIA" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="MEDIAS" xml:space="preserve">
+    <value>Medias</value>
+  </data>
+  <data name="MINUTOS" xml:space="preserve">
+    <value>Minutos</value>
+  </data>
+  <data name="OPERADORES" xml:space="preserve">
+    <value>Operadores</value>
+  </data>
+  <data name="PATENTE" xml:space="preserve">
+    <value>Patente</value>
+  </data>
+  <data name="PICO" xml:space="preserve">
+    <value>Pico</value>
+  </data>
+  <data name="PONDERACION" xml:space="preserve">
+    <value>Ponderaci&amp;oacute;n</value>
+  </data>
+  <data name="PUNTAJE" xml:space="preserve">
+    <value>Puntaje</value>
+  </data>
+  <data name="SIN_DEFINIR" xml:space="preserve">
+    <value>Sin Definir</value>
+  </data>
+  <data name="TIEMPO_INFRACCION" xml:space="preserve">
+    <value>Tiempo en Infracci&amp;oacute;n</value>
+  </data>
+  <data name="VARIACION_VELOCIDAD_CAPTION" xml:space="preserve">
+    <value>Vehículo {0}     D&amp;iacute;a: {1:d}     Desde: {2:t}     Hasta: {3:t}</value>
+  </data>
+  <data name="VARIACION_MEDICIONES_CAPTION" xml:space="preserve">
+    <value>Medidor {0}     D&amp;iacute;a: {1:d}     Desde: {2:t}     Hasta: {3:t}</value>
+  </data>
+  <data name="VEHICULOS" xml:space="preserve">
+    <value>Vehículos</value>
+  </data>
+  <data name="VELOCIDAD_MAXIMA" xml:space="preserve">
+    <value>Velocidad Máxima</value>
+  </data>
+  <data name="VELOCIDAD_PROMEDIO" xml:space="preserve">
+    <value>Velocidad Promedio</value>
+  </data>
+  <data name="CATEGORIA" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="COORDENADAS" xml:space="preserve">
+    <value>Coordenadas</value>
+  </data>
+  <data name="DIRECCION" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="ES_GEOCERCA" xml:space="preserve">
+    <value>Es Geocerca</value>
+  </data>
+  <data name="INFORMACION" xml:space="preserve">
+    <value>Informaci&amp;oacute;n</value>
+  </data>
+  <data name="INHIBE_ALARMA" xml:space="preserve">
+    <value>Inhibe Alarma</value>
+  </data>
+  <data name="LATITUD" xml:space="preserve">
+    <value>Latitud</value>
+  </data>
+  <data name="LONGITUD" xml:space="preserve">
+    <value>Longitud</value>
+  </data>
+  <data name="RADIO" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="FILTROS" xml:space="preserve">
+    <value>Filtros</value>
+  </data>
+  <data name="DISTANCIA" xml:space="preserve">
+    <value>Distancia</value>
+  </data>
+  <data name="FIN_VIAJE" xml:space="preserve">
+    <value>Fin&amp;nbsp;Viaje</value>
+  </data>
+  <data name="MENSAJES" xml:space="preserve">
+    <value>Mensajes</value>
+  </data>
+  <data name="VER_MONITOR_CALIDAD" xml:space="preserve">
+    <value>Ver en Monitor de Calidad</value>
+  </data>
+  <data name="VELOCIDAD_MINIMA" xml:space="preserve">
+    <value>Velocidad Mínima</value>
+  </data>
+  <data name="CURSO" xml:space="preserve">
+    <value>Curso</value>
+  </data>
+  <data name="DIFERENCIA_CURSO_ULTIMA" xml:space="preserve">
+    <value>Diferencia de curso a &amp;uacute;ltima posici&amp;oacute;n</value>
+  </data>
+  <data name="DISTANCIA_ACUMULADA" xml:space="preserve">
+    <value>Distancia acumulada</value>
+  </data>
+  <data name="DISTANCIA_ULTIMA_POSICION" xml:space="preserve">
+    <value>Distancia a &amp;uacute;ltima posici&amp;oacute;n</value>
+  </data>
+  <data name="TIEMPO_ULTIMA_POSICION" xml:space="preserve">
+    <value>Tiempo a &amp;uacute;ltima posici&amp;oacute;n</value>
+  </data>
+  <data name="ACTIVOS" xml:space="preserve">
+    <value>Activos</value>
+  </data>
+  <data name="CONFIGURACION" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="DETENIDO" xml:space="preserve">
+    <value>Detenido</value>
+  </data>
+  <data name="DURANTE" xml:space="preserve">
+    <value>Durante</value>
+  </data>
+  <data name="ENVIAR_MENSAJE" xml:space="preserve">
+    <value>Enviar mensaje a: </value>
+  </data>
+  <data name="MAS_DE" xml:space="preserve">
+    <value>M&amp;aacute;s de</value>
+  </data>
+  <data name="MENOS_DE" xml:space="preserve">
+    <value>Menos de</value>
+  </data>
+  <data name="MOSTRAR" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="PERSONALIZADO" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="PREDEFINIDO" xml:space="preserve">
+    <value>Predefinido</value>
+  </data>
+  <data name="REBOOT_EQUIPO" xml:space="preserve">
+    <value>Reboot del equipo</value>
+  </data>
+  <data name="RESPUESTAS" xml:space="preserve">
+    <value>Respuestas</value>
+  </data>
+  <data name="SEGUNDOS" xml:space="preserve">
+    <value>Segundos</value>
+  </data>
+  <data name="SISTEMA" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="TABLA_MENSAJES" xml:space="preserve">
+    <value>Tabla de mensajes</value>
+  </data>
+  <data name="TELEFONO_BASE" xml:space="preserve">
+    <value>Telefono base</value>
+  </data>
+  <data name="ONLINE_PAUSED" xml:space="preserve">
+    <value>Pausado... Infomovil abierto</value>
+  </data>
+  <data name="ONLINE_WAITING" xml:space="preserve">
+    <value>Conectado ... [Esperando]</value>
+  </data>
+  <data name="ONLINE_CONNECTED" xml:space="preserve">
+    <value>[Conectado]</value>
+  </data>
+  <data name="ONLINE_DISCONNECTED" xml:space="preserve">
+    <value>Conectar... [Desconectado]</value>
+  </data>
+  <data name="CANTIDAD_KILOMETROS" xml:space="preserve">
+    <value>- Cantidad total de kilómetros</value>
+  </data>
+  <data name="DESPACHOS_REALIZADOS" xml:space="preserve">
+    <value>Despachos Realizados</value>
+  </data>
+  <data name="LAYER_ADDRESS" xml:space="preserve">
+    <value>Direcciones</value>
+  </data>
+  <data name="LAYER_GEOCERCAS" xml:space="preserve">
+    <value>Areas</value>
+  </data>
+  <data name="LAYER_GFISICO" xml:space="preserve">
+    <value>Fisico</value>
+  </data>
+  <data name="LAYER_GHIBRIDO" xml:space="preserve">
+    <value>Hibrido</value>
+  </data>
+  <data name="LAYER_GSAT" xml:space="preserve">
+    <value>Satelital</value>
+  </data>
+  <data name="LAYER_GSTREET" xml:space="preserve">
+    <value>Calles</value>
+  </data>
+  <data name="LAYER_POI" xml:space="preserve">
+    <value>Referencias Geograficas</value>
+  </data>
+  <data name="LAYER_VEHICULOS" xml:space="preserve">
+    <value>Vehículos Activos</value>
+  </data>
+  <data name="LAYER_VEHICULOS_INACTIVOS" xml:space="preserve">
+    <value>Vehículos Inactivos</value>
+  </data>
+  <data name="LAYER_POLIGONOS" xml:space="preserve">
+    <value>Areas</value>
+  </data>
+  <data name="MAP_CENTER" xml:space="preserve">
+    <value>Centrar Aqui</value>
+  </data>
+  <data name="MAP_MARK_DIR" xml:space="preserve">
+    <value>Marcar Direccion</value>
+  </data>
+  <data name="MAP_OPTIONS" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="MAP_ZOOM_IN" xml:space="preserve">
+    <value>Acercar</value>
+  </data>
+  <data name="MAP_ZOOM_OUT" xml:space="preserve">
+    <value>Alejar</value>
+  </data>
+  <data name="CHOFER_ASIGNADO" xml:space="preserve">
+    <value>Chofer Asignado</value>
+  </data>
+  <data name="KM_POR_HORA" xml:space="preserve">
+    <value>Km/h</value>
+  </data>
+  <data name="NINGUNO" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="PRODUCTO" xml:space="preserve">
+    <value>Producto</value>
+  </data>
+  <data name="SIN_CHOFER" xml:space="preserve">
+    <value>Sin Chofer</value>
+  </data>
+  <data name="SIN_ESTADO_LOG" xml:space="preserve">
+    <value>Sin Estado Logistico</value>
+  </data>
+  <data name="ULTIMA_POSICION" xml:space="preserve">
+    <value>Ultima Posicion</value>
+  </data>
+  <data name="VEHICULOS_CERCANOS" xml:space="preserve">
+    <value>Vehículos Cercanos</value>
+  </data>
+  <data name="VER_MONITOR_HISTORICO" xml:space="preserve">
+    <value>Ver en Monitor Histórico</value>
+  </data>
+  <data name="GROUP_POI" xml:space="preserve">
+    <value>Referencia Geografica: {0}</value>
+  </data>
+  <data name="ESTADO_MOTOR" xml:space="preserve">
+    <value>Estado motor</value>
+  </data>
+  <data name="KILOMETROS_RECORRIDOS" xml:space="preserve">
+    <value>Kilómetros recorridos</value>
+  </data>
+  <data name="REP_EVENTOS_TITLE" xml:space="preserve">
+    <value>Resumen de Eventos - Interno: {0} ({1} - {2})</value>
+  </data>
+  <data name="REP_RUTA_TITLE" xml:space="preserve">
+    <value>Resumen de Ruta - Interno: {0} ({1} - {2})</value>
+  </data>
+  <data name="TIEMPO_DETENCION" xml:space="preserve">
+    <value>Tiempo en detenci&amp;oacute;n</value>
+  </data>
+  <data name="TIEMPO_MOVIMIENTO" xml:space="preserve">
+    <value>Tiempo en movimiento</value>
+  </data>
+  <data name="TIME_AND_EVENTS" xml:space="preserve">
+    <value>{0} ({1} eventos)</value>
+  </data>
+  <data name="DESDE_HASTA" xml:space="preserve">
+    <value>Desde: {0} - Hasta: {1}</value>
+  </data>
+  <data name="HORAS" xml:space="preserve">
+    <value>Horas</value>
+  </data>
+  <data name="MOVIL_DESDE_HASTA" xml:space="preserve">
+    <value>Vehículo {0} - Desde: {1}  Hasta: {2}</value>
+  </data>
+  <data name="ACTUALIZACION_AUTOMATICA" xml:space="preserve">
+    <value>Actualización automática</value>
+  </data>
+  <data name="ESTADO_DISPOSITIVO" xml:space="preserve">
+    <value>Estado dispositivo</value>
+  </data>
+  <data name="ESTADO_VEHICULO" xml:space="preserve">
+    <value>Estado vehículo</value>
+  </data>
+  <data name="FIRMWARE" xml:space="preserve">
+    <value>Firmware</value>
+  </data>
+  <data name="GROUP_DISOSITIVOS" xml:space="preserve">
+    <value>- {0} Dispositivos</value>
+  </data>
+  <data name="GROUP_ESTADO" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="IMEI" xml:space="preserve">
+    <value>IMEI</value>
+  </data>
+  <data name="INACTIVO" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+  <data name="REPORTANDO" xml:space="preserve">
+    <value>Reportando</value>
+  </data>
+  <data name="DESCARGANDO_POSICIONES" xml:space="preserve">
+    <value>Descargando Posiciones</value>
+  </data>
+  <data name="VEHICLESTATE_REVISAR" xml:space="preserve">
+    <value>Revisar</value>
+  </data>
+  <data name="SIN_ASIGNAR" xml:space="preserve">
+    <value>Sin Asignar</value>
+  </data>
+  <data name="ULTIMAS_POSICIONES" xml:space="preserve">
+    <value>Últimas posiciones</value>
+  </data>
+  <data name="FECHA_ALTA" xml:space="preserve">
+    <value>Fecha alta</value>
+  </data>
+  <data name="FECHA_INICIO" xml:space="preserve">
+    <value>Fecha inicio</value>
+  </data>
+  <data name="FECHA_FIN" xml:space="preserve">
+    <value>Fecha cierre</value>
+  </data>
+  <data name="GROUP_VEHICULOS" xml:space="preserve">
+    <value>- {0} Vehículos</value>
+  </data>
+  <data name="GROUP_TRANSPORT" xml:space="preserve">
+    <value>Transporte: {0}</value>
+  </data>
+  <data name="VIAJES_REALIZADOS" xml:space="preserve">
+    <value>Viajes realizados</value>
+  </data>
+  <data name="DIFERENCIA" xml:space="preserve">
+    <value>Diferencia</value>
+  </data>
+  <data name="EGRESOS" xml:space="preserve">
+    <value>Egresos</value>
+  </data>
+  <data name="INGRESOS" xml:space="preserve">
+    <value>Ingresos</value>
+  </data>
+  <data name="STOCK_FINAL" xml:space="preserve">
+    <value>Stock Final</value>
+  </data>
+  <data name="STOCK_INICIAL" xml:space="preserve">
+    <value>Stock Inicial</value>
+  </data>
+  <data name="TOTAL_DESPACHADO" xml:space="preserve">
+    <value>Total Despachado</value>
+  </data>
+  <data name="CANTIDAD_REMITOS" xml:space="preserve">
+    <value>Cantidad de Remitos</value>
+  </data>
+  <data name="DESPACHOS_DETALLE" xml:space="preserve">
+    <value>Detalle de Despachos</value>
+  </data>
+  <data name="NRO_REMITO" xml:space="preserve">
+    <value>Numero de Remito</value>
+  </data>
+  <data name="REMITOS_DETALLE" xml:space="preserve">
+    <value>Detalle de Remitos</value>
+  </data>
+  <data name="TOTAL_CARGADO" xml:space="preserve">
+    <value>Total Cargado</value>
+  </data>
+  <data name="VOLUMEN" xml:space="preserve">
+    <value>Volumen</value>
+  </data>
+  <data name="FECHA" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="STOCK_SONDA" xml:space="preserve">
+    <value>Stock Sonda</value>
+  </data>
+  <data name="MAXIMO" xml:space="preserve">
+    <value>Máximo</value>
+  </data>
+  <data name="MINIMO" xml:space="preserve">
+    <value>Mínimo</value>
+  </data>
+  <data name="CONTROLA_MAXIMO" xml:space="preserve">
+    <value>Controla Máximo</value>
+  </data>
+  <data name="CONTROLA_MINIMO" xml:space="preserve">
+    <value>Controla Mínimo</value>
+  </data>
+  <data name="TICKETS_TOTALES" xml:space="preserve">
+    <value>Tickets Totales</value>
+  </data>
+  <data name="LINKS" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="REP_GEOCERCAS_TITLE" xml:space="preserve">
+    <value>Detalle de Recorrido - Interno: {0}</value>
+  </data>
+  <data name="TIME_AND_EVENTS_INFRACTIONS" xml:space="preserve">
+    <value>{0} ({1} infracciones)</value>
+  </data>
+  <data name="INFRACTIONS" xml:space="preserve">
+    <value>{0} infracciones</value>
+  </data>
+  <data name="HORAS_PLANTA" xml:space="preserve">
+    <value>Horas en planta</value>
+  </data>
+  <data name="HORAS_TALLER" xml:space="preserve">
+    <value>Horas en taller</value>
+  </data>
+  <data name="CONSUMIDOR" xml:space="preserve">
+    <value>Consumidor</value>
+  </data>
+  <data name="CONTACTO" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="EDITABLE" xml:space="preserve">
+    <value>Editable</value>
+  </data>
+  <data name="FABRICANTE" xml:space="preserve">
+    <value>Fabricante</value>
+  </data>
+  <data name="ICONO_ADELANTO" xml:space="preserve">
+    <value>Icono Adelanto</value>
+  </data>
+  <data name="ICONO_ATRASO" xml:space="preserve">
+    <value>Icono Atraso</value>
+  </data>
+  <data name="ICONO_DEFAULT" xml:space="preserve">
+    <value>Icono Default</value>
+  </data>
+  <data name="ICONO_ENHORA" xml:space="preserve">
+    <value>Icono En Hora</value>
+  </data>
+  <data name="MAIL" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="PERIODICIDAD" xml:space="preserve">
+    <value>Periodicidad</value>
+  </data>
+  <data name="NUMERO" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="PIN" xml:space="preserve">
+    <value>PIN</value>
+  </data>
+  <data name="RADIO_METROS" xml:space="preserve">
+    <value>Radio (metros)</value>
+  </data>
+  <data name="RESPONSABLE" xml:space="preserve">
+    <value>Responsable</value>
+  </data>
+  <data name="TARIFAS" xml:space="preserve">
+    <value>Tarifas</value>
+  </data>
+  <data name="TARIFA_TRAMO_CORTO" xml:space="preserve">
+    <value>Tarifa en Tramo Corto</value>
+  </data>
+  <data name="TARIFA_TRAMO_LARGO" xml:space="preserve">
+    <value>Tarifa en Tramo Largo</value>
+  </data>
+  <data name="TIPO_DATO" xml:space="preserve">
+    <value>Tipo de dato</value>
+  </data>
+  <data name="TRAMO_CORTO" xml:space="preserve">
+    <value>Tramo Corto</value>
+  </data>
+  <data name="TRAMO_LARGO" xml:space="preserve">
+    <value>Tramo Largo</value>
+  </data>
+  <data name="VALOR_INICIAL" xml:space="preserve">
+    <value>Valor Inicial</value>
+  </data>
+  <data name="VELOCIDAD_ALCANZABLE" xml:space="preserve">
+    <value>Velocidad Alcanzable</value>
+  </data>
+  <data name="VIGENCIA_DIAS" xml:space="preserve">
+    <value>Vigencia (días - 0: No expira.)</value>
+  </data>
+  <data name="KILOMETROS_TOTALES" xml:space="preserve">
+    <value>Kilómetros totales</value>
+  </data>
+  <data name="GROUP_TIPO_VEHICULO" xml:space="preserve">
+    <value>Tipo de Vehiculo: {0}</value>
+  </data>
+  <data name="ANTIGUEDAD" xml:space="preserve">
+    <value>Antigüedad</value>
+  </data>
+  <data name="ART" xml:space="preserve">
+    <value>ART</value>
+  </data>
+  <data name="ES_RESPONSABLE" xml:space="preserve">
+    <value>Es responsable</value>
+  </data>
+  <data name="LICENCIA" xml:space="preserve">
+    <value>Licencia</value>
+  </data>
+  <data name="RESPONSABLES" xml:space="preserve">
+    <value>Responsables</value>
+  </data>
+  <data name="RESPONSABLES_ASIGNADOS" xml:space="preserve">
+    <value>Responsables asignados</value>
+  </data>
+  <data name="ASOCIAR_MENSAJE" xml:space="preserve">
+    <value>Asociar el mensaje</value>
+  </data>
+  <data name="AUTOMATICO" xml:space="preserve">
+    <value>Automatico</value>
+  </data>
+  <data name="DELTA_TIME" xml:space="preserve">
+    <value>DeltaTime</value>
+  </data>
+  <data name="INFORMAR_CMD" xml:space="preserve">
+    <value>Informar a CMD</value>
+  </data>
+  <data name="MANUAL" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="MODO" xml:space="preserve">
+    <value>Modo</value>
+  </data>
+  <data name="BINARIO" xml:space="preserve">
+    <value>Binario</value>
+  </data>
+  <data name="FIRMA" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="CAMBIAR_ICONO" xml:space="preserve">
+    <value>Cambiar Icono</value>
+  </data>
+  <data name="NUEVO_ICONO" xml:space="preserve">
+    <value>Nuevo Icono</value>
+  </data>
+  <data name="ARCHIVO" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="IMPORT_CHOFERES" xml:space="preserve">
+    <value>Importador de Choferes</value>
+  </data>
+  <data name="IMPORT_POIS" xml:space="preserve">
+    <value>Importador de Referencias Geograficas (Puntos de Interes)</value>
+  </data>
+  <data name="IMPORT_VEHICULOS" xml:space="preserve">
+    <value>Importador de Vehículos</value>
+  </data>
+  <data name="PLANTILLA" xml:space="preserve">
+    <value>Plantilla</value>
+  </data>
+  <data name="SON_GEOCERCA" xml:space="preserve">
+    <value>Son Areas</value>
+  </data>
+  <data name="IMPORT_BODY" xml:space="preserve">
+    <value>Para garantizar una importación segura, le recomendamos utilizar la plantilla que puede descargarse junto al botón de Ayuda.
+        &lt;br /&gt;
+        &lt;br /&gt;
+        &lt;br /&gt;
+        * Los columnas en azul son de caracter obligatorio.  De no ser completadas, el importador no evaluará esa fila.
+        &lt;br /&gt;
+        * Las columnas en verde son opcionales.
+        &lt;br /&gt;
+        * Cualquier otro archivo debe adecuarse al formato de la plantilla, respetando los nombres de las columnas y pudiendo únicamente omitirse las de caracter opcional.</value>
+  </data>
+  <data name="IMPORT_CHOFER_HELP_TITLE" xml:space="preserve">
+    <value>Bienvienido a la ayuda del Importador de Choferes.</value>
+  </data>
+  <data name="IMPORT_VEHICULOS_HELP_TITLE" xml:space="preserve">
+    <value>Bienvienido a la ayuda del Importador de Vehículos.</value>
+  </data>
+  <data name="IMPORT_TICKETS_HELP_TITLE" xml:space="preserve">
+    <value>Bienvienido a la ayuda del Importador de Tickets.</value>
+  </data>
+  <data name="IMPORT_WARNING" xml:space="preserve">
+    <value>No modificar los nombres de las columnas provistos en la plantilla.</value>
+  </data>
+  <data name="ES_ALARMA" xml:space="preserve">
+    <value>Es Alarma</value>
+  </data>
+  <data name="EXPIRACION" xml:space="preserve">
+    <value>Expiración</value>
+  </data>
+  <data name="NIVEL_ACCESO" xml:space="preserve">
+    <value>Nivel de Acceso</value>
+  </data>
+  <data name="ORIGEN" xml:space="preserve">
+    <value>Origen</value>
+  </data>
+  <data name="AGREGAR_ACCION" xml:space="preserve">
+    <value>Agregar Acción</value>
+  </data>
+  <data name="AGREGAR_MENSAJE" xml:space="preserve">
+    <value>Agregar Mensaje</value>
+  </data>
+  <data name="AGREGAR_PARAMETRO" xml:space="preserve">
+    <value>Agregar Parámetro</value>
+  </data>
+  <data name="TAMAÑO" xml:space="preserve">
+    <value>Tamaño</value>
+  </data>
+  <data name="EVENTOS" xml:space="preserve">
+    <value>Eventos</value>
+  </data>
+  <data name="EXCESOS_VELOCIDAD" xml:space="preserve">
+    <value>Excesos de Velocidad</value>
+  </data>
+  <data name="EXCESOS_VELOCIDAD_DESCARTADOS" xml:space="preserve">
+    <value>Excesos de Velocidad Descartados</value>
+  </data>
+  <data name="LAYER_COMPUMAP" xml:space="preserve">
+    <value>Compumap</value>
+  </data>
+  <data name="LAYER_OSM" xml:space="preserve">
+    <value>LogicMap</value>
+  </data>
+  <data name="POSICION" xml:space="preserve">
+    <value>Posición</value>
+  </data>
+  <data name="POSICIONES_REPORTADAS" xml:space="preserve">
+    <value>Posiciones Reportadas</value>
+  </data>
+  <data name="GROUP_CHOFER" xml:space="preserve">
+    <value>Chofer: {0}</value>
+  </data>
+  <data name="DATOS_VEHICULO" xml:space="preserve">
+    <value>Datos Vehiculo</value>
+  </data>
+  <data name="ODOMETROS" xml:space="preserve">
+    <value>Odometros</value>
+  </data>
+  <data name="ODOMETRO_APLICACION" xml:space="preserve">
+    <value>De Aplicación</value>
+  </data>
+  <data name="ODOMETRO_INICIAL" xml:space="preserve">
+    <value>Inicial</value>
+  </data>
+  <data name="ODOMETRO_PARCIAL" xml:space="preserve">
+    <value>Parcial</value>
+  </data>
+  <data name="DATOS_TIPO_VEHICULO" xml:space="preserve">
+    <value>Datos Tipo Vehiculo</value>
+  </data>
+  <data name="FIN_TURNO" xml:space="preserve">
+    <value>Fin Turno</value>
+  </data>
+  <data name="ICONOGRAFIA" xml:space="preserve">
+    <value>Iconografia</value>
+  </data>
+  <data name="INICIO_TURNO" xml:space="preserve">
+    <value>Inicio Turno</value>
+  </data>
+  <data name="KILOMETROS_REFERENCIA" xml:space="preserve">
+    <value>Kilómetros Diarios</value>
+  </data>
+  <data name="VALORES_REFERENCIA" xml:space="preserve">
+    <value>Valores de Referencia</value>
+  </data>
+  <data name="REP_HORAS_EXTRA_GRAPH" xml:space="preserve">
+    <value>Horas Extra - Desde: {0}    Hasta: {1}</value>
+  </data>
+  <data name="DESTINO" xml:space="preserve">
+    <value>Destino</value>
+  </data>
+  <data name="COMPORTAMIENTO" xml:space="preserve">
+    <value>Comportamiento</value>
+  </data>
+  <data name="DATOS_ACCION" xml:space="preserve">
+    <value>Datos Acción</value>
+  </data>
+  <data name="MENSAJE_ASOCIADO" xml:space="preserve">
+    <value>Mensaje Asociado</value>
+  </data>
+  <data name="CONDICION" xml:space="preserve">
+    <value>Condición</value>
+  </data>
+  <data name="DESTINATARIOS" xml:space="preserve">
+    <value>Destinatarios</value>
+  </data>
+  <data name="ENVIA_MAILS" xml:space="preserve">
+    <value>Envia Mails</value>
+  </data>
+  <data name="ENVIA_SMS" xml:space="preserve">
+    <value>Envia SMS</value>
+  </data>
+  <data name="ES_ALARMA_SONORA" xml:space="preserve">
+    <value>Es Alarma Sonora</value>
+  </data>
+  <data name="ES_PINTADO" xml:space="preserve">
+    <value>Es Pintado</value>
+  </data>
+  <data name="ES_POPUP" xml:space="preserve">
+    <value>Es PopUp</value>
+  </data>
+  <data name="GROUP_TANQUE" xml:space="preserve">
+    <value>Tanque: {0}</value>
+  </data>
+  <data name="GROUP_MEDIDOR" xml:space="preserve">
+    <value>Medidor: {0}</value>
+  </data>
+  <data name="CANTIDAD_MOTORES" xml:space="preserve">
+    <value>Cantidad de Motores</value>
+  </data>
+  <data name="CONSUMOS_DETALLE" xml:space="preserve">
+    <value>Detalle de Consumos</value>
+  </data>
+  <data name="CONSUMOS_REALIZADOS" xml:space="preserve">
+    <value>Mediciones Tomadas</value>
+  </data>
+  <data name="GROUP_MOTOR_O_TANQUE" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="TOTAL_CONSUMIDO" xml:space="preserve">
+    <value>Total Consumido</value>
+  </data>
+  <data name="IMPORT_GEOCERCAS" xml:space="preserve">
+    <value>Importador de Referencias Geograficas (Poligonos)</value>
+  </data>
+  <data name="VOL_REAL" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="VOL_TEORICO" xml:space="preserve">
+    <value>Teórico</value>
+  </data>
+  <data name="LAYER_POI_AREA" xml:space="preserve">
+    <value>Areas</value>
+  </data>
+  <data name="ESQUINA_FINAL" xml:space="preserve">
+    <value>Esquina Final</value>
+  </data>
+  <data name="ESQUINA_INICIAL" xml:space="preserve">
+    <value>Esquina Inicial</value>
+  </data>
+  <data name="CENTRO_CARGA" xml:space="preserve">
+    <value>Centro de Carga</value>
+  </data>
+  <data name="CAUDAL" xml:space="preserve">
+    <value>Caudal</value>
+  </data>
+  <data name="CAUDAL_MAX" xml:space="preserve">
+    <value>Caudal Máximo</value>
+  </data>
+  <data name="RPM" xml:space="preserve">
+    <value>RPM</value>
+  </data>
+  <data name="VOLUME_DIFFERENCE" xml:space="preserve">
+    <value>Volumen Consumido</value>
+  </data>
+  <data name="NIVEL" xml:space="preserve">
+    <value>Nivel</value>
+  </data>
+  <data name="CAUDAL_MIN" xml:space="preserve">
+    <value>Caudal Minimo</value>
+  </data>
+  <data name="ES_GENERICO" xml:space="preserve">
+    <value>Es Genérico</value>
+  </data>
+  <data name="DIAS_AVISO" xml:space="preserve">
+    <value>Días aviso</value>
+  </data>
+  <data name="SOLO_CON_AVISO" xml:space="preserve">
+    <value>Solo con aviso</value>
+  </data>
+  <data name="GROUP_TIPODOC" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="DIAS_AL_VENCIMIENTO" xml:space="preserve">
+    <value>D&amp;iacute;as al Vencimiento</value>
+  </data>
+  <data name="MENSAJE" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="POR_KM" xml:space="preserve">
+    <value>Es por kilómetros</value>
+  </data>
+  <data name="POR_TIEMPO" xml:space="preserve">
+    <value>Es por tiempo</value>
+  </data>
+  <data name="DATOS_ODOMETRO" xml:space="preserve">
+    <value>Datos del Odometro</value>
+  </data>
+  <data name="ES_ITERATIVO" xml:space="preserve">
+    <value>Es Iterativo</value>
+  </data>
+  <data name="PRIMER_AVISO" xml:space="preserve">
+    <value>Primer Aviso</value>
+  </data>
+  <data name="SEGUNDO_AVISO" xml:space="preserve">
+    <value>Segundo Aviso</value>
+  </data>
+  <data name="ASIGNACION_TIPO_VEHICULO" xml:space="preserve">
+    <value>Asignación a Tipo de Vehiculo</value>
+  </data>
+  <data name="ASIGNADOS" xml:space="preserve">
+    <value>Asignados</value>
+  </data>
+  <data name="DISPONIBLES" xml:space="preserve">
+    <value>Disponibles</value>
+  </data>
+  <data name="TIPO_INGRESO" xml:space="preserve">
+    <value>Tipo de Ingreso</value>
+  </data>
+  <data name="HS_EN_MARCHA" xml:space="preserve">
+    <value>Horas en marcha</value>
+  </data>
+  <data name="GROUP_MOTOR_EQUIPO" xml:space="preserve">
+    <value>- Equipo: {0}</value>
+  </data>
+  <data name="CANTIDAD_INGRESOS" xml:space="preserve">
+    <value>Cantidad de Ingresos</value>
+  </data>
+  <data name="INGRESOS_DETALLE" xml:space="preserve">
+    <value>Detalle de Ingresos</value>
+  </data>
+  <data name="ULTIMA_ACTUALIZACION" xml:space="preserve">
+    <value>Última Actualización</value>
+  </data>
+  <data name="ULTIMO_DISPARO" xml:space="preserve">
+    <value>Último Disparo</value>
+  </data>
+  <data name="CONSUMOS" xml:space="preserve">
+    <value>Consumos</value>
+  </data>
+  <data name="CANTIDAD_AJUSTES" xml:space="preserve">
+    <value>Ajuste m3</value>
+  </data>
+  <data name="HORA_CARGA" xml:space="preserve">
+    <value>Hora de carga</value>
+  </data>
+  <data name="MULTIPLES_REMITOS" xml:space="preserve">
+    <value>Múltiples remitos</value>
+  </data>
+  <data name="NUMERO_BOMBA" xml:space="preserve">
+    <value>Nro Bomba</value>
+  </data>
+  <data name="ACTIVO" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="SUSPENDIDO" xml:space="preserve">
+    <value>Suspendido</value>
+  </data>
+  <data name="ES_RESETEABLE" xml:space="preserve">
+    <value>Es Reseteable</value>
+  </data>
+  <data name="MEDICIONES_TOMADAS" xml:space="preserve">
+    <value>Mediciones Tomadas</value>
+  </data>
+  <data name="DATOS_ASIGNACION" xml:space="preserve">
+    <value>Datos de Asignación</value>
+  </data>
+  <data name="DATOS_DISPOSITIVO" xml:space="preserve">
+    <value>Datos Dispositivo</value>
+  </data>
+  <data name="DATOS_REPORTE" xml:space="preserve">
+    <value>Datos de Reporte</value>
+  </data>
+  <data name="DATOS_TIPO_DISPOSITIVO" xml:space="preserve">
+    <value>Datos Tipo de Dispositivo</value>
+  </data>
+  <data name="DATOS_TIPO_PARAMETRO_DISPOSITIVO" xml:space="preserve">
+    <value>Datos de Parametro de Tipo de Dispositivo</value>
+  </data>
+  <data name="SOLO_SIN_ASIGNAR" xml:space="preserve">
+    <value>Solo Sin Asignar</value>
+  </data>
+  <data name="REPORTA1" xml:space="preserve">
+    <value>Reporta a 1</value>
+  </data>
+  <data name="REPORTA2" xml:space="preserve">
+    <value>Reporta a 2</value>
+  </data>
+  <data name="REPORTA3" xml:space="preserve">
+    <value>Reporta a 3</value>
+  </data>
+  <data name="LOCATION" xml:space="preserve">
+    <value>Locación</value>
+  </data>
+  <data name="QTREE" xml:space="preserve">
+    <value>Qtree</value>
+  </data>
+  <data name="CAPACIDAD" xml:space="preserve">
+    <value>Capacidad (lit)</value>
+  </data>
+  <data name="PORCENTAJE_LLENO" xml:space="preserve">
+    <value>Porcentaje de Llenado</value>
+  </data>
+  <data name="REMITO_NRO" xml:space="preserve">
+    <value>Número de Remito</value>
+  </data>
+  <data name="TIEMPO_A_ULTIMO_LOGIN" xml:space="preserve">
+    <value>Tiempo a último login</value>
+  </data>
+  <data name="LASTPACKET_RECEIVEDAT" xml:space="preserve">
+    <value>Última Conexión</value>
+  </data>
+  <data name="GARMIN_CONNECTED" xml:space="preserve">
+    <value>Garmin</value>
+  </data>
+  <data name="GARMINCONNECTED_TRUE" xml:space="preserve">
+    <value>Conectado</value>
+  </data>
+  <data name="GARMINCONNECTED_FALSE" xml:space="preserve">
+    <value>Desconectado</value>
+  </data>
+  <data name="GARMINCONNECTED_UNKNOWN" xml:space="preserve">
+    <value>???</value>
+  </data>
+  <data name="GARMINCONNECTED_NOTCONFIGURED" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ULTIMO_CHOFER" xml:space="preserve">
+    <value>Último Chofer</value>
+  </data>
+  <data name="ULTIMO_LOGIN" xml:space="preserve">
+    <value>Último login</value>
+  </data>
+  <data name="REVISAR_TARJETA" xml:space="preserve">
+    <value>Tarjeta a Revisar</value>
+  </data>
+  <data name="GROUP_MOTOR_CONSUMO" xml:space="preserve">
+    <value>Motor: {0}</value>
+  </data>
+  <data name="TIPO_MOVIMIENTO" xml:space="preserve">
+    <value>Tipo de Movimiento</value>
+  </data>
+  <data name="EGRESOS_CONCILIACION" xml:space="preserve">
+    <value>Egresos por Conciliacion</value>
+  </data>
+  <data name="INGRESOS_CONCILIACION" xml:space="preserve">
+    <value>Ingresos por Conciliacion</value>
+  </data>
+  <data name="CONSUMO" xml:space="preserve">
+    <value>Consumo</value>
+  </data>
+  <data name="DESPACHOS" xml:space="preserve">
+    <value>Despachos</value>
+  </data>
+  <data name="MDN" xml:space="preserve">
+    <value>Telefono</value>
+  </data>
+  <data name="RESULTADOS" xml:space="preserve">
+    <value>Resultados</value>
+  </data>
+  <data name="CANTIDAD_EVENTOS" xml:space="preserve">
+    <value>Cantidad de Eventos</value>
+  </data>
+  <data name="HISTOGRAMA_DETENCIONES_CAPTION" xml:space="preserve">
+    <value>Histograma de Detenciones: Desde: {0} - Hasta {1}</value>
+  </data>
+  <data name="ALARMAS_DIARIAS" xml:space="preserve">
+    <value>Alarmas Diarias</value>
+  </data>
+  <data name="CONTROLA_KILOMETRAJE" xml:space="preserve">
+    <value>Controla Kilometraje</value>
+  </data>
+  <data name="CONTROLA_TURNO" xml:space="preserve">
+    <value>Controla Turno</value>
+  </data>
+  <data name="DIARIO" xml:space="preserve">
+    <value>Diario</value>
+  </data>
+  <data name="CONSUMO_PROMEDIO" xml:space="preserve">
+    <value>Consumo Promedio</value>
+  </data>
+  <data name="DATOS_TIPO_MENSAJE" xml:space="preserve">
+    <value>Datos Tipo de Mensaje</value>
+  </data>
+  <data name="ES_ESTADO_LOGISTICO" xml:space="preserve">
+    <value>De Estado Logistico</value>
+  </data>
+  <data name="ES_MANTENIMIENTO" xml:space="preserve">
+    <value>De Mantenimiento</value>
+  </data>
+  <data name="ES_USUARIO" xml:space="preserve">
+    <value>De Usuario</value>
+  </data>
+  <data name="DATOS_TIPOEMPLEADO" xml:space="preserve">
+    <value>Datos Tipo de Empleado</value>
+  </data>
+  <data name="EST_LOG_GIRO_TROMPO_DERECHA" xml:space="preserve">
+    <value>Giro Trompo Derecha</value>
+  </data>
+  <data name="EST_LOG_GIRO_TROMPO_IZQUIERDA" xml:space="preserve">
+    <value>Giro Trompo Izquierda</value>
+  </data>
+  <data name="EST_LOG_TOLVA_ACTIVA" xml:space="preserve">
+    <value>Tolva Activa</value>
+  </data>
+  <data name="EST_LOG_NORMAL" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="EST_LOG_SALE_OBRA" xml:space="preserve">
+    <value>Sale de Obra</value>
+  </data>
+  <data name="EST_LOG_SALE_PLANTA" xml:space="preserve">
+    <value>Sale de Planta</value>
+  </data>
+  <data name="EST_LOG_TOLVA_INACTIVA" xml:space="preserve">
+    <value>Tolva Inactiva</value>
+  </data>
+  <data name="EST_LO_LLEGA_OBRA" xml:space="preserve">
+    <value>Llega a Obra</value>
+  </data>
+  <data name="EST_LO_LLEGA_PLANTA" xml:space="preserve">
+    <value>Llega a Planta</value>
+  </data>
+  <data name="TARGETTYPE_ANY" xml:space="preserve">
+    <value>Cualquiera</value>
+  </data>
+  <data name="OBSERVACION" xml:space="preserve">
+    <value>Observación</value>
+  </data>
+  <data name="MOTIVO_CONCILIACION" xml:space="preserve">
+    <value>Motivo de Conciliación</value>
+  </data>
+  <data name="INTERVALO" xml:space="preserve">
+    <value>Intervalo (m)</value>
+  </data>
+  <data name="MOTORES" xml:space="preserve">
+    <value>Motores</value>
+  </data>
+  <data name="AGUA_MAX" xml:space="preserve">
+    <value>Nivel de agua máximo en el tanque (lit)</value>
+  </data>
+  <data name="AGUA_MIN" xml:space="preserve">
+    <value>Nivel de agua mínimo en el tanque (lit)</value>
+  </data>
+  <data name="STOCK_CRITICO" xml:space="preserve">
+    <value>Nivel crítico de stock (lit)</value>
+  </data>
+  <data name="STOCK_REPOSICION" xml:space="preserve">
+    <value>Stock mínimo para reponer (lit)</value>
+  </data>
+  <data name="KM_FALT" xml:space="preserve">
+    <value>Kilómetros Faltantes</value>
+  </data>
+  <data name="KM_REF" xml:space="preserve">
+    <value>Kilómetros de Referencia</value>
+  </data>
+  <data name="T_FALT" xml:space="preserve">
+    <value>Días Faltantes</value>
+  </data>
+  <data name="T_REF" xml:space="preserve">
+    <value>Días de Referencia</value>
+  </data>
+  <data name="HS_FALT" xml:space="preserve">
+    <value>Horas Faltantes</value>
+  </data>
+  <data name="HS_REF" xml:space="preserve">
+    <value>Horas de Referencia</value>
+  </data>
+  <data name="ULTIMO_UPDATE" xml:space="preserve">
+    <value>Última Actualización</value>
+  </data>
+  <data name="CAUDAL_MAXIMO" xml:space="preserve">
+    <value>Caudal Máximo</value>
+  </data>
+  <data name="TIEMPO_SIN_REPORTAR" xml:space="preserve">
+    <value>Tiempo Sin Reportar (min)</value>
+  </data>
+  <data name="DISPOSITIVOS_A_ACTUALIZAR" xml:space="preserve">
+    <value>Dispositivos a Actualizar</value>
+  </data>
+  <data name="VALOR_A_ENVIAR" xml:space="preserve">
+    <value>Valor a Enviar</value>
+  </data>
+  <data name="VALORES_ACTUALES" xml:space="preserve">
+    <value>Valores Actuales</value>
+  </data>
+  <data name="MAX_DIF_TEORICO_Y_REAL" xml:space="preserve">
+    <value>M&amp;aacute;ximo volumen de diferencia Real Vs Teorico (lit)</value>
+  </data>
+  <data name="PORCENTAJE_CAPACIDAD_TANQUE" xml:space="preserve">
+    <value>Diferencia porcentual de volúmen Real vs Teorico (0-100)</value>
+  </data>
+  <data name="ULTIMA_MEDICION" xml:space="preserve">
+    <value>Última Medición Tomada</value>
+  </data>
+  <data name="VARIACION_SONDA" xml:space="preserve">
+    <value>Variaci&amp;oacute;n de Sonda</value>
+  </data>
+  <data name="VARIACION_STOCK" xml:space="preserve">
+    <value>Variaci&amp;oacute;n de Stock</value>
+  </data>
+  <data name="ES_COMBUSTIBLE" xml:space="preserve">
+    <value>De Combustible</value>
+  </data>
+  <data name="REM_OBS" xml:space="preserve">
+    <value>Remito / Actividad</value>
+  </data>
+  <data name="IMP_TARJETA" xml:space="preserve">
+    <value>Importador de Tarjetas</value>
+  </data>
+  <data name="IMPORT_TARJETA_HELP_TITLE" xml:space="preserve">
+    <value>Bienvienido a la ayuda del Importador de Tarjetas.</value>
+  </data>
+  <data name="GRABA_EN_BASE" xml:space="preserve">
+    <value>Graba en Base</value>
+  </data>
+  <data name="CONFIGURACION_ALARMAS" xml:space="preserve">
+    <value>Configuraci&amp;oacute;n de Alarmas </value>
+  </data>
+  <data name="DATOS_GENERALES" xml:space="preserve">
+    <value>Datos Generales</value>
+  </data>
+  <data name="REFERENCIA_GEOGRAFICA" xml:space="preserve">
+    <value>Referencia Geogr&amp;aacute;fica</value>
+  </data>
+  <data name="CONFIGURACION_ODOMETROS" xml:space="preserve">
+    <value>Configuracion  Odometros</value>
+  </data>
+  <data name="IMPORT_DISPOSITIVO_HELP_TITLE" xml:space="preserve">
+    <value>Bienvienido a la ayuda del Importador de Dispositivos.</value>
+  </data>
+  <data name="IMP_DISPOSITIVO" xml:space="preserve">
+    <value>Importador de Dispositivos</value>
+  </data>
+  <data name="GRUPO" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="GROUP_EQUIPO" xml:space="preserve">
+    <value>Equipo: {0}</value>
+  </data>
+  <data name="ASSIGNED_EMPRESAS" xml:space="preserve">
+    <value>Empresas Asignadas</value>
+  </data>
+  <data name="ASSIGNED_MOBILES" xml:space="preserve">
+    <value>Moviles Asignados</value>
+  </data>
+  <data name="ASSIGNED_PLANTAS" xml:space="preserve">
+    <value>Lineas Asignadas</value>
+  </data>
+  <data name="ASSIGNED_TRANSPORTISTAS" xml:space="preserve">
+    <value>Transportistas Asignados</value>
+  </data>
+  <data name="AVAILABLE_EMPRESAS" xml:space="preserve">
+    <value>Empresas Disponibles</value>
+  </data>
+  <data name="AVAILABLE_MOBILES" xml:space="preserve">
+    <value>Moviles Disponibles</value>
+  </data>
+  <data name="AVAILABLE_PLANTAS" xml:space="preserve">
+    <value>Lineas Disponibles</value>
+  </data>
+  <data name="AVAILABLE_TRANSPORTISTAS" xml:space="preserve">
+    <value>Transportistas Disponibles</value>
+  </data>
+  <data name="CONFIG_COCHES" xml:space="preserve">
+    <value>Configuración de Moviles</value>
+  </data>
+  <data name="CONFIG_EMPRESAS" xml:space="preserve">
+    <value>Configuracion de Empresas</value>
+  </data>
+  <data name="CONFIG_LINEAS" xml:space="preserve">
+    <value>Configuración de Lineas</value>
+  </data>
+  <data name="CONFIG_TRANSPORTISTAS" xml:space="preserve">
+    <value>Configuración de Transportistas</value>
+  </data>
+  <data name="INHABILITAR" xml:space="preserve">
+    <value>Inhabilitar</value>
+  </data>
+  <data name="VER_SIMULADOR" xml:space="preserve">
+    <value>Ver en Simulador de Recorridos</value>
+  </data>
+  <data name="OPERADOR_Y_LEGAJO" xml:space="preserve">
+    <value>Operador: {0}  - {1} - Legajo: {2}</value>
+  </data>
+  <data name="EXPIRA" xml:space="preserve">
+    <value>Expira</value>
+  </data>
+  <data name="FECHA_EXPIRACION" xml:space="preserve">
+    <value>Fecha de Expiraci&amp;oacute;n</value>
+  </data>
+  <data name="HABILITA_USUARIO" xml:space="preserve">
+    <value>Habilita a Usuario</value>
+  </data>
+  <data name="HORAS_HABILITADO" xml:space="preserve">
+    <value>Horas Habilitado</value>
+  </data>
+  <data name="INHABILITA_USUARIO" xml:space="preserve">
+    <value>Inhabilita a Usuario</value>
+  </data>
+  <data name="TIEMPO_CONDUCCION" xml:space="preserve">
+    <value>Tiempo de Conducci&amp;oacute;n</value>
+  </data>
+  <data name="DETALLE_OPERADOR" xml:space="preserve">
+    <value>Detalles del Operador</value>
+  </data>
+  <data name="DETALLE_VEHICULO" xml:space="preserve">
+    <value>Detalles del Vehiculo</value>
+  </data>
+  <data name="ALCANZADA_POR" xml:space="preserve">
+    <value>Alcanzada Por:</value>
+  </data>
+  <data name="INTERNO_PATENTE_RESPONSABLE" xml:space="preserve">
+    <value>Interno: {0} - Patente: {1} - Responsable: {2} - Desde: {3} - Hasta: {4}</value>
+  </data>
+  <data name="NOMBRE_LEGAJO" xml:space="preserve">
+    <value>Nombre: {0} - Legajo: {1} - Desde: {2} - Hasta: {3}</value>
+  </data>
+  <data name="UBICACION_VEHICULO" xml:space="preserve">
+    <value>Ubicación del vehículo</value>
+  </data>
+  <data name="CAPACIDAD_SIN_DEFINIR" xml:space="preserve">
+    <value>Capacidad sin definir</value>
+  </data>
+  <data name="EVENTO_FIN" xml:space="preserve">
+    <value>Evento de Finalización</value>
+  </data>
+  <data name="EVENTO_INICIO" xml:space="preserve">
+    <value>Evento de Inicio</value>
+  </data>
+  <data name="PONDERACION_GRAVES_RANKING" xml:space="preserve">
+    <value>Operadores con puntaje Grave (Puntaje &gt;= 25): {0} operadores.</value>
+  </data>
+  <data name="PONDERACION_LEVES_RANKING" xml:space="preserve">
+    <value>Operadores con puntaje Leve (Puntaje &lt; 7): {0} operadores.</value>
+  </data>
+  <data name="PONDERACION_MEDIAS_RANKING" xml:space="preserve">
+    <value>Operadores con puntaje Medio (Puntaje &gt;= 7 y &lt; 25): {0} operadores.</value>
+  </data>
+  <data name="ASSIGNED_CLIENTS" xml:space="preserve">
+    <value>Clientes Asignados</value>
+  </data>
+  <data name="AVAILABLE_CLIENTS" xml:space="preserve">
+    <value>Clientes Disponibles</value>
+  </data>
+  <data name="WORKING_FOR" xml:space="preserve">
+    <value>Trabajando para</value>
+  </data>
+  <data name="DATOS_TURNO" xml:space="preserve">
+    <value>Datos del Turno</value>
+  </data>
+  <data name="APLICA_FERIADOS" xml:space="preserve">
+    <value>Aplica Feriados</value>
+  </data>
+  <data name="DOMINGO" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="JUEVES" xml:space="preserve">
+    <value>Jueves</value>
+  </data>
+  <data name="LUNES" xml:space="preserve">
+    <value>Lunes</value>
+  </data>
+  <data name="MARTES" xml:space="preserve">
+    <value>Martes</value>
+  </data>
+  <data name="MIERCOLES" xml:space="preserve">
+    <value>Miercoles</value>
+  </data>
+  <data name="SABADO" xml:space="preserve">
+    <value>Sabado</value>
+  </data>
+  <data name="VIERNES" xml:space="preserve">
+    <value>Viernes</value>
+  </data>
+  <data name="EST_LOG_GIRO_TROMPO_DETENIDO" xml:space="preserve">
+    <value>Trompo Detenido</value>
+  </data>
+  <data name="DATOS_FERIADO" xml:space="preserve">
+    <value>Datos del Feriado</value>
+  </data>
+  <data name="COMPORTAMIENTOS" xml:space="preserve">
+    <value>Comportamientos</value>
+  </data>
+  <data name="CHOFERES_POR_BASE" xml:space="preserve">
+    <value>Choferes asignados a una base permanentemente</value>
+  </data>
+  <data name="IDENTIFICA_CHOFERES" xml:space="preserve">
+    <value>Identifica Choferes</value>
+  </data>
+  <data name="DATOS_CENTRO" xml:space="preserve">
+    <value>Datos del Centro de Costos</value>
+  </data>
+  <data name="CONTROLA_HS" xml:space="preserve">
+    <value>Controla Horas</value>
+  </data>
+  <data name="CONTROLA_KM" xml:space="preserve">
+    <value>Controla Kil&amp;oacute;metros</value>
+  </data>
+  <data name="CONTROLA_SERVICIOS" xml:space="preserve">
+    <value>Servicios</value>
+  </data>
+  <data name="CONTROLA_TURNOS" xml:space="preserve">
+    <value>Turnos</value>
+  </data>
+  <data name="PORC_PROD" xml:space="preserve">
+    <value>Porcentaje Productivo</value>
+  </data>
+  <data name="HSPRODUCTIVAS" xml:space="preserve">
+    <value>Horas Productivas</value>
+  </data>
+  <data name="HSTOTALES" xml:space="preserve">
+    <value>Horas Totales</value>
+  </data>
+  <data name="KMPRODUCTIVOS" xml:space="preserve">
+    <value>Kilómetros Productivos</value>
+  </data>
+  <data name="KMTOTALES" xml:space="preserve">
+    <value>Kilómetros Totales</value>
+  </data>
+  <data name="PORCENTAJEHS" xml:space="preserve">
+    <value>Porcentaje de Horas</value>
+  </data>
+  <data name="PORCENTAJEKM" xml:space="preserve">
+    <value>Porcentaje de Kilómetros</value>
+  </data>
+  <data name="HS_DET_SIN_TURNO" xml:space="preserve">
+    <value>Horas en Detencion fuera de Turno</value>
+  </data>
+  <data name="HS_DET_TURNO" xml:space="preserve">
+    <value>Horas en Detencion en Turno</value>
+  </data>
+  <data name="HS_MOV_SIN_TURNO" xml:space="preserve">
+    <value>Horas en Movimiento fuera de Turno</value>
+  </data>
+  <data name="HS_MOV_TURNO" xml:space="preserve">
+    <value>Horas en Movimiento en Turno</value>
+  </data>
+  <data name="ESPERADO" xml:space="preserve">
+    <value>Esperado</value>
+  </data>
+  <data name="HS_FUERA_TURNO" xml:space="preserve">
+    <value>Horas Fuera de Turno</value>
+  </data>
+  <data name="HS_TURNO" xml:space="preserve">
+    <value>Horas en Turno</value>
+  </data>
+  <data name="POSICIONES_ENCOLADAS" xml:space="preserve">
+    <value>Posiciones Encoladas</value>
+  </data>
+  <data name="MOV_SIN_TURNO" xml:space="preserve">
+    <value>Movimiento Fuera de Turno</value>
+  </data>
+  <data name="PORCENTAJE_REAL" xml:space="preserve">
+    <value>Porcentaje Real</value>
+  </data>
+  <data name="PRODUCTIVIDAD" xml:space="preserve">
+    <value>Productividad</value>
+  </data>
+  <data name="REAL" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="RESUMEN_ESTADO" xml:space="preserve">
+    <value>Resumen de Estado</value>
+  </data>
+  <data name="SOLO_IMPROD" xml:space="preserve">
+    <value>Solo Improductivos</value>
+  </data>
+  <data name="TURNO_ASIGNACION" xml:space="preserve">
+    <value>Asignación</value>
+  </data>
+  <data name="FIN_DE_SEMANA" xml:space="preserve">
+    <value>Seleccionar Fin de Semana</value>
+  </data>
+  <data name="SEMANA" xml:space="preserve">
+    <value>Seleccionar Semana Laboral</value>
+  </data>
+  <data name="HABILITAR_INTERFACE_WS" xml:space="preserve">
+    <value>Habilitar interface de consulta</value>
+  </data>
+  <data name="POR_VENCER" xml:space="preserve">
+    <value>Por Vencer</value>
+  </data>
+  <data name="DISTANCIA_RECORRIDA" xml:space="preserve">
+    <value>Distancia Recorrida</value>
+  </data>
+  <data name="EVENTOS_DET" xml:space="preserve">
+    <value>Eventos de Detencion</value>
+  </data>
+  <data name="EVENTOS_MOV" xml:space="preserve">
+    <value>Eventos en Movimiento</value>
+  </data>
+  <data name="TIEMPO_DET" xml:space="preserve">
+    <value>Tiempo Detenido</value>
+  </data>
+  <data name="TIEMPO_MOV" xml:space="preserve">
+    <value>Tiempo en Movimiento</value>
+  </data>
+  <data name="REQUIRES_RESET" xml:space="preserve">
+    <value>Requiere Reboot</value>
+  </data>
+  <data name="ELIMINAR_POSICION" xml:space="preserve">
+    <value>Eliminar Posicion</value>
+  </data>
+  <data name="COLA_COMANDOS" xml:space="preserve">
+    <value>Cola de Comandos</value>
+  </data>
+  <data name="ENVIAR_MENSAJE_A_MOVIL" xml:space="preserve">
+    <value>Enviar mensaje al movil</value>
+  </data>
+  <data name="INGRESAR_MENSAJE" xml:space="preserve">
+    <value>Ingrese el mensaje que desea enviar</value>
+  </data>
+  <data name="MENSAJE_CONFIGURACION" xml:space="preserve">
+    <value>Mensaje de Configuración</value>
+  </data>
+  <data name="MENSAJE_PERSONALIZADO" xml:space="preserve">
+    <value>Mensaje Personalizado</value>
+  </data>
+  <data name="MENSAJE_PREDEFINIDO" xml:space="preserve">
+    <value>Mensaje Predefinido</value>
+  </data>
+  <data name="SELECCIONAR_MENSAJE" xml:space="preserve">
+    <value>Seleccione el mensaje a enviar</value>
+  </data>
+  <data name="ACTUALIZAR_FIRMWARE" xml:space="preserve">
+    <value>Actualizar Firmware</value>
+  </data>
+  <data name="ENVIAR_FULL_QTREE" xml:space="preserve">
+    <value>Enviar Full Qtree</value>
+  </data>
+  <data name="ENVIAR_QTREE" xml:space="preserve">
+    <value>Enviar Qtree</value>
+  </data>
+  <data name="ENVIAR_REBOOT" xml:space="preserve">
+    <value>Reboot</value>
+  </data>
+  <data name="LIMPIAR_COLAS" xml:space="preserve">
+    <value>Limpiar Colas</value>
+  </data>
+  <data name="PURGAR_MENSAJES" xml:space="preserve">
+    <value>Purgar Mensajes</value>
+  </data>
+  <data name="ENVIAR" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="RESET_DEVICES" xml:space="preserve">
+    <value>Resetear Dispositivos</value>
+  </data>
+  <data name="DEVICE_RESET_OK" xml:space="preserve">
+    <value>Se han reconfigurado los dispositivos con exito!</value>
+  </data>
+  <data name="CONFIG_PURGE" xml:space="preserve">
+    <value>Purgar Configuración</value>
+  </data>
+  <data name="ACTIONS" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="SERVICE_PAUSED" xml:space="preserve">
+    <value>Service Paused</value>
+  </data>
+  <data name="SERVICE_STATUS_CONTINUE_PENDING" xml:space="preserve">
+    <value>Continue Pending</value>
+  </data>
+  <data name="SERVICE_STATUS_PAUSE_PENDING" xml:space="preserve">
+    <value>Pause Pending</value>
+  </data>
+  <data name="SERVICE_STATUS_RUNNING" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="SERVICE_STATUS_START_PENDING" xml:space="preserve">
+    <value>Start Pending</value>
+  </data>
+  <data name="SERVICE_STATUS_STOPPED" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="SERVICE_STATUS_STOP_PENDING" xml:space="preserve">
+    <value>Stop Pending</value>
+  </data>
+  <data name="DATOS_EMPLEADO" xml:space="preserve">
+    <value>Datos del Empleado</value>
+  </data>
+  <data name="SELECCIONAR_GEOREF_EXISTENTE" xml:space="preserve">
+    <value>Seleccionar una Referencia Geografica existente.</value>
+  </data>
+  <data name="CLIENTE" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="LINEA" xml:space="preserve">
+    <value>Planta</value>
+  </data>
+  <data name="ESTILO" xml:space="preserve">
+    <value>Estilo</value>
+  </data>
+  <data name="TIME_TRACKING" xml:space="preserve">
+    <value>Time Tracking</value>
+  </data>
+  <data name="CONTROLA_VELOCIDAD" xml:space="preserve">
+    <value>Controla Velocidad</value>
+  </data>
+  <data name="CONTROLA_ES" xml:space="preserve">
+    <value>Controla Entrada - Salida</value>
+  </data>
+  <data name="ES_ZONA_RIESGO" xml:space="preserve">
+    <value>Es zona de Riesgo</value>
+  </data>
+  <data name="ES_INICIO" xml:space="preserve">
+    <value>Es Inicio</value>
+  </data>
+  <data name="ES_INTERMEDIO" xml:space="preserve">
+    <value>Es Intermedio</value>
+  </data>
+  <data name="ES_FIN" xml:space="preserve">
+    <value>Es Fin</value>
+  </data>
+  <data name="VELOCIDADES" xml:space="preserve">
+    <value>Velocidades</value>
+  </data>
+  <data name="EMPRESA" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="SELECT_EXISTENT_GEOREF" xml:space="preserve">
+    <value>Seleccionar una Referencia Geografica existente.</value>
+  </data>
+  <data name="OBSERVACIONES" xml:space="preserve">
+    <value>Observaciones</value>
+  </data>
+  <data name="VIGENCIA_DESDE" xml:space="preserve">
+    <value>Vigencia Desde</value>
+  </data>
+  <data name="VIGENCIA_HASTA" xml:space="preserve">
+    <value>Vigencia Hasta</value>
+  </data>
+  <data name="APLICAR_DESDE" xml:space="preserve">
+    <value>Aplicar Desde</value>
+  </data>
+  <data name="DATOS_REF_GEO" xml:space="preserve">
+    <value>Datos Referencia Geografica</value>
+  </data>
+  <data name="TIPOS_VEHICULO" xml:space="preserve">
+    <value>Tipos de vehiculo</value>
+  </data>
+  <data name="HS_TURNO_ON" xml:space="preserve">
+    <value>Horas en Turno con Motor encendido</value>
+  </data>
+  <data name="HS_TURNO_OFF" xml:space="preserve">
+    <value>Horas en Turno con Motor apagado</value>
+  </data>
+  <data name="HS_ON" xml:space="preserve">
+    <value>Horas fuera de Turno con Motor encendido</value>
+  </data>
+  <data name="HS_OFF" xml:space="preserve">
+    <value>Horas fuera de Turno con Motor apagado</value>
+  </data>
+  <data name="INCLUYE_INDEFINIDO" xml:space="preserve">
+    <value>Incluye estados indefinidos</value>
+  </data>
+  <data name="HS_EN_TURNO" xml:space="preserve">
+    <value>Horas detenido en turno</value>
+  </data>
+  <data name="HS_FUERA_DE_TURNO" xml:space="preserve">
+    <value>Horas detenido fuera de turno</value>
+  </data>
+  <data name="CHANGE_ICON" xml:space="preserve">
+    <value>Modifica Icono</value>
+  </data>
+  <data name="AND" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="OR" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="EST_LOG_INICIADO" xml:space="preserve">
+    <value>Ciclo Logistico iniciado</value>
+  </data>
+  <data name="IMPORT_TICKETS" xml:space="preserve">
+    <value>Importador de Tickets</value>
+  </data>
+  <data name="HELP_TICKET_IMPORTANTE_DETAIL" xml:space="preserve">
+    <value> Aquellas entidades (Clientes, Ptos de Entrega, etc) referenciadas mediante codigo en el archivo deben estar previamente dadas de alta en la plataforma, de lo contrario la importación fallará</value>
+  </data>
+  <data name="IMPORTANTE" xml:space="preserve">
+    <value>Importante:</value>
+  </data>
+  <data name="TANQUE" xml:space="preserve">
+    <value>Tanque</value>
+  </data>
+  <data name="DETALLES_CONCILIACION" xml:space="preserve">
+    <value>Detalles de Conciliacion</value>
+  </data>
+  <data name="TOTAL_TURNO" xml:space="preserve">
+    <value>Total en Turno</value>
+  </data>
+  <data name="ESPERADO_TURNO" xml:space="preserve">
+    <value>Esperado en Turno</value>
+  </data>
+  <data name="REAL_TURNO" xml:space="preserve">
+    <value>Real en Turno</value>
+  </data>
+  <data name="PORCENTAJE_TURNO" xml:space="preserve">
+    <value>Porcentaje en Turno</value>
+  </data>
+  <data name="TOTAL_FUERA_TURNO" xml:space="preserve">
+    <value>Total Fuera de Turno</value>
+  </data>
+  <data name="REAL_FUERA_TURNO" xml:space="preserve">
+    <value>Real Fuera de Turno</value>
+  </data>
+  <data name="PORCENTAJE_FUERA_TURNO" xml:space="preserve">
+    <value>Porcentaje Fuera de Turno</value>
+  </data>
+  <data name="CAMPOS_EXTRA" xml:space="preserve">
+    <value>Campos Extra</value>
+  </data>
+  <data name="FECHA_SALIDA" xml:space="preserve">
+    <value>Fecha Salida</value>
+  </data>
+  <data name="CICLO_LOGISTICO" xml:space="preserve">
+    <value>Ciclo Logístico</value>
+  </data>
+  <data name="ESTADOS" xml:space="preserve">
+    <value>Estados</value>
+  </data>
+  <data name="CARGA" xml:space="preserve">
+    <value>Carga</value>
+  </data>
+  <data name="APLICAR_A_PARENTI09" xml:space="preserve">
+    <value>Aplica a Empleados</value>
+  </data>
+  <data name="APLICAR_A_PARENTI03" xml:space="preserve">
+    <value>Aplica a Vehículos</value>
+  </data>
+  <data name="APLICAR_A_PARENTI17" xml:space="preserve">
+    <value>Aplica a Transportistas</value>
+  </data>
+  <data name="APLICAR_A_PARENTI19" xml:space="preserve">
+    <value>Aplica a Equipos</value>
+  </data>
+  <data name="FECHA_VENCIMIENTO" xml:space="preserve">
+    <value>Fecha de Vencimiento</value>
+  </data>
+  <data name="FECHA_PRESENTACION_OBLIGATORIA" xml:space="preserve">
+    <value>Fecha de Presentacion Obligatoria</value>
+  </data>
+  <data name="POS_DESCARTADAS" xml:space="preserve">
+    <value>Posiciones Descartadas</value>
+  </data>
+  <data name="REC_DESCARTADO" xml:space="preserve">
+    <value>Recorrido Descartado</value>
+  </data>
+  <data name="MOTIVO_DESCARTE" xml:space="preserve">
+    <value>Motivo de Descarte</value>
+  </data>
+  <data name="MODULO" xml:space="preserve">
+    <value>Módulo</value>
+  </data>
+  <data name="COMPONENTE" xml:space="preserve">
+    <value>Componente</value>
+  </data>
+  <data name="KEY" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="VALUE" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="INHBILITAR_CAMBIAR_PASS" xml:space="preserve">
+    <value>Inhabilitado a cambiar su contraseña</value>
+  </data>
+  <data name="INHBILITAR_CAMBIAR_USO" xml:space="preserve">
+    <value>Inhabilitado a cambiar su uso horario</value>
+  </data>
+  <data name="EVENTOS_DESCARTADOS" xml:space="preserve">
+    <value>Eventos Descartados</value>
+  </data>
+  <data name="INCIDENCE" xml:space="preserve">
+    <value>Incidencia</value>
+  </data>
+  <data name="TICKET_NUMBER" xml:space="preserve">
+    <value># Ticket</value>
+  </data>
+  <data name="DATOS_TICKET" xml:space="preserve">
+    <value>Datos Ticket</value>
+  </data>
+  <data name="PARAMETROS" xml:space="preserve">
+    <value>Parametros</value>
+  </data>
+  <data name="NOMBRE" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="LLEGADA" xml:space="preserve">
+    <value>Llegada</value>
+  </data>
+  <data name="HS_REPORTADAS" xml:space="preserve">
+    <value>Hs Proveedor</value>
+  </data>
+  <data name="HS_CONTROLADAS" xml:space="preserve">
+    <value>Hs Controladas</value>
+  </data>
+  <data name="DIFERENCIA_HS" xml:space="preserve">
+    <value>Altura</value>
+  </data>
+  <data name="KM_REPORTADO" xml:space="preserve">
+    <value>Km Proveedor</value>
+  </data>
+  <data name="KM_CONTROLADO" xml:space="preserve">
+    <value>Km Controlados</value>
+  </data>
+  <data name="DIFERENCIA_KM" xml:space="preserve">
+    <value>Dif. Km</value>
+  </data>
+  <data name="IMPORTE_REPORTADO" xml:space="preserve">
+    <value>Importe Reportado</value>
+  </data>
+  <data name="IMPORTE_CONTROLADO" xml:space="preserve">
+    <value>Importe Controlado</value>
+  </data>
+  <data name="DIFERENCIA_IMPORTE" xml:space="preserve">
+    <value>Diferencia Importe</value>
+  </data>
+  <data name="ESTADO" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="PARTE" xml:space="preserve">
+    <value>Parte</value>
+  </data>
+  <data name="NOMBRE_USUARIO" xml:space="preserve">
+    <value>Nombre de Usuario</value>
+  </data>
+  <data name="TICKET_INICIAR" xml:space="preserve">
+    <value>Iniciar Ticket</value>
+  </data>
+  <data name="TICKET_CERRAR" xml:space="preserve">
+    <value>Cerrar Ticket</value>
+  </data>
+  <data name="VELOCIDAD_KM" xml:space="preserve">
+    <value>Velocidad km/h</value>
+  </data>
+  <data name="ODOMETRO_VALOR_INICIAL" xml:space="preserve">
+    <value>Valor inicial del Odómetro</value>
+  </data>
+  <data name="PUERTA" xml:space="preserve">
+    <value>Puerta</value>
+  </data>
+  <data name="TIPO_GEO_REF_CLI" xml:space="preserve">
+    <value>Tipo de Referencia Geográfica para alta de Clientes</value>
+  </data>
+  <data name="TIPO_GEO_REF_POI" xml:space="preserve">
+    <value>Tipo de Referencia Geográfica para alta de Obras.</value>
+  </data>
+  <data name="EST_LOG_GIRO_TROMPO_AH_LENTO" xml:space="preserve">
+    <value>Giro Trompo Antihorario Lento</value>
+  </data>
+  <data name="EST_LOG_GIRO_TROMPO_AH_RAPIDO" xml:space="preserve">
+    <value>Giro trompo Antihorario Rapido</value>
+  </data>
+  <data name="EST_LOG_GIRO_TROMPO_HOR_LENTO" xml:space="preserve">
+    <value>Giro Trompo Horario Lento</value>
+  </data>
+  <data name="EST_LOG_GIRO_TROMPO_HOR_RAPIDO" xml:space="preserve">
+    <value>Giro Trompo Horario Rapido</value>
+  </data>
+  <data name="ACCESS_CODE" xml:space="preserve">
+    <value>Codigo de Acceso</value>
+  </data>
+  <data name="CON_VALIDACION" xml:space="preserve">
+    <value>Con Validación</value>
+  </data>
+  <data name="CON_FOTO" xml:space="preserve">
+    <value>Con Foto</value>
+  </data>
+  <data name="CON_LATERALES" xml:space="preserve">
+    <value>Con Laterales</value>
+  </data>
+  <data name="CON_REFERENCIA" xml:space="preserve">
+    <value>Con Referencia</value>
+  </data>
+  <data name="CON_GPS" xml:space="preserve">
+    <value>Con GPS</value>
+  </data>
+  <data name="ES_ENTREGA" xml:space="preserve">
+    <value>Es Entrega</value>
+  </data>
+  <data name="ES_DEVOLUCION" xml:space="preserve">
+    <value>Es Devolucion</value>
+  </data>
+  <data name="ES_GESTION" xml:space="preserve">
+    <value>Es Gestión</value>
+  </data>
+  <data name="NUNCA" xml:space="preserve">
+    <value>Nunca</value>
+  </data>
+  <data name="SIEMPRE" xml:space="preserve">
+    <value>Siempre</value>
+  </data>
+  <data name="ENTREGADO" xml:space="preserve">
+    <value>Entregado</value>
+  </data>
+  <data name="NO_ENTREGADO" xml:space="preserve">
+    <value>No entregado</value>
+  </data>
+  <data name="MAC_ADDRESS" xml:space="preserve">
+    <value>MAC Address</value>
+  </data>
+  <data name="EMPLEADO_DESDE_HASTA" xml:space="preserve">
+    <value>Empleado {0} - Desde: {1}  Hasta: {2}</value>
+  </data>
+  <data name="SERVICE_TYPE_ACTION" xml:space="preserve">
+    <value>Acción asociada al tipo de servicio</value>
+  </data>
+  <data name="TIPOSERVICIOPARTE" xml:space="preserve">
+    <value>Tipo de Servicio</value>
+  </data>
+  <data name="CANTIDAD_KILOMETROS_TOTALES" xml:space="preserve">
+    <value>Cantidad total de kilómetros</value>
+  </data>
+  <data name="A_PROXIMA_GEOCERCA" xml:space="preserve">
+    <value>A proxima geocerca</value>
+  </data>
+  <data name="BUSCAR" xml:space="preserve">
+    <value>Buscar</value>
+    <comment>Texto que se muestra al lado del buscador avanzado en los listados.</comment>
+  </data>
+  <data name="ADDRESS_LATITUDE" xml:space="preserve">
+    <value>Latitud</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_LATLON_SEARCH" xml:space="preserve">
+    <value>Por Lat/Lon</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_LOCATION" xml:space="preserve">
+    <value>Localidad</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_LONGITUDE" xml:space="preserve">
+    <value>Longitud</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_RESULT" xml:space="preserve">
+    <value>Resultado</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_SEARCH" xml:space="preserve">
+    <value>Buscar</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_SMART_SEARCH" xml:space="preserve">
+    <value>Buscar (Inteligente)</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_STREET" xml:space="preserve">
+    <value>Calle</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_STREET_INTERSECTION" xml:space="preserve">
+    <value>Esquina</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="ADDRESS_STREET_NUMBER" xml:space="preserve">
+    <value>Altura</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="NO_ADDRESS_SELECTED" xml:space="preserve">
+    <value>No se ha seleccionado dirección</value>
+    <comment>Label del UC DireccionSearch</comment>
+  </data>
+  <data name="SUPPORT_ADD_COMMENT" xml:space="preserve">
+    <value>Agregar Comentario</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_0_1_SENSOR" xml:space="preserve">
+    <value>No funciona algun sensor especifico</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_0_2_DISPLAY" xml:space="preserve">
+    <value>No anda el Display</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_0_3_OTHER" xml:space="preserve">
+    <value>Otro</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_0_0_NO_REPORT" xml:space="preserve">
+    <value>No reporta posiciones</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_1_0_NO_REPORT" xml:space="preserve">
+    <value>Moviles no reportan</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_1_1_EVENT_NO_POSITIONS" xml:space="preserve">
+    <value>Llegan eventos pero no posiciones</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_1_2_MODULE" xml:space="preserve">
+    <value>Incidente en módulo de la aplicación</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_CAT_1_3_OTHER" xml:space="preserve">
+    <value>Otro</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_FILE_UPLOADED" xml:space="preserve">
+    <value>Archivo Subido</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_INFORM" xml:space="preserve">
+    <value>Informar cambios por mail a los siguientes destinatarios (separados por ;)</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_LEVEL_0_BLOCKING" xml:space="preserve">
+    <value>Falla bloqueante</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_LEVEL_1_ERROR" xml:space="preserve">
+    <value>Falla</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_LEVEL_2_BUG" xml:space="preserve">
+    <value>Bug</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_LEVEL_3_SUGESTION" xml:space="preserve">
+    <value>Sugestion</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_LEVEL_4_QUESTION" xml:space="preserve">
+    <value>Duda</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_RESOLUTION" xml:space="preserve">
+    <value>Aceptar o rechazar la solución</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_RESOLUTION_NOTSOLVED" xml:space="preserve">
+    <value>Todavia no se soluciono el problema</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_RESOLUTION_SOLVED" xml:space="preserve">
+    <value>El problema esta solucionado</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_1_OPEN" xml:space="preserve">
+    <value>Abierto</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_2_WORKING" xml:space="preserve">
+    <value>En Curso</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_3_WAITING_USER" xml:space="preserve">
+    <value>Esperando respuesta del usuario</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_4_SOLVED" xml:space="preserve">
+    <value>Resuelto</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_5_APPROVED" xml:space="preserve">
+    <value>Resolución Aprobada</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_6_REJECTED" xml:space="preserve">
+    <value>Resolución Rechazada</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_7_CLOSED" xml:space="preserve">
+    <value>Cerrado</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_8_INVALID" xml:space="preserve">
+    <value>Ticket Rechazado</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_STATE_CHANGED" xml:space="preserve">
+    <value>Cambio Estado</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_TYPE_0_VEHICLE" xml:space="preserve">
+    <value>Movil</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="SUPPORT_TYPE_1_APPLICATION" xml:space="preserve">
+    <value>Plataforma</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="UPLOAD_FILE" xml:space="preserve">
+    <value>Subir Archivo</value>
+  </data>
+  <data name="TICKET_INIT" xml:space="preserve">
+    <value>Iniciar Ciclo Logístico</value>
+  </data>
+  <data name="ACTION_EVALUATES_GEOFENCE" xml:space="preserve">
+    <value>Evalua Geocerca</value>
+  </data>
+  <data name="ACTION_GEOFENCEMODE_INSIDE" xml:space="preserve">
+    <value>Dentro</value>
+  </data>
+  <data name="ACTION_GEOFENCEMODE_OUTSIDE" xml:space="preserve">
+    <value>Fuera</value>
+  </data>
+  <data name="DOC_FIELDTYPE_CENTRODECOSTO" xml:space="preserve">
+    <value>Centro De Costos</value>
+  </data>
+  <data name="DOC_FIELDTYPE_CLIENTE" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="DOC_FIELDTYPE_DATETIME" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="DOC_FIELDTYPE_EMPLEADO" xml:space="preserve">
+    <value>Empleado</value>
+  </data>
+  <data name="DOC_FIELDTYPE_EQUIPO" xml:space="preserve">
+    <value>Equipo</value>
+  </data>
+  <data name="DOC_FIELDTYPE_FLOAT" xml:space="preserve">
+    <value>Numerico Decimal</value>
+  </data>
+  <data name="DOC_FIELDTYPE_IMAGE" xml:space="preserve">
+    <value>Imagen</value>
+  </data>
+  <data name="DOC_FIELDTYPE_INTEGER" xml:space="preserve">
+    <value>Numerico Entero</value>
+  </data>
+  <data name="DOC_FIELDTYPE_TANQUE" xml:space="preserve">
+    <value>Tanque</value>
+  </data>
+  <data name="DOC_FIELDTYPE_TEXT" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="DOC_FIELDTYPE_TRANSPORTISTA" xml:space="preserve">
+    <value>Transportista</value>
+  </data>
+  <data name="DOC_FIELDTYPE_VEHICULO" xml:space="preserve">
+    <value>Vehiculo</value>
+  </data>
+  <data name="TIPODOC_OBLIGATORIO" xml:space="preserve">
+    <value>Obligatorio</value>
+  </data>
+  <data name="TIPODOC_ORDEN" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="TIPODOC_PARAMETRO" xml:space="preserve">
+    <value>Parametro</value>
+  </data>
+  <data name="TIPODOC_PRECISION" xml:space="preserve">
+    <value>Precisión</value>
+  </data>
+  <data name="TIPODOC_REPETIR" xml:space="preserve">
+    <value>Repetir</value>
+  </data>
+  <data name="TIPODOC_TAMANO" xml:space="preserve">
+    <value>Tamaño</value>
+  </data>
+  <data name="TIPODOC_TIPODATO" xml:space="preserve">
+    <value>Tipo de Dato</value>
+  </data>
+  <data name="TIPODOC_VALOR_DEFAULT" xml:space="preserve">
+    <value>Valor Default</value>
+  </data>
+  <data name="DIAS_ANTES_DEL_VENCIMIENTO" xml:space="preserve">
+    <value>dias antes del vencimiento</value>
+  </data>
+  <data name="CAPACIDAD_CARGA" xml:space="preserve">
+    <value>Capacidad</value>
+    <comment>Capacidad de carga de un vehiculo o tipo de vehiculo</comment>
+  </data>
+  <data name="DISTANCIA_A_OBRA" xml:space="preserve">
+    <value>Distancia a Obra</value>
+    <comment>En un ticket, distancia desde la planta hasta la obra</comment>
+  </data>
+  <data name="DISTANCIA_TOTAL" xml:space="preserve">
+    <value>Distancia Total</value>
+    <comment>En un ticket, distancia total recorrida por el vehiculo</comment>
+  </data>
+  <data name="PORCENTAJE_LLENADO" xml:space="preserve">
+    <value>Porcentaje Llenado</value>
+    <comment>En un ticket, Cantidad Carga/Capacidad Vehiculo</comment>
+  </data>
+  <data name="TIEMPO_EN_OBRA" xml:space="preserve">
+    <value>Tiempo en Obra</value>
+  </data>
+  <data name="IMAGEN" xml:space="preserve">
+    <value>Imagen</value>
+    <comment>Iconos</comment>
+  </data>
+  <data name="TICKET_OPENED" xml:space="preserve">
+    <value>No se puede iniciar el Ticket</value>
+  </data>
+  <data name="CAMBIA_MENSAJE" xml:space="preserve">
+    <value>Cambia Mensaje</value>
+    <comment>Accion</comment>
+  </data>
+  <data name="MENSAJE_A_CAMBIAR" xml:space="preserve">
+    <value>Mensaje</value>
+    <comment>Watermark Cambiar Mensaje (Acciones)</comment>
+  </data>
+  <data name="PIDE_FOTO" xml:space="preserve">
+    <value>Pide Foto</value>
+    <comment>Accion</comment>
+  </data>
+  <data name="SEGUNDOS_FOTO" xml:space="preserve">
+    <value>Segundos</value>
+    <comment>Accion Pide Foto</comment>
+  </data>
+  <data name="AHORA" xml:space="preserve">
+    <value>Ahora</value>
+  </data>
+  <data name="PEDIR_FOTOS" xml:space="preserve">
+    <value>Pedir Fotos</value>
+  </data>
+  <data name="HORAS_LABORALES" xml:space="preserve">
+    <value>Horas Laborales</value>
+  </data>
+  <data name="RENDIMIENTO" xml:space="preserve">
+    <value>Rendimiento</value>
+  </data>
+  <data name="COSTO_KM" xml:space="preserve">
+    <value>Costo Km</value>
+  </data>
+  <data name="ESTADO_PEDIDO_CANCELADO" xml:space="preserve">
+    <value>Cancelado</value>
+    <comment>Estado Pedido</comment>
+  </data>
+  <data name="ESTADO_PEDIDO_ENCURSO" xml:space="preserve">
+    <value>En Curso</value>
+    <comment>Estado Pedido</comment>
+  </data>
+  <data name="ESTADO_PEDIDO_ENTREGADO" xml:space="preserve">
+    <value>Entregado</value>
+    <comment>Estado Pedido</comment>
+  </data>
+  <data name="ESTADO_PEDIDO_PENDIENTE" xml:space="preserve">
+    <value>Pendiente</value>
+    <comment>Estado Pedido</comment>
+  </data>
+  <data name="FECHA_EN_OBRA" xml:space="preserve">
+    <value>Hora en Obra</value>
+  </data>
+  <data name="PEDIDO_FRECUENCIA_ENTREGA" xml:space="preserve">
+    <value>Frecuencia</value>
+  </data>
+  <data name="PEDIDO_TIEMPO_CICLO" xml:space="preserve">
+    <value>Tiempo de Ciclo</value>
+  </data>
+  <data name="PEDIDO_TIENE_BOMBA" xml:space="preserve">
+    <value>Tiene Bomba</value>
+  </data>
+  <data name="INICIO_ACTIVIDAD" xml:space="preserve">
+    <value>Inicio de Actividad</value>
+  </data>
+  <data name="PROGRAMACION_MOVILES_NECESARIOS" xml:space="preserve">
+    <value>Moviles Necesarios</value>
+  </data>
+  <data name="PROGRAMACION_CANTIDAD_MIXERS" xml:space="preserve">
+    <value>Cantidad Mixers</value>
+  </data>
+  <data name="PROGRAMACION_CARGA_PROMEDIO" xml:space="preserve">
+    <value>Carga Promedio</value>
+  </data>
+  <data name="PROGRAMACION_CARGA_MAXIMA" xml:space="preserve">
+    <value>Carga Máxima</value>
+  </data>
+  <data name="PROGRAMACION_MIXERS_EQUIVALENTES" xml:space="preserve">
+    <value>Mixers equivalentes</value>
+  </data>
+  <data name="PROGRAMACION_MIXERS_HORA" xml:space="preserve">
+    <value>Mixers por Hora</value>
+  </data>
+  <data name="PROGRAMACION_VOLUMEN_HORA" xml:space="preserve">
+    <value>Volumen por Hora</value>
+  </data>
+  <data name="CANTIDAD_MES" xml:space="preserve">
+    <value>Cantidad por Mes</value>
+  </data>
+  <data name="CANTIDAD_DIA" xml:space="preserve">
+    <value>Cantidad por Día</value>
+  </data>
+  <data name="CANTIDAD_HORA" xml:space="preserve">
+    <value>Cantidad por Hora</value>
+  </data>
+  <data name="PEDIDO_CARGA_POR_VIAJE" xml:space="preserve">
+    <value>Carga por Viaje</value>
+  </data>
+  <data name="PEDIDO_CARGA_POR_VIAJE_MAXIMA" xml:space="preserve">
+    <value>Máximo</value>
+  </data>
+  <data name="PROGRAMACION_VIEW_GRAFICO" xml:space="preserve">
+    <value>Gráfico</value>
+  </data>
+  <data name="PROGRAMACION_VIEW_PROGRAMACION" xml:space="preserve">
+    <value>Programación</value>
+  </data>
+  <data name="ENTREGAS" xml:space="preserve">
+    <value>Entregas</value>
+  </data>
+  <data name="ENSITIO" xml:space="preserve">
+    <value>En Sitio</value>
+  </data>
+  <data name="ENZONA" xml:space="preserve">
+    <value>En Zona</value>
+  </data>
+  <data name="FRECUENCIA_REPORTE_AC" xml:space="preserve">
+    <value>Frecuencia de Reporte a AssistCargo</value>
+  </data>
+  <data name="REPORTA_ASSISTCARGO" xml:space="preserve">
+    <value>Reporta a AssistCargo</value>
+  </data>
+  <data name="CODIGO_ASSISTCARGO" xml:space="preserve">
+    <value>Codigo AssistCargo</value>
+  </data>
+  <data name="DISTRIBUCION_INICIAR" xml:space="preserve">
+    <value>Iniciar Viaje</value>
+  </data>
+  <data name="DISTRIBUCION_CERRAR" xml:space="preserve">
+    <value>Cerrar Viaje</value>
+  </data>
+  <data name="DISTRIBUCION_REENVIAR" xml:space="preserve">
+    <value>Reenviar Viaje</value>
+  </data>
+  <data name="ENTREGA_STATE_CANCELADO" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="ENTREGA_STATE_PENDIENTE" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="ENTREGA_STATE_ENSITIO" xml:space="preserve">
+    <value>En Sitio</value>
+  </data>
+  <data name="ENTREGA_STATE_ENZONA" xml:space="preserve">
+    <value>En Zona</value>
+  </data>
+  <data name="ENTREGA_STATE_COMPLETADO" xml:space="preserve">
+    <value>Realizado</value>
+  </data>
+  <data name="ENTREGA_STATE_NO_COMPLETADO" xml:space="preserve">
+    <value>No Realizado</value>
+  </data>
+  <data name="ENTREGA_STATE_VISITADO" xml:space="preserve">
+    <value>Visitado</value>
+  </data>
+  <data name="ENTREGA_STATE_SINVISITAR" xml:space="preserve">
+    <value>Sin Visitar</value>
+  </data>
+  <data name="VIAJE" xml:space="preserve">
+    <value>Viaje</value>
+  </data>
+  <data name="HORARIO_ATENCION" xml:space="preserve">
+    <value>Horario de Atención</value>
+  </data>
+  <data name="HORARIO_ATENCION_A" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="LAYER_CLIENT_AREA" xml:space="preserve">
+    <value>Clientes (Geocercas)</value>
+  </data>
+  <data name="LAYER_CLIENT_POI" xml:space="preserve">
+    <value>Clientes</value>
+  </data>
+  <data name="LAYER_TICKET_AREA" xml:space="preserve">
+    <value>Tickets (Geocercas)</value>
+  </data>
+  <data name="LAYER_TICKET_POI" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="DATOS_ADICIONALES" xml:space="preserve">
+    <value>Datos Adicionales</value>
+  </data>
+  <data name="ASIGNACION_VEHICULOS" xml:space="preserve">
+    <value>Vehículos a asignar</value>
+  </data>
+  <data name="KM_GPS" xml:space="preserve">
+    <value>Km. GPS</value>
+  </data>
+  <data name="KM_DECLARADOS" xml:space="preserve">
+    <value>Km Declarados</value>
+  </data>
+  <data name="UNIDAD_MEDIDA" xml:space="preserve">
+    <value>Unidad de Medida</value>
+  </data>
+  <data name="NRO_FACTURA" xml:space="preserve">
+    <value>Nro Factura</value>
+  </data>
+  <data name="IMPORTE" xml:space="preserve">
+    <value>Importe</value>
+  </data>
+  <data name="IMPORTE_UNITARIO" xml:space="preserve">
+    <value>Importe Unitario</value>
+  </data>
+  <data name="IMPORTE_TOTAL" xml:space="preserve">
+    <value>Importe Total</value>
+  </data>
+  <data name="VEHICULO" xml:space="preserve">
+    <value>Vehículo</value>
+  </data>
+  <data name="INSUMO" xml:space="preserve">
+    <value>Insumo</value>
+  </data>
+  <data name="PROVEEDOR" xml:space="preserve">
+    <value>Proveedor</value>
+  </data>
+  <data name="CONSUMO_STATE_ELIMINADO" xml:space="preserve">
+    <value>Eliminado</value>
+  </data>
+  <data name="CONSUMO_STATE_PAGADO" xml:space="preserve">
+    <value>Pagado</value>
+  </data>
+  <data name="CONSUMO_STATE_PENDIENTE" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="COMENTARIO" xml:space="preserve">
+    <value>Comentario</value>
+  </data>
+  <data name="COMENTARIO1" xml:space="preserve">
+    <value>Comentario 1</value>
+  </data>
+  <data name="COMENTARIO2" xml:space="preserve">
+    <value>Comentario 2</value>
+  </data>
+  <data name="COMENTARIO3" xml:space="preserve">
+    <value>Comentario 3</value>
+  </data>
+  <data name="ORDEN_DIARIO" xml:space="preserve">
+    <value>Orden Diario</value>
+  </data>
+  <data name="EVENTS" xml:space="preserve">
+    <value>{0} eventos</value>
+  </data>
+  <data name="FLOTA_ACTIVA" xml:space="preserve">
+    <value>Flota activa</value>
+  </data>
+  <data name="FLOTA_INACTIVA" xml:space="preserve">
+    <value>Flota inactiva</value>
+  </data>
+  <data name="FLOTA_MANTENIMIENTO" xml:space="preserve">
+    <value>Flota mantenimiento</value>
+  </data>
+  <data name="TURNO" xml:space="preserve">
+    <value>Turno</value>
+  </data>
+  <data name="HORA_ACTUAL" xml:space="preserve">
+    <value>Hora actual</value>
+  </data>
+  <data name="MOVILES_ACTIVOS_AHORA" xml:space="preserve">
+    <value>Móviles activos ahora</value>
+  </data>
+  <data name="MOVILES_ACTIVOS_DIA" xml:space="preserve">
+    <value>Móviles activos en el día</value>
+  </data>
+  <data name="TIEMPO_MOVIMIENTO_PROMEDIO" xml:space="preserve">
+    <value>Tiempo en movimiento promedio por móvil</value>
+  </data>
+  <data name="TIEMPO_DETENCION_PROMEDIO" xml:space="preserve">
+    <value>Tiempo de detención promedio por móvil</value>
+  </data>
+  <data name="DETENCIONES_MAYORES_A_15" xml:space="preserve">
+    <value>Cantidad de detenciones mayores a 15 minutos</value>
+  </data>
+  <data name="DETENCIONES_MAYORES_A_1" xml:space="preserve">
+    <value>Cantidad de detenciones mayores a 1 minuto</value>
+  </data>
+  <data name="ACCIDENTOLOGIA" xml:space="preserve">
+    <value>Accidentología</value>
+  </data>
+  <data name="CANTIDAD_INFRACCIONES" xml:space="preserve">
+    <value>Cantidad de infracciones</value>
+  </data>
+  <data name="VELOCIDAD_PROMEDIO_FLOTA" xml:space="preserve">
+    <value>Velocidad promedio de flota</value>
+  </data>
+  <data name="VELOCIDAD_MAXIMA_FLOTA" xml:space="preserve">
+    <value>Velocidad máxima de flota</value>
+  </data>
+  <data name="INFRACCIONES_VEHICULOS" xml:space="preserve">
+    <value>Cantidad de vehículos con infracciones</value>
+  </data>
+  <data name="LOGISTICA" xml:space="preserve">
+    <value>Logística</value>
+  </data>
+  <data name="KM_RECORRIDOS_PROMEDIO" xml:space="preserve">
+    <value>Promedio de km recorridos por móvil</value>
+  </data>
+  <data name="ENTRADAS_BASE" xml:space="preserve">
+    <value>Cantidad de entradas a bases</value>
+  </data>
+  <data name="ENTRADAS_GEOCERCA" xml:space="preserve">
+    <value>Cantidad de entradas a Geocercas</value>
+  </data>
+  <data name="MINUTOS_PROMEDIO_GEOCERCA" xml:space="preserve">
+    <value>Minutos promedio dentro de Geocercas</value>
+  </data>
+  <data name="COSTOS" xml:space="preserve">
+    <value>Costos</value>
+  </data>
+  <data name="CONSUMO_PROMEDIO_MOVIL" xml:space="preserve">
+    <value>Consumo de combustible promedio por móvil</value>
+  </data>
+  <data name="MINUTOS_DETENIDO_ON" xml:space="preserve">
+    <value>Cantidad total de minutos detenidos con motor encendido</value>
+  </data>
+  <data name="MINUTOS_DETENIDO_OFF" xml:space="preserve">
+    <value>Cantidad total de minutos detenidos con motor apagado</value>
+  </data>
+  <data name="MINUTOS_DETENIDO_ON_PROMEDIO" xml:space="preserve">
+    <value>Promedio de minutos detenidos con motor encendido</value>
+  </data>
+  <data name="MINUTOS_DETENIDO_OFF_PROMEDIO" xml:space="preserve">
+    <value>Promedio de minutos detenidos con motor apagado</value>
+  </data>
+  <data name="ESTADISTICAS_HOY" xml:space="preserve">
+    <value>Estadísticas de hoy</value>
+  </data>
+  <data name="ESTADISTICAS_AYER" xml:space="preserve">
+    <value>Estadísticas del día de ayer</value>
+  </data>
+  <data name="ESTADISTICAS_MES" xml:space="preserve">
+    <value>Estadísticas del mes</value>
+  </data>
+  <data name="MOVILES_EN_MOVIMIENTO" xml:space="preserve">
+    <value>Móviles en movimiento</value>
+  </data>
+  <data name="MOVILES_DETENIDOS" xml:space="preserve">
+    <value>Móviles detenidos</value>
+  </data>
+  <data name="MOVILES_EN_BASE" xml:space="preserve">
+    <value>Móviles en base</value>
+  </data>
+  <data name="MOVILES_EN_GEOCERCA" xml:space="preserve">
+    <value>Móviles en geocerca</value>
+  </data>
+  <data name="MOVILES_EN_BASE_MAS_1_HORA" xml:space="preserve">
+    <value>Móviles en base por más de 1 hora</value>
+  </data>
+  <data name="MOVILES_EN_GEOCERCA_MAS_1_HORA" xml:space="preserve">
+    <value>Móviles en geocerca por más de 1 hora</value>
+  </data>
+  <data name="DETALLE" xml:space="preserve">
+    <value>Detalle</value>
+  </data>
+  <data name="CANTIDAD_TICKETS" xml:space="preserve">
+    <value>Cantidad de viajes realizados</value>
+  </data>
+  <data name="RENDIMIENTO_LTS_KM" xml:space="preserve">
+    <value>Rendimiento (lit/100 km)</value>
+  </data>
+  <data name="OBRA_0" xml:space="preserve">
+    <value>Incluir tiempo en obra nulo</value>
+  </data>
+  <data name="CICLO_0" xml:space="preserve">
+    <value>Incluir ciclos nulos</value>
+  </data>
+  <data name="INCLUIR_ESTADOS" xml:space="preserve">
+    <value>Incluir estados logísticos</value>
+  </data>
+  <data name="CANTIDAD_VIAJES" xml:space="preserve">
+    <value>Viajes</value>
+  </data>
+  <data name="INCLUIR_SIN_VEHICULO" xml:space="preserve">
+    <value>Incluir viajes sin vehículo</value>
+  </data>
+  <data name="INCLUIR_COMPARACION_CARGA" xml:space="preserve">
+    <value>Incluir comparación de carga</value>
+  </data>
+  <data name="MOVILES_INACTIVOS_BASE" xml:space="preserve">
+    <value>Móviles inactivos en base</value>
+  </data>
+  <data name="CONSUMO_CALCULADO_DECLARADO" xml:space="preserve">
+    <value>Consumo Calculado Declarado</value>
+  </data>
+  <data name="CONSUMO_CALCULADO_GPS" xml:space="preserve">
+    <value>Consumo Calculado GPS</value>
+  </data>
+  <data name="CONSUMO_PENDIENTE" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="CONSUMO_PAGADO" xml:space="preserve">
+    <value>Pagado</value>
+  </data>
+  <data name="CONSUMO_ELIMINADO" xml:space="preserve">
+    <value>Eliminado</value>
+  </data>
+  <data name="DESVIO_MINIMO" xml:space="preserve">
+    <value>Desvío de Combustible (% Mín.)</value>
+  </data>
+  <data name="DESVIO_MAXIMO" xml:space="preserve">
+    <value>Desvío de Combustible (% Máx.)</value>
+  </data>
+  <data name="VAL_MAYOR" xml:space="preserve">
+    <value>Desvío de Combustible. El valor Máximo debe ser mayor o igual al Mínimo.</value>
+  </data>
+  <data name="VIGENCIA_HORAS" xml:space="preserve">
+    <value>Vigencia (horas)</value>
+  </data>
+  <data name="TICKETS_ACTIVOS" xml:space="preserve">
+    <value>Tickets en Curso</value>
+  </data>
+  <data name="CON_TICKETS_ACTIVOS" xml:space="preserve">
+    <value>Con Tickets en Curso</value>
+  </data>
+  <data name="TICKETS" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="REPORTE" xml:space="preserve">
+    <value>Reporte</value>
+  </data>
+  <data name="SEMANAL" xml:space="preserve">
+    <value>Semanal</value>
+  </data>
+  <data name="MENSUAL" xml:space="preserve">
+    <value>Mensual</value>
+  </data>
+  <data name="HOY" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="AYER" xml:space="preserve">
+    <value>Ayer</value>
+  </data>
+  <data name="MES" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="CONDICION_REPORTE_PROGRAMADO" xml:space="preserve">
+    <value>
+      ATENCION: Los reportes solicitados quedarán a la espera de aprobación por parte de nuestros operadores.
+      &lt;br /&gt;
+      Muchas gracias.
+    </value>
+  </data>
+  <data name="REFERENCIAS" xml:space="preserve">
+    <value>Referencias</value>
+  </data>
+  <data name="DETENCIONES_MAYOR_8" xml:space="preserve">
+    <value>Detenciones &gt; 8 horas - Sin Reportar</value>
+  </data>
+  <data name="DETENCIONES_MAYOR_1" xml:space="preserve">
+    <value>Detenciones &gt; 1 hora</value>
+  </data>
+  <data name="DETENCIONES" xml:space="preserve">
+    <value>Detenciones</value>
+  </data>
+  <data name="DETENCIONES_MOTOR_ENCENDIDO" xml:space="preserve">
+    <value>Detenciones con Motor Encendido &gt; 5 min.</value>
+  </data>
+  <data name="EN_MOVIMIENTO_MAYOR_120" xml:space="preserve">
+    <value>En Movimiento &gt; 120 km/h</value>
+  </data>
+  <data name="EN_MOVIMIENTO_MAYOR_80" xml:space="preserve">
+    <value>En Movimiento &gt; 80 km/h</value>
+  </data>
+  <data name="TICKET_CANCEL_REASON" xml:space="preserve">
+    <value>Ingrese el motivo de anulación</value>
+  </data>
+  <data name="CODIGO_ABONO" xml:space="preserve">
+    <value>Código de Abono</value>
+  </data>
+  <data name="TIPO_LINEA" xml:space="preserve">
+    <value>Tipo de Línea</value>
+  </data>
+  <data name="COSTO_MENSUAL" xml:space="preserve">
+    <value>Costo Mensual</value>
+  </data>
+  <data name="ABONO_DATOS" xml:space="preserve">
+    <value>Abono de Datos</value>
+  </data>
+  <data name="CELULAR" xml:space="preserve">
+    <value>Celular</value>
+  </data>
+  <data name="SATELITAL" xml:space="preserve">
+    <value>Satelital</value>
+  </data>
+  <data name="NUMERO_LINEA" xml:space="preserve">
+    <value>Número de Línea</value>
+  </data>
+  <data name="AGREGAR_PLAN" xml:space="preserve">
+    <value>Agregar Plan</value>
+  </data>
+  <data name="FECHA_SELECCIONADA" xml:space="preserve">
+    <value>Fecha Seleccionada</value>
+  </data>
+  <data name="ULTIMOS_7_DIAS" xml:space="preserve">
+    <value>Últimos 7 días</value>
+  </data>
+  <data name="BOTONERA" xml:space="preserve">
+    <value>Botonera</value>
+  </data>
+  <data name="SENSOR_TEMPERATURA" xml:space="preserve">
+    <value>Sensor de Temperatura</value>
+  </data>
+  <data name="EVENTOS_POLICIA" xml:space="preserve">
+    <value>Alarmas de Policía</value>
+  </data>
+  <data name="EVENTOS_AMBULANCIA" xml:space="preserve">
+    <value>Alarmas de Ambulancia</value>
+  </data>
+  <data name="EVENTOS_BOMBEROS" xml:space="preserve">
+    <value>Alarmas de Incendio</value>
+  </data>
+  <data name="EVENTOS_TEMPERATURA" xml:space="preserve">
+    <value>Alarmas de Temperatura</value>
+  </data>
+  <data name="TEMPERATURA_MAXIMA" xml:space="preserve">
+    <value>Temperatura Máxima</value>
+  </data>
+  <data name="TEMPERATURA_MAXIMA_SEMANAL" xml:space="preserve">
+    <value>Temperatura Máxima Semanal</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="MESES" xml:space="preserve">
+    <value>Meses</value>
+  </data>
+  <data name="ENERO" xml:space="preserve">
+    <value>Enero</value>
+  </data>
+  <data name="FEBRERO" xml:space="preserve">
+    <value>Febrero</value>
+  </data>
+  <data name="MARZO" xml:space="preserve">
+    <value>Marzo</value>
+  </data>
+  <data name="ABRIL" xml:space="preserve">
+    <value>Abril</value>
+  </data>
+  <data name="MAYO" xml:space="preserve">
+    <value>Mayo</value>
+  </data>
+  <data name="JUNIO" xml:space="preserve">
+    <value>Junio</value>
+  </data>
+  <data name="JULIO" xml:space="preserve">
+    <value>Julio</value>
+  </data>
+  <data name="AGOSTO" xml:space="preserve">
+    <value>Agosto</value>
+  </data>
+  <data name="SEPTIEMBRE" xml:space="preserve">
+    <value>Septiembre</value>
+  </data>
+  <data name="OCTUBRE" xml:space="preserve">
+    <value>Octubre</value>
+  </data>
+  <data name="NOVIEMBRE" xml:space="preserve">
+    <value>Noviembre</value>
+  </data>
+  <data name="DICIEMBRE" xml:space="preserve">
+    <value>Diciembre</value>
+  </data>
+  <data name="PROYECTADO" xml:space="preserve">
+    <value>Proyectado</value>
+  </data>
+  <data name="SOLO_DISPOSITIVOS" xml:space="preserve">
+    <value>Sólo vehículos con dispositivos</value>
+  </data>
+  <data name="OCULTAR_INACTIVOS" xml:space="preserve">
+    <value>Ocultar vehículos inactivos</value>
+  </data>
+  <data name="SOLO_CON_GARMIN" xml:space="preserve">
+    <value>Visualizar solamente vehículos que tengan GARMIN</value>
+  </data>
+  <data name="LAYER_ENTIDADES" xml:space="preserve">
+    <value>Puntos Remotos</value>
+  </data>
+  <data name="LAYER_SUBENTIDADES" xml:space="preserve">
+    <value>Medidores</value>
+  </data>
+  <data name="ULTIMO_REPORTE" xml:space="preserve">
+    <value>Ultimo Reporte</value>
+  </data>
+  <data name="PERIODO" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="SIM" xml:space="preserve">
+    <value>SIM</value>
+  </data>
+  <data name="ODOMETRO" xml:space="preserve">
+    <value>Odómetro</value>
+  </data>
+  <data name="MOVILES_EN_HORA" xml:space="preserve">
+    <value>Móviles en hora</value>
+  </data>
+  <data name="MOVILES_ADELANTADOS" xml:space="preserve">
+    <value>Móviles adelantados</value>
+  </data>
+  <data name="MOVILES_DEMORADOS" xml:space="preserve">
+    <value>Móviles atrasados</value>
+  </data>
+  <data name="MOVILES_EN_PLANTA" xml:space="preserve">
+    <value>Móviles en planta</value>
+  </data>
+  <data name="MOVILES_EN_CLIENTE" xml:space="preserve">
+    <value>Móviles en cliente</value>
+  </data>
+  <data name="MOVILES_EN_VIAJE" xml:space="preserve">
+    <value>Móviles en viaje</value>
+  </data>
+  <data name="DETALLES" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="ORDEN" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="ORDEN_REAL" xml:space="preserve">
+    <value>Orden Real</value>
+  </data>
+  <data name="ES_FILTRO" xml:space="preserve">
+    <value>Es filtro</value>
+  </data>
+  <data name="OBLIGATORIO" xml:space="preserve">
+    <value>Obligatorio</value>
+  </data>
+  <data name="MASCARA" xml:space="preserve">
+    <value>Máscara</value>
+  </data>
+  <data name="OPCIONES" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="REPRESENTACION" xml:space="preserve">
+    <value>Representación</value>
+  </data>
+  <data name="TEXTO" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="NUMERICO" xml:space="preserve">
+    <value>Numérico</value>
+  </data>
+  <data name="TEXTBOX" xml:space="preserve">
+    <value>TextBox</value>
+  </data>
+  <data name="LISTA" xml:space="preserve">
+    <value>Lista</value>
+  </data>
+  <data name="SELECCION_MULTIPLE" xml:space="preserve">
+    <value>Selección Multiple</value>
+  </data>
+  <data name="SI" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="DETALLE_PADRE" xml:space="preserve">
+    <value>Detalle Padre</value>
+  </data>
+  <data name="FORMATO_OPCIONES" xml:space="preserve">
+    <value>'#.Descripción' o '#.#.Descripción'</value>
+  </data>
+  <data name="CLASIFICACION" xml:space="preserve">
+    <value>Clasificación</value>
+  </data>
+  <data name="ALARMAS" xml:space="preserve">
+    <value>Alarmas</value>
+  </data>
+  <data name="ENTIDADES_ACTIVAS" xml:space="preserve">
+    <value>Puntos Remotos Activos</value>
+  </data>
+  <data name="ENTIDADES_INACTIVAS" xml:space="preserve">
+    <value>Puntos Remotos Inactivos</value>
+  </data>
+  <data name="ENTIDADES_CON_ALARMA" xml:space="preserve">
+    <value>Puntos Remotos con Alarma</value>
+  </data>
+  <data name="SIN_ALARMA" xml:space="preserve">
+    <value>Sin Alarmas</value>
+  </data>
+  <data name="ALARMAS_ENTIDAD" xml:space="preserve">
+    <value>Alarmas del punto remoto</value>
+  </data>
+  <data name="ALARMAS_SUBENTIDAD" xml:space="preserve">
+    <value>Alarmas del medidor</value>
+  </data>
+  <data name="DETALLE_ALARMAS" xml:space="preserve">
+    <value>Detalle de Alarmas</value>
+  </data>
+  <data name="SIN_DETALLE" xml:space="preserve">
+    <value>Sin Detalles</value>
+  </data>
+  <data name="DETALLES_ENTIDAD" xml:space="preserve">
+    <value>Detalles del punto remoto</value>
+  </data>
+  <data name="ENERGIA" xml:space="preserve">
+    <value>Energía</value>
+  </data>
+  <data name="DESCONGELAMIENTO" xml:space="preserve">
+    <value>Desc.</value>
+  </data>
+  <data name="AMBULANCIA" xml:space="preserve">
+    <value>Ambulancia</value>
+  </data>
+  <data name="BOMBEROS" xml:space="preserve">
+    <value>Bomberos</value>
+  </data>
+  <data name="VALOR_NUM_1" xml:space="preserve">
+    <value>Valor Númerico 1</value>
+  </data>
+  <data name="VALOR_NUM_2" xml:space="preserve">
+    <value>Valor Númerico 2</value>
+  </data>
+  <data name="VALOR_NUM1" xml:space="preserve">
+    <value>Valor Núm 1</value>
+  </data>
+  <data name="VALOR_NUM2" xml:space="preserve">
+    <value>Valor Núm 2</value>
+  </data>
+  <data name="VER_MONITOR_SUBENTIDADES" xml:space="preserve">
+    <value>Ver en Monitor de Medidores</value>
+  </data>
+  <data name="PLANO" xml:space="preserve">
+    <value>Plano</value>
+  </data>
+  <data name="TOTAL_ENTIDADES" xml:space="preserve">
+    <value>Puntos Remotos Totales</value>
+  </data>
+  <data name="SIN_ENTIDADES" xml:space="preserve">
+    <value>Sin Puntos Remotos</value>
+  </data>
+  <data name="AGREGAR_FILTRO" xml:space="preserve">
+    <value>Agregar Filtro</value>
+  </data>
+  <data name="OPERADOR" xml:space="preserve">
+    <value>Operador</value>
+  </data>
+  <data name="ELIMINAR" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="UNION_Y" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="UNION_O" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="IGUAL_A" xml:space="preserve">
+    <value>Igual a</value>
+  </data>
+  <data name="MAYOR_A" xml:space="preserve">
+    <value>Mayor a</value>
+  </data>
+  <data name="MENOR_A" xml:space="preserve">
+    <value>Menor a</value>
+  </data>
+  <data name="CONTIENE_A" xml:space="preserve">
+    <value>Contiene a</value>
+  </data>
+  <data name="VER_DIRECCIONES" xml:space="preserve">
+    <value>Ver Direcciones</value>
+  </data>
+  <data name="DOC_FIELDTYPE_BOOL" xml:space="preserve">
+    <value>Si/No</value>
+  </data>
+  <data name="SUPPORT_CAT_0_4_INSTALL" xml:space="preserve">
+    <value>Instalación</value>
+  </data>
+  <data name="SUPPORT_NRO_PARTE" xml:space="preserve">
+    <value>Nro Parte</value>
+  </data>
+  <data name="SUPPORT_CAT_0_5_UNINSTALL" xml:space="preserve">
+    <value>Desinstalación</value>
+  </data>
+  <data name="SUPPORT_CAT_0_6_REVISION" xml:space="preserve">
+    <value>Revision</value>
+  </data>
+  <data name="COSTO_MODELO" xml:space="preserve">
+    <value>Costo del Modelo ($)</value>
+  </data>
+  <data name="COSTO_LITRO" xml:space="preserve">
+    <value>Costo por Litro ($)</value>
+  </data>
+  <data name="VIDA_UTIL" xml:space="preserve">
+    <value>Vida Útil (años)</value>
+  </data>
+  <data name="RENDIMIENTO_RALENTI" xml:space="preserve">
+    <value>Rendimiento Ralenti (lit/h)</value>
+  </data>
+  <data name="DATOS_FACTURA" xml:space="preserve">
+    <value>Datos Factura</value>
+  </data>
+  <data name="ACTUALIZAR" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="KM" xml:space="preserve">
+    <value>Km</value>
+  </data>
+  <data name="KM_RECORRIDOS" xml:space="preserve">
+    <value>Km Recorridos</value>
+  </data>
+  <data name="KM_PRODUCTIVOS" xml:space="preserve">
+    <value>Km Productivos</value>
+  </data>
+  <data name="KM_IMPRODUCTIVOS" xml:space="preserve">
+    <value>Km Improductivos</value>
+  </data>
+  <data name="HS_MOVIMIENTO" xml:space="preserve">
+    <value>Horas en Movimiento</value>
+  </data>
+  <data name="HS_MARCHA" xml:space="preserve">
+    <value>Horas en Marcha</value>
+  </data>
+  <data name="HS_RALENTI" xml:space="preserve">
+    <value>Horas en Ralenti</value>
+  </data>
+  <data name="CONSUMO_$_NO_COMBUSTIBLE" xml:space="preserve">
+    <value>Costo Consumo (No Combustible)</value>
+  </data>
+  <data name="CONSUMO_$_COMBUSTIBLE" xml:space="preserve">
+    <value>Costo Consumo (Combustible)</value>
+  </data>
+  <data name="CONSUMO_$_TOTAL" xml:space="preserve">
+    <value>Costo Consumo Total</value>
+  </data>
+  <data name="COSTO_NO_COMBUSTIBLE_X_KM" xml:space="preserve">
+    <value>Costo Por Km (No Combustible)</value>
+  </data>
+  <data name="COSTO_COMBUSTIBLE_X_KM" xml:space="preserve">
+    <value>Costo Por Km (Combustible)</value>
+  </data>
+  <data name="COSTO_TOTAL_X_KM" xml:space="preserve">
+    <value>Costo Total Por Km</value>
+  </data>
+  <data name="COSTO_TOTAL_X_KM_PRODUCTIVO" xml:space="preserve">
+    <value>Costo Total Por Km Productivo</value>
+  </data>
+  <data name="LITROS_CARGADOS_COMBUSTIBLE" xml:space="preserve">
+    <value>Litros Cargados (Combustible)</value>
+  </data>
+  <data name="LITROS_CARGADOS" xml:space="preserve">
+    <value>Litros Cargados</value>
+  </data>
+  <data name="LITROS_DESPACHADOS" xml:space="preserve">
+    <value>Litros Despachados</value>
+  </data>
+  <data name="COSTO_PROMEDIO_LITRO" xml:space="preserve">
+    <value>Costo Promedio Por Litro</value>
+  </data>
+  <data name="LITROS_CONSUMIDOS" xml:space="preserve">
+    <value>Litros Consumidos (Km Recorridos x Rendimiento)</value>
+  </data>
+  <data name="LITROS_CONS" xml:space="preserve">
+    <value>Litros Consumidos</value>
+  </data>
+  <data name="LITROS_CALCULADOS" xml:space="preserve">
+    <value>Litros Calculados (Km Recorridos x Rendimiento)</value>
+  </data>
+  <data name="LITROS_X_KM" xml:space="preserve">
+    <value>Litros Por Km.</value>
+  </data>
+  <data name="LITROS_X_HORA" xml:space="preserve">
+    <value>Litros Por Hora de Marcha</value>
+  </data>
+  <data name="AMORTIZACION" xml:space="preserve">
+    <value>Amortización</value>
+  </data>
+  <data name="MES_CORRIENTE" xml:space="preserve">
+    <value>Mes Corriente</value>
+  </data>
+  <data name="ACUMULADO_ANUAL" xml:space="preserve">
+    <value>Acumulado Anual</value>
+  </data>
+  <data name="ACUMULADO_TOTAL" xml:space="preserve">
+    <value>Total Acumulado</value>
+  </data>
+  <data name="UTILIZA_TELEMETRIA" xml:space="preserve">
+    <value>Asociar a Punto Remoto</value>
+  </data>
+  <data name="CALCULAR" xml:space="preserve">
+    <value>Calcular</value>
+  </data>
+  <data name="CONTROLA_CONSUMOS" xml:space="preserve">
+    <value>Controla Consumos</value>
+  </data>
+  <data name="SEGUIMIENTO_PERSONA" xml:space="preserve">
+    <value>Usa Seguimiento de Personas</value>
+  </data>
+  <data name="SIMBOLO" xml:space="preserve">
+    <value>Símbolo</value>
+  </data>
+  <data name="NO_ES_VEHICULO" xml:space="preserve">
+    <value>No es Vehiculo</value>
+  </data>
+  <data name="ES_PUERTA" xml:space="preserve">
+    <value>Es control de acceso</value>
+  </data>
+  <data name="SOLO_HUERFANOS" xml:space="preserve">
+    <value>Sólo huerfanos</value>
+  </data>
+  <data name="VER_ELIMINADOS" xml:space="preserve">
+    <value>Ver eliminados</value>
+  </data>
+  <data name="ENTRO_A" xml:space="preserve">
+    <value>Entró a</value>
+  </data>
+  <data name="SALIO_DE" xml:space="preserve">
+    <value>Salió de</value>
+  </data>
+  <data name="TANQUE_PRINCIPAL" xml:space="preserve">
+    <value>Tanque Principal</value>
+  </data>
+  <data name="PARA_TANQUE_PRINCIPAL" xml:space="preserve">
+    <value>Aplica a Tanque Principal</value>
+  </data>
+  <data name="COMBUSTIBLE" xml:space="preserve">
+    <value>Combustible</value>
+  </data>
+  <data name="RENDIMIENTO_TEORICO" xml:space="preserve">
+    <value>Rendimiento Teórico</value>
+  </data>
+  <data name="RENDIMIENTO_REAL" xml:space="preserve">
+    <value>Rendimiento Real</value>
+  </data>
+  <data name="CONSUMO_X_KM" xml:space="preserve">
+    <value>Consumo por Km</value>
+  </data>
+  <data name="CONSUMO_X_M3" xml:space="preserve">
+    <value>Consumo por metro</value>
+  </data>
+  <data name="CONSUMO_X_VIAJE" xml:space="preserve">
+    <value>Consumo por viaje</value>
+  </data>
+  <data name="DESPACHO_ACUMULADO" xml:space="preserve">
+    <value>Despacho Acumulado</value>
+  </data>
+  <data name="PROMEDIO_MENSUAL" xml:space="preserve">
+    <value>Promedio Mensual</value>
+  </data>
+  <data name="CALCULAR_HORAS" xml:space="preserve">
+    <value>Calcular horarios</value>
+  </data>
+  <data name="TIEMPO_GEOCERCA" xml:space="preserve">
+    <value>Tiempo en Geocerca</value>
+  </data>
+  <data name="TIEMPO_VIAJE" xml:space="preserve">
+    <value>Tiempo de Viaje</value>
+  </data>
+  <data name="TIPODISTRI_DESORDENADA" xml:space="preserve">
+    <value>Desordenada</value>
+  </data>
+  <data name="TIPODISTRI_NORMAL" xml:space="preserve">
+    <value>Ordenada</value>
+  </data>
+  <data name="TIPODISTRI_RECORRIDO_FIJO" xml:space="preserve">
+    <value>Fijo</value>
+  </data>
+  <data name="COPIAR" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="USAR_RECORRIDO_PREDEFINIDO" xml:space="preserve">
+    <value>Usar un recorrido predefinido</value>
+  </data>
+  <data name="DESVIO" xml:space="preserve">
+    <value>Desvío</value>
+  </data>
+  <data name="METROS" xml:space="preserve">
+    <value>metros</value>
+  </data>
+  <data name="RETRASO" xml:space="preserve">
+    <value>Retraso</value>
+  </data>
+  <data name="TIEMPO_ENTREGA" xml:space="preserve">
+    <value>Tiempo de Entrega</value>
+  </data>
+  <data name="PROGRAMADO" xml:space="preserve">
+    <value>Programado</value>
+  </data>
+  <data name="KMS" xml:space="preserve">
+    <value>Kms</value>
+  </data>
+  <data name="VER_DESVIOS" xml:space="preserve">
+    <value>Ver Desvíos</value>
+  </data>
+  <data name="BUSCAR_EN_MENU" xml:space="preserve">
+    <value>Buscar en menu...</value>
+  </data>
+  <data name="MENU_SEARCH_NO_RESULTS" xml:space="preserve">
+    <value>No se encontraron resultados</value>
+  </data>
+  <data name="EN_CICLO" xml:space="preserve">
+    <value>En Ciclo</value>
+  </data>
+  <data name="VER_COLUMNAS_FILTRADAS" xml:space="preserve">
+    <value>Ver Columnas Filtradas</value>
+  </data>
+  <data name="HS_TOTALES" xml:space="preserve">
+    <value>Horas Totales</value>
+  </data>
+  <data name="EN_RALENTI" xml:space="preserve">
+    <value>En Ralenti</value>
+  </data>
+  <data name="HS_EN_VIAJE" xml:space="preserve">
+    <value>Horas en Viaje</value>
+  </data>
+  <data name="HS_EN_TIME_TRACKING" xml:space="preserve">
+    <value>Horas en Time Tracking</value>
+  </data>
+  <data name="HS_EN_TICKET" xml:space="preserve">
+    <value>Horas en Ticket</value>
+  </data>
+  <data name="VER_DETALLE_TURNOS" xml:space="preserve">
+    <value>Ver Detalle de Turnos</value>
+  </data>
+  <data name="VER_DETALLE_VIAJES" xml:space="preserve">
+    <value>Ver Detalle de Viajes</value>
+  </data>
+  <data name="VER_DETALLE_TIME_TRACKING" xml:space="preserve">
+    <value>Ver Detalle de Time Tracking</value>
+  </data>
+  <data name="VER_DETALLE_TICKETS" xml:space="preserve">
+    <value>Ver Detalle de Tickets</value>
+  </data>
+  <data name="KM_TOTALES" xml:space="preserve">
+    <value>Km Totales</value>
+  </data>
+  <data name="KM_TURNOS" xml:space="preserve">
+    <value>Km En Turnos</value>
+  </data>
+  <data name="KM_VIAJES" xml:space="preserve">
+    <value>Km En Viajes</value>
+  </data>
+  <data name="KM_TIME_TRACKING" xml:space="preserve">
+    <value>Km En Time Tracking</value>
+  </data>
+  <data name="KM_TICKETS" xml:space="preserve">
+    <value>Km En Tickets</value>
+  </data>
+  <data name="DEPOSITO_A_DEPOSITO" xml:space="preserve">
+    <value>Depósito a Depósito</value>
+  </data>
+  <data name="DEPOSITO_A_VEHICULO" xml:space="preserve">
+    <value>Depósito a Vehículo</value>
+  </data>
+  <data name="PROVEEDOR_A_DEPOSITO" xml:space="preserve">
+    <value>Proveedor a Depósito</value>
+  </data>
+  <data name="PROVEEDOR_A_VEHICULO" xml:space="preserve">
+    <value>Proveedor a Vehículo</value>
+  </data>
+  <data name="DEPOSITO_DESTINO" xml:space="preserve">
+    <value>Depósito Destino</value>
+  </data>
+  <data name="DEPOSITO_ORIGEN" xml:space="preserve">
+    <value>Depósito Origen</value>
+  </data>
+  <data name="STOCK_ACTUAL" xml:space="preserve">
+    <value>Stock Actual</value>
+  </data>
+  <data name="ULTIMA_REPOSICION" xml:space="preserve">
+    <value>Última Reposición</value>
+  </data>
+  <data name="ENVIAR_MENSAJE_A_MEDIDOR" xml:space="preserve">
+    <value>Enviar mensaje al medidor</value>
+  </data>
+  <data name="DIGITAL_OUTPUT_ON" xml:space="preserve">
+    <value>Salida Digital On</value>
+  </data>
+  <data name="DIGITAL_OUTPUT_OFF" xml:space="preserve">
+    <value>Salida Digital Off</value>
+  </data>
+  <data name="DEFAULT" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="DEMORA" xml:space="preserve">
+    <value>Demora</value>
+  </data>
+  <data name="TIEMPO_TOTAL" xml:space="preserve">
+    <value>Tiempo Total</value>
+  </data>
+  <data name="CONCEPTO" xml:space="preserve">
+    <value>Concepto</value>
+  </data>
+  <data name="CONTROLA_LIMITES" xml:space="preserve">
+    <value>Controla Límites</value>
+  </data>
+  <data name="ACELERACIONES" xml:space="preserve">
+    <value>Aceleraciones</value>
+  </data>
+  <data name="DESACELERACIONES" xml:space="preserve">
+    <value>Desaceleraciones</value>
+  </data>
+  <data name="DESCONEXIONES" xml:space="preserve">
+    <value>Desconexiones</value>
+  </data>
+  <data name="SCORE_ACELERACIONES" xml:space="preserve">
+    <value>Score Aceleraciones</value>
+  </data>
+  <data name="SCORE_DESACELERACIONES" xml:space="preserve">
+    <value>Score Desaceleraciones</value>
+  </data>
+  <data name="SCORE_DESCONEXIONES" xml:space="preserve">
+    <value>Score Desconexiones</value>
+  </data>
+  <data name="SCORE_INFRACCIONES" xml:space="preserve">
+    <value>Score Infracciones</value>
+  </data>
+  <data name="SCORE_TOTAL" xml:space="preserve">
+    <value>Score Total</value>
+  </data>
+  <data name="SCORE_VELOCIDAD" xml:space="preserve">
+    <value>Score Velocidad</value>
+  </data>
+  <data name="DESPACHO_X_KM" xml:space="preserve">
+    <value>Despacho por Km</value>
+  </data>
+  <data name="DESPACHO_X_M3" xml:space="preserve">
+    <value>Despacho por metro</value>
+  </data>
+  <data name="DESPACHO_X_VIAJE" xml:space="preserve">
+    <value>Despacho por viaje</value>
+  </data>
+  <data name="CONTROLAR_CICLO" xml:space="preserve">
+    <value>Controlar Ciclo Logístico</value>
+  </data>
+  <data name="ALARMA_ACTIVA" xml:space="preserve">
+    <value>Alarma Activa</value>
+  </data>
+  <data name="CAPACIDAD_MAXIMA" xml:space="preserve">
+    <value>Capacidad Máxima</value>
+  </data>
+  <data name="PUNTO_REPOSICION" xml:space="preserve">
+    <value>Punto de Reposición</value>
+  </data>
+  <data name="NIVEL_CRITICO" xml:space="preserve">
+    <value>Nivel Crítico</value>
+  </data>
+  <data name="DESPACHO" xml:space="preserve">
+    <value>Despacho</value>
+  </data>
+  <data name="PORCENTUAL" xml:space="preserve">
+    <value>Diferencia %</value>
+  </data>
+  <data name="USA_PREFIJO" xml:space="preserve">
+    <value>Usa prefijo</value>
+  </data>
+  <data name="OCULTAR_HUERFANOS" xml:space="preserve">
+    <value>Ocultar Huerfanos</value>
+  </data>
+  <data name="REGRESA_A_BASE" xml:space="preserve">
+    <value>Regresa a Base</value>
+  </data>
+  <data name="UBICACION" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="IGNORA_LOGICLINK" xml:space="preserve">
+    <value>Ignora actualización de LogicLink</value>
+  </data>
+  <data name="VER_ESQUINAS" xml:space="preserve">
+    <value>Ver Esquinas</value>
+  </data>
+  <data name="VER_DETALLE_INFRACCIONES" xml:space="preserve">
+    <value>Ver Detalle Infracciones</value>
+  </data>
+  <data name="Controlar" xml:space="preserve">
+    <value>Controlar</value>
+  </data>
+  <data name="Modificar" xml:space="preserve">
+    <value>Modificar</value>
+  </data>
+  <data name="IDA" xml:space="preserve">
+    <value>Ida</value>
+  </data>
+  <data name="RECORRIDO_CALCULADO" xml:space="preserve">
+    <value>Recorrido calculado</value>
+  </data>
+  <data name="RECORRIDO_REAL" xml:space="preserve">
+    <value>Recorrido real</value>
+  </data>
+  <data name="RECORRIDO_PROGRAMADO" xml:space="preserve">
+    <value>Recorrido programado</value>
+  </data>
+  <data name="VUELTA" xml:space="preserve">
+    <value>Vuelta</value>
+  </data>
+  <data name="CALCULADO" xml:space="preserve">
+    <value>Calculado</value>
+  </data>
+  <data name="CONTROLADO" xml:space="preserve">
+    <value>Controlado</value>
+  </data>
+  <data name="GPS" xml:space="preserve">
+    <value>Gps</value>
+  </data>
+  <data name="BASE_DESTINO" xml:space="preserve">
+    <value>Base Destino</value>
+  </data>
+  <data name="BASE_ORIGEN" xml:space="preserve">
+    <value>Base Origen</value>
+  </data>
+  <data name="DETENCION_MAYOR_A" xml:space="preserve">
+    <value>Detención mayor a</value>
+  </data>
+  <data name="DISTANCIA_MAYOR_A" xml:space="preserve">
+    <value>Distancia mayor a</value>
+  </data>
+  <data name="BALOON_FICHADA" xml:space="preserve">
+    <value>Lapso máximo de tiempo que se considera como una doble fichada. Se tomará la primera entrada y la última salida.</value>
+  </data>
+  <data name="BALOON_FIN_VIAJE" xml:space="preserve">
+    <value>Filtra los tramos con duraciones mayores a los minutos especificados</value>
+  </data>
+  <data name="BALOON_DISTANCIA" xml:space="preserve">
+    <value>Filtra los tramos con recorridos mayores a los metros especificados</value>
+  </data>
+  <data name="BALOON_DETENCION" xml:space="preserve">
+    <value>Filtra los tramos de detenciones mayores a los minutos especificados</value>
+  </data>
+  <data name="BALOON_POR_VENCER" xml:space="preserve">
+    <value>Filtra los odómetros que hayan superado la 1er alarma</value>
+  </data>
+  <data name="BALOON_PROD_VIAJE" xml:space="preserve">
+    <value>Km Improductivos: Recorrido realizado desde el inicio del viaje hasta el primer destino y desde el último destino hasta el fin del viaje. Km Productivos: Recorrido realizado desde el primer destino hasta el último.</value>
+  </data>
+  <data name="KILOMETROS_SIN_ACENTO" xml:space="preserve">
+    <value>Kilometros</value>
+  </data>
+  <data name="RUTA" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="ERRORES" xml:space="preserve">
+    <value>Errores</value>
+  </data>
+  <data name="RUTAS" xml:space="preserve">
+    <value>Rutas</value>
+  </data>
+  <data name="ENTREGA_STATE_NOCOMPLETADO" xml:space="preserve">
+    <value>No Realizado</value>
+  </data>
+  <data name="PERFILES" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
+  <data name="VALOR_FINAL" xml:space="preserve">
+    <value>Valor Final</value>
+  </data>
+  <data name="REFERENCIA" xml:space="preserve">
+    <value>Referencia</value>
+  </data>
+  <data name="POR_HORAS_EN_MARCHA" xml:space="preserve">
+    <value>Es por horas en marcha</value>
+  </data>
+  <data name="PRIORIDAD" xml:space="preserve">
+    <value>Prioridad</value>
+  </data>
+  <data name="ASIGNADAS" xml:space="preserve">
+    <value>Asignadas</value>
+  </data>
+  <data name="NO_ASIGNADAS" xml:space="preserve">
+    <value>No asignadas</value>
+  </data>
+  <data name="ENTRA_A" xml:space="preserve">
+    <value>Entra a</value>
+  </data>
+  <data name="SALE_A" xml:space="preserve">
+    <value>Sale a</value>
+  </data>
+  <data name="SIN_FICHAR" xml:space="preserve">
+    <value>Sin Fichar</value>
+  </data>
+  <data name="SIN_ZONA" xml:space="preserve">
+    <value>Sin Zona</value>
+  </data>
+  <data name="TIPO_FICHADA" xml:space="preserve">
+    <value>Tipo de Fichada</value>
+  </data>
+  <data name="HORAS_FICHADA" xml:space="preserve">
+    <value>Horas de Fichada</value>
+  </data>
+  <data name="EN_PERIODO" xml:space="preserve">
+    <value>En período</value>
+  </data>
+  <data name="VER_EVENTOS" xml:space="preserve">
+    <value>Ver eventos</value>
+  </data>
+  <data name="FLUJO" xml:space="preserve">
+    <value>Flujo</value>
+  </data>
+  <data name="TRASLADOS" xml:space="preserve">
+    <value>Traslados</value>
+  </data>
+  <data name="INACTIVIDAD" xml:space="preserve">
+    <value>Inactividad</value>
+  </data>
+  <data name="TAREA" xml:space="preserve">
+    <value>Tarea</value>
+  </data>
+  <data name="COMPLETADOS" xml:space="preserve">
+    <value>Completados</value>
+  </data>
+  <data name="NO_COMPLETADOS" xml:space="preserve">
+    <value>No Completados</value>
+  </data>
+  <data name="CANCELADOS" xml:space="preserve">
+    <value>Cancelados</value>
+  </data>
+  <data name="EN_CURSO" xml:space="preserve">
+    <value>En curso</value>
+  </data>
+  <data name="PENDIENTES" xml:space="preserve">
+    <value>Pendientes</value>
+  </data>
+  <data name="TOTAL_TRASLADOS" xml:space="preserve">
+    <value>Total Traslados</value>
+  </data>
+  <data name="TOTAL_INACTIVIDAD" xml:space="preserve">
+    <value>Total Inactividad</value>
+  </data>
+  <data name="TOTAL_TAREAS" xml:space="preserve">
+    <value>Total Tareas</value>
+  </data>
+  <data name="PORC_COMPLETADOS" xml:space="preserve">
+    <value>% Completados</value>
+  </data>
+  <data name="PORC_NO_COMPLETADOS" xml:space="preserve">
+    <value>% No Completados</value>
+  </data>
+  <data name="PORC_CANCELADOS" xml:space="preserve">
+    <value>% Cancelados</value>
+  </data>
+  <data name="PORC_EN_CURSO" xml:space="preserve">
+    <value>% En curso</value>
+  </data>
+  <data name="PORC_PENDIENTES" xml:space="preserve">
+    <value>% Pendientes</value>
+  </data>
+  <data name="ENTREGA" xml:space="preserve">
+    <value>Entrega</value>
+  </data>
+  <data name="APELLIDO" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="CODIGO_RUTA" xml:space="preserve">
+    <value>Código de Ruta</value>
+  </data>
+  <data name="SECUENCIA" xml:space="preserve">
+    <value>Secuencia</value>
+  </data>
+  <data name="CODIGO_PEDIDO" xml:space="preserve">
+    <value>Código de Pedido</value>
+  </data>
+  <data name="HORARIO" xml:space="preserve">
+    <value>Horario</value>
+  </data>
+  <data name="CODIGO_PUNTO_ENTREGA" xml:space="preserve">
+    <value>Código de Punto de Entrega</value>
+  </data>
+  <data name="IR_REPORTE_DE_EVENTOS" xml:space="preserve">
+    <value> Ir a reporte de eventos </value>
+  </data>
+  <data name="NOMBRE_PUNTO_ENTREGA" xml:space="preserve">
+    <value>Nombre del Punto de Entrega</value>
+  </data>
+  <data name="CONTROLA_PERMANENCIA" xml:space="preserve">
+    <value>Controla Permanencia</value>
+  </data>
+  <data name="CONTROLA_PERMANENCIA_ENTREGA" xml:space="preserve">
+    <value>Controla Permanencia en Ciclo Logístico</value>
+  </data>
+  <data name="MAXIMA_PERMANENCIA" xml:space="preserve">
+    <value>Máxima Permanencia (minutos)</value>
+  </data>
+  <data name="MAXIMA_PERMANENCIA_ENTREGA" xml:space="preserve">
+    <value>Máxima Permanencia en Ciclo Logístico (minutos)</value>
+  </data>
+  <data name="HORARIO_INICIO" xml:space="preserve">
+    <value>Horario de inicio de tareas</value>
+  </data>
+  <data name="INICO_AUTOMATICO" xml:space="preserve">
+    <value>Inicio automático de tareas</value>
+  </data>
+  <data name="GENERA_ENTREGAS" xml:space="preserve">
+    <value>Genera Entregas</value>
+  </data>
+  <data name="OBJETIVO" xml:space="preserve">
+    <value>Objetivo</value>
+  </data>
+  <data name="ANULAR" xml:space="preserve">
+    <value>Anular</value>
+  </data>
+  <data name="MOTIVO_ANULACION" xml:space="preserve">
+    <value>Motivo anulación</value>
+  </data>
+  <data name="REPORTA_RESPONSABLE_PARENTI04" xml:space="preserve">
+    <value>Reporta Responsable Departamento</value>
+  </data>
+  <data name="REPORTA_RESPONSABLE_PARENTI37" xml:space="preserve">
+    <value>Reporta Responsable Centro de Costos</value>
+  </data>
+  <data name="DATOS_SUBCENTRO" xml:space="preserve">
+    <value>Datos del Sub Centro de Costos</value>
+  </data>
+  <data name="UMBRAL_SALIDA" xml:space="preserve">
+    <value>Tiempo Máximo de Salida</value>
+  </data>
+  <data name="RESPONSABLE_DEPTO" xml:space="preserve">
+    <value>Responsable</value>
+  </data>
+  <data name="CODE_DISTRIBUCION" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="VER_DISTRIBUCION_GLOBAL" xml:space="preserve">
+    <value>Ver en Distribución Global de Entregas</value>
+  </data>
+  <data name="VER_MONITOR_ESTADO" xml:space="preserve">
+    <value>Ver en Monitor de Estado de Puntos de Entrega</value>
+  </data>
+  <data name="VER_MONITOR_CICLO" xml:space="preserve">
+    <value>Ver en Monitor de Ciclo Logístico</value>
+  </data>
+  <data name="SOBREESCRIBIR_PUNTO_ENTREGA" xml:space="preserve">
+    <value>Sobreescribir Punto de Entrega</value>
+  </data>
+  <data name="EDITAR_PUNTO_ENTREGA" xml:space="preserve">
+    <value>Editar Punto de Entrega</value>
+  </data>
+  <data name="IR_ESTADO_ENTREGAS" xml:space="preserve">
+    <value>Ir a Estado de Entregas</value>
+  </data>
+  <data name="POSICIONAR" xml:space="preserve">
+    <value>Posicionar</value>
+  </data>
+  <data name="VISITADOS" xml:space="preserve">
+    <value>Visitados</value>
+  </data>
+  <data name="NO_VISITADOS" xml:space="preserve">
+    <value>No Visitados</value>
+  </data>
+  <data name="PORC_VISITADOS" xml:space="preserve">
+    <value>% Visitados</value>
+  </data>
+  <data name="PORC_NO_VISITADOS" xml:space="preserve">
+    <value>% No Visitados</value>
+  </data>
+  <data name="PORC_EN_SITIO" xml:space="preserve">
+    <value>% En Sitio</value>
+  </data>
+  <data name="PORC_EN_ZONA" xml:space="preserve">
+    <value>% En Zona</value>
+  </data>
+  <data name="VER_ORDEN_MANUAL" xml:space="preserve">
+    <value>Ordenar por Manual</value>
+  </data>
+  <data name="RECEPCION" xml:space="preserve">
+    <value>Recepción</value>
+  </data>
+  <data name="COSTO" xml:space="preserve">
+    <value>Costo</value>
+  </data>
+  <data name="REALIZADO" xml:space="preserve">
+    <value>Realizado</value>
+  </data>
+  <data name="DE_CONFIRMACION" xml:space="preserve">
+    <value>De Confirmación</value>
+  </data>
+  <data name="DE_RECHAZO" xml:space="preserve">
+    <value>De Rechazo</value>
+  </data>
+  <data name="PROGRAMADO_ENTRE" xml:space="preserve">
+    <value>Programado entre</value>
+  </data>
+  <data name="PROMEDIO_MIN" xml:space="preserve">
+    <value>Promedio (min)</value>
+  </data>
+  <data name="PROMEDIO_HORA" xml:space="preserve">
+    <value>Promedio (horas)</value>
+  </data>
+  <data name="NO_NOMENCLADAS" xml:space="preserve">
+    <value>No Nomencladas</value>
+  </data>
+  <data name="TIPO" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="KM_EN_VIAJE" xml:space="preserve">
+    <value>Km en viaje</value>
+  </data>
+  <data name="KM_TOTALES_MENSUAL" xml:space="preserve">
+    <value>Km Totales (Mensual)</value>
+  </data>
+  <data name="KM_EN_VIAJE_MENSUAL" xml:space="preserve">
+    <value>Km en viaje (Mensual)</value>
+  </data>
+  <data name="KM_TOTAL_PROMEDIO" xml:space="preserve">
+    <value>Promedio diario de Km Totales</value>
+  </data>
+  <data name="KM_EN_VIAJE_PROMEDIO" xml:space="preserve">
+    <value>Promedio diario de Km en viaje</value>
+  </data>
+  <data name="KM_PRODUCTIVOS_MES" xml:space="preserve">
+    <value>Km Productivos (Mensual)</value>
+  </data>
+  <data name="KM_IMPRODUCTIVOS_MES" xml:space="preserve">
+    <value>Km Improductivos (Mensual)</value>
+  </data>
+  <data name="KM_PRODUCTIVOS_PROMEDIO" xml:space="preserve">
+    <value>Promedio diario de Km Productivos</value>
+  </data>
+  <data name="KM_IMPRODUCTIVOS_PROMEDIO" xml:space="preserve">
+    <value>Promedio diario de Km Improductivos</value>
+  </data>
+  <data name="TIEMPO_MOVIMIENTO_MES" xml:space="preserve">
+    <value>Tiempo en movimiento (Mensual)</value>
+  </data>
+  <data name="TIEMPO_MOVIMIENTO_PROMEDIO_DIARIO" xml:space="preserve">
+    <value>Promedio diario de Tiempo en movimiento</value>
+  </data>
+  <data name="ENTREGAS_TOTAL" xml:space="preserve">
+    <value>Total de entregas</value>
+  </data>
+  <data name="ENTREGAS_REALIZADAS" xml:space="preserve">
+    <value>Entregas Realizadas</value>
+  </data>
+  <data name="ENTREGAS_TOTAL_MES" xml:space="preserve">
+    <value>Total de entregas (Mensual)</value>
+  </data>
+  <data name="ENTREGAS_REALIZADAS_MES" xml:space="preserve">
+    <value>Entregas Realizadas (Mensual)</value>
+  </data>
+  <data name="ENTREGAS_TOTAL_PROMEDIO" xml:space="preserve">
+    <value>Promedio diario de Entregas</value>
+  </data>
+  <data name="ENTREGAS_REALIZADAS_PROMEDIO" xml:space="preserve">
+    <value>Promedio diario de Entregas Realizadas</value>
+  </data>
+  <data name="TIEMPO_MINIMO_DIA" xml:space="preserve">
+    <value>Tiempo mínimo de entrega del día</value>
+  </data>
+  <data name="TIEMPO_MAXIMO_DIA" xml:space="preserve">
+    <value>Tiempo máximo de entrega del día</value>
+  </data>
+  <data name="TIEMPO_MINIMO_MES" xml:space="preserve">
+    <value>Tiempo mínimo de entrega del mes</value>
+  </data>
+  <data name="TIEMPO_MAXIMO_MES" xml:space="preserve">
+    <value>Tiempo máximo de entrega del mes</value>
+  </data>
+  <data name="KM_PROGRAMADOS" xml:space="preserve">
+    <value>Km Programados</value>
+  </data>
+  <data name="ASOCIAR_VEHICULO" xml:space="preserve">
+    <value>Asociar vehículo</value>
+  </data>
+  <data name="DISTRIBUCION_COMBINAR" xml:space="preserve">
+    <value>Combinar</value>
+  </data>
+  <data name="TIEMPO_MOVIMIENTO_HORAS" xml:space="preserve">
+    <value>Tiempo en movimiento (Hs.)</value>
+  </data>
+  <data name="VIAJES" xml:space="preserve">
+    <value>Viajes</value>
+  </data>
+  <data name="VER_PENDIENTES" xml:space="preserve">
+    <value>Ver pendientes</value>
+  </data>
+  <data name="VIAJE_STATE_PENDIENTE" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="VIAJE_STATE_ENCURSO" xml:space="preserve">
+    <value>En Curso</value>
+  </data>
+  <data name="VIAJE_STATE_ANULADO" xml:space="preserve">
+    <value>Anulado</value>
+  </data>
+  <data name="VIAJE_STATE_CERRADO" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="TOTAL_RUTAS" xml:space="preserve">
+    <value>Rutas Totales</value>
+  </data>
+  <data name="CON_VEHICULO" xml:space="preserve">
+    <value>Con Vehículo</value>
+  </data>
+  <data name="SIN_VEHICULO" xml:space="preserve">
+    <value>Sin Vehículo</value>
+  </data>
+  <data name="INICIADAS" xml:space="preserve">
+    <value>Iniciadas</value>
+  </data>
+  <data name="SIN_INICIAR" xml:space="preserve">
+    <value>Sin Iniciar</value>
+  </data>
+  <data name="FINALIZADAS" xml:space="preserve">
+    <value>Finalizadas</value>
+  </data>
+  <data name="REALIZADOS" xml:space="preserve">
+    <value>Realizados</value>
+  </data>
+  <data name="EN_SITIO" xml:space="preserve">
+    <value>En Sitio</value>
+  </data>
+  <data name="EN_ZONA" xml:space="preserve">
+    <value>En Zona</value>
+  </data>
+  <data name="KM_REALES" xml:space="preserve">
+    <value>Km Reales</value>
+  </data>
+  <data name="KM_PROMEDIO" xml:space="preserve">
+    <value>Km Prom</value>
+  </data>
+  <data name="PRODUCTIVOS" xml:space="preserve">
+    <value>Productivos</value>
+  </data>
+  <data name="IMPRODUCTIVOS" xml:space="preserve">
+    <value>Improductivos</value>
+  </data>
+  <data name="PROGRAMADOS" xml:space="preserve">
+    <value>Programados</value>
+  </data>
+  <data name="TIEMPO_REAL" xml:space="preserve">
+    <value>Tiempo Real</value>
+  </data>
+  <data name="TIEMPO_PROMEDIO" xml:space="preserve">
+    <value>Tiempo Prom</value>
+  </data>
+  <data name="DIFERENCIA_MIN" xml:space="preserve">
+    <value>Dif. min.</value>
+  </data>
+  <data name="PORC_KM" xml:space="preserve">
+    <value>% km</value>
+  </data>
+  <data name="PORC_MIN" xml:space="preserve">
+    <value>% min</value>
+  </data>
+  <data name="FILTRAR_EN_RUTA" xml:space="preserve">
+    <value>Filtrar sólo en ruta</value>
+  </data>
+  <data name="PROG" xml:space="preserve">
+    <value>Prog.</value>
+  </data>
+  <data name="PROM" xml:space="preserve">
+    <value>Prom.</value>
+  </data>
+  <data name="REALIZADAS" xml:space="preserve">
+    <value>Realizadas</value>
+  </data>
+  <data name="ALTA" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="ORDEN_PROG" xml:space="preserve">
+    <value>Orden Prog.</value>
+  </data>
+  <data name="ASOCIAR_PUNTOS" xml:space="preserve">
+    <value>Asociar Puntos</value>
+  </data>
+  <data name="ASOCIACION_EXITOSA" xml:space="preserve">
+    <value>Asociación realizada exitosamente.</value>
+  </data>
+  <data name="ESTADO_RUTA" xml:space="preserve">
+    <value>Estado Ruta</value>
+  </data>
+  <data name="ESTADO_ENTREGA" xml:space="preserve">
+    <value>Estado Entrega</value>
+  </data>
+  <data name="EXCLUIR_MONITOR" xml:space="preserve">
+    <value>No mostrar en Monitor</value>
+  </data>
+  <data name="SOLO_ACTIVAS" xml:space="preserve">
+    <value>Sólo activas</value>
+  </data>
+  <data name="ULTIMA" xml:space="preserve">
+    <value>Última</value>
+  </data>
+  <data name="SIGUIENTE" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="NIVEL_COMPLEJIDAD" xml:space="preserve">
+    <value>Complejidad</value>
+  </data>
+  <data name="NIVEL_COMPLEJIDAD_BAJA" xml:space="preserve">
+    <value>Baja</value>
+  </data>
+  <data name="NIVEL_COMPLEJIDAD_MEDIA" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="NIVEL_COMPLEJIDAD_ALTA" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="NIVEL_COMPLEJIDAD_MUY_ALTA" xml:space="preserve">
+    <value>Muy alta</value>
+  </data>
+  <data name="TICKET_MANT_ESTADO" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="TICKET_MANT_INGRESADO" xml:space="preserve">
+    <value>Ingresado</value>
+  </data>
+  <data name="TICKET_MANT_APROBADO" xml:space="preserve">
+    <value>Aprobado</value>
+  </data>
+  <data name="TICKET_MANT_TERMINADO" xml:space="preserve">
+    <value>Terminado</value>
+  </data>
+  <data name="TICKET_MANT_ACEPTADO" xml:space="preserve">
+    <value>Aceptado</value>
+  </data>
+  <data name="TICKET_MANT_NO_ACEPTADO" xml:space="preserve">
+    <value>No aceptado</value>
+  </data>
+  <data name="TICKET_MANT_CANCELADO" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="NRO_PRESUPUESTO" xml:space="preserve">
+    <value>Nro. Presupuesto</value>
+  </data>
+  <data name="MONTO" xml:space="preserve">
+    <value>Monto</value>
+  </data>
+  <data name="PRIMER_PRESUPUESTO" xml:space="preserve">
+    <value>1er Presupuesto</value>
+  </data>
+  <data name="FECHA_TURNO" xml:space="preserve">
+    <value>Turno</value>
+  </data>
+  <data name="FECHA_RECEPCION" xml:space="preserve">
+    <value>Recepción</value>
+  </data>
+  <data name="FECHA_RECOTIZACION" xml:space="preserve">
+    <value>Recotización</value>
+  </data>
+  <data name="FECHA_APROBACION" xml:space="preserve">
+    <value>Aprobación</value>
+  </data>
+  <data name="FECHA_VERIFICACION" xml:space="preserve">
+    <value>Verificación</value>
+  </data>
+  <data name="FECHA_ENTREGA" xml:space="preserve">
+    <value>Entrega</value>
+  </data>
+  <data name="FECHA_TRABAJO_TERMINADO" xml:space="preserve">
+    <value>Trabajo Terminado</value>
+  </data>
+  <data name="FECHA_TRABAJO_ACEPTADO" xml:space="preserve">
+    <value>Trabajo Aceptado</value>
+  </data>
+  <data name="PRESUPUESTO_SIN_PRESUPUESTO" xml:space="preserve">
+    <value>Sin Presupuesto</value>
+  </data>
+  <data name="PRESUPUESTO_PRESUPUESTADO" xml:space="preserve">
+    <value>Presupuestado</value>
+  </data>
+  <data name="PRESUPUESTO_APROBADO" xml:space="preserve">
+    <value>Aprobado</value>
+  </data>
+  <data name="PRESUPUESTO_RECOTIZADO" xml:space="preserve">
+    <value>Recotizado</value>
+  </data>
+  <data name="PRESUPUESTO_TERMINADO" xml:space="preserve">
+    <value>Terminado</value>
+  </data>
+  <data name="PRESUPUESTO_CANCELADO" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="PRESUPUESTO_TERMINADO_SIN_APROBAR" xml:space="preserve">
+    <value>Terminado Sin Aprobar</value>
+  </data>
+  <data name="PRESUPUESTO_ACEPTADO_CLIENTE" xml:space="preserve">
+    <value>Aceptado Cliente</value>
+  </data>
+  <data name="PRESUPUESTO" xml:space="preserve">
+    <value>Presupuesto</value>
+  </data>
+  <data name="MODIFICADO" xml:space="preserve">
+    <value>Modificado</value>
+  </data>
+  <data name="INGRESO" xml:space="preserve">
+    <value>Ingreso</value>
+  </data>
+  <data name="EGRESO" xml:space="preserve">
+    <value>Egreso</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="MANTENIMIENTO" xml:space="preserve">
+    <value>Mantenimiento</value>
+  </data>
+  <data name="ES_TALLER" xml:space="preserve">
+    <value>Es Taller</value>
+  </data>
+  <data name="VALOR_REFERENCIA" xml:space="preserve">
+    <value>Valor de referencia</value>
+  </data>
+  <data name="INSUMO_COMBUSTIBLE" xml:space="preserve">
+    <value>Insumo combustible</value>
+  </data>
+  <data name="PROGRAMACION_DINAMICA" xml:space="preserve">
+    <value>Programación dinámica</value>
+  </data>
+  <data name="CONTROLAR_EN_VIAJES" xml:space="preserve">
+    <value>Controlar en viajes</value>
+  </data>
+  <data name="RECHAZADOS" xml:space="preserve">
+    <value>Rechazados</value>
+  </data>
+  <data name="VER_RECEPCION" xml:space="preserve">
+    <value>Ver recepción</value>
+  </data>
+  <data name="VER_KM" xml:space="preserve">
+    <value>Ver km </value>
+  </data>
+  <data name="VER_CONFIRMACION" xml:space="preserve">
+    <value>Ver confirmación</value>
+  </data>
+  <data name="CONFIRMACION" xml:space="preserve">
+    <value>Confirmación</value>
+  </data>
+  <data name="FECHA_ATENCION" xml:space="preserve">
+    <value>Fecha Atención</value>
+  </data>
+  <data name="ATENDIDO" xml:space="preserve">
+    <value>Atendido</value>
+  </data>
+  <data name="VER_ATENCIONES" xml:space="preserve">
+    <value>Ver atenciones</value>
+  </data>
+  <data name="MENSAJE_ATENCION" xml:space="preserve">
+    <value>Mensaje Atención</value>
+  </data>
+  <data name="DE_ATENCION" xml:space="preserve">
+    <value>De Atención</value>
+  </data>
+  <data name="REQUIERE_ATENCION" xml:space="preserve">
+    <value>Requiere Atención</value>
+  </data>
+  <data name="TOTALIZADOR" xml:space="preserve">
+    <value>Totalizador</value>
+  </data>
+  <data name="ESTADO_GPS" xml:space="preserve">
+    <value>Estado del GPS</value>
+  </data>
+  <data name="ESTADO_GARMIN" xml:space="preserve">
+    <value>Estado del GARMIN</value>
+  </data>
+  <data name="TICKET_EN_CURSO" xml:space="preserve">
+    <value>Ticket en curso</value>
+  </data>
+  <data name="READ_INACTIVE" xml:space="preserve">
+    <value>Lectura</value>
+  </data>
+  <data name="UNREAD_INACTIVE" xml:space="preserve">
+    <value>Recepción</value>
+  </data>
+  <data name="VER_INTERACCION_GARMIN" xml:space="preserve">
+    <value>Ver interacción Garmin</value>
+  </data>
+  <data name="VER_DESCRIPCION" xml:space="preserve">
+    <value>Ver descripción</value>
+  </data>
+  <data name="GARMIN_STOP_ETA_ARRIVAL" xml:space="preserve">
+    <value>Tiempo estimado de arribo al proximo punto de entrega: {0} ({1}).</value>
+  </data>
+  <data name="FILE_PATH" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="FILE_SOURCE" xml:space="preserve">
+    <value>Origen</value>
+  </data>
+  <data name="STRATEGY" xml:space="preserve">
+    <value>Estrategia</value>
+  </data>
+  <data name="DATE_ADDED" xml:space="preserve">
+    <value>Fecha de importación</value>
+  </data>
+  <data name="DATE_PROCESSED" xml:space="preserve">
+    <value>Fecha de procesamiento</value>
+  </data>
+  <data name="STATUS" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="RESULT" xml:space="preserve">
+    <value>Resultado</value>
+  </data>
+  <data name="SERVER_NAME" xml:space="preserve">
+    <value>Servidor</value>
+  </data>
+  <data name="PORCENTAJE" xml:space="preserve">
+    <value>Porcentaje</value>
+  </data>
+  <data name="BUSCAR_VIAJES" xml:space="preserve">
+    <value>Buscar Viajes</value>
+  </data>
+  <data name="CONSULTAR" xml:space="preserve">
+    <value>Consultar</value>
+  </data>
+  <data name="VEHICULOS_DISPONIBLES" xml:space="preserve">
+    <value>Vehículos Disponibles</value>
+  </data>
+  <data name="LIMITADO_AL_TURNO" xml:space="preserve">
+    <value>Limitado al Turno</value>
+  </data>
+  <data name="RESERVAR" xml:space="preserve">
+    <value>Reservar</value>
+  </data>
+  <data name="RECALCULAR_SIN_CERRAR" xml:space="preserve">
+    <value>Recalcular sin cerrar</value>
+  </data>
+  <data name="AGENDA_STATE_PENDIENTE" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="AGENDA_STATE_RESERVADO" xml:space="preserve">
+    <value>Reservado</value>
+  </data>
+  <data name="AGENDA_STATE_CANCELADO" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="AGENDA_STATE_CERRADO" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="CANCELAR_RESERVA" xml:space="preserve">
+    <value>Cancelar Reserva</value>
+  </data>
+  <data name="ASIGNACION" xml:space="preserve">
+    <value>Asignación</value>
+  </data>
+  <data name="PIN_HEXA" xml:space="preserve">
+    <value>PIN Hexadecimal</value>
+  </data>
+  <data name="TIEMPO_ENCENDIDO" xml:space="preserve">
+    <value>Tiempo Encendido</value>
+  </data>
+  <data name="TIEMPO_APAGADO" xml:space="preserve">
+    <value>Tiempo Apagado</value>
+  </data>
+  <data name="OCULTAR_SIN_INFORMACION" xml:space="preserve">
+    <value>Ocultar registros sin información</value>
+  </data>
+  <data name="KM_EN_RUTA" xml:space="preserve">
+    <value>Km en Ruta</value>
+  </data>
+  <data name="CALCULAR_KM_RECORRIDOS" xml:space="preserve">
+    <value>Calcular Kms Recorridos</value>
+  </data>
+  <data name="AGRUPADOR" xml:space="preserve">
+    <value>Agrupador</value>
+  </data>
+</root>

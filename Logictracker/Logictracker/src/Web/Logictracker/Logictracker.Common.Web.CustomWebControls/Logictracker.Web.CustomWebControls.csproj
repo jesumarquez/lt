@@ -1,0 +1,688 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C846F5C6-A001-45B8-9425-55112B77C89A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Web.CustomWebControls</RootNamespace>
+    <AssemblyName>Logictracker.Web.CustomWebControls</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/Urbetrack.CustomWebControls/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.20820.16598, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Web.UI.3, Version=3.5.20102.74, Culture=neutral, PublicKeyToken=9b75583953471eea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.UI.3.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Web.UI.Controls.3, Version=3.5.20113.220, Culture=neutral, PublicKeyToken=9b75583953471eea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.UI.Controls.3.dll</HintPath>
+    </Reference>
+    <Reference Include="ExtExtenders, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\ExtExtenders.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ajax\CustomScriptManager.cs" />
+    <Compile Include="Ajax\ResourceTextBoxWatermarkExtender.cs" />
+    <Compile Include="Ajax\SelectAllExtender.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\IPeriodoAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\ITipoDocumentoAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\ICaudalimetroAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\IDispositivoAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\IMensajeAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\IMovilAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\ITanqueAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\ITipoDispositivoAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\ICicloLogisticoAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\IAutoBindeable.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\IParentControl.cs" />
+    <Compile Include="BaseControls\CommonInterfaces\BussinessObjects\IEmpleadoAutoBindeable.cs" />
+    <Compile Include="BaseControls\DropDownCheckListBase.cs" />
+    <Compile Include="BaseControls\DropDownListBase.cs" />
+    <Compile Include="BaseControls\ListBoxBase.cs" />
+    <Compile Include="Binding\Tickets\BindingManager.cs" />
+    <Compile Include="Buttons\ResourceLinkButton.cs" />
+    <Compile Include="Buttons\ResourceRadioButton.cs" />
+    <Compile Include="Buttons\StatusButton.cs" />
+    <Compile Include="CheckBoxs\ResourceButtonList.cs" />
+    <Compile Include="CheckBoxs\ResourceCheckBox.cs" />
+    <Compile Include="Culture\CultureSelector.cs" />
+    <Compile Include="Buttons\ResourceButton.cs" />
+    <Compile Include="Culture\RegionalInformationDisplayer.cs" />
+    <Compile Include="CheckBoxLists\CheckListBox.cs" />
+    <Compile Include="DropDownCheckLists\CentroDeCostosDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\ClienteDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\ConfiguracionDispositivoDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\BocaDeCargaDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\TipoMensajeDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\PuertaDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\EmpleadoDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\TipoEmpleadoDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\DepartamentoDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\DispositivoDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\LocacionDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\MovilDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\PerfilDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\PlantaDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\TipoDeVehiculoDropDownCheckList.cs" />
+    <Compile Include="DropDownCheckLists\TransportistaDropDownCheckList.cs" />
+    <Compile Include="DropDownLists\ControlDeCombustible\MotivoConciliacionDropDownList.cs" />
+    <Compile Include="DropDownLists\ControlDeCombustible\TanqueDropDownList.cs" />
+    <Compile Include="DropDownLists\ControlDeCombustible\TipoMovimientoDropDownList.cs" />
+    <Compile Include="CheckBoxLists\DropDownCheckList.cs" />
+    <Compile Include="DropDownLists\CategoriaDropDownList.cs" />
+    <Compile Include="DropDownLists\CategoriaAccesoDropDownList.cs" />
+    <Compile Include="DropDownLists\TurnoDropDownList.cs" />
+    <Compile Include="DropDownLists\EstadoArchivoDropDownList.cs" />
+    <Compile Include="DropDownLists\DataMartDropDownList.cs" />
+    <Compile Include="DropDownLists\PerfilDropDownList.cs" />
+    <Compile Include="DropDownLists\TotalizadorDropDownList.cs" />
+    <Compile Include="DropDownLists\LogComponentDropDownList.cs" />
+    <Compile Include="DropDownLists\TallerDropDownList.cs" />
+    <Compile Include="DropDownLists\EstadoPresupuestoDropDownList.cs" />
+    <Compile Include="DropDownLists\EstadoTicketMantenimientoDropDownList.cs" />
+    <Compile Include="DropDownLists\NivelComplejidadDropDownList.cs" />
+    <Compile Include="DropDownLists\EstadoEntregaDistribucionDropDownList.cs" />
+    <Compile Include="DropDownLists\SubCentroDeCostosDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoDistribucionDropDownList.cs" />
+    <Compile Include="DropDownLists\ReferenciasGeograficas\TipoZonaDropDownList.cs" />
+    <Compile Include="DropDownLists\ZonaAccesoDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoZonaAccesoDropDownList.cs" />
+    <Compile Include="DropDownLists\SubcategoriaDropDownList.cs" />
+    <Compile Include="DropDownLists\NivelDropDownList.cs" />
+    <Compile Include="DropDownLists\Distribucion\TipoServicioCicloDropDownList.cs" />
+    <Compile Include="DropDownLists\TiposMovimientoDropDownList.cs" />
+    <Compile Include="DropDownLists\DepositoDropDownList.cs" />
+    <Compile Include="DropDownLists\RecorridoDropDownList.cs" />
+    <Compile Include="DropDownLists\PuertaDropDownList.cs" />
+    <Compile Include="DropDownLists\DepartamentoDropDownList.cs" />
+    <Compile Include="DropDownLists\PeriodoDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoVehiculoDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoProveedorDropDownList.cs" />
+    <Compile Include="DropDownLists\UnidadMedidaDropDownList.cs" />
+    <Compile Include="DropDownLists\OperadorDropDownList.cs" />
+    <Compile Include="DropDownLists\UnionDropDownList.cs" />
+    <Compile Include="DropDownLists\RepresentacionDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoDetalleDropDownList.cs" />
+    <Compile Include="DropDownLists\DetalleDropDownList.cs" />
+    <Compile Include="DropDownLists\PrecintoDropDownList.cs" />
+    <Compile Include="DropDownLists\SensorDropDownList.cs" />
+    <Compile Include="DropDownLists\SubEntidadDropDownList.cs" />
+    <Compile Include="DropDownLists\EntidadDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoMedicionDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoEntidadDropDownList.cs" />
+    <Compile Include="DropDownLists\LineaTelefonicaDropDownList.cs" />
+    <Compile Include="DropDownLists\PlanDropDownList.cs" />
+    <Compile Include="DropDownLists\UnidadMedidaDatosDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoLineaTelefonicaDropDownList.cs" />
+    <Compile Include="DropDownLists\EmpresaTelefonicaDropDownList.cs" />
+    <Compile Include="DropDownLists\ProductoDropDownList.cs" />
+    <Compile Include="DropDownLists\ModeloDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoInsumoDropDownList.cs" />
+    <Compile Include="DropDownLists\InsumoDropDownList.cs" />
+    <Compile Include="DropDownLists\ProveedorDropDownList.cs" />
+    <Compile Include="DropDownLists\LogModuleDropDownList.cs" />
+    <Compile Include="DropDownLists\LogTypeDropDownList.cs" />
+    <Compile Include="DropDownLists\MensajesDropDownList.cs" />
+    <Compile Include="DropDownLists\PuntoDeEntregaDropDownList.cs" />
+    <Compile Include="DropDownLists\ReferenciaGeograficaDropDownList.cs" />
+    <Compile Include="DropDownLists\Tickets\CicloLogisticoDropDownList.cs" />
+    <Compile Include="DropDownLists\Tickets\BocaDeCargaDropDownList.cs" />
+    <Compile Include="DropDownLists\Tickets\EstadosPedidoDropDownList.cs" />
+    <Compile Include="DropDownLists\Tickets\TipoDetalleCicloDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoDispositivoDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoDocumentoDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoValidacionDropDownList.cs" />
+    <Compile Include="DropDownLists\UsuarioDropDownList.cs" />
+    <Compile Include="Helpers\ScriptHelper.cs" />
+    <Compile Include="HiddenFields\OwnerExtender.cs" />
+    <Compile Include="Input\DateTimePicker.cs" />
+    <Compile Include="Input\DateTimeRangeValidator.cs" />
+    <Compile Include="Input\DynamicHelp.cs" />
+    <Compile Include="Input\ResourceWatermarkExtender.cs" />
+    <Compile Include="Input\SecuredTextBox.cs">
+    </Compile>
+    <Compile Include="Labels\OnlineClock.cs" />
+    <Compile Include="Labels\Popup\BaloonTip.cs" />
+    <Compile Include="Labels\RevisionLabel.cs" />
+    <Compile Include="ListBoxs\ClienteListBox.cs" />
+    <Compile Include="ListBoxs\CentroDeCostosListBox.cs" />
+    <Compile Include="ListBoxs\CategoriaListBox.cs" />
+    <Compile Include="ListBoxs\CategoriaAccesoListBox.cs" />
+    <Compile Include="ListBoxs\EstadoViajeDistribucionListBox.cs" />
+    <Compile Include="ListBoxs\SubCentroDeCostosListBox.cs" />
+    <Compile Include="ListBoxs\PuertaListBox.cs" />
+    <Compile Include="ListBoxs\ZonaAccesoListBox.cs" />
+    <Compile Include="ListBoxs\TipoZonaAccesoListBox.cs" />
+    <Compile Include="ListBoxs\EstadoEntregaDistribucionListBox.cs" />
+    <Compile Include="ListBoxs\InsumoListBox.cs" />
+    <Compile Include="ListBoxs\NivelListBox.cs" />
+    <Compile Include="ListBoxs\SubCategoriaListBox.cs" />
+    <Compile Include="ListBoxs\EstadoTicketSoporteListBox.cs" />
+    <Compile Include="ListBoxs\DepositoListBox.cs" />
+    <Compile Include="ListBoxs\TipoProveedorListBox.cs" />
+    <Compile Include="ListBoxs\ProveedorListBox.cs" />
+    <Compile Include="ListBoxs\DepartamentoListBox.cs" />
+    <Compile Include="ListBoxs\SubEntidadListBox.cs" />
+    <Compile Include="ListBoxs\EntidadListBox.cs" />
+    <Compile Include="ListBoxs\TicketListBox.cs" />
+    <Compile Include="ListBoxs\ImageListBox.cs" />
+    <Compile Include="DropDownLists\TipoEmpleadoDropDownList.cs" />
+    <Compile Include="Labels\InfoLabel.cs" />
+    <Compile Include="Labels\ProgressLabel.cs" />
+    <Compile Include="Labels\ResourceLabel.cs" />
+    <Compile Include="DropDownLists\ResourceGroupDropDownList.cs" />
+    <Compile Include="DropDownLists\ClienteDropDownList.cs" />
+    <Compile Include="DropDownLists\CentroDeCostosDropDownList.cs" />
+    <Compile Include="DropDownLists\EquipoDropDownList.cs" />
+    <Compile Include="DropDownLists\EstadoTicketDropDownList.cs" />
+    <Compile Include="DropDownLists\MenuResourcesDropDownList.cs" />
+    <Compile Include="DropDownLists\TimeZoneDropDownList.cs" />
+    <Compile Include="DropDownLists\TransportistaDropDownList.cs" />
+    <Compile Include="DropDownLists\EmpleadoDropDownList.cs" />
+    <Compile Include="DropDownLists\DispositivoDropDownList.cs" />
+    <Compile Include="DropDownLists\EstadoChocesDropDownList.cs" />
+    <Compile Include="DropDownLists\EstadoDispositivosDropDownList.cs" />
+    <Compile Include="DropDownLists\FirmwareDropDownList.cs" />
+    <Compile Include="DropDownLists\LocacionDropDownList.cs" />
+    <Compile Include="DropDownLists\MarcaDropDownList.cs" />
+    <Compile Include="DropDownLists\MensajeLogisticoDropDownList.cs" />
+    <Compile Include="DropDownLists\MensajeOrigenDropDownList.cs" />
+    <Compile Include="DropDownLists\TarjetaDropDownList.cs" />
+    <Compile Include="DropDownCheckLists\TipoDispositivoDropDownCheckList.cs" />
+    <Compile Include="Binding\BindingManager.cs" />
+    <Compile Include="HiddenFields\SizeHiddenField.cs" />
+    <Compile Include="LayoutRegions\ResourceLayoutRegion.cs" />
+    <Compile Include="ListBoxs\EmpleadoListBox.cs" />
+    <Compile Include="ListBoxs\DispositivoListBox.cs" />
+    <Compile Include="ListBoxs\LocacionListBox.cs" />
+    <Compile Include="ListBoxs\MensajesListBox.cs" />
+    <Compile Include="DropDownLists\MovilDropDownList.cs" />
+    <Compile Include="ListBoxs\MotorListBox.cs" />
+    <Compile Include="ListBoxs\MovilListBox.cs" />
+    <Compile Include="ListBoxs\OdometroListBox.cs" />
+    <Compile Include="ListBoxs\PerfilesListBox.cs" />
+    <Compile Include="DropDownLists\PlantaDropDownList.cs" />
+    <Compile Include="ListBoxs\PlantaListBox.cs" />
+    <Compile Include="ListBoxs\POIsListBox.cs" />
+    <Compile Include="ListBoxs\TanqueListBox.cs" />
+    <Compile Include="ListBoxs\TipoDocumentoListBox.cs" />
+    <Compile Include="ListBoxs\TipoEmpleadoListBox.cs" />
+    <Compile Include="ListBoxs\TipoReferenciaGeograficaListBox.cs" />
+    <Compile Include="ListBoxs\TipoParametroDispositivoListBox.cs" />
+    <Compile Include="ListBoxs\TipoVehiculoListBox.cs" />
+    <Compile Include="ListBoxs\TransportistasListBox.cs" />
+    <Compile Include="Panels\AbmTabPanel.cs" />
+    <Compile Include="Panels\AbmTitledPanel.cs" />
+    <Compile Include="Panels\ParameterPanel.cs" />
+    <Compile Include="Panels\PopupPanel.cs">
+    </Compile>
+    <Compile Include="Panels\ResourcePanel.cs" />
+    <Compile Include="Panels\SecuredPanel.cs">
+    </Compile>
+    <Compile Include="Panels\TitledPanel.cs" />
+    <Compile Include="DropDownLists\SonidoDropDownList.cs" />
+    <Compile Include="DropDownLists\SubSistemaDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoDeVehiculoDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoReferenciaGeograficaDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoLogisticoDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoMensajeDropDownList.cs" />
+    <Compile Include="DropDownLists\TiposFuncionDropDownList.cs" />
+    <Compile Include="DropDownLists\TipoUsuarioDropDownList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolBar\TitleBar.cs" />
+    <Compile Include="ToolBar\ToolBar.cs" />
+    <Compile Include="ToolBar\ToolBarButton.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\CicloLogisticoDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\ClienteDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\CentroDeCostoDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\EmpleadoDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\EquipoDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\MensajeDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\MovilDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\TanqueDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\BussinessObjects\TransportistaDropDownListWrapper.cs" />
+    <Compile Include="Wrappers\DropDownLists\DropDownListBaseWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
+      <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
+      <Name>Logictracker.Culture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Web\Logictracker.Common.Web\Logictracker.Web.csproj">
+      <Project>{327F6143-1118-4881-8C79-5F0913F63F6B}</Project>
+      <Name>Logictracker.Web %28FrontEnd\Web\Common\Logictracker.Web%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web.Helpers\Logictracker.Web.Helpers.csproj">
+      <Project>{F954C2AA-9080-4EA0-B753-3164D2F96787}</Project>
+      <Name>Logictracker.Web.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolBar\add.png" />
+    <EmbeddedResource Include="ToolBar\copy.png" />
+    <EmbeddedResource Include="ToolBar\delete.png" />
+    <EmbeddedResource Include="ToolBar\disk.png" />
+    <EmbeddedResource Include="ToolBar\map.png" />
+    <EmbeddedResource Include="ToolBar\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolBar\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ajax\WebKitHack.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Culture\flags\ar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Culture\flags\co.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Culture\flags\ve.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ListBoxs\ImageListBox.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Input\DateTimePicker.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Input\calendar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolBar\csv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Input\DateTimeRangeValidator.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Culture\flags\br.gif" />
+    <EmbeddedResource Include="Culture\flags\us.gif" />
+    <EmbeddedResource Include="Culture\flags\ad.gif" />
+    <EmbeddedResource Include="Culture\flags\ae.gif" />
+    <EmbeddedResource Include="Culture\flags\af.gif" />
+    <EmbeddedResource Include="Culture\flags\ag.gif" />
+    <EmbeddedResource Include="Culture\flags\ai.gif" />
+    <EmbeddedResource Include="Culture\flags\al.gif" />
+    <EmbeddedResource Include="Culture\flags\am.gif" />
+    <EmbeddedResource Include="Culture\flags\an.gif" />
+    <EmbeddedResource Include="Culture\flags\ao.gif" />
+    <EmbeddedResource Include="Culture\flags\as.gif" />
+    <EmbeddedResource Include="Culture\flags\at.gif" />
+    <EmbeddedResource Include="Culture\flags\au.gif" />
+    <EmbeddedResource Include="Culture\flags\aw.gif" />
+    <EmbeddedResource Include="Culture\flags\ax.gif" />
+    <EmbeddedResource Include="Culture\flags\az.gif" />
+    <EmbeddedResource Include="Culture\flags\ba.gif" />
+    <EmbeddedResource Include="Culture\flags\bb.gif" />
+    <EmbeddedResource Include="Culture\flags\bd.gif" />
+    <EmbeddedResource Include="Culture\flags\be.gif" />
+    <EmbeddedResource Include="Culture\flags\bf.gif" />
+    <EmbeddedResource Include="Culture\flags\bg.gif" />
+    <EmbeddedResource Include="Culture\flags\bh.gif" />
+    <EmbeddedResource Include="Culture\flags\bi.gif" />
+    <EmbeddedResource Include="Culture\flags\bj.gif" />
+    <EmbeddedResource Include="Culture\flags\bm.gif" />
+    <EmbeddedResource Include="Culture\flags\bn.gif" />
+    <EmbeddedResource Include="Culture\flags\bo.gif" />
+    <EmbeddedResource Include="Culture\flags\bs.gif" />
+    <EmbeddedResource Include="Culture\flags\bt.gif" />
+    <EmbeddedResource Include="Culture\flags\bv.gif" />
+    <EmbeddedResource Include="Culture\flags\bw.gif" />
+    <EmbeddedResource Include="Culture\flags\by.gif" />
+    <EmbeddedResource Include="Culture\flags\bz.gif" />
+    <EmbeddedResource Include="Culture\flags\ca.gif" />
+    <EmbeddedResource Include="Culture\flags\catalonia.gif" />
+    <EmbeddedResource Include="Culture\flags\cc.gif" />
+    <EmbeddedResource Include="Culture\flags\cd.gif" />
+    <EmbeddedResource Include="Culture\flags\cf.gif" />
+    <EmbeddedResource Include="Culture\flags\cg.gif" />
+    <EmbeddedResource Include="Culture\flags\ch.gif" />
+    <EmbeddedResource Include="Culture\flags\ci.gif" />
+    <EmbeddedResource Include="Culture\flags\ck.gif" />
+    <EmbeddedResource Include="Culture\flags\cl.gif" />
+    <EmbeddedResource Include="Culture\flags\cm.gif" />
+    <EmbeddedResource Include="Culture\flags\cn.gif" />
+    <EmbeddedResource Include="Culture\flags\cr.gif" />
+    <EmbeddedResource Include="Culture\flags\cs.gif" />
+    <EmbeddedResource Include="Culture\flags\cu.gif" />
+    <EmbeddedResource Include="Culture\flags\cv.gif" />
+    <EmbeddedResource Include="Culture\flags\cx.gif" />
+    <EmbeddedResource Include="Culture\flags\cy.gif" />
+    <EmbeddedResource Include="Culture\flags\cz.gif" />
+    <EmbeddedResource Include="Culture\flags\de.gif" />
+    <EmbeddedResource Include="Culture\flags\dj.gif" />
+    <EmbeddedResource Include="Culture\flags\dk.gif" />
+    <EmbeddedResource Include="Culture\flags\dm.gif" />
+    <EmbeddedResource Include="Culture\flags\do.gif" />
+    <EmbeddedResource Include="Culture\flags\dz.gif" />
+    <EmbeddedResource Include="Culture\flags\ec.gif" />
+    <EmbeddedResource Include="Culture\flags\ee.gif" />
+    <EmbeddedResource Include="Culture\flags\eg.gif" />
+    <EmbeddedResource Include="Culture\flags\eh.gif" />
+    <EmbeddedResource Include="Culture\flags\england.gif" />
+    <EmbeddedResource Include="Culture\flags\er.gif" />
+    <EmbeddedResource Include="Culture\flags\es.gif" />
+    <EmbeddedResource Include="Culture\flags\et.gif" />
+    <EmbeddedResource Include="Culture\flags\europeanunion.gif" />
+    <EmbeddedResource Include="Culture\flags\fam.gif" />
+    <EmbeddedResource Include="Culture\flags\fi.gif" />
+    <EmbeddedResource Include="Culture\flags\fj.gif" />
+    <EmbeddedResource Include="Culture\flags\fk.gif" />
+    <EmbeddedResource Include="Culture\flags\fm.gif" />
+    <EmbeddedResource Include="Culture\flags\fo.gif" />
+    <EmbeddedResource Include="Culture\flags\fr.gif" />
+    <EmbeddedResource Include="Culture\flags\ga.gif" />
+    <EmbeddedResource Include="Culture\flags\gb.gif" />
+    <EmbeddedResource Include="Culture\flags\gd.gif" />
+    <EmbeddedResource Include="Culture\flags\ge.gif" />
+    <EmbeddedResource Include="Culture\flags\gf.gif" />
+    <EmbeddedResource Include="Culture\flags\gh.gif" />
+    <EmbeddedResource Include="Culture\flags\gi.gif" />
+    <EmbeddedResource Include="Culture\flags\gl.gif" />
+    <EmbeddedResource Include="Culture\flags\gm.gif" />
+    <EmbeddedResource Include="Culture\flags\gn.gif" />
+    <EmbeddedResource Include="Culture\flags\gp.gif" />
+    <EmbeddedResource Include="Culture\flags\gq.gif" />
+    <EmbeddedResource Include="Culture\flags\gr.gif" />
+    <EmbeddedResource Include="Culture\flags\gs.gif" />
+    <EmbeddedResource Include="Culture\flags\gt.gif" />
+    <EmbeddedResource Include="Culture\flags\gu.gif" />
+    <EmbeddedResource Include="Culture\flags\gw.gif" />
+    <EmbeddedResource Include="Culture\flags\gy.gif" />
+    <EmbeddedResource Include="Culture\flags\hk.gif" />
+    <EmbeddedResource Include="Culture\flags\hm.gif" />
+    <EmbeddedResource Include="Culture\flags\hn.gif" />
+    <EmbeddedResource Include="Culture\flags\hr.gif" />
+    <EmbeddedResource Include="Culture\flags\ht.gif" />
+    <EmbeddedResource Include="Culture\flags\hu.gif" />
+    <EmbeddedResource Include="Culture\flags\id.gif" />
+    <EmbeddedResource Include="Culture\flags\ie.gif" />
+    <EmbeddedResource Include="Culture\flags\il.gif" />
+    <EmbeddedResource Include="Culture\flags\in.gif" />
+    <EmbeddedResource Include="Culture\flags\io.gif" />
+    <EmbeddedResource Include="Culture\flags\iq.gif" />
+    <EmbeddedResource Include="Culture\flags\ir.gif" />
+    <EmbeddedResource Include="Culture\flags\is.gif" />
+    <EmbeddedResource Include="Culture\flags\it.gif" />
+    <EmbeddedResource Include="Culture\flags\jm.gif" />
+    <EmbeddedResource Include="Culture\flags\jo.gif" />
+    <EmbeddedResource Include="Culture\flags\jp.gif" />
+    <EmbeddedResource Include="Culture\flags\ke.gif" />
+    <EmbeddedResource Include="Culture\flags\kg.gif" />
+    <EmbeddedResource Include="Culture\flags\kh.gif" />
+    <EmbeddedResource Include="Culture\flags\ki.gif" />
+    <EmbeddedResource Include="Culture\flags\km.gif" />
+    <EmbeddedResource Include="Culture\flags\kn.gif" />
+    <EmbeddedResource Include="Culture\flags\kp.gif" />
+    <EmbeddedResource Include="Culture\flags\kr.gif" />
+    <EmbeddedResource Include="Culture\flags\kw.gif" />
+    <EmbeddedResource Include="Culture\flags\ky.gif" />
+    <EmbeddedResource Include="Culture\flags\kz.gif" />
+    <EmbeddedResource Include="Culture\flags\la.gif" />
+    <EmbeddedResource Include="Culture\flags\lb.gif" />
+    <EmbeddedResource Include="Culture\flags\lc.gif" />
+    <EmbeddedResource Include="Culture\flags\li.gif" />
+    <EmbeddedResource Include="Culture\flags\lk.gif" />
+    <EmbeddedResource Include="Culture\flags\lr.gif" />
+    <EmbeddedResource Include="Culture\flags\ls.gif" />
+    <EmbeddedResource Include="Culture\flags\lt.gif" />
+    <EmbeddedResource Include="Culture\flags\lu.gif" />
+    <EmbeddedResource Include="Culture\flags\lv.gif" />
+    <EmbeddedResource Include="Culture\flags\ly.gif" />
+    <EmbeddedResource Include="Culture\flags\ma.gif" />
+    <EmbeddedResource Include="Culture\flags\mc.gif" />
+    <EmbeddedResource Include="Culture\flags\md.gif" />
+    <EmbeddedResource Include="Culture\flags\me.gif" />
+    <EmbeddedResource Include="Culture\flags\mg.gif" />
+    <EmbeddedResource Include="Culture\flags\mh.gif" />
+    <EmbeddedResource Include="Culture\flags\mk.gif" />
+    <EmbeddedResource Include="Culture\flags\ml.gif" />
+    <EmbeddedResource Include="Culture\flags\mm.gif" />
+    <EmbeddedResource Include="Culture\flags\mn.gif" />
+    <EmbeddedResource Include="Culture\flags\mo.gif" />
+    <EmbeddedResource Include="Culture\flags\mp.gif" />
+    <EmbeddedResource Include="Culture\flags\mq.gif" />
+    <EmbeddedResource Include="Culture\flags\mr.gif" />
+    <EmbeddedResource Include="Culture\flags\ms.gif" />
+    <EmbeddedResource Include="Culture\flags\mt.gif" />
+    <EmbeddedResource Include="Culture\flags\mu.gif" />
+    <EmbeddedResource Include="Culture\flags\mv.gif" />
+    <EmbeddedResource Include="Culture\flags\mw.gif" />
+    <EmbeddedResource Include="Culture\flags\mx.gif" />
+    <EmbeddedResource Include="Culture\flags\my.gif" />
+    <EmbeddedResource Include="Culture\flags\mz.gif" />
+    <EmbeddedResource Include="Culture\flags\na.gif" />
+    <EmbeddedResource Include="Culture\flags\nc.gif" />
+    <EmbeddedResource Include="Culture\flags\ne.gif" />
+    <EmbeddedResource Include="Culture\flags\nf.gif" />
+    <EmbeddedResource Include="Culture\flags\ng.gif" />
+    <EmbeddedResource Include="Culture\flags\ni.gif" />
+    <EmbeddedResource Include="Culture\flags\nl.gif" />
+    <EmbeddedResource Include="Culture\flags\no.gif" />
+    <EmbeddedResource Include="Culture\flags\np.gif" />
+    <EmbeddedResource Include="Culture\flags\nr.gif" />
+    <EmbeddedResource Include="Culture\flags\nu.gif" />
+    <EmbeddedResource Include="Culture\flags\nz.gif" />
+    <EmbeddedResource Include="Culture\flags\om.gif" />
+    <EmbeddedResource Include="Culture\flags\pa.gif" />
+    <EmbeddedResource Include="Culture\flags\pe.gif" />
+    <EmbeddedResource Include="Culture\flags\pf.gif" />
+    <EmbeddedResource Include="Culture\flags\pg.gif" />
+    <EmbeddedResource Include="Culture\flags\ph.gif" />
+    <EmbeddedResource Include="Culture\flags\pk.gif" />
+    <EmbeddedResource Include="Culture\flags\pl.gif" />
+    <EmbeddedResource Include="Culture\flags\pm.gif" />
+    <EmbeddedResource Include="Culture\flags\pn.gif" />
+    <EmbeddedResource Include="Culture\flags\pr.gif" />
+    <EmbeddedResource Include="Culture\flags\ps.gif" />
+    <EmbeddedResource Include="Culture\flags\pt.gif" />
+    <EmbeddedResource Include="Culture\flags\pw.gif" />
+    <EmbeddedResource Include="Culture\flags\py.gif" />
+    <EmbeddedResource Include="Culture\flags\qa.gif" />
+    <EmbeddedResource Include="Culture\flags\re.gif" />
+    <EmbeddedResource Include="Culture\flags\ro.gif" />
+    <EmbeddedResource Include="Culture\flags\rs.gif" />
+    <EmbeddedResource Include="Culture\flags\ru.gif" />
+    <EmbeddedResource Include="Culture\flags\rw.gif" />
+    <EmbeddedResource Include="Culture\flags\sa.gif" />
+    <EmbeddedResource Include="Culture\flags\sb.gif" />
+    <EmbeddedResource Include="Culture\flags\sc.gif" />
+    <EmbeddedResource Include="Culture\flags\scotland.gif" />
+    <EmbeddedResource Include="Culture\flags\sd.gif" />
+    <EmbeddedResource Include="Culture\flags\se.gif" />
+    <EmbeddedResource Include="Culture\flags\sg.gif" />
+    <EmbeddedResource Include="Culture\flags\sh.gif" />
+    <EmbeddedResource Include="Culture\flags\si.gif" />
+    <EmbeddedResource Include="Culture\flags\sj.gif" />
+    <EmbeddedResource Include="Culture\flags\sk.gif" />
+    <EmbeddedResource Include="Culture\flags\sl.gif" />
+    <EmbeddedResource Include="Culture\flags\sm.gif" />
+    <EmbeddedResource Include="Culture\flags\sn.gif" />
+    <EmbeddedResource Include="Culture\flags\so.gif" />
+    <EmbeddedResource Include="Culture\flags\sr.gif" />
+    <EmbeddedResource Include="Culture\flags\st.gif" />
+    <EmbeddedResource Include="Culture\flags\sv.gif" />
+    <EmbeddedResource Include="Culture\flags\sy.gif" />
+    <EmbeddedResource Include="Culture\flags\sz.gif" />
+    <EmbeddedResource Include="Culture\flags\tc.gif" />
+    <EmbeddedResource Include="Culture\flags\td.gif" />
+    <EmbeddedResource Include="Culture\flags\tf.gif" />
+    <EmbeddedResource Include="Culture\flags\tg.gif" />
+    <EmbeddedResource Include="Culture\flags\th.gif" />
+    <EmbeddedResource Include="Culture\flags\tj.gif" />
+    <EmbeddedResource Include="Culture\flags\tk.gif" />
+    <EmbeddedResource Include="Culture\flags\tl.gif" />
+    <EmbeddedResource Include="Culture\flags\tm.gif" />
+    <EmbeddedResource Include="Culture\flags\tn.gif" />
+    <EmbeddedResource Include="Culture\flags\to.gif" />
+    <EmbeddedResource Include="Culture\flags\tr.gif" />
+    <EmbeddedResource Include="Culture\flags\tt.gif" />
+    <EmbeddedResource Include="Culture\flags\tv.gif" />
+    <EmbeddedResource Include="Culture\flags\tw.gif" />
+    <EmbeddedResource Include="Culture\flags\tz.gif" />
+    <EmbeddedResource Include="Culture\flags\ua.gif" />
+    <EmbeddedResource Include="Culture\flags\ug.gif" />
+    <EmbeddedResource Include="Culture\flags\um.gif" />
+    <EmbeddedResource Include="Culture\flags\uy.gif" />
+    <EmbeddedResource Include="Culture\flags\uz.gif" />
+    <EmbeddedResource Include="Culture\flags\va.gif" />
+    <EmbeddedResource Include="Culture\flags\vc.gif" />
+    <EmbeddedResource Include="Culture\flags\vg.gif" />
+    <EmbeddedResource Include="Culture\flags\vi.gif" />
+    <EmbeddedResource Include="Culture\flags\vn.gif" />
+    <EmbeddedResource Include="Culture\flags\vu.gif" />
+    <EmbeddedResource Include="Culture\flags\wales.gif" />
+    <EmbeddedResource Include="Culture\flags\wf.gif" />
+    <EmbeddedResource Include="Culture\flags\ws.gif" />
+    <EmbeddedResource Include="Culture\flags\ye.gif" />
+    <EmbeddedResource Include="Culture\flags\yt.gif" />
+    <EmbeddedResource Include="Culture\flags\za.gif" />
+    <EmbeddedResource Include="Culture\flags\zm.gif" />
+    <EmbeddedResource Include="Culture\flags\zw.gif" />
+    <EmbeddedResource Include="Labels\Popup\baloontip.css" />
+    <EmbeddedResource Include="Labels\Popup\baloontip.js" />
+    <EmbeddedResource Include="Labels\Popup\help.png" />
+    <EmbeddedResource Include="Buttons\connected.png" />
+    <EmbeddedResource Include="Buttons\disconnected.png" />
+    <EmbeddedResource Include="ToolBar\event.png" />
+    <EmbeddedResource Include="ToolBar\anular.png" />
+    <EmbeddedResource Include="ToolBar\start.png" />
+    <EmbeddedResource Include="ToolBar\schedule.png" />
+    <EmbeddedResource Include="ToolBar\regenerate.png" />
+    <EmbeddedResource Include="ToolBar\import.png" />
+    <EmbeddedResource Include="ToolBar\spliter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Labels\version.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolBar\excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ToolBar\edit.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

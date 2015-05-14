@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Support.Nivel,Logictracker.Types" table="[aud.aud_sup_05_tbl_nivel]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_audsup05" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="audsup05_codigo" type="String" name="Codigo" />
+    <property column="audsup05_descripcion" type="String" name="Descripcion" />
+    <property column="audsup05_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    
+  </class>
+</hibernate-mapping>

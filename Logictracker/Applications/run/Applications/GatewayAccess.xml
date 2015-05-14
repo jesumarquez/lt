@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application	xmlns="http://walks.ath.cx/framework"
+                xmlns:x="http://walks.ath.cx/statics"
+                xmlns:g="http://walks.ath.cx/generics"
+				RunMode="WinService">
+
+	<Resources>
+		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_access" Transactional="true" Recoverable="true" />
+	</Resources>
+
+	<StackChannel>
+		<AccessInterface />
+		<MessageDispatcher>
+			<MessageHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+		</MessageDispatcher>
+	</StackChannel>
+
+</Application>

@@ -1,0 +1,18 @@
+# UrbeMobile, para Windows Mobile 5
+# Termina el Gateway de UrbeMobile
+
+Include (loggin.mscr)
+ErrorLevel ( "off" )
+
+#UMPATH="\Archivos de programa\Urbetrack Mobile\"
+UMPATH="\Program Files\Urbetrack Mobile\"
+STATUSFILE = "\Program Files\Urbetrack Mobile\UP.TXT"
+
+UMPROC="urbemobile.exe"
+UMBIN=UMPATH & UMPROC
+UMSEEDFILE=UMPATH & "wdseed.txt"
+UMRSTFILE=UMPATH & "wdrst.txt"
+
+WriteFile( UMRSTFILE , "CLOSE")
+Kill ( UMBIN )
+

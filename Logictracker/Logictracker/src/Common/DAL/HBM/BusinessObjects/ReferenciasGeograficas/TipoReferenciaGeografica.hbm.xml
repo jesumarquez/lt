@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.TipoReferenciaGeografica,Logictracker.Types" table="parenti10" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti10" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti10_codigo" name="Codigo" length="10" />
+    <property column="parenti10_descri" name="Descripcion" not-null="true" length="48" />
+    <property column="parenti10_controla_velocidad" name="ControlaVelocidad" not-null="true" />
+    <property column="parenti10_controla_entrada_salida" name="ControlaEntradaSalida" not-null="true" />
+    <property column="parenti10_es_zona_riesgo" name="EsZonaDeRiesgo" not-null="true" />
+    <property column="parenti10_inhibe_alarma" name="InhibeAlarma" not-null="true" />
+    <property column="parenti10_timetrack_inicio" name="EsInicio" not-null="true" />
+    <property column="parenti10_timetrack_intermedio" name="EsIntermedio" not-null="true" />
+    <property column="parenti10_timetrack_fin" name="EsFin" not-null="true" />
+
+    <property column="parenti10_controla_permanencia" name="ControlaPermanencia" />
+    <property column="parenti10_controla_permanencia_entrega" name="ControlaPermanenciaEntrega" />
+    <property column="parenti10_maxima_permanencia" name="MaximaPermanencia" />
+    <property column="parenti10_maxima_permanencia_entrega" name="MaximaPermanenciaEntrega" />
+    
+    <property column="parenti10_baja" name="Baja" not-null="true" />
+    <property column="parenti10_excluir_monitor" name="ExcluirMonitor" />
+    <property column="parenti10_es_taller" name="EsTaller" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti11" name="Icono" lazy="proxy" />
+
+    <component name="Color">
+      <property column="parent10_red" name="Red" />
+      <property column="parent10_green" name="Green" />
+      <property column="parent10_blue" name="Blue" />
+    </component>
+
+    <component name="Vigencia">
+      <property column="parent10_vigencia_desde" type="DateTime" not-null="false" name="Inicio" />
+      <property column="parent10_vigencia_hasta" type="DateTime" not-null="false" name="Fin" />
+    </component>
+
+    <set name="_velocidades" access="field" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_parenti10" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.TipoReferenciaVelocidad,Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

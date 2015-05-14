@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Usuario.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Usuario,Logictracker.Types" table="socusua01" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_socusua01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="socusua01_usuario" type="String" name="NombreUsuario" not-null="true" length="32" />
+    <property column="socusua01_clave" type="String" name="Clave" not-null="true" length="128" />
+    <property column="socusua01_falta" type="DateTime" name="FechaAlta" not-null="false" />
+    <property column="socusua01_fbaja" type="DateTime" name="FechaBaja" not-null="false" />
+    <property column="socusua01_tipo" type="Int16" name="Tipo" not-null="true" />
+    <property column="socusua01_theme" type="String" name="Theme" />
+    <property column="socusua01_logo" type="String" name="Logo" />
+    <property column="socusua01_culture" type="String" name="Culture" />
+    <property column="socusua01_time_zone_id" type="String" name="TimeZoneId" />
+    <property column="socusua01_client" type="String" name="Client" />
+
+    <property column="socus01_portransportista" type="Boolean" name="PorTransportista" not-null="true" />
+    <property column="socus01_porcoche" type="Boolean" name="PorCoche" not-null="true" />
+    <property column="socus01_porempresa" type="Boolean" name="PorEmpresa" not-null="true" />
+    <property column="socus01_porlinea" type="Boolean" name="PorLinea" not-null="true" />
+    <property column="socus01_inhabilitar" type="Boolean" name="Inhabilitado" not-null="true" />
+    <property column="socus01_fecha_expiracion" type="DateTime" name="FechaExpiracion" not-null="false" />
+    <property column="socus01_mostrar_sin_transportista" type="Boolean" name="MostrarSinTransportista" />
+    <property column="socus01_porcentrocostos" type="Boolean" name="PorCentroCostos" not-null="true" />
+    <property column="socus01_portipomensaje" type="Boolean" name="PorTipoMensaje" />
+    <property column="socus01_inhabilitado_cambiar_pass" type="Boolean" name="InhabilitadoCambiarPass" not-null="true" />
+    <property column="socu01_inhabilitado_cambiar_uso" type="Boolean" name="InhabilitadoCambiarUso" not-null="true" />
+
+    <many-to-one name="Entidad" column="rela_socusua05" cascade="all-delete-orphan" lazy="proxy" />
+
+    <set name="_perfiles" access="field" table="socusua06" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <many-to-many column="rela_socusua02" class="Logictracker.Types.BusinessObjects.Perfil, Logictracker.Types" />
+    </set>
+
+    <set name="_coches" access="field" table="socusua04" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <many-to-many column="rela_parenti03" class="Logictracker.Types.BusinessObjects.Vehiculos.Coche, Logictracker.Types" />
+    </set>
+
+    <set name="_empresas" access="field" table="socusua10" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <many-to-many column="rela_parenti01" class="Logictracker.Types.BusinessObjects.Empresa, Logictracker.Types" />
+    </set>
+
+    <set name="_lineas" access="field" table="socusua11" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <many-to-many column="rela_parenti02" class="Logictracker.Types.BusinessObjects.Linea, Logictracker.Types" />
+    </set>
+
+    <set name="_transportistas" access="field" table="socusua09" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <many-to-many column="rela_parenti07" class="Logictracker.Types.BusinessObjects.Transportista, Logictracker.Types" />
+    </set>
+
+    <set name="_centrosCostos" access="field" table="socusua12" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <many-to-many column="rela_parenti37" class="Logictracker.Types.BusinessObjects.CentroDeCostos, Logictracker.Types" />
+    </set>
+
+    <set name="_tiposMensaje" access="field" table="socusua14" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <many-to-many column="rela_parenti16" class="Logictracker.Types.BusinessObjects.Messages.TipoMensaje, Logictracker.Types" />
+    </set>
+
+    <set name="_ipRanges" access="field" inverse="true" cascade="all-delete-orphan" lazy="false">
+      <cache usage="read-write" />
+      <key column="rela_socusua01" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.IpRange,Logictracker.Types" />
+    </set>
+
+      <bag name="Parametros"
+                table="[soc.soc_usua_13_det_paramusuario]"
+                order-by="socusua13_parametro ASC"
+                inverse="true"
+                cascade="all-delete-orphan">
+          <key column="rela_socusua01" />
+          <one-to-many class="Logictracker.Types.BusinessObjects.Organizacion.ParametroUsuario, Logictracker.Types" />
+      </bag>
+      
+  </class>
+</hibernate-mapping>

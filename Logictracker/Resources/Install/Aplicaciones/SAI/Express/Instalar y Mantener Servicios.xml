@@ -1,0 +1,20 @@
+<Application	xmlns="http://walks.ath.cx/framework"
+				xmlns:x="http://walks.ath.cx/statics"
+				xmlns:fe="http://walks.ath.cx/frontend">
+
+	<Resources fe:Label="Recursos de Instalacion">
+		<FailureAction x:Key="restartServiceAction" RecoverAction="3" Delay="300"/>
+	</Resources>
+
+	<WinServiceGroup x:Key="winServiceGroup" fe:Label="Urbetrack EXPRESS 2.0" ServiceNamePrefix="Urbetrack.Express$" AutomaticInstall="true" AutomaticUpdate="true" AutomaticUninstall="true" Purge="false">
+
+		<WinService HostApplication="Applications\GatewayTorino.xml"         ServiceName="Gateway Torino"      DisplayName="0 - Gateway Sai"      Description="Gateway Sai"      StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400"/>
+		<WinService HostApplication="Applications\GatewayTrax.xml"           ServiceName="Gateway Trax"     DisplayName="0 - Gateway Trax"     Description="Gateway Trax"     StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400"/>
+		<WinService HostApplication="Applications\GatewayFulmar.xml"         ServiceName="Gateway Fulmar"   DisplayName="0 - Gateway Fulmar"   Description="Gateway Fulmar"   StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400"/>
+		<WinService HostApplication="Applications\DispatcherFulmar.xml"      ServiceName="Dispatcher Fulmar" DisplayName="1 - Dispatcher Fulmar" Description="Dispatcher Fulmar" StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400"/>
+		<WinService HostApplication="Applications\DispatcherTrax.xml"        ServiceName="Dispatcher Trax" DisplayName="1 - Dispatcher Trax" Description="Dispatcher Trax" StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400"/>
+		<WinService HostApplication="Applications\DispatcherTorino.xml"      ServiceName="Dispatcher Torino"   DisplayName="1 - Dispatcher Torino"   Description="Dispatcher Torino"   StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400"/>
+		<WinService HostApplication="Applications\Scheduler.xml"      ServiceName="Scheduler"        DisplayName="2 - Scheduler"        Description="Scheduler"        StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400"/>
+
+	</WinServiceGroup>
+</Application>

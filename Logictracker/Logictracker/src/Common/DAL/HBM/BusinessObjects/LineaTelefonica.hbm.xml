@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.LineaTelefonica,Logictracker.Types" table="parenti74" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti74" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti74_numero_linea" type="String" name="NumeroLinea" />
+    <property column="parenti74_imei" type="String" name="Imei" />
+    <property column="parenti74_baja" type="Boolean" name="Baja" />
+
+    <set name="_vigencias" access="field" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_parenti74" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.VigenciaPlanLinea,Logictracker.Types" />
+    </set>
+    
+  </class>
+</hibernate-mapping>

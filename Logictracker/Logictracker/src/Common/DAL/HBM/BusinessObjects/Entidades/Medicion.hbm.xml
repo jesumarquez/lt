@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Entidades.Medicion,Logictracker.Types" table="opemedi01" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opemedi01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opemedi01_fecha_alta" type="DateTime" name="FechaAlta" />
+    <property column="opemedi01_fecha_med" type="DateTime" name="FechaMedicion" />
+    <property column="opemedi01_valor" type="String" name="Valor" />
+    <property column="opemedi01_valor_num_1" name="ValorNum1" />
+    <property column="opemedi01_valor_num_2" name="ValorNum2" />
+        
+    <many-to-one column="rela_parenti08" name="Dispositivo" lazy="proxy" />
+    <many-to-one column="rela_parenti77" name="TipoMedicion" lazy="proxy" />
+    <many-to-one column="rela_parenti80" name="Sensor" lazy="proxy" />
+    <many-to-one column="rela_parenti81" name="SubEntidad" lazy="proxy" />
+    
+  </class>
+</hibernate-mapping>

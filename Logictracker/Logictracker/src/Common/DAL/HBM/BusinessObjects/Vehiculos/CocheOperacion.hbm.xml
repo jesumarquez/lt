@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Coche.hbm.xml 164 2006-08-30 16:04:49Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.Vehiculos.CocheOperacion,Logictracker.Types" table="opeenti03" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_opeenti03" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <property column="opeenti03_fecha_inicio" name="FechaInicio" />
+        <property column="opeenti03_costo_km_historico" name="CostoKmHistorico" />
+        <property column="opeenti03_costo_km_ultimo_mes" name="CostoKmUltimoMes" />
+        <property column="opeenti03_costo_km_ultimo_anio" name="CostoKmUltimoAnio" />
+        <property column="opeenti03_costo_dia_historico" name="CostoDiaHistorico" />
+        <property column="opeenti03_costo_ultimo_mes" name="CostoUltimoMes" />
+        <property column="opeenti03_costo_mes_historico" name="CostoMesHistorico" />
+        <property column="opeenti03_rendimiento" name="Rendimiento" />
+        <property column="opeenti03_ultimo_control_consumo" name="UltimoControlConsumo" />
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Zona,Logictracker.Types" table="parenti89" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti89" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti89_descripcion" type="String" name="Descripcion" />
+    <property column="parenti89_codigo" type="String" name="Codigo" />
+    <property column="parenti89_prioridad" type="Int32" name="Prioridad" />
+    <property column="parenti89_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti93" name="TipoZona" lazy="proxy" />
+    
+    <set name="_referencias" access="field" table="parenti90" lazy="true" cascade="all">
+      <cache usage="read-write" />
+      <key column="rela_parenti89" />
+      <many-to-many column="rela_parenti05" class="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.ReferenciaGeografica,Logictracker.Types" />
+    </set>
+    
+  </class>
+</hibernate-mapping>

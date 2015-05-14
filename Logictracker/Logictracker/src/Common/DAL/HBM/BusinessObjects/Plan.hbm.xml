@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Plan,Logictracker.Types" table="parenti73" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti73" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti73_tipo_linea" type="Int32" name="TipoLinea" />
+    <property column="parenti73_empresa" type="Int32" name="Empresa" />
+    <property column="parenti73_codigo_abono" type="String" name="CodigoAbono" />
+    <property column="parenti73_costo_mensual" name="CostoMensual" />
+    <property column="parenti73_abono_datos" type="Int32" name="AbonoDatos" />
+    <property column="parenti73_unidad_medida" type="Int32" name="UnidadMedida" />
+    <property column="parenti73_baja" type="Boolean" name="Baja" />
+
+  </class>
+</hibernate-mapping>

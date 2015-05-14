@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Vehiculos.Odometro,Logictracker.Types" table="parenti40" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti40" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti40_descripcion" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="parenti40_por_km" type="Boolean" name="PorKm" not-null="true" />
+    <property column="parenti40_referencia_km" type="Double" name="ReferenciaKm" not-null="true" />
+    <property column="parenti40_por_tiempo" type="Boolean" name="PorTiempo" not-null="true" />
+    <property column="parenti40_referencia_tiempo" type="Int32" name="ReferenciaTiempo" not-null="true" />
+    <property column="parenti40_por_horas" type="Boolean" name="PorHoras" />
+    <property column="parenti40_referencia_horas" type="Double" name="ReferenciaHoras" />
+    <property column="parenti40_es_iterativo" type="Boolean" name="EsIterativo" not-null="true" />
+    <property column="pae40_reseteable" type="Boolean" name="EsReseteable" not-null="true" />
+
+    <property column="parenti40_alarma1_km" type="Double" name="Alarma1Km" not-null="true" />
+    <property column="parenti40_alarma1_tiempo" type="Int32" name="Alarma1Tiempo" not-null="true" />
+    <property column="parenti40_alarma1_horas" type="Double" name="Alarma1Horas" />
+    <property column="paren40_alarma1_red" type="System.Byte" name="Alarma1Red" />
+    <property column="paren40_alarma1_green" type="System.Byte" name="Alarma1Green" />
+    <property column="paren40_alarma1_blue" type="System.Byte" name="Alarma1Blue" />
+
+    <property column="paren40_alarma2_km" type="Double" name="Alarma2Km" not-null="true" />
+    <property column="paren40_alarma2_tiempo" type="Int32" name="Alarma2Tiempo" not-null="true" />
+    <property column="parenti40_alarma2_horas" type="Double" name="Alarma2Horas" />
+    <property column="paren40_alarma2_red" type="System.Byte" name="Alarma2Red" />
+    <property column="paren40_alarma2_green" type="System.Byte" name="Alarma2Green" />
+    <property column="paren40_alarma2_blue" type="System.Byte" name="Alarma2Blue" />
+    
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti58" name="Insumo" lazy="proxy" />
+
+    <set name="_tiposDeVehiculo" access="field" table="parenti41" lazy="true" cascade="all">
+      <cache usage="read-write" />
+      <key column="rela_parenti40" />
+      <many-to-many class="Logictracker.Types.BusinessObjects.Vehiculos.TipoCoche,Logictracker.Types" column="rela_parenti17" />
+    </set>
+  </class>
+</hibernate-mapping>

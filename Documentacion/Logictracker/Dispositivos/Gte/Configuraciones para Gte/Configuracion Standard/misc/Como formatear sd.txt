@@ -1,0 +1,38 @@
+si tenemos aca el dispo al que hay q cargarle un qtree:
+---------------
+
+--borrar el flag de query de particion de sd para poder formatear
+>SUV29*<
+>SUVU55AA<
+
+>SRS0 115200,C<                      											conviene modifcar la velocidad del puerto serie
+>QSDF<					             											preguntar password, el dispo responde: >RSDF,dtgvftfvttfdt<
+>SSDF,0E3C17DC|G1,3072000,FULLPAIS|I0,12800,PICTURES|M,8192000,REPORTES<		crear particiones PARA USAR TODA UNA SD DE 2 GIGAS
+>QSDG1,U<                            											Consultar el Código de seguridad para poder desbloquear la escritura, El equipo responde : >RSDG1,Ukkkkkkkk<
+>SSDG1,Ukkkkkkkk<                    											desbloquear escritura
+
+
+
+
+--------------
+explicacion
+--------------
+
+
+tamaño sd de prueba: 1876 Mb == 1967128576 bytes
+
+las particiones se expresan en multiplos de:
+
+I0 (imagenes) 8k bytes, 240000 == 1875 megas, 12800 == 100 megas
+G1 (geogrilla) 512 bytes, 3072000 == 1500 megas
+M (reportes) cantidad de "espacios", 1 espacio ocupa 32 bytes, un reporte PI ocupa 1 espacio, un reporte personalizado ocupa 4 espacios, 61440000 == 1966080000 == 1875 megas, 8192000 (3 meses aprox) == 250 megas
+
+todos lo mas grande posible cada uno, excepto Geogrilla, Geogrilla (G1): 1500mb, Imagenes (I0): 1875mb, Reportes (M): 1875mb, no se puede todos juntos por que solo tenemos 2 gigas
+>SSDF,894EA30B|G1,3072000,FULLPAIS|I0,240000,PICTURES|M,61440000,REPORTES<
+
+Geogrilla (G1): 1500mb, Imagenes (I0): 100mb, Reportes (M): 250mb
+>SSDF,0E3C17DC|G1,3072000,FULLPAIS|I0,12800,PICTURES|M,8192000,REPORTES<
+
+
+>QSDM,S< estado sdm
+>QDL-5<  pide ultimos 5 reportes del log interno

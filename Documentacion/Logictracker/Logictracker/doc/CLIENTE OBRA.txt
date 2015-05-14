@@ -1,0 +1,28 @@
+CLIENTE
+-----------
+codigo
+descripcion
+descripcion_corta
+fk -> domicilio
+domicilio_legacy_cod_provincia
+domicilio_legacy_cod_partido
+domicilio_legacy_cod_localidad
+domicilio_legacy_calle
+domicilio_legacy_altura
+domicilio_esvalido
+
+
+OBRA
+-----------
+codigo
+descripcion
+descripcion_corta
+cliente
+planta
+fk -> domicilio
+domicilio_legacy_cod_provincia
+domicilio_legacy_cod_partido
+domicilio_legacy_cod_localidad
+domicilio_legacy_calle
+domicilio_legacy_altura
+domicilio_esvalido

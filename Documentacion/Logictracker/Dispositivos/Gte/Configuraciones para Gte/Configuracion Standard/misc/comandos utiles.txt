@@ -1,0 +1,52 @@
+formatear sd para guardar posicioones
+>SSDF,|M,99701792,reportes<		DEJO UN POCO DE ESPACIO POR SI QUIERO PONER GEOGRILLAS O ALGO MAS DESPUES, 150000 X 2 (150 MEGAS)
+
+
+Turn off garmin PVT Data
+------------------------
+>SFM.,0A023200<
+
+Poner Urbetrack como texto del fleet management
+-----------------------------------------------
+>SFM.,A11040020000000055726265747261636B00<
+
+geogrillas
+----------
+-QSDF<						obtener password de SD
+-SSDF,|G1,3800000,TestMap<			crear una particion para la geogrilla #1 de 1855.46875 Megas llamada TestMap
+
+-QSDG1,U<
+-SSDG1,U.....<
+
+conectar por tcp a fota
+-----------------------
+>STC0 190.2.37.141,5050,65535,65535<
+>STC0C<
+
+
+Pide el historial a partir del primer registro a tal fecha
+----------------------------------------------------------
+>QDLP,R00F0,Iddmmaa<
+
+Turn on garmin fleet management
+-------------------------------
+>SFM.,A1020000<
+
+cambiar rapidez del puerto serie
+--------------------------------
+>SRS0 9600,C<
+>SRS0 19200,C<
+>SRS0 115200,C<
+
+
+IMAGENES
+---------------------------------
+>SRS1 38400,C<					PONER EL TR1 EN VELOCIDAD DE CAMARA
+>QSDI,P<					PIDE LAS IMAGENES GUARDADAS
+>SPC02+<					SACAR UNA FOTO EN EL PUERTO TR1
+
+-QSDF<						obtener password de SD
+-SSDF,5E8B5AFD|I0,240000,Pictures<		crear una particion para laS IMAGENES llamada Pictures
+
+
+-QSDI,-2<

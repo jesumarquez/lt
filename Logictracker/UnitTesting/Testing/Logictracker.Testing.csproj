@@ -1,0 +1,267 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F0D785D-F360-40E9-8602-0449B50A2420}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Testing</RootNamespace>
+    <AssemblyName>Logictracker.Testing</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="LinFu.DynamicProxy, Version=1.0.4.18998, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\LinFu.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Memcached.ClientLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.TeamSystem.Data.UnitTesting, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="MySql.Data, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\MySql\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.LinFu, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\NHibernate.ByteCode.LinFu.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Caches.MemCache, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=6876f2ea66c9f443, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\NHibernate.Caches.MemCache.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Codecs\GlobalSat.cs" />
+    <Compile Include="Codecs\MaxTrack.cs" />
+    <Compile Include="Common\WindowsSecurityHelperTest.cs" />
+    <Compile Include="LogicOut\QueryFactoryTest.cs" />
+    <Compile Include="MolineteTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interfaces\OrbComm.cs" />
+    <Compile Include="Common\Security.cs" />
+    <Compile Include="Scheduler\DatamartViajesTest.cs" />
+    <Compile Include="Scheduler\DatamartDistribucionTest.cs" />
+    <Compile Include="Scheduler\DistribucionTest.cs" />
+    <Compile Include="Scheduler\Documents.cs" />
+    <Compile Include="Interfaces\PumpWebServiceTest.cs" />
+    <Compile Include="Scheduler\TaskTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AuthoringTests.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Applications\LogicOut\LogicOut.Core\LogicOut.Core.csproj">
+      <Project>{3750D079-1699-4026-B49C-968D8C2339E2}</Project>
+      <Name>LogicOut.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Applications\LogicOut\LogicOut.Handlers\LogicOut.Handlers.csproj">
+      <Project>{0016D0F4-C4D4-4469-B217-31EA55C759B3}</Project>
+      <Name>LogicOut.Handlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Applications\LogicOut\LogicOut.Server\LogicOut.Server.csproj">
+      <Project>{DB06B613-C477-4AB6-B90F-93A2C50CDF11}</Project>
+      <Name>LogicOut.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\GlobalSat\GsTraq.csproj">
+      <Project>{87A346F5-F6F1-48FD-A756-DDEF537212CB}</Project>
+      <Name>GsTraq</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\MaxTrack\MaxTrack.csproj">
+      <Project>{2AB4C5D6-7912-4BA5-83B9-8D6034BD13F0}</Project>
+      <Name>MaxTrack</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Interfaces\Logictracker.Interfaces.OrbComm\Logictracker.Interfaces.OrbComm.csproj">
+      <Project>{ACC7E8BF-B7CB-4C0E-A928-DEECB889A04F}</Project>
+      <Name>Logictracker.Interfaces.OrbComm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Task.GeneracionTareas\Logictracker.Scheduler.Tasks.GeneracionTareas.csproj">
+      <Project>{A3D5A11C-0ED2-4ACA-8436-3E8F7DAA4A72}</Project>
+      <Name>Logictracker.Scheduler.Tasks.GeneracionTareas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.CierreAutomatico\Logictracker.Scheduler.Tasks.CierreAutomatico.csproj">
+      <Project>{2908C159-A2FA-45B2-A8C0-5812344A5095}</Project>
+      <Name>Logictracker.Scheduler.Tasks.CierreAutomatico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ControlAcceso\Logictracker.Scheduler.Tasks.ControlAcceso\Logictracker.Scheduler.Tasks.ControlAcceso.csproj">
+      <Project>{A561CFC5-4635-46FC-B3C8-6454D0AFC8DD}</Project>
+      <Name>Logictracker.Scheduler.Tasks.ControlAcceso</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ControlSalida\Logictracker.Scheduler.Tasks.ControlSalida.csproj">
+      <Project>{1F50F7B7-E15B-493B-BD5A-C2A3626CB7C4}</Project>
+      <Name>Logictracker.Scheduler.Tasks.ControlSalida</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.InicioAutomatico\InicioAutomatico\Logictracker.Scheduler.Tasks.InicioAutomatico.csproj">
+      <Project>{E56CF603-22EC-4ECC-8442-CD1199C6C7F9}</Project>
+      <Name>Logictracker.Scheduler.Tasks.InicioAutomatico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.Mantenimiento\Logictracker.Scheduler.Tasks.Mantenimiento.csproj">
+      <Project>{9353DB7D-85AB-49F2-BA17-5D54AA0D480B}</Project>
+      <Name>Logictracker.Scheduler.Tasks.Mantenimiento</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.PumpControl\Logictracker.Scheduler.Tasks.PumpControl\Logictracker.Scheduler.Tasks.PumpControl.csproj">
+      <Project>{3389A9BD-161E-4CE7-B69E-AA7444940053}</Project>
+      <Name>Logictracker.Scheduler.Tasks.PumpControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ReportsScheduler\Logictracker.Scheduler.Tasks.ReportsScheduler.csproj">
+      <Project>{E50B84D3-EBDC-4BAC-91E7-892A73418017}</Project>
+      <Name>Logictracker.Scheduler.Tasks.ReportsScheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\AVL\Logictracker.AVL.csproj">
+      <Project>{0FD2623E-2379-410D-81E3-C8749BC014DE}</Project>
+      <Name>Logictracker.AVL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Description\Logictracker.Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Logictracker.Description</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Model\Logictracker.Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Process\Logictracker.Process.Import.Client\Logictracker.Process.Import.Client.csproj">
+      <Project>{AB0E5E1F-EE7F-4C66-892D-EBA6CAF3C9E0}</Project>
+      <Name>Logictracker.Process.Import.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{FA528F7B-1FE9-4B7E-B964-EB95730791AB}</Project>
+      <Name>Logictracker.Layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Configuration\Logictracker.Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Culture\Logictracker.Culture.csproj">
+      <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
+      <Name>Logictracker.Culture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Mailing\Logictracker.Mailing.csproj">
+      <Project>{AE61757F-B47C-4EB8-B223-C89C96092133}</Project>
+      <Name>Logictracker.Mailing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\QueueStatus\Logictracker.QueueStatus.csproj">
+      <Project>{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}</Project>
+      <Name>Logictracker.QueueStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Types.ValueObjects\Logictracker.Types.ValueObjects.csproj">
+      <Project>{B4CACBB4-0F42-4C57-813B-BB72C7FC82EF}</Project>
+      <Name>Logictracker.Types.ValueObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Documentos\Logictracker.Scheduler.Tasks.VencimientoDocumentos\Logictracker.Scheduler.Tasks.VencimientoDocumentos.csproj">
+      <Project>{59BB271D-7328-4C16-B850-235E32121830}</Project>
+      <Name>Logictracker.Scheduler.Tasks.VencimientoDocumentos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Scheduler.Core\Logictracker.Scheduler.Core.csproj">
+      <Project>{AC8BC64C-65C6-43F6-A266-AE32B59D83B1}</Project>
+      <Name>Logictracker.Scheduler.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Web\Logictracker\Logictracker.Common.Web.Helpers\Logictracker.Web.Helpers.csproj">
+      <Project>{F954C2AA-9080-4EA0-B753-3164D2F96787}</Project>
+      <Name>Logictracker.Web.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+    </None>
+    <Shadow Include="Test References\Logictracker.DAL.accessor" />
+    <Shadow Include="Test References\Logictracker.Scheduler.Tasks.ReportsScheduler.accessor" />
+    <Shadow Include="Test References\Logictracker.Scheduler.Tasks.ControlAcceso.accessor" />
+    <Shadow Include="Test References\Logictracker.Scheduler.Tasks.PumpControl.accessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DAL\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

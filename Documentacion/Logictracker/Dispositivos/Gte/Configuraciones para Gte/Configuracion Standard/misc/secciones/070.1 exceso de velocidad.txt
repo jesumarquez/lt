@@ -1,0 +1,75 @@
+
+
+********************************************************
+********************************************************
+********************************************************
+
+**********************************
+EXCESO DE VELOCIDAD ESTANDAR
+**********************************
+
+
+COMANDO PARA GUARDAR POCISION DE INICIO
+>SUC02 $STX01\2C| QPI,4,35| QPI,47,3<
+
+GUARDA:
+241207150026																	TIEMPO
+-3460180																		LATITUD
+-05847823																		LONGITUD
+156																				DIRECCION (0..359)
+025																				VELOCIDAD EN KPH
+017																				HDOP / 10
+
+
+TIMER DE EXCESO A INFRACCION
+>SCC0200020<
+
+ESTADOS
+-------
+-SSG000<	NOT INIT SISTEMA
+-SSG020<	ESTADO OK
+-SSG030<	ESTADO EXC
+-SSG040<	ESTADO INF
+
+TABLA E-E
+---------
+>SEDAD SG00- + NN SGN {SSG001} {SSG021}<										INIT -- OK
+
+>SEDB2 SG02+&GS04+ + U4 LOG {SSG020}{SSG031}{SVPB}{SUS02}{STX02,$GTE_PARAM_NO_QTREE_EXC}{SCC02R}<	OK   -- EXC
+>SEDB3 SG02+&GS05+ + U4 LOG {SSG020}{SSG041}{SVPB}{SUS02}{STX02,$GTE_PARAM_NO_QTREE_EXC}<			OK   -- INF
+
+>SEDB5 SG03+&GS05-&GS04- + NN SGN {SCC02*} {SSG030} {SSG021}<					EXC  -- OK
+>SEDB6 SG03+&GS05+ + NN SGN {SCC02*} {SSG030} {SSG041}<							EXC  -- INF
+>SEDB7 SG03+&CC02-+ + NN SGN {SCC02*} {SSG030} {SSG041}<						EXC  -- INF X TIMER
+
+>SEDB8 SG04+&GS05-&GS04- + U4 LOG {SSG040} {SSG021}<							INF  -- OK
+
+TRANSICIONES
+------------
+>SEDBD SG04+- + U5 LOG<			     											AQUI REPORTO LA INFRACCION
+
+>SEDBF SG02-+ + NN SGN<
+>SEDC0 SG03-+ + NN SGN<
+>SEDC1 SG04-+ + NN SGN<
+
+
+>SEDC3 EVC3-&SG03+ * NN SGN {STMTRM#B400,50,50,400,0,0@}<						ESTOY EN VEL DE EXCESO => SUENA LA ALARMA
+>SEDC4 EVC4-&SG04+ * NN SGN {STMTRM#B75,50,75,50,75,50,75,0,0,0@}<				ESTOY EN VEL DE INFRACCION => SUENA LA ALARMA
+
+INFO DE QTREE EN DISPLAY
+------------------------
+
+LA SALIDA SERIA ASI: "VEL:000  MAX:000"
+>SUC03 $STMTRM#D1VEL:| QPI,36,3| $  MAX:$GTE_PARAM_NO_QTREE_EXC@<
+>SEDDB EVDB-&GS00+ * NN SGN {SUS03}<
+>SEDDC GS00+- + NN SGN {STMTRM#D1URBETRACK       @#D2                @}<		EN TEORIA LA PANTALLA YA TIENE ESO MISMO...
+
+>SCH05000000280<
+
+
+
+********************************************************
+********************************************************
+********************************************************
+
+

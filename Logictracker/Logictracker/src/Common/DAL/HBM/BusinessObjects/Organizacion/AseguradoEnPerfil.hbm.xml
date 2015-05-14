@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.Organizacion.AseguradoEnPerfil,Logictracker.Types" table="[soc.soc_usua_08_mov_asegurables]" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_socusua08" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="Perfil" column="rela_socusua02" lazy="proxy" />
+        <many-to-one name="Asegurable" column="rela_sysfunc01" lazy="proxy" />
+
+        <property column="socusua08_permitido" name="Permitido" />
+
+    </class>
+</hibernate-mapping>

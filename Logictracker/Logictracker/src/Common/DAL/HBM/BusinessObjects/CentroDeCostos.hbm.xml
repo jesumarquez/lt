@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CentroDeCostos,Logictracker.Types" table="parenti37" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti37" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti37_descri" type="String" name="Descripcion" not-null="true" />
+    <property column="parenti37_codigo" type="String" name="Codigo" not-null="true" />
+    <property column="parenti37_empresa" type="String" name="NombreEmpresa" />
+    <property column="parenti37_baja" type="Boolean" name="Baja" />
+
+    <property column="parenti37_genera_despachos" name="GeneraDespachos" />
+    <property column="parenti37_inicio_automatico" name="InicioAutomatico" />
+    <property column="parenti37_horario_inicio" name="HorarioInicio" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti04" name="Departamento" lazy="proxy" />
+    <many-to-one column="rela_parenti09" name="Empleado" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,10 @@
+Trama modbus 1:
+NReg          Valor
+40290        12345
+40291        34567
+40292        56789
+ 
+Trama modbus 2:
+40001            32
+40002            65
+ 

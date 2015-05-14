@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Recorrido,Logictracker.Types" table="[par.par_tick_05_cab_recorrido]" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_partick05" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
+        <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+
+        <property column="partick05_codigo" name="Codigo" />
+        <property column="partick05_nombre" name="Nombre" />
+        <property column="partick05_desvio" name="Desvio" />
+        <property column="partick05_baja" name="Baja" />
+
+        <bag name="Detalles"
+            table="[par.par_tick_06_det_recorrido]"
+            order-by="partick06_orden ASC"
+            inverse="true"
+            cascade="all-delete-orphan">
+            <cache usage="read-write" />
+            <key column="rela_partick05" />
+            <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.DetalleRecorrido, Logictracker.Types" />
+        </bag>
+    </class>
+</hibernate-mapping>

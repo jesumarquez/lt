@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.PuntoEntrega,Logictracker.Types" table="parenti44" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti44" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti44_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="parenti44_codigo" type="String" name="Codigo" length="32" not-null="true" />
+    <property column="parenti44_descri" type="String" name="Descripcion" length="128" not-null="true" />
+    <property column="parenti44_telefono" type="String" name="Telefono" />
+    <property column="parenti44_mail" type="String" name="Mail" />
+    <property column="parenti44_nomenclado" type="Boolean" name="Nomenclado" />
+    <property column="parenti44_direccion" type="String" name="DireccionNomenclada" />
+    <property column="parenti44_nombre" type="String" name="Nombre" />
+    <property column="parenti44_importe" type="Double" name="Importe" />
+    <property column="parenti44_comentario1" name="Comentario1" />
+    <property column="parenti44_comentario2" name="Comentario2" />
+    <property column="parenti44_comentario3" name="Comentario3" />
+
+    <many-to-one column="rela_parenti18" name="Cliente" not-null="true" lazy="false" />
+    <many-to-one name="ReferenciaGeografica" column="rela_parenti05" cascade="all" not-null="true" lazy="false" />
+  </class>
+</hibernate-mapping>

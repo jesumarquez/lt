@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Urbetrack.Types.BusinessObjects.Dispositivos.TemperatureSensorEntropy,Urbetrack.Types" table="[ope.ope_even_06_estado_sensor_temperatura]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opeeven06" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+		<!--property column="rela_parenti03" name="Vehiculo" not-null="true" /-->
+		<property column="opeeven06_serial" name="Serial" not-null="true" />
+		<property column="opeeven06_datetime" name="DateTime" not-null="true" />
+		<property column="opeeven06_temperature" name="Temperature" not-null="true" />
+		<property column="opeeven06_connected" name="Connected" not-null="true" />
+		<property column="opeeven06_button_pressed" name="ButtonPressed" not-null="true" />
+	</class>
+</hibernate-mapping>

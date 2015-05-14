@@ -1,0 +1,66 @@
+0)
+	Instalar el VC 2005 runtime SP1 , vcredist_x86.exe (directorio cmapmep\utils)
+	Instalar MS XML6 runtime
+	INstalar MX XML4 runtime
+
+
+1) Copiar los .map en un directorio (fuera de inetpub) asegurarse de borrar los archivos .col y .coi
+
+2) Corregir el archivo en cmapmep\www\compumap.ini para que apunte a los mapas correspondientes
+
+3) Crear un nuevo application pool.
+	Ir a la consola del iis.
+	En application pools boton derecho. 
+	Nuevo app poll desde archivo. 
+	Seleccionar Instalables\confs\cmapmep-pool.xml.
+	Read file.
+	Seleccionar CmapMepAppPool.
+	Aceptar.
+
+
+4) En el sitio web adecuado crear un nuevo directorio 
+virtual , seleccionar a opcion Execute.
+
+5) Copiar el contenido de cmapmep\inetsvr_dll a C:\WINDOWS\system32\inetsrv
+
+6) Copiar el contenido de cmapmep\www al directorio virtual creado en 4)
+
+7) En la consola de iis en Web Service Extensions
+	Task , Add a new WebService Extension.
+	Extension Name : CmapMep Extension
+	Required files : Agregar el archivo CmapMEPIsapi.dll desde el directorio virtual
+	Set Extension Status : Allowed
+
+8) En la consola de iis
+
+	EN el virtual directory , properties.
+
+Solapa Virtual Directory:
+
+	Cambiar el Application por CMapMepAppPool
+
+Boton Configuracion en la misma solapa
+
+	En Mappings.
+	Boton Add.
+	Executable , seleccionar CmapMEPIsapi.dll desde el directorio virtual
+	Extension , srf
+	All verbs
+	Deseleccion Script engine
+	Desseleccion Verify that file exits.
+
+
+	En la solapa Directory Security:
+	
+	Authentication and access control:  boton edit.
+		Enable anonymous access
+
+
+9) En el directorio de los .map agregar al usuario IIS_WPG  ( IIS working process group ) permiso de lectura y escritura.
+usuario IUSR_XXXXX (Internet 
+
+10) Por medio de la consola de iis en el directorio virtual , boton derecho y agregar permisos de lectura al directorio virtual , a los usuario IIS_WPG y IUSR_XXXX
+
+11) Probar:
+
+	http://localhost/CmapMEP/imagenes.srf?lat=-34.71&lon=-58.44&w=700&h=600&z=8&f=P&oc=0&q=100

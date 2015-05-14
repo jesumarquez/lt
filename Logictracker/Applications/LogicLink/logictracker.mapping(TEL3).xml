@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Configuration xmlns="urn:Logictracker.Process.Import.Client">
+<Import>
+<DataSource Type="Fixed">
+<Parameter Name="anchos" Value="8-8-15-5-10-12-12-10-35-16-10-5-19-40-19-40-13-3-30-13-20" />
+<Parameter Name="folder" Value="C:\Program Files\Logictracker\LogicLink\TXT\"/>
+<Parameter Name="filename" Value="*.txt" />
+<Parameter Name="hasheaderrow" Value="false" />
+<Parameter Name="encoding" Value="UTF-8" />
+</DataSource>
+
+<Entity Type="TipoProveedor">
+<Operation Type="Add"></Operation>
+<Property  Name="Codigo" Default="G"></Property>
+<Property  Name="Descripcion" Default="Generico"></Property>
+</Entity>
+
+<Entity Type="Proveedor">
+<Operation Type="Custom">
+    <OperationProperty ColumnIndex="7" />
+    <OperationValue Operation="None" Value="" CaseSensitive="false" />
+    <OperationValue Operation="Add" Default="true" />
+</Operation>
+<Property  Name="Codigo" ColumnIndex="7"></Property>
+<Property  Name="Descripcion" ColumnIndex="8"></Property>
+<Property  Name="TipoProveedor" Default="G"></Property>
+</Entity>
+
+<Entity Type="TipoInsumo">
+<Operation Type="Add"></Operation>
+<Property  Name="Codigo" Default="G"></Property>
+<Property  Name="Descripcion" Default="Generico"></Property>
+<Property  Name="DeCombustible" Default="false"></Property>
+</Entity>
+
+<Entity Type="UnidadMedida">
+<Operation Type="Add"></Operation>
+<Property  Name="Codigo" ColumnIndex="17"></Property>
+<Property  Name="Descripcion" ColumnIndex="18"></Property>
+<Property  Name="Simbolo" ColumnIndex="18"></Property>
+</Entity>
+
+<Entity Type="Insumo">
+<Operation Type="Custom">
+    <OperationProperty ColumnIndex="12" />
+    <OperationValue Operation="None" Value="" CaseSensitive="false" />
+    <OperationValue Operation="Add" Default="true" />
+</Operation>
+<Property  Name="Codigo" ColumnIndex="12"></Property>
+<Property  Name="Descripcion" ColumnIndex="13"></Property>
+<Property  Name="TipoInsumo" Default="G"></Property>
+<Property  Name="UnidadMedida" ColumnIndex="17"></Property>
+</Entity>
+
+<Entity Type="Insumo">
+<Operation Type="Custom">
+    <OperationProperty ColumnIndex="14" />
+    <OperationValue Operation="None" Value="" CaseSensitive="false" />
+    <OperationValue Operation="Add" Default="true" />
+</Operation>
+<Property  Name="Codigo" ColumnIndex="14"></Property>
+<Property  Name="Descripcion" ColumnIndex="15"></Property>
+<Property  Name="TipoInsumo" Default="G"></Property>
+<Property  Name="UnidadMedida" ColumnIndex="17"></Property>
+</Entity>
+
+<Entity Type="Consumo">
+<Operation Type="Custom">
+    <OperationProperty ColumnIndex="14" />
+    <OperationValue Operation="AddOrModify" Value="" CaseSensitive="false" />
+    <OperationValue Operation="None" Default="true" />
+</Operation>
+<Property  Name="NroFactura" ColumnIndex="19"></Property>
+<Property  Name="Vehiculo" ColumnIndex="0"></Property>
+<Property  Name="Fecha" ColumnIndex="1"></Property>
+<Property  Name="Gmt" Default="-3"></Property>
+<Property  Name="Km" Default="0"></Property>
+<Property  Name="Cantidad" ColumnIndex="16"></Property>
+<Property  Name="ImporteUnitario" ColumnIndex="2"></Property>
+<Property  Name="Insumo" ColumnIndex="12"></Property>
+<Property  Name="Proveedor" ColumnIndex="7"></Property>
+</Entity>
+
+<Entity Type="Consumo">
+<Operation Type="Custom">
+    <OperationProperty ColumnIndex="14" />
+    <OperationValue Operation="None" Value="" CaseSensitive="false" />
+    <OperationValue Operation="AddOrModify" Default="true" />
+</Operation>
+<Property  Name="NroFactura" ColumnIndex="19"></Property>
+<Property  Name="Vehiculo" ColumnIndex="0"></Property>
+<Property  Name="Fecha" ColumnIndex="1"></Property>
+<Property  Name="Gmt" Default="-3"></Property>
+<Property  Name="Km" Default="0"></Property>
+<Property  Name="Cantidad" ColumnIndex="16"></Property>
+<Property  Name="ImporteUnitario" ColumnIndex="2"></Property>
+<Property  Name="Insumo" ColumnIndex="14"></Property>
+<Property  Name="Proveedor" ColumnIndex="7"></Property>
+</Entity>
+
+</Import>
+</Configuration>

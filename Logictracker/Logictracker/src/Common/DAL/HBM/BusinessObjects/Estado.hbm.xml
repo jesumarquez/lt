@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Accion.hbm.xml 381 2007-05-23 16:32:58Z rbugallo $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Estado,Logictracker.Types" table="parenti22" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti22" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Mensaje" column="rela_pareven01" not-null="true" class="Logictracker.Types.BusinessObjects.Messages.Mensaje,Logictracker.Types" lazy="proxy"></many-to-one>
+    <many-to-one name="Linea" column="rela_parenti02" not-null="true" class="Logictracker.Types.BusinessObjects.Linea,Logictracker.Types" lazy="proxy"></many-to-one>
+    <many-to-one name="Icono" column="rela_parenti11" not-null="true" class="Logictracker.Types.BusinessObjects.Icono,Logictracker.Types" lazy="proxy"></many-to-one>
+
+    <property column="parenti22_descri" type="String" name="Descripcion" not-null="true" length="50" />
+    <property column="parenti22_deltatime" type="Int16" name="Deltatime" not-null="true" />
+    <property column="parenti22_codigo" type="Int32" name="Codigo" not-null="false" />
+    <property column="parenti22_orden" type="Int16" name="Orden" not-null="true" />
+    <property column="parenti22_modo" type="Boolean" name="Modo" not-null="true" />
+    <property column="parenti22_espuntodecontrol" type="Int16" name="EsPuntoDeControl" />
+    <property column="parenti22_informar" type="Boolean" name="Informar" not-null="true" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Documentos.Documento,Logictracker.Types" table="parenti28" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti28" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti28_descripcion" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="parenti28_fecha" type="DateTime" name="Fecha" not-null="true" />
+    <property column="parenti28_fechaalta" type="DateTime" name="FechaAlta" not-null="true" />
+    <property column="parenti28_codigo" type="String" name="Codigo" not-null="true" length="32" />
+    <property column="parenti28_vencimiento" type="DateTime" not-null="false" name="Vencimiento" />
+    <property column="parenti28_presentacion" type="DateTime" not-null="false" name="Presentacion" />    
+    <property column="parenti28_estado" type="Int16" name="Estado" />
+    <property column="parenti28_fechamod" type="DateTime" not-null="false" name="FechaModificacion" />
+    <property column="parenti28_fechacierre" type="DateTime" not-null="false" name="FechaCierre" />
+    
+    <property column="parenti28_enviado1" name="EnviadoAviso1" />
+    <property column="parenti28_enviado2" name="EnviadoAviso2" />
+    <property column="parenti28_enviado3" name="EnviadoAviso3" />
+      
+    <many-to-one column="rela_parenti25" name="TipoDocumento" />
+    <many-to-one column="rela_parenti01" name="Empresa" />
+    <many-to-one column="rela_parenti02" name="Linea" />
+    <many-to-one column="rela_socusua01" name="Usuario" />
+    <many-to-one column="rela_socusua01_mod" name="UsuarioModificacion" />
+    <many-to-one column="rela_parenti03" name="Vehiculo" />
+    <many-to-one column="rela_parenti09" name="Empleado" />
+    <many-to-one column="rela_parenti07" name="Transportista" />
+    <many-to-one column="rela_parenti19" name="Equipo" />
+
+    <set name="Parametros" table="parenti29" lazy="true" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti28" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Documentos.DocumentoValor, Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

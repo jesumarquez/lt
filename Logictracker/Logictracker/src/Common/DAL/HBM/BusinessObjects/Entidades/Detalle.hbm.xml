@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Entidades.Detalle,Logictracker.Types" table="parenti82" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti82" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti82_nombre" type="String" name="Nombre" />
+    <property column="parenti82_tipo" type="Int32" name="Tipo" />
+    <property column="parenti82_representacion" type="Int32" name="Representacion" />
+    <property column="parenti82_orden" type="Int32" name="Orden" />
+    <property column="parenti82_esFiltro" type="Boolean" name="EsFiltro" />
+    <property column="parenti82_obligatorio" type="Boolean" name="Obligatorio" />
+    <property column="parenti82_mascara" type="String" name="Mascara" />
+    <property column="parenti82_opciones" type="String" name="Opciones" />
+    <property column="parenti82_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_parenti76" name="TipoEntidad" lazy="proxy" />
+    <many-to-one column="rela_parenti82" name="DetallePadre" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

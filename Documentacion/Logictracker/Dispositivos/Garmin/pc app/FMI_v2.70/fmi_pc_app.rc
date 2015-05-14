@@ -1,0 +1,1214 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\fmi_pc_app.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\fmi_pc_app.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 207, 86
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "About Fleet Management Controller"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_ABOUT_ICO,11,17,20,20
+    CONTROL         "Fleet Management Controller Version 2.70",
+                    IDC_ABOUT_LBL_APPNAME,"Static",SS_LEFTNOWORDWRAP | 
+                    SS_NOPREFIX | WS_GROUP,37,14,136,8
+    LTEXT           "Copyright 2008-2011 by Garmin Ltd. or its subsidiaries.",
+                    IDC_ABOUT_LBL_COPYRIGHT,37,27,163,17
+    DEFPUSHBUTTON   "OK",IDOK,79,63,50,16,WS_GROUP
+    LTEXT           "http://www.garmin.com/solutions/commercial",
+                    IDC_ABOUT_LBL_URL,37,48,146,8
+END
+
+IDD_FMI_PC_APP_DIALOG DIALOGEX 0, 0, 382, 311
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_VISIBLE | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Fleet Management Controller"
+MENU IDR_MENU
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Monitors",IDC_MAIN_GRP_MONITORS,7,1,83,108
+    PUSHBUTTON      "Manage Stops",IDC_MAIN_BTN_VIEW_STOPS,12,11,75,14
+    PUSHBUTTON      "Canned Responses",IDC_MAIN_BTN_CANNED_RESPONSES,12,43,
+                    75,14
+    PUSHBUTTON      "Canned Messages",IDC_MAIN_BTN_CANNED_MESSAGES,12,59,75,
+                    14
+    PUSHBUTTON      "Driver ID and Status",IDC_MAIN_BTN_DRIVER_INFO,12,75,75,
+                    14
+    PUSHBUTTON      "View Packet Log",IDC_MAIN_BTN_VIEW_LOG,12,91,75,14
+    GROUPBOX        "Operations",IDC_MAIN_GRP_OPERATIONS,7,111,83,193
+    PUSHBUTTON      "Send Enable",IDC_MAIN_BTN_SEND_ENABLE,12,121,75,14
+    PUSHBUTTON      "Send Text Message",IDC_MAIN_BTN_SEND_TXT_MSG,12,137,75,
+                    14
+    PUSHBUTTON      "Message Status",IDC_MAIN_BTN_MSG_STATUS,12,153,75,14
+    PUSHBUTTON      "GPI Transfer",IDC_MAIN_BTN_GPI_FILE_TRANS,12,185,75,14
+    PUSHBUTTON      "GPI Query",IDC_MAIN_BTN_GPI_QUERY,12,201,75,14
+    PUSHBUTTON      "Ping",IDC_MAIN_BTN_PING,12,217,75,14
+    PUSHBUTTON      "Delete Data",IDC_MAIN_BTN_DEL_DATA,12,233,75,14
+    PUSHBUTTON      "Request ETA",IDC_MAIN_BTN_REQ_ETA,12,249,75,14
+    GROUPBOX        "Preferences",IDC_MAIN_GRP_PREFERENCES,94,1,163,51
+    PUSHBUTTON      "Change UI Text",IDC_MAIN_BTN_UI_TXT_CHG,99,14,75,14
+    PUSHBUTTON      "Change Auto-Arrival",IDC_MAIN_BTN_CHG_AUTO_ARVL,99,30,
+                    75,14
+    PUSHBUTTON      "Change Com Port",IDC_MAIN_BTN_CHG_COM_PORT,177,14,75,14
+    PUSHBUTTON      "Message Throttling",IDC_MAIN_BTN_MSG_THROTTLING,177,30,
+                    75,14
+    GROUPBOX        "PVT Data",IDC_MAIN_GRP_PVT_DATA,232,54,143,199
+    CONTROL         "Enable PVT Data",IDC_MAIN_CHK_PVT_ENABLE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,269,64,69,10
+    LTEXT           "GPS Fix:",IDC_MAIN_LBL_PVT_GPS_FIX,240,84,28,8
+    LTEXT           "Date:",IDC_MAIN_LBL_PVT_DATE,240,101,19,8
+    LTEXT           "Time:",IDC_MAIN_LBL_PVT_TIME,240,119,18,8
+    LTEXT           "Lat:",IDC_MAIN_LBL_PVT_LAT,240,137,14,8
+    LTEXT           "Lon:",IDC_MAIN_LBL_PVT_LON,240,154,15,8
+    LTEXT           "Altitude:",IDC_MAIN_LBL_PVT_ALTITUDE,240,171,28,8
+    LTEXT           "Velocity (E/W):",IDC_MAIN_LBL_PVT_EW_VEL,240,188,49,8
+    LTEXT           "Velocity (N/S):",IDC_MAIN_LBL_PVT_NS_VEL,240,205,47,8
+    LTEXT           "Velocity (Up/Dn):",IDC_MAIN_LBL_PVT_UD_VEL,240,222,56,8
+    LTEXT           "2-D Velocity:",IDC_MAIN_LBL_PVT_2D_VEL,240,239,42,8
+    LTEXT           "",IDC_MAIN_TXT_PVT_GPS_FIX,304,83,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_DATE,304,100,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_TIME,304,118,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_LAT,304,136,62,11,0,WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_LON,304,153,62,11,0,WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_EW_VEL,304,187,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_NS_VEL,304,204,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_UD_VEL,304,221,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_2D_VEL,304,238,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PVT_ALTITUDE,304,170,62,11,0,
+                    WS_EX_CLIENTEDGE
+    GROUPBOX        "Device Info",IDC_MAIN_GRP_DEVICE_INFO,94,54,134,199
+    LTEXT           "Product ID:",IDC_MAIN_LBL_PRODUCT_ID,101,81,38,8
+    LTEXT           "ESN:",IDC_MAIN_LBL_ESN,101,67,16,8
+    LTEXT           "Protocols Supported:",IDC_MAIN_LBL_PROTOCOLS,101,108,68,
+                    8
+    LTEXT           "",IDC_MAIN_TXT_PRODUCT_ID,143,80,76,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_ESN,143,66,76,11,0,WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_PROTOCOLS,101,118,118,127,0,
+                    WS_EX_CLIENTEDGE
+    GROUPBOX        "ETA Data",IDC_MAIN_GRP_ETA_DATA,94,255,281,49
+    LTEXT           "Arrival Time:",IDC_MAIN_LBL_ETA_TIME,105,275,41,8
+    LTEXT           "Distance:",IDC_MAIN_LBL_ETA_DISTANCE,105,291,31,8
+    LTEXT           "Lat:",IDC_MAIN_LBL_ETA_LAT,219,275,14,8
+    LTEXT           "Lon:",IDC_MAIN_LBL_ETA_LON,219,291,15,8
+    LTEXT           "",IDC_MAIN_TXT_ETA_TIME,149,274,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_ETA_DISTANCE,149,290,62,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_ETA_LAT,242,274,62,11,0,WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MAIN_TXT_ETA_LON,242,290,62,11,0,WS_EX_CLIENTEDGE
+    GROUPBOX        "FMI Packet",IDC_MAIN_GRP_FMI_PACKET,261,1,114,51
+    LTEXT           "ID:",IDC_MAIN_LBL_FMI_ID,266,18,11,8
+    LTEXT           "Data:",IDC_MAIN_LBL_FMI_DATA,266,38,19,8
+    EDITTEXT        IDC_MAIN_EDIT_FMI_ID,286,15,48,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAIN_EDIT_FMI_DATA,285,35,86,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Send",IDC_MAIN_BTN_FMI_SEND,338,14,33,14
+    CONTROL         "Automatically request ETA every 60 seconds",
+                    IDC_MAIN_CHK_ETA_AUTO_UPDATE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,127,263,159,10
+    LTEXT           "S/W Ver:",IDC_MAIN_LBL_SW_VERSION,101,95,30,8
+    LTEXT           "",IDC_MAIN_TXT_SW_VERSION,143,94,76,11,0,
+                    WS_EX_CLIENTEDGE
+    PUSHBUTTON      "Message Delete",IDC_MAIN_BTN_MSG_DELETE,12,169,75,14
+    PUSHBUTTON      "Waypoints",IDC_MAIN_BTN_WAYPOINTS,12,27,75,14
+    PUSHBUTTON      "Set Safe Mode",IDC_MAIN_BTN_SET_SAFE_MODE,12,265,75,14
+    PUSHBUTTON      "Speed Limit Alerts",IDC_MAIN_BTN_SPEED_LIMIT_ALERTS,12,
+                    281,75,14
+END
+
+IDD_TXT_MSG_NEW DIALOGEX 0, 0, 285, 148
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Send Text Message"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_MSGNEW_CBO_PROTOCOL,90,11,161,69,CBS_DROPDOWNLIST | 
+                    CBS_NOINTEGRALHEIGHT | CBS_DISABLENOSCROLL | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "Display Message Immediately",IDC_MSGNEW_CHK_DISP_IMMED,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,90,91,118,11
+    EDITTEXT        IDC_MSGNEW_EDIT_MSG_ID,90,31,144,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MSGNEW_EDIT_MESSAGE_TEXT,90,51,185,35,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Send",IDOK,150,127,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,84,127,50,14
+    LTEXT           "Message Text:",IDC_MSGNEW_LBL_MESSAGE_TEXT,37,52,48,8,0,
+                    WS_EX_RIGHT
+    LTEXT           "Select Protocol:",IDC_MSGNEW_LBL_PROTOCOL,34,13,52,8
+    LTEXT           "**Canned Responses will be selected after pressing Send**",
+                    IDC_MSGNEW_LBL_CANRSP_HINT,46,115,193,8,NOT WS_VISIBLE
+    LTEXT           "Message ID:",IDC_MSGNEW_LBL_MSG_ID,46,30,43,8
+    LTEXT           "(Enter 0x for Hex Entry)",IDC_MSGNEW_LBL_MSG_ID_HINT,9,
+                    38,81,8
+    LTEXT           "(200 characters max)",IDC_MSGNEW_LBL_MSG_TEXT_HINT,18,
+                    60,70,8
+END
+
+IDD_STOP_NEW DIALOGEX 0, 0, 246, 233
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "New Stop"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Stop ID",IDC_STOPNEW_LBL_STOPID,31,11,25,8
+    EDITTEXT        IDC_STOPNEW_EDIT_STOPID,68,8,147,14,ES_AUTOHSCROLL
+    LTEXT           "Location of Stop in Decimal Degrees (N and E positive, S and W negative):",
+                    IDC_STOPNEW_LBL_LOCATION,30,25,121,16
+    LTEXT           "Latitude",IDC_STOPNEW_LBL_LAT,30,49,27,8
+    EDITTEXT        IDC_STOPNEW_EDIT_LAT,68,45,147,14,ES_AUTOHSCROLL
+    LTEXT           "Longitude",IDC_STOPNEW_LBL_LON,30,65,32,8
+    EDITTEXT        IDC_STOPNEW_EDIT_LON,68,62,147,14,ES_AUTOHSCROLL
+    LTEXT           "Destination Name/Message:",IDC_STOPNEW_LBL_DEST_NAME,30,
+                    81,90,8
+    EDITTEXT        IDC_STOPNEW_EDIT_NAME,30,93,185,35,ES_MULTILINE | 
+                    ES_AUTOHSCROLL
+    GROUPBOX        "Select Protocol",IDC_STOPNEW_GRP_PROTOCOL,30,132,185,71
+    CONTROL         "A603 (200 byte limit in name)",IDC_STOPNEW_RDO_A603,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,42,
+                    144,109,10
+    CONTROL         "A602 (51 byte limit in name, no stop status)",
+                    IDC_STOPNEW_RDO_A602,"Button",BS_AUTORADIOBUTTON,42,163,
+                    156,10
+    CONTROL         "Legacy (ASCII only, 200 byte limit in name, no stop status)",
+                    IDC_STOPNEW_RDO_LEGACY,"Button",BS_AUTORADIOBUTTON | 
+                    BS_MULTILINE,42,179,167,16
+    PUSHBUTTON      "Cancel",IDCANCEL,65,212,50,14,WS_GROUP
+    DEFPUSHBUTTON   "Send",IDOK,131,212,50,14,WS_DISABLED
+END
+
+IDD_STOP_LIST DIALOGEX 0, 0, 298, 178
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Stop List"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LISTBOX         IDC_STOPLIST_LST_SELECT_STOP,24,24,254,62,
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_STOPLIST_CBO_UPDATE_STOP,16,124,127,56,
+                    CBS_DROPDOWNLIST | CBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    EDITTEXT        IDC_STOPLIST_EDIT_MOVETO,129,146,40,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    DEFPUSHBUTTON   "Send",IDC_STOPLIST_BTN_SEND,153,123,50,14
+    PUSHBUTTON      "Sort Stops",IDC_STOPLIST_BTN_SORT,228,115,50,14
+    PUSHBUTTON      "New Stop",IDC_STOPLIST_BTN_NEW_STOP,227,136,50,14
+    PUSHBUTTON      "Close",IDOK,228,157,50,14
+    LTEXT           "Select a stop from the list below to view/update status:",
+                    IDC_STOPLIST_LBL_SELECT_STOP,14,7,187,8
+    LTEXT           "Selected Stop Status:",IDC_STOPLIST_LBL_STATUS,13,93,72,
+                    8
+    LTEXT           "",IDC_STOPLIST_TXT_STATUS,86,92,75,11,0,
+                    WS_EX_CLIENTEDGE
+    GROUPBOX        "Update Stop",IDC_STOPLIST_GRP_UPDATE_STOP,7,111,204,60
+    LTEXT           "Move to position (0-indexed):",IDC_STOPLIST_LBL_MOVETO,
+                    27,149,96,8
+    LTEXT           "ETA:",IDC_STOPLIST_LBL_ETA,183,93,19,8,NOT WS_VISIBLE
+    LTEXT           "",IDC_STOPLIST_TXT_ETA,203,92,75,11,NOT WS_VISIBLE,
+                    WS_EX_CLIENTEDGE
+END
+
+IDD_TXT_MSG_ACK DIALOGEX 0, 0, 197, 86
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Text Message Ack"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,73,65,50,14
+    RTEXT           "ID:",IDC_MSGACK_LBL_MSG_ID,25,8,16,11
+    LTEXT           " 0x01020304050607080102030405060708",
+                    IDC_MSGACK_TXT_MSG_ID,46,7,144,12,SS_CENTERIMAGE,
+                    WS_EX_CLIENTEDGE
+    RTEXT           "Response:",IDC_MSGACK_LBL_RESPONSE,7,26,34,11
+    LTEXT           "",IDC_MSGACK_TXT_RESPONSE,46,26,144,32,0,
+                    WS_EX_CLIENTEDGE
+END
+
+IDD_TXT_MSG_FROM_CLIENT DIALOGEX 0, 0, 222, 116
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Text From Client"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,89,95,50,14
+    LTEXT           "Origination Time:",IDC_CLIENTMSG_LBL_TIME,7,16,55,8
+    LTEXT           "",IDC_CLIENTMSG_TXT_TIME,64,14,54,12,SS_CENTERIMAGE,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_CLIENTMSG_TXT_MESSAGE,23,49,177,42,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "ID:",IDC_CLIENTMSG_LBL_ID,137,16,11,8
+    LTEXT           "",IDC_CLIENTMSG_TXT_ID,150,14,65,12,SS_CENTERIMAGE,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "Reply to Message:",IDC_CLIENTMSG_LBL_LINK_ID,10,34,60,8
+    LTEXT           "",IDC_CLIENTMSG_TXT_LINK_ID,71,32,144,12,SS_CENTERIMAGE,
+                    WS_EX_CLIENTEDGE
+END
+
+IDD_AUTO_ARRIVAL DIALOGEX 0, 0, 186, 87
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Change Auto-Arrival"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Enable Auto-Arrival   (Does not tell present state)",
+                    IDC_AUTOARR_CHK_ENABLED,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,7,172,10
+    EDITTEXT        IDC_AUTOARR_EDIT_TIME,117,26,62,14,ES_AUTOHSCROLL,
+                    WS_EX_CLIENTEDGE
+    EDITTEXT        IDC_AUTOARR_EDIT_DISTANCE,117,43,62,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,101,66,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,35,66,50,14
+    LTEXT           "Minimum Stop Time (seconds)",IDC_AUTOARR_LBL_TIME,7,30,
+                    103,8
+    LTEXT           "Minimum Stop Distance (meters)",
+                    IDC_AUTOARR_LBL_DISTANCE,7,47,102,8
+END
+
+IDD_DELETE_DATA DIALOGEX 0, 0, 165, 161
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Delete Data"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "All Stops",IDC_DELDATA_CHK_STOPS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,21,21,43,10
+    CONTROL         "Inbox/Outbox",IDC_DELDATA_CHK_MESSAGES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,21,32,61,10
+    CONTROL         "Active Navigation Route",IDC_DELDATA_CHK_ROUTE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,21,43,93,10
+    CONTROL         "Canned Messages",IDC_DELDATA_CHK_CANNED_MESSAGES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,21,54,74,10
+    CONTROL         "Canned Responses",IDC_DELDATA_CHK_CANNED_RESPONSES,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,65,77,10
+    CONTROL         "Fleet Management GPI File",IDC_DELDATA_CHK_GPI_FILE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,76,101,10
+    CONTROL         "Driver ID and Status",IDC_DELDATA_CHK_DRIVER_INFO,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,21,87,81,10
+    CONTROL         "Disable FMI (deletes all data, restarts client, and terminates application)",
+                    IDC_DELDATA_CHK_DISABLE_FMI,"Button",BS_AUTOCHECKBOX | 
+                    BS_MULTILINE | WS_TABSTOP,21,108,137,28
+    DEFPUSHBUTTON   "OK",IDOK,84,140,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,18,140,50,14
+    LTEXT           "Select Data to Delete:",IDC_DELDATA_LBL_SELECT,7,7,79,8
+    CONTROL         "Waypoints",IDC_DELDATA_CHK_WAYPOINTS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,21,97,50,10
+END
+
+IDD_GPI_TRANSFER DIALOGEX 0, 0, 186, 98
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "GPI Transfer"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Find",IDC_GPIXFER_BTN_FIND,151,19,28,14
+    EDITTEXT        IDC_GPIXFER_EDIT_FILE_VERSION,20,57,144,14,
+                    ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,101,77,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,35,77,50,14
+    EDITTEXT        IDC_GPIXFER_EDIT_FILENAME,7,19,141,14,ES_AUTOHSCROLL
+    LTEXT           "GPI File Name:",IDC_GPIXFER_LBL_FILENAME,7,7,94,8
+    LTEXT           "Enter File Version:",IDC_GPIXFER_LBL_FILE_VERSION,7,38,
+                    115,8
+    CTEXT           "(max 16 chars or 32 hex digits (enter '0x' for hex) )",
+                    IDC_GPIXFER_LBL_HINT,7,47,172,8
+END
+
+IDD_ERROR DIALOGEX 0, 0, 186, 66
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Error!"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,68,45,50,14
+    LTEXT           "",IDC_ERROR_TXT_MESSAGE,30,7,125,32,0,WS_EX_CLIENTEDGE
+    PUSHBUTTON      "Exit",IDC_ERROR_BTN_EXIT,9,45,50,14,NOT WS_VISIBLE
+    DEFPUSHBUTTON   "Retry",IDC_ERROR_BTN_RETRY,127,45,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Change Port",IDC_ERROR_BTN_CHANGE_PORT,68,45,50,14,NOT 
+                    WS_VISIBLE
+END
+
+IDD_GPI_TRANSFER_PROGRESS DIALOGEX 0, 0, 231, 77
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Sending GPI File"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Stop",IDC_GPIPROGRESS_BTN_STOP,63,56,50,14
+    DEFPUSHBUTTON   "Close",IDOK,117,56,50,14,WS_DISABLED
+    CONTROL         "",IDC_GPIPROGRESS_PROGRESS_BAR,"msctls_progress32",
+                    WS_BORDER | 0x1,25,31,181,14
+    LTEXT           "Current Transfer Status:",IDC_GPIPROGRESS_LBL_STATUS,7,
+                    9,82,8
+    LTEXT           "",IDC_GPIPROGRESS_TXT_STATUS,92,7,132,12,0,
+                    WS_EX_CLIENTEDGE
+END
+
+IDD_CANNED_RESPONSE DIALOGEX 0, 0, 280, 154
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Manage Canned Responses"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_CANRESP_EDIT_ID,66,96,55,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_CANRESP_EDIT_TEXT,17,125,172,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Send",IDC_CANRESP_BTN_SEND,133,97,50,21,WS_DISABLED
+    LISTBOX         IDC_CANRESP_LST_RESPONSES,24,27,230,50,
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Delete",IDC_CANRESP_BTN_DELETE,203,10,50,14
+    PUSHBUTTON      "Close",IDOK,211,98,50,34
+    LTEXT           "Current Canned Responses (Select One to Delete):",
+                    IDC_CANRESP_LBL_RESPONSES,7,13,174,8
+    LTEXT           "Response ID:",IDC_CANRESP_LBL_ID,18,94,48,13
+    LTEXT           "Response Text (50 chars Max):",IDC_CANRESP_LBL_TEXT,17,
+                    113,104,8
+    GROUPBOX        "Set Canned Response",IDC_CANRESP_GRP_SET,7,84,192,63
+    LTEXT           "(Decimal)",IDC_CANRESP_LBL_ID_HINT,32,102,30,8
+END
+
+IDD_CANNED_RESPONSE_SELECT DIALOGEX 0, 0, 184, 114
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Select Canned Responses"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LISTBOX         IDC_RESPSEL_LST_RESPONSES,7,29,169,56,LBS_MULTIPLESEL | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | 
+                    WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,100,93,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,34,93,50,14
+    LTEXT           "Select the Canned Responses that are allowed for this message:",
+                    IDC_RESPSEL_LBL_RESPONSES,7,7,169,19
+END
+
+IDD_PING_STATUS DIALOGEX 0, 0, 314, 87
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Ping Status"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Send Ping",IDC_PING_BTN_SEND,164,66,50,14
+    DEFPUSHBUTTON   "Close",IDOK,98,66,50,14
+    PUSHBUTTON      "Reset",IDC_PING_BTN_RESET_CLIENT,267,10,40,14
+    PUSHBUTTON      "Reset",IDC_PING_BTN_RESET_SERVER,268,36,39,14
+    LTEXT           "Client-Server Pings:",IDC_PING_LBL_CLIENT_PINGS,7,13,75,
+                    11
+    LTEXT           "Server-Client Pings:",IDC_PING_LBL_SERVER_PINGS,7,39,67,
+                    8
+    LTEXT           "",IDC_PING_TXT_CLIENT_PINGS,77,11,54,12,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_PING_TXT_SERVER_PINGS,77,37,54,13,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "*Only Successful Pings Recorded",IDC_PING_LBL_NOTE,102,
+                    54,109,8
+    LTEXT           "Last received:",IDC_PING_LBL_CLIENT_LAST_TS,138,13,46,8
+    LTEXT           "Last sent:",IDC_PING_LBL_SERVER_LAST_TS,138,38,33,8
+    LTEXT           "",IDC_PING_TXT_SERVER_PING_TS,189,36,65,12,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_PING_TXT_CLIENT_PING_TS,189,11,65,12,0,
+                    WS_EX_CLIENTEDGE
+END
+
+IDD_GPI_QUERY DIALOGEX 0, 0, 208, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "GPI Query"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Update",IDC_GPIQUERY_BTN_UPDATE,108,41,50,14
+    PUSHBUTTON      "Close",IDCANCEL,49,41,50,14
+    LTEXT           "File Version:",IDC_GPIQUERY_LBL_VERSION,7,8,58,8
+    LTEXT           "File Size:",IDC_GPIQUERY_LBL_SIZE,7,27,47,8
+    LTEXT           "",IDC_GPIQUERY_TXT_VERSION,57,7,144,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_GPIQUERY_TXT_SIZE,57,25,72,11,0,WS_EX_CLIENTEDGE
+END
+
+IDD_DRIVER_ID_STATUS DIALOGEX 0, 0, 286, 244
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_DRVRINFO_CBO_IDX,61,7,65,72,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Refresh",IDC_DRVRINFO_BTN_GET_ID,102,32,31,14
+    PUSHBUTTON      "Send",IDC_DRVRINFO_BTN_SEND_ID,231,30,31,14,WS_DISABLED
+    EDITTEXT        IDC_DRVRINFO_EDIT_NEW_ID,155,45,117,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Refresh",IDC_DRVRINFO_BTN_GET_STATUS,102,78,31,14
+    PUSHBUTTON      "Send",IDC_DRVRINFO_BTN_SEND_STATUS,102,111,31,14
+    PUSHBUTTON      "Delete",IDC_DRVRINFO_BTN_DELETE_STATUS,102,139,31,14
+    EDITTEXT        IDC_DRVRINFO_EDIT_STATUS_ID,52,173,45,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DRVRINFO_EDIT_STATUS_TEXT,43,191,94,14,
+                    ES_AUTOHSCROLL
+    PUSHBUTTON      "Send",IDC_DRVRINFO_BTN_ADD_STATUS,102,172,31,14,
+                    WS_DISABLED
+    LISTBOX         IDC_DRVRINFO_LST_STATUS,147,91,125,122,
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Close",IDOK,146,223,50,14
+    LTEXT           "Current:",IDC_DRVRINFO_LBL_CURRENT_ID,12,36,36,11
+    LTEXT           "",IDC_DRVRINFO_TXT_CURRENT_ID,16,48,126,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "Update:",IDC_DRVRINFO_LBL_NEW_ID,151,33,27,8
+    GROUPBOX        "Driver ID",IDC_DRVRINFO_GRP_ID,7,24,271,41
+    GROUPBOX        "Driver Status",IDC_DRVRINFO_GRP_STATUS,7,70,272,151
+    LTEXT           "Select Status on Right to Update Current Status:",
+                    IDC_DRVRINFO_LBL_SEND_STATUS,20,110,81,16
+    LTEXT           "",IDC_DRVRINFO_TXT_CURRENT_STATUS,15,93,126,11,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "Current:",IDC_DRVRINFO_LBL_CURRENT_STATUS,14,82,36,11
+    LTEXT           "Avaliable Statuses:",IDC_DRVRINFO_LBL_LIST_STATUSES,143,
+                    80,109,11
+    GROUPBOX        "",IDC_DRVRINFO_GRP_SEND_STATUS,15,103,126,27
+    GROUPBOX        "",IDC_DRVRINFO_GRP_DELETE_STATUS,15,130,126,30
+    LTEXT           "Select Status on Right to Delete:",
+                    IDC_DRVRINFO_LBL_DELETE_STATUS,32,137,69,20
+    LTEXT           "ID (dec):",IDC_DRVRINFO_LBL_STATUS_ID,19,176,31,8
+    GROUPBOX        "Add/Update Status",IDC_DRVRINFO_GRP_ADD_STATUS,15,162,
+                    126,53
+    LTEXT           "Status:",IDC_DRVRINFO_LBL_STATUS_TEXT,19,193,24,8
+    LTEXT           "Driver Index:",IDC_DRVRINFO_LBL_IDX,14,9,45,11
+    PUSHBUTTON      "Driver Logins",IDC_DRVRINFO_BTN_EDIT_LOGINS,88,223,50,
+                    14
+END
+
+IDD_CANNED_TXT_MSG DIALOGEX 0, 0, 280, 153
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Manage Canned Messages"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_CANMSG_EDIT_ID,62,94,59,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_CANMSG_EDIT_TEXT,17,126,172,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Send",IDC_CANMSG_BTN_SEND,133,97,50,21,WS_DISABLED
+    LISTBOX         IDC_CANMSG_LST_MESSAGES,24,27,230,50,
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Delete",IDC_CANMSG_BTN_DELETE,203,10,50,14
+    PUSHBUTTON      "Close",IDOK,211,98,50,34
+    LTEXT           "Current Canned Messages (Select One to Delete):",
+                    IDC_CANMSG_LBL_MESSAGES,7,13,174,8
+    LTEXT           "Message ID:",IDC_CANMSG_LBL_ID,20,94,42,13
+    LTEXT           "Message Text (50 chars Max):",IDC_CANMSG_LBL_TEXT,17,
+                    113,101,8
+    GROUPBOX        "Set Canned Message",IDC_CANMSG_GRP_SET,7,83,192,63
+    LTEXT           "(Decimal)",IDC_CANMSG_LBL_ID_HINT,30,102,30,8
+END
+
+IDD_TXT_MSG_STATUS_REQUEST DIALOGEX 0, 0, 203, 54
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Request Message Status"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_STATUSREQ_EDIT_MSG_ID,52,8,144,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,108,33,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,45,33,50,14
+    LTEXT           "Message ID:",IDC_STATUSREQ_LBL_MSG_ID,9,11,41,8
+    LTEXT           "(Enter 0x for Hex Entry)",IDC_STATUSREQ_LBL_MSG_ID_HINT,
+                    62,23,79,8
+END
+
+IDD_TXT_MSG_DELETE_REQUEST DIALOGEX 0, 0, 203, 54
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Request Message Deletion"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_MSGDEL_EDIT_MSG_ID,52,8,144,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,108,34,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,45,34,50,14
+    LTEXT           "Message ID:",IDC_MSGDEL_LBL_MSG_ID,9,12,41,8
+    LTEXT           "(Enter 0x for Hex Entry)",IDC_MSGDEL_LBL_MSG_ID_HINT,62,
+                    23,79,8
+END
+
+IDD_TXT_MSG_STATUS DIALOGEX 0, 0, 205, 66
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Message Status Update"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,45,45,50,14
+    LTEXT           "Message ID:",IDC_MSGSTATUS_LBL_ID,9,11,41,8
+    LTEXT           "Message Status:",IDC_MSGSTATUS_LBL_STATUS,7,29,54,8
+    LTEXT           "",IDC_MSGSTATUS_TXT_ID,54,9,144,13,0,WS_EX_CLIENTEDGE
+    LTEXT           "",IDC_MSGSTATUS_TXT_STATUS,65,27,133,13,0,
+                    WS_EX_CLIENTEDGE
+END
+
+IDD_SELECT_PORT DIALOGEX 0, 0, 144, 63
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COMPORT_CBO_PORT,33,20,79,56,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,79,42,50,14
+    LTEXT           "Select a Port to Use for Communication:",
+                    IDC_COMPORT_LBL_PORT,7,7,130,12
+    PUSHBUTTON      "Cancel",IDCANCEL,15,42,50,14
+END
+
+IDD_UI_TEXT_CHANGE DIALOGEX 0, 0, 186, 66
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Change Client UI Text"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_UITEXT_CBO_ITEM,67,7,94,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_UITEXT_EDIT_NEWTEXT,49,26,130,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,101,45,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,35,45,50,14
+    LTEXT           "Text To Change:",IDC_UITEXT_LBL_ITEM,7,9,54,8
+    LTEXT           "Change To:",IDC_UITEXT_LBL_NEWTEXT,7,29,38,8
+END
+
+IDD_MSG_THROTTLING DIALOGEX 0, 0, 149, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Message Throttling"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Message Status",IDC_THROTTLE_CHK_MESSAGE_STATUS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,34,113,10
+    CONTROL         "Refresh Canned Response Text",
+                    IDC_THROTTLE_CHK_REFRESH_CAN_RESP,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,45,118,10
+    CONTROL         "Refresh Canned Message List",
+                    IDC_THROTTLE_CHK_REFRESH_CAN_MSG_LIST,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,56,121,10
+    CONTROL         "Client to Server Open Text Message",
+                    IDC_THROTTLE_CHK_CLIENT_TO_SERVER_OPEN_TXT_MSG,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,67,128,10
+    CONTROL         "Stop Status",IDC_THROTTLE_CHK_STOP_STATUS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,78,53,10
+    CONTROL         "Estimated Time of Arrival",IDC_THROTTLE_CHK_ETA,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,89,95,10
+    CONTROL         "Driver ID Update",IDC_THROTTLE_CHK_DRIVER_ID_UPDATE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,100,70,10
+    CONTROL         "Driver Status List Refresh",
+                    IDC_THROTTLE_CHK_DRIVER_STATUS_LIST_REFRESH,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,111,98,10
+    CONTROL         "Driver Status Update",
+                    IDC_THROTTLE_CHK_DRIVER_STATUS_UPDATE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,122,83,10
+    CONTROL         "Ping",IDC_THROTTLE_CHK_PING,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,133,29,10
+    DEFPUSHBUTTON   "Update",IDC_THROTTLE_BTN_UPDATE,82,162,50,14
+    PUSHBUTTON      "Cancel",IDC_THROTTLE_BTN_CANCEL,16,162,50,14
+    LTEXT           "Select Messages to Throttle:",IDC_THROTTLE_LBL_SELECT,7,
+                    7,135,8
+    CONTROL         "Select All",IDC_THROTTLE_CHK_ALL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,19,108,10
+    CONTROL         "Waypoint Deleted",IDC_THROTTLE_CHK_WAYPOINT_DELETED,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,144,73,10
+END
+
+IDD_LOG DIALOGEX 0, 0, 424, 278
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_THICKFRAME
+CAPTION "Packet Log     (Window is Resizable)"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Up",IDC_LOG_RDO_UP,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,48,245,25,10
+    CONTROL         "Down",IDC_LOG_RDO_DOWN,"Button",BS_AUTORADIOBUTTON,78,
+                    245,34,10
+    EDITTEXT        IDC_LOG_EDIT_SEARCH_TEXT,9,256,92,14,ES_AUTOHSCROLL | 
+                    WS_GROUP
+    DEFPUSHBUTTON   "Find Next",IDC_LOG_BTN_FIND_NEXT,107,256,50,14
+    PUSHBUTTON      "Clear Log",IDC_LOG_BTN_CLEAR,270,239,50,14
+    PUSHBUTTON      "Save As...",IDC_LOG_BTN_SAVE_AS,333,239,50,14
+    PUSHBUTTON      "View Current",IDC_LOG_BTN_VIEW_CURRENT,270,260,50,14
+    PUSHBUTTON      "View Other",IDC_LOG_BTN_VIEW_OTHER,204,260,50,14
+    PUSHBUTTON      "Close",IDOK,333,260,50,14
+    LISTBOX         IDC_LOG_LST_PACKETS,4,14,158,216,LBS_OWNERDRAWFIXED | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Select a Packet to View/Resend Its Data:",
+                    IDC_LOG_LBL_PACKETS,4,4,132,8
+    LTEXT           "Selected Packet's Data:",IDC_LOG_LBL_SELECTED_PACKET,
+                    172,4,76,8
+    LTEXT           "",IDC_LOG_TXT_SELECTED_PACKET,172,14,246,198,
+                    SS_NOPREFIX,WS_EX_CLIENTEDGE
+    LTEXT           "Viewing:",IDC_LOG_LBL_LOG_NAME,172,221,27,8
+    LTEXT           "",IDC_LOG_TXT_LOG_NAME,203,220,216,11,SS_PATHELLIPSIS,
+                    WS_EX_CLIENTEDGE
+    GROUPBOX        "Search",IDC_LOG_GRP_SEARCH,4,238,158,36
+    PUSHBUTTON      "Send Packet",IDC_LOG_BTN_RESEND,204,239,50,14,
+                    WS_DISABLED
+END
+
+IDD_WAYPOINT DIALOGEX 0, 0, 453, 233
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Waypoints"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_WPT_EDIT_WPT_ID,108,26,98,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WPT_EDIT_WPT_NAME,27,55,118,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WPT_EDIT_SYM_ID,151,54,58,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WPT_EDIT_LAT,28,86,88,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WPT_EDIT_LON,121,86,86,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WPT_EDIT_WPT_COMMENT,28,115,180,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Send",IDC_WPT_BTN_SEND,157,139,50,14,WS_DISABLED
+    EDITTEXT        IDC_WPT_EDIT_CAT_ID,15,185,58,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WPT_EDIT_CAT_NAME,83,185,102,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Create",IDC_WPT_BTN_CREATE_CAT,79,203,60,14
+    LISTBOX         IDC_WPT_LST_CATEGORIES,224,33,98,142,LBS_MULTIPLESEL | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_WPT_LST_WAYPOINTS,325,33,111,142,
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Delete Category",IDC_WPT_BTN_DELETE_CAT,243,182,60,14
+    PUSHBUTTON      "Delete",IDC_WPT_BTN_DELETE,327,182,50,14
+    DEFPUSHBUTTON   "Close",IDOK,386,182,50,14
+    LTEXT           "Current waypoints:",IDC_WPT_LBL_WAYPOINTS,328,20,66,8
+    LTEXT           "Waypoint ID: (decimal)",IDC_CANRESP_LBL_ID,27,27,77,10
+    LTEXT           "Waypoint Name (30 chars max):",IDC_WPT_LBL_NAME,27,44,
+                    104,8
+    GROUPBOX        "Create Waypoint",IDC_WPT_GRP_SET,17,15,202,155
+    LTEXT           "Symbol ID:",IDC_WPT_LBL_SYM_ID,151,45,56,8
+    LTEXT           "Category Name (16 chars max):",IDC_WPT_LBL_CAT_NAME,83,
+                    174,104,8
+    LTEXT           "Latitude:",IDC_WPT_LBL_LAT,28,75,75,8
+    LTEXT           "Longitude:",IDC_WPT_LBL_CAT_LON,124,75,73,8
+    LTEXT           "Comment (50 chars max):",IDC_WPT_LBL_COMMENT,28,105,104,
+                    8
+    LTEXT           "Current Categories:",IDC_WPT_LBL_CATEGORIES,227,20,65,8
+    LTEXT           "Category ID:",IDC_WPT_LBL_CAT_ID,18,174,49,8
+END
+
+IDD_FEATURE_SELECT DIALOGEX 0, 0, 186, 121
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Select Features"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,98,100,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,37,100,50,14
+    CONTROL         "Unicode Support",IDC_FEATURE_CHK_UNICODE,"Button",
+                    BS_AUTO3STATE | WS_TABSTOP,52,35,69,10
+    CONTROL         "Driver Passwords",IDC_FEATURE_CHK_PASSWORDS,"Button",
+                    BS_AUTO3STATE | WS_TABSTOP,52,63,71,10
+    CONTROL         "Multiple Drivers",IDC_FEATURE_CHK_MULTIDRIVER,"Button",
+                    BS_AUTO3STATE | WS_TABSTOP,52,78,65,10
+    CTEXT           "Check features to enable\nGray indicates default behavior",
+                    IDC_STATIC,34,14,107,17
+    CONTROL         "A607 Support",IDC_FEATURE_CHK_A607,"Button",
+                    BS_AUTO3STATE | WS_TABSTOP,52,48,60,10
+END
+
+IDD_DRIVER_LOGINS DIALOGEX 0, 0, 280, 165
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Manage Drivers"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_DRIVERS_EDIT_ID,50,96,140,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DRIVERS_EDIT_PASSWORD,50,115,140,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Set",IDC_DRIVERS_BTN_SET,75,136,50,14,WS_DISABLED
+    LISTBOX         IDC_DRIVERS_LST_DRIVERS,24,27,230,50,
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Delete",IDC_DRIVERS_BTN_DELETE,203,10,50,14
+    PUSHBUTTON      "Close",IDOK,216,136,50,14
+    LTEXT           "Current Allowed Drivers (Select One to Delete):",
+                    IDC_DRIVERS_LBL_LOGINS,7,13,174,8
+    LTEXT           "Driver ID:",IDC_DRIVERS_LBL_ID,14,98,32,8
+    LTEXT           "Password:",IDC_DRIVERS_LBL_PASSWORD,14,119,34,8
+    GROUPBOX        "Set Driver Login",IDC_DRIVERS_GRP_SET,7,83,192,75
+END
+
+IDD_SAFE_MODE DIALOGEX 0, 0, 203, 54
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Set FMI Safe Mode Speed"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_SAFE_MODE_SPEED,52,8,144,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,108,33,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,45,33,50,14
+    LTEXT           "Speed(m/s)",IDC_STATUSREQ_LBL_MSG_ID,9,11,38,8
+    LTEXT           "(Enter negative speed to turn off FMI safe mode)",
+                    IDC_STATUSREQ_LBL_MSG_ID_HINT,35,23,160,8
+END
+
+IDD_SPEED_ALERTS DIALOGEX 0, 0, 147, 149
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Speed Limit Alerts"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_SPEED_LIMIT_CBO_MODE,64,6,62,81,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_SPEED_LIMIT_EDIT_TIME_OVER,64,25,62,12,
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_SPEED_LIMIT_EDIT_TIME_UNDER,64,44,62,12,
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_SPEED_LIMIT_EDIT_THRESHOLD,64,63,62,12,
+                    ES_AUTOHSCROLL
+    COMBOBOX        IDC_SPEED_LIMIT_CBO_ALERT_USER,64,82,62,47,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "Send",IDC_SPEED_LIMIT_SEND,81,130,50,14
+    PUSHBUTTON      "Close",IDOK,17,130,50,14
+    LTEXT           "Mode:",IDC_STATIC,21,7,21,8
+    LTEXT           "Time over:",IDC_STATIC,21,26,35,8
+    LTEXT           "Time under:",IDC_STATIC,21,45,42,8
+    LTEXT           "Threshold:",IDC_STATIC,21,64,36,8
+    LTEXT           "Alert User:",IDC_STATIC,21,83,36,8
+    EDITTEXT        IDC_SPEED_LIMIT_EDIT_RESULT,64,101,62,12,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "Result:",IDC_STATIC,21,102,24,8
+    LTEXT           "( View packet log for alerts )",IDC_STATIC,27,117,94,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,4,1,0
+ PRODUCTVERSION 2,4,1,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Garmin"
+            VALUE "FileDescription", "Fleet Management Controller"
+            VALUE "FileVersion", "2.70"
+            VALUE "InternalName", "fmi_pc_app.exe"
+            VALUE "LegalCopyright", "Copyright 2008-2011 by Garmin Ltd. or its subsidiaries."
+            VALUE "OriginalFilename", "fmi_pc_app.exe"
+            VALUE "ProductName", "Fleet Management Controller"
+            VALUE "ProductVersion", "2.70"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 79
+    END
+
+    IDD_FMI_PC_APP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 375
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 305
+    END
+
+    IDD_TXT_MSG_NEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 278
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    IDD_STOP_NEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 226
+    END
+
+    IDD_STOP_LIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 290
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 171
+    END
+
+    IDD_TXT_MSG_ACK, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 190
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 78
+    END
+
+    IDD_TXT_MSG_FROM_CLIENT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 215
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 109
+    END
+
+    IDD_AUTO_ARRIVAL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 80
+    END
+
+    IDD_DELETE_DATA, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 158
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_GPI_TRANSFER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_ERROR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 59
+    END
+
+    IDD_GPI_TRANSFER_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 224
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 70
+    END
+
+    IDD_CANNED_RESPONSE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 273
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 147
+    END
+
+    IDD_CANNED_RESPONSE_SELECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 176
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 107
+    END
+
+    IDD_PING_STATUS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 307
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 80
+    END
+
+    IDD_GPI_QUERY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 201
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_DRIVER_ID_STATUS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 279
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 237
+    END
+
+    IDD_CANNED_TXT_MSG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 273
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 146
+    END
+
+    IDD_TXT_MSG_STATUS_REQUEST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 196
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 47
+    END
+
+    IDD_TXT_MSG_STATUS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 59
+    END
+
+    IDD_SELECT_PORT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 137
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+
+    IDD_UI_TEXT_CHANGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 59
+    END
+
+    IDD_MSG_THROTTLING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 142
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_LOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 419
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 274
+    END
+
+    IDD_WAYPOINT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 446
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 226
+    END
+
+    IDD_FEATURE_SELECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
+
+    IDD_DRIVER_LOGINS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 273
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 158
+    END
+
+    IDD_SAFE_MODE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 196
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 47
+    END
+
+    IDD_SPEED_ALERTS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 140
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 142
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_STOP_LIST DLGINIT
+BEGIN
+    IDC_STOPLIST_CBO_UPDATE_STOP, 0x403, 15, 0
+0x6552, 0x7571, 0x7365, 0x2074, 0x7453, 0x7461, 0x7375, "\000" 
+    IDC_STOPLIST_CBO_UPDATE_STOP, 0x403, 13, 0
+0x614d, 0x6b72, 0x4120, 0x2073, 0x6f44, 0x656e, "\000" 
+    IDC_STOPLIST_CBO_UPDATE_STOP, 0x403, 14, 0
+0x6341, 0x6974, 0x6176, 0x6574, 0x5320, 0x6f74, 0x0070, 
+    IDC_STOPLIST_CBO_UPDATE_STOP, 0x403, 12, 0
+0x6544, 0x656c, 0x6574, 0x5320, 0x6f74, 0x0070, 
+    IDC_STOPLIST_CBO_UPDATE_STOP, 0x403, 10, 0
+0x6f4d, 0x6576, 0x5320, 0x6f74, 0x0070, 
+    0
+END
+
+IDD_SELECT_PORT DLGINIT
+BEGIN
+    IDC_COMPORT_CBO_PORT, 0x403, 5, 0
+0x4f43, 0x314d, "\000" 
+    IDC_COMPORT_CBO_PORT, 0x403, 5, 0
+0x4f43, 0x324d, "\000" 
+    0
+END
+
+IDD_UI_TEXT_CHANGE DLGINIT
+BEGIN
+    IDC_UITEXT_CBO_ITEM, 0x403, 24, 0
+0x4422, 0x7369, 0x6170, 0x6374, 0x2268, 0x6f20, 0x206e, 0x614d, 0x6e69, 
+0x4d20, 0x6e65, 0x0075, 
+    0
+END
+
+IDD_DRIVER_ID_STATUS DLGINIT
+BEGIN
+    IDC_DRVRINFO_CBO_IDX, 0x403, 2, 0
+0x0031, 
+    IDC_DRVRINFO_CBO_IDX, 0x403, 2, 0
+0x0032, 
+    IDC_DRVRINFO_CBO_IDX, 0x403, 2, 0
+0x0033, 
+    0
+END
+
+IDD_SPEED_ALERTS DLGINIT
+BEGIN
+    IDC_SPEED_LIMIT_CBO_MODE, 0x403, 4, 0
+0x6143, 0x0072, 
+    IDC_SPEED_LIMIT_CBO_MODE, 0x403, 4, 0
+0x664f, 0x0066, 
+    IDC_SPEED_LIMIT_CBO_MODE, 0x403, 6, 0
+0x7254, 0x6375, 0x006b, 
+    IDC_SPEED_LIMIT_CBO_ALERT_USER, 0x403, 5, 0
+0x7254, 0x6575, "\000" 
+    IDC_SPEED_LIMIT_CBO_ALERT_USER, 0x403, 6, 0
+0x6146, 0x736c, 0x0065, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "View Current Packet Log",     ID_FILE_VIEWLOG
+        MENUITEM "Clear Current Packet Log",    ID_FILE_CLEARPACKETLOG
+        MENUITEM "Exit",                        ID_FILE_CLOSE
+    END
+    POPUP "Help"
+    BEGIN
+        MENUITEM "About...",                    ID_HELP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About fmi_pc_app..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\fmi_pc_app.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

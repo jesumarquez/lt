@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.RecorridoDistribucion,Logictracker.Types" table="[ope.ope_tick_05_det_recorrido]" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_opetick05" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="Distribucion" column="rela_opetick03" lazy="proxy" />
+
+        <property column="opetick05_latitud" name="Latitud" />
+        <property column="opetick05_longitud" name="Longitud" />
+        <property column="opetick05_orden" name="Orden" />
+        <property column="opetick05_distancia" name="Distancia" />
+    </class>
+</hibernate-mapping>

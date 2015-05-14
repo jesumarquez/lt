@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Postal.Distribuidor,Logictracker.Types" table="[logictracker_postal].[dbo].[soc.soc_usua_13_distribuidores]" lazy="true">
+
+    <id name="Id" column="id_socusua13" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="socusua13_usuario" name="Usuario" type="String" not-null="false" />
+    <property column="socusua13_clave" name="Clave" type="String" not-null="false" />
+    <property column="socusua13_codigo" name="Codigo" type="String" not-null="true" />
+    <property column="socusua13_nombre" name="Nombre" type="String" not-null="true" />
+    <property column="socusua13_fecha_modificacion" name="FechaModificacion" type="DateTime" not-null="true" />
+    <property column="socusua13_fecha_baja" name="FechaBaja" type="DateTime" not-null="false" />
+
+  </class>
+</hibernate-mapping>

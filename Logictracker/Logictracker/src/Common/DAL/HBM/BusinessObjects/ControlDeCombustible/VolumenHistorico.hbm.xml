@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ControlDeCombustible.VolumenHistorico,Logictracker.Types" table="opecomb03" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opecomb03" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opecomb03_fecha" type="DateTime" name="Fecha" not-null="true" />
+    <property column="opecomb03_volumen" type="Double" name="Volumen" not-null="true" />
+    <property column="opecomb03_tipo" type="Boolean" name="EsTeorico" not-null="true" />
+    <property column="opecomb03_volumen_agua" type="Double" name="VolumenAgua" not-null="true" />
+
+    <many-to-one column="rela_parenti36" lazy="proxy" name="Tanque" />
+  </class>
+</hibernate-mapping>

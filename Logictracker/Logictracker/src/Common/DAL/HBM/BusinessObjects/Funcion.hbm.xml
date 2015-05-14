@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Funcion.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Funcion,Logictracker.Types" table="sysfunc03" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_sysfunc03" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="sysfunc03_descri" type="String" name="Descripcion" not-null="true" length="128" />
+    <property column="sysfunc03_modulo" type="String" name="Modulo" not-null="true" length="64" />
+    <property column="sysfunc03_tipo" type="Int16" name="Tipo" not-null="true" />
+    <property column="sysfunc03_url" type="String" name="Url" not-null="true" length="128" />
+    <property column="sysfunc03_parametros" type="String" name="Parametros" length="128" />
+    <property column="sysfunc03_fbaja" type="String" name="FechaBaja" length="10" />
+    <property column="sysfunc03_ref" type="String" name="Ref" length="32" />
+
+    <many-to-one name="Sistema" column="rela_sysfunc02" class="Logictracker.Types.BusinessObjects.Sistema,Logictracker.Types" lazy="proxy" />
+  </class>
+</hibernate-mapping>

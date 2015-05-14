@@ -1,0 +1,44 @@
+BORRAR TODO							// Borro todo los eventos
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+								// SAPNA "internet.ctimovil.com.ar","wap","wap"
+
+SAPNA "INTERNET.CTIMOVIL.COM.AR","WAP","WAP"
+
+SIP0 190.210.147.205
+
+//SIP0 200.70.28.88						// IP RSV 200.26.26.65
+
+SDU02050							// PUerto RSV 30300
+							
+SCE10000101  						        // Configuracion general
+								
+SCX10011100  						        // habilito log ciclico y llave de chofer
+
+STM0000010SA
+
+SED000 1 TM00++ IP03FG___001
+
+
+SHW02								// Configuro la version de firmware
+
+SLOGD								// LIMPAR TODOS OS LOGS
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+SRD								// RESET NO EQUIPAMENT

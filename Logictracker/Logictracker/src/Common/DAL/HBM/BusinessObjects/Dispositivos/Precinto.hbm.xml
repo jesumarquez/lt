@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.Precinto,Logictracker.Types" table="parenti78" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti78" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti78_codigo" type="String" name="Codigo" />
+    <property column="parenti78_baja" type="Boolean" name="Baja" />
+    
+  </class>
+</hibernate-mapping>

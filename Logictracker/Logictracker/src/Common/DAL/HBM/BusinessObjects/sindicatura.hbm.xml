@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Sindicatura,Logictracker.Types" table="sindicatura" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="planificacion_global" type="String" name="PlanificacionGlobal" length="1000" not-null="false" />
+    <property column="objeto" type="String" name="Objeto" length="1000" not-null="false" />
+    <property column="dependencias" type="String" name="Dependencias" length="1000" not-null="false" />
+    <property column="tareasFiscalizacion" type="String" name="TareasFiscalizacion" length="1000" not-null="false" />
+    
+  </class>
+</hibernate-mapping>

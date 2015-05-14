@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Tickets.DetalleServicio,Logictracker.Types" table="[ope.ope_tick_02_det_servicios]" lazy="false">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Servicio" column="rela_opetick01" />
+    <many-to-one name="DetalleCiclo" column="rela_partick02" />
+
+    <property column="opetick02_tipoestado" type="Int16" name="Tipo" not-null="true" />
+
+    <many-to-one name="Mensaje" column="rela_pareven01" />
+    <many-to-one name="ReferenciaGeografica" column="rela_parenti05" />
+
+    <property column="opetick02_minutos" type="Int32" name="Minutos" />
+
+    <property column="opetick02_programada" name="Programada" not-null="true" />
+    <property column="opetick02_real" name="Real" />
+    <property column="opetick02_control" name="Control" />
+    <property column="opetick02_estado" type="Int16" name="Estado" not-null="true" />
+    <property column="opetick02_orden" type="Int16" name="Orden" not-null="true" />
+    <property column="opetick02_obligatorio" type="Boolean" name="Obligatorio" not-null="true" />
+
+  </class>
+</hibernate-mapping>

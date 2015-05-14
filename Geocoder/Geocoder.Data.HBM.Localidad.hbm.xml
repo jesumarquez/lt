@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="true" namespace="Geocoder.Core" assembly="Geocoder.Core">
+	<class name="Localidad" table="localidad" lazy="true">
+    <cache usage="read-write" />
+
+    <!-- Primary Key(s) -->
+		<id name="Id" column="id_localidad" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="locl_nombre" type="String" name="Nombre" not-null="true" length="64" />
+		<property column="locl_mapid" type="Int32" name="MapId" not-null="true" />
+		<many-to-one name="Partido" class="Partido" column="fk_partido" not-null="true" lazy="proxy" index="IX_localidad_partido" />
+    
+		<bag name="Palabras" table="localidad_palabraposicionada" generic="true" inverse="false" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+			<key column="fk_localidad" />
+			<many-to-many column="fk_palabraposicionada" class="PalabraPosicionada" />
+		</bag>
+	</class>
+</hibernate-mapping>

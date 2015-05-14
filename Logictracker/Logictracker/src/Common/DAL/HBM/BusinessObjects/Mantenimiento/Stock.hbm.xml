@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Mantenimiento.Stock,Logictracker.Types" table="parenti88" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti88" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti88_cantidad" name="Cantidad" />
+    <property column="parenti88_capacidad_max" name="CapacidadMaxima" />
+    <property column="parenti88_punto_reposicion" name="PuntoReposicion" />
+    <property column="parenti88_stock_critico" name="StockCritico" />
+    <property column="parenti88_alarma_activa" name="AlarmaActiva" />
+    
+    <many-to-one column="rela_parenti58" name="Insumo" lazy="proxy" />
+    <many-to-one column="rela_parenti87" name="Deposito" lazy="proxy" />
+  </class>
+</hibernate-mapping>

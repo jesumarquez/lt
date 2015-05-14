@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Equipo,Logictracker.Types" table="parenti19" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti19" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Cliente" column="rela_parenti18" class="Logictracker.Types.BusinessObjects.Cliente,Logictracker.Types" lazy="proxy"></many-to-one>
+    <many-to-one name="Empresa" column="rela_parenti01" class="Logictracker.Types.BusinessObjects.Empresa,Logictracker.Types" lazy="proxy"></many-to-one>
+    <many-to-one name="Linea" column="rela_parenti02" class="Logictracker.Types.BusinessObjects.Linea,Logictracker.Types" lazy="proxy"></many-to-one>
+    <many-to-one name="Empleado" column="rela_parenti09" class="Logictracker.Types.BusinessObjects.Empleado,Logictracker.Types" lazy="proxy"></many-to-one>
+    <many-to-one name="Tarjeta" column="rela_parenti23" class="Logictracker.Types.BusinessObjects.Tarjeta,Logictracker.Types" lazy="proxy"></many-to-one>
+    <many-to-one name="ReferenciaGeografica" column="rela_parenti05"></many-to-one>
+
+    <property column="parenti19_codigo" type="String" name="Codigo" length="32" not-null="true" />
+    <property column="parenti19_nombre" type="String" name="Descripcion" length="64" not-null="true" />
+    <property column="parenti19_baja" type="Boolean" name="Baja" not-null="true" />
+
+    <many-to-one column="rela_parenti37" name="CentroDeCostos" lazy="proxy" />
+  </class>
+</hibernate-mapping>

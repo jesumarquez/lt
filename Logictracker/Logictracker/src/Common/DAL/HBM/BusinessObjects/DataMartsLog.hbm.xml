@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.DataMartsLog,Logictracker.Types" table="parenti101" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti101" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti101_fecha_inicio" name="FechaInicio" />
+    <property column="parenti101_fecha_fin" name="FechaFin" />
+    <property column="parenti101_modulo" name="Modulo" />
+    <property column="parenti101_mensaje" name="Mensaje" />
+    <property column="parenti101_duracion" name="Duracion" />
+
+      
+  </class>
+</hibernate-mapping>

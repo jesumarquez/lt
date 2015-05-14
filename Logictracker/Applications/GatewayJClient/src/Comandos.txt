@@ -1,0 +1,47 @@
+
+SET PARAMETER:
+
+*  cambio de ip, frecuencia y timers: "config_0"
+
+    Device.SetParameter
+    	cfgParameter=config_0
+    	cfgValue=<Puerto>,<IP>,<Frecuencia>,<Reintentos>,<Timeout>
+	
+	ej:
+	String reconfig = "/Device.SetParameter?devId=" + Integer.valueOf(matcher.group(1)) +
+                        		"&cfgParameter=config_0&cfgValue="+ matcher.group(3) + "," + matcher.group(2) + 
+                        	     "," + matcher.group(4) + ",3,45";
+                        	     
+*  velocidad  "config_1"
+
+    Device.SetParameter
+    	cfgParameter=config_1
+    	cfgValue=<VelocidadMaxima>,<TiempoMaxima>,<VelocidadMinima>,<TiempoMinima>
+	
+	ej:
+
+	String reconfig = "/Device.SetParameter?devId=" + Integer.valueOf(matcher.group(1)) +
+                        		"&cfgParameter=config_1&cfgValue=100,60,5,15";
+                        		
+*  telefono base "config_2"
+
+    Device.SetParameter
+    	cfgParameter=config_2
+    	cfgValue=<Telefono.Length>,<Telefono>                        		
+    
+    ej:		
+	String reconfig = "/Device.SetParameter?devId=" + Integer.valueOf(matcher.group(1)) +
+                        		"&cfgParameter=config_2&cfgValue=10,1145018492";
+                        		
+*  Fin de Alarma, Fin Comunicacion y Pedidio de Posicion:
+
+	Device.SetWorkflowState
+		newState=<1,2,3>
+		
+	Fin Comunicacion:    1		
+	Fin de Alarma:       2
+	Pedidio de Posicion: 3
+	
+	String reconfig = "/Device.SetWorkflowState?devId=" + Integer.valueOf(matcher.group(1)) +
+                        		"&newState=1";
+	

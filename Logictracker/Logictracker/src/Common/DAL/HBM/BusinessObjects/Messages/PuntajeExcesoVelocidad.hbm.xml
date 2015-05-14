@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: LogPosicion.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.PuntajeExcesoVelocidad,Logictracker.Types" table="opeacci01" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opeacci01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opeacci01_porcentaje" name="Porcentaje" type="Int32" />
+    <property column="opeacci01_puntaje" name="Puntaje" type="Int32" />
+  </class>
+</hibernate-mapping>

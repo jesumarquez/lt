@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ControlDeCombustible.MotivoConciliacion,Logictracker.Types" table="opecomb04" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opecomb04" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opecomb04_descripcion" type="String" name="Descripcion" />
+    <property column="opecomb04_asignable" type="Boolean" name="Asignable" not-null="true" />
+  </class>
+</hibernate-mapping>

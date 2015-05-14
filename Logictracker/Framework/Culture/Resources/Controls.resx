@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ADDRESS_ALTURA" xml:space="preserve">
+    <value>Altura</value>
+  </data>
+  <data name="ADDRESS_CALLE" xml:space="preserve">
+    <value>Calle</value>
+  </data>
+  <data name="ADDRESS_ESQUINA" xml:space="preserve">
+    <value>Esquina</value>
+  </data>
+  <data name="ADDRESS_PARTIDO" xml:space="preserve">
+    <value>Partido</value>
+  </data>
+  <data name="BUTTON_ACCEPT" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="BUTTON_ADD_PARAMETER" xml:space="preserve">
+    <value>Agregar Parametro</value>
+  </data>
+  <data name="BUTTON_ANULAR" xml:space="preserve">
+    <value>Anular</value>
+  </data>
+  <data name="BUTTON_BACK" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="BUTTON_CANCEL" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="BUTTON_CERRAR_CLOG" xml:space="preserve">
+    <value>Cerrar Ticket</value>
+  </data>
+  <data name="BUTTON_CONTROLS" xml:space="preserve">
+    <value>Controles</value>
+  </data>
+  <data name="BUTTON_CSV" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="BUTTON_EXCEL" xml:space="preserve">
+    <value>Excel</value>
+  </data>
+  <data name="BUTTON_DELETE" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="BUTTON_DUPLICATE" xml:space="preserve">
+    <value>Duplicar</value>
+  </data>
+  <data name="BUTTON_EDIT" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="BUTTON_REPROCESAR" xml:space="preserve">
+    <value>Reprocesar</value>
+  </data>
+  <data name="BUTTON_ESCUCHAR" xml:space="preserve">
+    <value>Escuchar</value>
+  </data>
+  <data name="BUTTON_EXPORT_CSV" xml:space="preserve">
+    <value>Exportar a CSV</value>
+  </data>
+  <data name="BUTTON_GENERAR_TICKETS" xml:space="preserve">
+    <value>Generar Tickets</value>
+  </data>
+  <data name="BUTTON_GENERAR_TICKETS_TODOS" xml:space="preserve">
+    <value>Generar Todo</value>
+  </data>
+  <data name="BUTTON_HELP" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="BUTTON_IMPORT" xml:space="preserve">
+    <value>Importar</value>
+  </data>
+  <data name="BUTTON_LIST" xml:space="preserve">
+    <value>Listado</value>
+  </data>
+  <data name="BUTTON_LISTEN" xml:space="preserve">
+    <value>Escuchar</value>
+  </data>
+  <data name="BUTTON_LOGIN" xml:space="preserve">
+    <value>Ingresar</value>
+  </data>
+  <data name="BUTTON_MAP" xml:space="preserve">
+    <value>Ver Mapa</value>
+  </data>
+  <data name="BUTTON_EVENT" xml:space="preserve">
+    <value>Ver Eventos</value>
+  </data>
+  <data name="BUTTON_NEW" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="BUTTON_NOW" xml:space="preserve">
+    <value>Ahora</value>
+  </data>
+  <data name="BUTTON_PRINT" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="BUTTON_REFRESH" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="BUTTON_SCHEDULE" xml:space="preserve">
+    <value>Programar</value>
+  </data>
+  <data name="BUTTON_REGENERATE" xml:space="preserve">
+    <value>Recalcular</value>
+  </data>
+  <data name="BUTTON_RESET" xml:space="preserve">
+    <value>Resetear</value>
+  </data>
+  <data name="BUTTON_SAVE" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="BUTTON_SEARCH" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="BUTTON_SEARCH_TICKETS" xml:space="preserve">
+    <value>Buscar Tickets</value>
+  </data>
+  <data name="BUTTON_SELECT" xml:space="preserve">
+    <value>Seleccionar</value>
+  </data>
+  <data name="BUTTON_SEND" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="BUTTON_SPLIT" xml:space="preserve">
+    <value>Dividir</value>
+  </data>
+  <data name="BUTTON_START_CLOG" xml:space="preserve">
+    <value>Iniciar Ciclo Logístico</value>
+  </data>
+  <data name="BUTTON_TARIFA_DIFERENCIAL" xml:space="preserve">
+    <value>Agregar Tarifa Diferencial</value>
+  </data>
+  <data name="BUTTON_UPLOAD" xml:space="preserve">
+    <value>Subir Archivo</value>
+  </data>
+  <data name="DDL_ALL_ITEMS" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="DDL_NONE" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="DDL_NO_EMPLOYEE" xml:space="preserve">
+    <value>Sin Empleado</value>
+  </data>
+  <data name="DDL_NO_EQUIPMENT" xml:space="preserve">
+    <value>Sin Equipo</value>
+  </data>
+  <data name="DDL_NO_MESSAGE" xml:space="preserve">
+    <value>Sin Mensaje</value>
+  </data>
+  <data name="DDL_NO_TIPOEMPLEADO" xml:space="preserve">
+    <value>Sin Tipo de Empleado</value>
+  </data>
+  <data name="DDL_NO_TRANSPORTISTA" xml:space="preserve">
+    <value>Sin Transportista</value>
+  </data>
+  <data name="DDL_SIN_CENTRO" xml:space="preserve">
+    <value>Sin Centro de Costos</value>
+  </data>
+  <data name="DDL_UNASSIGNED" xml:space="preserve">
+    <value>Sin Asignar</value>
+  </data>
+  <data name="GRID_GROUPBY_CAPTION" xml:space="preserve">
+    <value>Arrastre una columna aqui para agrupar por esa columna</value>
+  </data>
+  <data name="AJUSTE_KM" xml:space="preserve">
+    <value>Ajuste Km.</value>
+  </data>
+  <data name="AJUSTE_DIAS" xml:space="preserve">
+    <value>Ajuste Días</value>
+  </data>
+  <data name="AJUSTE_HORAS" xml:space="preserve">
+    <value>Ajuste Horas</value>
+  </data>
+  <data name="DDL_NO_PROVEEDOR" xml:space="preserve">
+    <value>Sin Proveedor</value>
+  </data>
+  <data name="DDL_NO_INSUMOS" xml:space="preserve">
+    <value>Sin Insumo</value>
+  </data>
+  <data name="DDL_NO_TIPO_INSUMOS" xml:space="preserve">
+    <value>Sin Tipo de Insumo</value>
+  </data>
+  <data name="BUTTON_START_ALL_TICKETS" xml:space="preserve">
+    <value>Iniciar Todos</value>
+  </data>
+  <data name="BUTTON_START_TICKETS" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="BUTTON_VIEW_TICKETS" xml:space="preserve">
+    <value>Posicionar Tickets</value>
+  </data>
+  <data name="BUTTON_SOLICITAR" xml:space="preserve">
+    <value>Solicitar</value>
+  </data>
+  <data name="GRID_CANT_RESULTADOS" xml:space="preserve">
+    <value>{0} resultados</value>
+  </data>
+  <data name="VER_IMAGEN_ACTUAL" xml:space="preserve">
+    <value>Ver Imagen Actual</value>
+  </data>
+  <data name="BUTTON_VER" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="OCULTAR_CON_DISPO" xml:space="preserve">
+    <value>Ocultar vehiculos con Dispositivo</value>
+  </data>
+  <data name="OCULTAR_SIN_DISPO" xml:space="preserve">
+    <value>Ocultar vehiculos sin Dispositivo</value>
+  </data>
+  <data name="BUTTON_ADD_INSUMO" xml:space="preserve">
+    <value>Agregar Insumo</value>
+  </data>
+  <data name="BUTTON_ADD" xml:space="preserve">
+    <value>Agregar</value>
+  </data>
+  <data name="BUTTON_AGREGAR_PUNTO_EXISTENTE" xml:space="preserve">
+    <value>Agregar Punto Existente</value>
+  </data>
+  <data name="BUTTON_AGREGAR_NUEVO_PUNTO" xml:space="preserve">
+    <value>Agregar Nuevo Punto</value>
+  </data>
+</root>

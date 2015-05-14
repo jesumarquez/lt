@@ -1,0 +1,105 @@
+El archivo inicia con 14 lineas de identificacion
+
+1@1@9.8.1               	"Version de Software del Capture"
+1@2@99                  	"Numero de identificacion de la Empresa"
+1@3@bolland              	"Nombre de la Empresa"
+1@4@15/12/11 13:05      	"Fecha Y Hora de la Captura"
+1@5@22559               	"Numero de Tacografo"
+1@6@618                 	"Numero de Movil" 
+1@7@FORD                	"Leyenda de Marca"    
+1@8@KA                  	"Leyenda de Modelo"
+1@9@IEC618              	"Leyenda de Patente"
+1@10@0                  	"Reservado"
+1@11@110                	"Velocidad Maxima Programada"
+1@12@4000               	"RPM Maxima Programada"
+1@13@0                  	"Reservado"
+1@14@0                  	"Reservado"
+
+Continua con los datos estos pueden ser variables en cantidad y de distinto tipo
+estan ordenados por fecha hora
+El 2 indica que es un dato, el siguente numero es el tipo de evento.
+
+
+1."Dato simple"  
+
+2."Motor apagado"
+
+3."Motor encendido"
+
+4."Aceleracion Brusca"
+
+5."Desaceleracion Brusca"
+
+6."Inicio Infraccion"
+
+7."Fin Infraccion"
+
+
+9."Desconexion"
+
+10."Inicio RPM Maxima"
+
+11."Final RPM Maxima"
+
+12."Inicio Chofer 
+
+13."Final Chofer 
+
+14."Cambio de Dia"
+
+15."Servicio Tecnico"
+
+
+
+20."Ultimo dato del archivo"
+
+
+30."Movimiento desde hasta y minutos de marcha"
+
+31."Ultimo dato de detenido?"
+
+------------------------------------------------------------------------------------
+Ejemplos y formato
+
+
+
+2@1@0@20111118@144100@27@270     		"Evento;R;Fecha;Hora;Velocidad;Kilometros"  
+
+2@2@0@20111118@145750@0@278             	"Evento;R;Fecha;Hora;Velocidad;R;Kilometros"
+
+2@3@0@20111118@165900@0@278             	"Evento;R;Fecha;Hora;Velocidad;R;Kilometros"
+
+2@4@23418@20111202@135000@0@874         	"Evento;CHOFER;Fecha;Hora;R;Kilometros"
+
+2@5@23418@20111202@135005@0@874         	"Evento;CHOFER;Fecha;Hora;R;Kilometros"
+
+2@6@23418@20111203@203405@23418@880     	"Evento;CHOFER;Fecha;Hora;CHOFER;Kilometros"
+
+2@7@23418@20111203@203405@195@2         	"Evento;CHOFER;Fecha;Hora;Velocidad MAXIMA;minutos de infraccion"
+
+
+2@9@23418@20111119@203405@213000@20111119@0     "Evento;CHOFER;Fecha(reco);Hora;Hora(desco);Fecha;R"
+
+2@10@23418@20111119@203405@0@339        	"Evento;R;Fecha;Hora;Velocidad;R;Kilometros"
+
+2@11@23418@20111119@203500@0@10300      	"Evento;R;Fecha;Hora;Velocidad;R;RPM MAXIMA"
+
+2@12@23418@20111120@132302@0@23418      	"Evento;CHOFER;Fecha;Hora;R;CHOFER;"
+
+2@13@23418@20111120@132322@0@23418      	"Evento;CHOFER;Fecha;Hora;R;CHOFER;"
+
+2@14@0@20111119@0@0@0                   	"Evento;R;Fecha;R;R;R"
+
+2@15@20111119@134500@0@8                   	"Evento;Fecha;Hora;R;8"
+
+
+
+2@20@23418@20111205@175903@0@0          	"Evento;CHOFER;Fecha;Hora;R;R"
+
+2@30@23418@20111119@81800@85200@34      	"Evento;CHOFER;Fecha;Hora INI;Hora FIN;Minutos de marcha"
+
+2@31@23418@20111119@85200@0@327         	"Evento;CHOFER;Fecha;Hora;R;Kilometros"
+
+
+
+

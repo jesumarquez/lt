@@ -1,0 +1,9 @@
+<Application  xmlns="http://walks.ath.cx/framework"
+              xmlns:x="http://walks.ath.cx/statics"
+              xmlns:fe="http://walks.ath.cx/frontend"
+              RunMode="Console">
+
+  <ConsoleInput InputMode="GetKey"/>
+  <KeyTrigger Key="Escape" Command="UnloadRequest"/>
+  <WinServiceManager ServiceNamePrefix="Urbetrack.Express$"/>
+</Application>

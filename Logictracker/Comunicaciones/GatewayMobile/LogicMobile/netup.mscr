@@ -1,0 +1,32 @@
+# UrbeMobile, para Windows Mobile 5
+# Conectar a Internet
+
+Include (loggin.mscr)
+
+ErrorLevel ( "off" )
+
+#STATUSFILE = "\Archivos de programa\Urbetrack Mobile\UP.TXT"
+#CONNECTION = "GPRS"
+UMPATH="\Program Files\Urbetrack Mobile\"
+STATUSFILE = "\Program Files\Urbetrack Mobile\UP.TXT"
+CONNECTION = "Claro AR"
+
+SERVER = "http://www.urbetrack.com/"
+
+If (InternetConnected( SERVER ))
+	Call("Trace", "Ya estaba conectado")
+	WriteFile( STATUSFILE, "CR")
+	Exit
+EndIf
+
+Connect( CONNECTION )
+
+If (InternetConnected( SERVER ))
+	Call("Trace", "Conexion Exitosa")
+	WriteFile( STATUSFILE, "CR")
+	Exit
+EndIf
+
+Call("Trace", "Error de Conexion")
+WriteFile( STATUSFILE, "CF")
+

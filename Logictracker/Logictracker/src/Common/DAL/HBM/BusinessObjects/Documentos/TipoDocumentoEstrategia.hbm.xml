@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Documentos.TipoDocumentoEstrategia,Logictracker.Types" table="parenti27" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti27" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti27_estrategia" type="String" name="Estrategia" not-null="true" length="255" />
+
+    <many-to-one column="rela_parenti25" name="TipoDocumento" />
+  </class>
+</hibernate-mapping>

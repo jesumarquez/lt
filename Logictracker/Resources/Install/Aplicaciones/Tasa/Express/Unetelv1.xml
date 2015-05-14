@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://walks.ath.cx/framework" xmlns:x="http://walks.ath.cx/statics" xmlns:g="http://walks.ath.cx/generics" xmlns:fe="http://walks.ath.cx/frontend"
+  xmlns:unetelv1="http://walks.ath.cx/e/unetel/v1" xmlns:unetelv2="http://walks.ath.cx/e/unetel/v2" fe:Title="Urbetrack Unetel Gateway" fe:AfinityGroup="Unetel" x:Key="Default"
+  RunMode="WinService">
+
+  <Resources>
+    <SQLDataProvider x:Key="mainDataSource" DataTransportLayer="{StaticResource dataTransportLayer}">Data Source=(local);Initial Catalog=urbetrack;Persist Security Info=True; User ID=urbetrack_dispatcher;Password=dis!123*;</SQLDataProvider>
+    <MessageQueue x:Key="positionsQueue" Path=".\private$\posiciones_unex" Transactional="true" Recoverable="true" OwnerGroup="Users" />
+    <MessageQueue x:Key="eventsQueue" Path=".\private$\eventos" Transactional="true" Recoverable="true" OwnerGroup="Users" />
+    <MessageQueue x:Key="ticketsQueue" Path=".\private$\tickets" Transactional="true" Recoverable="true" OwnerGroup="Users" />
+    <MessageQueue x:Key="commanderQueue" Path=".\private$\comandos_unetelv1" Transactional="false" Recoverable="false" BinaryFormatter="false" />
+    <NodesTree x:Key="nodesTree" DataProvider="{StaticResource mainDataSource}" MessageQueue="{StaticResource commanderQueue}" ResponseDispatcher="{StaticResource theDispatcher}" ReadBodyStream="false" />
+    <LinksTree x:Key="linksTree" />
+    <UnetelV1Parser x:Key="Parser" Port="2020"/>
+  </Resources>
+  
+  <StackChannel>
+    <UDPNetworkServer Uri="utn.service://0.0.0.0:2020" LinksTree="{StaticResource linksTree}"/>
+    <DataLinkLayer Parser="{StaticResource Parser}" DataProvider="{StaticResource mainDataSource}" LinksTree="{StaticResource linksTree}"/>
+    <DataTransportLayer x:Key="dataTransportLayer">
+	<SetupParametersHook DataProvider="{StaticResource mainDataSource}" />
+	<!--DatabaseUpdateHook DataProvider="{StaticResource mainDataSource}"/-->  
+	<CannedMessagesTableHook DataProvider="{StaticResource mainDataSource}" QueueName="comandos_unetelv1"/> 
+    </DataTransportLayer>  
+    <MessageDispatcher x:Key="theDispatcher">
+      <MessageHandler g:Type="Urbetrack.AVL.Position, Urbetrack.AVL" MessageQueue="{StaticResource positionsQueue}"/>
+      <MessageHandler g:Type="Urbetrack.AVL.Event, Urbetrack.AVL" MessageQueue="{StaticResource eventsQueue}"/>
+      <MessageHandler g:Type="Urbetrack.AVL.SpeedingTicket, Urbetrack.AVL" MessageQueue="{StaticResource ticketsQueue}"/>
+    </MessageDispatcher>
+  </StackChannel>
+</Application>

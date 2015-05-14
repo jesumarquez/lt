@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.assistcargo.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.assistcargo.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.assistcargo.com/">
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SystemUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Logout">
+        <s:complexType />
+      </s:element>
+      <s:element name="LogoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LogoutResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertarEvento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NroSerie" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Latitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Longitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Altitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Velocidad" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Rumbo" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="FechaHoraEvento" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="FechaHoraRecepcion" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Crudo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertarEventoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertarEventoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYInsertarEvento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SystemUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NroSerie" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Latitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Longitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Altitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Velocidad" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="FechaHoraEvento" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="FechaHoraRecepcion" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYInsertarEventoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginYInsertarEventoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InSession">
+        <s:complexType />
+      </s:element>
+      <s:element name="InSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InSessionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerComando">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerComandoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerComandoResult" type="tns:Comando" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Comando">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CMD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UNIDAD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EQUIPO" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NUMERO" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoginYObtenerComando">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SystemUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYObtenerComandoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginYObtenerComandoResult" type="tns:Comando" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ComandoProcesado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NUMERO" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="correcto" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ComandoProcesadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ComandoProcesadoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYComandoProcesado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SystemUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="NUMERO" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="correcto" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYComandoProcesadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginYComandoProcesadoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EstadoComando">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NUMERO" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="MSG" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EstadoComandoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EstadoComandoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYEstadoComando">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SystemUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="NUMERO" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="MSG" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYEstadoComandoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginYEstadoComandoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CambiarClave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AntiguaClave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NuevaClave" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CambiarClaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CambiarClaveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYCambiarClave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SystemUser" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NuevaClave" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginYCambiarClaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginYCambiarClaveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapIn">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapOut">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertarEventoSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertarEvento" />
+  </wsdl:message>
+  <wsdl:message name="InsertarEventoSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertarEventoResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginYInsertarEventoSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginYInsertarEvento" />
+  </wsdl:message>
+  <wsdl:message name="LoginYInsertarEventoSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginYInsertarEventoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:InSession" />
+  </wsdl:message>
+  <wsdl:message name="InSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:InSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerComandoSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerComando" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerComandoSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerComandoResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginYObtenerComandoSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginYObtenerComando" />
+  </wsdl:message>
+  <wsdl:message name="LoginYObtenerComandoSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginYObtenerComandoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ComandoProcesadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ComandoProcesado" />
+  </wsdl:message>
+  <wsdl:message name="ComandoProcesadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ComandoProcesadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginYComandoProcesadoSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginYComandoProcesado" />
+  </wsdl:message>
+  <wsdl:message name="LoginYComandoProcesadoSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginYComandoProcesadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EstadoComandoSoapIn">
+    <wsdl:part name="parameters" element="tns:EstadoComando" />
+  </wsdl:message>
+  <wsdl:message name="EstadoComandoSoapOut">
+    <wsdl:part name="parameters" element="tns:EstadoComandoResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginYEstadoComandoSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginYEstadoComando" />
+  </wsdl:message>
+  <wsdl:message name="LoginYEstadoComandoSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginYEstadoComandoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CambiarClaveSoapIn">
+    <wsdl:part name="parameters" element="tns:CambiarClave" />
+  </wsdl:message>
+  <wsdl:message name="CambiarClaveSoapOut">
+    <wsdl:part name="parameters" element="tns:CambiarClaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginYCambiarClaveSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginYCambiarClave" />
+  </wsdl:message>
+  <wsdl:message name="LoginYCambiarClaveSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginYCambiarClaveResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="Login">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Autenticacion necesaria para la operacion por parte de los prestadores</wsdl:documentation>
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cierre de sesion explicito por parte del prestador</wsdl:documentation>
+      <wsdl:input message="tns:LogoutSoapIn" />
+      <wsdl:output message="tns:LogoutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserta un evento, reconoce el prestador por medio del login previo</wsdl:documentation>
+      <wsdl:input message="tns:InsertarEventoSoapIn" />
+      <wsdl:output message="tns:InsertarEventoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginYInsertarEvento">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Loguea e inserta un evento</wsdl:documentation>
+      <wsdl:input message="tns:LoginYInsertarEventoSoapIn" />
+      <wsdl:output message="tns:LoginYInsertarEventoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InSession">
+      <wsdl:input message="tns:InSessionSoapIn" />
+      <wsdl:output message="tns:InSessionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerComando">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna el primer comando de la lista</wsdl:documentation>
+      <wsdl:input message="tns:ObtenerComandoSoapIn" />
+      <wsdl:output message="tns:ObtenerComandoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginYObtenerComando">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Realiza el login y retorna el primer comando de la lista</wsdl:documentation>
+      <wsdl:input message="tns:LoginYObtenerComandoSoapIn" />
+      <wsdl:output message="tns:LoginYObtenerComandoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ComandoProcesado">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Indica que el comando ya fue procesado</wsdl:documentation>
+      <wsdl:input message="tns:ComandoProcesadoSoapIn" />
+      <wsdl:output message="tns:ComandoProcesadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginYComandoProcesado">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Realiza el login y finaliza un comando</wsdl:documentation>
+      <wsdl:input message="tns:LoginYComandoProcesadoSoapIn" />
+      <wsdl:output message="tns:LoginYComandoProcesadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EstadoComando">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para informar el estado del comando, retorna verdadero su fue insertado correctamente</wsdl:documentation>
+      <wsdl:input message="tns:EstadoComandoSoapIn" />
+      <wsdl:output message="tns:EstadoComandoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginYEstadoComando">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Realiza el login y actualiza el estado de un comando en proceso</wsdl:documentation>
+      <wsdl:input message="tns:LoginYEstadoComandoSoapIn" />
+      <wsdl:output message="tns:LoginYEstadoComandoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CambiarClave">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para el cambio de clave, retorna verdadero si la clave es realmente cambiada.</wsdl:documentation>
+      <wsdl:input message="tns:CambiarClaveSoapIn" />
+      <wsdl:output message="tns:CambiarClaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginYCambiarClave">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Loguea cambia la clave, retorna verdadero si la clave es realmente cambiada.</wsdl:documentation>
+      <wsdl:input message="tns:LoginYCambiarClaveSoapIn" />
+      <wsdl:output message="tns:LoginYCambiarClaveSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://www.assistcargo.com/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://www.assistcargo.com/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvento">
+      <soap:operation soapAction="http://www.assistcargo.com/InsertarEvento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYInsertarEvento">
+      <soap:operation soapAction="http://www.assistcargo.com/LoginYInsertarEvento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InSession">
+      <soap:operation soapAction="http://www.assistcargo.com/InSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerComando">
+      <soap:operation soapAction="http://www.assistcargo.com/ObtenerComando" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYObtenerComando">
+      <soap:operation soapAction="http://www.assistcargo.com/LoginYObtenerComando" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ComandoProcesado">
+      <soap:operation soapAction="http://www.assistcargo.com/ComandoProcesado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYComandoProcesado">
+      <soap:operation soapAction="http://www.assistcargo.com/LoginYComandoProcesado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstadoComando">
+      <soap:operation soapAction="http://www.assistcargo.com/EstadoComando" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYEstadoComando">
+      <soap:operation soapAction="http://www.assistcargo.com/LoginYEstadoComando" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarClave">
+      <soap:operation soapAction="http://www.assistcargo.com/CambiarClave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYCambiarClave">
+      <soap:operation soapAction="http://www.assistcargo.com/LoginYCambiarClave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://www.assistcargo.com/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap12:operation soapAction="http://www.assistcargo.com/Logout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarEvento">
+      <soap12:operation soapAction="http://www.assistcargo.com/InsertarEvento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYInsertarEvento">
+      <soap12:operation soapAction="http://www.assistcargo.com/LoginYInsertarEvento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InSession">
+      <soap12:operation soapAction="http://www.assistcargo.com/InSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerComando">
+      <soap12:operation soapAction="http://www.assistcargo.com/ObtenerComando" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYObtenerComando">
+      <soap12:operation soapAction="http://www.assistcargo.com/LoginYObtenerComando" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ComandoProcesado">
+      <soap12:operation soapAction="http://www.assistcargo.com/ComandoProcesado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYComandoProcesado">
+      <soap12:operation soapAction="http://www.assistcargo.com/LoginYComandoProcesado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstadoComando">
+      <soap12:operation soapAction="http://www.assistcargo.com/EstadoComando" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYEstadoComando">
+      <soap12:operation soapAction="http://www.assistcargo.com/LoginYEstadoComando" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarClave">
+      <soap12:operation soapAction="http://www.assistcargo.com/CambiarClave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginYCambiarClave">
+      <soap12:operation soapAction="http://www.assistcargo.com/LoginYCambiarClave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://200.69.211.179/wssimon/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://200.69.211.179/wssimon/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

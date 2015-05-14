@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.DetalleDispositivo,Logictracker.Types" table="parenti30" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti30" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti30_valor" type="String" name="Valor" not-null="true" length="96" />
+    <property column="parenti30_revision" type="Int32" name="Revision" length="64" />
+
+    <many-to-one name="TipoParametro" column="rela_parenti31" lazy="proxy" />
+    <many-to-one name="Dispositivo" column="rela_parenti08" lazy="proxy" />
+  </class>
+</hibernate-mapping>

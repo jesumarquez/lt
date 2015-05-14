@@ -1,0 +1,20 @@
+[Base].[Año][Mes][Dia].[UsuarioSVN].[OrdenScript].[Descripcion].sql
+
+Base -> libre (urbetrack)
+Año -> 4 Caracteres (2009)
+Mes -> 2 Caracteres (08)
+Dia -> 2 Caracteres (26)
+UsuarioSVN -> libre (mcastro)
+OrdenScript -> 2 Caracteres, indica orden de ejecucion de crearse varios scripts en un mismo dia/usuario (01)
+Descripcion -> libre
+
+Ej: urbetrack.20090826.mcastro.01.esUnEjemplo.sql
+
+Al acumularse demasiados scripts se dara por terminada esa version (carpeta), se pasara a abrir una nueva que contenga todas las actualizaciones anterirores en los scripts bases y se comenzara a usar esa nueva version.
+
+Contenido de las carpetas:
+
+> Datos de configuracion inicial
+> Estructura base de urbetrack
+> Estructura base de urbetrack_history
+> Todos los scripts de actualizaciones

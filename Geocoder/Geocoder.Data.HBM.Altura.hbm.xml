@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="true" namespace="Geocoder.Core" assembly="Geocoder.Core">
+	<class name="Altura" table="altura" lazy="true">
+    <cache usage="read-write" />
+
+    <!-- Primary Key(s) -->
+		<id name="Id" column="id_partido" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="altu_inicio" type="Int32" name="AlturaInicio" not-null="true" index="IX_Altura_Inicio" />
+		<property column="altu_fin" type="Int32" name="AlturaFin" not-null="true" index="IX_Altura_Fin" />
+		<property column="altu_latini" type="Double" name="LatitudInicio" not-null="true" index="IX_Altura_Posicion_Inicio" />
+    <property column="altu_lonini" type="Double" name="LongitudInicio" not-null="true" index="IX_Altura_Posicion_Inicio" />
+		<property column="altu_latfin" type="Double" name="LatitudFin" not-null="true" index="IX_Altura_Posicion_Fin" />
+		<property column="altu_lonfin" type="Double" name="LongitudFin" not-null="true" index="IX_Altura_Posicion_Fin" />
+		<many-to-one name="Poligonal" class="Poligonal" column="fk_poligonal" not-null="true" lazy="proxy" index="IX_Altura_Poligonal" />
+	</class>
+</hibernate-mapping>

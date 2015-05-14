@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics"
+	xmlns:g="http://walks.ath.cx/generics"
+	xmlns:torino="http://walks.ath.cx/e/torino/v1"
+	RunMode="WinService">
+
+	<Resources>
+		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_torino" Transactional="true" Recoverable="true" />
+	</Resources>
+
+	<StackChannel>
+		<torino:TorinoGatewayLayer />
+		<FiltrarRepetidos Persistente="false" Comment="filtra los mensajes que repiten los dispositivos y vienen con distinto identificador de transaccion" />
+		<MessageDispatcher x:Key="Dispatcher">
+			<MessageHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+			<MessageHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+			<MessageHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+			<MessageHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+		</MessageDispatcher>
+	</StackChannel>
+</Application>

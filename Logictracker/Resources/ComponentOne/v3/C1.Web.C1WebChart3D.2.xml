@@ -1,0 +1,645 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>C1.Web.C1WebChart3D.2</name>
+  </assembly>
+  <members>
+    <member name="M:C1.Web.C1WebChartBase.baseWebChart.Reset">
+      <summary>
+            Clears the internal C1Chart or C1Chart3D of all data and settings.
+            </summary>
+      <remarks>
+            Note that only the C1.Win.C1Chart data and properties are cleared by this method.
+            C1WebChart properties are not modified.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.CallbackWaitControlID">
+      <summary>
+            Gets or sets the name of the control that should be shown during callback to provide visual feedback.
+            </summary>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.CallbackWaitImageUrl">
+      <summary>
+            Gets or sets the url of an image that should be shown during callback to provide visual feedback.
+            </summary>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.EnableCallback">
+      <summary>
+            Gets or sets a value indicating whether the control uses callback mechanism to load requested page to client.
+            </summary>
+    </member>
+    <member name="E:C1.Web.C1WebChartBase.baseWebChart.Click">
+      <summary>
+            Occurs when the chart is clicked.
+            </summary>
+      <remarks>
+            The event handler receives an argument of type ImageClickEventArgs containing data related to this event.
+            Note: this event causes the page to be posted back to the server.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.ImageFormat">
+      <summary>
+            Gets or sets the Image format to be used for the client side image.
+            </summary>
+      <remarks>
+            Note that while this property accepts a .Net ImageFormat value, the only image formats available
+            to the C1WebChart programmer are gif, jpeg, and png.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.ImageQuality">
+      <summary>
+            Gets or sets the image quality created when the ImageFormat is set to jpeg.
+            </summary>
+      <remarks>
+            This property accepts an integer from 0 to 100 which specifies the quality of the jpeg image file.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.AbsoluteExpiration">
+      <summary>
+            Specifies the absolute expiration time when the image expires from the session, cache, or file object. 
+            </summary>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.SlidingExpiration">
+      <summary>
+            Gets or sets the interval between the time the image was last accessed and the time
+            when the image expires from the session, cache, or file object. 
+            </summary>
+      <remarks>
+            If this value is the equivalent of 5 minutes, the image expires and is removed from the transfer
+            object 5 minutes after it was last accessed.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.BackColor">
+      <summary>
+            Gets or sets the control background color.
+            </summary>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.ForeColor">
+      <summary>
+            Gets or sets the control foreground color. 
+            </summary>
+    </member>
+    <member name="E:C1.Web.C1WebChartBase.baseWebChart.Paint">
+      <summary>
+            Fires when chart is drawn.
+            </summary>
+      <remarks>
+            The event handler receives an argument of type PaintEventArgs containing data related to this event.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseWebChart.BackgroundImageUrl">
+      <summary>
+            Gets or sets the location of background image.
+            </summary>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseMapArea.HRef">
+      <summary>
+            Specifies an Href for the MapArea.
+            </summary>
+      <remarks>
+        <para>
+            Each MapArea in the resulting ImageMap can link to another URL. If this property is set to a valid address,
+            clicking on the MapArea will link users to the specified page.
+            </para>
+        <para>
+            Note: the Href is automatically HTML encoded as appropriate (unless it is a JavaScript url).
+            </para>
+      </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseMapArea.Tooltip">
+      <summary>
+            Specifies a tooltip for the MapArea.
+            </summary>
+      <remarks>
+            Each MapArea can have a tooltip string specified. The tooltip appears when the end-user scrolls
+            over the appointed MapArea. The string is automatically HTML encoded as appropriate and appears
+            as the value of the &lt;AREA&gt; tag Title attribute. There are special entries for Tooltip entries
+            that will be translated by the chart.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseMapArea.Attributes">
+      <summary>
+            Specifies a set of attributes to be added to the &lt;AREA&gt; tag.
+            </summary>
+      <remarks>
+        <para>
+            Each MapArea can have additional attributes set as appropriate for &lt;AREA&gt; tags.
+            For more information on &lt;AREA&gt; tags see the Microsoft documentation.
+            </para>
+        <para>
+            Setting this property causes the specified string to appear as a set of attributes for the MapArea.
+            Note that the attribute value is added to the &lt;AREA&gt; tag as a literal string, so any encoding
+            necessary must be performed to the property value.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseChartMapArea.IsCustom">
+      <summary>
+            Tests whether the map area is custom.
+            </summary>
+      <remarks>
+            Custom maps are not associated with chart elements and data.
+            </remarks>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseChartMapArea.Name">
+      <summary>
+            Gets or sets the map area name.
+            </summary>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseChartMapArea.Coords">
+      <summary>
+            Gets or sets the array of coordinates of map area.
+            </summary>
+    </member>
+    <member name="P:C1.Web.C1WebChartBase.baseChartMapArea.IsEmpty">
+      <summary>
+            Tests whether the map area is empty.
+            </summary>
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.ImageRenderMethodEnum">
+      <summary>
+            Use the members of this enumeration to set the value of the 
+            <see cref="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageRenderMethod" /> property
+            in the C1WebChart3D class.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageRenderMethodEnum.File">
+      <summary>
+            C1WebChart3D will generate image files that can be referenced directly by an &lt;IMG&gt; tag.
+            The &lt;IMG&gt; tag will be generated and will reference the file specified by the ImageUri property.
+            If the ImageUri property is not specified, then a name for the temporary file will be generated
+            and the URL will reference the temporary file.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageRenderMethodEnum.HttpHandler">
+      <summary>
+            C1WebChart3D supports the IHTTPHandler interface and will generate an appropriately placed
+            &lt;IMG&gt; tag within the page that references its internal HTTPHandler to stream the image to the client. 
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageRenderMethodEnum.BinaryWrite">
+      <summary>
+            C1WebChart will perform a binary write to its host page response stream directly,
+            without transferring data to another page. However, the binary image data will be the only data returned. 
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageRenderMethodEnum.AspPage">
+      <summary>
+            C1WebChart3D will utilize a secondary asp(x) page to stream the image data back to an imbedded &lt;IMG&gt;
+            tag on the primary page. If this option is selected, the chart will generate an appropriately placed &lt;IMG&gt;
+            tag within the page that hosts the chart. The positioning of the &lt;IMG&gt; tag will be in the same location as
+            shown on the Visual Studio design page, and &lt;IMG&gt; tag src attribute will reference the specified asp(x) page.
+            The path to the page will be that specified by the ImageUri property. 
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageRenderMethodEnum.Manual">
+      <summary>
+            C1WebChart3D does nothing to render itself at runtime. All operations required for generating and placing
+            the chart image within the page are the responsibility of the programmer.
+            </summary>
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.ImageTransferMethodEnum">
+      <summary>
+            Use the members of this enumeration to set the value of the
+            <see cref="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageTransferMethod" />
+            property in the C1WebChart3D class.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageTransferMethodEnum.Session">
+      <summary>
+            Image is transferred in a session object.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageTransferMethodEnum.Cache">
+      <summary>
+            Image is transferred in a cache object.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageTransferMethodEnum.File">
+      <summary>
+            Image is transferred in a file.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageTransferMethodEnum.None">
+      <summary>
+            Image is not transferred.
+            </summary>
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.ImageIdGenerationEnum">
+      <summary>
+            Use the members of this enumeration to set the value of the 
+            <see cref="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageIdGeneration" />
+            property in the C1WebChart3D class.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageIdGenerationEnum.Unique">
+      <summary>
+            Unique ID is created each time the chart image is accessed.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.ImageIdGenerationEnum.Application">
+      <summary>
+            The same ID is to be used for the duration of the application life.
+            </summary>
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.C1WebChart3D">
+      <summary>
+            3D Chart web control.
+            </summary>
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:C1.Web.C1WebChart3D.C1WebChart3D" /> class.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:C1.Web.C1WebChart3D.C1WebChart3D" /> class.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.Dispose">
+      <summary>
+            Prepares the control for garbage collection by freeing disposable objects. 
+            </summary>
+      <remarks>
+            The control should not be referenced after calling Dispose().
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.GetImage(System.Drawing.Imaging.ImageFormat,System.Drawing.Size)">
+      <summary>
+            Obtains an image of the current chart display using the specified format and size.
+            </summary>
+      <param name="imgfmt">
+            Image format.
+            </param>
+      <param name="sz">
+            Image size.
+            </param>
+      <returns>
+            Image of the current chart display.
+            </returns>
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.SaveChartToString">
+      <summary>
+            Saves the chart properties and data to the specified string.
+            </summary>
+      <returns>
+            String that contains chart properties and data.
+            </returns>
+      <remarks>
+            Note that only the C1.Win.C1Chart properties and data are saved by this method.
+            C1WebChart properties are not saved by this method.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.SaveChartToString(System.Boolean)">
+      <summary>
+            Saves the chart properties and data to the specified string using optional formatting.
+            </summary>
+      <param name="formatting">Whether to use formatting in output string.</param>
+      <returns>
+            String that contains chart properties and data.
+            </returns>
+      <remarks>
+            Note that only the C1.Win.C1Chart properties and data are saved by this method.
+            C1WebChart properties are not saved by this method.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.LoadChartFromString(System.String)">
+      <summary>
+            Loads the chart properties and data from the specified string.
+            </summary>
+      <param name="s">String that contains chart properties and data.</param>
+      <remarks>
+            Note that only the C1.Win.C1Chart properties and data are loaded by this method.
+            C1WebChart properties are not loaded by this method.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.SaveChartToFile(System.String)">
+      <summary>
+            Saves the chart properties and data to the specified file.
+            </summary>
+      <param name="filename">File name.</param>
+      <remarks>
+            Note that only the C1.Win.C1Chart properties and data are saved by this method.
+            C1WebChart properties are not saved by this method.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.LoadChartFromFile(System.String)">
+      <summary>
+            Loads the chart properties and data from the specified file.
+            </summary>
+      <param name="filename">File name.</param>
+      <remarks>
+            Note that only the C1.Win.C1Chart properties and data are loaded by this method.
+            C1WebChart properties are not loaded by this method.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.C1WebChart3D.OnGeneralCallback(C1.Web.C1WebChart3D.C1WebChart3DCallbackEventArgs)">
+      <summary>
+            Raises the GeneralCallback event.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageAreas">
+      <summary>
+            Gets the MapAreaCollection object used to generate client side image maps.
+            </summary>
+      <remarks>
+            The ImageAreas property exposes a collection of <see cref="T:C1.Web.C1WebChart3D.MapArea" /> objects.
+            This collection defines the properties of the generated image map to be used for end-user interaction.
+            Each <see cref="T:C1.Web.C1WebChart3D.MapArea" /> object in turn specifies the behaviors of the image map.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ChartArea">
+      <summary>
+            Gets the control chart area object.
+            </summary>
+      <remarks>
+            The ChartArea is that region of the chart that contains plot cube, axes and charted data. 
+            Its Style inherits directly from the parent C1WebChart3D.ChartStyle.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ChartGroups">
+      <summary>
+            Gets the control chart groups object
+            </summary>
+      <remarks>
+            ChartGroup contains information related to data values and related appearance.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ChartLabels">
+      <summary>
+            Gets the control chart labels object.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.Header">
+      <summary>
+            Gets the control header object.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.Footer">
+      <summary>
+            Gets the control footer object.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.Legend">
+      <summary>
+            Gets the control legend object.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ChartStyle">
+      <summary>
+            Gets the chart style.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageRenderMethod">
+      <summary>
+            Indicates the method by which the HTML image tag source URL is rendered.
+            </summary>
+      <remarks>
+            For more information, see the ImageRenderMethod Property topic.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageTransferMethod">
+      <summary>
+            Indicates the method by which image data is transferred to the source page.
+            </summary>
+      <remarks>
+            When a secondary URL is used to stream image data back to an &lt;IMG&gt; tag on the primary page,
+            it is necessary to transfer the chart data through either a session object, cache object, or a file. 
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageIdGeneration">
+      <summary>
+            Gets or sets the level of uniqueness of the ID transfer object.
+            </summary>
+      <remarks>
+        <para>
+            When chart data is transferred from one page to another, IDs are created for the Session or Cache variables
+            or for a filename in order to render a chart image. This property determines whether a unique ID is created
+            each time the chart image is accessed (i.e. when the chart image is accessed by a single user),
+            or if the same ID is to be used for the duration of the application life (i.e. when the identical chart image
+            is accessed by multiple users or accessed repeatedly by a single user). 
+            </para>
+        <para>
+            Note: The ImageIdGeneration property has no effect with the ImageRenderMethodEnum.File or ImageRenderMethodEnum.BinaryWrite. 
+            </para>
+      </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.ImageUri">
+      <summary>
+            Specifies a path for various render methods.
+            </summary>
+      <remarks>
+            This property specifies a pathname. It has different applications for different properties and settings.
+            For more information, see ImageRenderMethod Property. Also refer to File-based Rendering Tutorials,
+            HTTPHandler-based Rendering Tutorials, and ASP Page-based Rendering Tutorials. 
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.UseAntiAliasedText">
+      <summary>
+            Gets or sets a value indicating whether to use anti-aliasing while rendering chart text (only).
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.UseAntiAliasedGraphics">
+      <summary>
+            Gets or sets a value indicating whether to use anti-aliasing while rendering chart graphics (only).
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.UseGrayscale">
+      <summary>
+            Gets or sets a value indicating whether to render the chart with grayscale instead of color.
+            <remarks>
+            The use of Grayscale is intended as a preview for output to a black and white device.  It
+            does not affect style brush or pen colors internally, only the rendering of the chart to the
+            output devices and images.  Using grayscale implies the use of double buffered output.
+            </remarks></summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.AssemblyFileVersionString">
+      <summary>
+            Gets the control’s AssemblyFileVersion as a string. The AssemblyFileVersion is also viewable
+            from the properties dialog of the control assembly dll.
+            </summary>
+      <remarks>
+        <para>
+            The AssemblyFileVersion is different from the AssemblyVersion. The AssemblyFileVersion is viewable
+            from the properties dialog of the control assembly dll. The AssemblyVersion is also listed in the properties dialog,
+            but only in the “other version information” section. When viewing the Global Assembly Cache (GAC) in Windows Explorer,
+            the AssemblyVersion is shown as a standard column.
+            </para>
+        <para>
+            The AssemblyFileVersion will always change with each separate release of the Chart control, 
+            including internal changes. The AssemblyVersion will only change when the object model has been changed.
+            </para>
+      </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.C1WebChart3D.AssemblyVersionString">
+      <summary>
+            Gets the control’s AssemblyVersion as a string. The AssemblyVersion is also viewable from the properties dialog of
+            the control assembly dll, but only in the “other version information” section.
+            </summary>
+      <remarks>
+        <para>
+            The AssemblyFileVersion is different from the AssemblyVersion. The AssemblyFileVersion is viewable from the
+            properties dialog of the control assembly dll. The AssemblyVersion is also listed in the properties dialog,
+            but only in the “other version information” section. When viewing the Global Assembly Cache (GAC) in Windows 
+            Explorer, the AssemblyVersion is shown as a standard column.
+            </para>
+        <para>
+            The AssemblyFileVersion will always change with each separate release of the Chart control, including internal changes.
+            The AssemblyVersion will only change when the object model has been changed.
+            </para>
+      </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.C1WebChart3D" />
+    </member>
+    <member name="E:C1.Web.C1WebChart3D.C1WebChart3D.GeneralCallback">
+      <summary>
+            Occurs when a chart General callback is made.
+            </summary>
+      <remarks>
+            The event handler receives an argument of type C1WebChart3DCallbackEventArgs
+            containing string data related to this event.
+            <para>
+            Use the client side General callback to pass your own data in string
+            form to the server.  Based on the content of your string data, you can change
+            any and all aspects of the chart and obtain a new image and image map as a
+            result of the callback.
+            </para><para>
+            The General callback is typically used when a callback from an input object
+            on the web page is desired - e.g. a button, onclick.
+            </para></remarks>
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.C1WebChart3DCallbackEventArgs">
+      <summary>
+            Used to pass arguments to the GeneralCallback event.
+            </summary>
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.AreaShapeEnum">
+      <summary>
+            Use the members of this enumeration to set the value of the <see cref="P:C1.Web.C1WebChart3D.MapArea.Shape" />
+            property in the <see cref="T:C1.Web.C1WebChart3D.MapArea" /> class.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.AreaShapeEnum.Rectangle">
+      <summary>
+            Rectangle area.
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.AreaShapeEnum.Circle">
+      <summary>
+            Circular area. 
+            </summary>
+    </member>
+    <member name="F:C1.Web.C1WebChart3D.AreaShapeEnum.Polygon">
+      <summary>
+            Polygonal area.
+            </summary>
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.MapArea">
+      <summary>
+            Defines image map area.
+            </summary>
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.MapArea.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:C1.Web.C1WebChart3D.MapArea" /> class.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.MapArea" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.MapArea.Shape">
+      <summary>
+            Gets or sets the shape of area.
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.MapArea" />
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.MapAreaCollection">
+      <summary>
+            Defines collection of image map areas.
+            </summary>
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.MapAreaCollection.Add(C1.Web.C1WebChart3D.MapArea)">
+      <summary>
+            Adds the specified MapArea to the collection. 
+            </summary>
+      <param name="area">The MapArea to add.</param>
+      <returns>
+            An integer indicating the index of the added MapArea.
+            </returns>
+      <seealso cref="T:C1.Web.C1WebChart3D.MapAreaCollection" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.MapAreaCollection.GetByName(System.String)">
+      <summary>
+            Gets the MapArea with the specified name from the collection. 
+            </summary>
+      <param name="name">Map area name.</param>
+      <returns>
+            This method returns the MapArea from the collection with the specified name.
+            If such a MapArea is not found, the method returns null.
+            </returns>
+      <seealso cref="T:C1.Web.C1WebChart3D.MapAreaCollection" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.MapAreaCollection.GetHtmlMap">
+      <summary>
+            Gets the content of an Html map tag appropriate for the C1WebChart image as a string.
+            </summary>
+      <returns>
+            An Html map tag appropriate for the C1WebChart image as a string.
+            </returns>
+      <remarks>
+            Note that the content of the string does not include the &lt;map&gt; tag and end tag marker &lt;/map&gt;.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.MapAreaCollection" />
+    </member>
+    <member name="M:C1.Web.C1WebChart3D.MapAreaCollection.GetHtmlMap(System.String)">
+      <summary>
+            Gets the content of an Html map tag appropriate for the C1WebChart image as a string
+            with the specified name of the map element.
+            </summary>
+      <param name="name">
+            The name of map.
+            </param>
+      <returns>
+            An Html map tag appropriate for the C1WebChart image as a string.
+            </returns>
+      <remarks>
+            Note that the content of the string does not include the &lt;map&gt; tag and end tag marker &lt;/map&gt;.
+            </remarks>
+      <seealso cref="T:C1.Web.C1WebChart3D.MapAreaCollection" />
+    </member>
+    <member name="P:C1.Web.C1WebChart3D.MapAreaCollection.Item(System.Int32)">
+      <summary>
+            Gets the specified MapArea of the collection by index. 
+            </summary>
+      <seealso cref="T:C1.Web.C1WebChart3D.MapAreaCollection" />
+    </member>
+    <member name="T:C1.Web.C1WebChart3D.Designer.C1WebChart3DDesigner">
+      <summary>
+            Summary description for C1Chart3DDesigner.
+            </summary>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,53 @@
+﻿<Application  xmlns="http://walks.ath.cx/framework"
+              xmlns:x="http://walks.ath.cx/statics"
+              xmlns:fe="http://walks.ath.cx/frontend">
+
+  <Resources fe:Label="asdasd">
+
+    <!-- StringArray x:Key="expressDepends">
+      <String>MSMQ</String>
+      <String>Urbetrack.Express$Agent</String>
+    </StringArray -->
+    
+    <String x:Key="expressDepends">Urbetrack.Express$Agent</String>
+
+    <FailureAction x:Key="restartServiceAction"
+                   RecoverAction="1"
+                   Delay="60"/>
+  </Resources>
+   
+  <WinServiceGroup x:Key=""
+        fe:Label="Urbetrack EXPRESS 2.0" 
+        ServiceNamePrefix="Urbetrack.Express$"
+        AutomaticInstall="true"
+        AutomaticUpdate="true"
+        AutomaticUninstall="true">
+
+    <WinService x:Key="agentService"
+                HostApplication="Agent.xml"
+                ServiceName="Agent"                
+                DisplayName="Urbetrack EXPRESS 2.0 (Agent)"
+                Description="Agente Administrativo plataforma Urbetrack EXPRESS 2.0."
+                StartMode="Automatic"
+                ServiceAccount="LocalSystem"
+                ServicesDependedOn="{StaticResource expressDepends}"
+                FirstFailureAction="{StaticResource restartServiceAction}"
+                SecondFailureAction="{StaticResource restartServiceAction}"
+                SubsequentFailuresAction="{StaticResource restartServiceAction}"
+                ResetFailCounterAfter="86400"/>    
+    
+    <WinService x:Key="expressService"
+                HostApplication="Default.xml"
+                ServiceName="Default"
+                DisplayName="Urbetrack EXPRESS 2.0 (Host)"
+                Description="Servicio Windows de la plataforma Urbetrack EXPRESS 2.0."
+                StartMode="Manual"
+                ServiceAccount="NetworkService"
+                ServicesDependedOn="{StaticResource expressDepends}"
+                FirstFailureAction="{StaticResource restartServiceAction}"
+                SecondFailureAction="{StaticResource restartServiceAction}"
+                SubsequentFailuresAction="{StaticResource restartServiceAction}"
+                ResetFailCounterAfter="86400"/>
+    
+  </WinServiceGroup>
+</Application>

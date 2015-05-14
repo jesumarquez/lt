@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Entidades.Sensor,Logictracker.Types" table="parenti80" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti80" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti80_codigo" type="String" name="Codigo" />
+    <property column="parenti80_descripcion" type="String" name="Descripcion" />
+    <property column="parenti80_baja" type="Boolean" name="Baja" />
+    
+    <many-to-one column="rela_parenti08" name="Dispositivo" lazy="proxy" />
+    <many-to-one column="rela_parenti77" name="TipoMedicion" lazy="proxy" />
+    
+  </class>
+</hibernate-mapping>

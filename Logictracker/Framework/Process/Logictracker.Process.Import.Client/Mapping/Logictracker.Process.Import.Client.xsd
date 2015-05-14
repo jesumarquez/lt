@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Logictracker"
+    targetNamespace="urn:Logictracker.Process.Import.Client"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.0"
+    xmlns="urn:Logictracker.Process.Import.Client"
+    xmlns:mstns="urn:Logictracker.Process.Import.Client"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+    <xs:element name="Configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                    <xs:element ref="Import" />
+                </xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="Import">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence maxOccurs="1" minOccurs="1">
+                    <xs:element ref="DataSource" />
+                </xs:sequence>
+                <xs:sequence maxOccurs="unbounded" minOccurs="0">
+                    <xs:element ref="Entity" />
+                </xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DataSource">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence maxOccurs="unbounded" minOccurs="0">
+                    <xs:element ref="Parameter" />
+                </xs:sequence>
+            </xs:sequence>
+            <xs:attribute name="Type" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Parameter">
+        <xs:complexType>
+            <xs:sequence />
+            <xs:attribute name="Name" type="xs:string" />
+            <xs:attribute name="Value" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Entity">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence maxOccurs="1" minOccurs="0">
+                    <xs:element ref="Operation" />
+                </xs:sequence>
+                <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                    <xs:element ref="Property" />
+                </xs:sequence>
+            </xs:sequence>
+            <xs:attribute name="Type" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Property">
+        <xs:complexType>
+            <xs:sequence />
+            <xs:attribute name="Name" type="xs:string" use="required" />
+            <xs:attribute name="ColumnName" type="xs:string" />
+            <xs:attribute name="ColumnIndex" type="xs:int" />
+            <xs:attribute name="Default" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="Operation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence maxOccurs="1" minOccurs="0">
+                    <xs:element ref="OperationProperty" />
+                </xs:sequence>
+                <xs:sequence maxOccurs="unbounded" minOccurs="0">
+                    <xs:element ref="OperationValue" />
+                </xs:sequence>
+            </xs:sequence>
+            <xs:attribute name="Type" type="OperationType">
+                
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="OperationProperty">
+        <xs:complexType>
+            <xs:sequence />
+            <xs:attribute name="ColumnName" type="xs:string" />
+            <xs:attribute name="ColumnIndex" type="xs:int" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="OperationValue">
+        <xs:complexType>
+            <xs:sequence />
+            <xs:attribute name="Operation" type="OperationType" use="required" />
+            <xs:attribute name="Value" type="xs:string" />
+            <xs:attribute name="CaseSensitive" type="xs:boolean" />
+            <xs:attribute name="Default" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="OperationType">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="AddOrModify" />
+            <xs:enumeration value="Add" />
+            <xs:enumeration value="Modify" />
+            <xs:enumeration value="Delete" />
+            <xs:enumeration value="Custom" />
+            <xs:enumeration value="None" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+</xs:schema>

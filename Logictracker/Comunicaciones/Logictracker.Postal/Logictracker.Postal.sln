@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Postal", "Urbetrack.Postal\Urbetrack.Postal.csproj", "{1D76F1B1-A210-4094-9DC0-326335220C26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Postal.Sync", "Urbetrack.Postal.Sync\Urbetrack.Postal.Sync.csproj", "{28BDB23E-02A2-4616-9121-780865E197D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.DAL", "..\..\Lomax\src\Common\Urbetrack.DAL\Urbetrack.DAL.csproj", "{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Types", "..\..\Lomax\src\Common\Urbetrack.Types\Urbetrack.Types.csproj", "{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Common.QueueStatus", "..\..\Lomax\src\Common\Urbetrack.Common.QueueStatus\Urbetrack.Common.QueueStatus.csproj", "{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Common.Utils", "..\..\Lomax\src\Common\Urbetrack.Common.Utils\Urbetrack.Common.Utils.csproj", "{74067696-FD4B-460A-931B-6A3B4D4EEF5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Common.Web.Helpers", "..\..\Lomax\src\Web\Urbetrack\Urbetrack.Common.Web.Helpers\Urbetrack.Common.Web.Helpers.csproj", "{F954C2AA-9080-4EA0-B753-3164D2F96787}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Messages.Sender", "..\..\Lomax\src\Common\Messages\Urbetrack.Messages.Sender\Urbetrack.Messages.Sender.csproj", "{CC8A4E06-EC41-4705-AA17-0649564F05BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Messages.Codes", "..\..\Lomax\src\Common\Messages\Urbetrack.Messages.Codes\Urbetrack.Messages.Codes.csproj", "{42F37929-6A76-413F-9A1B-E4E19CC5640D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Cache", "..\..\Framework\MemCache\Urbetrack.Cache.csproj", "{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.DatabaseTracer", "..\..\Lomax\src\Urbetrack.Tracer\Urbetrack.DatabaseTracer.csproj", "{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Common.Services.Helpers", "..\..\Lomax\src\Common\Urbetrack.Common.Services.Helpers\Urbetrack.Common.Services.Helpers.csproj", "{335550D5-F4A2-4AD0-A22F-C4AB705C6606}"
+EndProject
+Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "Urbetrack.Postal.Install", "Urbetrack.Postal.Install\Urbetrack.Postal.Install.vddproj", "{6ADF582F-5EB1-4D97-B5A7-BFA59575761B}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Urbetrack.Postal.Sync.Install", "Urbetrack.Postal.Sync.Install\Urbetrack.Postal.Sync.Install.vdproj", "{D9FF5E80-D1FC-4CAF-8465-A691C04048D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D76F1B1-A210-4094-9DC0-326335220C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D76F1B1-A210-4094-9DC0-326335220C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D76F1B1-A210-4094-9DC0-326335220C26}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1D76F1B1-A210-4094-9DC0-326335220C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D76F1B1-A210-4094-9DC0-326335220C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D76F1B1-A210-4094-9DC0-326335220C26}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{28BDB23E-02A2-4616-9121-780865E197D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BDB23E-02A2-4616-9121-780865E197D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BDB23E-02A2-4616-9121-780865E197D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BDB23E-02A2-4616-9121-780865E197D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74067696-FD4B-460A-931B-6A3B4D4EEF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74067696-FD4B-460A-931B-6A3B4D4EEF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74067696-FD4B-460A-931B-6A3B4D4EEF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74067696-FD4B-460A-931B-6A3B4D4EEF5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F954C2AA-9080-4EA0-B753-3164D2F96787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F954C2AA-9080-4EA0-B753-3164D2F96787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F954C2AA-9080-4EA0-B753-3164D2F96787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F954C2AA-9080-4EA0-B753-3164D2F96787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC8A4E06-EC41-4705-AA17-0649564F05BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC8A4E06-EC41-4705-AA17-0649564F05BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC8A4E06-EC41-4705-AA17-0649564F05BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC8A4E06-EC41-4705-AA17-0649564F05BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F37929-6A76-413F-9A1B-E4E19CC5640D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F37929-6A76-413F-9A1B-E4E19CC5640D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F37929-6A76-413F-9A1B-E4E19CC5640D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F37929-6A76-413F-9A1B-E4E19CC5640D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335550D5-F4A2-4AD0-A22F-C4AB705C6606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335550D5-F4A2-4AD0-A22F-C4AB705C6606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335550D5-F4A2-4AD0-A22F-C4AB705C6606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335550D5-F4A2-4AD0-A22F-C4AB705C6606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ADF582F-5EB1-4D97-B5A7-BFA59575761B}.Debug|Any CPU.ActiveCfg = Debug
+		{6ADF582F-5EB1-4D97-B5A7-BFA59575761B}.Release|Any CPU.ActiveCfg = Release
+		{D9FF5E80-D1FC-4CAF-8465-A691C04048D2}.Debug|Any CPU.ActiveCfg = Debug
+		{D9FF5E80-D1FC-4CAF-8465-A691C04048D2}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

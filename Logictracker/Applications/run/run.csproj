@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C3763B3B-1D46-474E-B370-4099E93D893B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Runtime</RootNamespace>
+    <AssemblyName>run</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <StartupObject>
+    </StartupObject>
+    <PublishUrl>http://localhost/run/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="App_Licenses, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\App_Licenses.dll</HintPath>
+    </Reference>
+    <Reference Include="Geocoder.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Geocoder\bin\Debug\Geocoder.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Geocoder.Data, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Geocoder\bin\Debug\Geocoder.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Geocoder.Logic, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Geocoder\bin\Debug\Geocoder.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="Geocoder.SmartSearch, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Geocoder\bin\Debug\Geocoder.SmartSearch.dll</HintPath>
+    </Reference>
+    <Reference Include="HibernatingRhinos.Profiler.Appender, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0774796e73ebf640, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="LinFu.DynamicProxy, Version=1.0.3.14911, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\LinFu.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Memcached.ClientLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.LinFu, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\NHibernate.ByteCode.LinFu.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Caches.MemCache, Version=2.1.2.4000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\NHibernate.Caches.MemCache.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources\Remotion.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Instalador.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Instalador.Designer.cs">
+      <DependentUpon>Instalador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainProgram.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Content Include="Geocoder.NHibernate.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="App.config">
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Gte\Trax.csproj">
+      <Project>{5E21FE40-F8AC-4182-997B-11E6B83DB504}</Project>
+      <Name>Trax</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Melano\Melano.csproj">
+      <Project>{FA413069-EDF0-4459-BD3B-B7F4D2B04A64}</Project>
+      <Name>Melano</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\MobileApps\MobileApps.csproj">
+      <Project>{4B6EDE70-D8CE-4483-AF0B-CACF6814ADC7}</Project>
+      <Name>MobileApps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\PumpControl\PumpControl.csproj">
+      <Project>{E06AA9E5-BBF6-42BD-BAC6-2F7C5478CB77}</Project>
+      <Name>PumpControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\SkyPatrol\SkyPatrol.csproj">
+      <Project>{EA1DABAA-B52D-4FC0-A636-A315ED216710}</Project>
+      <Name>SkyPatrol</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\UnexV1\Unetel.csproj">
+      <Project>{CED8623A-4425-4945-A9C2-6985D201BA54}</Project>
+      <Name>Unetel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\UnexV2\Unetel.v2.csproj">
+      <Project>{E8476500-9950-4B7E-94B0-26A22053E88C}</Project>
+      <Name>Unetel.v2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Virloc\Virloc.csproj">
+      <Project>{9B64C258-E0B6-4F3A-84B4-F81738B77779}</Project>
+      <Name>Virloc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Dispatcher\Logictracker.Dispatcher.Core\Logictracker.Dispatcher.Core.csproj">
+      <Project>{1592DBEB-D4B5-40AE-9DA9-E7875CBF2024}</Project>
+      <Name>Logictracker.Dispatcher.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Dispatcher\Logictracker.Dispatcher.Handlers\Logictracker.Dispatcher.Handlers.csproj">
+      <Project>{F8248D20-9E88-4AD5-BD8C-3FE06C0DF9EE}</Project>
+      <Name>Logictracker.Dispatcher.Handlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Task.GeneracionTareas\Logictracker.Scheduler.Tasks.GeneracionTareas.csproj">
+      <Project>{A3D5A11C-0ED2-4ACA-8436-3E8F7DAA4A72}</Project>
+      <Name>Logictracker.Scheduler.Tasks.GeneracionTareas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.AssistCargo\Logictracker.Scheduler.Tasks.AssistCargo.csproj">
+      <Project>{C064DFF0-4D4B-41A9-87DD-D68150C93970}</Project>
+      <Name>Logictracker.Scheduler.Tasks.AssistCargo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.CierreAutomatico\Logictracker.Scheduler.Tasks.CierreAutomatico.csproj">
+      <Project>{2908C159-A2FA-45B2-A8C0-5812344A5095}</Project>
+      <Name>Logictracker.Scheduler.Tasks.CierreAutomatico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ControlAcceso\Logictracker.Scheduler.Tasks.ControlAcceso\Logictracker.Scheduler.Tasks.ControlAcceso.csproj">
+      <Project>{A561CFC5-4635-46FC-B3C8-6454D0AFC8DD}</Project>
+      <Name>Logictracker.Scheduler.Tasks.ControlAcceso</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ControlSalida\Logictracker.Scheduler.Tasks.ControlSalida.csproj">
+      <Project>{1F50F7B7-E15B-493B-BD5A-C2A3626CB7C4}</Project>
+      <Name>Logictracker.Scheduler.Tasks.ControlSalida</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.InicioAutomatico\InicioAutomatico\Logictracker.Scheduler.Tasks.InicioAutomatico.csproj">
+      <Project>{E56CF603-22EC-4ECC-8442-CD1199C6C7F9}</Project>
+      <Name>Logictracker.Scheduler.Tasks.InicioAutomatico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.Mantenimiento\Logictracker.Scheduler.Tasks.Mantenimiento.csproj">
+      <Project>{9353DB7D-85AB-49F2-BA17-5D54AA0D480B}</Project>
+      <Name>Logictracker.Scheduler.Tasks.Mantenimiento</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.OrbComm\Logictracker.Scheduler.Tasks.OrbComm.csproj">
+      <Project>{F892AC8A-2521-460A-8581-997F7D8100A7}</Project>
+      <Name>Logictracker.Scheduler.Tasks.OrbComm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.PumpControl\Logictracker.Scheduler.Tasks.PumpControl\Logictracker.Scheduler.Tasks.PumpControl.csproj">
+      <Project>{3389A9BD-161E-4CE7-B69E-AA7444940053}</Project>
+      <Name>Logictracker.Scheduler.Tasks.PumpControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ReportsScheduler\Logictracker.Scheduler.Tasks.ReportsScheduler.csproj">
+      <Project>{E50B84D3-EBDC-4BAC-91E7-892A73418017}</Project>
+      <Name>Logictracker.Scheduler.Tasks.ReportsScheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\DDL\Logictracker.DDL.csproj">
+      <Project>{C28913BF-9CB0-4B7D-BA27-4CC7259AF83E}</Project>
+      <Name>Logictracker.DDL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\ExpressionEvaluator\Logictracker.ExpressionEvaluator.csproj">
+      <Project>{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}</Project>
+      <Name>Logictracker.ExpressionEvaluator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Messaging\Logictracker.Messages.Saver\Logictracker.Messages.Saver.csproj">
+      <Project>{3811E3C9-E240-46FC-A2B2-3FCC0F31F7FA}</Project>
+      <Name>Logictracker.Messages.Saver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
+      <Project>{CC8A4E06-EC41-4705-AA17-0649564F05BA}</Project>
+      <Name>Logictracker.Messages.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Model\Logictracker.Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\AVL\Logictracker.AVL.csproj">
+      <Project>{0FD2623E-2379-410D-81E3-C8749BC014DE}</Project>
+      <Name>Logictracker.AVL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Description\Logictracker.Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Logictracker.Description</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Diagnostics\Logictracker.Diagnostics.csproj">
+      <Project>{7FBF3686-AE82-4EE7-B164-7F5AFE5ECED6}</Project>
+      <Name>Logictracker.Diagnostics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Inet\Logictracker.Inet.csproj">
+      <Project>{7FA87A8B-B2F1-42D5-A1F6-A224BEF84C9B}</Project>
+      <Name>Logictracker.Inet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\InterQueue\Logictracker.InterQueue.csproj">
+      <Project>{E5BDF62C-26DB-45B0-8F41-41E00133059F}</Project>
+      <Name>Logictracker.InterQueue</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Process\Logictracker.Process.CicloLogistico\Logictracker.Process.CicloLogistico.csproj">
+      <Project>{C23D6940-C665-4076-96B7-C5B29EE304F0}</Project>
+      <Name>Logictracker.Process.CicloLogistico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Process\Logictracker.Process.Geofences\Logictracker.Process.Geofences.csproj">
+      <Project>{20A9E6AE-1336-4535-AA2C-A8872DCD007D}</Project>
+      <Name>Logictracker.Process.Geofences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{FA528F7B-1FE9-4B7E-B964-EB95730791AB}</Project>
+      <Name>Logictracker.Layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\WindowsServices\Logictracker.WindowsServices.csproj">
+      <Project>{B9C005A9-E9C9-4762-A17F-7107E0583A82}</Project>
+      <Name>Logictracker.WindowsServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\XSynq\Logictracker.XSynq.csproj">
+      <Project>{71A47BE2-1A18-4628-B66A-120640D22AF0}</Project>
+      <Name>Logictracker.XSynq</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LogicLink2\Logictracker.Scheduler.Tasks.Logiclink2.csproj">
+      <Project>{812CCB47-FB25-4DFB-8B20-313C6C3E8E6E}</Project>
+      <Name>Logictracker.Scheduler.Tasks.Logiclink2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker.Interfaces.LoJackApi\Logictracker.Interfaces.LoJackApi.csproj">
+      <Project>{A4CBB9B0-1C0B-4112-B9EC-D7F2BF58397C}</Project>
+      <Name>Logictracker.Interfaces.LoJackApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker.Scheduler.Tasks.LoJack\Logictracker.Scheduler.Tasks.LoJack.csproj">
+      <Project>{F5219040-DCC4-4309-89F3-1D608E27B755}</Project>
+      <Name>Logictracker.Scheduler.Tasks.LoJack</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker.Scheduler.Tasks.MonitoreoGarmin\Logictracker.Scheduler.Tasks.MonitoreoGarmin.csproj">
+      <Project>{0DEDD3E8-4C42-46DF-A270-AC95DD9BB54C}</Project>
+      <Name>Logictracker.Scheduler.Tasks.MonitoreoGarmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Scheduler.Core\Logictracker.Scheduler.Core.csproj">
+      <Project>{AC8BC64C-65C6-43F6-A266-AE32B59D83B1}</Project>
+      <Name>Logictracker.Scheduler.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Scheduler\Logictracker.Scheduler.csproj">
+      <Project>{7E97C289-47C7-4B0C-A1A6-6150A982BC9C}</Project>
+      <Name>Logictracker.Scheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Combustible\Logictracker.Scheduler.Tasks.TiempoSinReportar\Logictracker.Scheduler.Tasks.TiempoSinReportar.csproj">
+      <Project>{39ADE4D0-57A5-4008-B26A-002D95CF2F0E}</Project>
+      <Name>Logictracker.Scheduler.Tasks.TiempoSinReportar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Combustible\Logictracker.Scheduler.Tasks.VolumenTeorico\Logictracker.Scheduler.Tasks.VolumenTeorico.csproj">
+      <Project>{A8D56EE8-B3C0-491F-B040-C8CF44469275}</Project>
+      <Name>Logictracker.Scheduler.Tasks.VolumenTeorico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Documentos\Logictracker.Scheduler.Tasks.VencimientoDocumentos\Logictracker.Scheduler.Tasks.VencimientoDocumentos.csproj">
+      <Project>{59BB271D-7328-4C16-B850-235E32121830}</Project>
+      <Name>Logictracker.Scheduler.Tasks.VencimientoDocumentos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Soporte\Logictracker.Scheduler.Tasks.FleetStatus\Logictracker.Scheduler.Tasks.FleetStatus.csproj">
+      <Project>{4290B4B0-221D-4839-81AC-6EBB1BAAEA5D}</Project>
+      <Name>Logictracker.Scheduler.Tasks.FleetStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Soporte\Logictracker.Scheduler.Tasks.NoReport\Logictracker.Scheduler.Tasks.NoReport.csproj">
+      <Project>{80D0AEE7-1CDC-4A75-BACC-E091ABAD3525}</Project>
+      <Name>Logictracker.Scheduler.Tasks.NoReport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Soporte\Logictracker.Scheduler.Tasks.QueueStatus\Logictracker.Scheduler.Tasks.QueueStatus.csproj">
+      <Project>{FF1A6554-7C19-4808-8C8C-D5CD109C6B4E}</Project>
+      <Name>Logictracker.Scheduler.Tasks.QueueStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Soporte\Logictracker.Scheduler.Tasks.ServiceStatus\Logictracker.Scheduler.Tasks.ServiceStatus.csproj">
+      <Project>{6F5126F4-A682-4DBA-A270-5DF2B113852B}</Project>
+      <Name>Logictracker.Scheduler.Tasks.ServiceStatus</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Applications\DispatcherTrax.xml" />
+    <Content Include="Applications\GatewayAccess.xml">
+    </Content>
+    <Content Include="Applications\Dispatcher.xml">
+    </Content>
+    <Content Include="Applications\GatewayMAppsUDP.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Applications\GatewayTorino.xml" />
+    <Content Include="Applications\GatewayTrax.xml" />
+    <Content Include="Applications\Generator.xml">
+    </Content>
+    <Content Include="Applications\Instalar y Mantener Servicios.xml">
+    </Content>
+    <Content Include="Applications\Scheduler.xml">
+    </Content>
+    <Content Include="Applications\Gateway.xml">
+    </Content>
+    <Content Include="AutoRun.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Log4NET.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sinonimos.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

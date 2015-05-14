@@ -1,0 +1,6 @@
+# UrbeMobile, para Windows Mobile 5
+# Funciones de Trazado
+
+Sub Trace
+# Message( argv[1] )
+EndSub

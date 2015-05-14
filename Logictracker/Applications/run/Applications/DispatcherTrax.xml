@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics"
+	xmlns:g="http://walks.ath.cx/generics"
+	RunMode="WinService">
+
+	<Resources>
+		<MessageQueue Path=".\private$\eventos_trax" Transactional="true" Recoverable="true" />
+	</Resources>
+
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+	
+		<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+	
+		<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+	<StackChannel>
+		<MessageConsumer />
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL"/>
+			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL"/>
+			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL"/>
+			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+</Application>

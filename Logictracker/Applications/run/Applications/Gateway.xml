@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics"
+	xmlns:g="http://walks.ath.cx/generics"
+	xmlns:torino="http://walks.ath.cx/e/torino/v1"
+	RunMode="WinService">
+
+	<Resources>
+		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_xxx" Transactional="true" Recoverable="true" />
+		<MessageQueue x:Key="commanderQueue" Path=".\private$\comandos_xxx" Transactional="false" Recoverable="false" /> <!-- "Path" debe coincidir con el que este dado de alta para el tipo de dispositivo! -->
+		<SQLDataProvider Comment="Deshabilitar para el gateway 911" />
+		<!--VirtualDataProvider Comment="Habilitar para el gateway 911" /-->
+
+		<LinksTree />
+		<NodesTree MessageQueue="{StaticResource commanderQueue}" />
+		<DataLinkLayer />
+		<!--TasaTranslatorOnline MessageQueue="{StaticResource eventsQueue}" Comentario="Habilitar para el gateway 911" /-->
+	</Resources>
+
+	<Resources><!-- puede repetirse por cada parser deseado -->
+		<__PNetworkServer />
+		<!--UDPNetworkServer /-->
+		<!--TCPNetworkServer /-->
+		<_____Parser					Port="0" />
+		<!--RedSosParser			Port="2000" /-->
+		<!--GsTraqParser			Port="2001" /-->
+		<!--MaxTrackParser		Port="2002" /-->
+		<!--MiniMTParser			Port="2003" /-->
+		<!--SimComParser			Port="2004" /-->
+		<!--MobileAppsParser	Port="2007" /-->
+		<!--UnetelV1Parser		Port="2020" /-->
+		<!--FulMarParser			Port="3030" /-->
+		<!--UnetelV2Parser		Port="4040" /-->
+		<!--TraxParser				Port="5050" /-->
+	</Resources>
+
+	<StackChannel>
+		<DataTransportLayer />
+		<!--torino:TorinoGatewayLayer Comment="El gateway de torino solo requiere NodesTree y las colas, reemplaza todas los otros layers" /-->
+		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+		<MessageDispatcher>
+			<MessageHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+			<MessageHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+			<MessageHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+			<MessageHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+			<MessageHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+
+			<!--TasaTranslator g:Type="Logictracker.AVL.Position, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+			<!--TasaTranslator g:Type="Logictracker.AVL.Event, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+			<!--TasaTranslator g:Type="Logictracker.AVL.UserMessage, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+			<!--TasaTranslator g:Type="Logictracker.AVL.ConfigRequest, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+			<!--TasaTranslator g:Type="Logictracker.AVL.HardwareStatus, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+			<!--TasaTranslator g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+			<!--TasaTranslator g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+		</MessageDispatcher>
+	</StackChannel>
+</Application>
+

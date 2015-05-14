@@ -1,0 +1,43 @@
+USE [logictracker]
+GO
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.[par.par_even_02_tbl_acciones] ADD
+	rela_socusua02 int NULL
+GO
+ALTER TABLE dbo.[par.par_even_02_tbl_acciones] SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.[soc.soc_usua_02_cab_perfiles] SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.[par.par_even_02_tbl_acciones] ADD CONSTRAINT
+	[FK_par.par_even_02_tbl_acciones_soc.soc_usua_02_cab_perfiles] FOREIGN KEY
+	(
+	rela_socusua02
+	) REFERENCES dbo.[soc.soc_usua_02_cab_perfiles]
+	(
+	id_socusua02
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.[par.par_even_02_tbl_acciones] SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT

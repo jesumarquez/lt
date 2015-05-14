@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Icono,Logictracker.Types" table="parenti11" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti11" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti11_icono" type="String" name="PathIcono" not-null="true" length="40" />
+    <property column="parenti11_descri" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="parenti11_width" type="Int16" name="Width" not-null="true" />
+    <property column="parenti11_height" type="Int16" name="Height" not-null="true" />
+    <property column="parenti11_offsetx" type="Int16" name="OffsetX" not-null="true" />
+    <property column="parenti11_offsety" type="Int16" name="OffsetY" not-null="true" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+  </class>
+</hibernate-mapping>

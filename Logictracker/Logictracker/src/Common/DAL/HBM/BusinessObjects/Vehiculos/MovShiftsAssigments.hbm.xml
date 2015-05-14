@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Vehiculos.MovShiftsAssignments,Logictracker.Types" table="parenti47" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti47" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti17" name="VehicleType" lazy="proxy" />
+    <many-to-one column="rela_parenti37" name="CostCenter" lazy="proxy" />
+    <many-to-one column="rela_parenti46" name="Shift" lazy="proxy" />
+  </class>
+</hibernate-mapping>

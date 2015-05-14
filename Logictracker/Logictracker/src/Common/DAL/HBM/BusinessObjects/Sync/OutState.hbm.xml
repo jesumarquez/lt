@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Sync.OutState,Logictracker.Types" table="[ope.ope_sync_02_det_outstate]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opesync02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_opesync01" name="OutQueue" lazy="proxy" />
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />
+
+    <property column="opesync02_server" name="Server" />
+    <property column="opesync02_sincronizado" name="Sincronizado" />
+    <property column="opesync02_ok" name="Ok" />
+    <property column="opesync02_fecha" name="Fecha" />
+    <property column="opesync02_observaciones" name="Observaciones" />
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Description</RootNamespace>
+    <AssemblyName>Logictracker.Description</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ItemPropertyAttribute.cs" />
+    <Compile Include="Attributes\CustomMarkupExtensionAttribute.cs" />
+    <Compile Include="Common\StaticFunction.cs" />
+    <Compile Include="Common\StringElement.cs" />
+    <Compile Include="Console\ConsoleInput.cs" />
+    <Compile Include="Console\ShowConsoleInput.cs" />
+    <Compile Include="Console\ApplicationSelector.cs" />
+    <Compile Include="Common\RunMode.cs" />
+    <Compile Include="CustomMarkupExtensions\DefaultExtension.cs" />
+    <Compile Include="CustomMarkupExtensions\StaticResourceExtension.cs" />
+    <Compile Include="Metadata\ItemConstraintMetadata.cs" />
+    <Compile Include="Metadata\ItemManagmentCommandMetadata.cs" />
+    <Compile Include="Common\ApplicationElement.cs" />
+    <Compile Include="Common\ApplicationMode.cs" />
+    <Compile Include="Common\FileMonitor.cs" />
+    <Compile Include="Common\ResourcesElement.cs" />
+    <Compile Include="Common\StackChannel.cs" />
+    <Compile Include="CustomMarkupExtensions\ICustomMarkupExtension.cs" />
+    <Compile Include="Runtime\ApplicationLoader.cs" />
+    <Compile Include="Runtime\ElementException.cs" />
+    <Compile Include="Attributes\ItemConstraintAttribute.cs" />
+    <Compile Include="Attributes\ItemManagmentCommandAttribute.cs" />
+    <Compile Include="Metadata\ElementAttributeMetadata.cs" />
+    <Compile Include="Metadata\ElementMetadata.cs" />
+    <Compile Include="Runtime\FrameworkApplication.cs" />
+    <Compile Include="Runtime\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Runtime\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Runtime\MetadataDirectory.cs" />
+    <Compile Include="Runtime\ServiceApplicationHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Runtime\ServiceApplicationHost.Designer.cs">
+      <DependentUpon>ServiceApplicationHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Runtime\SmartProperty.cs" />
+    <Compile Include="Runtime\FrameworkElement.cs" />
+    <Compile Include="Attributes\ElementAttributeAttribute.cs" />
+    <Compile Include="Attributes\FrameworkElementAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Diagnostics\Logictracker.Diagnostics.csproj">
+      <Project>{7FBF3686-AE82-4EE7-B164-7F5AFE5ECED6}</Project>
+      <Name>Logictracker.Diagnostics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Logictracker.Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

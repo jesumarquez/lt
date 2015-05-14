@@ -1,0 +1,20 @@
+<Application
+	xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics">
+
+	<Resources>
+		<FailureAction x:Key="restartServiceAction" RecoverAction="3" Delay="300" />
+	</Resources>
+
+	<WinServiceInstaller ServiceNamePrefix="Logictracker.Express$" AutomaticInstall="true" AutomaticUpdate="true" AutomaticUninstall="true" Purge="true">
+
+		<WinService HostApplication="Applications\GatewayTrax.xml"       ServiceName="GatewayTrax"       DisplayName="0 - GatewayTrax"        Description="Gateway para dispositivios Trax."                FailureRunCommand="C:\Program Files\Logictracker\Logictracker.Express\Logictracker.Notifier.exe Logictracker.Express$GatewayTrax 20 20"       StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400" />
+		<WinService HostApplication="Applications\GatewayUnexV1.xml"     ServiceName="GatewayUnexV1"     DisplayName="0 - GatewayUnexV1"      Description="Gateway para dispositivios Unex (protocolo v1)." FailureRunCommand="C:\Program Files\Logictracker\Logictracker.Express\Logictracker.Notifier.exe Logictracker.Express$GatewayUnexV1 20 20"     StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400" />
+		<WinService HostApplication="Applications\GatewayUnexV2.xml"     ServiceName="GatewayUnexV2"     DisplayName="0 - GatewayUnexV2"      Description="Gateway para dispositivios Unex (protocolo v2)." FailureRunCommand="C:\Program Files\Logictracker\Logictracker.Express\Logictracker.Notifier.exe Logictracker.Express$GatewayUnexV2 20 20"     StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400" />
+
+		<WinService HostApplication="Applications\DispatcherTrax.xml"    ServiceName="DispatcherTrax"    DisplayName="0 - DispatcherTrax"     Description="Dispatcher para dispositivios Trax."             FailureRunCommand="C:\Program Files\Logictracker\Logictracker.Express\Logictracker.Notifier.exe Logictracker.Express$DispatcherTrax 20 20"    StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400" />
+		<!--WinService HostApplication="Applications\GatewayX.xml"       ServiceName="GatewayX"          DisplayName="0 - GatewayX"           Description="Gateway para dispositivos X."                    FailureRunCommand="Path a Logictracker\Logictracker.Notifier.exe Logictracker.Express$GatewayX 20 20"                                             StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400" /-->
+		<!--WinService HostApplication="Applications\DispatcherX.xml"    ServiceName="DispatcherX"       DisplayName="0 - DispatcherX"        Description="Dispatcher para dispositivos X."                 FailureRunCommand="Path a Logictracker\Logictracker.Notifier.exe Logictracker.Express$DispatcherX 20 20"                                          StartMode="Automatic" ServiceAccount="NetworkService" FirstFailureAction="{StaticResource restartServiceAction}" SecondFailureAction="{StaticResource restartServiceAction}" SubsequentFailuresAction="{StaticResource restartServiceAction}" ResetFailCounterAfter="86400" /-->
+
+	</WinServiceInstaller>
+</Application>

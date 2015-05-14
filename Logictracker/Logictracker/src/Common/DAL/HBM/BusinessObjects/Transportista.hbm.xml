@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Transportista.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Transportista,Logictracker.Types" table="parenti07" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti07" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti07_descri" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="parenti07_tarifa_tramo_corto" type="Double" name="TarifaTramoCorto" not-null="false" />
+    <property column="parenti07_tarifa_tramo_largo" type="Double" name="TarifaTramoLargo" not-null="false" />
+    <property column="parenti07_mail" type="string" name="Mail" />
+    <property column="parenti07_contacto" type="string" name="Contacto" />
+    <property column="parenti07_telefono" type="string" name="Telefono" />
+    <property column="parenti07_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="parenti07_identifica_choferes" type="Boolean" name="IdentificaChoferes" not-null="true" />
+
+    <set name="_coches" access="field" table="parenti03" lazy="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti07" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Vehiculos.Coche, Logictracker.Types" />
+    </set>
+
+    <set name="_tarifas" access="field" lazy="true" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti07" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.TarifaTransportista, Logictracker.Types" />
+    </set>
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti05" name="ReferenciaGeografica" cascade="all" lazy="proxy" />
+  </class>
+</hibernate-mapping>

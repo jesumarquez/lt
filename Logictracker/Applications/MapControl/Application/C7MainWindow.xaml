@@ -1,0 +1,160 @@
+﻿<Window x:Class="Compumap7.C7MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SampleApp"
+    xmlns:rnr="clr-namespace:RNR.Maps;assembly=RNR.Maps"
+        xmlns:converter="clr-namespace:Compumap7"
+    Title="Map Editor Tool" Height="500" Width="789" WindowState="Maximized">
+
+    <Window.Resources>
+        <converter:BooleanToHiddenVisibility x:Key="boolToVis"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Margin="3">
+            <Border Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Margin="3">
+                    <RadioButton x:Name="clarin" Content="Compumap Clarin" Checked="CambiarMapaBase" IsChecked="True"/>
+                    <Separator Margin="3"/>
+                    <RadioButton x:Name="google" Content="Google Maps" Checked="CambiarMapaBase"/>
+                    <Separator Margin="3"/>
+                    <RadioButton x:Name="satelital" Content="Google Satelital" Checked="CambiarMapaBase"/>
+                    <Separator Margin="3"/>
+                    <RadioButton x:Name="hibrido" Content="Google Hibrido" Checked="CambiarMapaBase"/>
+                    <Separator Margin="3"/>
+                    <RadioButton x:Name="osmap" Content="Open Street Map" Checked="CambiarMapaBase"/>
+                </StackPanel>
+            </Border>
+            <Separator Margin="3"/>
+            <Border Grid.Row="0">
+                    <StackPanel Orientation="Vertical" Margin="1">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <CheckBox x:Name="checkViewTextBox" Checked="MostrarCapaQuadTree" VerticalAlignment="Center" Width="Auto" Unchecked="OcultarCapaQuadTree" IsChecked="False">QuadTree Sexagesimal (Torino)</CheckBox>
+                            <Separator Margin="3"/>
+                            <Button x:Name="open" Content="Abrir" Click="Button_Click" Width="Auto" VerticalAlignment="Center"/>
+                            <Separator Margin="3"/>
+                            <Button x:Name="new" Content="Nuevo" Click="Button_Click" Width="Auto" VerticalAlignment="Center"/>
+                            <Separator Margin="3"/>
+                            <Button x:Name="close" Content="Cerrar" Click="Button_Click" Width="Auto" VerticalAlignment="Center"/>                            
+                            
+                        </StackPanel>
+                        <TextBlock VerticalAlignment="Center" Text="C:\QTREE_REPO" MouseDown="MouseButtonEventHandler2" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="0">
+                    <StackPanel Orientation="Vertical" Margin="1">
+                        <StackPanel Orientation="Horizontal" Margin="3">
+                            <CheckBox x:Name="checkViewTextBoxgg" Checked="MostrarCapaQuadTree" VerticalAlignment="Center" Width="Auto" Unchecked="OcultarCapaQuadTree" IsChecked="False">QuadTree Decimal (GTE/Geogrillas)</CheckBox>
+                            <Separator Margin="3"/>
+                            <Button x:Name="opengg" Content="Abrir" Click="Button_Click" Width="Auto" VerticalAlignment="Center"/>
+                            <Separator Margin="3"/>
+                            <Button x:Name="newgg" Content="Nuevo" Click="Button_Click" Width="Auto" VerticalAlignment="Center"/>
+                            <Separator Margin="3"/>
+                            <Button x:Name="closegg" Content="Cerrar" Click="Button_Click" Width="Auto" VerticalAlignment="Center"/>
+
+                        </StackPanel>
+                        <TextBlock VerticalAlignment="Center" Text="C:\GEOGRILLAS" MouseDown="MouseButtonEventHandler2" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        <Border Grid.Row="1" BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="1" Background="{x:Static SystemColors.AppWorkspaceBrush}">
+            <Grid ClipToBounds="True">                
+                <rnr:MapCanvas x:Name="tileCanvas" ScrollLock="{Binding Path=IsChecked, ElementName=checkViewTextBox}">
+                    <!--Grid x:Name="qtGrid" Visibility="{Binding Path=IsChecked, ElementName=checkViewTextBox, Converter={StaticResource boolToVis}}">
+                        <Rectangle Width="200" Height="200" Opacity="0.615" x:Name="qtOverlay" Stretch="Fill" 
+                               Fill="#FF060202" Stroke="#FF000000"/>
+                    </Grid-->
+                        <!-- Width="{Binding ElementName=tileCanvas, Path=Width}" Height="{Binding ElementName=tileCanvas, Path=Height}"  -->
+                        <Ellipse
+                          rnr:MapCanvas.Latitude="-34.61389"
+			              rnr:MapCanvas.Longitude="-58.42561"
+                          Mouse.PreviewMouseDown="MouseButtonEventHandler"
+			              Mouse.MouseEnter="MouseEventHandler"
+                          Margin="-4 -4 0 0"
+                          Fill="Red"
+                          Height="8"
+                          Width="8"
+                          StrokeThickness="1"
+                          Stroke="White"/>
+
+                    <!--
+                    <Path x:Name="ParqueCentenario" rnr:MapCanvas.Latitude="-34.606667"
+			            rnr:MapCanvas.Longitude="-58.435336" Stretch="Fill" Fill="#55FF0000" 
+			            Mouse.PreviewMouseDown="MouseButtonEventHandler"
+			            Mouse.MouseEnter="MouseEventHandler"
+			            Data="F1 M 77.2798,42.312L 62.3771,30.448L 57.4118,36.6814L 65.8771,43.4214L 42.6131,43.4214L 42.6131,51.392L 65.8745,51.392L 57.4118,58.1294L 62.3771,64.3654L 77.2798,52.5L 83.6771,47.4053L 77.2798,42.312 Z ">
+			            <Path.LayoutTransform>
+					        <RotateTransform Angle="90"/>
+			            </Path.LayoutTransform>
+			        </Path> -->
+                    
+
+                    <!--Rectangle x:Name="xxxbox" Height="30" Width="30" rnr:MapCanvas.Latitude="-34.606667"
+			    rnr:MapCanvas.Longitude="-58.435336" Stretch="Fill" Fill="#33FF0000" 
+			    Stroke="#AAFF0000" StrokeThickness="1"
+			    Mouse.PreviewMouseDown="MouseButtonEventHandler"
+			    Mouse.MouseEnter="MouseEventHandler"/ -->
+                    <!-- Rectangle Opacity="0.615" x:Name="qtOverlay" Panel.ZIndex="9899999" Stretch="Fill" Fill="#FF060202" Stroke="#FF000000"/ -->
+                </rnr:MapCanvas>
+                <local:NavigationControls Grid.Row="1" Map="{Binding ElementName=tileCanvas}" 
+                    Visibility="{Binding Path=IsChecked, ElementName=checkViewTextBox, ConverterParameter=false, Converter={StaticResource boolToVis}}"/>
+
+            </Grid>
+        </Border>
+        <StatusBar Grid.Row="2">
+			<TextBlock Text="{Binding ElementName=tileCanvas, Path=ActualCursorLatitude}" />
+			<TextBlock Text="{Binding ElementName=tileCanvas, Path=ActualCursorLongitude}" />
+            <Separator Margin="3"/>
+            <TextBlock x:Name="StatusAnnotation"/>            
+		</StatusBar>		
+    </Grid>
+        
+        <Border Grid.Column="1" Margin="5" Padding="5" BorderBrush="Black" BorderThickness="3">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Margin="8" Background="DarkBlue" Foreground="Yellow" FontFamily="Console" FontSize="12" Text="Herramientas"/>
+                <Border Height="Auto" Margin="5" Padding="5" BorderBrush="Black" BorderThickness="3">
+                    <StackPanel Orientation="Vertical" Margin="3">
+                        <RadioButton x:Name="c1" Content="10km/h" Checked="CambiarVelocidad" />
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c2" Content="20km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c3" Content="30km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c4" Content="40km/h" Checked="CambiarVelocidad" IsChecked="True"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c5" Content="50km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c6" Content="60km/h" Checked="CambiarVelocidad" />
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c7" Content="70km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c8" Content="80km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c9" Content="90km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c10" Content="100km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c11" Content="110km/h" Checked="CambiarVelocidad"  />
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c12" Content="120km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c13" Content="130km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c14" Content="140km/h" Checked="CambiarVelocidad"/>
+                        <Separator Margin="3"/>
+                        <RadioButton x:Name="c15" Content="150km/h" Checked="CambiarVelocidad"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

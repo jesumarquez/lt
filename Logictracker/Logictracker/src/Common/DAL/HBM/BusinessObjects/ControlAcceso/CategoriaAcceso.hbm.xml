@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ControlAcceso.CategoriaAcceso,Logictracker.Types" table="parenti15" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti15" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />    
+    
+    <property column="parenti15_nombre" name="Nombre" />
+    <property column="parenti15_descripcion" name="Descripcion" />    
+    <property column="parenti15_baja" name="Baja" />
+    
+  </class>
+</hibernate-mapping>

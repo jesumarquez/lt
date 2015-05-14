@@ -1,0 +1,49 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="EnvDTE80" #>
+<#@ assembly name="EnvDTE90" #>
+<#@ assembly name="VSLangProj" #>
+<#@ assembly name="VSLangProj2" #>
+<#@ assembly name="VSLangProj80" #>
+<#@ assembly name="VSLangProj90" #>
+<#@ assembly name="Microsoft.VisualStudio.Ole.Interop" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop" #>
+<#@ import namespace="EnvDTE90" #>
+<#
+	EnvDTE80.DTE2 dte2;
+    dte2 = (EnvDTE80.DTE2)System.Runtime.InteropServices.Marshal.
+    GetActiveObject("VisualStudio.DTE.9.0");
+	Solution3 soln = (Solution3)dte2.Solution;
+	EnvDTE.Projects prjs = soln.Projects;
+
+	
+	this.WriteLine("**** " + soln.FullName + " ****");
+	
+	foreach(EnvDTE.Project p in prjs)
+	{	
+		this.WriteLine("==========================================");
+		this.WriteLine(" * " + p.Name);
+		this.WriteLine("==========================================");
+		VSLangProj80.VSProject2 vp = p.Object as VSLangProj80.VSProject2;
+		if (vp != null) 
+		{
+			VSLangProj.Imports projImports = vp.Imports;
+				this.WriteLine("  - Imports ");
+			foreach(string i in projImports) {
+			
+				this.WriteLine("   >" + i);// + ": " + prop.);
+			}
+		}
+		if (p.Properties !=null)
+		{
+			this.WriteLine("  - Items ");
+			foreach (EnvDTE.ProjectItem pi in p.ProjectItems)
+			{
+				this.WriteLine("   >" + pi.Name);// + ": " + prop.);
+			}
+		}
+        this.WriteLine("           ");
+	}
+#>

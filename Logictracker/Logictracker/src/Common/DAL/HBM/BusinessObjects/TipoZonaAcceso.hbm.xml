@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.TipoZonaAcceso,Logictracker.Types" table="parenti91" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti91" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti91_codigo" type="String" name="Codigo" />
+    <property column="parenti91_descripcion" type="String" name="Descripcion" />
+    <property column="parenti91_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+  </class>
+</hibernate-mapping>

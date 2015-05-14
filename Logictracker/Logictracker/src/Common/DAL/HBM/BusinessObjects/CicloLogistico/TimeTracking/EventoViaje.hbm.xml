@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.TimeTracking.EventoViaje,Logictracker.Types" table="opeeven07" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opeeven07" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opeeven07_datetime" name="Fecha" />
+    <property column="opeeven07_esinicio" name="EsInicio" />
+    <property column="opeeven07_esintermedio" name="EsIntermedio" />
+    <property column="opeeven07_esfin" name="EsFin" />
+    <property column="opeeven07_entrada" name="EsEntrada" />
+
+    <many-to-one column="rela_parenti03" name="Vehiculo" lazy="proxy" />
+    <many-to-one column="rela_parenti09" name="Empleado" lazy="proxy" />
+    <many-to-one column="rela_parenti05" name="ReferenciaGeografica" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

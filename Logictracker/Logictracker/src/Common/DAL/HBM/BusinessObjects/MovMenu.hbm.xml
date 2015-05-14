@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: MovMenu.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.MovMenu,Logictracker.Types" table="socusua03" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_socusua03" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Perfil" column="rela_socusua02" />
+    <many-to-one name="Funcion" column="rela_sysfunc03" />
+
+    <property column="socusua03_orden" type="Int16" name="Orden" not-null="true" />
+    <property column="socusua03_alta" type="Boolean" name="Alta" not-null="true" />
+    <property column="socusua03_modif" type="Boolean" name="Modificacion" not-null="true" />
+    <property column="socusua03_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="socusua03_consulta" type="Boolean" name="Consulta" not-null="true" />
+    <property column="socusua03_reporte" type="Boolean" name="Reporte" not-null="true" />
+    <property column="socusua03_vermapa" type="Boolean" name="VerMapa" not-null="true" />
+  </class>
+</hibernate-mapping>

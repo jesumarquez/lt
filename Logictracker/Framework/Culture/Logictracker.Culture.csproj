@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Culture</RootNamespace>
+    <AssemblyName>Logictracker.Culture</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CultureExtensions.cs" />
+    <Compile Include="CultureManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceImageHandler.cs" />
+    <Compile Include="Resources\M2M.Entities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>M2M.Entities.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\M2M.Menu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>M2M.Menu.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AGC.Entities.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AGC.Menu.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controls.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controls.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controls.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ConsumoMasivo.Controls.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ConsumoMasivo.Entities.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ConsumoMasivo.Labels.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ConsumoMasivo.Menu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Logictracker.Entities.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TEL3.Controls.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TEL3.Menu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TEL3.Labels.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TEL3.Entities.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EDESUR.Labels.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EDESUR.Menu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EDESUR.Controls.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\EDESUR.Entities.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Entities.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Entities.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Entities.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Errors.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Errors.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Errors.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ImagesMenu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Labels.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\M2M.Entities.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>M2M.Entities.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\M2M.Menu.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>M2M.Menu.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Menu.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Menu.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Menu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Securables.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SystemMessages.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SystemMessages.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SystemMessages.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Telefonica.Entities.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\User.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\MenuImages\ANALIZADOR_MEDICIONES.png" />
+    <Content Include="Resources\MenuImages\CONSOLA_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\KILOMETROS_DIARIOS.png" />
+    <Content Include="Resources\MenuImages\RESUMEN_ACTIVIDAD.png" />
+    <Content Include="Resources\MenuImages\PAR_AGENDA.png" />
+    <Content Include="Resources\MenuImages\KPI_ESTADO_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\DATAMART_LOG.png" />
+    <Content Include="Resources\MenuImages\LOGICLINK_ADMIN.png" />
+    <Content Include="Resources\MenuImages\MANT_TICKET.png" />
+    <Content Include="Resources\MenuImages\PREASIGNACION_VIAJE_VEHICULO.png" />
+    <Content Include="Resources\MenuImages\REP_RESUMEN_RUTAS.png" />
+    <Content Include="Resources\MenuImages\KPI_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\REPORTE_VIAJE.png" />
+    <Content Include="Resources\MenuImages\REPORTE_TRASLADO.png" />
+    <Content Include="Resources\MenuImages\TABLERO_CONTROL_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\REP_ZONA_0.png" />
+    <Content Include="Resources\MenuImages\OPE_MON_RECORRIDO.png" />
+    <Content Include="Resources\MenuImages\REP_MEDICIONES.png" />
+    <Content Include="Resources\MenuImages\REP_TABLERO_CONTROL.png" />
+    <Content Include="Resources\MenuImages\REP_GRAFICO_LLENADO.png" />
+    <Content Include="Resources\MenuImages\REP_MAPA.png" />
+    <Content Include="Resources\MenuImages\REP_CONFIGURACION.png" />
+    <Content Include="Resources\MenuImages\REP_POSICIONES.png" />
+    <Content Include="Resources\MenuImages\TEL3.png" />
+    <Content Include="Resources\SystemImages\SYS_DISTRIBUCION.png" />
+    <Content Include="Resources\SystemImages\SYS_TELEMETRIA.png" />
+    <Content Include="Resources\MenuImages\DISTRIBUCION_GLOBAL_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\SUBCENTROS_COSTOS.png" />
+    <Content Include="Resources\MenuImages\REP_RESUMEN_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\REP_FLUJO_TAREAS.png" />
+    <Content Include="Resources\MenuImages\MONITOR_ESTADO_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\RANKING_VEHICULOS.png" />
+    <Content Include="Resources\MenuImages\VERIF_EMPLEADOS.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPOS_ZONA_ACCESO.png" />
+    <Content Include="Resources\MenuImages\PAR_ZONAS.png" />
+    <Content Include="Resources\MenuImages\PAR_ZONAS_ACCESO.png" />
+    <Content Include="Resources\MenuImages\REP_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\MAN_STOCK_INSUMO.png" />
+    <Content Include="Resources\MenuImages\CLOG_MONITOR.png" />
+    <Content Include="Resources\MenuImages\REP_DESPACHOS_LISTA.png" />
+    <Content Include="Resources\MenuImages\REP_SINTETICO.png" />
+    <Content Include="Resources\MenuImages\REP_ACTIVIDAD_DIARIA.png" />
+    <Content Include="Resources\MenuImages\AC_ADMINISTRADOR.png" />
+    <Content Include="Resources\MenuImages\CLOG_TIPOSERVICIO.png" />
+    <Content Include="Resources\MenuImages\EST_TICKET_SOPORTE.png" />
+    <Content Include="Resources\MenuImages\MAN_STOCK.png" />
+    <Content Include="Resources\MenuImages\EST_KM_HS_PRODUCTIVOS.png" />
+    <Content Include="Resources\MenuImages\MAN_DEPOSITOS.png" />
+    <Content Include="Resources\MenuImages\REP_CONTROL_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\REPORTE_RETRASOS.png" />
+    <Content Include="Resources\MenuImages\M2M_RENDIMIENTO.png" />
+    <Content Include="Resources\MenuImages\CLOG_RECORRIDO.png" />
+    <Content Include="Resources\MenuImages\PAR_UNIDAD_MEDIDA.png" />
+    <Content Include="Resources\MenuImages\ACC_DET_INFRACCIONES.png" />
+    <Content Include="Resources\MenuImages\ACC_RANKING_CHOFERES.png" />
+    <Content Include="Resources\MenuImages\ACC_REP_DETALLE_RECORRIDO.png" />
+    <Content Include="Resources\MenuImages\ACC_REP_VARIACION_VELOCIDAD.png" />
+    <Content Include="Resources\MenuImages\AC_REP_HORAS.png" />
+    <Content Include="Resources\MenuImages\ADMIN_PROGRAMACION_REPORTE.png" />
+    <Content Include="Resources\MenuImages\ADM_SATELITES.png" />
+    <Content Include="Resources\MenuImages\ANALIZADOR_RECORRIDOS.png" />
+    <Content Include="Resources\MenuImages\AUD_LOGIN_HISTORY.png" />
+    <Content Include="Resources\MenuImages\CENTROS_COSTOS.png" />
+    <Content Include="Resources\MenuImages\CENTROS_COSTOS1.png" />
+    <Content Include="Resources\MenuImages\CLOG_BOCADECARGA.png" />
+    <Content Include="Resources\MenuImages\CLOG_CICLOS_LOGISTICOS.png" />
+    <Content Include="Resources\MenuImages\CLOG_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\CLOG_HISTORICO_SERVICIOS.png" />
+    <Content Include="Resources\MenuImages\CLOG_PEDIDO.png" />
+    <Content Include="Resources\MenuImages\CLOG_PROGRAMACION.png" />
+    <Content Include="Resources\MenuImages\CLOG_REP_DURATION_TICKETS.png" />
+    <Content Include="Resources\MenuImages\CLOG_REP_TICKET_MOVIL.png" />
+    <Content Include="Resources\MenuImages\CLOG_REP_TICKET_TIEMPO.png" />
+    <Content Include="Resources\MenuImages\CLOG_SERVICIOS.png" />
+    <Content Include="Resources\MenuImages\CLOG_TICKETS.png" />
+    <Content Include="Resources\MenuImages\COMB_CONSISTENCIA_STOCK.png" />
+    <Content Include="Resources\MenuImages\COMB_CONSIST_STOCK_GRAFICO.png" />
+    <Content Include="Resources\MenuImages\COMB_CONSUMOS.png" />
+    <Content Include="Resources\MenuImages\COMB_DESPACHOS.png" />
+    <Content Include="Resources\MenuImages\COMB_EVENTOS.png" />
+    <Content Include="Resources\MenuImages\COMB_INGRESOS_POZO.png" />
+    <Content Include="Resources\MenuImages\COMB_REMITOS.png" />
+    <Content Include="Resources\MenuImages\COMB_VARIACION_TANQUE.png" />
+    <Content Include="Resources\MenuImages\COMB_VOLUMEN_TANQUE.png" />
+    <Content Include="Resources\MenuImages\CONCILIACIONES_LIST.png" />
+    <Content Include="Resources\MenuImages\CONSUMO_CAUDAL_MOTORES.png" />
+    <Content Include="Resources\MenuImages\CONSUMO_DIARIO.png" />
+    <Content Include="Resources\MenuImages\CONSOLA_M2M.png" />
+    <Content Include="Resources\MenuImages\REP_DESPACHOS.png" />
+    <Content Include="Resources\MenuImages\REP_DESVIO_CONSUMO.png" />
+    <Content Include="Resources\MenuImages\PAR_DEPARTAMENTO.png" />
+    <Content Include="Resources\MenuImages\REP_COMPARATIVO.png" />
+    <Content Include="Resources\MenuImages\MAN_TIPO_PROVEEDOR.png" />
+    <Content Include="Resources\MenuImages\REPORTE_CONSUMOS_CC.png" />
+    <Content Include="Resources\MenuImages\M2M_REPORTE_VARIACION_MEDICIONES.png" />
+    <Content Include="Resources\MenuImages\M2M_RESUMEN_EVENTOS.png" />
+    <Content Include="Resources\MenuImages\M2M_REPORTE_MEDICIONES.png" />
+    <Content Include="Resources\MenuImages\OPE_MON_SUBENTIDAD.png" />
+    <Content Include="Resources\MenuImages\M2M_RESUMEN_ENTIDADES.png" />
+    <Content Include="Resources\MenuImages\PAR_DETALLE.png" />
+    <Content Include="Resources\MenuImages\PAR_PRECINTO.png" />
+    <Content Include="Resources\MenuImages\OPE_MON_ENTIDAD.png" />
+    <Content Include="Resources\MenuImages\REP_MEDIDORES.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_ENTIDAD.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_MEDICION.png" />
+    <Content Include="Resources\MenuImages\PAR_ENTIDAD.png" />
+    <Content Include="Resources\MenuImages\PAR_SUBENTIDAD.png" />
+    <Content Include="Resources\MenuImages\PAR_SENSOR.png" />
+    <Content Include="Resources\MenuImages\M2M_REPORTE_EVENTOS.png" />
+    <Content Include="Resources\MenuImages\REP_TOLVA.png" />
+    <Content Include="Resources\MenuImages\STAT_REPORTE_CONSUMOS.png" />
+    <Content Include="Resources\MenuImages\EST_PEDIDOS_PROGRAMADOS.png" />
+    <Content Include="Resources\MenuImages\PAR_PLANES.png" />
+    <Content Include="Resources\MenuImages\PAR_LINEA_TELEFONICA.png" />
+    <Content Include="Resources\MenuImages\EST_REPORTE_VIAJES.png" />
+    <Content Include="Resources\MenuImages\PAR_PRODUCTO.png" />
+    <Content Include="Resources\MenuImages\COST_CERTIFICACION.png" />
+    <Content Include="Resources\MenuImages\COST_CONTROL_PARTES.png" />
+    <Content Include="Resources\MenuImages\COST_PARTES.png" />
+    <Content Include="Resources\MenuImages\COST_PERIODOS.png" />
+    <Content Include="Resources\MenuImages\COST_VERIFICAR_PARTES.png" />
+    <Content Include="Resources\MenuImages\DETENCIONES_DETALLE.png" />
+    <Content Include="Resources\MenuImages\DOC_DOCUMENTOS.png" />
+    <Content Include="Resources\MenuImages\DOC_REP_VENCIMIENTO.png" />
+    <Content Include="Resources\MenuImages\DOC_TIPO_DOCUMENTO.png" />
+    <Content Include="Resources\MenuImages\DOP_CERCANIA_POI.png" />
+    <Content Include="Resources\MenuImages\DOP_REP_EVENTOS.png" />
+    <Content Include="Resources\MenuImages\DOP_REP_GEOCERCAS.png" />
+    <Content Include="Resources\MenuImages\DOP_REP_RECORRIDO.png" />
+    <Content Include="Resources\MenuImages\DOP_VERI_DETAILS.png" />
+    <Content Include="Resources\MenuImages\DOP_VERI_DISPOSITIVO.png" />
+    <Content Include="Resources\MenuImages\DOP_VERI_VEHICULO.png" />
+    <Content Include="Resources\MenuImages\EST_IDLE_TIME.png" />
+    <Content Include="Resources\MenuImages\EST_REP_HISTOGRAMA_DETENCIONES.png" />
+    <Content Include="Resources\MenuImages\EST_REP_HORAS_EXTRA_MOVIL_GRAPH.png" />
+    <Content Include="Resources\MenuImages\EST_STOPPED_HS.png" />
+    <Content Include="Resources\MenuImages\EST_TABLERO_CONTROL.png" />
+    <Content Include="Resources\MenuImages\FERIADOS.png" />
+    <Content Include="Resources\MenuImages\HORAS_DENTENCION.png" />
+    <Content Include="Resources\MenuImages\INGRESO_CONCILIACIONES.png" />
+    <Content Include="Resources\MenuImages\LOGS_ADMIN.png" />
+    <Content Include="Resources\MenuImages\LOG_CONTEXT_ADMIN.png" />
+    <Content Include="Resources\MenuImages\MAN_CONSUMOS.png" />
+    <Content Include="Resources\MenuImages\MAN_INSUMOS.png" />
+    <Content Include="Resources\MenuImages\MAN_PROVEEDOR.png" />
+    <Content Include="Resources\MenuImages\MAN_TIPO_INSUMOS.png" />
+    <Content Include="Resources\MenuImages\MARCHA_ACUMULADA.png" />
+    <Content Include="Resources\MenuImages\MOBILE_UTILIZATION.png" />
+    <Content Include="Resources\MenuImages\OPE_CONSOLA.png" />
+    <Content Include="Resources\MenuImages\OPE_MIMICO.png" />
+    <Content Include="Resources\MenuImages\OPE_MON_CALIDAD.png" />
+    <Content Include="Resources\MenuImages\OPE_MON_HISTORICO.png" />
+    <Content Include="Resources\MenuImages\OPE_MON_ONLINE.png" />
+    <Content Include="Resources\MenuImages\OPE_QTREE_EDITOR.png" />
+    <Content Include="Resources\MenuImages\OPE_SIMULADOR.png" />
+    <Content Include="Resources\MenuImages\PAR_ACCIONES.png" />
+    <Content Include="Resources\MenuImages\PAR_ACTUALIZACION_PARAMETROS.png" />
+    <Content Include="Resources\MenuImages\PAR_BASE.png" />
+    <Content Include="Resources\MenuImages\PAR_CAUDALIMETRO.png" />
+    <Content Include="Resources\MenuImages\PAR_CLIENTES.png" />
+    <Content Include="Resources\MenuImages\PAR_CONFIG_DISPOSITIVO.png" />
+    <Content Include="Resources\MenuImages\PAR_DET_DISPOSITIVOS.png" />
+    <Content Include="Resources\MenuImages\PAR_DISPOSITIVOS.png" />
+    <Content Include="Resources\MenuImages\PAR_DISTRIBUIDOR.png" />
+    <Content Include="Resources\MenuImages\PAR_EMPLEADOS.png" />
+    <Content Include="Resources\MenuImages\PAR_EQUIPOS.png" />
+    <Content Include="Resources\MenuImages\PAR_ESTADOLOG.png" />
+    <Content Include="Resources\MenuImages\PAR_FIRMUPLOAD.png" />
+    <Content Include="Resources\MenuImages\PAR_FIRMWARE.png" />
+    <Content Include="Resources\MenuImages\PAR_ICONOS.png" />
+    <Content Include="Resources\MenuImages\PAR_IMPORTADOR.png" />
+    <Content Include="Resources\MenuImages\PAR_MARCAS.png" />
+    <Content Include="Resources\MenuImages\PAR_MENSAJES.png" />
+    <Content Include="Resources\MenuImages\PAR_MODELOS.png" />
+    <Content Include="Resources\MenuImages\PAR_MOTIVOS.png" />
+    <Content Include="Resources\MenuImages\PAR_ODOMETROS.png" />
+    <Content Include="Resources\MenuImages\PAR_PARAM_DISPOSITIVOS.png" />
+    <Content Include="Resources\MenuImages\PAR_POI.png" />
+    <Content Include="Resources\MenuImages\PAR_PUERTAS.png" />
+    <Content Include="Resources\MenuImages\PAR_REGION.png" />
+    <Content Include="Resources\MenuImages\PAR_TALLERES.png" />
+    <Content Include="Resources\MenuImages\PAR_TANQUE.png" />
+    <Content Include="Resources\MenuImages\PAR_TARJETAS.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_DISPOSITIVO.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_EMPLEADO.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_MENSAJE.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_POI.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_SERVICIO.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_VEHICULO.png" />
+    <Content Include="Resources\MenuImages\PAR_TRANSPORTISTAS.png" />
+    <Content Include="Resources\MenuImages\PAR_TURNOS.png" />
+    <Content Include="Resources\MenuImages\PAR_VEHICULOS.png" />
+    <Content Include="Resources\MenuImages\PTOS_ENTREGA.png" />
+    <Content Include="Resources\MenuImages\QUEUES_ADMIN.png" />
+    <Content Include="Resources\MenuImages\REPORTE_ODOMETROS.png" />
+    <Content Include="Resources\MenuImages\REP_EVENTOS_ACCESO.png" />
+    <Content Include="Resources\MenuImages\SERVICES_ADMIN.png" />
+    <Content Include="Resources\MenuImages\SOC_FUNCIONES.png" />
+    <Content Include="Resources\MenuImages\SOC_PERFILES.png" />
+    <Content Include="Resources\MenuImages\SOC_SISTEMAS.png" />
+    <Content Include="Resources\MenuImages\SOC_USUARIOS.png" />
+    <Content Include="Resources\MenuImages\STAT_ACTI_CLIENTE.png" />
+    <Content Include="Resources\MenuImages\STAT_ACTI_OPERADOR.png" />
+    <Content Include="Resources\MenuImages\STAT_ACTI_VEHICULAR.png" />
+    <Content Include="Resources\MenuImages\STAT_REP_AC_HORAS_ACUM.png" />
+    <Content Include="Resources\MenuImages\STAT_REP_HORAS.png" />
+    <Content Include="Resources\MenuImages\STAT_REP_HORAS_ACUM.png" />
+    <Content Include="Resources\MenuImages\STAT_REP_KM.png" />
+    <Content Include="Resources\MenuImages\STAT_REP_KM_ACUM.png" />
+    <Content Include="Resources\MenuImages\STAT_REP_MANTENIMIENTO.png" />
+    <Content Include="Resources\MenuImages\STAT_RESUMEN_OPERADOR.png" />
+    <Content Include="Resources\MenuImages\STAT_RESUMEN_RUTA.png" />
+    <Content Include="Resources\MenuImages\STAT_RESUMEN_VEHICULAR.png" />
+    <Content Include="Resources\MenuImages\SUP_TICKETSOPORTE.png" />
+    <Content Include="Resources\MenuImages\TRAN_ACTI_TRANSPORTISTAS.png" />
+    <Content Include="Resources\MenuImages\TRAN_ACTI_TRANSPORTISTAS12.png" />
+    <Content Include="Resources\MenuImages\TRAN_HORAS_ACUMULADAS.png" />
+    <Content Include="Resources\MenuImages\TRAN_KILOMETROS_ACUMULADOS.png" />
+    <Content Include="Resources\MenuImages\UTILIZACION_FLOTA.png" />
+    <Content Include="Resources\PAGE_ERROR.png" />
+    <Content Include="Resources\SystemImages\SYS_ACC.png" />
+    <Content Include="Resources\SystemImages\SYS_ACCESS_CONTROL.png" />
+    <Content Include="Resources\SystemImages\SYS_ADMIN.png" />
+    <Content Include="Resources\SystemImages\SYS_AUD.png" />
+    <Content Include="Resources\SystemImages\SYS_CICLO_LOGISTICO.png" />
+    <Content Include="Resources\SystemImages\SYS_COMBUSTIBLE_EN_POZOS.png" />
+    <Content Include="Resources\SystemImages\SYS_CONTROL_COMBUSTIBLE.png" />
+    <Content Include="Resources\SystemImages\SYS_COSTOS.png" />
+    <Content Include="Resources\SystemImages\SYS_DATOSOPE.png" />
+    <Content Include="Resources\SystemImages\SYS_DISPOSITIVOS.png" />
+    <Content Include="Resources\SystemImages\SYS_DOCUMENTOS.png" />
+    <Content Include="Resources\SystemImages\SYS_EMPLEADOS.png" />
+    <Content Include="Resources\SystemImages\SYS_ENTIDADES.png" />
+    <Content Include="Resources\SystemImages\SYS_MENSAJERIA.png" />
+    <Content Include="Resources\SystemImages\SYS_OPE.png" />
+    <Content Include="Resources\SystemImages\SYS_PAR.png" />
+    <Content Include="Resources\SystemImages\SYS_REPORTES.png" />
+    <Content Include="Resources\SystemImages\SYS_SOC.png" />
+    <Content Include="Resources\SystemImages\SYS_SOPORTE.png" />
+    <Content Include="Resources\SystemImages\SYS_STAT.png" />
+    <Content Include="Resources\SystemImages\SYS_TRANSPORTISTAS.png" />
+    <Content Include="Resources\SystemImages\SYS_VEHICULOS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

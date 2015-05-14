@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics"
+	xmlns:scheduler="http://walks.ath.cx/e/urbetrackscheduler"
+	RunMode="WinService">
+
+	<scheduler:UrbetrackScheduler />
+
+</Application>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="true" namespace="Geocoder.Core" assembly="Geocoder.Core">
+	<class name="Abreviatura" table="abreviaura" lazy="true">
+    <cache usage="read-write" />
+
+    <!-- Primary Key(s) -->
+		<id name="Id" column="id_abreviatura" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="pala_nivel" type="Int32" name="Nivel" not-null="true" />
+		<property column="pala_literal" type="String" name="Literal" not-null="true" length="32" />
+		<property column="pala_abreviado" type="String" name="Abreviado" not-null="true" length="32"/>
+	</class>
+</hibernate-mapping>

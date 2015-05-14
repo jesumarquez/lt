@@ -1,0 +1,79 @@
+// Construct an instance of the COM object's CoClass
+IMHubSDK sdk = new MHubSDKClass();
+try
+{
+    Console.WriteLine("Using {0}", sdk.Version);
+
+    // SSL is always required
+    sdk.SSLState = true;
+
+    // A prefetch of 10 is a good value across the Internet
+    sdk.Prefetch = prefetch;
+
+    // Assign a local persistence file to be used for the prefetch queue
+    sdk.PersistFile = Path.ChangeExtension(applicationExecutable, ".DAT");
+
+    Console.WriteLine("Press CTRL-C to exit.");
+    Console.WriteLine();
+
+    bool terminate = false;
+    while (!terminate)
+    {
+        // Check if the SDK is connected
+        if (sdk.ConnectionState == enumConnectionState.ecsNotConnected)
+        {
+            Console.Write("Attempting connection to the MProfiler service... ");
+
+            // Ask the SDK to connect to the MProfiler service
+            sdk.Connect(remoteAddress, remotePort, username, password);
+
+            // Check if we are now connected
+            if (sdk.ConnectionState == enumConnectionState.ecsConnected)
+            {
+                Console.WriteLine("connected.");
+                Console.WriteLine();
+                Console.WriteLine("MSISDN           Date & Time         Event Description    ID       Lat     Long");
+                Console.WriteLine(new string('-', 79));
+            }
+            else
+                Console.WriteLine("FAILED!");
+        }
+
+        // Ask the SDK for the next message (if any)
+        IMHubSDKMessage msg = sdk.PeekMessage();
+
+        // Test if a message object was returned
+        if (msg != null)
+        {
+            try
+            {
+                // Do something with the message, output to console
+                Console.WriteLine("{0,-16} {1,-19} {2,-20} {3,3} {4,7} {5,7}",
+                            msg.SourceAddress,
+                            msg.DateTime.ToString("s"),
+                            msg.Description,
+                            msg.MessageID,
+                            msg.Latitude,
+                            msg.Longitude);
+                // Pop the message from the SDK
+                sdk.GetMessage();
+            }
+            finally
+            {
+                // Release the reference to the SDK Message instance
+                msg = null;
+            }
+        }
+        else
+            // Yield in an alertable state
+            System.Threading.Thread.Sleep(100);
+    }
+
+    // Disconnect the SDK connection if present
+    sdk.Disconnect();
+}
+finally
+{
+    // Release the refence to the MProfiler MHub SDK instance
+    sdk = null;
+}

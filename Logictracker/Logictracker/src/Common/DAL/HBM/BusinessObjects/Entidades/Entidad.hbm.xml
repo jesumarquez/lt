@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Entidades.EntidadPadre,Logictracker.Types" table="parenti79" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti79" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti79_codigo" type="String" name="Codigo" />
+    <property column="parenti79_descripcion" type="String" name="Descripcion" />
+    <property column="parenti79_url" type="String" name="Url" />
+    <property column="parenti79_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti05" name="ReferenciaGeografica" lazy="proxy" />
+    <many-to-one column="rela_parenti08" name="Dispositivo" lazy="proxy" />
+    <many-to-one column="rela_parenti76" name="TipoEntidad" lazy="proxy" />
+
+    <set name="_detalles" access="field" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_parenti79" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Entidades.DetalleValor,Logictracker.Types" />
+    </set>
+    
+  </class>
+</hibernate-mapping>

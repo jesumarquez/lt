@@ -1,0 +1,8 @@
+
+
+SENSOR DE TAPA DE SAN JUAN
+--------------------------
+>SED33 IN02-+ + U4 LOG<															PUERTA HA SIDO ABIERTA
+>SED34 IN02+- + U4 LOG<															PUERTA HA SIDO CERRADA
+
+

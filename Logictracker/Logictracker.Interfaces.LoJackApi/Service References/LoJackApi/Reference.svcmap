@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="39a35053-ce27-4df8-aaf2-fa5db47128bf" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://www.lojackgis.com.ar/ApiLogisticaService/Lojack_ApiGenericaWebService.asmx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Lojack_ApiGenericaWebService.disco" MetadataType="Disco" ID="4e1893c0-0295-4ac7-b3c9-060659eb7a33" SourceId="1" SourceUrl="http://www.lojackgis.com.ar/ApiLogisticaService/Lojack_ApiGenericaWebService.asmx?disco" />
+    <MetadataFile FileName="Lojack_ApiGenericaWebService.wsdl" MetadataType="Wsdl" ID="688b0bf8-191d-4a4b-a6ee-5835298d6dfc" SourceId="1" SourceUrl="http://www.lojackgis.com.ar/ApiLogisticaService/Lojack_ApiGenericaWebService.asmx?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

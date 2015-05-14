@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.Direccion,Logictracker.Types" table="pargeom01" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_pargeom01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="pargeom01_descripcion" type="String" name="Descripcion" not-null="true" length="128" />
+
+    <property column="pargeom01_idmapa" type="Int16" name="IdMapa" not-null="true" />
+    <property column="pargeom01_idcalle" type="Int32" name="IdCalle" not-null="true" />
+    <property column="pargeom01_idesquina" type="Int32" name="IdEsquina" />
+    <property column="pargeom01_identrecalle" type="Int32" name="IdEntrecalle" />
+    <property column="pargeom01_altura" type="Int32" name="Altura" />
+
+    <property column="pargeom01_latitud" type="Double" name="Latitud" not-null="true" />
+    <property column="pargeom01_longitud" type="Double" name="Longitud" not-null="true" />
+
+    <property column="pargeom01_calle" type="String" name="Calle" not-null="true" length="64" />
+    <property column="pargeom01_partido" type="String" name="Partido" length="64" />
+    <property column="pargeom01_provincia" type="String" name="Provincia" not-null="true" length="64" />
+    <property column="pargeom01_pais" type="String" name="Pais" not-null="true" length="64" />
+
+    <component name="Vigencia" class="Logictracker.Types.BusinessObjects.Components.Vigencia,Logictracker.Types">
+      <property column="pargeom01_vigencia_desde" type="DateTime" not-null="false" name="Inicio" />
+      <property column="pargeom01_vigencia_hasta" type="DateTime" not-null="false" name="Fin" />
+    </component>
+  </class>
+</hibernate-mapping>

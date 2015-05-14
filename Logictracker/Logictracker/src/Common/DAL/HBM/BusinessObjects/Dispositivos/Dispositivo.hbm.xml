@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Dispositivo.hbm.xml 319 2007-01-24 19:31:26Z rbugallo $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.Dispositivo,Logictracker.Types" table="parenti08" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti08" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti08_codigo" name="Codigo" />
+    <property column="parenti08_pollinterval" name="PollInterval" />
+    <property column="parenti08_port" name="Port" />
+    <property column="parenti08_imei" name="Imei" />
+    <property column="parenti08_tablas" name="Tablas" />
+    <property column="parenti08_clave" name="Clave" />
+    <property column="parenti08_estado" name="Estado" />
+    <property column="parenti08_dtCambioEstado" name="DtCambioEstado" />
+    <property column="paren08_mdn" name="Telefono" />
+    <property column="parenti08_device_id" name="IdNum" />
+    <property column="parenti08_verificado" name="Verificado" />
+    
+    <set name="_detallesDispositivo" access="field" table="parenti30" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti08" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Dispositivos.DetalleDispositivo, Logictracker.Types" />
+    </set>
+
+    <set name="_configuraciones" access="field" table="parenti50" lazy="true" cascade="all">
+      <cache usage="read-write" />
+      <key column="rela_parenti08" />
+      <many-to-many column="rela_parenti49" class="Logictracker.Types.BusinessObjects.Dispositivos.ConfiguracionDispositivo,Logictracker.Types" />
+    </set>
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti32" name="TipoDispositivo" lazy="proxy" />
+    <many-to-one column="rela_parenti24" name="FlashedFirmware" lazy="proxy" />
+    <many-to-one column="rela_parenti74" name="LineaTelefonica" lazy="proxy" />
+    <many-to-one column="rela_parenti78" name="Precinto" lazy="proxy" />
+  </class>
+</hibernate-mapping>

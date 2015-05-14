@@ -1,0 +1,20 @@
+# UrbeMobile, para Windows Mobile 5
+# Completa la deinstalacion del Cabinet
+
+Include (loggin.mscr)
+ErrorLevel ( "off" )
+
+#UMPATH="\Archivos de programa\Urbetrack Mobile\"
+UMPATH="\Program Files\Urbetrack Mobile\"
+UMPROC="urbemobile.exe"
+UMBIN=UMPATH & UMPROC
+UMSEEDFILE=UMPATH & "wdseed.txt"
+UMRSTFILE=UMPATH & "wdrst.txt"
+
+WriteFile( UMRSTFILE , "UNINST")
+Kill ( UMBIN )
+Sleep( 3000 )
+
+RemoveNotifications ( UMBIN )
+
+DelTree ( UMPATH )

@@ -1,0 +1,117 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61AAA3F4-A11D-4BD0-92A8-0347426E3C13}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Urbetrack.Mobile.Comm</RootNamespace>
+    <AssemblyName>umcomm</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>4118C335-430C-497f-BE48-11C3316B135E</PlatformID>
+    <OSVersion>5.01</OSVersion>
+    <DeployDirSuffix>SAMobile</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FormFactorID>
+    </FormFactorID>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <NativePlatformName>Windows Mobile 5.0 Pocket PC SDK</NativePlatformName>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Messaging" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClienteMobile\ClienteMobile.cs" />
+    <Compile Include="ClienteMobile\ClientMobileTU.cs" />
+    <Compile Include="GEO\Distances.cs" />
+    <Compile Include="GEO\GPSPoint.cs" />
+    <Compile Include="Messages\Decoder.cs" />
+    <Compile Include="Messages\LoginAcepted.cs" />
+    <Compile Include="Messages\LoginReject.cs" />
+    <Compile Include="Messages\LoginRequest.cs" />
+    <Compile Include="Messages\PDU.cs" />
+    <Compile Include="Messages\Posicion.cs" />
+    <Compile Include="Queuing\Base64MessageQueue.cs" />
+    <Compile Include="Queuing\Queues.cs" />
+    <Compile Include="Transport\FileTransfer\FileClient.cs" />
+    <Compile Include="Transport\FileTransfer\FileServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaccional\MRC.cs" />
+    <Compile Include="Transaccional\MRS.cs" />
+    <Compile Include="Transaccional\Transaction.cs" />
+    <Compile Include="Transaccional\TransactionUser.cs" />
+    <Compile Include="Transport\Destination.cs" />
+    <Compile Include="Transport\AbstractTransport.cs" />
+    <Compile Include="Transport\TransporteUDP.cs" />
+    <Compile Include="TransactionUsers\ClientTU.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Net\Urbetrack.Mobile.Net.csproj">
+      <Project>{64BC3C4C-C154-4812-AFA8-B27E7525E93B}</Project>
+      <Name>Urbetrack.Mobile.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaMobileGPS\Urbetrack.Mobile.GPS.vbproj">
+      <Project>{29203583-D434-40CC-A114-A1FC02975370}</Project>
+      <Name>Urbetrack.Mobile.GPS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Toolkit\Urbetrack.Mobile.Toolkit.csproj">
+      <Project>{C1CF13BE-F13E-4ED6-8F58-A16933DF9DB6}</Project>
+      <Name>Urbetrack.Mobile.Toolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Win32\Urbetrack.Mobile.Win32.csproj">
+      <Project>{701B78CD-ED12-4233-9030-9DE040FCC97E}</Project>
+      <Name>Urbetrack.Mobile.Win32</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+</Project>

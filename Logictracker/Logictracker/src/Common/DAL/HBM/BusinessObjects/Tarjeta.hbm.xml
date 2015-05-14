@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Tarjeta,Logictracker.Types" table="parenti23" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti23" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti23_numeroTarjeta" type="String" name="Numero" not-null="true" length="4" />
+    <property column="parenti23_pin" type="String" name="Pin" not-null="true" length="50" />
+    <property column="parenti23_pin_hexa" name="PinHexa" />
+    <property column="parenti23_codigoAcceso" type="Int32" name="CodigoAcceso" not-null="false" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+  </class>
+</hibernate-mapping>

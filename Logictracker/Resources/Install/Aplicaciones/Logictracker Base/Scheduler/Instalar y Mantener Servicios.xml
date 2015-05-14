@@ -1,0 +1,25 @@
+<Application xmlns="http://walks.ath.cx/framework" xmlns:x="http://walks.ath.cx/statics" xmlns:fe="http://walks.ath.cx/frontend">
+
+  <Resources fe:Label="Recursos de Instalacion">
+    <FailureAction x:Key="restartServiceAction" RecoverAction="3" Delay="300" />
+  </Resources>
+
+  <WinServiceGroup x:Key="winServiceGroup" fe:Label="Urbetrack EXPRESS 2.0" ServiceNamePrefix="Urbetrack.Express$" AutomaticInstall="true" AutomaticUpdate="true" AutomaticUninstall="true"
+                   Purge="false">
+
+    <WinService x:Key="urbetrackScheduler"
+                HostApplication="Applications\Scheduler.xml"
+                ServiceName="Scheduler"
+                DisplayName="2 - Scheduler"
+                Description="Servicio de scheduling de tareas."
+                StartMode="Automatic"
+                FailureRunCommand="C:\Program Files\Mapas y Sistemas\Urbetrack.Express\Urbetrack.Notifier.exe Urbetrack.Express$Scheduler 20 20"
+                ServiceAccount="NetworkService"
+                FirstFailureAction="{StaticResource restartServiceAction}"
+                SecondFailureAction="{StaticResource restartServiceAction}"
+                SubsequentFailuresAction="{StaticResource restartServiceAction}"
+                ResetFailCounterAfter="86400"/>
+               
+  </WinServiceGroup>
+  
+</Application>

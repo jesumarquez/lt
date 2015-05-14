@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Vehiculos.MovOdometroVehiculo,Logictracker.Types" table="parenti42" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti42" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti42_kilometros" type="Double" name="Kilometros" not-null="true" />
+    <property column="parenti42_ajuste_kilometros" type="Double" name="AjusteKilometros" not-null="false" />
+    <property column="parenti42_dias" type="Int32" name="Dias" not-null="true" />
+    <property column="parenti42_ajuste_dias" type="Int32" name="AjusteDias" not-null="false" />
+    <property column="parenti42_horas" type="Double" name="Horas" />
+    <property column="parenti42_ajuste_horas" type="Double" name="AjusteHoras" />
+
+    <property column="parenti42_ultimo_update" type="DateTime" not-null="false" name="UltimoUpdate" />
+    <property column="parenti42_ultimo_disparo" type="DateTime" not-null="false" name="UltimoDisparo" />
+
+      <property column="parenti42_primeraviso" name="FechaPrimerAviso" />
+      <property column="parenti42_segundoaviso" name="FechaSegundoAviso" />
+
+      <many-to-one column="rela_parenti03" name="Vehiculo" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_parenti40" name="Odometro" not-null="true" lazy="proxy" />
+  </class>
+</hibernate-mapping>

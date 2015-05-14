@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Documentos.DocumentoValor,Logictracker.Types" table="parenti29" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti29" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti29_valor" type="String" name="Valor" not-null="true" />
+    <property column="parenti29_repeticion" type="Int16" name="Repeticion" not-null="true" />
+
+    <many-to-one column="rela_parenti28" name="Documento" />
+    <many-to-one column="rela_parenti26" name="Parametro" />
+  </class>
+</hibernate-mapping>

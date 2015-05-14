@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application	xmlns="http://walks.ath.cx/framework"
+                xmlns:x="http://walks.ath.cx/statics"
+                xmlns:g="http://walks.ath.cx/generics"
+				RunMode="WinService">
+
+	<Resources>
+		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_mapps" Transactional="true" Recoverable="true" />
+		<MessageQueue x:Key="commanderQueue" Path=".\private$\comandos_mapps" Transactional="false" Recoverable="false" />
+		<MobileAppsParser Port="2007" />
+
+		<NodesTree MessageQueue="{StaticResource commanderQueue}" MessageQueueOut="{StaticResource eventsQueue}" ResponseDispatcher="{StaticResource theDispatcher}" />
+		<SQLDataProvider />
+		<LinksTree />
+    <MobileAppsFileServer Port="2008" />
+	</Resources>
+
+	<StackChannel>
+		<UDPNetworkServer />
+		<DataLinkLayer />
+		<DataTransportLayer /> 
+		<MessageDispatcher x:Key="theDispatcher">
+			<MessageHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+			<MessageHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+			<MessageHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+			<MessageHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+			<MessageHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" />
+		</MessageDispatcher>
+	</StackChannel>
+
+</Application>

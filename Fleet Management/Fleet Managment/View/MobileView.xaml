@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Urbetrack.FleetManagment.View.MobileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="200">
+
+    <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="165" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="90" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        
+       
+        <Label Content="Distrito:" Grid.Row="0" Grid.Column="0" />
+        <StackPanel  Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="{Binding Path=District, Mode=OneWay}"/>
+            <Label Content="  Base:"/>
+            <Label Content="{Binding Path=Base, Mode=OneWay}"/>
+        </StackPanel>
+        
+        <Label Content="Vehicle:" Grid.Row="1" Grid.Column="0" />
+        <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="{Binding Path=Vehicle, Mode=OneWay}"/>
+            <Label Content="  id:"/>
+            <Label Content="{Binding Path=VehicleId, Mode=OneWay}"/>
+        </StackPanel>
+
+        <Label Content="Device:" Grid.Row="2" Grid.Column="0"/>
+        <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="{Binding Path=Device, Mode=OneWay}"/>
+            <Label Content="  id:"/>
+            <Label Content="{Binding Path=DeviceId, Mode=OneWay}"/>
+            <Label Content="  queue:"/>
+            <Label Content="{Binding Path=Queue, Mode=OneWay}"/>
+        </StackPanel>
+        <Label Content="Comandos a Enviar:" Grid.Row="3" Grid.Column="0" />
+        <TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Row="3" Grid.Column="1"  Name="deviceCommands" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" />
+        <Button Name="button1" PreviewMouseDown="button1_MouseDown" Content="Enviar" Grid.Column="1" Grid.Row="4" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" />
+    </Grid>
+   
+</UserControl>

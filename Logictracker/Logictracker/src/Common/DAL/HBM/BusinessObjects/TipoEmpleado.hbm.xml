@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.TipoEmpleado,Logictracker.Types" table="parenti43" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti43" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti43_codigo" type="String" name="Codigo" not-null="true" length="3" />
+    <property column="parenti43_descri" type="String" name="Descripcion" not-null="true" length="50" />
+    <property column="parenti43_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="parenti43_fecha_baja" type="DateTime" not-null="false" name="FechaBaja" />
+
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+  </class>
+</hibernate-mapping>

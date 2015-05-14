@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application    xmlns="http://walks.ath.cx/framework"
+                xmlns:x="http://walks.ath.cx/statics"
+                xmlns:g="http://walks.ath.cx/generics"
+                xmlns:fe="http://walks.ath.cx/frontend"
+                xmlns:unetelv1="http://walks.ath.cx/e/unetel/v1"
+                fe:Title="Urbetrack EXPRESS"
+                x:Key="Default"
+        RunMode="WinService">
+
+	<Resources>
+		<SQLDataProvider x:Key="mainDataSource" DataTransportLayer="{StaticResource dataTransportLayer}">Server=192.168.28.88;Initial Catalog=urbetrack;User ID=urbetrack_dispatcher;Password=dis!123*;Pooling=true;Max Pool Size=500;</SQLDataProvider>
+		<MessageQueue x:Key="positionsFulmar" Path=".\private$\posiciones" Transactional="true" Recoverable="true" OwnerGroup="Users" />
+		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_trax" Transactional="true" Recoverable="true" OwnerGroup="Users" />
+		<MessageQueue x:Key="ticketsQueue" Path=".\private$\tickets_trax" Transactional="true" Recoverable="true" OwnerGroup="Users" />
+		<MessageQueue x:Key="commanderQueue" Path=".\private$\comandos_trax" Transactional="false" Recoverable="false" BinaryFormatter="false" OwnerGroup="Users" />
+		<LinksTree x:Key="linksTree" />
+	</Resources>
+    
+    <StackChannel fe:Label="Cola de Posiciones Trax" fe:Image="res;gps.ico">
+	<MessageConsumer MessageQueue="{StaticResource positionsFulmar}"/>
+	<MessageDispatcher x:Key="theDispatcherTrax" >
+			<PositionsHandler g:Type="Urbetrack.AVL.Position, Urbetrack.AVL"/>
+	</MessageDispatcher>
+    </StackChannel>
+
+
+
+    <StackChannel fe:Label="Cola de Eventos" fe:Image="res;msg.ico" >
+	<MessageConsumer MessageQueue="{StaticResource eventsQueue}"/>
+	<MessageDispatcher>
+	        <EventsHandler g:Type="Urbetrack.AVL.Event, Urbetrack.AVL"/>
+	</MessageDispatcher>
+    </StackChannel>
+
+    <StackChannel fe:Label="Cola de Tickets de Velocidad" fe:Image="res;warning.ico" >
+	<MessageConsumer MessageQueue="{StaticResource ticketsQueue}"/>
+	<MessageDispatcher>
+		<TicketsHandler g:Type="Urbetrack.AVL.SpeedingTicket, Urbetrack.AVL"/>
+	</MessageDispatcher>
+    </StackChannel>
+
+</Application>

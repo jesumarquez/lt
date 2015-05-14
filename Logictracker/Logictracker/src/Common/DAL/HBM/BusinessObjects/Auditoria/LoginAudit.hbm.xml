@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Auditoria.LoginAudit,Logictracker.Types" table="audlog03" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_audlog03" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="audlog03_fecha_inicio" type="DateTime" name="FechaInicio" not-null="true" />
+    <property column="audlog03_fecha_fin" type="DateTime" name="FechaFin" />
+    <property column="audlog03_ip" type="String" name="IP" not-null="true" />
+
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />
+  </class>
+</hibernate-mapping>

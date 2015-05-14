@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.ReportsCache,Logictracker.Types" table="[ope.ope_repo_01_tbl_reports_cache]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_operepo01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+		<property column="rela_parenti08" name="Dispositivo" not-null="true" />
+		<property column="operepo01_datetime" name="DateTime" not-null="true" />
+		<property column="operepo01_value" name="Value" not-null="true" />
+	</class>
+</hibernate-mapping>

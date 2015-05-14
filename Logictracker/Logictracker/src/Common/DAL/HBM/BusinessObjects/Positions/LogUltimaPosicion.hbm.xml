@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: LogUltimaPosicion.xml 36 2006-05-29 21:24:01Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Urbetrack.Types.BusinessObjects.Positions.LogUltimaPosicion,Urbetrack.Types" table="opeposi02" lazy="true">
+    <id name="Id" column="id_opeposi02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti03" name="Coche" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_parenti08" name="Dispositivo" not-null="true" lazy="proxy" />
+
+    <property column="opeposi02_latitud" name="Latitud" type="Double" not-null="true" />
+    <property column="opeposi02_longitud" name="Longitud" type="Double" not-null="true" />
+    <property column="opeposi02_fechora" name="FechaMensaje" type="DateTime" />
+    <property column="opeposi02_fechora_alta" name="FechaRecepcion" type="DateTime" />
+    <property column="opeposi02_velocidad" name="Velocidad" type="Int32" not-null="true" />
+    <property column="opeposi02_velocalculada" name="VeloCalculada" type="Boolean" not-null="true" />
+    <property column="opeposi02_altitud" name="Altitud" type="Double" />
+    <property column="opeposi02_curso" name="Curso" type="Double" />
+    <property column="opeposi02_status" name="Status" type="byte" />
+  </class>
+</hibernate-mapping>

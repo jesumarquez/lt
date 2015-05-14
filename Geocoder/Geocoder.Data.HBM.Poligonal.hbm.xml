@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="true" namespace="Geocoder.Core" assembly="Geocoder.Core">
+	<class name="Poligonal" table="poligonal" lazy="true">
+    <cache usage="read-write" />
+    
+		<!-- Primary Key(s) -->
+		<id name="Id" column="id_poligonal" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="poli_index" type="Int32" name="Index" not-null="true" index="IX_Poligonal_Index" />
+		<property column="poli_nombrecorto" type="String" name="NombreCorto" not-null="true" length="32" />
+		<property column="poli_nombrelargo" type="String" name="NombreLargo" not-null="true" length="64" />
+		<property column="poli_mapid" type="Int32" name="MapId" not-null="true" />
+		<property column="poli_polid" type="Int32" name="PolId" not-null="true" />
+		<property column="poli_alturamax" type="Int32" name="AlturaMaxima" not-null="true" />
+		<property column="poli_alturamin" type="Int32" name="AlturaMinima" not-null="true" />
+		<property column="poli_nivel" type="Int32" name="Nivel" not-null="true" />
+		<property column="poli_excalle" type="Boolean" name="EsExCalle" not-null="true" />
+		<many-to-one name="Partido" class="Partido" column="fk_partido" not-null="true" lazy="proxy" index="IX_Poligonal_Partido" />
+
+		<bag name="Cruces" generic="true" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+			<key column="fk_poligonal"/>
+			<one-to-many class="Cruce" />
+		</bag>
+		<bag name="Alturas" generic="true" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+			<key column="fk_poligonal"/>
+			<one-to-many class="Altura" />
+		</bag>
+		<bag name="Palabras" table="poligonal_palabraposicionada" generic="true" inverse="false" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+			<key column="fk_poligonal" />
+			<many-to-many column="fk_palabraposicionada" class="PalabraPosicionada" />
+		</bag>
+	</class>
+</hibernate-mapping>

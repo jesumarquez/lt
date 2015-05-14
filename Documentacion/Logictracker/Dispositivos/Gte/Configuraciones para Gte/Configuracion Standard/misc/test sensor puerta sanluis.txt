@@ -1,0 +1,123 @@
+RANGOS DE VELOCIDAD
+-------------------
+>SGS00005280<
+>SGS01005030<
+>SGS02030060<
+>SGS03060080<
+>SGS04080090<
+>SGS05090280<
+
+TIEMPO DISTANCIA
+----------------
+>STD01000060000100<																CADA   60 SEG / 100 METROS
+>STD02000060000160<																CADA   60 SEG / 160 METROS
+>STD03000060000220<																CADA   60 SEG / 220 METROS
+>STD04000060000450<																CADA  180 SEG / 450 METROS
+>STD05000180000000<
+
+GRADOS
+------
+>SDC01*015<
+
+REPORTES PERSONALIZADOS
+-----------------------
+>SUC00 QGRI,6,15|$0000<
+>SUC04 QPI,4,12|QST,27,4|QPI,16,20|QPI,47,3|QGP,33,3|QIC,5,10|QCH03,22,2<
+>SUC05 QPI,4,12|QST,27,4|QPI,16,20|QPI,47,3|QGP,33,3|QIC,5,10|QVP,9,4|QCC03,11,5|QTX02,7,3|QTX01,7,38<
+
+>SED*55AA<
+>SUV*55AA<
+
+**********************************
+POSICIONES (22-29):
+**********************************
+
+>SED22 GS01+&GM04+&TD01-+ + U4 LOG {SDC01R}<									EN RANGO 1
+>SED23 GS02+&GM04+&TD02-+ + U4 LOG {SDC01R}<									EN RANGO 2
+>SED24 GS03+&GM04+&TD03-+ + U4 LOG {SDC01R}<									EN RANGO 3
+>SED25 GS04+|GS05+&GM04+&TD04-+ + U4 LOG {SDC01R}<								EN RANGO 4 O 5
+>SED26 IN07-&GM04+&TD05-+ + U4 LOG {SDC01R}<									CON MOTOR OFF
+>SED27 IN07+&GS00-&GM04+&TD05-+ + U4 LOG {SDC01R}<								INMOVIL MOTOR ON
+>SED28 DC01* + NN SGN {SDC01R}<													SI GIRO RESETAR EL DISPARADOR DE GIRO
+>SED29 GM04+&DC01* + U4 LOG<													SI GIRO REPORTAR
+
+
+cable marron - sensor de puerta
+>SED33 IN02-+ + U4 LOG<													PUERTA HA SIDO ABIERTA - DoorOpenned = 132
+>SED34 IN02+- + U4 LOG<													PUERTA HA SIDO CERRADA - DoorClosed = 133
+
+**********************************
+EVENTOS/ALARMAS (61-80):
+**********************************
+
+>SED61 IN07-+ + U4 LOG<											MOTOR ON
+>SED62 IN07+- + U4 LOG<											MOTOR OFF
+>SED63 GR01-+ + U4 LOG<											GSM/GPRS ON
+>SED64 GR01+- + U4 LOG<											GSM/GPRS OFF
+>SED65 GM04-+ + U4 LOG<											SEÑAL GPS 3D ON
+>SED66 GM04+- + U4 LOG<											SEÑAL GPS 3D OFF
+>SED67 GM01-+ + U4 LOG<											SEÑAL GPS 2D ON
+>SED68 GM01+- + U4 LOG<											SEÑAL GPS 2D OFF
+>SED69 IC00-+ + U4 LOG<											CHOFER LOGGED ON
+>SED70 IC00+- + U4 LOG<											CHOFER LOGGED OFF
+
+
+**********************************
+CONFIGURACIONES VARIAS
+**********************************
+
+>SCC1500540<
+>SEDFB RE81-+ + NN SGN {SCC15R}<												cuando llega un ack resetear el timer de reset de modem
+>SEDFC CC15-+ + NN SGN {SGR*}{SCC15R}<											si el timer se vence resetear el modem a ver si se arregla el problema de los equipos colgados
+
+>SEDFE RT00-+ + NN SGN {SID0000}{SCC15R}<										RESET ID AL PRENDER EL EQUIPO
+
+BAJO CONSUMO, SOLO EDESUR
+-------------------------
+-SEDFF EVFF- + PI LOG<															LOG DE POSICIONES SEGUNDO A SEGUNDO QUE NO SE ENVIAN
+-SKO072072007200<																BAJO CONSUMO, 2H GPS OFF, 12H SLEEP
+
+SIN BAJO CONSUMO, STANDAR
+-------------------------
+>SEDFF EVFF- + PI LOG {SKO-}<													NUNCA ENTRAR EN BAJO CONSUMO, LOG DE POSICIONES SEGUNDO A SEGUNDO QUE NO SE ENVIAN
+
+
+modos de bajo consumo:
+reposo: gps off, modem gsm on; a las 2 horas.
+dormido total: gps y modem gsm off; a las 12 horas.
+
+
+-SDLE<
+
+**********************************
+ACTUALIZA LOS EVENTOS EN LA MEMORIA DE EJECUCION, RESET
+**********************************
+
+>SUVU55AA<
+>SEDU55AA<
+>SSR55AA<
+
+**********************************
+CONFIGURACION:
+**********************************
+
+-SFD55AA<																		SE ELIMINA LA CONFIGURACION ANTERIOR DEL EQUIPO. ESTO SIEMPRE HACE QUE EL PUERTO VUELVA A 1720!
+>SGR INTERNET.CTIMOVIL.COM.AR,WAP,WAP<											SET APN
+-SGR INTERNET.COMCEL.COM.CO,,<													SET APN COLOMBIA
+>SIP0 200.070.028.088,010000300003000303<										URBETRACK
+-SIP0 190.002.037.141,010000300003000303<										OFICINA
+-SIP0 190.210.147.205,010000300003000303<										SAI
+>SDU5050<																		SET  PUERTO UDP
+>SLD IP0,00500030000,,01FE<														ENVIAR REPORTES SIN POSICIONES SEGUNDO A SEGUNDO
+-SLD TR1,,,01FE<																HABILITAR PARA TEST LOCAL DE FEATURES
+
+
+varios solo si configuramos via serie un dispo nuevo
+----------------------------------------------------
+---
+---
+>SUC06 $ IMEI=| QGRI,6,15|$ SERIAL=| QVR,24,10|$ <
+>QUS06<
+>SID0000<
+---
+---

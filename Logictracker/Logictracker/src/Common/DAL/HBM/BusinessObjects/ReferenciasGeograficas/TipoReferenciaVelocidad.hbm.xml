@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.TipoReferenciaVelocidad,Logictracker.Types" table="[par.par_geom_06_mov_tiporef_velocidad]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_pargeom06" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="pargeom06_velocidadmaxima" type="Int32" name="VelocidadMaxima" not-null="true" />
+
+    <many-to-one name="TipoReferenciaGeografica" column="rela_parenti10" lazy="proxy"></many-to-one>
+    <many-to-one name="TipoVehiculo" column="rela_parenti17" lazy="proxy"></many-to-one>
+  </class>
+</hibernate-mapping>

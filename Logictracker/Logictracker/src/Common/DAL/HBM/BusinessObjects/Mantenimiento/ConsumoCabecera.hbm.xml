@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Mantenimiento.ConsumoCabecera,Logictracker.Types" table="parenti57" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti57" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti57_fecha" name="Fecha" />
+    <property column="parenti57_km_declarados" name="KmDeclarados" />
+    <property column="parenti57_numero_factura" name="NumeroFactura" />
+    <property column="parenti57_importe_total" name="ImporteTotal" />
+    <property column="parenti57_estado" name="Estado" />
+    <property column="parenti57_tipo_movimiento" name="TipoMovimiento" />
+        
+    <many-to-one column="rela_parenti03" name="Vehiculo" lazy="proxy" />
+    <many-to-one column="rela_parenti09" name="Empleado" lazy="proxy" />
+    <many-to-one column="rela_parenti59" name="Proveedor" lazy="proxy" />
+    <many-to-one column="rela_parenti87" name="Deposito" lazy="proxy" />
+    <many-to-one column="rela_parenti87_destino" name="DepositoDestino" lazy="proxy" />
+
+    <set name="_detalles" access="field" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_parenti57" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Mantenimiento.ConsumoDetalle,Logictracker.Types" />
+    </set>
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.DetallePeriodo,Logictracker.Types" table="parenti34" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti34" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti34_estado" type="Int16" name="Estado" not-null="true" />
+
+    <many-to-one column="rela_parenti07" name="Transportista" class="Logictracker.Types.BusinessObjects.Transportista,Logictracker.Types" lazy="proxy" />
+    <many-to-one column="rela_parenti33" name="Periodo" class="Logictracker.Types.BusinessObjects.Periodo,Logictracker.Types" lazy="proxy" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Support.SupportTicketDetail,Logictracker.Types" table="[aud.aud_sup_02_det_support_state]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_audsup02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="audsup02_datetime" type="DateTime" name="Fecha" not-null="true" />
+    <property column="audsup02_state" type="Int16" name="Estado" not-null="true" />
+    <property column="audsup02_descri" type="String" name="Descripcion" />
+
+    <many-to-one column="rela_audsup01" name="SupportTicket" lazy="proxy" />
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />
+  </class>
+</hibernate-mapping>

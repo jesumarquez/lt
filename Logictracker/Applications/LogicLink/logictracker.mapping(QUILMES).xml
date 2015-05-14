@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Configuration xmlns="urn:Logictracker.Process.Import.Client">
+    <Import>
+        <DataSource Type="Csv">
+            <Parameter Name="separator" Value="|" />
+            <Parameter Name="folder" Value="C:\Program Files (x86)\Logictracker\LogicLink\Archivos\" />
+            <Parameter Name="filename" Value="*.csv" />
+            <Parameter Name="hasheaderrow" Value="false" />
+        </DataSource>
+               
+        <Entity Type="Distribution">
+            <Property Name="Codigo" ColumnIndex="0"></Property>
+            <Property Name="NroViaje" ColumnIndex="1"></Property>
+            <Property Name="Coche" ColumnIndex="2"></Property>
+            <Property Name="Fecha" ColumnIndex="3"></Property>
+            <Property Name="Orden" ColumnIndex="4"></Property>
+            <Property Name="Horario" ColumnIndex="6"></Property>
+            <Property Name="PuntoEntrega" ColumnIndex="7"></Property>
+            <Property Name="Nombre" ColumnIndex="8"></Property>
+            <Property Name="Latitud" ColumnIndex="9"></Property>
+            <Property Name="Longitud" ColumnIndex="10"></Property>
+            <Property Name="Km" ColumnIndex="11"></Property>          
+        </Entity>
+        
+    </Import>
+</Configuration>

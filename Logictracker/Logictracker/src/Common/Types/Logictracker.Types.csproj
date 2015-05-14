@@ -1,0 +1,444 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Types</RootNamespace>
+    <AssemblyName>Logictracker.Types</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/Urbetrack.Types/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BusinessObjects\Auditoria\EntityAudit.cs" />
+    <Compile Include="BusinessObjects\Auditoria\LoginAudit.cs" />
+    <Compile Include="BusinessObjects\Auditoria\XmlType.cs" />
+    <Compile Include="BusinessObjects\BaseObjects\LogEventoBase.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\AgendaVehicular.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculo.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ViajeDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Recorrido.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\DetalleRecorrido.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\TimeTracking\EventoViaje.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\TipoServicioCiclo.cs" />
+    <Compile Include="BusinessObjects\ControlAcceso\CategoriaAcceso.cs" />
+    <Compile Include="BusinessObjects\DataMartsLog.cs" />
+    <Compile Include="BusinessObjects\LogicLinkFile.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\HistoriaTicketMantenimiento.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\TicketMantenimiento.cs" />
+    <Compile Include="BusinessObjects\Messages\AtencionEvento.cs" />
+    <Compile Include="BusinessObjects\Messages\LastVehicleEvent.cs" />
+    <Compile Include="BusinessObjects\Messages\EvenDistri.cs" />
+    <Compile Include="BusinessObjects\SubCentroDeCostos.cs" />
+    <Compile Include="BusinessObjects\Messages\Infraccion.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\TipoZona.cs" />
+    <Compile Include="BusinessObjects\ZonaAcceso.cs" />
+    <Compile Include="BusinessObjects\TipoZonaAcceso.cs" />
+    <Compile Include="BusinessObjects\ReferenciaZona.cs" />
+    <Compile Include="BusinessObjects\Zona.cs" />
+    <Compile Include="BusinessObjects\Departamento.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\Stock.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\Deposito.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\TipoProveedor.cs" />
+    <Compile Include="BusinessObjects\ParametroEmpresa.cs" />
+    <Compile Include="BusinessObjects\Support\Categoria.cs" />
+    <Compile Include="BusinessObjects\Support\Nivel.cs" />
+    <Compile Include="BusinessObjects\Support\Subcategoria.cs" />
+    <Compile Include="BusinessObjects\Sync\OutQueue.cs" />
+    <Compile Include="BusinessObjects\Sync\OutState.cs" />
+    <Compile Include="BusinessObjects\UnidadMedida.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\Precinto.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\ReportsCache.cs" />
+    <Compile Include="BusinessObjects\Entidades\DetalleValor.cs" />
+    <Compile Include="BusinessObjects\Entidades\Detalle.cs" />
+    <Compile Include="BusinessObjects\Entidades\LogEvento.cs" />
+    <Compile Include="BusinessObjects\Entidades\Medicion.cs" />
+    <Compile Include="BusinessObjects\Entidades\SubEntidad.cs" />
+    <Compile Include="BusinessObjects\Entidades\Sensor.cs" />
+    <Compile Include="BusinessObjects\Entidades\EntidadPadre.cs" />
+    <Compile Include="BusinessObjects\Entidades\TipoMedicion.cs" />
+    <Compile Include="BusinessObjects\Entidades\TipoEntidad.cs" />
+    <Compile Include="BusinessObjects\LineaTelefonica.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\ConsumoDetalle.cs" />
+    <Compile Include="BusinessObjects\Plan.cs" />
+    <Compile Include="BusinessObjects\Producto.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\ConfiguracionDispositivo.cs" />
+    <Compile Include="BusinessObjects\EventoAcceso.cs" />
+    <Compile Include="BusinessObjects\LogProgramacionReporte.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\ConsumoCabecera.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\Proveedor.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\TipoInsumo.cs" />
+    <Compile Include="BusinessObjects\Mantenimiento\Insumo.cs" />
+    <Compile Include="BusinessObjects\Messages\Accion.cs" />
+    <Compile Include="Algoritmos\CAlgorithms.cs" />
+    <Compile Include="BusinessObjects\BaseObjects\LogMensajeBase.cs" />
+    <Compile Include="BusinessObjects\BaseObjects\LogPosicionBase.cs" />
+    <Compile Include="BusinessObjects\CentroDeCostos.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\EventoCombustible.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\Caudalimetro.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\MotivoConciliacion.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\Movimiento.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\Tanque.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\TipoMovimiento.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\VolumenHistorico.cs" />
+    <Compile Include="BusinessObjects\ControlDeCombustible\VolumenHistoricoInvalido.cs" />
+    <Compile Include="BusinessObjects\DetallePeriodo.cs" />
+    <Compile Include="BusinessObjects\Feriado.cs" />
+    <Compile Include="BusinessObjects\IpRange.cs" />
+    <Compile Include="BusinessObjects\Messages\LogMensajeDescartado.cs" />
+    <Compile Include="BusinessObjects\Messages\LogUltimoLogin.cs" />
+    <Compile Include="BusinessObjects\Organizacion\Asegurable.cs" />
+    <Compile Include="BusinessObjects\Organizacion\AseguradoEnPerfil.cs" />
+    <Compile Include="BusinessObjects\Organizacion\ParametroUsuario.cs" />
+    <Compile Include="BusinessObjects\Positions\LogPosicionHistorica.cs" />
+    <Compile Include="BusinessObjects\Postal\GrupoRuta.cs" />
+    <Compile Include="BusinessObjects\Postal\Motivo.cs" />
+    <Compile Include="BusinessObjects\Postal\Ruta.cs" />
+    <Compile Include="BusinessObjects\Postal\TipoServicio.cs" />
+    <Compile Include="BusinessObjects\Postal\Distribuidor.cs" />
+    <Compile Include="BusinessObjects\ProgramacionReporte.cs" />
+    <Compile Include="BusinessObjects\PuertaAcceso.cs" />
+    <Compile Include="BusinessObjects\PuntoEntrega.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\HistoriaGeoRef.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\ReferenciaVelocidad.cs" />
+    <Compile Include="BusinessObjects\Components\Owner.cs" />
+    <Compile Include="BusinessObjects\Components\RGBColor.cs" />
+    <Compile Include="BusinessObjects\Components\Vigencia.cs" />
+    <Compile Include="BusinessObjects\Sindicatura.cs" />
+    <Compile Include="BusinessObjects\Support\SupportTicket.cs" />
+    <Compile Include="BusinessObjects\Support\SupportTicketDetail.cs" />
+    <Compile Include="BusinessObjects\Tickets\BocaDeCarga.cs" />
+    <Compile Include="BusinessObjects\Tickets\CicloLogistico.cs" />
+    <Compile Include="BusinessObjects\Tickets\DetalleCiclo.cs" />
+    <Compile Include="BusinessObjects\Tickets\DetalleServicio.cs" />
+    <Compile Include="BusinessObjects\Tickets\Pedido.cs" />
+    <Compile Include="BusinessObjects\Tickets\Servicio.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\CocheOperacion.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\Modelo.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\MovOdometroTipoVehiculo.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\MovOdometroVehiculo.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\MovShiftsAssignments.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\Odometro.cs" />
+    <Compile Include="BusinessObjects\Periodo.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\Direccion.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\Poligono.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\Punto.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\ReferenciaGeografica.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\TipoReferenciaGeografica.cs" />
+    <Compile Include="Algoritmos\RobustDeterminant.cs" />
+    <Compile Include="BusinessObjects\ReferenciasGeograficas\TipoReferenciaVelocidad.cs" />
+    <Compile Include="BusinessObjects\Taller.cs" />
+    <Compile Include="BusinessObjects\TarifaTransportista.cs" />
+    <Compile Include="BusinessObjects\TipoEmpleado.cs" />
+    <Compile Include="BusinessObjects\Transportista.cs" />
+    <Compile Include="BusinessObjects\Empleado.cs" />
+    <Compile Include="BusinessObjects\Cliente.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\Coche.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\DetalleDispositivo.cs" />
+    <Compile Include="BusinessObjects\Tickets\DetalleTicket.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\Dispositivo.cs" />
+    <Compile Include="BusinessObjects\Documentos\Documento.cs" />
+    <Compile Include="BusinessObjects\Documentos\DocumentoValor.cs" />
+    <Compile Include="BusinessObjects\Documentos\TipoDocumento.cs" />
+    <Compile Include="BusinessObjects\Documentos\TipoDocumentoEstrategia.cs" />
+    <Compile Include="BusinessObjects\Documentos\TipoDocumentoParametro.cs" />
+    <Compile Include="BusinessObjects\Documentos\TipoParametroDocumento.cs" />
+    <Compile Include="BusinessObjects\Empresa.cs" />
+    <Compile Include="BusinessObjects\Entidad.cs" />
+    <Compile Include="BusinessObjects\Estado.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\Firmware.cs" />
+    <Compile Include="BusinessObjects\Funcion.cs" />
+    <Compile Include="BusinessObjects\Icono.cs" />
+    <Compile Include="BusinessObjects\Linea.cs" />
+    <Compile Include="BusinessObjects\Messages\LogMensaje.cs" />
+    <Compile Include="BusinessObjects\Positions\LogPosicion.cs" />
+    <Compile Include="BusinessObjects\Positions\LogPosicionDescartada.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\Marca.cs" />
+    <Compile Include="BusinessObjects\Messages\Mensaje.cs" />
+    <Compile Include="BusinessObjects\MovCoche.cs" />
+    <Compile Include="BusinessObjects\MovMenu.cs" />
+    <Compile Include="BusinessObjects\Equipo.cs" />
+    <Compile Include="BusinessObjects\Perfil.cs" />
+    <Compile Include="BusinessObjects\Tarjeta.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\TipoDispositivo.cs" />
+    <Compile Include="BusinessObjects\Dispositivos\TipoParametroDispositivo.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\Shift.cs" />
+    <Compile Include="BusinessObjects\VigenciaPlanLinea.cs" />
+    <Compile Include="ImportadorObjects\ImportTicket.cs" />
+    <Compile Include="ImportadorObjects\DispositivoImportador.cs" />
+    <Compile Include="ImportadorObjects\EmpleadoImportador.cs" />
+    <Compile Include="ImportadorObjects\TarjetaImportador.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTaller.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasSubCentroDeCosto.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoZona.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasPuertaAcceso.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasZonaAcceso.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasZonaAccesoSalida.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasZonaAccesoEntrada.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoZonaAcceso.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasCategoriaAcceso.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoDispositivo.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasNivel.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasSubcategoria.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasCategoria.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasDepositoDestino.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasDeposito.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasDepartamento.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoProveedor.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasChofer.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasProveedor.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasInsumo.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasConsumoCabecera.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasMensaje.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasDetallePadre.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasDispositivo.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasSubEntidad.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasSensor.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasEntidadPadre.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoMedicion.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoEntidad.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasViajeDistribucion.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasPedido.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasProducto.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasMarca.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasBocaDeCarga.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasModelo.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoInsumo.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoReferenciaGeografica.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoEmpleado.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasPuntoEntrega.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasEmpleado.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasCliente.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTipoVehiculo.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasVehiculo.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasCentroDeCosto.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasTransportista.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasLinea.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IAuditable.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IFilterable.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasEmpresa.cs" />
+    <Compile Include="InterfacesAndBaseClasses\ISecurable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BusinessObjects\RoutePosition.cs" />
+    <Compile Include="BusinessObjects\Sistema.cs" />
+    <Compile Include="BusinessObjects\Sonido.cs" />
+    <Compile Include="BusinessObjects\Tickets\Ticket.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\TipoCoche.cs" />
+    <Compile Include="BusinessObjects\Messages\TipoMensaje.cs" />
+    <Compile Include="BusinessObjects\Usuario.cs" />
+    <Compile Include="ReportObjects\AcumulatedHours.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\CentroDeCargaRemitos.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\CentroDeCostosDespachos.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\CombustibleEvent.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\ConsistenciaStock.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\ConsistenciaStockGraph.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\ConsistenciaStockPozo.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\ConsumoCaudalMotor.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\ConsumoDiario.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\ConsumosMotor.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\Exportador\DispatchsViewVO.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\IngresosPorEquipo.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\MarchaMotor.cs" />
+    <Compile Include="ReportObjects\ControlDeCombustible\NivelesTanque.cs" />
+    <Compile Include="ReportObjects\KilometrosDiarios.cs" />
+    <Compile Include="ReportObjects\Datamart\DatamartViaje.cs" />
+    <Compile Include="ReportObjects\Datamart\DatamartDistribucion.cs" />
+    <Compile Include="ReportObjects\Datamart\Datamart.cs" />
+    <Compile Include="ReportObjects\Datamart\DatamartPosition.cs" />
+    <Compile Include="ReportObjects\Datamart\ExcesosDatamart.cs" />
+    <Compile Include="ReportObjects\Datamart\RegenerateDatamart.cs" />
+    <Compile Include="ReportObjects\DetentionTimes.cs" />
+    <Compile Include="ReportObjects\IdleTimes.cs" />
+    <Compile Include="ReportObjects\MaxSpeeds.cs" />
+    <Compile Include="ReportObjects\MobileActivity.cs" />
+    <Compile Include="ReportObjects\MobileDrivers.cs" />
+    <Compile Include="ReportObjects\MobileDriversByDay.cs" />
+    <Compile Include="ReportObjects\MobileEvent.cs" />
+    <Compile Include="ReportObjects\MobileExtraHours.cs" />
+    <Compile Include="ReportObjects\MobileGeocerca.cs" />
+    <Compile Include="ReportObjects\MobileKilometer.cs" />
+    <Compile Include="ReportObjects\MobileMaintenance.cs" />
+    <Compile Include="ReportObjects\MobileMessage.cs" />
+    <Compile Include="ReportObjects\MobilePoi.cs" />
+    <Compile Include="ReportObjects\MobilePoiHistoric.cs" />
+    <Compile Include="ReportObjects\MobilePosition.cs" />
+    <Compile Include="ReportObjects\MobileRoutes.cs" />
+    <Compile Include="ReportObjects\MobilesKilometers.cs" />
+    <Compile Include="ReportObjects\MobileStadistics.cs" />
+    <Compile Include="ReportObjects\MobilesTime.cs" />
+    <Compile Include="ReportObjects\MobileStoppedEvent.cs" />
+    <Compile Include="ReportObjects\MobileTime.cs" />
+    <Compile Include="ReportObjects\MobileUtilization.cs" />
+    <Compile Include="ReportObjects\OdometroStatus.cs" />
+    <Compile Include="ReportObjects\OperatorActivity.cs" />
+    <Compile Include="ReportObjects\OperatorMobiles.cs" />
+    <Compile Include="ReportObjects\OperatorMobilesByDay.cs" />
+    <Compile Include="ReportObjects\RankingVehiculos.cs" />
+    <Compile Include="ReportObjects\OperatorStadistics.cs" />
+    <Compile Include="ReportObjects\RankingDeOperadores\InfractionDetail.cs" />
+    <Compile Include="ReportObjects\RankingDeOperadores\OperatorRanking.cs" />
+    <Compile Include="BusinessObjects\Messages\PuntajeExcesoTiempo.cs" />
+    <Compile Include="BusinessObjects\Messages\PuntajeExcesoVelocidad.cs" />
+    <Compile Include="ReportObjects\RouteEvent.cs" />
+    <Compile Include="ReportObjects\StoppedHours.cs" />
+    <Compile Include="ReportObjects\TicketEvent.cs" />
+    <Compile Include="ReportObjects\TicketReport.cs" />
+    <Compile Include="ReportObjects\TransportActivity.cs" />
+    <Compile Include="ReportObjects\VehicleUtilization.cs" />
+    <Compile Include="ReportObjects\WorkedHours.cs" />
+    <Compile Include="SecurityObjects\Module.cs" />
+    <Compile Include="SecurityObjects\UserSessionData.cs" />
+    <Compile Include="ValueObject\ControlDeCombustible\ConciliacionVO.cs" />
+    <Compile Include="ValueObject\ControlDeCombustible\ConsumoVO.cs" />
+    <Compile Include="ValueObject\ControlDeCombustible\DespachoVO.cs" />
+    <Compile Include="ValueObject\ControlDeCombustible\IngresoVO.cs" />
+    <Compile Include="ValueObject\ControlDeCombustible\RemitoVO.cs" />
+    <Compile Include="ValueObject\Dispositivos\DetalleDispositivosVO.cs" />
+    <Compile Include="ValueObject\Dispositivos\DispositivoVO.cs" />
+    <Compile Include="ValueObject\DocumentoVO.cs" />
+    <Compile Include="ValueObject\Empleados\EmpleadoVO.cs" />
+    <Compile Include="ValueObject\Empleados\TarjetaVO.cs" />
+    <Compile Include="ValueObject\Geocerca.cs" />
+    <Compile Include="ValueObject\Messages\LogUltimoLoginVo.cs" />
+    <Compile Include="ValueObject\Messages\MensajeVO.cs" />
+    <Compile Include="ValueObject\ObraVO.cs" />
+    <Compile Include="ValueObject\Positions\LogPosicionVO.cs" />
+    <Compile Include="ValueObject\Positions\LogUltimaPosicionVO.cs" />
+    <Compile Include="ValueObject\Postal\RutaVO.cs" />
+    <Compile Include="ValueObject\ReferenciaGeograficaVO.cs" />
+    <Compile Include="ValueObject\Vehiculos\CocheVO.cs" />
+    <Compile Include="ValueObject\Vehiculos\MovOdometroVehiculoVO.cs" />
+    <Compile Include="ValueObject\Vehiculos\ShiftVO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Compumap.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\Compumap.Controls\Compumap.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Geocoder.Data, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Geocoder\bin\Debug\Geocoder.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Model, Version=2.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Helpers\Logictracker.Services.Helpers.csproj">
+      <Project>{335550D5-F4A2-4AD0-A22F-C4AB705C6606}</Project>
+      <Name>Logictracker.Services.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

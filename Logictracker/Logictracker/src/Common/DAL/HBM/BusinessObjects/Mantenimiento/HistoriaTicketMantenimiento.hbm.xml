@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Mantenimiento.HistoriaTicketMantenimiento,Logictracker.Types" table="parenti65" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti65" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti65_datetime" name="Fecha" />
+    <property column="parenti65_codigo" name="Codigo" />
+    <property column="parenti65_descripcion" name="Descripcion" />    
+    <property column="parenti65_nro_primer_presupuesto" name="PrimerPresupuesto" />
+    <property column="parenti65_nro_presupuesto" name="Presupuesto" />    
+    <property column="parenti65_monto" name="Monto" />
+    
+    <property column="parenti65_fecha_solicitud" name="FechaSolicitud" />
+    <property column="parenti65_fecha_turno" name="FechaTurno" />
+    <property column="parenti65_fecha_recepcion" name="FechaRecepcion" />
+    <property column="parenti65_fecha_presupuesto_original" name="FechaPresupuestoOriginal" />
+    <property column="parenti65_fecha_presupuestada" name="FechaPresupuestada" />
+    <property column="parenti65_fecha_recotizacion" name="FechaRecotizacion" />
+    <property column="parenti65_fecha_aprobacion" name="FechaAprobacion" />
+    <property column="parenti65_fecha_verificacion" name="FechaVerificacion" />    
+    <property column="parenti65_fecha_entrega" name="FechaEntrega" />
+    <property column="parenti65_fecha_trabajo_terminado" name="FechaTrabajoTerminado" />
+    <property column="parenti65_fecha_trabajo_aceptado" name="FechaTrabajoAceptado" />
+    
+    <property column="parenti65_estado" name="Estado" />
+    <property column="parenti65_estado_presupuesto" name="EstadoPresupuesto" />
+    <property column="parenti65_nivel_complejidad" name="NivelComplejidad" />    
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti03" name="Vehiculo" lazy="proxy" />
+    <many-to-one column="rela_parenti09" name="Empleado" lazy="proxy" />
+    <many-to-one column="rela_parenti35" name="Taller" lazy="proxy" />
+    <many-to-one column="rela_parenti64" name="TicketMantenimiento" lazy="proxy" />
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,8 @@
+AT+CGDCONT=1, “IP”, “internet.unifon.com.ar” 
+AT%CGPCO=1, “wap,wap”,0
+AT$AREG=2 
+AT$FRIEND=1,1,”200.26.26.10" 
+AT$UDPAPI=,2021 
+AT$WAKEUP=1,1 
+AT&W 
+AT$RESET

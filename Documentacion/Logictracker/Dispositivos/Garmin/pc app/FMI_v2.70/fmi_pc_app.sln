@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fmi_pc_app", "fmi_pc_app.vcproj", "{D3014D98-B962-41BA-943F-38DEA898C173}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug-A602 = Debug-A602
+		Debug-A603 = Debug-A603
+		Debug-A604 = Debug-A604
+		Debug-A605 = Debug-A605
+		Debug-A607 = Debug-A607
+		Debug-Legacy = Debug-Legacy
+		Release = Release
+		Release-A602 = Release-A602
+		Release-A603 = Release-A603
+		Release-A604 = Release-A604
+		Release-A605 = Release-A605
+		Release-A607 = Release-A607
+		Release-Legacy = Release-Legacy
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug.ActiveCfg = Debug|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug.Build.0 = Debug|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A602.ActiveCfg = Debug-A602|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A602.Build.0 = Debug-A602|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A603.ActiveCfg = Debug-A603|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A603.Build.0 = Debug-A603|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A604.ActiveCfg = Debug-A604|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A604.Build.0 = Debug-A604|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A605.ActiveCfg = Debug-A605|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A605.Build.0 = Debug-A605|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A607.ActiveCfg = Debug - A607|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-A607.Build.0 = Debug - A607|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-Legacy.ActiveCfg = Debug-Legacy|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Debug-Legacy.Build.0 = Debug-Legacy|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release.ActiveCfg = Release|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release.Build.0 = Release|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A602.ActiveCfg = Release-A602|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A602.Build.0 = Release-A602|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A603.ActiveCfg = Release-A603|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A603.Build.0 = Release-A603|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A604.ActiveCfg = Release-A604|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A604.Build.0 = Release-A604|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A605.ActiveCfg = Release-A605|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A605.Build.0 = Release-A605|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A607.ActiveCfg = Release-A607|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-A607.Build.0 = Release-A607|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-Legacy.ActiveCfg = Release-Legacy|Win32
+		{D3014D98-B962-41BA-943F-38DEA898C173}.Release-Legacy.Build.0 = Release-Legacy|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

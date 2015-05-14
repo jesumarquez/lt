@@ -1,0 +1,77 @@
+# UrbeMobile, para Windows Mobile 5
+# Actualizacion via Internet de aplicaciones.
+
+Include (loggin.mscr)
+
+ErrorLevel ( "off" )
+
+#FLEET = "AGC"
+#CONNECTION = "GPRS"
+FLEET = "URB"
+CONNECTION = "Claro AR"
+
+VERSION = "5"
+SERVER = "http://update.urbetrack.com/"
+TMPINI = "\Temp\ummetadata.ini"
+TMPCAB = "\Temp\umupgrade.cab"
+SERIALFILE = "\Temp\pdaserial.txt"
+#UMPATH="\Archivos de programa\Urbetrack Mobile\"
+UMPATH="\Program Files\Urbetrack Mobile\"
+UMPROC="urbemobile.exe"
+UMBIN=UMPATH & UMPROC
+
+If ( NOT FileExists ( SERIALFILE ) )
+	Call("Trace", "Falta el archivo " & SERIALFILE)	
+	Exit
+EndIf
+
+serial = ReadFile( SERIALFILE )
+#FILE = SERVER & "default.aspx?o=ini&f=" & FLEET & "&v=" & VERSION & "&dt=hw6945&sn=" & serial & "&ds=" & FreeDiskSpace("\")
+FILE = SERVER & "default.aspx?o=ini&f=" & FLEET & "&v=" & VERSION & "&dt=htc&sn=" & serial & "&ds=" & FreeDiskSpace("\")
+
+Call("Trace", "Iniciando Actualizacion desde: " & FILE)
+
+If (NOT InternetConnected( SERVER ))
+	Call("Trace", "Conectar Requerido.")
+	
+	Connect( CONNECTION )
+	
+	If (NOT InternetConnected( SERVER ))
+		Call("Trace", "Error de conexion!")
+		Exit
+	EndIf
+EndIf
+
+Call("Trace", "Iniciando descarga...")
+
+Download ( FILE , TMPINI)
+
+result = IniRead( TMPINI, "Urbemobile", "State")
+cabinet = IniRead( TMPINI, "Urbemobile", "Source")
+
+If ( IsEmpty( result ) )
+	Call("Trace", "No hay actualizaciones (Metadata vacia)" )	
+	Exit
+EndIf
+
+If ( Find( result, "UPDATE" ) < 1 )
+	Call("Trace", "No hay actualizaciones" )
+	Exit
+EndIf
+
+Call("Trace", "Descargando archivo: " & cabinet )
+
+Download ( cabinet , TMPCAB )
+
+size = FileSize( TMPCAB )
+
+If ( size = 0 ) 
+	Call("Trace", "Error en la descarga.")
+	Exit
+EndIf
+
+Call("Trace", "Descarga Completa:" & size & " bytes descargados." )
+
+RunWait ( TMPCAB )
+
+Call("Trace", "Sistema Actualizado" )

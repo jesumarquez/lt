@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Postal.Motivo,Logictracker.Types" table="[logictracker_postal].[dbo].[par.par_enti_53_motivos]" lazy="true">
+
+    <id name="Id" column="id_parenti53" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti53_descripcion" name="Descripcion" type="String" not-null="true" />
+    <property column="parenti53_es_entrega" name="EsEntrega" type="Boolean" not-null="false" />
+    <property column="parenti53_orden" name="Orden" type="Int32" not-null="true" />
+    <property column="parenti53_es_devolucion" name="EsDevolucion" type="Boolean" not-null="false" />
+    <property column="parenti53_es_gestion" name="EsGestion" type="Boolean" not-null="false" />
+    <property column="parenti53_fecha_modificacion" name="FechaModificacion" type="DateTime" not-null="true" />
+    <property column="parenti53_fecha_baja" name="FechaBaja" type="DateTime" not-null="false" />
+    <property column="parenti53_codigo" name="Codigo" type="String" not-null="true" />
+
+  </class>
+</hibernate-mapping>

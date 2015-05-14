@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Configuration</RootNamespace>
+    <AssemblyName>Logictracker.Configuration</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssistCargoConfig.cs" />
+    <Compile Include="AuditConfig.cs" />
+    <Compile Include="CacheConfig.cs" />
+    <Compile Include="CameraConfig.cs" />
+    <Compile Include="Cameras\Logictracker_Cameras.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="ConfigurationBase.cs" />
+    <Compile Include="HttpGatewayConfig.cs" />
+    <Compile Include="LogicOutConfig.cs" />
+    <Compile Include="Torino.cs" />
+    <Compile Include="DirectoryConfig.cs" />
+    <Compile Include="DispatcherConfig.cs" />
+    <Compile Include="MapConfig.cs" />
+    <Compile Include="MessageQueueMonitorConfig.cs" />
+    <Compile Include="MonitorConfig.cs" />
+    <Compile Include="OrbcommConfig.cs" />
+    <Compile Include="QueueConfig.cs" />
+    <Compile Include="RemotingConfig.cs" />
+    <Compile Include="SchedulerConfig.cs" />
+    <Compile Include="ServicesConfig.cs" />
+    <Compile Include="MailingConfig.cs" />
+    <Compile Include="MetricsConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QtreeConfig.cs" />
+    <Compile Include="Spine.cs" />
+    <Compile Include="TaskConfig.cs" />
+    <Compile Include="TracerConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cameras\Logictracker.Cameras.xsd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\Resources\xsd.exe" "$(ProjectDir)Cameras\Logictracker.Cameras.xsd" /c /o:"$(ProjectDir)Cameras" /edb /l:cs /n:Logictracker.Configuration.Cameras</PreBuildEvent>
+  </PropertyGroup>
+</Project>
