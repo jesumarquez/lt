@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.ReportObjects.Datamart.DatamartDistribucion,Logictracker.Types" table="[ope.ope_tick_06_tick_datamart]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick06" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opetick06_fecha" name="Fecha" />
+    <property column="opetick06_ruta" name="Ruta" />
+    <property column="opetick06_orden" name="Orden" />
+    <property column="opetick06_entrega" name="Entrega" />
+    <property column="opetick06_estado" name="Estado" />
+    <property column="opetick06_km" name="Km" />
+    <property column="opetick06_recorrido" name="Recorrido" />
+    <property column="opetick06_tiempo_entrega" name="TiempoEntrega" />
+    <property column="opetick06_entrada" name="Entrada" />
+    <property column="opetick06_salida" name="Salida" />
+    <property column="opetick06_manual" name="Manual" />
+    <property column="opetick06_programado" name="Programado" />
+    <property column="opetick06_desvio" name="Desvio" />
+    <property column="opetick06_importe" name="Importe" />    
+    <property column="opetick06_cliente" name="Cliente" />
+    <property column="opetick06_confirmacion" name="Confirmacion" />
+
+    <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
+    <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+    <many-to-one name="Vehiculo" column="rela_parenti03" lazy="proxy" />
+    <many-to-one name="CentroDeCostos" column="rela_parenti37" lazy="proxy" />
+    <many-to-one name="PuntoEntrega" column="rela_parenti44" lazy="proxy" />
+    <many-to-one name="Viaje" column="rela_opetick03" lazy="proxy" />
+    <many-to-one name="Detalle" column="rela_opetick04" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+# UrbeMobile, para Windows Mobile 5
+# Completa la instalacion del Cabinet
+
+ErrorLevel ( "off" )
+
+#UMPATH="\Archivos de programa\Urbetrack Mobile\"
+UMPATH="\Program Files\Urbetrack Mobile\"
+STATUSFILE = "\Program Files\Urbetrack Mobile\UP.TXT"
+UMBIN=UMPATH & "urbemobile.exe"
+
+# RunOnPowerOn( UMBIN )
+
+Message( "Instalacion Exitosa. Presione OK para reiniciar" )
+
+Reset

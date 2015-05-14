@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Cliente,Logictracker.Types" table="parenti18" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti18" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti18_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="parenti18_codigo" type="String" name="Codigo" length="32" not-null="true" />
+    <property column="parenti18_descri" type="String" name="Descripcion" length="128" not-null="true" />
+    <property column="parenti18_descricorta" type="String" name="DescripcionCorta" not-null="true" />
+    <property column="parenti18_telefono" type="String" name="Telefono" />
+    <property column="parenti18_nomenclado" type="Boolean" name="Nomenclado" />
+    <property column="parenti18_direccion" type="String" name="DireccionNomenclada" />
+
+    <property column="parenti18_comentario1" name="Comentario1" />
+    <property column="parenti18_comentario2" name="Comentario2" />
+    <property column="parenti18_comentario3" name="Comentario3" />
+
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one name="ReferenciaGeografica" column="rela_parenti05" cascade="all" lazy="false" />
+    
+  </class>
+</hibernate-mapping>

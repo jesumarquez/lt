@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.Firmware,Logictracker.Types" table="parenti24" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti24" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti24_nombre" type="String" name="Nombre" not-null="true" length="32" />
+    <property column="parenti24_descripcion" type="String" name="Descripcion" not-null="true" length="128" />
+    <property column="parenti24_fecha" type="DateTime" not-null="false" name="Fecha" />
+    <property column="parenti24_firma" type="String" name="Firma" not-null="true" length="32" />
+    <property column="parenti24_binario" type="BinaryBlob" name="Binario" not-null="true" />
+  </class>
+</hibernate-mapping>

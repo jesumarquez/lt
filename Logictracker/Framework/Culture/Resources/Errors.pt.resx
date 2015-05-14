@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ADDRESS_NOT_FOUND" xml:space="preserve">
+    <value>Endereço não encontrado</value>
+  </data>
+  <data name="ASSIGNED_DEVICE_TYPE" xml:space="preserve">
+    <value>O tipo de dispositivo que deseja excluir atribuiu dispositivos!</value>
+  </data>
+  <data name="ASSIGNED_VEHICLE_TYPE" xml:space="preserve">
+    <value>O tipo de veículo que você está tentando excluir atribuiu carro!</value>
+  </data>
+  <data name="CANT_DEL_TIPOVEHICULO" xml:space="preserve">
+    <value>O carro tipo de veículo é associada. Você não pode apagar</value>
+  </data>
+  <data name="CANT_DEL_TIPO_MENSAJE" xml:space="preserve">
+    <value>O tipo de mensagem é associado mensagens. Você não pode apagar.</value>
+  </data>
+  <data name="CANT_DEL_TIPO_POI" xml:space="preserve">
+    <value>Geographic Taxa Referencial está associada elementos. Você não pode apagar.</value>
+  </data>
+  <data name="CANT_DEL_TRANSPORTISTA" xml:space="preserve">
+    <value>A Transportadora tentando dar baixa é atribuída a um carro</value>
+  </data>
+  <data name="CARD_UNIQUE_NUMBER" xml:space="preserve">
+    <value>Já existe um cartão com o número de inscritos</value>
+  </data>
+  <data name="CARD_UNIQUE_PIN" xml:space="preserve">
+    <value>Já existe um cartão com o PIN introduzido</value>
+  </data>
+  <data name="CARD_USED" xml:space="preserve">
+    <value>O cartão que tenta finalizar é atribuída a um condutor. Desasignela e tente novamente</value>
+  </data>
+  <data name="CHECK_ENTERED_VALUES" xml:space="preserve">
+    <value>Verifique os dados de entrada</value>
+  </data>
+  <data name="CLIENTE_INCORRECTO" xml:space="preserve">
+    <value>Cliente errado</value>
+  </data>
+  <data name="CLIENTE_REPETIDO" xml:space="preserve">
+    <value>Não devem entrar mais de uma vez um cliente {0}</value>
+  </data>
+  <data name="CLOG_MESSAGE_NOT_SENT" xml:space="preserve">
+    <value>Não foi possível enviar o início do ciclo logístico do veículo:</value>
+  </data>
+  <data name="CODIGO_INVALIDO" xml:space="preserve">
+    <value>O Código deve ser um valor numérico.</value>
+  </data>
+  <data name="DELETE_GEO_REF" xml:space="preserve">
+    <value>Você não pode excluir uma referência geográfica que é atribuído</value>
+  </data>
+  <data name="DESDE_MAYOR_HASTA" xml:space="preserve">
+    <value>O início do intervalo deve ser menor do que o fim dele.</value>
+  </data>
+  <data name="DEVICE_ASSIGNED" xml:space="preserve">
+    <value>O dispositivo tenta finalizar um veículo está associado.</value>
+  </data>
+  <data name="DEVICE_RESET_ERROR" xml:space="preserve">
+    <value>Não foi possível redefinir a configuração de todos os dispositivos.</value>
+  </data>
+  <data name="DISCULPE_MOLESTIAS" xml:space="preserve">
+    <value>Pedimos desculpas</value>
+  </data>
+  <data name="DUPLICATED_CLIENTE" xml:space="preserve">
+    <value>Já existe um elemento de tipo de cliente</value>
+  </data>
+  <data name="DUPLICATED_OBRA" xml:space="preserve">
+    <value>Já existe um tipo de item de trabalho</value>
+  </data>
+  <data name="DUPLICATED_PARTICULAR" xml:space="preserve">
+    <value>Já existe um elemento do tipo Person</value>
+  </data>
+  <data name="DUPLICATED_PLANTA" xml:space="preserve">
+    <value>Já existe um elemento de tipo planta</value>
+  </data>
+  <data name="DUPLICATED_TALLER" xml:space="preserve">
+    <value>Já existe um elemento de workshop tipo</value>
+  </data>
+  <data name="DUPLICATED_TRANSPORTISTA" xml:space="preserve">
+    <value>Já existe um elemento de portador do tipo</value>
+  </data>
+  <data name="ENTER_MESSAGE_TEXT" xml:space="preserve">
+    <value>Digite a mensagem que deseja</value>
+  </data>
+  <data name="ERROR_MAIL_FAILED" xml:space="preserve">
+    <value>Não é possível enviar e-mail para apoiar!</value>
+  </data>
+  <data name="ERROR_PAGE" xml:space="preserve">
+    <value>Erro foi relatado para o centro de suporte. O produto será consertado em breve.</value>
+  </data>
+  <data name="FILE_EXPECTED" xml:space="preserve">
+    <value>Você deve inserir um arquivo.</value>
+  </data>
+  <data name="FILE_FORMAT" xml:space="preserve">
+    <value>Erro no formato de arquivo. Verifique se ele está correto. Pressione para obter mais informações</value>
+  </data>
+  <data name="FUNC_REF_WRONG_CHARS" xml:space="preserve">
+    <value>O título de referência não pode contar os seguintes caracteres:,</value>
+  </data>
+  <data name="IMPERSONATION_FAILED" xml:space="preserve">
+    <value>Falha representação</value>
+  </data>
+  <data name="INCOMPATIBLE_EXTENSION" xml:space="preserve">
+    <value>A extensão do arquivo não está correto. Esperado: {0}.</value>
+  </data>
+  <data name="INTERNO_NOT_FOUND" xml:space="preserve">
+    <value>Não encontrou o celular com o preso: {0}</value>
+  </data>
+  <data name="LEGAJO_EXISTENTE" xml:space="preserve">
+    <value>O arquivo de entrada já pertence a outro funcionário.</value>
+  </data>
+  <data name="MENSAJES_DUPLICADOS" xml:space="preserve">
+    <value>Copiado todas as mensagens genéricas que não existia antes</value>
+  </data>
+  <data name="MESSAGE_NOT_SENT" xml:space="preserve">
+    <value>Nenhuma mensagem foi enviada para o Mobile seguinte: {0}</value>
+  </data>
+  <data name="DEVICE_WITHOUT_GARMIN_CONFIGURED" xml:space="preserve">
+    <value>Nenhuma mensagem foi enviada para o Mobile seguinte (Nao Garmin): {0}</value>
+  </data>
+  <data name="MUST_ENTER_DATE" xml:space="preserve">
+    <value>Você deve digitar uma data correta</value>
+  </data>
+  <data name="MUST_ENTER_DIR_POL" xml:space="preserve">
+    <value>Você deve digitar um endereço ou um polígono geográfico de referência.</value>
+  </data>
+  <data name="MUST_ENTER_GEO_REF" xml:space="preserve">
+    <value>Você deve digitar uma referência geográfica.</value>
+  </data>
+  <data name="MUST_ENTER_NUMBER_VALUE" xml:space="preserve">
+    <value>O valor digitado está correto</value>
+  </data>
+  <data name="MUST_ENTER_VALUE" xml:space="preserve">
+    <value>Você deve digitar: {0}</value>
+  </data>
+  <data name="MUST_IMPLEMENT_MEMBER" xml:space="preserve">
+    <value>Deve implementar o membro: {0}</value>
+  </data>
+  <data name="MUST_SELECT_CENTER_AND_VEHICLE_TYPE" xml:space="preserve">
+    <value>Você deve selecionar pelo menos um centro de custo e tipo de veículo para implementar a mudança</value>
+  </data>
+  <data name="MUST_SELECT_POINT" xml:space="preserve">
+    <value>Você deve selecionar um ponto</value>
+  </data>
+  <data name="MUST_SELECT_SHIFT_DAYS" xml:space="preserve">
+    <value>Você deve selecionar pelo menos um dia para aplicar Tempo</value>
+  </data>
+  <data name="NO_ACCESS" xml:space="preserve">
+    <value>O usuário conectado não pode acessar o sistema</value>
+  </data>
+  <data name="NO_ADDRESS_INFO" xml:space="preserve">
+    <value>Não há informações endereço encontrado</value>
+  </data>
+  <data name="NO_CLOG_STATES" xml:space="preserve">
+    <value>Não houve estados logístico</value>
+  </data>
+  <data name="NO_EMPLOYEE_LEGAJO" xml:space="preserve">
+    <value>Não foi encontrado um trabalhador com o pacote: {0}</value>
+  </data>
+  <data name="NO_LOGGED_USER" xml:space="preserve">
+    <value>Nenhum usuário registrado</value>
+  </data>
+  <data name="NO_MATCHES_FOUND" xml:space="preserve">
+    <value>Não foram encontrados resultados</value>
+  </data>
+  <data name="NO_MESSAGE_FOR_START_CLOG" xml:space="preserve">
+    <value>Não há nenhuma mensagem associada ao início do ciclo de logística</value>
+  </data>
+  <data name="NO_MODULE_ACCESS" xml:space="preserve">
+    <value>O usuário não pode acessar o módulo requisitado.</value>
+  </data>
+  <data name="NO_PASSWORD" xml:space="preserve">
+    <value>Digite a senha</value>
+  </data>
+  <data name="NO_POI_INFO" xml:space="preserve">
+    <value>Nenhuma informação foi encontrada na referência geográfica</value>
+  </data>
+  <data name="NO_ROLES" xml:space="preserve">
+    <value>O usuário conectado não tem perfis ativos atribuídos</value>
+  </data>
+  <data name="NO_SELECTED" xml:space="preserve">
+    <value>Não há selecionada {0}</value>
+  </data>
+  <data name="NO_USERNAME" xml:space="preserve">
+    <value>Introduza o Nome</value>
+  </data>
+  <data name="NO_VEHICLE_INFO" xml:space="preserve">
+    <value>Nenhuma informação foi obtida a partir da pilha</value>
+  </data>
+  <data name="PAGINA_MANTENIMIENTO" xml:space="preserve">
+    <value>Manutenção da página</value>
+  </data>
+  <data name="PASSWORDS_DONT_MATCH" xml:space="preserve">
+    <value>A chave ea sua confirmação não coincidem</value>
+  </data>
+  <data name="POI_NOT_FOUND" xml:space="preserve">
+    <value>Não encontrei nenhuma referência a descrição geográfica: {0}</value>
+  </data>
+  <data name="SHIFTS_OVERLAPPED" xml:space="preserve">
+    <value>A actual repartição sobreposições com outras mudanças para esse tipo de veículo e / ou centro de custo.</value>
+  </data>
+  <data name="STATE_MESSAGE" xml:space="preserve">
+    <value>O código para mensagens de status de logística deve ser inferior a 20</value>
+  </data>
+  <data name="SYSTEM_MESSAGE" xml:space="preserve">
+    <value>O código para mensagens do sistema deve ser um número superior a 88</value>
+  </data>
+  <data name="TARIFA_INCORRECTA" xml:space="preserve">
+    <value>Você deve digitar um valor da tarifa correta</value>
+  </data>
+  <data name="TARIFA_INCORRECTA_CLIENTE" xml:space="preserve">
+    <value>Introduza a taxa para o cliente: {0}</value>
+  </data>
+  <data name="TICKET_NO_VEHICLE_ASSIGNED" xml:space="preserve">
+    <value>O bilhete não tem um veículo atribuído</value>
+  </data>
+  <data name="UNDEFINED_COMMAND_QUEUE_NAME" xml:space="preserve">
+    <value>Ele não conseguiu enviar a mensagem para a configuração do gateway porque precisamos configurar o nome da fila de comando.</value>
+  </data>
+  <data name="UNDEFINED_COMMAND_QUEUE_USER_GROUP" xml:space="preserve">
+    <value>Ele não conseguiu enviar a mensagem para a configuração do gateway, porque nós precisamos configurar o grupo de usuários associados a filas.</value>
+  </data>
+  <data name="UNDEFINED_ERROR" xml:space="preserve">
+    <value>Houve um erro não especificado no pedido.</value>
+  </data>
+  <data name="USER_DISABLED" xml:space="preserve">
+    <value>Seu nome foi desativado pelo administrador</value>
+  </data>
+  <data name="USER_MESSAGE" xml:space="preserve">
+    <value>O código para mensagens do usuário deve ser maior que 20 e inferior a 89</value>
+  </data>
+  <data name="VEHICLE_NO_DEVICE_ASSIGNED" xml:space="preserve">
+    <value>O carro não tem um dispositivo atribuído</value>
+  </data>
+  <data name="VEHICULO_ASIGNADO" xml:space="preserve">
+    <value>O veículo não pode ser desativado porque tem um dispositivo designado.</value>
+  </data>
+  <data name="VEHICULO_CON_DISPOSITIVO" xml:space="preserve">
+    <value>O carro que tenta anular tem um dispositivo associado.</value>
+  </data>
+  <data name="WRONG_PARAMETERS" xml:space="preserve">
+    <value>Falha ao entrar os parâmetros, por favor verifique e tente novamente</value>
+  </data>
+  <data name="WRONG_USER_PASS" xml:space="preserve">
+    <value>Nome de usuário e senha;</value>
+  </data>
+  <data name="NO_MOBILE_IN_BASE" xml:space="preserve">
+    <value>Mobiles não encontrou detidos na base para o período selecionado</value>
+  </data>
+  <data name="USED_CODE" xml:space="preserve">
+    <value>O código não está disponível</value>
+  </data>
+  <data name="CODE_LONG" xml:space="preserve">
+    <value>O código é muito longo</value>
+  </data>
+  <data name="USED_DESCRIPCION" xml:space="preserve">
+    <value>A descrição não está disponível</value>
+  </data>
+  <data name="MUST_SELECT_MOBILE" xml:space="preserve">
+    <value>Você deve selecionar pelo menos um celular.</value>
+  </data>
+  <data name="ERROR_GENERATING_REPORT" xml:space="preserve">
+    <value>Falha ao gerar o relatório, verifique se a informação está correta e que o Estado Base Logística definido poseea</value>
+  </data>
+  <data name="MUST_SEARCH" xml:space="preserve">
+    <value>Deve realizar uma boa pesquisa</value>
+  </data>
+  <data name="MUST_SELECT_QUERY" xml:space="preserve">
+    <value>Você deve selecionar uma consulta.</value>
+  </data>
+  <data name="QUERY_ALREADY_SAVED" xml:space="preserve">
+    <value>A consulta selecionada foi salvo.</value>
+  </data>
+  <data name="STATE_IS_USED_IN_CURRENT_TICKETS" xml:space="preserve">
+    <value>status logístico está em uso. Retire o mesmo dos bilhetes e tente novamente.</value>
+  </data>
+  <data name="NOMENCLATE_CLIENT" xml:space="preserve">
+    <value>Cliente nomenclatura de erro:</value>
+  </data>
+  <data name="NOMENCLATE_POI" xml:space="preserve">
+    <value>Erro nomenclatura Ponto de Interesse:</value>
+  </data>
+  <data name="POINT_OR_CLIENT_CANT_BE_CREATED" xml:space="preserve">
+    <value>Monumentos {1} {0} ou o cliente não pôde registrar.</value>
+  </data>
+  <data name="NO_NUMERIC_CODE_ACCESS" xml:space="preserve">
+    <value>O código de acesso deve ser numérico</value>
+  </data>
+  <data name="CARD_UNIQUE_ACCESS_CODE" xml:space="preserve">
+    <value>Já existe um cartão com a chave de acesso</value>
+  </data>
+  <data name="INCIDENCE_CANNOT_START_IN_FUTURE" xml:space="preserve">
+    <value>A incidência não pode começar em uma data futura</value>
+  </data>
+  <data name="MUST_SELECT_CLOG_TIME" xml:space="preserve">
+    <value>Você deve selecionar pelo menos uma coluna de tempo (Scheduled, Manual, Auto).</value>
+  </data>
+  <data name="CANT_DELETE_TIPODOC" xml:space="preserve">
+    <value>Você não pode excluir porque existem tais documentos</value>
+  </data>
+  <data name="FORMAT_PRIMER_AVISO" xml:space="preserve">
+    <value>Digite um valor numérico para o campo Primeiro Aviso</value>
+  </data>
+  <data name="FORMAT_SEGUNDO_AVISO" xml:space="preserve">
+    <value>Digite um valor numérico para o campo da segunda Aviso</value>
+  </data>
+  <data name="NOT_ALLOWED" xml:space="preserve">
+    <value>Você não está autorizado para executar esta operação</value>
+  </data>
+  <data name="BAD_SEGUNDOS_FOTO" xml:space="preserve">
+    <value>O tempo para a petição da foto é inválido. Digite o número de segundos. Máxima  {0}.</value>
+  </data>
+  <data name="NO_MENSAJE_A_CAMBIAR" xml:space="preserve">
+    <value>Introduza a mensagem a mudar.</value>
+  </data>
+  <data name="INVALID_VALUE" xml:space="preserve">
+    <value>Valor inválido para {0}</value>
+  </data>
+  <data name="PROGRAMACION_NO_OBRA" xml:space="preserve">
+    <value>Não há nenhum estado do Ciclo de Logística Tipo: Chegada no Trabalho</value>
+  </data>
+  <data name="FILE_BAD_EXTENSION" xml:space="preserve">
+    <value>Formato de arquivo errado.</value>
+  </data>
+  <data name="DUPLICATED" xml:space="preserve">
+    <value>Duplicate {0}</value>
+  </data>
+  <data name="PRECINTO_ASIGNADO" xml:space="preserve">
+    <value>Não pode excluir. É atribuído ao dispositivo {0}.</value>
+  </data>
+  <data name="LINEA_TELEFONICA_ASIGNADA" xml:space="preserve">
+    <value>Não pode excluir. É atribuída ao dispositivo {0}.</value>
+  </data>
+  <data name="STOCK_INEXISTENTE" xml:space="preserve">
+    <value>Estoque Inexistente</value>
+  </data>
+  <data name="STOCK_INSUFICIENTE" xml:space="preserve">
+    <value>Estoque Insuficiente</value>
+  </data>
+  <data name="NO_MODULE_ACCESS_DETAIL" xml:space="preserve">
+    <value>O usuário atual não tem permissões suficientes para acessar este módulo. Para acessar, entre em contato com o administrador do sistema.</value>
+  </data>
+  <data name="QUERY_TIMEOUT" xml:space="preserve">
+    <value>A consulta levou mais tempo do que o esperado. Por favor, tente novamente mais tarde.</value>
+  </data>
+  <data name="PERIODO_CERRADO" xml:space="preserve">
+    <value>Não pode eliminar. Período Cerrado.</value>
+  </data>
+  <data name="NO_EXISTE_VEH" xml:space="preserve">
+    <value>Não pode asociar a Ponto Remoto. No esiste Tipo do Ponto Remoto com codigo 'VEH'.</value>
+  </data>
+  <data name="NO_VEHICLE_ASSIGNED" xml:space="preserve">
+    <value>Sem veículo é atribuído.</value>
+  </data>
+  <data name="EXPIRED_PRODUCT" xml:space="preserve">
+    <value>Licença do produto expirou.</value>
+  </data>
+  <data name="EXISTE_TICKET_ABIERTO" xml:space="preserve">
+    <value>Já existe um ticket ativo para o mesmo veículo neste talher.</value>
+  </data>
+  <data name="EMPLEADO_DOC_VENCIDO" xml:space="preserve">
+    <value>O empleado posee documentação vencida.</value>
+  </data>
+</root>

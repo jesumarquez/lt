@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CLOG_START_SENT" xml:space="preserve">
+    <value>Se ha enviado el inicio de ciclo logístico al vehículo: </value>
+  </data>
+  <data name="CONFIRM_DELETE_PARAM_TIPODOC" xml:space="preserve">
+    <value>Esto eliminara los valores de este parametro\npara todos los documentos\n\n¿Desea continuar?\n</value>
+  </data>
+  <data name="CONFIRM_OPERATION" xml:space="preserve">
+    <value>¿Está seguro que desea realizar esta operación?</value>
+  </data>
+  <data name="DUPLICATED_ELEMENT" xml:space="preserve">
+    <value>Elemento duplicado. La modificaciones realizadas no afectaran al objeto original</value>
+  </data>
+  <data name="ESTADOS_LOGISTICOS_NOT_FOUND" xml:space="preserve">
+    <value>Error al generar el reporte, verifique que los datos sean correctos y que la Base posea Estados Logisticos definidos</value>
+  </data>
+  <data name="EXPORT_CSV_DATA" xml:space="preserve">
+    <value>Exportar a CSV</value>
+  </data>
+  <data name="EXPORT_REPORT_DATA" xml:space="preserve">
+    <value>Exportar Datos de Reporte</value>
+  </data>
+  <data name="MESSAGE_SENT" xml:space="preserve">
+    <value>Se ha enviado el mensaje a los siguientes moviles: {0}</value>
+  </data>
+  <data name="MULTIPLE_ADDRESSES" xml:space="preserve">
+    <value>Se encontraron multiples direcciones, por favor verifique los valores ingresados</value>
+  </data>
+  <data name="NO_GEOCERCA_INFO" xml:space="preserve">
+    <value>No hay suficientes datos para mostrar detalles de un recorrido!</value>
+  </data>
+  <data name="NO_POSITIONS_DEVICE" xml:space="preserve">
+    <value>El dispositivo {0} no posee posiciones reportadas!</value>
+  </data>
+  <data name="NO_POSITIONS_MOBILE" xml:space="preserve">
+    <value>El vehiculo {0} no posee posiciones reportadas!</value>
+  </data>
+  <data name="NO_RESULT_FOR_CURRENT_FILTERS" xml:space="preserve">
+    <value>No se encontraron datos asociados a los filtros seleccionados!</value>
+  </data>
+  <data name="NO_ROUTE_INFO" xml:space="preserve">
+    <value>No hay informacion conciliada para el recorrido solicitado.</value>
+  </data>
+  <data name="NO_SERVICES" xml:space="preserve">
+    <value>No hay servicios configurados para ser monitoreados.</value>
+  </data>
+  <data name="ONLINE_UPDATED_POSITIONS" xml:space="preserve">
+    <value>{0} posicion(es) actualizadas a las {1}</value>
+  </data>
+  <data name="PICTURES_NOT_FOUND" xml:space="preserve">
+    <value>No se encontraron fotos</value>
+  </data>
+  <data name="PICTURES_NOT_FOUND_TEXT" xml:space="preserve">
+    <value>En este momento no se encuentran disponibles las fotos para este evento. Por favor intentelo mas tarde.</value>
+  </data>
+  <data name="PLEASE_WAIT" xml:space="preserve">
+    <value>Espere por favor...</value>
+  </data>
+  <data name="COUNTERS_ON" xml:space="preserve">
+		<value>Encedido</value>
+	</data>
+  <data name="COUNTERS_OFF" xml:space="preserve">
+		<value>Apagado</value>
+	</data>
+  <data name="COUNTERS_NOT_AVAILABLE" xml:space="preserve">
+		<value>N/D</value>
+	</data>
+  <data name="POI_CREATE_OK" xml:space="preserve">
+    <value>Se ha dado de alta correctamente la direccion ingresada</value>
+  </data>
+  <data name="POI_IMPORT_OK" xml:space="preserve">
+    <value>Se ha finalizado con exito la importacion de los puntos de interes.</value>
+  </data>
+  <data name="ROUTE_TOO_LONG" xml:space="preserve">
+    <value>Periodo demasiado largo para mostrar detalle de un recorrido!</value>
+  </data>
+  <data name="SELECCIONE_VEHICULO" xml:space="preserve">
+    <value>Seleccione uno o mas vehiculos</value>
+  </data>
+  <data name="TICKET_INIT" xml:space="preserve">
+    <value>Seleccione la hora de inicio de este ticket</value>
+    <comment>Ticket Lista</comment>
+  </data>
+  <data name="TICKET_OPENED" xml:space="preserve">
+    <value>El ticket no se puede iniciar porque ya hay un ticket activo para el mismo vehiculo.</value>
+  </data>
+  <data name="TICKET_ROUTE_NOT_FOUND" xml:space="preserve">
+    <value>La información actual del Ticket no permite establecer un recorrido</value>
+  </data>
+  <data name="UNASIGNED_VEHICLE" xml:space="preserve">
+    <value>Imposible enviar mensaje al interno {0} debido a que no tiene dispositivo asignado!</value>
+  </data>
+  <data name="WAIT" xml:space="preserve">
+    <value>Espere por favor...</value>
+    <comment>Mensaje del ProgressLabel</comment>
+  </data>
+  <data name="TICKET_SPLIT_CONFIRM" xml:space="preserve">
+    <value>¿Está seguro que desea que el ticket se divida para satisfacer el pedido? El ticket original será modificado</value>
+  </data>
+  <data name="TCIKET_REGENERATE_DONE" xml:space="preserve">
+    <value>Se ha recalculado el ciclo logístico con los eventos disponibles.</value>
+  </data>
+  <data name="TICKET_REGENERATE_CONFIRM" xml:space="preserve">
+    <value>¿Está seguro que desea recalcular los horarios del ticket?</value>
+  </data>
+  <data name="TICKET_START_ALL_CONFIRM" xml:space="preserve">
+    <value>¿Está seguro que desea iniciar todos los Tickets pendientes?</value>
+  </data>
+  <data name="TICKET_START_CONFIRM" xml:space="preserve">
+    <value>¿Está seguro que desea iniciar este Ticket?</value>
+  </data>
+  <data name="TICKET_CANCEL" xml:space="preserve">
+    <value>¿Está seguro que desea anular este Ticket?</value>
+  </data>
+  <data name="TICKET_ANULADO_USER_DAY_REASON" xml:space="preserve">
+    <value>Ticket anulado por el usuario {0} el día {1}. Motivo: {2}</value>
+  </data>
+  <data name="TICKET_DOCUMENTOS_VENCIDOS" xml:space="preserve">
+    <value>Hay documentos requeridos que no fueron presentados o están vencidos.</value>
+  </data>
+  <data name="TIPOS_DISTRIBUCION" xml:space="preserve">
+    <value>&lt;b&gt;Ordenada&lt;/b&gt;: La distribución se hará respetando un orden de entrega.&lt;br /&gt;&lt;b&gt;Desordenada&lt;/b&gt;: La distribución se hará sin respetar ningún orden de entrega.&lt;br /&gt;&lt;b&gt;Recorrido Fijo&lt;/b&gt;: La distribución se hará respetando un orden de entrega y una ruta predefinida.</value>
+  </data>
+</root>

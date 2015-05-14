@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Entidades.DetalleValor,Logictracker.Types" table="parenti83" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti83" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti83_valor_num" name="ValorNum" />
+    <property column="parenti83_valor_str" type="String" name="ValorStr" />
+    <property column="parenti83_valor_dt" name="ValorDt" />
+    <property column="parenti83_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_parenti79" name="Entidad" lazy="proxy" />
+    <many-to-one column="rela_parenti82" name="Detalle" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

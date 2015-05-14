@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://plataforma.logictracker.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://plataforma.logictracker.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://plataforma.logictracker.com/">
+      <s:element name="GetProvincias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProvinciasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProvinciasResult" type="tns:RespuestaOfArrayOfProvinciaVO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaOfArrayOfProvinciaVO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="tns:ArrayOfProvinciaVO" />
+          <s:element minOccurs="1" maxOccurs="1" name="RespuestaOk" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProvinciaVO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProvinciaVO" nillable="true" type="tns:ProvinciaVO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProvinciaVO">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDireccion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="calle" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="altura" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="esquina" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="partido" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="provincia" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDireccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDireccionResult" type="tns:RespuestaOfArrayOfDireccionVO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaOfArrayOfDireccionVO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="tns:ArrayOfDireccionVO" />
+          <s:element minOccurs="1" maxOccurs="1" name="RespuestaOk" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDireccionVO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DireccionVO" nillable="true" type="tns:DireccionVO" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DireccionVO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Latitud" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Longitud" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdMapaUrbano" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdPoligonal" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdEsquina" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Altura" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Provincia" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdProvincia" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Calle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Partido" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSmartSearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="frase" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSmartSearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSmartSearchResult" type="tns:RespuestaOfArrayOfDireccionVO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:RespuestaOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RespuestaOk" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsActive">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsActiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IsActiveResult" type="tns:RespuestaOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RespuestaOfBoolean">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Resultado" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="RespuestaOk" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Logout">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sessionId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogoutResult" type="tns:RespuestaOfBoolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetProvinciasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProvincias" />
+  </wsdl:message>
+  <wsdl:message name="GetProvinciasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProvinciasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDireccionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDireccion" />
+  </wsdl:message>
+  <wsdl:message name="GetDireccionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDireccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSmartSearchSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSmartSearch" />
+  </wsdl:message>
+  <wsdl:message name="GetSmartSearchSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSmartSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsActiveSoapIn">
+    <wsdl:part name="parameters" element="tns:IsActive" />
+  </wsdl:message>
+  <wsdl:message name="IsActiveSoapOut">
+    <wsdl:part name="parameters" element="tns:IsActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapIn">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapOut">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GeocoderWsSoap">
+    <wsdl:operation name="GetProvincias">
+      <wsdl:input message="tns:GetProvinciasSoapIn" />
+      <wsdl:output message="tns:GetProvinciasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDireccion">
+      <wsdl:input message="tns:GetDireccionSoapIn" />
+      <wsdl:output message="tns:GetDireccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSmartSearch">
+      <wsdl:input message="tns:GetSmartSearchSoapIn" />
+      <wsdl:output message="tns:GetSmartSearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsActive">
+      <wsdl:input message="tns:IsActiveSoapIn" />
+      <wsdl:output message="tns:IsActiveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input message="tns:LogoutSoapIn" />
+      <wsdl:output message="tns:LogoutSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GeocoderWsSoap" type="tns:GeocoderWsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProvincias">
+      <soap:operation soapAction="http://plataforma.logictracker.com/GetProvincias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDireccion">
+      <soap:operation soapAction="http://plataforma.logictracker.com/GetDireccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSmartSearch">
+      <soap:operation soapAction="http://plataforma.logictracker.com/GetSmartSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://plataforma.logictracker.com/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsActive">
+      <soap:operation soapAction="http://plataforma.logictracker.com/IsActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://plataforma.logictracker.com/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GeocoderWsSoap12" type="tns:GeocoderWsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProvincias">
+      <soap12:operation soapAction="http://plataforma.logictracker.com/GetProvincias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDireccion">
+      <soap12:operation soapAction="http://plataforma.logictracker.com/GetDireccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSmartSearch">
+      <soap12:operation soapAction="http://plataforma.logictracker.com/GetSmartSearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://plataforma.logictracker.com/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsActive">
+      <soap12:operation soapAction="http://plataforma.logictracker.com/IsActive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap12:operation soapAction="http://plataforma.logictracker.com/Logout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GeocoderWs">
+    <wsdl:port name="GeocoderWsSoap" binding="tns:GeocoderWsSoap">
+      <soap:address location="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GeocoderWsSoap12" binding="tns:GeocoderWsSoap12">
+      <soap12:address location="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

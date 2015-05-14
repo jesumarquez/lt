@@ -1,0 +1,20 @@
+# UrbeMobile, para Windows Mobile 5
+# Probar Conexion a Internet
+
+Include (loggin.mscr)
+
+ErrorLevel ( "off" )
+
+#STATUSFILE = "\Archivos de programa\Urbetrack Mobile\UP.TXT"
+UMPATH="\Program Files\Urbetrack Mobile\"
+STATUSFILE = "\Program Files\Urbetrack Mobile\UP.TXT"
+
+SERVER = "http://www.urbetrack.com/"
+
+If (InternetConnected( SERVER ))
+	WriteFile( STATUSFILE, "CR")
+	Exit
+EndIf
+
+WriteFile( STATUSFILE, "CF")
+

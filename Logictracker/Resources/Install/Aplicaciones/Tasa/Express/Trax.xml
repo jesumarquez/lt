@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application 
+                xmlns="http://walks.ath.cx/framework"
+                xmlns:x="http://walks.ath.cx/statics"
+                xmlns:g="http://walks.ath.cx/generics"
+                xmlns:trax="http://walks.ath.cx/trax"
+                xmlns:fe="http://walks.ath.cx/frontend"
+                xmlns:unetelv1="http://walks.ath.cx/e/unetel/v1"
+                xmlns:unetelv2="http://walks.ath.cx/e/unetel/v2"
+                fe:Title="Urbetrack EXPRESS"
+                x:Key="Default"
+				RunMode="WinService">
+
+  <Resources>
+    <SQLDataProvider x:Key="mainDataSource" DataTransportLayer="{StaticResource dataTransportLayer}" />
+    <MessageQueue x:Key="positionsQueue" Path=".\private$\posiciones" Transactional="true" Recoverable="true" />
+    <MessageQueue x:Key="eventsQueue" Path=".\private$\eventos" Transactional="true" Recoverable="true" />
+    <MessageQueue x:Key="textEventsQueue" Path=".\private$\sms" Transactional="true" Recoverable="true" />
+    <MessageQueue x:Key="ticketsQueue" Path=".\private$\tickets" Transactional="true" Recoverable="true" />
+    <MessageQueue x:Key="commanderQueue" Path=".\private$\comandos_trax" Transactional="false" Recoverable="false" BinaryFormatter="false" />
+    <NodesTree x:Key="nodesTree" DataProvider="{StaticResource mainDataSource}" MessageQueue="{StaticResource commanderQueue}" ResponseDispatcher="{StaticResource theDispatcher}" ReadBodyStream="false" />
+    <LinksTree x:Key="linksTree" />
+  </Resources>
+  
+  <StackChannel>
+	<UDPNetworkServer Uri="utn.service://0.0.0.0:5050" LinksTree="{StaticResource linksTree}"/>
+	<trax:DataLinkLayer     NodesTree="{StaticResource nodesTree}" LinksTree="{StaticResource linksTree}"/>
+	<trax:DataTransportLayer     x:Key="dataTransportLayer" NodesTree="{StaticResource nodesTree}" ConfigureSettingsHook="{StaticResource configureSettingsHook}" />
+	<ByPassSession/>
+    <MessageDispatcher x:Key="theDispatcher">
+		<MessageHandler g:Type="Urbetrack.AVL.Position, Urbetrack.AVL" MessageQueue="{StaticResource positionsQueue}"/>
+		<MessageHandler g:Type="Urbetrack.AVL.Event, Urbetrack.AVL" MessageQueue="{StaticResource eventsQueue}"/>
+		<MessageHandler g:Type="Urbetrack.AVL.TextEvent, Urbetrack.AVL" MessageQueue="{StaticResource textEventsQueue}"/>
+		<MessageHandler g:Type="Urbetrack.AVL.SpeedingTicket, Urbetrack.AVL" MessageQueue="{StaticResource ticketsQueue}"/>
+	</MessageDispatcher>
+  </StackChannel>
+</Application>

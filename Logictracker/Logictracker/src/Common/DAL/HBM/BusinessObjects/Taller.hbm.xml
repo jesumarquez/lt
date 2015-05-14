@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Linea.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Taller,Logictracker.Types" table="parenti35" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti35" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti05" name="ReferenciaGeografica" cascade="all" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_parenti09" name="Responsable" lazy="proxy" />
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+
+    <property column="parenti35_descripcion" type="String" name="Descripcion" not-null="true" length="50" />
+    <property column="parenti35_codigo" name="Codigo" />
+    <property column="parenti35_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="parenti35_telefono" type="String" name="Telefono" />
+  </class>
+</hibernate-mapping>

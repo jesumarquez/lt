@@ -1,0 +1,209 @@
+// 	Entrada 00 (marron) : Llave
+//	Salida 0 (celeste)	Buzzer
+//      Entrada 01 (violeta): Baja presion aceite
+
+BORRAR TODO							// Borro todo los eventos
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+SAPNA "INTERNET.COMCEL.COM.CO","",""
+
+SIP0 190.210.147.205						// IP RSV
+
+SDU30300							// PUerto RSV
+							
+SIP2 190.12.113.234						// Configuro IP FUL-MAR para diagnostico
+
+SDU50002							// Configuro puerto de FUL-MAR
+
+SSMSI0 								// Respuesta al envio de SMS al IPO
+
+SCE10000101  						        // Configuracion general
+								
+SCX10011100  						        // habilito log ciclico y llave de chofer
+
+
+SED000 1 IN07-+ IP03FG___004&VI1500000000     			// Parada (Motor OFF)	&DL0000000000	
+
+SED069 1 IN07-+ DL0000000000&TM0100060001                       // Cuando apagan motor se desloguea automaticamente el chofer y activo el temporizador de 60min  
+
+SED001 1 IN07+-&SI15-- IP03FG___002&TM1200000000	        // Ignicion (Motor ON)
+
+SED002 1 IN07+- TM1300003001&VI1500000000
+
+SED003 1 SI15++ VI1600001000&TM0000060100
+
+SED004 1 VI16++&IN07++ TM1300003001&VI1500000000 
+
+SED005 1 VI16++&IN07++ IP03FG___002&VI1600000000
+
+SED006 1 TM13++ VI1500001000&TM1300000000 
+
+STM0000060SA
+SVE03000001G							// Configuramos el tiempo-distancia cada 60 seg
+
+SED007 1 TM00++|SI04++&IN07++&VE03-- IP03FG___001&TM0000060100	// Reporte de posicion actividad al servidor deL CLIENTE en movimiento y por cambio de curso
+
+SED008 1 IN07++&VE03++ TM1400240000
+
+SED070 1 TM14++&IN07++&VE03++ TM1400000000&IP03FG___003		// Reporte de posicion ralenti al servidor deL CLIENTE en movimiento
+
+SED071 1 VE03-- TM1400000000
+
+SED009 1 TM01++&IN07-- IP03FG___007				// Reporte de posicion a CLIENTE en detenido (Evento estacionado)
+
+SED010 1 SI06++&IN07-- IP03FG___007                             // Reporta Detenido cuando el equipo se despierta y esta sin ignicion  
+
+STD02010M0000							// Configuramos el tiempo-distancia cada 10 minutos
+
+SED011 1 TD02++&SI02-- IP05FG___001				// Reporte a FUL-MAR diagnostico
+
+STM0200010MA							// Temporizador para el envio de paquete de posicion a FUL-MAR cada 10 minutos
+
+SED012 1 TM02++&SI02++ IP05FG___001
+
+SPM04151H15							// Configuro los tiempos del bajo consumo
+SED013 1 SI05++ MD0000000000					// Bajo Consumo
+
+SIT7100100							// Incremento el tiempo de deteccion de ignicion
+
+
+SED015 1 SI25++ OT0000005004                                   // Cada vez que se Deslogueo  suena el buzzer un bip cada 1 seg durante 5 seg
+
+SED018 1 SI24++ IP03FG___112&OT0000001002      		        // Logueo de chofe, Cada vez que se logueo  suena el buzzer 5 seg 1 solo bip
+
+SED019 1 SI25++ IP03FG___113&VI0900000000			// Deslogueo del chofer	
+
+
+//ACEITE
+
+SED020 1 IN01-+&IN07++ TM1000015000                            	// Si se activa la entrada 0 con cero y esta en ignicion arranco el timer.
+
+SED021 1 TM10++&IN07++&IN01-- OT0000001000&IP03FG___089        	// Si se cumple el tiempo y sigue todo igual activo la alarma y reporto
+
+SED022 1 TM10++&IN07++&IN01-- TM1000000000
+  
+SED023 1 IN01+- TM1100015000                                   	// SI LA ANTRADA PASA A 1 ACTIVO UN TIMER
+
+SED024 1 TM11++&IN01++ OT0000000000&TM1100000000               	// SI LA ENTRADA ESTUvO EN "uno" 15 SEG APAGO LA ALARMA
+
+
+//EVENTO EXCESO VELOCIDAD
+
+SVE00110240G 
+
+SVE06040109G 
+
+SED025 1 IN07+- VI1300000000                                    // CON ESTO ME ASEGURO QUE EL FLAG 13 ESTE EN CERO CUANDO ARRANCO. ASI EVITO UN EVENTO ERRONEO DE FIN DE EXCESO
+
+SED026 1 VE06++ VI1000001000
+
+SED027 1 VE00++ VI1300001000  
+
+SED028 1 VE00++&VI10++ OT0000005016                             // Suena buzzer 8 bips cuando se hace exceso
+
+SED029 1 VE00++&VI10++ VI1000000000&IP03FG___005    		// Envio Exceso
+
+SED031 1 VI13++&VE06++ IP03FG___010&VI1300000000		// Envio fin de exceso
+
+
+
+
+SED032 1 SI12++&VI02-- IP00FG___016&VI0200001000	       	// Envio por desconexion de antena de GPS 
+
+SED033 1 SI12-- VI0200000000
+
+SED034 1 SI13++&VI05-- IP00FG___015&VI0500001000	       	// Envio por corto en antena de GPS
+
+SED035 1 SI13-- VI0500000000
+
+SED036 1 VI15++&SI00--&VI08-- IP00FG___116&VI0800001000	       	// Envio por perdida de señal de GPS
+
+SED037 1 SI00++ VI0800000000
+
+
+//EVENTO EXCESO DE TEMPERATURA
+
+SST000+100+120                                            	// eVENTO DE TEMPERATURA RanNGO 98 grados
+
+SED038 1 TE00-- VI0300000000
+
+SED039 1 TE00--&VI04++ OT0000000000&VI0400000000
+
+SED040 1 TE00++&VI03-- IP03FG___050&VI0300001000              	// PASE LOS 98 SUENA BUZZER Y REPORTO
+
+SED041 1 TE00++&VI03++ OT0000001000&VI0400001000   
+
+
+SED042 1 SI22++&SI23++&VI07++ IP03FG___018&VI0700000000		// Reporte por conexion de bateria
+
+SED043 1 SI22--&SI23++ IP03FG___017&VI0700001000                // Reporte por desconexion bateria   
+
+SED044 1 SI19++&IN07--&VI06++ TM1200120000&VI0600000000         // Reporta remolque
+
+SED045 1 TM12++&SI16++&IN07-- IP03FG___008&TM1200000000
+
+SED046 1 SI16-- TM1200000000&VI0600001000
+
+
+SDM050050040040                                          	// Evento de movimiento, frenada y acelerada
+ 
+SED047 1 SI26++ IP03FG___011                             	// REPORTA FRENADA BRUSCA 
+
+
+SVE01040059G  
+
+SVE07010039G
+
+SED048 1 VE07++ VI1100001000                                                  
+
+SED049 1 VE01++&VI11++ OT0000005001&VI1100000000               //Suena buzer 1 seg cuando paso los 40  
+
+
+SVE02060109G
+
+SVE05040050G 
+
+SED052 1 VE05++ VI1200001000  
+
+SED053 1 VE02++&VI12++ OT0000005003&VI1200000000              //Suena buzer 2 bip durante un segundo cuando paso los 60
+
+
+//Suena buzzer si hay ignicion y no se logueo el chofer
+SED057 1 IN07+-&SI24-- OT0000004030                           //Suena 30 segundos si hay ignicion y no esta logueado
+
+// Reportes de Estructura del Taco a IP00
+SED060 1 TM02++ IP00FUR__100					// Reporte de la Estructura del TACO cada 10 Minutos a IP00
+
+  
+
+
+
+SOD00000000000000000000						// Reseteo el odometro y tiempo inicial
+
+SHD08060060							// Configuro el angulo de giro
+
+
+
+SHW02								// Configuro la version de firmware
+
+SLOGD								// LIMPAR TODOS OS LOGS
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+SRD								// RESET NO EQUIPAMENT
+

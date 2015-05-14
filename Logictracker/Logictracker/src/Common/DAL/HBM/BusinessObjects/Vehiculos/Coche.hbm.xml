@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Coche.hbm.xml 164 2006-08-30 16:04:49Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.Vehiculos.Coche,Logictracker.Types" table="parenti03" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_parenti03" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <property column="parenti03_interno" type="String" name="Interno" not-null="true" unique="true" />
+        <property column="parenti03_modelo" type="String" name="ModeloDescripcion" not-null="true" length="32" />
+        <property column="parenti03_patente" type="String" name="Patente" not-null="true" length="50" unique="true" />
+        <property column="parenti03_anopat" type="Int16" name="AnioPatente" not-null="true" />
+        <property column="parenti03_poliza" type="String" name="Poliza" not-null="true" length="16" />
+        <property column="parenti03_fvto" type="DateTime" not-null="false" name="FechaVto" />
+        <property column="parenti03_nrochasis" type="String" name="NroChasis" length="64" />
+        <property column="parenti03_nromotor" type="String" name="NroMotor" length="64" />
+        <property column="parenti03_estado" type="Int16" name="Estado" not-null="true" />
+        <property column="parenti03_dtCambioEstado" type="DateTime" not-null="false" name="DtCambioEstado" />
+        <property column="paren03_referencia" type="String" name="Referencia" />
+        <property column="paren03_odometro_inicial" type="Double" name="InitialOdometer" />
+        <property column="paren03_odometro_aplicacion" type="Double" name="ApplicationOdometer" />
+        <property column="paren03_odometro_parcial" type="Double" name="PartialOdometer" />
+        <property column="paren03_reset_odometro" type="DateTime" not-null="false" name="LastOdometerReset" />
+        <property column="paren03_kilometros_diarios" type="Double" name="KilometrosDiarios" />
+        <property column="paren03_last_odometer_update" type="DateTime" not-null="false" name="LastOdometerUpdate" />
+        <property column="pae03_velocidad_promedio" type="Int32" name="VelocidadPromedio" />
+        <property column="pae03_odometro_diario" type="Double" name="DailyOdometer" />
+        <property column="pae03_disparo_odometro_diario" type="DateTime" not-null="false" name="LastDailyOdometerRaise" />
+        <property column="pae03_controla_km" type="Boolean" not-null="true" name="ControlaKm" />
+        <property column="pae03_controla_hs" type="Boolean" not-null="true" name="ControlaHs" />
+        <property column="pae03_controla_turnos" type="Boolean" not-null="true" name="ControlaTurnos" />
+        <property column="pae03_controla_servicios" type="Boolean" not-null="true" name="ControlaServicios" />
+        <property column="pae03_porc_productividad" type="Int32" name="PorcentajeProductividad" />
+        <property column="parenti03_capacidad" type="Int32" name="Capacidad" />
+        <property column="parenti03_identifica_choferes" type="Boolean" name="IdentificaChoferes" not-null="true" />
+        <property column="parenti03_reporta_ac" name="ReportaAssistCargo" />
+        <property column="parenti03_espuerta" name="EsPuerta" />
+
+        <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+        <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+        <many-to-one column="rela_parenti04" name="Departamento" lazy="proxy" />
+        <many-to-one column="rela_parenti06" name="Marca" cascade="all" lazy="proxy" />
+        <many-to-one column="rela_parenti07" name="Transportista" lazy="proxy" />
+        <many-to-one column="rela_parenti08" name="Dispositivo" unique="true" cascade="all" lazy="proxy" />
+        <many-to-one column="rela_parenti09" name="Chofer" lazy="proxy" />
+        <many-to-one column="rela_parenti17" name="TipoCoche" lazy="proxy" />        
+        <many-to-one column="rela_parenti37" name="CentroDeCostos" lazy="proxy" />
+        <many-to-one column="rela_parenti61" name="Modelo" lazy="proxy" />
+        <many-to-one column="rela_opeenti03" name="CocheOperacion" lazy="proxy"  />
+        <many-to-one column="rela_parenti99" name="SubCentroDeCostos" lazy="proxy" />
+      
+        <set name="_odometros" access="field" table="parenti42" cascade="all-delete-orphan" inverse="true">
+            <cache usage="read-write" />
+            <key column="rela_parenti03" />
+            <one-to-many class="Logictracker.Types.BusinessObjects.Vehiculos.MovOdometroVehiculo, Logictracker.Types" />
+        </set>
+
+        <set name="_clientes" access="field" table="parenti45" lazy="true">
+            <cache usage="read-write" />
+            <key column="rela_parenti03" />
+            <many-to-many column="rela_parenti18" class="Logictracker.Types.BusinessObjects.Cliente, Logictracker.Types" />
+        </set>
+
+        <set name="_turnos" access="field" table="parenti94" lazy="true">
+          <cache usage="read-write" />
+          <key column="rela_parenti03" />
+          <many-to-many column="rela_parenti46" class="Logictracker.Types.BusinessObjects.Vehiculos.Shift, Logictracker.Types" />
+        </set>
+    </class>
+</hibernate-mapping>

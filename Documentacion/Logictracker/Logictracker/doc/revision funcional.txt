@@ -1,0 +1,97 @@
+PRIOR	MONITOR
+DEMO	Centrar las imagenes de cada planta en radio de 10KM (cuadrado)
+DEMO	Dejar niveles de zoom 1, 9 y el mayor que muestre 20KM2 con epicentro en la planta
+DEMO	Arreglar el buscar
+DEMO?	En Menu BUSCAR agregar radiobutton de ticket => centrar en la obra de destino
+PROD	En Menu FILTROS cambiar el listbox de Domicilios por el Listbox especial con iconos de categoria y marca de inhibición de alarmas
+	En menu VER agregar botones de:
+PROD		Clientes
+DEMO?		Obras 
+PROD		Puntos de Control (solo los de las obras activas y desde las plantas de origen)
+PROD	En puntos de interes mostrar todos los que NO son los anteriores
+
+	INFO MOVIL
+PROD	Agregar Tiempo real Automático
+DEMO	Mostrar solo atrasos en ROJO, el resto sin color BG
+DEMO	Agregar Fecha, Nro de Ticket, PRoducto, Metros y Minutos para Frague
+
+	CONSOLA DE MENSAJES
+DEMO	Reemplazar listboxes de clientes y obras por check "Mostrar en Servicio"
+PROD 	Mostrar mensajes de ciclo logístico
+PROD	Agregar el listbox (seleccion múltiple) con los mensajes de usuario
+PROD	Los mensajes de sistema deben mostrarse sólo si el usuario es Admin
+
+	ENVIO DE MENSAJES
+DEMO	Envio de Tablas NO se está encolando
+
+	STORE DE DUPLICACION DE ESTADOS POR PLANTA
+FIN	dos parametros, planta y estado y hacer lo que corresponda
+
+	TIPOS DE PUNTOS DE INTERES:
+DEMO	Agregar checks de Es Cliente, Es Obra, Es Planta (tanto planta como obra SON inhibidores de Alarmas)
+
+	PUNTOS DE INTERES
+DEMO	No mostrar como categorías editables (filtrar combo de la lista principal) a las Plantas, Obras, Clientes y Particulares
+DEMO	Agregar un label de la categoría del punto en edición
+PROD	En control de edicion de punto / area verificar que el radio sea el default de la categoría o el propio si fue salvado
+PROD	En caso que el domicilio NO estuviera seteado pues no es nomenclable, obtener esquina mas cercana y setear dirección
+
+	CONTROL DE ALTA DE DOMICILIOS
+DEMO	No está seteando bien el combo de tipo de domicilio
+
+	PLANTAS
+FIN	Llamar al store de duplicacion (mensajes y estados)
+
+	CLIENTES
+DEMO	Agregar ordenar por descri y por codigo
+DEMO	Agregar buscar por descri, por codigo cliente y por codigo obra
+DEMO	Agregar filtro de "Con obras Vigentes" (default TRUE)
+FIN 	Recuadrar los campos traidos de la interfase y llamarlos "Dirección SAP"
+
+	OBRAS
+DEMO	Agregar header a la grilla
+DEMO	Ordenar por los campos
+DEMO	Buscar por los campos
+DEMO	Agregar filtro de "Vigentes" (default TRUE)
+FIN 	Recuadrar los campos traidos de la interfase y llamarlos "Dirección SAP"
+PROD	Agregar administración de Puntos de Control
+
+	VEHICULOS
+DEMO	No está actualizando (o no lee el valor) de TIPO DE VEHICULO
+
+	ESTADOS LOGÍSTICOS
+DEMO	Agregar Checks de "Cargando" y "Descargando"
+DEMO	Agregar Check de "Informar a CMD"
+DEMO	Ocultar filtro de locacion y planta
+FIN	Llamar a Store de duplicacion
+
+	MENSAJES
+DEMO	Volver al seteo correcto del tipo de mensaje que se está editando (recordar locación, planta y tipo de mensaje)
+DEMO	Agregar check "es Alarma" para poder ignorarla si sucede en un lugar inhibidor
+
+	HISTORICO DE RECORRIDOS
+PROD	Mostrar info de ticket en lugar de horario
+PROD	Reemplazar botones de terminal, seccion y parada por Obra, Puntos de Control y Planta
+
+	HANDLER COMANDO
+DEMO	No está creando las tablas en salientes
+
+	HANDLER TROMPO
+DEMO	Terminar de persistir los valores y analizar cambio de giro para insertarlo como evento (si en obra: Descargando, sin en inhibidor: nada, sino: Descarga Indebida)
+
+	HANDLER DE SECCIONES
+PROD	Automatizar los estados A OBRA, EN OBRA, A PLANTA y EN PATIO + time tracking de los puntos de control. Revisar fin de tickets.
+
+	HANDLER DE POSICION
+FIN 	No calcular exceso porque lo hace Sampe en el equipo
+
+	HANDLER DE ENTRANTES
+PROD	Ignorar la registración de los mensajes de tipo alarma que ocurren en inhibidores.
+
+	INTERFASES
+DEMO	CMD2AVL: Cuando crea Ticket Tener en cuenta el "es Descargando" para setear el tiempo que viene del ticket en lugar del delta
+DEMO	AVL2CMD: Informar a CMD SOLO los estados que tienen el check en true
+
+FIN	CONSOLA DE TICKETS
+
+FIN	REPORTES

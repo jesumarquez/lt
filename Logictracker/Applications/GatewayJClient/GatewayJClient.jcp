@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+	<settings>
+		<label>GatewayJClient</label>
+		<root_path>\</root_path>
+		<output_path>classes\</output_path>
+		<source_path>src\</source_path>
+		<jdkprofile_ref>JDK version 1.6.0_31</jdkprofile_ref>
+		<compiler_ref>&lt;Default&gt;</compiler_ref>
+		<ant_ref/>
+	</settings>
+	<ant_events/>
+	<run_items>
+		<item run="TestClientETAO"/>
+	</run_items>
+	<runtimes>
+		<runtime>
+			<label>&lt;Default&gt;</label>
+			<application_ref>&lt;Default&gt;</application_ref>
+			<applet_ref>&lt;Default&gt;</applet_ref>
+			<debugger_ref>&lt;Default&gt;</debugger_ref>
+			<param/>
+			<run>TestClientETAO</run>
+			<verify>true</verify>
+		</runtime>
+	</runtimes>
+	<libraries/>
+	<files>
+		<include>
+			<folderitem>
+				<path>src</path>
+			</folderitem>
+			<fileitem>
+				<path>src\Comandos.txt</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Device.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\GatewayJClient.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\KeepAlive.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Message.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\MessageIn.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\MessageQueueException.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Position.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\Queue.java</path>
+				<folder>src</folder>
+			</fileitem>
+			<fileitem>
+				<path>src\TestClientETAO.java</path>
+				<folder>src</folder>
+			</fileitem>
+		</include>
+	</files>
+	<tasks>
+		<todotaskitem>
+			<description>TODO: get actual value in &quot;openQueue&quot;</description>
+			<filepath>src\Queue.java</filepath>
+			<line>41</line>
+			<timestamp>1346707022</timestamp>
+		</todotaskitem>
+	</tasks>
+</project>

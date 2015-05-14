@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{103F6261-6C6B-46A9-957F-431F227CA523}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.MsmqMessaging</RootNamespace>
+    <AssemblyName>Logictracker.MsmqMessaging</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;TOUCH</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Messaging" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base64MessageQueue.cs" />
+    <Compile Include="Interfaces\IAsyncQueueDispatcher.cs" />
+    <Compile Include="Batch\QueueSimpleDispatcher.cs" />
+    <Compile Include="Batch\QueueCloneDispatcher.cs" />
+    <Compile Include="BinaryMessageQueue.cs" />
+    <Compile Include="Interfaces\ISyncQueueDispatcher.cs" />
+    <Compile Include="MessageQueueFarming.cs" />
+    <Compile Include="MessageQueueMonitor.cs" />
+    <Compile Include="MessageQueueMultiplexor.cs" />
+    <Compile Include="Opaque\OpaqueMessage.cs" />
+    <Compile Include="Opaque\OpaqueMessageAck.cs" />
+    <Compile Include="Opaque\OpaqueMessageFormatter.cs" />
+    <Compile Include="Opaque\OpaqueMessageFormatterException.cs" />
+    <Compile Include="Opaque\OpaqueMessageQueue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Batch\QueueBatchConsumer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Configuration\Logictracker.Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Statistics\Logictracker.Statistics.csproj">
+      <Project>{A3919256-9E55-4542-B80D-5293997D47D1}</Project>
+      <Name>Logictracker.Statistics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,68 @@
+// SED000 3							// BORRO TODA LA CONFIGURACION ANTERIOR
+
+BORRAR TODO							// Borro todo los eventos
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+								// Tiempo de espera para el borrado del equipo
+
+SCE00010101
+
+SCX10011100
+
+STD0102400050							// CADA   30 SEG / 50 METROS
+
+SVE00005280G							// DE 05 A 280 KM ESTA EN MARCHA
+
+// SED025 1 TD01++&IN07-- IP03FG___001&IP04FG___001		// CON MOTOR OFF
+
+// SED026 1 TD01++&IN07++&VE00-- IP03FG___001&IP04FG___001		// INMOVIL MOTOR ON
+
+// SED027 1 TD01++&VE00++ IP03FG___001&IP04FG___001		// EN RANGO 1
+
+SED025 1 TD01++ IP03FG___001&IP04FG___001		// SOLO TD
+
+SED028 1 SI01++ IP03FG___001&IP04FG___001			// POSICION AL TOMAR SEÑAL GPS
+
+SED061 1 IN07-+ IP03FG___061&DL0000000000			// MOTOR ON
+
+SED062 1 IN07+- IP03FG___062&IP04FG___062			// MOTOR OFF
+
+SED069 1 SI24++ IP03FG___069&DL0000000000			// MOTOR ON
+
+SED070 1 SI25++ IP03FG___070&IP04FG___070			// MOTOR OFF
+
+
+SOD00000000000000000000						// Reseteo el odometro y tiempo inicial
+
+SHD08060060							// Configuro el angulo de giro
+
+
+
+SHW02								// Configuro la version de firmware
+
+SLOGD								// LIMPiAR TODOS LOS LOGS
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+								// Tiempo de espera para el borrado del log
+
+SAPNA "internet.ctimovil.com.ar","wap","wap"
+
+//SIP0 190.2.37.141
+SIP0 200.70.28.88
+
+SDU30300
+
+SRD								// RESET NO EQUIPAMENT
+

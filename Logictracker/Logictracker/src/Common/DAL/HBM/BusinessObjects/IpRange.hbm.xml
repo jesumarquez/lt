@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.IpRange,Logictracker.Types" table="[soc.soc_usua_07_mov_iprange]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_socusua07" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_socusua01" name="Usuario" not-null="false" lazy="proxy" />
+
+    <property column="socusua07_ipfrom" type="String" name="IpFrom" not-null="true" length="15" />
+    <property column="socusua07_ipto" type="String" name="IpTo" not-null="true" length="15" />
+  </class>
+</hibernate-mapping>

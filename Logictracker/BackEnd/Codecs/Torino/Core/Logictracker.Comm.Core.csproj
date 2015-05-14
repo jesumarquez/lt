@@ -1,0 +1,204 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7127B32A-E683-42B9-8F5C-9FD79589BECF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Urbetrack.Comm.Core</RootNamespace>
+    <AssemblyName>Urbetrack.Comm.Core</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>http://localhost/SA/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Codecs\CODEC.cs" />
+    <Compile Include="Codecs\Codes.cs" />
+    <Compile Include="Codecs\fix.cs" />
+    <Compile Include="Fleet\Device.cs" />
+    <Compile Include="Fleet\Devices.cs" />
+    <Compile Include="Fleet\DeviceStateWrap.cs" />
+    <Compile Include="Fleet\QueueSerializer.cs" />
+    <Compile Include="Fleet\SpineClientWrap.cs" />
+    <Compile Include="Mensajeria\Command.cs" />
+    <Compile Include="Mensajeria\RemoteShell.cs" />
+    <Compile Include="Mensajeria\SetRider.cs" />
+    <Compile Include="Mensajeria\Query.cs" />
+    <Compile Include="Mensajeria\ShortMessage.cs" />
+    <Compile Include="Mensajeria\SetParameter.cs" />
+    <Compile Include="Mensajeria\Evento.cs" />
+    <Compile Include="Mensajeria\ExcesoVelocidad.cs" />
+    <Compile Include="Mensajeria\DataPage.cs" />
+    <Compile Include="Mensajeria\Hearbeat.cs" />
+    <Compile Include="Mensajeria\Posicion.cs" />
+    <Compile Include="Mensajeria\RFIDDetectado.cs" />
+    <Compile Include="Mensajeria\SystemReport.cs" />
+    <Compile Include="Qtree\Qtree.cs" />
+    <Compile Include="Qtree\QtreeFile.cs" />
+    <Compile Include="Qtree\QtreeRevision.cs" />
+    <Compile Include="Scheduler\Scheduler.cs" />
+    <Compile Include="Scheduler\TimerJob.cs" />
+    <Compile Include="Transport\Destino.cs" />
+    <Compile Include="Transport\FotaServer.cs" />
+    <Compile Include="Transport\FileTransfer\FileClient.cs" />
+    <Compile Include="Transport\FileTransfer\FileServer.cs" />
+    <Compile Include="Transport\IniFile.cs" />
+    <Compile Include="Transport\IO.cs" />
+    <Compile Include="Transport\TCP\tcp_acceptor.cs" />
+    <Compile Include="Transport\TCP\tcp_base.cs" />
+    <Compile Include="Transport\TCP\tcp_client.cs" />
+    <Compile Include="Transport\TCP\tcp_listener.cs" />
+    <Compile Include="Transport\TransporteTCP.cs" />
+    <Compile Include="Transport\TransporteXBEE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Transport\XBeeRLP\XBeeAddress.cs" />
+    <Compile Include="Transport\XBeeRLP\XBeeRadioLinkProtocol.cs" />
+    <Compile Include="Transport\XBeeRLP\XBeeReport.cs" />
+    <Compile Include="Transport\XBeeRLP\XBeeRLPTransaction.cs" />
+    <Compile Include="Transport\XBeeRLP\XBeeSession.cs" />
+    <Compile Include="TransactionUsers\ServerTU.cs" />
+    <Compile Include="Mensajeria\LoginAceptado.cs" />
+    <Compile Include="Mensajeria\LoginRechazado.cs" />
+    <Compile Include="Transport\TransporteUDP.cs" />
+    <Compile Include="Codecs\UrbetrackCodec.cs" />
+    <Compile Include="Mensajeria\LoginRequest.cs" />
+    <Compile Include="Mensajeria\PDU.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction\MRC.cs" />
+    <Compile Include="Transaction\MRS.cs" />
+    <Compile Include="Transport\Transaccion.cs" />
+    <Compile Include="Transaction\TransactionUser.cs" />
+    <Compile Include="Transport\Transporte.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\External Libs\Quartz\Quartz.2008.csproj">
+      <Project>{AEF8823B-E45B-4B35-A4D0-C08C1196D017}</Project>
+      <Name>Quartz.2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Inet\Inet.csproj">
+      <Project>{7FA87A8B-B2F1-42D5-A1F6-A224BEF84C9B}</Project>
+      <Name>Inet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\MemCache\Urbetrack.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Urbetrack.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Urbetrack.Common.Messaging\Urbetrack.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Urbetrack.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Urbetrack.Messaging\Urbetrack.MsmqMessaging.csproj">
+      <Project>{103F6261-6C6B-46A9-957F-431F227CA523}</Project>
+      <Name>Urbetrack.MsmqMessaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Model\Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Statistics\Statistics.csproj">
+      <Project>{EB6A8FF5-B028-49A2-B8A9-6987824F9565}</Project>
+      <Name>Statistics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Urbetrack.Common.Configuration\Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Urbetrack.Tracer\Urbetrack.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Urbetrack.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Lomax\src\Common\Urbetrack.Common.Utils\Urbetrack.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Urbetrack.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Lomax\src\Common\Urbetrack.Types\Urbetrack.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Urbetrack.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Backbone\Urbetrack.Backbone.csproj">
+      <Project>{2E81629A-01C5-46A0-8CDA-AEE767961A81}</Project>
+      <Name>Urbetrack.Backbone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Compression\Urbetrack.Compression.csproj">
+      <Project>{2D9055AB-7671-4931-8B6A-78E6B3EE2005}</Project>
+      <Name>Urbetrack.Compression</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hacking\Urbetrack.Hacking.csproj">
+      <Project>{ABBA96AF-4C20-4FB6-9422-D08664F16007}</Project>
+      <Name>Urbetrack.Hacking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xbee .NET\XbeeCore\Urbetrack.XbeeCore.csproj">
+      <Project>{0D939B7A-3834-4FCB-B1C5-9737CE2A9C9C}</Project>
+      <Name>Urbetrack.XbeeCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

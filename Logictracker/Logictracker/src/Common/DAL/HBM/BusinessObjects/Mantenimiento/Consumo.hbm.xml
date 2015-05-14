@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Urbetrack.Types.BusinessObjects.Mantenimiento.Consumo,Urbetrack.Types" table="parenti57" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti57" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti57_fecha"                 name="Fecha"         not-null="true" />
+    <property column="parenti57_kilometros_declarados" name="KmDeclarados"  not-null="true" />
+    <property column="parenti57_unidad_medida"         name="UnidadMedida"  not-null="true" />
+    <property column="parenti57_cantidad"              name="Cantidad"      not-null="true" />
+    <property column="parenti57_numero_factura"        name="NumeroFactura" not-null="true" />
+    <property column="parenti57_importe"               name="Importe"       not-null="true" />
+    <property column="parenti57_estado"                name="Estado"        not-null="true" />
+        
+    <many-to-one column="rela_parenti03" name="Vehiculo"  lazy="proxy" />
+    <many-to-one column="rela_parenti58" name="Insumo"    lazy="proxy" />
+    <many-to-one column="rela_parenti59" name="Proveedor" lazy="proxy" />
+  </class>
+</hibernate-mapping>

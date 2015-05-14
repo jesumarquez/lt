@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <LastAuthor>rbugallo</LastAuthor>
+  <Created>2008-08-15T20:43:02Z</Created>
+  <LastSaved>2008-08-21T22:07:24Z</LastSaved>
+  <Version>11.9999</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12210</WindowHeight>
+  <WindowWidth>14940</WindowWidth>
+  <WindowTopX>720</WindowTopX>
+  <WindowTopY>285</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Font ss:Color="#FFFFFF"/>
+   <Interior ss:Color="#000000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Font ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#000000" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Interior ss:Color="#FFCC00" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Interior ss:Color="#969696" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Interior ss:Color="#FFFF99" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s26">
+   <Interior ss:Color="#CCFFCC" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s27">
+   <Interior ss:Color="#808080" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s28">
+   <Interior/>
+  </Style>
+  <Style ss:ID="s29">
+   <Font/>
+   <Interior ss:Color="#969696" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s30">
+   <Font x:Family="Swiss" ss:Bold="1"/>
+   <Interior ss:Color="#CCFFCC" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="revision funcional">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="104" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultColumnWidth="60">
+   <Column ss:Index="2" ss:AutoFitWidth="0" ss:Width="663.75"/>
+   <Row ss:Index="2">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MONITOR</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Centrar las imagenes de cada planta en radio de 10KM (cuadrado)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Dejar niveles de zoom 1, 9 y el mayor que muestre 20KM2 con epicentro en la planta</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Arreglar el buscar</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO?</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">En Menu BUSCAR agregar radiobutton de ticket =&gt; centrar en la obra de destino</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">En Menu FILTROS cambiar el listbox de Domicilios por el Listbox especial con iconos de categoria y marca de inhibición de alarmas</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"/>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">En menu VER agregar botones de:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Clientes</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO?</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Obras </Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Puntos de Control (solo los de las obras activas y desde las plantas de origen)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">En puntos de interes mostrar todos los que NO son los anteriores</Data></Cell>
+   </Row>
+   <Row ss:Index="14">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">INFO MOVIL</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Agregar Tiempo real Automático</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Mostrar solo atrasos en ROJO, DELANTOS AMARILLO, el resto sin color BG</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Agregar Fecha, Nro de Ticket, PRoducto, Metros y Minutos para Frague</Data></Cell>
+   </Row>
+   <Row ss:Index="19">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CONSOLA DE MENSAJES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Reemplazar listboxes de clientes y obras por check &quot;Mostrar en Servicio&quot;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD </Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Mostrar mensajes de ciclo logístico</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Agregar el listbox (seleccion múltiple) con los mensajes de usuario</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Los mensajes de sistema deben mostrarse sólo si el usuario es Admin</Data></Cell>
+   </Row>
+   <Row ss:Index="25">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ENVIO DE MENSAJES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Envio de Tablas NO se está encolando</Data></Cell>
+   </Row>
+   <Row ss:Index="28">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">STORE DE DUPLICACION DE ESTADOS POR PLANTA</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">dos parametros, planta y estado y hacer lo que corresponda</Data></Cell>
+   </Row>
+   <Row ss:Index="31">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TIPOS DE PUNTOS DE INTERES:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Agregar checks de Es Cliente, Es Obra, Es Planta, Es Particular (tanto planta como obra SON inhibidores de Alarmas)</Data></Cell>
+   </Row>
+   <Row ss:Index="34">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PUNTOS DE INTERES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">No mostrar como categorías editables (filtrar combo de la lista principal) a las Plantas, Obras, Clientes y Particulares</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Agregar un label de la categoría del punto en edición</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">En control de edicion de punto / area verificar que el radio sea el default de la categoría o el propio si fue salvado</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">En caso que el domicilio NO estuviera seteado pues no es nomenclable, obtener esquina mas cercana y setear dirección</Data></Cell>
+   </Row>
+   <Row ss:Index="40">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CONTROL DE ALTA DE DOMICILIOS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">No está seteando bien el combo de tipo de domicilio</Data></Cell>
+    <Cell ss:StyleID="s28"/>
+   </Row>
+   <Row ss:Index="43">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PLANTAS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Llamar al store de duplicacion (mensajes y estados)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Seleccionar automaticamente el Tipo De domicilio Planta y deshabilitar combo</Data></Cell>
+   </Row>
+   <Row ss:Index="47">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CLIENTES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Agregar ordenar por descri y por codigo</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s29"><Data ss:Type="String">Agregar buscar por descri, por codigo cliente y por codigo obra</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Agregar filtro de &quot;Con obras Vigentes&quot; (default TRUE)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN </Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Recuadrar los campos traidos de la interfase y llamarlos &quot;Dirección SAP&quot;</Data></Cell>
+   </Row>
+   <Row ss:StyleID="s28">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Seleccionar automaticamente el Tipo De domicilio Cliente y deshabilitar combo</Data></Cell>
+   </Row>
+   <Row ss:Index="54">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">OBRAS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">Agregar header a la grilla</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Ordenar por los campos</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Buscar por los campos</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Agregar filtro de &quot;Vigentes&quot; (default TRUE)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN </Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Recuadrar los campos traidos de la interfase y llamarlos &quot;Dirección SAP&quot;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Agregar administración de Puntos de Control</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Seleccionar automaticamente el Tipo De domicilio Obra y deshabilitar combo</Data></Cell>
+   </Row>
+   <Row ss:Index="63">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">VEHICULOS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">No está actualizando (o no lee el valor) de TIPO DE VEHICULO</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"/>
+    <Cell ss:StyleID="s28"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PERSONAS / CHOFERES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Seleccionar automaticamente el Tipo De domicilio Particular y deshabilitar combo</Data></Cell>
+   </Row>
+   <Row ss:Index="69">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ESTADOS LOGÍSTICOS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Agregar Checks de &quot;Cargando&quot; y &quot;Descargando&quot;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Agregar Check de &quot;Informar a CMD&quot;</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Ocultar filtro de locacion y planta</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Llamar a Store de duplicacion</Data></Cell>
+   </Row>
+   <Row ss:Index="75">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MENSAJES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">Volver al seteo correcto del tipo de mensaje que se está editando (recordar locación, planta y tipo de mensaje)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s29"><Data ss:Type="String">Agregar check &quot;es Alarma&quot; para poder ignorarla si sucede en un lugar inhibidor</Data></Cell>
+   </Row>
+   <Row ss:Index="79">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HISTORICO DE RECORRIDOS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Mostrar info de ticket en lugar de horario</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Reemplazar botones de terminal, seccion y parada por Obra, Puntos de Control y Planta</Data></Cell>
+   </Row>
+   <Row ss:Index="83">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HANDLER COMANDO</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">No está creando las tablas en salientes</Data></Cell>
+   </Row>
+   <Row ss:Index="86">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HANDLER TROMPO</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Terminar de persistir los valores y analizar cambio de giro para insertarlo como evento (si en obra: Descargando, sin en inhibidor: nada, sino: Descarga Indebida)</Data></Cell>
+   </Row>
+   <Row ss:Index="89">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HANDLER DE SECCIONES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Automatizar los estados A OBRA, EN OBRA, A PLANTA y EN PATIO + time tracking de los puntos de control. Revisar fin de tickets.</Data></Cell>
+   </Row>
+   <Row ss:Index="92">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HANDLER DE POSICION</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN </Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">No calcular exceso porque lo hace Sampe en el equipo</Data></Cell>
+   </Row>
+   <Row ss:Index="95">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HANDLER DE ENTRANTES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">PROD</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Ignorar la registración de los mensajes de tipo alarma que ocurren en inhibidores.</Data></Cell>
+   </Row>
+   <Row ss:Index="98">
+    <Cell ss:StyleID="s21"/>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">INTERFASES</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">CMD2AVL: Cuando crea Ticket Tener en cuenta el &quot;es Descargando&quot; para setear el tiempo que viene del ticket en lugar del delta</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">DEMO</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">AVL2CMD: Informar a CMD SOLO los estados que tienen el check en true</Data></Cell>
+   </Row>
+   <Row ss:Index="102">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN</Data></Cell>
+    <Cell ss:StyleID="s30"><Data ss:Type="String">CONSOLA DE TICKETS</Data></Cell>
+   </Row>
+   <Row ss:Index="104">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">FIN</Data></Cell>
+    <Cell ss:StyleID="s30"><Data ss:Type="String">REPORTES</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0"/>
+    <Footer x:Margin="0"/>
+    <PageMargins x:Bottom="0.984251969" x:Left="0.78740157499999996"
+     x:Right="0.78740157499999996" x:Top="0.984251969"/>
+   </PageSetup>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <VerticalResolution>0</VerticalResolution>
+   </Print>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>5</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

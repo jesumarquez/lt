@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4405C329-0AA4-450E-9268-17E52EFD390E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Urbetrack.Torino</RootNamespace>
+    <AssemblyName>Urbetrack.Torino</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TorinoGatewayLayer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Urbetrack.Tracer\Urbetrack.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Urbetrack.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Urbetrack.Comm.Core.csproj">
+      <Project>{7127B32A-E683-42B9-8F5C-9FD79589BECF}</Project>
+      <Name>Urbetrack.Comm.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TorinoWrapper\Urbetrack.TorinoWrapper.csproj">
+      <Project>{C1CB05DA-B6AF-4741-8121-FDF2B6D77021}</Project>
+      <Name>Urbetrack.TorinoWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Description\Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Description</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\MemCache\Urbetrack.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Urbetrack.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Model\Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Lomax\src\Common\Urbetrack.Types\Urbetrack.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Urbetrack.Types</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.Organizacion.Asegurable,Logictracker.Types" table="[soc.sys_func_01_tbl_asegurables]" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_sysfunc01" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <property column="sysfunc01_referencia" name="Referencia" />
+
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Periodo,Logictracker.Types" table="parenti33" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti33" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti33_descri" type="String" name="Descripcion" not-null="true" length="50" />
+    <property column="parenti33_estado" type="Int16" name="Estado" not-null="true" />
+    <property column="parenti33_fechadesde" type="DateTime" name="FechaDesde" not-null="true" />
+    <property column="parenti33_fechahasta" type="DateTime" name="FechaHasta" not-null="true" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    
+    <set name="_detalles" access="field" table="parenti34" lazy="true" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti33" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.DetallePeriodo, Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

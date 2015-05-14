@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://pss/ho/fleet/wservices/gpsfleetws/transaction/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="GpsFleetService" targetNamespace="http://pss/ho/fleet/wservices/gpsfleetws/transaction/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://pss/ho/fleet/wservices/gpsfleetws/transaction/">
+      <xsd:element name="getFirstPendingTransaction">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="user" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="password" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="company" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="last_id" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="car_plate" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="date_from" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getFirstPendingTransactionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="car_plate" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="trx_id" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="trx_date" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="car_kilometer" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="trx_volume" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="store" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="pump" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="hose" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="prod_id" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="tag_id" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="vehicle_id" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="ppu" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="amount" type="xsd:string" />
+            <xsd:element minOccurs="0" maxOccurs="1" name="lastinformed_error_msg" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="setLastInformedTransaction">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="user" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="password" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="company" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="trx_id" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="setLastInformedTransactionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="lastinformed_error_msg" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getFirstPendingTransactionResponse">
+    <wsdl:part name="pendingTransactionResponse" element="tns:getFirstPendingTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="setLastInformedTransactionResponse">
+    <wsdl:part name="lastInformedTransactionResponse" element="tns:setLastInformedTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="setLastInformedTransactionRequest">
+    <wsdl:part name="lastInformedTransaction" element="tns:setLastInformedTransaction" />
+  </wsdl:message>
+  <wsdl:message name="getFirstPendingTransactionRequest">
+    <wsdl:part name="pendingTransaction" element="tns:getFirstPendingTransaction" />
+  </wsdl:message>
+  <wsdl:portType name="GpsFleetService">
+    <wsdl:operation name="getFirstPendingTransaction">
+      <wsdl:input message="tns:getFirstPendingTransactionRequest" />
+      <wsdl:output message="tns:getFirstPendingTransactionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="setLastInformedTransaction">
+      <wsdl:input message="tns:setLastInformedTransactionRequest" />
+      <wsdl:output message="tns:setLastInformedTransactionResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GpsFleetServiceSOAP" type="tns:GpsFleetService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getFirstPendingTransaction">
+      <soap:operation soapAction="http://pss/ho/fleet/wservices/gpsfleetws/getFirstPendingTransaction" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setLastInformedTransaction">
+      <soap:operation soapAction="http://pss/ho/fleet/wservices/gpsfleetws/setLastInformedTransaction" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GpsFleetService">
+    <wsdl:port name="GpsFleetServiceSOAP" binding="tns:GpsFleetServiceSOAP">
+      <soap:address location="http://www.example.org/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

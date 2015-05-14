@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Support.SupportTicket,Logictracker.Types" table="[aud.aud_sup_01_cab_support]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_audsup01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="audsup01_datetime" type="DateTime" name="Fecha" not-null="true" />
+    <property column="audsup01_nombre" type="String" name="Nombre" not-null="true" />
+    <property column="audsup01_telefono" type="String" name="Telefono" />
+    <property column="audsup01_mail" type="String" name="Mail" />
+    <property column="audsup01_tipoproblema" type="Int16" name="TipoProblema" not-null="true" />
+    <property column="audsup01_categoria" type="Int16" name="Categoria" not-null="true" />
+    <property column="audsup01_descri" type="String" name="Descripcion" not-null="true" />
+    <property column="audsup01_filename" type="String" name="FileName" />
+    <property column="audsup01_baja" type="Boolean" name="Baja" />
+    <property column="audsup01_nivel" type="Int16" name="Nivel" not-null="true" />
+    <property column="audsup01_maillist" type="String" name="MailList" />
+    <property column="audsup01_funcion" type="Int32" name="Funcion" />
+    <property column="audsup01_inicio" type="DateTime" name="FechaInicio" />
+    <property column="audsup01_nroparte" name="NroParte" />
+
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti03" name="Vehiculo" lazy="proxy" />
+    <many-to-one column="rela_parenti08" name="Dispositivo" lazy="proxy" />
+
+    <many-to-one column="rela_audsup03" name="CategoriaObj" lazy="proxy" />
+    <many-to-one column="rela_audsup04" name="Subcategoria" lazy="proxy" />
+    <many-to-one column="rela_audsup05" name="NivelObj" lazy="proxy" />
+
+    <set name="_states" access="field" lazy="false" inverse="true" cascade="all-delete-orphan" order-by="audsup02_datetime">
+      <cache usage="read-write" />
+      <key column="rela_audsup01" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Support.SupportTicketDetail,Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

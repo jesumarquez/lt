@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics"
+	xmlns:g="http://walks.ath.cx/generics"
+	xmlns:fe="http://walks.ath.cx/frontend"
+  	xmlns:scheduler="http://walks.ath.cx/e/urbetrackscheduler"
+  	fe:Title="Urbetrack Positions Generator"
+  	x:Key="Default"
+  	RunMode="WinService">
+  
+	<scheduler:UrbetrackScheduler />
+</Application>

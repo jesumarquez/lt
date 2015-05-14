@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Sistema.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Sistema,Logictracker.Types" table="sysfunc02" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_sysfunc02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="sysfunc02_descri" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="sysfunc02_url" type="String" name="Url" not-null="true" length="128" />
+    <property column="sysfunc02_orden" type="Int16" name="Orden" />
+    <property column="sysfunc02_enabled" type="Int16" name="Enabled" not-null="true" />
+  </class>
+</hibernate-mapping>

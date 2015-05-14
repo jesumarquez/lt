@@ -1,0 +1,10 @@
+*VID_10C4&PID_8054*
+Enfora LP
+mmtbus.inf
+mmtwdm.inf
+slabvxd.inf
+NoQuiet
+NoLeaveSource
+MMTCOMM&10C4&8054
+C:\Program Files\Enfora\MiniMT\USB
+C:\Program Files\Enfora\MiniMT\USB

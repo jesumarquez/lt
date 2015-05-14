@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.VigenciaPlanLinea,Logictracker.Types" table="parenti75" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti75" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti75_inicio" type="DateTime" name="Inicio" />
+    <property column="parenti75_fin" type="DateTime" name="Fin" />
+
+    <many-to-one column="rela_parenti73" name="Plan" lazy="proxy" />
+    <many-to-one column="rela_parenti74" name="LineaTelefonica" lazy="proxy" />
+  </class>
+</hibernate-mapping>

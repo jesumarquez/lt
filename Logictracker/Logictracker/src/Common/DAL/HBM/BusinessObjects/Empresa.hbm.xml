@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.Empresa,Logictracker.Types" table="parenti01" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_parenti01" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <property column="parenti01_razsoc" name="RazonSocial" />
+        <property column="parenti01_fantasia" name="Fantasia" />
+        <property column="parenti01_baja" name="Baja" not-null="true" />
+        <property column="parenti01_codigo" name="Codigo" />
+        <property column="parenti01_time_zone_id" name="TimeZoneId" />
+        <property column="parenti01_identifica_choferes" name="IdentificaChoferes" />
+        <property column="parenti01_coches_por_distrito" type="Boolean" name="CochesPorDistrito" />
+        <property column="parenti01_frecuencia_reporte" name="FrecuenciaReporte" />
+
+      <bag name="Parametros" order-by="parenti13_parametro ASC"
+                inverse="true"
+                cascade="all-delete-orphan">
+        <cache usage="read-write" />
+        <key column="rela_parenti01" />
+        <one-to-many class="Logictracker.Types.BusinessObjects.ParametroEmpresa, Logictracker.Types" />
+      </bag>
+      
+    </class>
+</hibernate-mapping>

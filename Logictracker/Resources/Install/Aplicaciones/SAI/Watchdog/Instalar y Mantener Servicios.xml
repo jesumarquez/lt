@@ -1,0 +1,32 @@
+<Application  xmlns="http://walks.ath.cx/framework"
+              xmlns:x="http://walks.ath.cx/statics"
+              xmlns:fe="http://walks.ath.cx/frontend">
+
+  <Resources fe:Label="Recursos de Instalacion">
+
+    <FailureAction x:Key="restartServiceAction"
+                   RecoverAction="1"
+                   Delay="300"/>
+  </Resources>
+
+  <WinServiceGroup x:Key="winServiceGroup"
+        fe:Label="Urbetrack Helpers"
+        ServiceNamePrefix="Urbetrack.Helpers$"
+        AutomaticInstall="true"
+        AutomaticUpdate="true"
+        AutomaticUninstall="true"
+        Purge="false">
+               
+	<WinService x:Key="urbetrackWatchdog"
+			HostApplication="Applications\Watchdog.xml"
+			ServiceName="Watchdog"
+			DisplayName="3 - Watchdog"
+			Description="Servicio de scheduling de tareas."
+			StartMode="Automatic"
+			ServiceAccount="NetworkService"
+			FirstFailureAction="{StaticResource restartServiceAction}"
+			SecondFailureAction="{StaticResource restartServiceAction}"
+			SubsequentFailuresAction="{StaticResource restartServiceAction}"
+			ResetFailCounterAfter="86400"/>
+  </WinServiceGroup>
+</Application>

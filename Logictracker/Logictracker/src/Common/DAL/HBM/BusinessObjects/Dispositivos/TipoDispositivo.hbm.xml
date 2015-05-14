@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.TipoDispositivo,Logictracker.Types" table="parenti32" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti32" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti32" name="TipoDispositivoPadre" lazy="proxy" />
+    <many-to-one column="rela_parenti24" name="Firmware" lazy="proxy" />
+
+    <property column="parenti32_modelo" type="String" name="Modelo" not-null="true" length="50" />
+    <property column="parenti32_fabricante" type="String" name="Fabricante" length="50" />
+    <property column="parenti32_cola_comandos" type="String" name="ColaDeComandos" />
+    <property column="parenti32_baja" type="Boolean" name="Baja" />
+
+    <set name="_tiposParametro" access="field" table="parenti31" lazy="true" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti32" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Dispositivos.TipoParametroDispositivo, Logictracker.Types" />
+    </set>
+
+    <set name="_dispositivos" access="field" table="parenti08" lazy="true" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti32" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Dispositivos.Dispositivo, Logictracker.Types" />
+    </set>
+
+    <set name="_configuraciones" access="field" table="parenti51" lazy="true" cascade="all">
+      <cache usage="read-write" />
+      <key column="rela_parenti32" />
+      <many-to-many column="rela_parenti49" class="Logictracker.Types.BusinessObjects.Dispositivos.ConfiguracionDispositivo,Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

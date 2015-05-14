@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="Urbetrack.FleetManagment.View.AllMobilesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <CollectionViewSource
+      x:Key="MobileGroups" 
+      Source="{Binding Path=AllMobiles}"
+      >
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="District" />
+            </CollectionViewSource.GroupDescriptions>
+            <CollectionViewSource.SortDescriptions>
+                <!-- 
+        Sort descending by IsCompany so that the 'True' values appear first,
+        which means that companies will always be listed before people.
+        -->
+                <scm:SortDescription PropertyName="District" Direction="Ascending" />
+                <scm:SortDescription PropertyName="Base" Direction="Ascending" />
+                <scm:SortDescription PropertyName="Vehicle" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <GroupStyle x:Key="MobileGroupStyle">
+            <GroupStyle.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock 
+            x:Name="txt" 
+            Background="{StaticResource Brush_HeaderBackground}"
+            FontWeight="Bold"
+            Foreground="White"
+            Margin="1"
+            Padding="4,2,0,2"
+            Text="{Binding Path=Name}"
+            />
+                    
+                </DataTemplate>
+            </GroupStyle.HeaderTemplate>
+        </GroupStyle>
+
+        <Style x:Key="MobileItemStyle" TargetType="{x:Type ListViewItem}">
+            <!-- 
+      Stretch the content of each cell so that we can 
+      right-align text in the Total Sales column. 
+      -->
+            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+            
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <!-- 
+      Bind the IsSelected property of a ListViewItem to the 
+      IsSelected property of a CustomerViewModel object.
+      -->
+            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="ItemsControl.AlternationIndex" Value="1" />
+                        <Condition Property="IsSelected" Value="False" />
+                        <Condition Property="IsMouseOver" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="#EEEEEEEE" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <ListView 
+      AlternationCount="2" 
+      DataContext="{StaticResource MobileGroups}" 
+      ItemContainerStyle="{StaticResource MobileItemStyle}"
+      ItemsSource="{Binding}" KeyUp="ListView_KeyUp" Name="movilList">
+            <ListView.GroupStyle>
+                <StaticResourceExtension 
+          ResourceKey="MobileGroupStyle" 
+          />
+            </ListView.GroupStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn 
+            Header="Base" 
+            DisplayMemberBinding="{Binding Path=Base}" 
+            />
+                    <GridViewColumn 
+            Header="Vehicle" 
+            DisplayMemberBinding="{Binding Path=Vehicle}" 
+            />
+                    <GridViewColumn 
+            Header="Device" 
+            DisplayMemberBinding="{Binding Path=Device}" 
+            />
+                    <GridViewColumn 
+            Header="IMEI" 
+            DisplayMemberBinding="{Binding Path=IMEI}" 
+            />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</UserControl>

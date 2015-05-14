@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.Tickets.BocaDeCarga,Logictracker.Types" table="[par.par_tick_04_cab_bocadecarga]" lazy="true">
+
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_partick04" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+
+        <property column="partick04_codigo" name="Codigo" />
+        <property column="partick04_descripcion" name="Descripcion" />
+        <property column="partick04_rendimiento" name="Rendimiento" />
+        <property column="partick04_horaslaborales" name="HorasLaborales" />
+        <property column="partick04_horainicio" name="HoraInicioActividad" />
+        <property column="partick04_baja" name="Baja" />
+
+    </class>
+</hibernate-mapping>

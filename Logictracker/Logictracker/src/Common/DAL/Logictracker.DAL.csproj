@@ -1,0 +1,796 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.DAL</RootNamespace>
+    <AssemblyName>Logictracker.DAL</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/Urbetrack.DAL/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.0.1, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="LinFu.DynamicProxy, Version=1.0.3.14911, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\LinFu.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\Memcached.ClientLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.LinFu, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\NHibernate.ByteCode.LinFu.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAO\AuditedClassesHelper.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Taller.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.SubCentroDeCosto.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoZona.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoZonaAcceso.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.CategoriaAcceso.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoDispositivo.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Nivel.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Subcategoria.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Categoria.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.DepositoDestino.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Insumo.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Deposito.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Departamento.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoProveedor.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Chofer.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Proveedor.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.ConsumoCabecera.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Mensaje.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.DetallePadre.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.SubEntidad.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoMedicion.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Dispositivo.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Sensor.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Entidad.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoEntidad.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.ViajeDistribucion.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Pedido.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Producto.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Marca.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.BocaDeCarga.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Modelo.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoInsumo.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoReferenciaGeografica.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoEmpleado.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Empleado.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.PuntoEntrega.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.TipoVehiculo.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Cliente.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Vehiculo.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.CentroDeCosto.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Transportista.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Linea.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Empresa.cs" />
+    <Compile Include="DAO\BaseClasses\Interfaces\IGenericDAO.cs" />
+    <Compile Include="DAO\BaseClasses\MaintenanceDAO.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.cs" />
+    <Compile Include="DAO\BaseClasses\ReportDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Auditoria\EntityAuditDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Auditoria\LoginAuditDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\AgendaVehicularDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\TipoServicioCicloDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\ViajeDistribucionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\RecorridoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\TimeTracking\EventoViajeDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlAcceso\CategoriaAccesoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\EventoCombustibleDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\DataMartsLogDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\LogicLinkFileDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\DatamartViajeDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\DatamartDistribucionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\TicketMantenimientoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\AtencionEventoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\LastVehicleEventDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\EvenDistriDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\SubCentroDeCostosDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\InfraccionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ReferenciasGeograficas\TipoZonaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ZonaAccesoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\TipoZonaAccesoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ZonaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\DepartamentoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\DetalleRecorridoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\ConfiguracionDispositivoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\PrecintoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\ReportsCacheDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\DetalleDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\MedicionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\LogEventoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\MedicionDAO.extras.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\SensorDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\SubEntidadDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\EntidadDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\TipoMedicionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Entidades\TipoEntidadDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\EventoAccesoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\LineaTelefonicaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\ConsumoCabeceraDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\ConsumoDetalleDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\StockDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\DepositoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\TipoProveedorDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\TipoInsumoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\ProveedorDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Mantenimiento\InsumoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\LogMensajeDAO.extras.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\LogMensajeDAO.MobileTour.cs" />
+    <Compile Include="DAO\BusinessObjects\PlanDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ProductoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\AccionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CentroDeCostosDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\MotivoConciliacionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\MovimientoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\TanqueDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\TipoMovimientoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\VolumenHistoricoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\CaudalimetroDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ControlDeCombustible\VolumenHistoricoInvalidoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\FeriadoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\LogMensajeDescartadoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\LogUltimoLoginDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\PuntajeExcesoTiempoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\PuntajeExcesoVelocidadDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Organizacion\AsegurableDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Postal\DistribuidorDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Postal\MotivoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Postal\RutaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Postal\TipoServicioDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\PuertaAccesoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Support\CategoriaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Support\SubCategoriaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Support\NivelDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Support\SupportTicketDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Sync\OutStateDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Sync\OutQueueDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Tickets\BocaDeCargaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Tickets\CicloLogisticoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Tickets\DetalleCicloDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Tickets\PedidoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Tickets\ServicioDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\UnidadMedidaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\TransportistaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\CocheOperacionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\ModeloDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\MovOdometroVehiculoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\OdometroDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\PeriodoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Positions\LogPosicionHistoricaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\PuntoEntregaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ReferenciasGeograficas\ReferenciaGeograficaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ReferenciasGeograficas\TipoReferenciaGeograficaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\TallerDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\TarifaTransportistaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\TipoEmpleadoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\DetalleDispositivoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Documentos\DocumentoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Documentos\TipoDocumentoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\FirmwareDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Positions\LogPosicionDescartadaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\TarjetaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\TipoDispositivoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\TipoParametroDispositivoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\ShiftDAO.cs" />
+    <Compile Include="NHibernate\Interceptors\ReferenciaGeograficaLifeCycleInterceptor.cs" />
+    <Compile Include="DAO\ReportObjects\AcumulatedHoursDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\CentroDeCargaRemitosDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\CentroDeCostosDespachosDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\CombustibleEventsDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\ConsistenciaStockDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\ConsistenciaStockGraphDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\ConsistenciaStockPozoDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\ConsumoCaudalMotorDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\ConsumoDiarioDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\ConsumosPorMotorDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\IngresosPorTanqueDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\MarchaPorMotorDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ControlDeCombustible\NivelesTanqueDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\DatamartDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RankingVehiculosDAO.cs" />
+    <Compile Include="DAO\ReportObjects\VerificadorEmpleadoDAO.cs" />
+    <Compile Include="DAO\ReportObjects\LogProgramacionReporteDAO.cs" />
+    <Compile Include="DAO\ReportObjects\ProgramacionReporteDAO.cs" />
+    <Compile Include="DAO\ReportObjects\DetentionTimesDAO.cs" />
+    <Compile Include="DAO\ReportObjects\IdleTimesDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobilePoiHistoricDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileUtilizationDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RankingDeOperadores\InfractionDetailDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MaxSpeedsDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileActivityDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileDriversByDayDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileDriversDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileExtraHoursDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileGeocercasDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileMaintenanceDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileMessageDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobilePoiDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobilePositionDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileRoutesDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobilesKilometersDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileStadisticsDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobilesTimeDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileStoppedEventDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MonthlyKilometersDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MonthlyTimesDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\EmpleadoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\ClienteDAO.cs" />
+    <Compile Include="DAO\ReportObjects\OdometroStatusDAO.cs" />
+    <Compile Include="DAO\ReportObjects\OperatorActivityDAO.cs" />
+    <Compile Include="DAO\ReportObjects\OperatorMobilesByDayDAO.cs" />
+    <Compile Include="DAO\ReportObjects\OperatorMobilesDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RankingDeOperadores\OperatorRankingDAO.cs" />
+    <Compile Include="DAO\ReportObjects\OperatorStadisticsDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RankingDeOperadores\PuntajeExcesoTiempoDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RankingDeOperadores\PuntajeExcesoVelocidadDAO.cs" />
+    <Compile Include="DAO\ReportObjects\StoppedHoursDAO.cs" />
+    <Compile Include="DAO\ReportObjects\TicketReportDAO.cs" />
+    <Compile Include="DAO\ReportObjects\TransportActivityDAO.cs" />
+    <Compile Include="DAO\ReportObjects\VehicleUtilizationDAO.cs" />
+    <Compile Include="DAO\ReportObjects\WorkedHoursDAO.cs" />
+    <Compile Include="DAO\SindicaturaDAO.cs" />
+    <Compile Include="Factories\DaoFactory.cs" />
+    <Compile Include="DAO\BusinessObjects\Tickets\DetalleTicketDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Dispositivos\DispositivoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\EmpresaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\EstadoDAO.cs" />
+    <Compile Include="Factories\ReportFactory.cs" />
+    <Compile Include="DAO\BusinessObjects\FuncionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\IconoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\LineaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\LogMensajeDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Positions\LogPosicionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\MarcaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\MensajeDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\MovMenuDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\EquipoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\PerfilDAO.cs" />
+    <Compile Include="DAO\ReportObjects\MobileEventDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RouteEventDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\RoutePositionsDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\SistemaDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\SonidoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Tickets\TicketDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\TipoCocheDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\TipoMensajeDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\UsuarioDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Vehiculos\CocheDAO.cs" />
+    <Compile Include="DAO\BaseClasses\GenericDAO.cs" />
+    <Compile Include="Filtros\Filtro.cs" />
+    <Compile Include="NHibernate\DriverConnectionProvider.cs" />
+    <Compile Include="NHibernate\NHibernateHelper.cs" />
+    <Compile Include="NHibernate\SessionHelper.cs" />
+    <Compile Include="NHibernate\SmartTransaction.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\Coche.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\LogMensaje.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Empresa.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Linea.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\Marca.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Transportista.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Empleado.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Icono.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\Mensaje.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\Accion.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Usuario.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Perfil.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\MovMenu.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidad.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Sistema.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Funcion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Positions\LogPosicion.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Sonido.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\TipoCoche.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Cliente.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Equipo.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Estado.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
+      <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
+      <Name>Logictracker.Culture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueueStatus\Logictracker.QueueStatus.csproj">
+      <Project>{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}</Project>
+      <Name>Logictracker.QueueStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Tarjeta.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\Firmware.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Documentos\Documento.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Documentos\DocumentoValor.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Documentos\TipoDocumento.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Documentos\TipoDocumentoEstrategia.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Documentos\TipoDocumentoParametro.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\Dispositivo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\DetalleDispositivo.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\TipoDispositivo.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\TipoParametroDispositivo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Positions\LogPosicionDescartada.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Periodo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\DetallePeriodo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\Tanque.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\TarifaTransportista.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CentroDeCostos.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\Movimiento.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\TipoMovimiento.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\VolumenHistorico.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\Poligono.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\Caudalimetro.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\ReferenciaVelocidad.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\Punto.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\Odometro.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\EventoCombustible.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\MovOdometroTipoVehiculo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\MovOdometroVehiculo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\TipoEmpleado.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\TipoMensaje.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\MotivoConciliacion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\Direccion.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\ReferenciaGeografica.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\TipoReferenciaGeografica.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\HistoriaGeoRef.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\TipoReferenciaVelocidad.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Taller.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\PuntoEntrega.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Datamart.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Positions\LogPosicionHistorica.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\LogUltimoLogin.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlDeCombustible\VolumenHistoricoInvalido.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\PuntajeExcesoVelocidad.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\PuntajeExcesoTiempo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\Shift.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Feriado.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\MovShiftsAssigments.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\CicloLogistico.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\DetalleCiclo.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\DetalleServicio.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\Servicio.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\IpRange.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Support\SupportTicket.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Support\SupportTicketDetail.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\ConfiguracionDispositivo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Auditoria\LoginAudit.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Auditoria\EntityAudit.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\LogMensajeDescartado.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\EventoAcceso.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Postal\TipoServicio.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Postal\Distribuidor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Postal\Motivo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Postal\Ruta.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\PuertaAcceso.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\BocaDeCarga.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\DetalleTicket.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\Pedido.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Tickets\Ticket.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\ViajeDistribucion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Organizacion\Asegurable.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Organizacion\AseguradoEnPerfil.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\sindicatura.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\ConsumoCabecera.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\Insumo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\TipoInsumo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\Proveedor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\Modelo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Organizacion\ParametroUsuario.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\LogProgramacionReporte.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Producto.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\ReportsCache.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\LineaTelefonica.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Plan.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\VigenciaPlanLinea.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\TipoEntidad.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\TipoMedicion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\Entidad.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\Sensor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\SubEntidad.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\Medicion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Dispositivos\Precinto.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\Detalle.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\DetalleValor.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\ProgramacionReporte.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Entidades\LogEvento.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\ConsumoDetalle.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\UnidadMedida.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\TipoProveedor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\CocheOperacion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Departamento.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ParametroEmpresa.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\TimeTracking\EventoViaje.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\DetalleRecorrido.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Recorrido.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\Deposito.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\Stock.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\TipoServicioCiclo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Support\Categoria.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Support\Subcategoria.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Support\Nivel.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Sync\OutQueue.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Sync\OutState.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ControlAcceso\CategoriaAcceso.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Zona.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\TipoZonaAcceso.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ZonaAcceso.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciaZona.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ReferenciasGeograficas\TipoZona.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\Infraccion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\SubCentroDeCostos.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\DatamartDistribucion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\EvenDistri.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\DatamartViaje.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\TicketMantenimiento.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\HistoriaTicketMantenimiento.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\AtencionEvento.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\LastVehicleEvent.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\DataMartsLog.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\LogicLinkFile.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\AgendaVehicular.hbm.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

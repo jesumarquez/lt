@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DispCfg>
+  
+  <!-- 
+  <Queue name=".\Private$\Posicion" resetgw="true">
+    <handler class="OjosDelCielo.CalculaSeccion,PosicionHanlderCals"/>
+  </Queue>
+
+  <Queue name=".\Private$\HandShake" >
+    <handler class="OjosDelCielo.CalculaSeccion2,GuardaEnBase"/>
+  </Queue>
+  -->
+  
+</DispCfg>

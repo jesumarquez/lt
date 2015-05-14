@@ -1,0 +1,30 @@
+El archivo de GPS comienza con G el numero de movil 4 digitos y el instalador 2 digitos
+
+
+
+El archivo inicia con 14 lineas de identificacion
+
+
+1@1@9.8.1                                 "Version de Software del Capture"
+1@2@99                                    "Numero de identificacion de la Empresa"
+1@3@bolland                               "Nombre de la Empresa"
+1@4@15/12/11 13:10                        "Fecha Y Hora de la Captura"
+1@5@0                                     "Reservado"
+1@6@0                                     "Reservado"
+1@7@                                      "Reservado"
+1@8@                                      "Reservado"
+1@9@                                      "Reservado"
+1@10@0                                    "Reservado"
+1@11@0                                    "Reservado"
+1@12@0                                    "Reservado"
+1@13@61800                                "Numero de Movil"                     
+1@14@0                                    "Reservado"
+
+Continua con los datos estos pueden ser variables en cantidad y de distinto tipo
+estan ordenados por fecha hora
+El 2 indica que es un dato el siguente numero es 100(no se que es) y despues sigue 0  el tipo de evento.
+
+
+2@100@0@20111116@160238@-34.482848@-58.634843@6    "Fecha;Hora;Latitud:Longitud;velocidad"
+
+La velocidad ya esta expresada en Km/h

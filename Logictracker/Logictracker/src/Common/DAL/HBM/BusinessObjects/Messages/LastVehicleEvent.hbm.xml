@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.LastVehicleEvent,Logictracker.Types" table="opeeven11" lazy="true">
+    
+    <id name="Id" column="id_opeeven11" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opeeven11_tipo_evento" name="TipoEvento" />
+
+    <many-to-one column="rela_opeeven01" name="LogMensaje" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_parenti03" name="Vehiculo" lazy="proxy" />
+    
+  </class>
+</hibernate-mapping>

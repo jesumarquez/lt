@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ReferenciaZona,Logictracker.Types" table="parenti90" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti90" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+    
+    <many-to-one column="rela_parenti05" name="ReferenciaGeografica" lazy="proxy" />
+    <many-to-one column="rela_parenti89" name="Zona" lazy="proxy" />
+    
+  </class>
+</hibernate-mapping>

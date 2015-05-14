@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Entidad.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Entidad,Logictracker.Types" table="socusua05" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_socusua05" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="socusua05_apellido" type="String" name="Apellido" length="255" />
+    <property column="socusua05_nombre" type="String" name="Nombre" />
+    <property column="socusua05_tipodoc" type="String" name="TipoDocumento"  length="10" />
+    <property column="socusua05_nrodoc" type="String" name="NroDocumento"  length="13" />
+    <property column="socusua05_cuil" type="String" name="Cuil" length="13" />
+    <property column="socusua05_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_pargeom01" name="Direccion" not-null="false" cascade="all-delete-orphan" lazy="proxy" />
+  </class>
+</hibernate-mapping>

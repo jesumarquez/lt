@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="true" namespace="Geocoder.Core" assembly="Geocoder.Core">
+	<class name="PalabraPosicionada" table="palabraposicionada" lazy="true">
+    <cache usage="read-write" />
+
+    <!-- Primary Key(s) -->
+		<id name="Id" column="id_palabraposicionada" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="papo_posicion" type="Int32" name="Posicion" not-null="true" />
+		<many-to-one name="Palabra" class="Palabra" column="fk_palabra" not-null="true" lazy="proxy" index="IX_PalPos_Palabra" />
+	</class>
+</hibernate-mapping>

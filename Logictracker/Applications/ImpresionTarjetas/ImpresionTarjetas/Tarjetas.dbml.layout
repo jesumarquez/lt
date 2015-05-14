@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Tarjetas">
+  <DataContextMoniker Name="/TarjetasDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fd3fee72-4642-4c47-9757-fc232d9d812b" absoluteBounds="3.375, 0.625, 2, 1.3862939453125">
+      <DataClassMoniker Name="/TarjetasDataContext/upcode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b13e4f4b-55f4-47fd-9988-f49de550d2d0" absoluteBounds="3.3899999999999997, 1.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cbdccfc5-403a-4462-98e0-92bc66506113" absoluteBounds="0.5, 0.5, 2, 3.8862125651041666">
+      <DataClassMoniker Name="/TarjetasDataContext/chofer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2d14b93d-99d3-4346-8022-2e01f7412585" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b95b9602-b0c0-461f-aa81-581fe071f1db" absoluteBounds="0.875, 4.625, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/TarjetasDataContext/imprimir" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4751e3a5-7ea3-4f9e-a772-099acdb99e48" absoluteBounds="0.89000000000000012, 5.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="32e0f8d8-71da-4679-8138-4a7d440441aa" absoluteBounds="3.5, 2.875, 2, 3.1170068359374996">
+      <DataClassMoniker Name="/TarjetasDataContext/empleado" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bacf7575-feeb-46db-96cb-c388e2326d3e" absoluteBounds="3.515, 3.335, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c92518f6-5253-430b-9021-4b7134a8e244" absoluteBounds="5.75, 2, 2, 5.0400211588541657">
+      <DataClassMoniker Name="/TarjetasDataContext/back" />
+      <nestedChildShapes>
+        <elementListCompartment Id="52267bbf-c330-41d7-abdf-acd959c5c89a" absoluteBounds="5.765, 2.46, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2b35871c-14ae-42a2-a301-3abf25d9daae" absoluteBounds="5.625, 0.5, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/TarjetasDataContext/empresa" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7bbe7df1-ca43-4994-8294-b7b05d9061b9" absoluteBounds="5.64, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.Mensaje,Logictracker.Types" table="pareven01" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_pareven01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti02" name="Linea" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti16" name="TipoMensaje" lazy="proxy" />
+    <many-to-one column="rela_parenti11" name="Icono" lazy="proxy" />
+    <many-to-one column="rela_parenti01" name="Empresa" not-null="false" lazy="proxy" />
+
+    <property column="pareven01_destino" type="Int16" name="Destino" not-null="true" />
+    <property column="pareven01_codigo" type="String" name="Codigo" not-null="true" length="10" />
+    <property column="pareven01_descrip" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="pareven01_mensaje" type="String" name="Texto" not-null="true" length="32" />
+    <property column="pareven01_origen" type="Byte" name="Origen" not-null="true" />
+    <property column="pareven01_ttl" type="Int16" name="Ttl" />
+    <property column="pareven01_baja" type="Boolean" name="EsBaja" not-null="true" />
+    <property column="pareven01_acceso" type="Int16" name="Acceso" not-null="true" />
+    <property column="pareven01_esalarma" type="Boolean" name="EsAlarma" not-null="true" />
+    <property column="pareven01_revision" type="Int32" name="Revision" not-null="true" />
+    <property column="pareven01_es_solo_rta" type="Boolean" name="EsSoloDeRespuesta" not-null="true" />
+
+    <set name="_respuestas" access="field" table="pareven03" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_pareven01_msg" />
+      <many-to-many column="rela_pareven01_rta" class="Logictracker.Types.BusinessObjects.Messages.Mensaje, Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

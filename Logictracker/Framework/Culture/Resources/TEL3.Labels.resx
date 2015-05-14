@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <data name="DISTRIBUCION_INICIAR" xml:space="preserve">
+    <value>Iniciar Despacho</value>
+  </data>
+  <data name="DISTRIBUCION_CERRAR" xml:space="preserve">
+    <value>Cerrar Despacho</value>
+  </data>
+  <data name="DISTRIBUCION_REENVIAR" xml:space="preserve">
+    <value>Reenviar Despacho</value>
+  </data>
+  <data name="DATOS_CENTRO" xml:space="preserve">
+    <value>Datos del Proyecto</value>
+  </data>
+  <data name="DOC_FIELDTYPE_CENTRODECOSTO" xml:space="preserve">
+    <value>Proyecto</value>
+  </data>
+  <data name="ASIGNACION_VEHICULOS" xml:space="preserve">
+    <value>Cuadrillas a asignar</value>
+  </data>
+  <data name="ASSIGNED_VEHICLES" xml:space="preserve">
+    <value>Cuadrillas Asignadas</value>
+  </data>
+  <data name="AVAILABLE_VEHICLES" xml:space="preserve">
+    <value>Cuadrillas Disponibles</value>
+  </data>
+  <data name="CANTIDAD_VEHICULOS" xml:space="preserve">
+    <value>Cantidad de Cuadrillas</value>
+  </data>
+  <data name="GROUP_VEHICULO" xml:space="preserve">
+    <value>Cuadrilla: {0}</value>
+  </data>
+  <data name="VARIACION_VELOCIDAD_CAPTION" xml:space="preserve">
+    <value>Cuadrilla {0}     D&amp;iacute;a: {1:d}     Desde: {2:t}     Hasta: {3:t}</value>
+  </data>
+  <data name="VEHICULOS" xml:space="preserve">
+    <value>Cuadrillas</value>
+  </data>
+  <data name="LAYER_VEHICULOS" xml:space="preserve">
+    <value>Cuadrillas Activas</value>
+  </data>
+  <data name="LAYER_VEHICULOS_INACTIVOS" xml:space="preserve">
+    <value>Cuadrilals Inactivas</value>
+  </data>
+  <data name="VEHICULOS_CERCANOS" xml:space="preserve">
+    <value>Cuadrillas Cercanas</value>
+  </data>
+  <data name="MOVIL_DESDE_HASTA" xml:space="preserve">
+    <value>Cuadrilla {0} - Desde: {1}  Hasta: {2}</value>
+  </data>
+  <data name="ESTADO_VEHICULO" xml:space="preserve">
+    <value>Estado cuadrilla</value>
+  </data>
+  <data name="GROUP_VEHICULOS" xml:space="preserve">
+    <value>- {0} Cuadrillas</value>
+  </data>
+  <data name="GROUP_TIPO_VEHICULO" xml:space="preserve">
+    <value>Tipo de Cuadrilla: {0}</value>
+  </data>
+  <data name="IMPORT_VEHICULOS" xml:space="preserve">
+    <value>Importador de Cuadrillas</value>
+  </data>
+  <data name="IMPORT_VEHICULOS_HELP_TITLE" xml:space="preserve">
+    <value>Bienvienido a la ayuda del Importador de Cuadrillas.</value>
+  </data>
+  <data name="DATOS_VEHICULO" xml:space="preserve">
+    <value>Datos Cuadrilla</value>
+  </data>
+  <data name="DATOS_TIPO_VEHICULO" xml:space="preserve">
+    <value>Datos Tipo Cuadrilla</value>
+  </data>
+  <data name="ASIGNACION_TIPO_VEHICULO" xml:space="preserve">
+    <value>Asignación a Tipo de Cuadrilla</value>
+  </data>
+  <data name="DETALLE_VEHICULO" xml:space="preserve">
+    <value>Detalles de la Cuadrilla</value>
+  </data>
+  <data name="UBICACION_VEHICULO" xml:space="preserve">
+    <value>Ubicación de la Cuadrilla</value>
+  </data>
+  <data name="TIPOS_VEHICULO" xml:space="preserve">
+    <value>Tipos de Cuadrilla</value>
+  </data>
+  <data name="APLICAR_A_PARENTI03" xml:space="preserve">
+    <value>Aplica a Cuadrillas</value>
+  </data>
+  <data name="SUPPORT_TYPE_0_VEHICLE" xml:space="preserve">
+    <value>Cuadrilla</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="DOC_FIELDTYPE_VEHICULO" xml:space="preserve">
+    <value>Cuadrilla</value>
+  </data>
+  <data name="CAPACIDAD_CARGA" xml:space="preserve">
+    <value>Capacidad</value>
+    <comment>Capacidad de carga de una cuadrilla o tipo de cuadrilla</comment>
+  </data>
+  <data name="DISTANCIA_A_OBRA" xml:space="preserve">
+    <value>Distancia a Obra</value>
+    <comment>En un Despacho, distancia desde la planta hasta la obra</comment>
+  </data>
+  <data name="DISTANCIA_TOTAL" xml:space="preserve">
+    <value>Distancia Total</value>
+    <comment>En un Despacho, distancia total recorrida por la Cuadrilla</comment>
+  </data>
+  <data name="PORCENTAJE_LLENADO" xml:space="preserve">
+    <value>Porcentaje Llenado</value>
+    <comment>En un despacho, Cantidad Carga/Capacidad Cuadrilla</comment>
+  </data>
+  <data name="VEHICULO" xml:space="preserve">
+    <value>Cuadrilla</value>
+  </data>
+  <data name="INFRACCIONES_VEHICULOS" xml:space="preserve">
+    <value>Cantidad de cuadrillas con infracciones</value>
+  </data>
+  <data name="INCLUIR_SIN_VEHICULO" xml:space="preserve">
+    <value>Incluir viajes sin cuadrilla</value>
+  </data>
+  <data name="SOLO_DISPOSITIVOS" xml:space="preserve">
+    <value>Sólo cuadrillas con dispositivos</value>
+  </data>
+  <data name="OCULTAR_INACTIVOS" xml:space="preserve">
+    <value>Ocultar cuadrillas inactivas</value>
+  </data>
+  <data name="NO_ES_VEHICULO" xml:space="preserve">
+    <value>No es Cuadrilla</value>
+  </data>
+  <data name="DEPOSITO_A_VEHICULO" xml:space="preserve">
+    <value>Depósito a Cuadrilla</value>
+  </data>
+  <data name="PROVEEDOR_A_VEHICULO" xml:space="preserve">
+    <value>Proveedor a Cuadrilla</value>
+  </data>
+  <data name="TARGETTYPE_MOBILE" xml:space="preserve">
+    <value>Cuadrilla</value>
+  </data>
+  <data name="ASSIGNED_MOBILES" xml:space="preserve">
+    <value>Cuadrillas Asignadas</value>
+  </data>
+  <data name="AVAILABLE_MOBILES" xml:space="preserve">
+    <value>Cuadrillas Disponibles</value>
+  </data>
+  <data name="CONFIG_COCHES" xml:space="preserve">
+    <value>Configuración de Cuadrillas</value>
+  </data>
+  <data name="ENVIAR_MENSAJE_A_MOVIL" xml:space="preserve">
+    <value>Enviar mensaje a Cuadrilla</value>
+  </data>
+  <data name="SUPPORT_CAT_1_0_NO_REPORT" xml:space="preserve">
+    <value>Cuadrillas no reportan</value>
+    <comment>SupportTicket</comment>
+  </data>
+  <data name="PROGRAMACION_MOVILES_NECESARIOS" xml:space="preserve">
+    <value>Cuadrillas Necesarias</value>
+  </data>
+  <data name="MOVILES_ACTIVOS_AHORA" xml:space="preserve">
+    <value>Cuadrillas activas ahora</value>
+  </data>
+  <data name="MOVILES_ACTIVOS_DIA" xml:space="preserve">
+    <value>Cuadrillas activas en el día</value>
+  </data>
+  <data name="TIEMPO_MOVIMIENTO_PROMEDIO" xml:space="preserve">
+    <value>Tiempo en movimiento promedio por Cuadrilla</value>
+  </data>
+  <data name="TIEMPO_DETENCION_PROMEDIO" xml:space="preserve">
+    <value>Tiempo de detención promedio por Cuadrilla</value>
+  </data>
+  <data name="CONSUMO_PROMEDIO_MOVIL" xml:space="preserve">
+    <value>Consumo de combustible promedio por cuadrilla</value>
+  </data>
+  <data name="MOVILES_EN_MOVIMIENTO" xml:space="preserve">
+    <value>Cuadrillas en movimiento</value>
+  </data>
+  <data name="MOVILES_DETENIDOS" xml:space="preserve">
+    <value>Cuadrillas detenidas</value>
+  </data>
+  <data name="MOVILES_EN_BASE" xml:space="preserve">
+    <value>Cuadrillas en Obrador</value>
+  </data>
+  <data name="MOVILES_EN_GEOCERCA" xml:space="preserve">
+    <value>Cuadrillas en geocerca</value>
+  </data>
+  <data name="MOVILES_EN_BASE_MAS_1_HORA" xml:space="preserve">
+    <value>Cuadrillas en Obrador por más de 1 hora</value>
+  </data>
+  <data name="MOVILES_EN_GEOCERCA_MAS_1_HORA" xml:space="preserve">
+    <value>Cuadrillas en geocerca por más de 1 hora</value>
+  </data>
+  <data name="MOVILES_INACTIVOS_BASE" xml:space="preserve">
+    <value>Cuadrillas inactivas en Obrador</value>
+  </data>
+  <data name="MOVILES_EN_HORA" xml:space="preserve">
+    <value>Cuadrillas en hora</value>
+  </data>
+  <data name="MOVILES_ADELANTADOS" xml:space="preserve">
+    <value>Cuadrillas adelantadas</value>
+  </data>
+  <data name="MOVILES_DEMORADOS" xml:space="preserve">
+    <value>Cuadrillas atrasadas</value>
+  </data>
+  <data name="MOVILES_EN_PLANTA" xml:space="preserve">
+    <value>Cuadrillas en planta</value>
+  </data>
+  <data name="MOVILES_EN_CLIENTE" xml:space="preserve">
+    <value>Cuadrillas en cliente</value>
+  </data>
+  <data name="MOVILES_EN_VIAJE" xml:space="preserve">
+    <value>Cuadrillas en viaje</value>
+  </data>
+  <data name="KM_RECORRIDOS_PROMEDIO" xml:space="preserve">
+    <value>Promedio de km recorridos por cuadrilla</value>
+  </data>
+  <data name="TICKET_INICIAR" xml:space="preserve">
+    <value>Iniciar Despacho</value>
+  </data>
+  <data name="TICKET_CERRAR" xml:space="preserve">
+    <value>Cerrar Despacho</value>
+  </data>
+  <data name="TICKET_OPENED" xml:space="preserve">
+    <value>No se puede iniciar el Despacho</value>
+  </data>
+  <data name="LAYER_TICKET_AREA" xml:space="preserve">
+    <value>Despachos (Geocercas)</value>
+  </data>
+  <data name="LAYER_TICKET_POI" xml:space="preserve">
+    <value>Despachos</value>
+  </data>
+  <data name="VER_DETALLE_TICKETS" xml:space="preserve">
+    <value>Ver Detalle de Despachos</value>
+  </data>
+  <data name="TICKETS_ACTIVOS" xml:space="preserve">
+    <value>Despachos en Curso</value>
+  </data>
+  <data name="CON_TICKETS_ACTIVOS" xml:space="preserve">
+    <value>Con Despachos en Curso</value>
+  </data>
+  <data name="TICKETS" xml:space="preserve">
+    <value>Despachos</value>
+  </data>
+  <data name="HS_EN_TICKET" xml:space="preserve">
+    <value>Horas en Despacho</value>
+  </data>
+  <data name="GENERA_ENTREGAS" xml:space="preserve">
+    <value>Genera Despachos</value>
+  </data>
+  <data name="REPORTA_RESPONSABLE_PARENTI04" xml:space="preserve">
+    <value>Reporta Responsable Gerencia</value>
+  </data>
+  <data name="REPORTA_RESPONSABLE_PARENTI37" xml:space="preserve">
+    <value>Reporta Responsable Proyecto</value>
+  </data>
+  <data name="ENTRADAS_BASE" xml:space="preserve">
+    <value>Cantidad de entradas a Obrador</value>
+  </data>
+  <data name="REGRESA_A_BASE" xml:space="preserve">
+    <value>Regresa a Obrador</value>
+  </data>
+  <data name="BASE_DESTINO" xml:space="preserve">
+    <value>Obrador Destino</value>
+  </data>
+  <data name="BASE_ORIGEN" xml:space="preserve">
+    <value>Obrador Origen</value>
+  </data>
+  <data name="DATOS_SUBCENTRO" xml:space="preserve">
+    <value>Datos del Sub Proyecto</value>
+  </data>
+  <data name="ENTREGA_STATE_CANCELADO" xml:space="preserve">
+		<value>Anulado</value>
+	</data>
+  <data name="RESPONSABLE_DEPTO" xml:space="preserve">
+    <value>Gerente</value>
+  </data>
+  <data name="ENTREGAS" xml:space="preserve">
+    <value>Tareas</value>
+  </data>
+  <data name="VER_DISTRIBUCION_GLOBAL" xml:space="preserve">
+    <value>Ver en Distribución Global de Despachos</value>
+  </data>
+  <data name="VER_MONITOR_ESTADO" xml:space="preserve">
+    <value>Ver en Monitor de Estado de Tareas</value>
+  </data>
+  <data name="VER_MONITOR_CICLO" xml:space="preserve">
+    <value>Ver en Monitor de Despachos</value>
+  </data>
+  <data name="SOBREESCRIBIR_PUNTO_ENTREGA" xml:space="preserve">
+    <value>Sobreescribir Punto de Trabajo</value>
+  </data>
+  <data name="EDITAR_PUNTO_ENTREGA" xml:space="preserve">
+    <value>Editar Punto de Trabajo</value>
+  </data>
+</root>

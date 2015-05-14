@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Accion.hbm.xml 381 2007-05-23 16:32:58Z rbugallo $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.Accion,Logictracker.Types" table="pareven02" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_pareven02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="pareven02_descri" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="pareven02_pred" type="System.Byte" name="Red" />
+    <property column="pareven02_pgreen" type="System.Byte" name="Green" />
+    <property column="pareven02_pblue" type="System.Byte" name="Blue" />
+    <property column="pareven02_palfa" type="System.Byte" name="Alfa" />
+    <property column="pareven02_popupicon" name="PopIcon" type="Int32" />
+    <property column="pareven02_popuptit" name="PopUpTitle" type="String" />
+    <property column="pareven02_condicion" type="String" name="Condicion" not-null="false" />
+    <property column="pareven02_dest_mail" type="String" name="DestinatariosMail" not-null="false" />
+    <property column="pareve02_dest_sms" type="String" name="DestinatariosSms" not-null="false" />
+    <property column="pareve02_es_popup" type="Boolean" name="EsPopUp" not-null="false" />
+    <property column="pareve02_es_mail" type="Boolean" name="EsAlarmaDeMail" not-null="false" />
+    <property column="pareve02_es_sonora" type="Boolean" name="EsAlarmaSonora" not-null="false" />
+    <property column="pareve02_es_sms" type="Boolean" name="EsAlarmaSms" not-null="false" />
+    <property column="pareve02_baja" type="Boolean" name="Baja" />
+    <property column="pareve02_guarda_en_base" type="Boolean" name="GrabaEnBase" />
+    <property column="pareve02_asunto_mail" type="String" name="AsuntoMail" />
+    <property column="parev02_habilita" type="Boolean" name="Habilita" not-null="true" />
+    <property column="parev02_horas_habilitado" type="Int32" name="HorasHabilitado" />
+    <property column="parev02_inhabilita" type="Boolean" name="Inhabilita" not-null="true" />
+    <property column="parev02_modifica_icono" type="Boolean" name="ModificaIcono" />
+    <property column="parev02_icono_mensaje" name="IconoMensaje" type="Int32" />
+    <property column="parev02_path_icono_mensaje" name="PathIconoMensaje" type="String" />
+    <property column="parev02_dentro" name="DentroGeocerca" type="Boolean" />
+    <property column="parev02_evaluageocerca" name="EvaluaGeocerca" type="Boolean" />
+    <property column="pareven02_reporta_rela04" name="ReportaDepartamento" type="Boolean" />
+    <property column="pareven02_reporta_rela37" name="ReportaCentroDeCostos" type="Boolean" />
+    <property column="pareven02_requiere_atencion" name="RequiereAtencion" type="Boolean" />
+        
+    <property column="pareven02_pidefoto" name="PideFoto" type="Boolean" />
+    <property column="pareven02_cambiamensaje" name="CambiaMensaje" type="Boolean" />
+    <property column="pareven02_segundosfoto" name="SegundosFoto" type="Int32" />
+    <property column="pareven02_mensaje" name="MensajeACambiar" type="String" />
+    
+    <property column="pareven02_envia_ac" name="ReportarAssistCargo" />
+    <property column="pareven02_codigo_ac" name="CodigoAssistCargo" />    
+
+    <many-to-one column="rela_parenti01" name="Empresa" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti17" name="TipoVehiculo" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti07" name="Transportista" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti04" name="Departamento" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti37" name="CentroDeCostos" not-null="false" lazy="proxy" />
+    
+    <many-to-one column="rela_parenti10" name="TipoReferenciaGeografica" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti10_geocerca" name="TipoGeocerca" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_pareven01" name="Mensaje" not-null="false" lazy="proxy" />
+    
+    <many-to-one column="rela_usuario_habilitado" name="UsuarioHabilitado" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_usuario_inhabilitado" name="UsuarioInhabilitado" not-null="false" lazy="proxy" />
+    <many-to-one name="Sonido" column="rela_parenti12" class="Logictracker.Types.BusinessObjects.Sonido,Logictracker.Types" lazy="proxy" />
+    <many-to-one name="PopUpIcon" column="pareven02_popupicon" class="Logictracker.Types.BusinessObjects.Icono,Logictracker.Types" insert="false" update="false" lazy="proxy" />
+
+    <many-to-one column="rela_socusua02" name="PerfilHabilitado" lazy="proxy" />
+  </class>
+</hibernate-mapping>

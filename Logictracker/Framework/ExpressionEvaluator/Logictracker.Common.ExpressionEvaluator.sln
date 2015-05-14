@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Common.ExpressionEvaluator", "Urbetrack.Common.ExpressionEvaluator.csproj", "{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urbetrack.Common.ExpressionEvaluator.Tester", "TestEvaluator\Urbetrack.Common.ExpressionEvaluator.Tester.csproj", "{3B3D16FA-FC18-4FAA-9528-8E4466C31523}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B3D16FA-FC18-4FAA-9528-8E4466C31523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B3D16FA-FC18-4FAA-9528-8E4466C31523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B3D16FA-FC18-4FAA-9528-8E4466C31523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B3D16FA-FC18-4FAA-9528-8E4466C31523}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

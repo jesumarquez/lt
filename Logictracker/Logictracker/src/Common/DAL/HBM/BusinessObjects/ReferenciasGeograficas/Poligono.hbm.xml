@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.Poligono,Logictracker.Types" table="[par.par_geom_03_cab_poligono]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_pargeom03" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="pargeom03_radio" type="int" name="Radio" />
+
+    <property column="pargeom03_min_x" type="Double" name="MinX" />
+    <property column="pargeom03_min_y" type="Double" name="MinY" />
+    <property column="pargeom03_max_x" type="Double" name="MaxX" />
+    <property column="pargeom03_max_y" type="Double" name="MaxY" />
+
+    <set name="_puntos" access="field" inverse="true" cascade="all-delete-orphan" order-by=" pargeom04_orden ASC" lazy="false">
+      <cache usage="read-write" />
+      <key column="rela_pargeom03" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.Punto,Logictracker.Types" />
+    </set>
+
+    <component name="Vigencia" class="Logictracker.Types.BusinessObjects.Components.Vigencia,Logictracker.Types">
+      <property column="pargeom03_vigencia_desde" type="DateTime" not-null="false" name="Inicio" />
+      <property column="pargeom03_vigencia_hasta" type="DateTime" not-null="false" name="Fin" />
+    </component>
+  </class>
+</hibernate-mapping>

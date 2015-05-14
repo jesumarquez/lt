@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: ProgramacionReporte.hbm.xml 2011-10-01 lucas $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.LogProgramacionReporte,Logictracker.Types" table="parenti62" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti62" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti62_inicio" name="Inicio" />
+    <property column="parenti62_fin" name="Fin" />
+    <property column="parenti62_cantidad_filas" name="Filas" />
+    <property column="parenti62_error" name="Error" />
+    
+    <many-to-one column="rela_parenti56" name="ProgramacionReporte" lazy="proxy" not-null="true" />
+  </class>
+</hibernate-mapping>

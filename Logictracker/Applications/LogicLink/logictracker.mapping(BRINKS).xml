@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Configuration xmlns="urn:Urbetrack.Process.Import.Client">
+    <Import>
+        <DataSource Type="Csv">
+            <Parameter Name="separator" Value=";" />
+            <Parameter Name="folder" Value="C:\Program Files (x86)\Logictracker\LogicLink\ArchivosPuntosBrinks" />
+            <Parameter Name="filename" Value="*.txt" />
+            <Parameter Name="hasheaderrow" Value="false" />
+        </DataSource>
+               
+        <Entity Type="PuntoEntregaB">
+            <Property Name="CodigoCliente" ColumnIndex="0"></Property>
+            <Property Name="NombreCliente" ColumnIndex="1"></Property>
+            <Property Name="CodigoPuntoEntrega" ColumnIndex="2"></Property>
+            <Property Name="NombrePuntoEntrega" ColumnIndex="3"></Property>
+            <Property Name="Estado" ColumnIndex="4"></Property>
+            <Property Name="Tipo" ColumnIndex="5"></Property>
+            <Property Name="Latitud" ColumnIndex="6"></Property>
+            <Property Name="Longitud" ColumnIndex="7"></Property>
+        </Entity>        
+    </Import>
+    <Import>
+        <DataSource Type="Csv">
+            <Parameter Name="separator" Value=";" />
+            <Parameter Name="folder" Value="C:\Program Files (x86)\Logictracker\LogicLink\ArchivosRutasBrinks" />
+            <Parameter Name="filename" Value="*.txt" />
+            <Parameter Name="hasheaderrow" Value="false" />
+        </DataSource>
+               
+        <Entity Type="DistribucionB">
+            <Property Name="CodigoRuta" ColumnIndex="0"></Property>
+            <Property Name="Orden" ColumnIndex="1"></Property>
+            <Property Name="CodigoEntrega" ColumnIndex="2"></Property>
+            <Property Name="Fecha" ColumnIndex="3"></Property>
+            <Property Name="InicioBanda1" ColumnIndex="4"></Property>
+            <Property Name="FinBanda1" ColumnIndex="5"></Property>
+            <Property Name="InicioBanda2" ColumnIndex="6"></Property>
+            <Property Name="FinBanda2" ColumnIndex="7"></Property>
+            <Property Name="HoraProgramada" ColumnIndex="8"></Property>
+            <Property Name="Interno" ColumnIndex="9"></Property>
+            <Property Name="CodigoPuntoEntrega" ColumnIndex="10"></Property>
+            <Property Name="Estado" ColumnIndex="11"></Property>
+        </Entity>        
+    </Import>
+</Configuration>

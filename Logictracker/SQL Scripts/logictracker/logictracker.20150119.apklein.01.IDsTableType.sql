@@ -1,0 +1,3 @@
+CREATE TYPE DBO.IntTable AS TABLE (
+	[IntNum] INT NOT NULL
+)

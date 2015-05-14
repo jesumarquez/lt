@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Documentos.TipoDocumentoParametro,Logictracker.Types" table="parenti26" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti26" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti26_nombre" type="String" name="Nombre" not-null="true" length="32" />
+    <property column="parenti26_tipodato" type="String" name="TipoDato" not-null="true" length="16" />
+    <property column="parenti26_largo" type="Int16" name="Largo" not-null="true" />
+    <property column="parenti26_precision" type="Int16" name="Precision" not-null="true" />
+    <property column="parenti26_obligatorio" type="Boolean" name="Obligatorio" not-null="true" />
+    <property column="parenti26_default" type="String" name="Default" not-null="true" />
+    <property column="parenti26_orden" type="Double" name="Orden" not-null="true" />
+    <property column="parenti26_repeticion" type="Int16" name="Repeticion" not-null="true" />
+
+    <many-to-one column="rela_parenti25" name="TipoDocumento" />
+  </class>
+</hibernate-mapping>

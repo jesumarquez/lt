@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.SubCentroDeCostos,Logictracker.Types" table="parenti99" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti99" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti99_descripcion" name="Descripcion" />
+    <property column="parenti99_codigo" name="Codigo" />
+    <property column="parenti99_objetivo" name="Objetivo" />
+    <property column="parenti99_baja" name="Baja" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti37" name="CentroDeCostos" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

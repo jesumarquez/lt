@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Metrics.Types.Metric,Logictracker.Metrics" table="audlog05" lazy="true">
+    <cache usage="read-only" />
+
+    <id name="Id" column="id_audlog05" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="audlog05_start" type="DateTime" name="Start" />
+    <property column="audlog05_end" type="DateTime" name="End" />
+    <property column="audlog05_name" type="String" name="Name" length="128" />
+    <property column="audlog05_module" type="String" name="Module" length="128" />
+    <property column="audlog05_component" type="String" name="Component" length="256" />
+    <property column="audlog05_value" type="Double" name="Value" />
+    <property column="rela_parenti17" name="VehicleType" type="Int32" not-null="false" />
+    <property column="rela_parenti32" name="DeviceType" type="Int32" not-null="false" />
+  </class>
+</hibernate-mapping>

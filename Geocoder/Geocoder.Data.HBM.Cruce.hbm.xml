@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="true" namespace="Geocoder.Core" assembly="Geocoder.Core">
+	<class name="Cruce" table="cruce" lazy="true">
+    <cache usage="read-write" />
+    
+		<!-- Primary Key(s) -->
+		<id name="Id" column="id_cruce" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="cruc_latitud" type="Double" name="Latitud" not-null="true" index="IX_Cruce_Posicion" />
+		<property column="cruc_longitud" type="Double" name="Longitud" not-null="true" index="IX_Cruce_Posicion" />
+    
+		<many-to-one name="Poligonal" class="Poligonal" column="fk_poligonal" not-null="true" lazy="proxy" index="IX_Cruce_Poligonal" />
+		<many-to-one name="Esquina" class="Poligonal" column="fk_poligonal_esquina" not-null="true" lazy="proxy" index="IX_Cruce_Esquina" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Linea.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Linea,Logictracker.Types" table="parenti02" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti02_descri" type="String" name="Descripcion" not-null="true" length="255" />
+    <property column="parenti02_descricorta" type="String" name="DescripcionCorta" not-null="true" length="8" />
+    <property column="parenti02_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="pe02_telefono" type="String" name="Telefono" />
+    <property column="pe02_mail" type="String" name="Mail" />
+    <property column="pe02_time_zone_id" type="String" name="TimeZoneId" />
+    <property column="parenti02_interfaceable" type="Boolean" name="Interfaceable" />
+    <property column="parenti02_identifica_choferes" type="Boolean" name="IdentificaChoferes" not-null="true" />
+
+    <many-to-one column="rela_parenti05" name="ReferenciaGeografica" cascade="all" lazy="proxy" />
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+  </class>
+</hibernate-mapping>

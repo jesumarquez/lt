@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.TipoZona,Logictracker.Types" table="[par.par_enti_93_cab_tipo_zona]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti93" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    
+    <property column="parenti93_codigo" name="Codigo" />
+    <property column="parenti93_nombre" name="Descripcion" />
+    
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AREAOPERACION" xml:space="preserve">
+		<value>Área de Atuação</value>
+	</data>
+	<data name="CLIENT" xml:space="preserve">
+		<value>Cliente</value>
+	</data>
+	<data name="FUNCION" xml:space="preserve">
+		<value>Função</value>
+	</data>
+	<data name="OPECOMB01" xml:space="preserve">
+		<value>Tipo Movimento</value>
+	</data>
+	<data name="PARENTI01" xml:space="preserve">
+		<value>Distrito</value>
+	</data>
+	<data name="PARENTI02" xml:space="preserve">
+		<value>Base</value>
+	</data>
+	<data name="PARENTI03" xml:space="preserve">
+		<value>Veículo</value>
+	</data>
+	<data name="PARENTI04" xml:space="preserve">
+		<value>Operador</value>
+	</data>
+	<data name="PARENTI05" xml:space="preserve">
+		<value>Referência Geográfica</value>
+	</data>
+	<data name="PARENTI07" xml:space="preserve">
+		<value>Transportadora</value>
+	</data>
+	<data name="PARENTI08" xml:space="preserve">
+		<value>Dispositivo</value>
+	</data>
+	<data name="PARENTI09" xml:space="preserve">
+		<value>Empregado</value>
+	</data>
+	<data name="PARENTI10" xml:space="preserve">
+		<value>Geographic Taxa Referencial</value>
+	</data>
+	<data name="PARENTI16" xml:space="preserve">
+		<value>Tipo de mensagem</value>
+	</data>
+	<data name="PARENTI17" xml:space="preserve">
+		<value>Tipo de veículo</value>
+	</data>
+	<data name="PARENTI18" xml:space="preserve">
+		<value>Cliente</value>
+	</data>
+	<data name="PARENTI19" xml:space="preserve">
+		<value>Equipe</value>
+	</data>
+	<data name="PARENTI25" xml:space="preserve">
+		<value>Tipo de Documento</value>
+	</data>
+	<data name="PARENTI32" xml:space="preserve">
+		<value>Tipo de dispositivo</value>
+	</data>
+	<data name="PARENTI36" xml:space="preserve">
+		<value>Tanque</value>
+	</data>
+	<data name="PARENTI37" xml:space="preserve">
+		<value>Centro de Custo</value>
+	</data>
+	<data name="PARENTI39" xml:space="preserve">
+		<value>Motor</value>
+	</data>
+	<data name="PARENTI40" xml:space="preserve">
+		<value>Odômetro</value>
+	</data>
+	<data name="PARENTI43" xml:space="preserve">
+		<value>Empregado Tipo</value>
+	</data>
+	<data name="PARENTI44" xml:space="preserve">
+		<value>Ponto de Entrega</value>
+	</data>
+	<data name="PARENTI46" xml:space="preserve">
+		<value>Turnos</value>
+	</data>
+	<data name="PARENTI47" xml:space="preserve">
+		<value>Férias</value>
+	</data>
+	<data name="PAREVEN01" xml:space="preserve">
+		<value>Mensagem</value>
+	</data>
+  <data name="OPETICK01" xml:space="preserve">
+    <value>Ticket</value>
+  </data>
+	<data name="PARRECO01" xml:space="preserve">
+		<value>Serviço</value>
+	</data>
+	<data name="PARTICK01" xml:space="preserve">
+		<value>Ciclo de Logística</value>
+	</data>
+	<data name="ROLE" xml:space="preserve">
+		<value>Perfil</value>
+	</data>
+	<data name="SISTEMA" xml:space="preserve">
+		<value>Sistema</value>
+	</data>
+	<data name="TARJETA" xml:space="preserve">
+		<value>Cartão</value>
+	</data>
+	<data name="TICKET" xml:space="preserve">
+		<value>Bilhete</value>
+	</data>
+	<data name="TIPODISPOSITIVO" xml:space="preserve">
+		<value>Tipo de dispositivo</value>
+	</data>
+	<data name="USUARIO" xml:space="preserve">
+		<value>Usuário</value>
+	</data>
+	<data name="DOCUMENTOS" xml:space="preserve">
+		<value>Documentos</value>
+	</data>
+	<data name="BOCADECARGA" xml:space="preserve">
+		<value>Carga boca</value>
+	</data>
+	<data name="PEDIDO" xml:space="preserve">
+		<value>Ordem</value>
+	</data>
+  <data name="PARENTI59" xml:space="preserve">
+    <value>Provedor</value>
+  </data>
+  <data name="PARENTI58" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="PARENTI60" xml:space="preserve">
+    <value>Tipo de Item</value>
+  </data>
+  <data name="PARENTI06" xml:space="preserve">
+		<value>Marca</value>
+	</data>
+  <data name="PARENTI61" xml:space="preserve">
+    <value>Modelo</value>
+  </data>
+  <data name="PARENTI63" xml:space="preserve">
+    <value>Produto</value>
+  </data>
+  <data name="PARENTI73" xml:space="preserve">
+    <value>Plano</value>
+  </data>
+  <data name="PARENTI74" xml:space="preserve">
+    <value>Linha Telefônica</value>
+  </data>
+  <data name="PARENTI76" xml:space="preserve">
+    <value>Tipo de Ponto Remoto</value>
+  </data>
+  <data name="PARENTI77" xml:space="preserve">
+    <value>Tipo Medição</value>
+  </data>
+  <data name="PARENTI78" xml:space="preserve">
+    <value>Selo</value>
+  </data>
+  <data name="PARENTI79" xml:space="preserve">
+    <value>Ponto Remoto</value>
+  </data>
+  <data name="PARENTI80" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+  <data name="PARENTI81" xml:space="preserve">
+    <value>Medidor</value>
+  </data>
+  <data name="PARENTI82" xml:space="preserve">
+    <value>Detalhe</value>
+  </data>
+  <data name="PARENTI83" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="PARENTI85" xml:space="preserve">
+    <value>Unidade de Medida</value>
+  </data>
+  <data name="PARENTI86" xml:space="preserve">
+    <value>Tipo de Provedor</value>
+  </data>
+  <data name="PARENTI87" xml:space="preserve">
+    <value>Deposito</value>
+  </data>
+  <data name="PARENTI55" xml:space="preserve">
+    <value>Porta de entrada</value>
+  </data>
+  <data name="AUDSUP03" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="AUDSUP04" xml:space="preserve">
+    <value>Subcategoria</value>
+  </data>
+  <data name="AUDSUP05" xml:space="preserve">
+    <value>Nivel</value>
+  </data>
+  <data name="PARTICK04" xml:space="preserve">
+    <value>Boca do Carga</value>
+  </data>
+  <data name="PARENTI15" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="PARENTI89" xml:space="preserve">
+    <value>Área</value>
+  </data>
+  <data name="PARENTI91" xml:space="preserve">
+    <value>Tipo de Área de Acesso</value>
+  </data>
+  <data name="PARENTI92" xml:space="preserve">
+    <value>Área de Acesso</value>
+  </data>
+  <data name="PARENTI99" xml:space="preserve">
+    <value>Sub Centro de Custos</value>
+  </data>
+  <data name="OPETICK03" xml:space="preserve">
+    <value>Viagem</value>
+  </data>
+  <data name="PARENTI35" xml:space="preserve">
+    <value>Talher</value>
+  </data>
+  <data name="SOCUSUA01" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
+  <data name="SOCUSUA02" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+</root>

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8686E7F7-339C-4BEF-9888-B0F48650B57D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Web.Documentos</RootNamespace>
+    <AssemblyName>Logictracker.Web.Documentos</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.20820.16598, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.0.1, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Combustible\CamposCombustible.cs" />
+    <Compile Include="Combustible\CombustiblePresenter.cs" />
+    <Compile Include="Combustible\CombustibleSaver.cs" />
+    <Compile Include="Combustible\CombustibleStrategyFactory.cs" />
+    <Compile Include="CommonTags.cs" />
+    <Compile Include="DefaultPresentStrategy.cs" />
+    <Compile Include="DefaultReportStrategy.cs" />
+    <Compile Include="DefaultSaveStrategy.cs" />
+    <Compile Include="DocumentFieldComparer.cs" />
+    <Compile Include="DocumentoEventArgs.cs" />
+    <Compile Include="GenericPresenter.cs" />
+    <Compile Include="GenericSaver.cs" />
+    <Compile Include="Helpers\BaseParser.cs" />
+    <Compile Include="Helpers\NormalParser.cs" />
+    <Compile Include="Helpers\TemplateParser.cs" />
+    <Compile Include="Helpers\TipoDocumentoHelper.cs" />
+    <Compile Include="Interfaces\IDocumentView.cs" />
+    <Compile Include="Interfaces\IPresentStrategy.cs" />
+    <Compile Include="Interfaces\IReportStrategy.cs" />
+    <Compile Include="Interfaces\ISaverStrategy.cs" />
+    <Compile Include="Interfaces\ISaveStrategy.cs" />
+    <Compile Include="Interfaces\IStrategyFactory.cs" />
+    <Compile Include="Mobile\MobileParser.cs" />
+    <Compile Include="Mobile\MobilePresenter.cs" />
+    <Compile Include="Mobile\MobileSaver.cs" />
+    <Compile Include="Mobile\MobileStrategyFactory.cs" />
+    <Compile Include="Partes\ParteComparativoMovilReportStrategy.cs" />
+    <Compile Include="ParteComparativo\Entities\ParteComparativoMovil.cs" />
+    <Compile Include="Partes\PartePresentStrategy.cs" />
+    <Compile Include="Partes\ParteReportStrategy.cs" />
+    <Compile Include="Partes\ParteSaveStrategy.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Web\Logictracker.Common.Web\Logictracker.Web.csproj">
+      <Project>{327F6143-1118-4881-8C79-5F0913F63F6B}</Project>
+      <Name>Logictracker.Web %28FrontEnd\Web\Common\Logictracker.Web%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Types.ValueObjects\Logictracker.Types.ValueObjects.csproj">
+      <Project>{B4CACBB4-0F42-4C57-813B-BB72C7FC82EF}</Project>
+      <Name>Logictracker.Types.ValueObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web.CustomWebControls\Logictracker.Web.CustomWebControls.csproj">
+      <Project>{C846F5C6-A001-45B8-9425-55112B77C89A}</Project>
+      <Name>Logictracker.Web.CustomWebControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Combustible\StockDiario.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

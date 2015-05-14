@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.EvenDistri,Logictracker.Types" table="opeeven09" lazy="true">
+    <id name="Id" column="opeeven09_id" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_opeeven01" name="LogMensaje" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_opetick03" name="Viaje" lazy="proxy" />
+    <many-to-one column="rela_opetick04" name="Entrega" lazy="proxy" />
+    <property column="opeeven09_fecha" name="Fecha" />
+    
+  </class>
+</hibernate-mapping>

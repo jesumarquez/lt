@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.AtencionEvento,Logictracker.Types" table="opeeven10" lazy="true">
+    <id name="Id" column="id_opeeven10" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opeeven10_datetime" name="Fecha" />
+    <property column="opeeven10_observacion" name="Observacion" />    
+
+    <many-to-one column="rela_opeeven01" name="LogMensaje" lazy="proxy" />
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />    
+    <many-to-one column="rela_pareven01" name="Mensaje" lazy="proxy" />    
+    
+  </class>
+</hibernate-mapping>

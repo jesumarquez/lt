@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVL2CMD", "avl2cmd\AVL2CMD.csproj", "{07CF5EF2-5271-4ABB-A8E1-FB52E06A61F7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AVL2CMD Instalador", "AVL2CMD Installer\AVL2CMD Instalador.vdproj", "{3BAB5534-3FE3-401B-9B82-F0397B19D6A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07CF5EF2-5271-4ABB-A8E1-FB52E06A61F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07CF5EF2-5271-4ABB-A8E1-FB52E06A61F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07CF5EF2-5271-4ABB-A8E1-FB52E06A61F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07CF5EF2-5271-4ABB-A8E1-FB52E06A61F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BAB5534-3FE3-401B-9B82-F0397B19D6A1}.Debug|Any CPU.ActiveCfg = Debug
+		{3BAB5534-3FE3-401B-9B82-F0397B19D6A1}.Debug|Any CPU.Build.0 = Debug
+		{3BAB5534-3FE3-401B-9B82-F0397B19D6A1}.Release|Any CPU.ActiveCfg = Release
+		{3BAB5534-3FE3-401B-9B82-F0397B19D6A1}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

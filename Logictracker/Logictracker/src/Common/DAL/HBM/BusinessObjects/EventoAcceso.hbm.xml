@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.EventoAcceso,Logictracker.Types" table="opeeven05" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opeeven05" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opeeven05_datetime" type="DateTime" name="Fecha" not-null="true" />
+    <property column="opeeven05_entrada" type="Boolean" name="Entrada" not-null="true" />
+    <property column="opeeven05_alta" name="Alta" />
+    <property column="opeeven05_baja" name="Baja" />
+    <property column="opeeven05_modificado" name="Modificado" />
+    
+    <many-to-one column="rela_parenti09" name="Empleado" lazy="proxy" not-null="false" />
+    <many-to-one column="rela_parenti55" name="Puerta" lazy="proxy" not-null="true" />
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />
+  </class>
+</hibernate-mapping>

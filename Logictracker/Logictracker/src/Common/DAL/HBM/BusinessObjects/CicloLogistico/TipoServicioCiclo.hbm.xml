@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.CicloLogistico.TipoServicioCiclo,Logictracker.Types" table="[par.par_tick_07_tbl_tiposervicio]" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_partick07" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
+        <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+
+        <property column="partick07_codigo" name="Codigo" />
+        <property column="partick07_descripcion" name="Descripcion" />
+        <property column="partick07_demora" name="Demora" />
+        <property column="partick07_default" name="Default" />
+        <property column="partick07_baja" name="Baja" />
+
+    </class>
+</hibernate-mapping>

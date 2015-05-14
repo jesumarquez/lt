@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{27B56EE7-7E2E-4192-A039-DD623A587AD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Web.Controls</RootNamespace>
+    <AssemblyName>Logictracker.Web.Controls</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BindableListControl\BindableDropDownList.cs" />
+    <Compile Include="BindableListControl\BindableListBox.cs" />
+    <Compile Include="BindableListControl\BindableListControlBase.cs" />
+    <Compile Include="BindableListControl\BindableListControlExtensions.cs" />
+    <Compile Include="BindableListControl\BindEntities.cs" />
+    <Compile Include="IBindableListControl.cs" />
+    <Compile Include="DataBinders\DataBinderBase.cs" />
+    <Compile Include="DataBinders\DataBinderFactory.cs" />
+    <Compile Include="DataBinders\EmpresaDataBinder.cs" />
+    <Compile Include="IDataBinder.cs" />
+    <Compile Include="DataBinders\LineaDataBinder.cs" />
+    <Compile Include="IBindableControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Culture\Logictracker.Culture.csproj">
+      <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
+      <Name>Logictracker.Culture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web\Logictracker.Web.csproj">
+      <Project>{327F6143-1118-4881-8C79-5F0913F63F6B}</Project>
+      <Name>Logictracker.Web %28FrontEnd\Web\Common\Logictracker.Web%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="urn:Scheduler.Configuration">
+  
+  <Timer Enabled="true" Name="Estado de Servicios" StartTime="00:00:00" Frequency="1">
+      <Task Class="Urbetrack.Scheduler.Tasks.ServiceStatus.Task, Urbetrack.Scheduler.Tasks.ServiceStatus"/>
+  </Timer>
+
+</Configuration>

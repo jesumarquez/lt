@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="CLOG_START_SENT" xml:space="preserve">
+		<value>Logistic cycle start has been sent to the vehicle:</value>
+	</data>
+	<data name="CONFIRM_OPERATION" xml:space="preserve">
+		<value>Are you sure you want to perform this operation?</value>
+	</data>
+	<data name="DUPLICATED_ELEMENT" xml:space="preserve">
+		<value>Duplicate item. The modifications did not affect the original object</value>
+	</data>
+	<data name="ESTADOS_LOGISTICOS_NOT_FOUND" xml:space="preserve">
+		<value>Failed to generate the report, verify that the information is correct and that the States possess Logistics Base defined</value>
+	</data>
+	<data name="EXPORT_CSV_DATA" xml:space="preserve">
+		<value>Export to CSV</value>
+	</data>
+	<data name="EXPORT_REPORT_DATA" xml:space="preserve">
+		<value>Reporting Export Data</value>
+	</data>
+	<data name="MESSAGE_SENT" xml:space="preserve">
+		<value>The message has been sent to the following phones: {0}</value>
+	</data>
+	<data name="MULTIPLE_ADDRESSES" xml:space="preserve">
+		<value>We found multiple addresses, please check your input values</value>
+	</data>
+	<data name="NO_GEOCERCA_INFO" xml:space="preserve">
+		<value>There are insufficient data to show details of a tour!</value>
+	</data>
+	<data name="NO_POSITIONS_DEVICE" xml:space="preserve">
+		<value>The device has not reported positions {0}!</value>
+	</data>
+	<data name="NO_POSITIONS_MOBILE" xml:space="preserve">
+		<value>The vehicle has not reported positions {0}!</value>
+	</data>
+	<data name="NO_RESULT_FOR_CURRENT_FILTERS" xml:space="preserve">
+		<value>There were no data associated with the selected filters!</value>
+	</data>
+	<data name="NO_ROUTE_INFO" xml:space="preserve">
+		<value>No information requested for travel reconciled.</value>
+	</data>
+	<data name="NO_SERVICES" xml:space="preserve">
+		<value>Services are not configured to be monitored.</value>
+	</data>
+	<data name="ONLINE_UPDATED_POSITIONS" xml:space="preserve">
+		<value>{0} position (s) updated to {1}</value>
+	</data>
+	<data name="PLEASE_WAIT" xml:space="preserve">
+		<value>Please wait ...</value>
+	</data>
+  <data name="COUNTERS_ON" xml:space="preserve">
+		<value>ON</value>
+	</data>
+  <data name="COUNTERS_OFF" xml:space="preserve">
+		<value>OFF</value>
+	</data>
+  <data name="COUNTERS_NOT_AVAILABLE" xml:space="preserve">
+		<value>N/A</value>
+	</data>
+  <data name="POI_CREATE_OK" xml:space="preserve">
+		<value>It has successfully discharged the address entered</value>
+	</data>
+	<data name="POI_IMPORT_OK" xml:space="preserve">
+		<value>It has successfully completed the import of the points of interest.</value>
+	</data>
+	<data name="ROUTE_TOO_LONG" xml:space="preserve">
+		<value>Period too long to show details of a tour!</value>
+	</data>
+	<data name="SELECCIONE_VEHICULO" xml:space="preserve">
+		<value>Select one or more vehicles</value>
+	</data>
+	<data name="TICKET_ROUTE_NOT_FOUND" xml:space="preserve">
+		<value>Ticket current information does not establish a route</value>
+	</data>
+	<data name="UNASIGNED_VEHICLE" xml:space="preserve">
+		<value>Unable to send internal message to {0} since no device assigned!</value>
+	</data>
+  <data name="WAIT" xml:space="preserve">
+		<value>Please wait ...</value>
+	</data>
+	<data name="TICKET_INIT" xml:space="preserve">
+		<value>Select the start time for this ticket</value>
+	</data>
+	<data name="CONFIRM_DELETE_PARAM_TIPODOC" xml:space="preserve">
+		<value>This will remove the values ​​of this parameter \ not all documents \ n \ n Continue? \ N</value>
+	</data>
+	<data name="PICTURES_NOT_FOUND" xml:space="preserve">
+		<value>No photos found</value>
+	</data>
+	<data name="PICTURES_NOT_FOUND_TEXT" xml:space="preserve">
+		<value>At the moment no pictures available for this event. Please try again later.</value>
+	</data>
+	<data name="TICKET_OPENED" xml:space="preserve">
+		<value>The ticket can not be started because there is already an active ticket for the same vehicle.</value>
+	</data>
+    <data name="TICKET_SPLIT_CONFIRM" xml:space="preserve">
+    <value>Are you sure you want to split the ticket to satisfy the request? The original ticket will be modified</value>
+  </data>
+  <data name="TCIKET_REGENERATE_DONE" xml:space="preserve">
+    <value>It has recalculated the logistic cycle events available.</value>
+  </data>
+  <data name="TICKET_REGENERATE_CONFIRM" xml:space="preserve">
+    <value>Are you sure you want to recalculate the schedule of the ticket?</value>
+  </data>
+  <data name="TICKET_START_ALL_CONFIRM" xml:space="preserve">
+    <value>Are you sure you want to start all outstanding tickets?</value>
+  </data>
+  <data name="TICKET_START_CONFIRM" xml:space="preserve">
+    <value>Are you sure you want to start this ticket?</value>
+  </data>
+  <data name="TICKET_CANCEL" xml:space="preserve">
+    <value>Are you sure you want to cancel this ticket?</value>
+  </data>
+  <data name="TICKET_ANULADO_USER_DAY_REASON" xml:space="preserve">
+    <value>Ticket canceled by the user {0} on {1}. Reason: {2}</value>
+  </data>
+  <data name="TICKET_DOCUMENTOS_VENCIDOS" xml:space="preserve">
+    <value>There required documents were not submitted or are defeated.</value>
+  </data>
+  <data name="TIPOS_DISTRIBUCION" xml:space="preserve">
+    <value>&lt;b&gt;Normal&lt;/b&gt;: The distribution will be done in compliance with an order of delivery.&lt;br /&gt;&lt;b&gt;Disorderly&lt;/b&gt;: The distribution will be done with no respect for any order of delivery.&lt;br /&gt;&lt;b&gt;Fixed Route&lt;/b&gt;: The distribution will be done observing a delivery order and a predefined route.</value>
+  </data>
+</root>

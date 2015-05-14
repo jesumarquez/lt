@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.Punto,Logictracker.Types" table="[par.par_geom_04_det_punto]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_pargeom04" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="pargeom04_latitud" type="Double" name="Latitud" />
+    <property column="pargeom04_longitud" type="Double" name="Longitud" />
+    <property column="pargeom04_orden" type="Int32" name="Orden" />
+
+    <many-to-one name="Poligono" column="rela_pargeom03" class="Logictracker.Types.BusinessObjects.ReferenciasGeograficas.Poligono,Logictracker.Types" lazy="proxy" />
+  </class>
+</hibernate-mapping>

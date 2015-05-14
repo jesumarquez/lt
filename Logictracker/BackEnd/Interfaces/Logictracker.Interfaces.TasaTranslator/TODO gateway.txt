@@ -1,0 +1,5 @@
+﻿enviar pong cada 10/15 minutos
+"PONG,{0},\n",data[1])
+
+posicion
+nota: como diferencio si es solicitada o no? (code = P|Q)

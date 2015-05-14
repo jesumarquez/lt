@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Tickets.CicloLogistico,Logictracker.Types" table="[par.par_tick_01_cab_ciclologistico]" lazy="false">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_partick01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="partick01_codigo" type="String" name="Codigo" not-null="true" length="32" />
+    <property column="partick01_descri" type="String" name="Descripcion" not-null="true" length="128" />
+    <property column="partick01_esciclo" type="Boolean" name="EsCiclo" not-null="true" />
+    <property column="partick01_esestado" type="Boolean" name="EsEstado" not-null="true" />
+    <property column="partick01_custom1" type="String" name="Custom1" length="64" />
+    <property column="partick01_custom2" type="String" name="Custom2" length="64" />
+    <property column="partick01_custom3" type="String" name="Custom3" length="64" />
+    <property column="partick01_baja" type="Boolean" name="Baja" />
+
+    <component name="Owner" class="Logictracker.Types.BusinessObjects.Components.Owner,Logictracker.Types">
+      <many-to-one column="rela_parenti01" name="Empresa" />
+      <many-to-one column="rela_parenti02" name="Linea" />
+    </component>
+
+    <set name="_detalles" access="field" inverse="true" cascade="all-delete-orphan" lazy="false" where="partick02_baja=0">
+      <cache usage="read-write" />
+      <key column="rela_partick01" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Tickets.DetalleCiclo,Logictracker.Types" />
+    </set>
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Documentos.TipoDocumento,Logictracker.Types" table="parenti25" lazy="false">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti25" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti25_nombre" type="String" name="Nombre" not-null="true" length="32" />
+    <property column="parenti25_descripcion" type="String" name="Descripcion" not-null="true" />
+    <property column="parenti25_template" type="String" name="Template" length="255" />
+    <property column="parenti25_vehiculo" type="Boolean" name="AplicarAVehiculo" />
+    <property column="parenti25_empleado" type="Boolean" name="AplicarAEmpleado" />
+    <property column="parenti25_transportista" type="Boolean" name="AplicarATransportista" />
+    <property column="parenti25_equipo" type="Boolean" name="AplicarAEquipo" />
+    <property column="parenti25_controla_consumo" type="Boolean" name="ControlaConsumo" />
+    <property column="parenti25_reqvencimiento" type="Boolean" name="RequerirVencimiento" />
+    <property column="parenti25_reqpresentacion" type="Boolean" name="RequerirPresentacion" />
+    <property column="parenti25_primeraviso" type="Int16" name="PrimerAviso" />
+    <property column="parenti25_segundoaviso" type="Int16" name="SegundoAviso" />
+    <property column="parenti25_strategy" type="String" name="Strategy" />
+    <property column="parenti25_baja" type="Boolean" name="Baja" />
+
+    <many-to-one column="rela_sysfunc03" name="Funcion" />
+    <many-to-one column="rela_parenti01" name="Empresa" />
+    <many-to-one column="rela_parenti02" name="Linea" />
+
+    <set name="_parametros" access="field" table="parenti26" lazy="true" inverse="true" cascade="all-delete-orphan" order-by="parenti26_orden">
+      <cache usage="read-write" />
+      <key column="rela_parenti25" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Documentos.TipoDocumentoParametro, Logictracker.Types" />
+    </set>
+
+    <set name="Estrategias" table="parenti27" lazy="true" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti25" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Documentos.TipoDocumentoEstrategia, Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

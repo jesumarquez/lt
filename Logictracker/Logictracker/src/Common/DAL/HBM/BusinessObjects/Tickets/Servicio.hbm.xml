@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Tickets.Servicio,Logictracker.Types" table="[ope.ope_tick_01_cab_servicios]" lazy="false">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="CicloLogistico" column="rela_partick01" />
+    <many-to-one name="Vehiculo" column="rela_parenti03" />
+    <many-to-one name="Chofer" column="rela_parenti09" />
+
+    <property column="opetick01_codigo" type="String" name="Codigo" not-null="true" length="32" />
+    <property column="opetick01_descri" type="String" name="Descripcion" not-null="true" length="128" />
+
+    <property column="opetick01_fecha_inicio" name="FechaInicio" not-null="true" />
+    <property column="opetick01_fecha_fin" name="FechaFin" not-null="true" />
+    <property column="opetick01_fecha_alta" name="FechaAlta" not-null="true" />
+    <property column="opetick01_estado" name="Estado" not-null="true" />
+
+    <property column="opetick01_custom1" type="String" name="Custom1" length="64" />
+    <property column="opetick01_custom2" type="String" name="Custom2" length="64" />
+    <property column="opetick01_custom3" type="String" name="Custom3" length="64" />
+
+    <component name="Owner" class="Logictracker.Types.BusinessObjects.Components.Owner,Logictracker.Types">
+      <many-to-one column="rela_parenti01" name="Empresa" />
+      <many-to-one column="rela_parenti02" name="Linea" />
+    </component>
+
+    <set name="_detalles" access="field" inverse="true" cascade="all-delete-orphan" lazy="false">
+      <cache usage="read-write" />
+      <key column="rela_opetick01" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Tickets.DetalleServicio,Logictracker.Types" />
+    </set>
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AD351BF8-69A7-4F09-91A3-78D40DD2CC53}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Interfaces.Bolland</RootNamespace>
+    <AssemblyName>Logictracker.Interfaces.Bolland</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BollandInterface.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\AVL\Logictracker.AVL.csproj">
+      <Project>{0FD2623E-2379-410D-81E3-C8749BC014DE}</Project>
+      <Name>Logictracker.AVL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Description\Logictracker.Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Logictracker.Description</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Model\Logictracker.Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{FA528F7B-1FE9-4B7E-B964-EB95730791AB}</Project>
+      <Name>Logictracker.Layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

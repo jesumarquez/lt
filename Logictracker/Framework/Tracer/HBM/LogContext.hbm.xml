@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.DatabaseTracer.Types.LogContext,Logictracker.DatabaseTracer" table="audlog02" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_audlog02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_audlog01" name="Log" lazy="proxy" />
+
+    <property column="audlog02_key" type="String" name="Key" length="128" />
+    <property column="audlog02_value" type="String" name="Value" />
+  </class>
+</hibernate-mapping>

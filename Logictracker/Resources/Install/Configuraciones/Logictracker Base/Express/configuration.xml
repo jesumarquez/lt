@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="urn:Scheduler.Configuration">
+    <Timer Enabled="true" Name="Database Maintenance" StartTime="06:00:00" Periodicity="Day" Notifiers="soporte@pagustech.com">
+    	<Task Class="Urbetrack.Scheduler.Tasks.DatabaseBackup.Task, Urbetrack.Scheduler.Tasks.DatabaseBackup" Params="Database=urbetrack;Compresion=True;BackupDirectory=E:\urbetrack\" />
+    	<Task Class="Urbetrack.Scheduler.Tasks.DatabaseBackup.Task, Urbetrack.Scheduler.Tasks.DatabaseBackup" Params="Database=urbetrack_history;Compresion=True;BackupDirectory=E:\urbetrack_history\" />
+    </Timer>
+</Configuration>

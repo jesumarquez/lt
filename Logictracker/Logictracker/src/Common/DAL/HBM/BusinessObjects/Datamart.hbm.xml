@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: LogPosicion.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.ReportObjects.Datamart.Datamart,Logictracker.Types" table="opeposi07" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opeposi07" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti03" name="Vehicle" lazy="proxy" cascade="none" />
+    <many-to-one column="rela_parenti09" name="Employee" lazy="proxy" not-null="false" cascade="none" />
+    <many-to-one column="opeposi07_id_geocerca" name="GeograficRefference" lazy="proxy" not-null="false" cascade="none" />
+    <many-to-one column="rela_parenti46" name="Shift" lazy="proxy" cascade="none" />
+    <many-to-one column="rela_parenti90" name="Zona" lazy="proxy" cascade="none" />
+
+    <property column="opeposi07_inicio" name="Begin" type="DateTime" />
+    <property column="opeposi07_fin" name="End" type="DateTime" />
+    <property column="opeposi07_km" name="Kilometers" type="Double" />
+    <property column="opeposi07_horasmov" name="MovementHours" type="Double" />
+    <property column="opeposi07_horasdet" name="StoppedHours" type="Double" />
+    <property column="opeposi07_horassinrep" name="NoReportHours" type="Double" />
+    <property column="opeposi07_exceso" name="Infractions" type="Int32" />
+    <property column="opeposi07_minexceso" name="InfractionMinutes" type="Double" />
+    <property column="opeposi07_velocidad_minima" name="MinSpeed" type="Int32" />
+    <property column="opeposi07_velocidad_promedio" name="AverageSpeed" type="Int32" />
+    <property column="opeposi07_velocidad_maxima" name="MaxSpeed" type="Int32" />
+    <property column="opeposi07_estado_motor" name="EngineStatus" type="String" />
+    <property column="opeposi07_estado_vehiculo" name="VehicleStatus" type="String" not-null="false" />
+    <property column="opeposi07_horasmarcha" name="HorasMarcha" />
+    <property column="opeposi07_consumo" name="Consumo" />
+    <property column="opeposi07_tipociclo" name="TipoCiclo" />
+    <property column="opeposi07_id_ciclo" name="IdCiclo" />    
+    <property column="opeposi07_entimetracking" name="EnTimeTracking" />    
+
+  </class>
+</hibernate-mapping>

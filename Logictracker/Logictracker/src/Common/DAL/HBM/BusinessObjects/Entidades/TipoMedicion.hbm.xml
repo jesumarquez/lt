@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Entidades.TipoMedicion,Logictracker.Types" table="parenti77" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti77" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti77_codigo" type="String" name="Codigo" />
+    <property column="parenti77_descripcion" type="String" name="Descripcion" />
+    <property column="parenti77_baja" type="Boolean" name="Baja" />
+    <property column="parenti77_controla_limites" type="Boolean" name="ControlaLimites" />
+
+    <many-to-one column="rela_parenti85" name="UnidadMedida" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

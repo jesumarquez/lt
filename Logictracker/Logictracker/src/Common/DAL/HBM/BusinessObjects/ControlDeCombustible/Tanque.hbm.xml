@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ControlDeCombustible.Tanque,Logictracker.Types" table="parenti36" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti36" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti36_descri" type="String" name="Descripcion" not-null="true" />
+    <property column="parenti36_volReal" type="Double" name="VolReal" not-null="true" />
+    <property column="parenti36_volTeorico" type="Double" name="VolTeorico" not-null="true" />
+    <property column="parenti36_codigo" type="String" name="Codigo" not-null="true" />
+    <property column="parenti36_capacidad" type="Double" name="Capacidad" />
+    <property column="parenti36_stockReposicion" type="Double" not-null="false" name="StockReposicion" />
+    <property column="parenti36_stockCritico" type="Double" not-null="false" name="StockCritico" />
+    <property column="parenti36_aguaMin" type="Double" not-null="false" name="AguaMin" />
+    <property column="parenti36_aguaMax" type="Double" not-null="false" name="AguaMax" />
+    <property column="parenti36_tiempo_sin_reportar" type="Int32" not-null="false" name="TiempoSinReportar" />
+    <property column="parent36_porcent_teorico_vs_real" type="Int32" not-null="false" name="PorcentajeRealVsTeorico" />
+
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_parenti19" name="Equipo" lazy="proxy" />
+  </class>
+</hibernate-mapping>

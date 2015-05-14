@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Sync.OutQueue,Logictracker.Types" table="[ope.ope_sync_01_cab_outqueue]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opesync01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+
+    <property column="opesync01_query" name="Query" />
+    <property column="opesync01_operacion" name="Operacion" />
+    <property column="opesync01_parametros" name="Parametros" />
+    <property column="opesync01_fechaalta" name="FechaAlta" />
+    <property column="opesync01_prioridad" name="Prioridad" />
+    <property column="opesync01_transaction" name="Transaction" />
+    
+  </class>
+</hibernate-mapping>

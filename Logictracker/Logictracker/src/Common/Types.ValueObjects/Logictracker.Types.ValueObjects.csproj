@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B4CACBB4-0F42-4C57-813B-BB72C7FC82EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Types.ValueObjects</RootNamespace>
+    <AssemblyName>Logictracker.Types.ValueObjects</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseCSVBuilder.cs" />
+    <Compile Include="CicloLogistico\AgendaVehicularVo.cs" />
+    <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoVo.cs" />
+    <Compile Include="Mantenimiento\TicketMantenimientoVo.cs" />
+    <Compile Include="Parametrizacion\SubCentroDeCostosVo.cs" />
+    <Compile Include="ReportObjects\CicloLogistico\ResumenDeRutasVo.cs" />
+    <Compile Include="ReportObjects\CicloLogistico\ResumenDeEntregasVo.cs" />
+    <Compile Include="CicloLogistico\Distribucion\ControlDistribucionVo.cs" />
+    <Compile Include="CicloLogistico\Distribucion\FlujoDeTareasVo.cs" />
+    <Compile Include="CicloLogistico\Hormigon\ConsolaTicketsVo.cs" />
+    <Compile Include="CicloLogistico\TipoServicioCicloVo.cs" />
+    <Compile Include="CicloLogistico\RecorridoVo.cs" />
+    <Compile Include="ControlAcceso\CategoriaAccesoVo.cs" />
+    <Compile Include="ControlAcceso\FichadaVo.cs" />
+    <Compile Include="Dispositivos\PrecintoVo.cs" />
+    <Compile Include="Documentos\Partes\ParteCampos.cs" />
+    <Compile Include="Documentos\Partes\PartePersonal.cs" />
+    <Compile Include="Documentos\Partes\TurnoPartePersonal.cs" />
+    <Compile Include="Entidades\DetalleVo.cs" />
+    <Compile Include="Entidades\MedicionVo.cs" />
+    <Compile Include="Entidades\LogEventoVo.cs" />
+    <Compile Include="Entidades\MedicionTourVo.cs" />
+    <Compile Include="Entidades\SubEntidadVo.cs" />
+    <Compile Include="Entidades\SensorVo.cs" />
+    <Compile Include="Entidades\EntidadVo.cs" />
+    <Compile Include="Entidades\TipoMedicionVo.cs" />
+    <Compile Include="Entidades\TipoEntidadVo.cs" />
+    <Compile Include="Mantenimiento\ConsumoCCVo.cs" />
+    <Compile Include="Mantenimiento\StockInsumoVo.cs" />
+    <Compile Include="Mantenimiento\StockVo.cs" />
+    <Compile Include="Mantenimiento\DepositoVo.cs" />
+    <Compile Include="Mantenimiento\RendimientoVo.cs" />
+    <Compile Include="Mantenimiento\TipoProveedorVo.cs" />
+    <Compile Include="Parametrizacion\ZonaAccesoVo.cs" />
+    <Compile Include="Parametrizacion\TipoZonaAccesoVo.cs" />
+    <Compile Include="Parametrizacion\ZonaVo.cs" />
+    <Compile Include="Parametrizacion\DepartamentoVo.cs" />
+    <Compile Include="Parametrizacion\UnidadMedidaVo.cs" />
+    <Compile Include="Parametrizacion\VigenciaPlanLineaVo.cs" />
+    <Compile Include="Parametrizacion\PlanVo.cs" />
+    <Compile Include="Parametrizacion\LineaTelefonicaVo.cs" />
+    <Compile Include="Parametrizacion\ProductoVo.cs" />
+    <Compile Include="ReferenciasGeograficas\TipoZonaVo.cs" />
+    <Compile Include="ReflectedExtensions.cs" />
+    <Compile Include="ReportObjects\Bolland\ActividadDiariaVo.cs" />
+    <Compile Include="ReportObjects\Bolland\PerformanceVo.cs" />
+    <Compile Include="ReportObjects\CicloLogistico\TolvaTourVo.cs" />
+    <Compile Include="ReportObjects\CicloLogistico\TimeTrackingVo.cs" />
+    <Compile Include="ReportObjects\CicloLogistico\EntregaVo.cs" />
+    <Compile Include="ReportObjects\CicloLogistico\ReporteDistribucionVo.cs" />
+    <Compile Include="ReportObjects\KilometrosDiariosVo.cs" />
+    <Compile Include="ReportObjects\ResumenActividadVo.cs" />
+    <Compile Include="ReportObjects\DatamartLogVo.cs" />
+    <Compile Include="ReportObjects\LogicLinkFileVo.cs" />
+    <Compile Include="ReportObjects\ReporteTrasladoVo.cs" />
+    <Compile Include="ReportObjects\ReporteViajeVo.cs" />
+    <Compile Include="ReportObjects\RankingVehiculosVo.cs" />
+    <Compile Include="ReportObjects\VerificadorEmpleadoVo.cs" />
+    <Compile Include="ReportObjects\KmHsProductivosVo.cs" />
+    <Compile Include="ReportObjects\ReporteDespachoVo.cs" />
+    <Compile Include="ReportObjects\RetrasoVo.cs" />
+    <Compile Include="ReportObjects\ProgramacionReporteVo.cs" />
+    <Compile Include="Auditoria\LoginAuditVO.cs" />
+    <Compile Include="CicloLogistico\BocaDeCargaVo.cs" />
+    <Compile Include="CicloLogistico\CicloLogisticoVo.cs" />
+    <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionVo.cs" />
+    <Compile Include="CicloLogistico\EstadoVo.cs" />
+    <Compile Include="CicloLogistico\PedidoVo.cs" />
+    <Compile Include="CicloLogistico\ServicioVo.cs" />
+    <Compile Include="CicloLogistico\TicketVo.cs" />
+    <Compile Include="Combustible\CentroDeCargaRemitosVo.cs" />
+    <Compile Include="Combustible\CentroDeCostosDespachosVo.cs" />
+    <Compile Include="Combustible\CombustibleEventVo.cs" />
+    <Compile Include="Combustible\ConciliacionVo.cs" />
+    <Compile Include="Combustible\ConsistenciaStockVo.cs" />
+    <Compile Include="Combustible\ConsumoVo.cs" />
+    <Compile Include="Combustible\DespachoVo.cs" />
+    <Compile Include="Combustible\IngresoVo.cs" />
+    <Compile Include="Combustible\NivelesTanqueVo.cs" />
+    <Compile Include="Combustible\RemitoVo.cs" />
+    <Compile Include="Combustible\TanqueVo.cs" />
+    <Compile Include="IDynamicData.cs" />
+    <Compile Include="Mantenimiento\ConsumoVo.cs" />
+    <Compile Include="Mantenimiento\TipoInsumoVo.cs" />
+    <Compile Include="Mantenimiento\InsumoVo.cs" />
+    <Compile Include="Mantenimiento\ProveedorVo.cs" />
+    <Compile Include="Parametrizacion\Postal\DistribuidorVo.cs" />
+    <Compile Include="Parametrizacion\Postal\MotivoVo.cs" />
+    <Compile Include="Parametrizacion\Postal\TipoServicioVo.cs" />
+    <Compile Include="Parametrizacion\PuertaAccesoVo.cs" />
+    <Compile Include="ReportObjects\AccessEventVo.cs" />
+    <Compile Include="Dispositivos\ConfiguracionDispositivoVo.cs" />
+    <Compile Include="Dispositivos\DetalleDispositivosVo.cs" />
+    <Compile Include="Dispositivos\DispositivoVo.cs" />
+    <Compile Include="Dispositivos\FirmwareVo.cs" />
+    <Compile Include="Dispositivos\TipoDispositivoVo.cs" />
+    <Compile Include="Dispositivos\TipoParametroDispositivoVo.cs" />
+    <Compile Include="Documentos\DocumentoVo.cs" />
+    <Compile Include="Documentos\PartePersonalVo.cs" />
+    <Compile Include="Documentos\ParteReportVo.cs" />
+    <Compile Include="Documentos\PeriodoVo.cs" />
+    <Compile Include="Documentos\ReporteVencimientoVo.cs" />
+    <Compile Include="Documentos\TipoDocumentoVo.cs" />
+    <Compile Include="Empleados\EmpleadoVo.cs" />
+    <Compile Include="Empleados\TarjetaVo.cs" />
+    <Compile Include="Empleados\TipoEmpleadoVo.cs" />
+    <Compile Include="Mensajes\MensajeVo.cs" />
+    <Compile Include="Mensajes\TipoMensajeVo.cs" />
+    <Compile Include="Organizacion\FuncionVo.cs" />
+    <Compile Include="GridMappingAttribute.cs" />
+    <Compile Include="Organizacion\PerfilVo.cs" />
+    <Compile Include="Mensajes\AccionVo.cs" />
+    <Compile Include="Parametrizacion\CaudalimetroVo.cs" />
+    <Compile Include="Parametrizacion\CentroDeCostosVo.cs" />
+    <Compile Include="Parametrizacion\ClienteVo.cs" />
+    <Compile Include="Parametrizacion\EmpresaVo.cs" />
+    <Compile Include="Parametrizacion\EquipoVo.cs" />
+    <Compile Include="Parametrizacion\FeriadoVo.cs" />
+    <Compile Include="Parametrizacion\LineaVo.cs" />
+    <Compile Include="Parametrizacion\PuntoEntregaVo.cs" />
+    <Compile Include="Parametrizacion\ShiftVo.cs" />
+    <Compile Include="Parametrizacion\TransportistaVo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Organizacion\SistemaVo.cs" />
+    <Compile Include="Organizacion\UsuarioVo.cs" />
+    <Compile Include="ReferenciasGeograficas\ReferenciaGeograficaVo.cs" />
+    <Compile Include="ReferenciasGeograficas\TallerVo.cs" />
+    <Compile Include="ReferenciasGeograficas\TipoReferenciaGeograficaVo.cs" />
+    <Compile Include="Combustible\ConsistenciaStockPozoVo.cs" />
+    <Compile Include="Combustible\ConsumosMotorVo.cs" />
+    <Compile Include="ReportObjects\CicloLogistico\DuracionEstadosVo.cs" />
+    <Compile Include="ReportObjects\ConsumoCombustibleVo.cs" />
+    <Compile Include="ReportObjects\HistogramaDetencionesDetailVo.cs" />
+    <Compile Include="ReportObjects\InfractionDetailVo.cs" />
+    <Compile Include="ReportObjects\LogContextVo.cs" />
+    <Compile Include="ReportObjects\LogEntryVo.cs" />
+    <Compile Include="ReportObjects\MobileDriversByDayVo.cs" />
+    <Compile Include="ReportObjects\MobileDriversVo.cs" />
+    <Compile Include="Combustible\IngresosPorEquipoVo.cs" />
+    <Compile Include="ReportObjects\MobileActivityVo.cs" />
+    <Compile Include="ReportObjects\MobileEventVo.cs" />
+    <Compile Include="ReportObjects\MobileGeocercaVo.cs" />
+    <Compile Include="ReportObjects\MobileManteinanceVo.cs" />
+    <Compile Include="ReportObjects\MobileMessageVo.cs" />
+    <Compile Include="ReportObjects\MobilePoiHistoricVo.cs" />
+    <Compile Include="ReportObjects\MobilePoiVo.cs" />
+    <Compile Include="ReportObjects\MobilePositionDetailVo.cs" />
+    <Compile Include="ReportObjects\MobilePositionVehicleVo.cs" />
+    <Compile Include="ReportObjects\MobilePositionVo.cs" />
+    <Compile Include="ReportObjects\MobileRouteEventVo.cs" />
+    <Compile Include="ReportObjects\MobileRoutesVo.cs" />
+    <Compile Include="ReportObjects\MobileTourVo.cs" />
+    <Compile Include="ReportObjects\OperatorActivityVo.cs" />
+    <Compile Include="ReportObjects\MobileUtilizationVo.cs" />
+    <Compile Include="ReportObjects\OdometroStatusVo.cs" />
+    <Compile Include="ReportObjects\OperatorMobilesByDayVo.cs" />
+    <Compile Include="ReportObjects\OperatorMobilesVo.cs" />
+    <Compile Include="ReportObjects\OperatorRankingVo.cs" />
+    <Compile Include="ReportObjects\QueueVo.cs" />
+    <Compile Include="ReportObjects\RouteEventVo.cs" />
+    <Compile Include="ReportObjects\ServiceVO.cs" />
+    <Compile Include="Soporte\ReporteTicketVo.cs" />
+    <Compile Include="Soporte\SupportTicketVo.cs" />
+    <Compile Include="Transportistas\TransportActivityVo.cs" />
+    <Compile Include="Vehiculos\CocheVo.cs" />
+    <Compile Include="Vehiculos\ModeloVo.cs" />
+    <Compile Include="Vehiculos\MarcaVo.cs" />
+    <Compile Include="Vehiculos\OdometroVo.cs" />
+    <Compile Include="Vehiculos\TipoCocheVo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
+      <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
+      <Name>Logictracker.Culture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Process\Logictracker.Process.CicloLogistico\Logictracker.Process.CicloLogistico.csproj">
+      <Project>{C23D6940-C665-4076-96B7-C5B29EE304F0}</Project>
+      <Name>Logictracker.Process.CicloLogistico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Helpers\Logictracker.Services.Helpers.csproj">
+      <Project>{335550D5-F4A2-4AD0-A22F-C4AB705C6606}</Project>
+      <Name>Logictracker.Services.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\Logictracker.DAL.csproj">
+      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

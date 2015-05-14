@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.LogicLinkFile,Logictracker.Types" table="parenti100" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti100" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti100_server_name" name="ServerName" />
+    <property column="parenti100_file_path" name="FilePath" />
+    <property column="parenti100_file_source" name="FileSource" />
+    <property column="parenti100_strategy" name="Strategy" />
+    <property column="parenti100_date_added" name="DateAdded" />
+    <property column="parenti100_date_processed" name="DateProcessed" />
+    <property column="parenti100_status" name="Status" />
+    <property column="parenti100_result" name="Result" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+      
+  </class>
+</hibernate-mapping>

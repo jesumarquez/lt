@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EntregaDistribucion,Logictracker.Types" table="[ope.ope_tick_04_det_entregadistri]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick04" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+    <many-to-one column="rela_opetick03" name="Viaje" lazy="proxy" />
+    <many-to-one column="rela_parenti18" name="Cliente" lazy="proxy" />
+    <many-to-one column="rela_parenti44" name="PuntoEntrega" lazy="proxy" cascade="save-update" />
+    <many-to-one column="rela_partick07" name="TipoServicio" lazy="proxy" />
+    <many-to-one column="rela_opeeven01" name="MensajeConfirmacion" lazy="proxy" />
+
+    <property column="opetick04_descripcion" name="Descripcion" />
+    <property column="opetick04_orden" name="Orden" />
+    <property column="opetick04_programado" name="Programado" />
+    <property column="opetick04_programado_hasta" name="ProgramadoHasta" />
+    <property column="opetick04_llegada" name="Entrada" />
+    <property column="opetick04_manual" name="Manual" />
+    <property column="opetick04_salida" name="Salida" />
+    <property column="opetick04_estado" name="Estado" />
+    <property column="opetick04_bultos" name="Bultos" />
+
+    <property column="opetick04_comentario1" name="Comentario1" />
+    <property column="opetick04_comentario2" name="Comentario2" />
+    <property column="opetick04_comentario3" name="Comentario3" />
+
+    <property column="opetick04_km_gps" name="KmGps" />
+    <property column="opetick04_km_calculado" name="KmCalculado" />
+    <property column="opetick04_km_control" name="KmControlado" />
+
+    <property column="opetick04_recepcion_confirmacion" name="RecepcionConfirmacion" />
+    <property column="opetick04_lectura_confirmacion" name="LecturaConfirmacion" />
+    <property column="opetick04_garmin_unread_inactive" name="GarminUnreadInactiveAt" />
+    <property column="opetick04_garmin_read_inactive" name="GarminReadInactiveAt" />
+    <property column="opetick04_garmin_eta" name="GarminETA" />
+    <property column="opetick04_garmin_eta_informed_at" name="GarminETAInformedAt" />
+
+    <bag name="EventosDistri"
+          table="[ope.ope_even_09_even_distri]"
+          inverse="true">
+      <cache usage="read-write" />
+      <key column="rela_opetick04" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Messages.EvenDistri, Logictracker.Types" />
+    </bag>
+  </class>
+</hibernate-mapping>

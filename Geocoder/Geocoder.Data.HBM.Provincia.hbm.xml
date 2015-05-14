@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-lazy="true" namespace="Geocoder.Core" assembly="Geocoder.Core">
+	<class name="Provincia" table="provincia" lazy="true">
+    <cache usage="read-write" />
+
+    <!-- Primary Key(s) -->
+		<id name="Id" column="id_provincia" type="Int32" unsaved-value="0">
+			<generator class="native"/>
+		</id>
+
+		<!-- Properties -->
+		<property column="prov_mapid" type="Int32" name="MapId" not-null="true" index="IX_provincia_mapid" />
+		<property column="prov_nombre" type="String" name="Nombre" not-null="true" length="32" />
+
+		<bag name="Partidos" generic="true" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+			<key column="fk_provincia"/>
+			<one-to-many class="Partido" />
+		</bag>
+		<bag name="Palabras" table="provincia_palabraposicionada" generic="true" inverse="false" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+			<key column="fk_provincia" />
+			<many-to-many column="fk_palabraposicionada" class="PalabraPosicionada" />
+		</bag>
+	</class>
+</hibernate-mapping>

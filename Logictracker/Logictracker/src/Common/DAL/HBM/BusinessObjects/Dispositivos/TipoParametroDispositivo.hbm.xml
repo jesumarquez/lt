@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Dispositivo.hbm.xml 319 2007-01-24 19:31:26Z rbugallo $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.TipoParametroDispositivo,Logictracker.Types" table="parenti31" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti31" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti31_nombre" type="String" name="Nombre" not-null="true" length="32" />
+    <property column="parenti31_descripcion" type="String" name="Descripcion" length="255" />
+    <property column="parenti31_tipo_dato" type="String" name="TipoDato" length="16" />
+    <property column="parenti31_consumidor" type="String" name="Consumidor" length="1" />
+    <property column="parenti31_valor_inicial" type="String" name="ValorInicial" length="96" />
+    <property column="parenti31_editable" type="Boolean" name="Editable" />
+    <property column="parenti31_metadata" type="String" name="Metadata" />
+    <property column="parenti31_needs_reset" type="Boolean" name="RequiereReset" />
+
+    <many-to-one name="DispositivoTipo" column="rela_parenti32" lazy="proxy" />
+
+    <set name="_detallesDispositivo" access="field" table="parenti30" lazy="true" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti31" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Dispositivos.DetalleDispositivo, Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

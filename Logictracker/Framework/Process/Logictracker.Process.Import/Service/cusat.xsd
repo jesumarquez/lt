@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="xs3p.xsl"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:appinfo>Logictracker</xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OPERACIONES">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="OPERACION" >
+          <xs:annotation>
+            <xs:documentation>
+              Define una operacion sobre el maestro
+            </xs:documentation>
+          </xs:annotation>
+
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DISTRITO" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>
+                    Distrito , corresponde a una empresa y es la entidad mayor de Logictracker
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="razsoc" type="xs:string" use="required" >
+                    <xs:annotation>
+                      <xs:documentation>Razon social del distrito</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="codigo" type="uCodigo" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BASE" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>
+                    Base , corresponde a un agrupamiento dentro de la empresa.
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="codigo" type="uCodigo" use="required" />
+                  <xs:attribute name="descripcion" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="VEHICULO" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>
+                    Datos del vehiculo
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="tipov" type="xs:string" use="required" />
+                  <xs:attribute name="dominio" type="xs:string" use="required" />
+                  <xs:attribute name="interno" type="xs:string" use="required" />
+                  <xs:attribute name="marca" type="xs:string" use="required" />
+                  <xs:attribute name="modelo" type="xs:string" use="required" />
+                  <xs:attribute name="estado" type="uVEstado" use="optional" default="O" />
+                  <xs:attribute name="visible" type="xs:boolean" use="optional" default="true" >
+                    <xs:annotation>
+                      <xs:documentation>
+                        Visible en la plataforma
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DISPOSITIVO" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>
+                    Datos del dispositivo
+                  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="tipo" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>
+                        Tipo de dispositivo , codificacion a definir
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="ident" type="xs:string" use="required" >
+                    <xs:annotation>
+                      <xs:documentation>
+                        Identificador
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="imei" type="xs:string" use="optional" />
+                  <xs:attribute name="linea" type="xs:string" use="optional" />
+                  <xs:attribute name="estado" type="uVEstado" use="optional" default="O" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="movimiento" type="uOperacion" use="required" >
+              <xs:annotation>
+                <xs:documentation>Tipo Movimiento A=Alta , B=Baja , M=Modificacion</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="trans" type="xs:integer" use="required">
+              <xs:annotation>
+                <xs:documentation>
+                  Numero de transaccion
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="uCodigo">
+    <xs:restriction base="xs:string">
+      <xs:length value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="uOperacion">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A"/>
+      <xs:enumeration value="B"/>
+      <xs:enumeration value="M"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- 
+  4 = VIRLOC2
+6 = VIRLOC4
+7 = VIRLOC5
+8 = VIRLOC10
+10 = VIRLOC40
+32 = VIVO4 (S4, protocolo Traxs)
+33 = VIVO6 (S6, protocolo Traxs)
+40 = COYOTE (protocolo Coyote)
+41 = COYOTE2 (protocolo Coyote)
+50 = UG2
+60 = TR203
+70 = GX2
+80 = XC2
+90 = GL200
+
+-->
+  <xs:simpleType name="uTipoDispo">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VIRLOC4"/>
+      <xs:enumeration value="VIRLOC5"/>
+      <xs:enumeration value="VIRLOC10"/>
+      <xs:enumeration value="VIRLOC40"/>
+      <xs:enumeration value="VIVO4"/>
+      <xs:enumeration value="VIVO6"/>
+      <xs:enumeration value="COYOTE"/>
+      <xs:enumeration value="COYOTE2"/>
+      <xs:enumeration value="UG2"/>
+      <xs:enumeration value="TR203"/>
+      <xs:enumeration value="GX2"/>
+      <xs:enumeration value="XC2"/>
+      <xs:enumeration value="GL200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="uVEstado">
+    <xs:restriction base="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          O = Operativo
+          I = Inactivo
+          M = Mantenimiento
+        </xs:documentation>
+      </xs:annotation>
+      <xs:enumeration value="O"/>
+      <xs:enumeration value="I"/>
+      <xs:enumeration value="M"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="Respuesta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SessionId" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string"></xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Active" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:boolean"></xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Logout" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:boolean"></xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Import" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="trans" type="xs:integer" use="required"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Error " minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="trans" type="xs:integer" use="required"/>
+              </xs:extension>
+            </xs:simpleContent>
+
+          </xs:complexType>
+
+        </xs:element>
+
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Error" >
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Mensaje" minOccurs="1">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string"></xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

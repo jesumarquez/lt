@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Perfil,Logictracker.Types" table="socusua02" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_socusua02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="socusua02_descri" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="socusua02_fbaja" type="DateTime" name="FechaBaja" not-null="false" />
+
+    <set name="_funciones" access="field" table="socusua03" lazy="true" fetch="select" inverse="true" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_socusua02" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.MovMenu, Logictracker.Types" />
+    </set>
+
+      <bag name="Asegurados"
+              table="[soc.soc_usua_08_mov_asegurables]"
+              lazy="true"
+              fetch="select"
+              inverse="true"
+              cascade="all-delete-orphan">
+          <key column="rela_socusua02" />
+          <one-to-many class="Logictracker.Types.BusinessObjects.Organizacion.AseguradoEnPerfil,Logictracker.Types" />
+      </bag>
+  </class>
+</hibernate-mapping>

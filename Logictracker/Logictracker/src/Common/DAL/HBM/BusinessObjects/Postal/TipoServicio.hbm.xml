@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Postal.TipoServicio,Logictracker.Types" table="[logictracker_postal].[dbo].[par.par_enti_52_tipoServicio]" lazy="true">
+    
+    <id name="Id" column="id_parenti52" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti52_codigo" name="Codigo" type="String" not-null="true"/>
+    <property column="parenti52_descri" name="Descripcion" type="String" not-null="true"/>
+    <property column="parenti52_descri_corta" name="DescripcionCorta" type="String" not-null="false"/>
+    <property column="parenti52_confirma" name="ConAcuse" type="Int16" not-null="false"/>
+    <property column="parenti52_con_foto" name="ConFoto" type="Int16" not-null="false" />
+    <property column="parent52_con_laterales" name="ConLaterales" type="Int16" not-null="false" />
+    <property column="parenti52_con_referencia" name="ConReferencia" type="Int16" not-null="false" />
+    <property column="parenti52_con_gps" name="ConGps" type="Int16" not-null="false" />
+    <property column="parenti52_fecha_modificacion" name="FechaModificacion" type="DateTime" not-null="true" />
+    <property column="parenti52_fecha_baja" name="FechaBaja" type="DateTime" not-null="false" />
+    
+  </class>
+</hibernate-mapping>

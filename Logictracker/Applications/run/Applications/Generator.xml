@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application	xmlns="http://walks.ath.cx/framework"
+							xmlns:x="http://walks.ath.cx/statics"
+							xmlns:generator="http://walks.ath.cx/e/positionsgenerator"
+							RunMode="WinService">
+
+	<MessageQueue Path=".\private$\posiciones_generadas" Transactional="true" Recoverable="true" />
+	<generator:PositionsGenerator Date="2010-06-06 03:00:00" DaysToAdd="185" />
+
+</Application>

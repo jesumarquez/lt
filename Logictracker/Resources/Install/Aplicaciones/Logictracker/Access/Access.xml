@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application	xmlns="http://walks.ath.cx/framework"
+				xmlns:x="http://walks.ath.cx/statics"
+				xmlns:g="http://walks.ath.cx/generics" 
+				xmlns:fe="http://walks.ath.cx/frontend"
+				xmlns:access="http://walks.ath.cx/e/urbetrackaccess" 
+				fe:Title="Urbetrack Access" 
+				fe:AfinityGroup="Unetel"
+				x:Key="Default" 
+				RunMode="WinService">
+
+  <Resources>
+    <MessageQueue x:Key="accessQueue" Path=".\private$\eventos_access" Transactional="true" Recoverable="true" />
+  </Resources>
+
+  <access:UrbetrackAccess AccessDispatcher="{StaticResource theDispatcher}" />
+  <MessageDispatcher x:Key="theDispatcher">
+    <AccessEventsHandler g:Type="Urbetrack.Access.AccessEvent, Urbetrack.Access" MessageQueue="{StaticResource accessQueue}" />
+  </MessageDispatcher>
+</Application>

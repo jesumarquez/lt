@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: LogPosicion.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Positions.LogPosicionDescartada,Logictracker.Types" table="opeposi08" lazy="true">
+    <id name="Id" column="id_opeposi08" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti03" name="Coche" not-null="false" lazy="proxy" />
+    <many-to-one column="rela_parenti08" name="Dispositivo" not-null="true" lazy="proxy" />
+
+    <property column="opeposi08_latitud" name="Latitud" type="Double" not-null="true" />
+    <property column="opeposi08_longitud" name="Longitud" type="Double" not-null="true" />
+    <property column="opeposi08_fechora" name="FechaMensaje" type="DateTime" />
+    <property column="opeposi08_fechora_alta" name="FechaRecepcion" type="DateTime" />
+    <property column="opeposi08_velocidad" name="Velocidad" type="Int32" not-null="true" />
+    <property column="opeposi08_velocalculada" name="VeloCalculada" type="Boolean" not-null="true" />
+    <property column="opeposi08_altitud" name="Altitud" type="Double" />
+    <property column="opeposi08_curso" name="Curso" type="Double" />
+    <property column="opeposi08_status" name="Status" type="byte" />
+    <property column="opeposi08_motivo_descarte" name="MotivoDescarte" type="Int32" />
+    <property column="opeposi08_engineon" name="MotorOn" />
+    <property column="opeposi08_provider" name="Provider" />
+    <property column="opeposi08_horiz_acc" name="HorizontalAccuracy" />
+  </class>
+</hibernate-mapping>

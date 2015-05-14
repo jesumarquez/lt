@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics"
+	xmlns:g="http://walks.ath.cx/generics"
+	RunMode="WinService">
+
+	<Resources>
+		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_fulmar" Transactional="true" Recoverable="true" />
+	</Resources>
+
+	<StackChannel>
+		<MessageConsumer MessageQueue="{StaticResource eventsQueue}" />
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Urbetrack.AVL.Position, Urbetrack.AVL" />
+			<EventsHandler g:Type="Urbetrack.AVL.Event, Urbetrack.AVL" />
+			<TicketsHandler g:Type="Urbetrack.AVL.SpeedingTicket, Urbetrack.AVL" />
+			<TextEventsHandler g:Type="Urbetrack.AVL.TextEvent, Urbetrack.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+	<StackChannel>
+		<MessageConsumer MessageQueue="{StaticResource eventsQueue}" />
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Urbetrack.AVL.Position, Urbetrack.AVL" />
+			<EventsHandler g:Type="Urbetrack.AVL.Event, Urbetrack.AVL" />
+			<TicketsHandler g:Type="Urbetrack.AVL.SpeedingTicket, Urbetrack.AVL" />
+			<TextEventsHandler g:Type="Urbetrack.AVL.TextEvent, Urbetrack.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+	<StackChannel>
+		<MessageConsumer MessageQueue="{StaticResource eventsQueue}" />
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Urbetrack.AVL.Position, Urbetrack.AVL" />
+			<EventsHandler g:Type="Urbetrack.AVL.Event, Urbetrack.AVL" />
+			<TicketsHandler g:Type="Urbetrack.AVL.SpeedingTicket, Urbetrack.AVL" />
+			<TextEventsHandler g:Type="Urbetrack.AVL.TextEvent, Urbetrack.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+	<StackChannel>
+		<MessageConsumer MessageQueue="{StaticResource eventsQueue}" />
+		<MessageDispatcher>
+			<PositionsHandler g:Type="Urbetrack.AVL.Position, Urbetrack.AVL" />
+			<EventsHandler g:Type="Urbetrack.AVL.Event, Urbetrack.AVL" />
+			<TicketsHandler g:Type="Urbetrack.AVL.SpeedingTicket, Urbetrack.AVL" />
+			<TextEventsHandler g:Type="Urbetrack.AVL.TextEvent, Urbetrack.AVL" />
+		</MessageDispatcher>
+	</StackChannel>
+
+</Application>

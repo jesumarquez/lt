@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Vehiculos.Shift,Logictracker.Types" table="parenti46" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti46" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
+
+    <property column="parenti46_codigo" type="String" name="Codigo" not-null="true" length="16" />
+    <property column="parenti46_descripcion" type="String" name="Descripcion" not-null="true" length="128" />
+
+    <property column="parenti46_inicio" type="Double" name="Inicio" not-null="true" />
+    <property column="parenti46_fin" type="Double" name="Fin" not-null="true" />
+
+    <property column="parenti46_lunes" type="Boolean" name="Lunes" not-null="true" />
+    <property column="parenti46_martes" type="Boolean" name="Martes" not-null="true" />
+    <property column="parenti46_miercoles" type="Boolean" name="Miercoles" not-null="true" />
+    <property column="parenti46_jueves" type="Boolean" name="Jueves" not-null="true" />
+    <property column="parenti46_viernes" type="Boolean" name="Viernes" not-null="true" />
+    <property column="parenti46_sabado" type="Boolean" name="Sabado" not-null="true" />
+    <property column="parenti46_domingo" type="Boolean" name="Domingo" not-null="true" />
+
+    <property column="parenti46_aplica_feriados" type="Boolean" name="AplicaFeriados" not-null="true" />
+
+    <property column="parenti46_baja" type="Boolean" name="Baja" not-null="true" />
+
+    <set name="_asignaciones" access="field" table="parenti94" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_parenti46" />
+      <many-to-many column="rela_parenti03" class="Logictracker.Types.BusinessObjects.Vehiculos.Coche, Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

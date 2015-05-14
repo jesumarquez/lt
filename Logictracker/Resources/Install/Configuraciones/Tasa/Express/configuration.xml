@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration xmlns="urn:Scheduler.Configuration">
+
+  <Timer Enabled="true" Name="Database Maintenance" StartTime="00:00:01" Periodicity="Day" Notifiers="soporte@pagustech.com">
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Urbetrack.Scheduler.Tasks.Mantenimiento"/>
+<!--<Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.MantenimientoPosiciones, Urbetrack.Scheduler.Tasks.Mantenimiento"/>
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.MantenimientoMensajes, Urbetrack.Scheduler.Tasks.Mantenimiento"/>-->
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.TraceMaintenance, Urbetrack.Scheduler.Tasks.Mantenimiento" Params="DaysToKeep=7"/>
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.UpdateStadistics, Urbetrack.Scheduler.Tasks.Mantenimiento" />
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.IndexDefragmentation, Urbetrack.Scheduler.Tasks.Mantenimiento" />
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.DetectNonUsedIndexes, Urbetrack.Scheduler.Tasks.Mantenimiento" />
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.RecommendIndexes, Urbetrack.Scheduler.Tasks.Mantenimiento" />
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.ExpensiveQueries, Urbetrack.Scheduler.Tasks.Mantenimiento" />
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.ShrinkLogFile, Urbetrack.Scheduler.Tasks.Mantenimiento" Params="Database=urbetrack;LogFile=urbetrack_log"/>
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.ShrinkLogFile. Urbetrack.Scheduler.Tasks.Mantenimiento" Params="Database=urbetrack_history;LogFile=urbetrack_history_log"/>
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.DatabaseBackup,Urbetrack.Scheduler.Tasks.Mantenimiento" Params="Database=urbetrack;BackupDirectory=D:\Microsoft SQL Server\MSSQL.1\MSSQL\Backup\urbetrack_backups\"/>
+    <Task Class="Urbetrack.Scheduler.Tasks.Mantenimiento.DatabaseBackup,Urbetrack.Scheduler.Tasks.Mantenimiento" Params="Database=urbetrack_history;BackupDirectory=D:\Microsoft SQL Server\MSSQL.1\MSSQL\Backup\urbetrack_history_backups\"/>
+  </Timer>
+	<Timer Enabled="true" Name="AssistCargo" StartTime="00:00:00" Peridicity="Minute" >
+		<Task Class="Urbetrack.Scheduler.Tasks.AssistCargo.Task, Urbetrack.Scheduler.Tasks.AssistCargo" />
+	</Timer>
+  <Timer Enabled="true" Name="Support" StartTime="00:00:00" Frequency="60" Notifiers="soporte@pagustech.com">
+    <Task Class="Urbetrack.Scheduler.Tasks.NoReport.Task, Urbetrack.Scheduler.Tasks.NoReport" />
+    <Task Class="Urbetrack.Scheduler.Tasks.FleetStatus.Task, Urbetrack.Scheduler.Tasks.FleetStatus" />
+    <Task Class="Urbetrack.Scheduler.Tasks.QueueStatus.Task, Urbetrack.Scheduler.Tasks.QueueStatus" Params="MessageCount=1000" />
+  </Timer>
+
+</Configuration>

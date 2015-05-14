@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Dispositivos.ConfiguracionDispositivo,Logictracker.Types" table="parenti49" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti49" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti49_nombre" type="String" name="Nombre" not-null="true" length="32" />
+    <property column="parenti49_descripcion" type="String" name="Descripcion" not-null="false" length="128" />
+    <property column="parenti49_configuracion" type="StringClob" name="Configuracion" not-null="true" />
+    <property column="parenti49_orden" type="Int32" name="Orden" not-null="true" />
+  </class>
+</hibernate-mapping>

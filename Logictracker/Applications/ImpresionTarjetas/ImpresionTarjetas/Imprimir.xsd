@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Imprimir" targetNamespace="http://tempuri.org/Imprimir.xsd" xmlns:mstns="http://tempuri.org/Imprimir.xsd" xmlns="http://tempuri.org/Imprimir.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="tarjetasConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="tarjetasConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Tarjetas.Properties.Settings.GlobalReference.Default.tarjetasConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="imprimirTableAdapter" GeneratorDataComponentClassName="imprimirTableAdapter" Name="imprimir" UserDataComponentName="imprimirTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="tarjetasConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT legajo, apellido, imprimir.nombre, documento, upcode, foto, code, image FROM imprimir, back where active = 1</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="legajo" DataSetColumn="legajo" />
+              <Mapping SourceColumn="apellido" DataSetColumn="apellido" />
+              <Mapping SourceColumn="nombre" DataSetColumn="nombre" />
+              <Mapping SourceColumn="documento" DataSetColumn="documento" />
+              <Mapping SourceColumn="upcode" DataSetColumn="upcode" />
+              <Mapping SourceColumn="foto" DataSetColumn="foto" />
+              <Mapping SourceColumn="code" DataSetColumn="code" />
+              <Mapping SourceColumn="image" DataSetColumn="image" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="tarjetasConnectionString (Settings)" DbObjectName="imprimir" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT legajo, apellido, nombre, documento, upcode, foto, code FROM imprimir</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Imprimir" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="Imprimir" msprop:Generator_DataSetName="Imprimir" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="imprimir" msprop:Generator_UserTableName="imprimir" msprop:Generator_RowDeletedName="imprimirRowDeleted" msprop:Generator_RowChangedName="imprimirRowChanged" msprop:Generator_RowClassName="imprimirRow" msprop:Generator_RowChangingName="imprimirRowChanging" msprop:Generator_RowEvArgName="imprimirRowChangeEvent" msprop:Generator_RowEvHandlerName="imprimirRowChangeEventHandler" msprop:Generator_TableClassName="imprimirDataTable" msprop:Generator_TableVarName="tableimprimir" msprop:Generator_RowDeletingName="imprimirRowDeleting" msprop:Generator_TablePropName="imprimir">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="legajo" msprop:Generator_UserColumnName="legajo" msprop:Generator_ColumnPropNameInRow="legajo" msprop:Generator_ColumnVarNameInTable="columnlegajo" msprop:Generator_ColumnPropNameInTable="legajoColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="apellido" msprop:Generator_UserColumnName="apellido" msprop:Generator_ColumnPropNameInRow="apellido" msprop:Generator_ColumnVarNameInTable="columnapellido" msprop:Generator_ColumnPropNameInTable="apellidoColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nombre" msprop:Generator_UserColumnName="nombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInTable="nombreColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="documento" msprop:Generator_UserColumnName="documento" msprop:Generator_ColumnPropNameInRow="documento" msprop:Generator_ColumnVarNameInTable="columndocumento" msprop:Generator_ColumnPropNameInTable="documentoColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="upcode" msprop:Generator_UserColumnName="upcode" msprop:Generator_ColumnPropNameInRow="upcode" msprop:Generator_ColumnVarNameInTable="columnupcode" msprop:Generator_ColumnPropNameInTable="upcodeColumn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="foto" msprop:Generator_UserColumnName="foto" msprop:Generator_ColumnPropNameInRow="foto" msprop:Generator_ColumnVarNameInTable="columnfoto" msprop:Generator_ColumnPropNameInTable="fotoColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="code" msprop:Generator_UserColumnName="code" msprop:Generator_ColumnPropNameInRow="code" msprop:Generator_ColumnVarNameInTable="columncode" msprop:Generator_ColumnPropNameInTable="codeColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="image" msprop:Generator_UserColumnName="image" msprop:Generator_ColumnVarNameInTable="columnimage" msprop:Generator_ColumnPropNameInRow="image" msprop:Generator_ColumnPropNameInTable="imageColumn" type="xs:base64Binary" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:imprimir" />
+      <xs:field xpath="mstns:legajo" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

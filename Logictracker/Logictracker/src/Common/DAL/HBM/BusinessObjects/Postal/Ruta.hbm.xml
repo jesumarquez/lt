@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Postal.Ruta,Logictracker.Types" table="[logictracker_postal].[dbo].[par.par_enti_54_rutas]" lazy="true">
+
+    <id name="Id" column="id_parenti54" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_socusua13" name="Distribuidor" lazy="proxy" not-null="false" />
+    <many-to-one column="rela_parenti52" name="TipoServicio" lazy="proxy" not-null="false" />
+    <many-to-one column="rela_parenti53" name="Motivo" lazy="proxy" not-null="false" />
+    <many-to-one column="rela_parenti08" name="Dispositivo" lazy="proxy" not-null="false" />
+
+    <property column="parenti54_nro_ruta" name="NumeroRuta" type="String" />
+    <property column="parenti54_nro_item" name="Item" type="Int32" />
+    <property column="socusua13_codigo" name="CodigoDistribuidor" type="String" />
+    <property column="parenti52_codigo" name="CodigoTipoServicio" type="String" />
+    <property column="parenti54_cliente" name="Cliente" type="Int32" />
+    <property column="parenti54_destinatario" name="Destinatario" type="String" />
+    <property column="parenti54_direccion" name="Direccion" type="String" />
+    <property column="parenti54_idpieza" name="IdPieza" type="Int32" />
+    <property column="parenti54_pieza" name="Pieza" type="String" />
+    <property column="parenti54_estado" name="Estado" type="Int32" />
+    <property column="parenti54_latitud" name="Latitud" type="Double" not-null="false" />
+    <property column="parenti54_longitud" name="Longitud" type="Double" not-null="false" />
+    <property column="parenti54_foto" name="Foto" type="BinaryBlob" not-null="false" />
+    <property column="parenti54_fecha_foto" name="FechaFoto" type="DateTime" not-null="false" />
+    <property column="parenti54_fecha_motivo" name="FechaMotivo" type="DateTime" not-null="false" />
+    <property column="parenti54_lateral1" name="Lateral1" type="String" not-null="false" />
+    <property column="parenti54_lateral2" name="Lateral2" type="String" not-null="false" />
+    <property column="parenti54_referencia" name="Referencia" type="String" not-null="false" />
+    <property column="parenti54_fecha_baja" name="FechaBaja" type="DateTime" not-null="false" />
+    <property column="parenti54_fecha_modificacion" name="FechaModificacion" type="DateTime" not-null="false" />
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+﻿namespace Logictracker.Revision
+{
+    public class Program
+    {
+        public static void Main()
+        {
+            System.Console.WriteLine("Revision: $WCRANGE$$WCMODS?m:$");
+            System.Console.WriteLine("Url: $WCURL$");
+            System.Console.WriteLine("Fecha Hora: $WCNOW$");
+        }
+    }
+}

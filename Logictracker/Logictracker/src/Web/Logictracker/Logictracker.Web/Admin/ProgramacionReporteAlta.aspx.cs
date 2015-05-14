@@ -1,0 +1,62 @@
+using System.Web.UI.WebControls;
+using Logictracker.Culture;
+using Logictracker.DAL.NHibernate;
+using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.Types.BusinessObjects;
+
+namespace Logictracker.Admin
+{
+    public partial class ProgramacionReporteAlta : SecuredAbmPage<ProgramacionReporte>
+    {
+        protected override string RedirectUrl { get { return "ProgramacionReporteLista.aspx"; } }
+        protected override string VariableName { get { return "ADMIN_PROGRAMACION_REPORTE"; } }
+        protected override string GetRefference() { return "ADMIN_PROGRAMACION_REPORTE"; }
+
+        protected override bool DuplicateButton { get { return false; } }
+        protected override bool AddButton { get { return false; } }
+        
+        protected override void Bind()
+        {
+            cbPeriodicidad.Items.Clear();
+            cbPeriodicidad.Items.Insert(0, new ListItem(CultureManager.GetLabel("DIARIO"), "D"));
+            cbPeriodicidad.Items.Insert(1, new ListItem(CultureManager.GetLabel("SEMANAL"), "S"));
+            cbPeriodicidad.Items.Insert(2, new ListItem(CultureManager.GetLabel("MENSUAL"), "M"));
+
+            cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
+            cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
+            txtReporte.Text = EditObject.Reporte;
+            cbPeriodicidad.SelectedValue = EditObject.Periodicidad.ToString();
+            txtMail.Text = EditObject.Mail;
+            chkBaja.Checked = !EditObject.Baja;
+        }
+
+        protected override void OnDelete()
+        {
+            EditObject.Baja = true;
+            DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
+        }
+
+        protected override void OnSave()
+        {
+            using (var transaction = SmartTransaction.BeginTransaction())
+            {
+
+                EditObject.Empresa = (cbEmpresa.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
+                EditObject.Linea = (cbLinea.Selected > 0) ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+                EditObject.Periodicidad = cbPeriodicidad.SelectedValue[0];
+                EditObject.Mail = txtMail.Text;
+                EditObject.Baja = !chkBaja.Checked;
+
+                DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
+
+                transaction.Commit();
+            }
+        }
+
+        protected override void ValidateSave()
+        {
+            ValidateEntity(cbEmpresa.Selected, "PARENTI01");
+            ValidateEmpty((string) txtMail.Text, (string) "MAIL");
+        }
+    }
+}

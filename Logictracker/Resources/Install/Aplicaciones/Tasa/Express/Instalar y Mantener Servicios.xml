@@ -1,0 +1,111 @@
+<Application  xmlns="http://walks.ath.cx/framework"
+              xmlns:x="http://walks.ath.cx/statics"
+              xmlns:fe="http://walks.ath.cx/frontend">
+
+  <Resources fe:Label="Recursos de Instalacion">
+
+    <FailureAction x:Key="restartServiceAction"
+                   RecoverAction="0"
+                   Delay="300"/>
+  </Resources>
+
+  <WinServiceGroup x:Key="winServiceGroup"
+        fe:Label="Urbetrack EXPRESS 2.0"
+        ServiceNamePrefix="Urbetrack.Express$"
+        AutomaticInstall="true"
+        AutomaticUpdate="true"
+        AutomaticUninstall="true"
+        Purge="false">
+   <WinService x:Key="expressService"
+                HostApplication="Applications\DISPATCHER.xml"
+                ServiceName="Dispatcher"
+                DisplayName="1 - Dispatcher (Mimica)"
+                Description="Emulacion del antiguo Dispatcher para mensajes de plataforma AVL."
+                StartMode="Automatic"
+                FailureRunCommand="'D:\Urbetrack\Urbetrack Express\Urbetrack.Notifier.exe' Urbetrack.Express$Dispatcher 20 20"
+                ServiceAccount="NetworkService"
+                FirstFailureAction="{StaticResource restartServiceAction}"
+                SecondFailureAction="{StaticResource restartServiceAction}"
+                SubsequentFailuresAction="{StaticResource restartServiceAction}"
+                ResetFailCounterAfter="86400"/>
+
+    <WinService x:Key="traxExpressService"
+                HostApplication="Applications\Trax.xml"
+                ServiceName="Trax"
+                DisplayName="0 - TRAX/GTE"
+                Description="Gateway para dispositivios TRAX/GTE."
+                StartMode="Automatic"
+                FailureRunCommand="'D:\Urbetrack\Urbetrack Express\Urbetrack.Notifier.exe' Urbetrack.Express$Trax 20 20"
+                ServiceAccount="NetworkService"
+                FirstFailureAction="{StaticResource restartServiceAction}"
+                SecondFailureAction="{StaticResource restartServiceAction}"
+                SubsequentFailuresAction="{StaticResource restartServiceAction}"
+                ResetFailCounterAfter="86400"/>
+                
+     <WinService x:Key="fulmarExpressService"
+                HostApplication="Applications\Fulmar.xml"
+                ServiceName="Fulmar"
+                DisplayName="0 - FULMAR"
+                Description="Gateway para dispositivios Fulmar."
+                StartMode="Automatic"
+                FailureRunCommand="'D:\Urbetrack\Urbetrack Express\Urbetrack.Notifier.exe' Urbetrack.Express$Fulmar 20 20"
+                ServiceAccount="NetworkService"
+                FirstFailureAction="{StaticResource restartServiceAction}"
+                SecondFailureAction="{StaticResource restartServiceAction}"
+                SubsequentFailuresAction="{StaticResource restartServiceAction}"
+                ResetFailCounterAfter="86400"/> 
+     
+     <WinService x:Key="DispatcherFulmarExpressService"
+                HostApplication="Applications\DispatcherFulmar.xml"
+                ServiceName="DispatcherFulmar"
+                DisplayName="1 - DispatcherFulmar"
+                Description="DispatcherFulmar"
+                StartMode="Automatic"
+                FailureRunCommand="'D:\Urbetrack\Urbetrack Express\Urbetrack.Notifier.exe' Urbetrack.Express$DispatcherFulmar 20 20"
+                ServiceAccount="NetworkService"
+                FirstFailureAction="{StaticResource restartServiceAction}"
+                SecondFailureAction="{StaticResource restartServiceAction}"
+                SubsequentFailuresAction="{StaticResource restartServiceAction}"
+                ResetFailCounterAfter="86400"/>           
+
+	  <WinService x:Key="unetelV1ExpressService"
+		       HostApplication="Applications\UnetelV1.xml"
+		       ServiceName="UnetelV1"
+		       DisplayName="0 - UNETEL v1"
+		       Description="Gateway para dispositivios UNETEL (protocolo v1)."
+		       StartMode="Automatic"
+		       FailureRunCommand="'D:\Urbetrack\Urbetrack Express\Urbetrack.Notifier.exe' Urbetrack.Express$UnetelV2 20 20"
+		       ServiceAccount="NetworkService"
+		       FirstFailureAction="{StaticResource restartServiceAction}"
+		       SecondFailureAction="{StaticResource restartServiceAction}"
+		       SubsequentFailuresAction="{StaticResource restartServiceAction}"
+		       ResetFailCounterAfter="86400"/>
+
+	  <WinService x:Key="unetelV2ExpressService"
+		       HostApplication="Applications\UnetelV2.xml"
+		       ServiceName="UnetelV2"
+		       DisplayName="0 - UNETEL v2"
+		       Description="Gateway para dispositivios UNETEL (protocolo v2)."
+		       StartMode="Automatic"
+		       FailureRunCommand="'D:\Urbetrack\Urbetrack Express\Urbetrack.Notifier.exe' Urbetrack.Express$UnetelV2 20 20"
+		       ServiceAccount="NetworkService"
+		       FirstFailureAction="{StaticResource restartServiceAction}"
+		       SecondFailureAction="{StaticResource restartServiceAction}"
+		       SubsequentFailuresAction="{StaticResource restartServiceAction}"
+		       ResetFailCounterAfter="86400"/>
+                
+	<WinService x:Key="urbetrackScheduler"
+			HostApplication="Applications\Scheduler.xml"
+			ServiceName="Scheduler"
+			DisplayName="2 - Scheduler"
+			Description="Servicio de scheduling de tareas."
+			StartMode="Automatic"
+			FailureRunCommand="'D:\Urbetrack\Urbetrack Express\Urbetrack.Notifier.exe Urbetrack.Express$Scheduler' 20 20"
+			ServiceAccount="NetworkService"
+			FirstFailureAction="{StaticResource restartServiceAction}"
+			SecondFailureAction="{StaticResource restartServiceAction}"
+			SubsequentFailuresAction="{StaticResource restartServiceAction}"
+			ResetFailCounterAfter="86400"/>
+
+  </WinServiceGroup>
+</Application>

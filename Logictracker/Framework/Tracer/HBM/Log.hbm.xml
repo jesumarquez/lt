@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.DatabaseTracer.Types.Log,Logictracker.DatabaseTracer" table="audlog01" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_audlog01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="audlog01_datetime" type="DateTime" name="DateTime" />
+    <property column="audlog01_type" type="Int32" name="Type" />
+    <property column="audlog01_module" type="String" name="Module" length="128" />
+    <property column="audlog01_component" type="String" name="Component" length="256" />
+    <property column="audlog01_message" type="String" name="Message" />
+    <property column="rela_parenti03" name="Vehicle" type="Int32" not-null="false" />
+    <property column="rela_parenti08" name="Device" type="Int32" not-null="false" />
+
+    <set name="_context" access="field" table="audlog02" inverse="true" cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_audlog01" />
+      <one-to-many class="Logictracker.DatabaseTracer.Types.LogContext, Logictracker.Types" />
+    </set>
+  </class>
+</hibernate-mapping>

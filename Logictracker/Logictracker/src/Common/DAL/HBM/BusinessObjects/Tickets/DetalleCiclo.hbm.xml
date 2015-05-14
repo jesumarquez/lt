@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Tickets.DetalleCiclo,Logictracker.Types" table="[par.par_tick_02_det_detalleciclo]" lazy="false">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_partick02" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="CicloLogistico" column="rela_partick01" />
+
+    <property column="partick02_codigo" type="String" name="Codigo" not-null="true" length="32" />
+    <property column="partick02_descri" type="String" name="Descripcion" not-null="true" length="128" />
+    <property column="partick02_tipoestado" type="Int16" name="Tipo" not-null="true" />
+    <property column="partick02_orden" type="Int16" name="Orden" not-null="true" />
+    <property column="partick02_repeticion" type="Int16" name="Repeticion" not-null="true" />
+    <property column="partick02_obligatorio" type="Boolean" name="Obligatorio" not-null="true" />
+    <property column="partick02_obligatorio_control" type="Boolean" name="ObligatorioControl" not-null="true" />
+    <property column="partick02_baja" type="Boolean" name="Baja" not-null="true" />
+    <property column="partick02_duracion" type="Int32" name="Duracion" not-null="true" />
+
+    <property column="partick02_minutos" type="Int32" name="Minutos" />
+    <many-to-one name="ReferenciaGeografica" column="rela_parenti05" />
+    <many-to-one name="EstadoCicloLogistico" column="rela_partick01_estado" />
+    <many-to-one name="Mensaje" column="rela_pareven01" />
+
+    <many-to-one name="MensajeControl" column="rela_pareven01_control" />
+  </class>
+</hibernate-mapping>

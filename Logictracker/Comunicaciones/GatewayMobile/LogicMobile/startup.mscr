@@ -1,0 +1,31 @@
+# UrbeMobile, para Windows Mobile 5
+# Inicia el Gateway de UrbeMobile y verifica su funcionamiento
+
+ErrorLevel ( "off" )
+
+#UMPATH="\Archivos de programa\Urbetrack Mobile\"
+UMPATH="\Program Files\Urbetrack Mobile\"
+UMPROC="urbemobile.exe"
+UMBIN=UMPATH & UMPROC
+UMSEEDFILE=UMPATH & "wdseed.txt"
+UMRSTFILE=UMPATH & "wdrst.txt"
+
+Delete ( UMSEEDFILE )
+Delete ( UMRSTFILE )
+
+While ( TRUE )
+
+	If ( FileExists( UMRSTFILE ) )
+		Message( "Urbemobile esta cerrando el WatchDog. Presione OK para continuar." )
+		Exit
+	EndIf
+	
+	If ( NOT ProcExists ( UMPROC ) )
+		Run( UMBIN )
+		WriteFile( UMSEEDFILE, "RUN")
+		Sleep ( 10000 )	
+	EndIf
+
+	Sleep ( 10000 )
+
+EndWhile

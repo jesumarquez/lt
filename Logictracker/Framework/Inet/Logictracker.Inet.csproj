@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7FA87A8B-B2F1-42D5-A1F6-A224BEF84C9B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.InetLayer</RootNamespace>
+    <AssemblyName>Logictracker.InetLayer</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TCP\Acceptor.cs" />
+    <Compile Include="TCP\Listener.cs" />
+    <Compile Include="TCP\Stream.cs" />
+    <Compile Include="TCP\StreamBlock.cs" />
+    <Compile Include="UDP\Datagram.cs" />
+    <Compile Include="UDP\Reactor.cs" />
+    <Compile Include="UnderlayingNetworkLayerTCP.cs" />
+    <Compile Include="UnderlayingNetworkLayerUDP.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Description\Logictracker.Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Logictracker.Description</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Logictracker.Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SBC\Logictracker.Layers.csproj">
+      <Project>{FA528F7B-1FE9-4B7E-B964-EB95730791AB}</Project>
+      <Name>Logictracker.Layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Statistics\Logictracker.Statistics.csproj">
+      <Project>{A3919256-9E55-4542-B80D-5293997D47D1}</Project>
+      <Name>Logictracker.Statistics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

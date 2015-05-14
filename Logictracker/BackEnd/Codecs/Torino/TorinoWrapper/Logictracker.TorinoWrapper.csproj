@@ -1,0 +1,148 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C1CB05DA-B6AF-4741-8121-FDF2B6D77021}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Urbetrack.Gateway.Joint.MessageQueue</RootNamespace>
+    <AssemblyName>Urbetrack.Gateway.Joint.MessageQueue</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>http://localhost/SAUrbetrack/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DevicesSql.cs" />
+    <Compile Include="EM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerHandler.cs" />
+    <Compile Include="UrbetrackUT.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Framework\Description\Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Description</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\MemCache\Urbetrack.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Urbetrack.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Urbetrack.Common.Messaging\Urbetrack.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Urbetrack.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Urbetrack.Messaging\Urbetrack.MsmqMessaging.csproj">
+      <Project>{103F6261-6C6B-46A9-957F-431F227CA523}</Project>
+      <Name>Urbetrack.MsmqMessaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Model\Model.csproj">
+      <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\AVL\AVL.csproj">
+      <Project>{0FD2623E-2379-410D-81E3-C8749BC014DE}</Project>
+      <Name>AVL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\QuadTree\QuadTreeSharp\Urbetrack.QuadTree.csproj">
+      <Project>{D1B8EAF1-02F3-40FC-9FA1-209CC1B9F96D}</Project>
+      <Name>Urbetrack.QuadTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\SBC\Layers.csproj">
+      <Project>{FA528F7B-1FE9-4B7E-B964-EB95730791AB}</Project>
+      <Name>Layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Urbetrack.Common.Configuration\Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Urbetrack.Tracer\Urbetrack.DatabaseTracer.csproj">
+      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
+      <Name>Urbetrack.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Lomax\src\Common\Urbetrack.Common.Utils\Urbetrack.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Urbetrack.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Backbone\Urbetrack.Backbone.csproj">
+      <Project>{2E81629A-01C5-46A0-8CDA-AEE767961A81}</Project>
+      <Name>Urbetrack.Backbone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Urbetrack.Comm.Core.csproj">
+      <Project>{7127B32A-E683-42B9-8F5C-9FD79589BECF}</Project>
+      <Name>Urbetrack.Comm.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
