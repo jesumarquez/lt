@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,6 +15,11 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <StartupObject>
     </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
     <PublishUrl>http://localhost/run/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -250,10 +255,6 @@
       <Project>{F892AC8A-2521-460A-8581-997F7D8100A7}</Project>
       <Name>Logictracker.Scheduler.Tasks.OrbComm</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.PumpControl\Logictracker.Scheduler.Tasks.PumpControl\Logictracker.Scheduler.Tasks.PumpControl.csproj">
-      <Project>{3389A9BD-161E-4CE7-B69E-AA7444940053}</Project>
-      <Name>Logictracker.Scheduler.Tasks.PumpControl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ReportsScheduler\Logictracker.Scheduler.Tasks.ReportsScheduler.csproj">
       <Project>{E50B84D3-EBDC-4BAC-91E7-892A73418017}</Project>
       <Name>Logictracker.Scheduler.Tasks.ReportsScheduler</Name>
@@ -407,7 +408,7 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

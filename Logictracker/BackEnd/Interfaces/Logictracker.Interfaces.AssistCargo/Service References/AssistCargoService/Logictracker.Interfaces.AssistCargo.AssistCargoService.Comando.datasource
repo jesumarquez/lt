@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="Comando" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Logictracker.Interfaces.AssistCargo.AssistCargoService.Comando, Service References.AssistCargoService.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>Logictracker.Interfaces.AssistCargo.AssistCargoService.Comando</TypeInfo>
 </GenericObjectDataSource>

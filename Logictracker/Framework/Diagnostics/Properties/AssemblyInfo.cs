@@ -14,3 +14,10 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 [assembly: Guid("4246bb60-8a14-4c46-b790-958aa4bb91e7")]
+
+
+//TODO: Estos datos se extraian con un TT desde los fuentes.
+//[assembly: AssemblyVersion("<#= assembly_version #>")]
+//[assembly: AssemblyFileVersion("<#= assembly_version #>")]
+//[assembly: AssemblyConfiguration("Built on <#= Environment.MachineName #>, v<#= assembly_version #>: <#= DateTime.Now #>; <#= branch #>")]
+

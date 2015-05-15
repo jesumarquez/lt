@@ -8,7 +8,6 @@ using Iesi.Collections;
 using Logictracker.Cache;
 using Logictracker.Cache.Interfaces;
 using Logictracker.DatabaseTracer.Core;
-using Logictracker.Model;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using Logictracker.Types.ValueObject.Messages;
 using Logictracker.Types.ValueObject.Positions;
@@ -284,7 +283,8 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
             get
             {
                 var det = DetallesDispositivo.Cast<DetalleDispositivo>().FirstOrDefault(detail => detail.TipoParametro.Nombre.Equals("GTE_MESSAGING_DEVICE"));
-                return det != null && det.Valor.Equals(MessagingDevice.Garmin);    
+                // MessagingDevice ...    public const String Garmin = "GARMIN";
+                return det != null && det.Valor.Equals("GARMIN");    
             }
         }
 
