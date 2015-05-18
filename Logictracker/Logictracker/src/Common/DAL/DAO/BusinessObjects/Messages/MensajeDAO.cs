@@ -628,5 +628,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
         }
 
         #endregion
+
     }
 }
