@@ -35,13 +35,6 @@ namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
         {
             var infracciones = DAOFactory.InfraccionDAO.GetByEmpleados(operators, initialDate, endDate);
 
-            if (infracciones.Count == 0)
-            {
-                var cocheDao = new DAOFactory().CocheDAO;
-                var vehiculos = cocheDao.GetList(empresas, lineas, new[] {-1}, transportistas).Select(v => v.Id);
-                infracciones = DAOFactory.InfraccionDAO.GetByVehiculos(vehiculos, initialDate, endDate);
-            }
-
             return infracciones.Select(infraction => 
                                        new InfractionDetail
                                            {
@@ -57,6 +50,27 @@ namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
                                                Pico = (int)infraction.Alcanzado,
                                                DuracionSegundos = (int) (infraction.FechaFin.HasValue ? ((DateTime) infraction.FechaFin).Subtract(infraction.Fecha).TotalSeconds : 0)
                                            });
+        }
+
+        public IEnumerable<InfractionDetail> GetInfractionsDetailsByVehicles(List<int> vehiculos, DateTime initialDate, DateTime endDate)
+        {
+            var infracciones = DAOFactory.InfraccionDAO.GetByVehiculos(vehiculos, initialDate, endDate);
+
+            return infracciones.Select(infraction =>
+                                       new InfractionDetail
+                                       {
+                                           Id = infraction.Id,
+                                           Latitude = infraction.Latitud,
+                                           Longitude = infraction.Longitud,
+                                           Vehiculo = infraction.Vehiculo.Interno,
+                                           Ponderacion = GetPonderacionInfraccion(infraction),
+                                           Calificacion = GetGravedadInfraccion(infraction),
+                                           Operador = infraction.Empleado != null ? infraction.Empleado.Entidad.Descripcion : "Sin Chofer Identificado",
+                                           Exceso = (int)(infraction.Alcanzado - infraction.Permitido),
+                                           Inicio = infraction.Fecha.ToDisplayDateTime(),
+                                           Pico = (int)infraction.Alcanzado,
+                                           DuracionSegundos = (int)(infraction.FechaFin.HasValue ? ((DateTime)infraction.FechaFin).Subtract(infraction.Fecha).TotalSeconds : 0)
+                                       });
         }
 
         #endregion

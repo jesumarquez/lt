@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="infractionsDetails.aspx.cs" Inherits="Logictracker.Web.Reportes.Accidentologia.ReportesReportsInfractionsDetails" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="VehicleInfractionsDetails.aspx.cs" Inherits="Logictracker.Web.Reportes.Accidentologia.VehicleInfractionsDetails" %>
 
 <asp:content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
     <table width="100%">
@@ -21,18 +21,6 @@
                 </asp:UpdatePanel>
             </td>
             <td align="left">
-                <cwc:ResourceLabel ID="lblTipoEmpleado" runat="server" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI43" />
-                <br />
-                <asp:UpdatePanel ID="upTipo" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
-                    <ContentTemplate>
-                        <cwc:TipoEmpleadoDropDownList ID="ddlTipoEmpleado" runat="server" ParentControls="ddlBase" Width="175px" SelectionMode="Multiple" AddNoneItem="true" AddAllItem="true" />
-                    </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="ddlDistrito" EventName="SelectedIndexChanged" />
-                        <asp:AsyncPostBackTrigger ControlID="ddlBase" EventName="SelectedIndexChanged" />
-                    </Triggers>
-                </asp:UpdatePanel>
-                <br />
                 <cwc:ResourceLabel ID="lblTransportista" runat="server" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI07" />
                 <br />
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
@@ -44,15 +32,28 @@
                         <asp:AsyncPostBackTrigger ControlID="ddlBase" EventName="SelectedIndexChanged" />
                     </Triggers>
                 </asp:UpdatePanel>
-            </td>
-            <td align="left" valign="top">
-                <cwc:ResourceLinkButton ID="btnChofer" runat="server" Font-Bold="true" ForeColor="Black" ResourceName="Labels" VariableName="CHOFER" ListControlTargetID="_lbEmpleado" />
-                <asp:UpdatePanel ID="upChofer" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                <br />
+                <cwc:ResourceLabel ID="lblTipoVehiculo" runat="server" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI17" />
+                <br />
+                <asp:UpdatePanel ID="upTipo" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                     <ContentTemplate>
-                        <cwc:EmpleadoListBox ID="_lbEmpleado" runat="server" Width="300px" Height="70px" AutoPostBack="false" ParentControls="ddlBase, ddlTransportista, ddlTipoEmpleado" SelectionMode="Multiple" />
+                        <cwc:TipoVehiculoDropDownList ID="ddlTipoVehiculo" runat="server" ParentControls="ddlBase" Width="175px" SelectionMode="Multiple" AddNoneItem="true" AddAllItem="true" />
                     </ContentTemplate>
                     <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="ddlTipoEmpleado" EventName="SelectedIndexChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="ddlDistrito" EventName="SelectedIndexChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="ddlBase" EventName="SelectedIndexChanged" />
+                    </Triggers>
+                </asp:UpdatePanel>
+                
+            </td>
+            <td align="left" valign="top">
+                <cwc:ResourceLinkButton ID="btnVehiculo" runat="server" Font-Bold="true" ForeColor="Black" ResourceName="Entities" VariableName="PARENTI03" ListControlTargetID="lbVehiculo" />
+                <asp:UpdatePanel ID="upVehiculo" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                    <ContentTemplate>
+                        <cwc:MovilListBox ID="lbVehiculo" runat="server" Width="300px" Height="70px" AutoPostBack="false" ParentControls="ddlBase,ddlTransportista,ddlTipoVehiculo" SelectionMode="Multiple" />
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="ddlTipoVehiculo" EventName="SelectedIndexChanged" />
                         <asp:AsyncPostBackTrigger ControlID="ddlTransportista" EventName="SelectedIndexChanged" /> 
                     </Triggers>
                 </asp:UpdatePanel>

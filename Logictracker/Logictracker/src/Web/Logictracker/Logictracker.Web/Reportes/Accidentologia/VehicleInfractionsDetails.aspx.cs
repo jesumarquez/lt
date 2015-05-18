@@ -12,17 +12,16 @@ using Logictracker.Web.BaseClasses.BasePages;
 
 namespace Logictracker.Web.Reportes.Accidentologia
 {
-    public partial class ReportesReportsInfractionsDetails : SecuredGridReportPage<InfractionDetailVo>
+    public partial class VehicleInfractionsDetails : SecuredGridReportPage<VehicleInfractionDetailVo>
     {
         private const string Leve = "LEVE";
         private const string Media = "MEDIA";
         private const string Grave = "GRAVE";
         private const string SinDefinir = "SIN_DEFINIR";
 
-        protected override string GetRefference() { return "INFRACTIONS_DETAILS"; }
-        protected override string VariableName{ get { return "ACC_DET_INFRACCIONES_X_CHOFER"; }  }
+        protected override string GetRefference() { return "VEHICLE_INFRACTIONS_DETAILS"; }
+        protected override string VariableName{ get { return "ACC_DET_INFRACCIONES_X_VEHICULO"; }  }
         protected override bool ExcelButton { get { return true; } }
-        protected override bool ScheduleButton { get { return true; } }
 
         protected override Empresa GetEmpresa()
         {
@@ -58,17 +57,17 @@ namespace Logictracker.Web.Reportes.Accidentologia
                 return (ViewState["Location_infractionDetails"] != null) ? Convert.ToInt32(ViewState["Location_infractionDetails"]) : 0;
             }            
         }
-        private int Operator
+        private int Vehicle
         {
             get
             {
-                if (ViewState["Operator_infractionDetails"] == null)
+                if (ViewState["Vehicle_infractionDetails"] == null)
                 {
-                    ViewState["Operator_infractionDetails"] = Session["Operator_infractionDetails"];
-                    Session["Operator_infractionDetails"] = null;
+                    ViewState["Vehicle_infractionDetails"] = Session["Vehicle_infractionDetails"];
+                    Session["Vehicle_infractionDetails"] = null;
                 }
 
-                return (ViewState["Operator_infractionDetails"] != null) ? Convert.ToInt32(ViewState["Operator_infractionDetails"]) : 0;
+                return (ViewState["Vehicle_infractionDetails"] != null) ? Convert.ToInt32(ViewState["Vehicle_infractionDetails"]) : 0;
             }
         }
         private DateTime Desde
@@ -105,7 +104,7 @@ namespace Logictracker.Web.Reportes.Accidentologia
             SetInitialValuesAndBindGrid();
         }
 
-        protected override List<InfractionDetailVo> GetResults()
+        protected override List<VehicleInfractionDetailVo> GetResults()
         {
             var desde = dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
             var hasta = dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
@@ -113,15 +112,17 @@ namespace Logictracker.Web.Reportes.Accidentologia
             var inicio = DateTime.UtcNow;
             try
             {
-                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(ddlDistrito.SelectedValues, ddlBase.SelectedValues, ddlTransportista.SelectedValues, GetOperators(), desde, hasta).Select(o => new InfractionDetailVo(o) { HideCornerNearest = !chkVerEsquinas.Checked}).ToList();
+                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(GetVehicles(), desde, hasta)
+                                                               .Select(o => new VehicleInfractionDetailVo(o) { HideCornerNearest = !chkVerEsquinas.Checked})
+                                                               .ToList();
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 
-				STrace.Trace("Detalle de Infracciones", String.Format("Duración de la consulta: {0} segundos", duracion));
+				STrace.Trace("Detalle de Infracciones por Vehículo", String.Format("Duración de la consulta: {0} segundos", duracion));
 				return results;
             }
             catch (Exception e)
             {
-				STrace.Exception("Detalle de Infracciones", e, String.Format("Reporte: Detalle de Infracciones. Duración de la consulta: {0:##0.00} segundos", (DateTime.UtcNow - inicio).TotalSeconds));
+                STrace.Exception("Detalle de Infracciones por Vehículo", e, String.Format("Reporte: Detalle de Infracciones por Vehículo. Duración de la consulta: {0:##0.00} segundos", (DateTime.UtcNow - inicio).TotalSeconds));
                 throw;
             }
         }
@@ -130,39 +131,20 @@ namespace Logictracker.Web.Reportes.Accidentologia
         {
             return  new Dictionary<string, string>
                                  {
-                                     {CultureManager.GetEntity("PARENTI09"), GetSelectedOperators(true)},
                                      {CultureManager.GetLabel("DESDE"), dpDesde.SelectedDate.GetValueOrDefault().ToShortDateString() + " " + dpDesde.SelectedDate.GetValueOrDefault().ToShortTimeString()},
                                      {CultureManager.GetLabel("HASTA"), dpHasta.SelectedDate.GetValueOrDefault().ToShortDateString() + " " + dpHasta.SelectedDate.GetValueOrDefault().ToShortTimeString()}
                                  };
         }
 
-        protected override Dictionary<string, string> GetFilterValuesProgramados()
+        private List<int> GetVehicles()
         {
-            var i = 0;
-            return GetOperators().ToDictionary(empleado => "PARENTI09." + i++, empleado => empleado.ToString());
+            if (lbVehiculo.GetSelectedIndices().Length == 0) lbVehiculo.ToogleItems();
+            return lbVehiculo.SelectedValues;
         }
 
-        private string GetSelectedOperators(bool showDescription)
+        protected override void OnRowDataBound(C1GridView grid, C1GridViewRowEventArgs e, VehicleInfractionDetailVo dataItem)
         {
-            if (_lbEmpleado.GetSelectedIndices().Length == 0) _lbEmpleado.ToogleItems();
-
-            var mobiles = string.Empty;
-
-            for (var i = 0; i < _lbEmpleado.Items.Count; i++)
-                if (_lbEmpleado.Items[i].Selected) mobiles = string.Concat(mobiles, showDescription ? _lbEmpleado.Items[i].Text : _lbEmpleado.Items[i].Value, ",");
-
-            return mobiles.TrimEnd(',');
-        }
-
-        private List<int> GetOperators()
-        {
-            if (_lbEmpleado.GetSelectedIndices().Length == 0) _lbEmpleado.ToogleItems();
-            return _lbEmpleado.SelectedValues;
-        }
-
-        protected override void OnRowDataBound(C1GridView grid, C1GridViewRowEventArgs e, InfractionDetailVo dataItem)
-        {
-            var cellCalificacion = GridUtils.GetCell(e.Row, InfractionDetailVo.IndexCalificacion);
+            var cellCalificacion = GridUtils.GetCell(e.Row, VehicleInfractionDetailVo.IndexCalificacion);
             switch (Convert.ToInt32(cellCalificacion.Text))
             {
                 case 1:
@@ -216,7 +198,7 @@ namespace Logictracker.Web.Reportes.Accidentologia
 
             if (Location != 0) ddlBase.SelectedValue = Location.ToString();
 
-            if (Operator != 0) _lbEmpleado.SelectedValue = Operator.ToString();
+            if (Vehicle != 0) lbVehiculo.SelectedValue = Vehicle.ToString();
 
             if (Desde != DateTime.MinValue) dpDesde.SelectedDate = Desde;
             else dpDesde.SetDate();
@@ -224,7 +206,7 @@ namespace Logictracker.Web.Reportes.Accidentologia
             if (Hasta != DateTime.MinValue) dpHasta.SelectedDate = Hasta;
             else dpHasta.SetDate();
 
-            if(Operator != 0)Bind();
+            if (Vehicle != 0) Bind();
         }
     }
 }

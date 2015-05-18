@@ -118,8 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ACC_DET_INFRACCIONES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>MenuImages\ACC_DET_INFRACCIONES.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ACC_DET_INFRACCIONES_X_CHOFER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>MenuImages\ACC_DET_INFRACCIONES_X_CHOFER.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ACC_DET_INFRACCIONES_X_VEHICULO" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>MenuImages\ACC_DET_INFRACCIONES_X_VEHICULO.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ACC_RANKING_CHOFERES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>MenuImages\ACC_RANKING_CHOFERES.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

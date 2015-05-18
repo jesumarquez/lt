@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ACC_DET_INFRACCIONES" xml:space="preserve">
-    <value>Detalle de Infracciones</value>
+  <data name="ACC_DET_INFRACCIONES_X_CHOFER" xml:space="preserve">
+    <value>Detalle de Infracciones por Chofer</value>
+  </data>
+  <data name="ACC_DET_INFRACCIONES_X_VEHICULO" xml:space="preserve">
+    <value>Detalle de Infracciones por Vehículo</value>
   </data>
   <data name="ACC_RANKING_CHOFERES" xml:space="preserve">
     <value>Ranking de Choferes</value>

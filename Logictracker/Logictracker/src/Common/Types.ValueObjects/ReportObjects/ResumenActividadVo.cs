@@ -21,7 +21,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
 
         public ResumenActividadVo(Coche vehiculo, TimeSpan encendido, TimeSpan apagado)
         {
-            Vehiculo = vehiculo.Interno;
+            Vehiculo = vehiculo.Patente;
             TiempoEncendido = string.Format("{0}.{1}:{2}:{3}", encendido.Days.ToString("00"), encendido.Hours.ToString("00"), encendido.Minutes.ToString("00"), encendido.Seconds.ToString("00"));
             TiempoApagado = string.Format("{0}.{1}:{2}:{3}", apagado.Days.ToString("00"), apagado.Hours.ToString("00"), apagado.Minutes.ToString("00"), apagado.Seconds.ToString("00"));
         }

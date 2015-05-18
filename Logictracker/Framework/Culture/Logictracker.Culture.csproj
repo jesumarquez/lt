@@ -191,6 +191,7 @@
   <ItemGroup>
     <Content Include="Resources\MenuImages\ANALIZADOR_MEDICIONES.png" />
     <Content Include="Resources\MenuImages\CONSOLA_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\ACC_DET_INFRACCIONES_X_VEHICULO.png" />
     <Content Include="Resources\MenuImages\KILOMETROS_DIARIOS.png" />
     <Content Include="Resources\MenuImages\RESUMEN_ACTIVIDAD.png" />
     <Content Include="Resources\MenuImages\PAR_AGENDA.png" />
@@ -242,7 +243,7 @@
     <Content Include="Resources\MenuImages\M2M_RENDIMIENTO.png" />
     <Content Include="Resources\MenuImages\CLOG_RECORRIDO.png" />
     <Content Include="Resources\MenuImages\PAR_UNIDAD_MEDIDA.png" />
-    <Content Include="Resources\MenuImages\ACC_DET_INFRACCIONES.png" />
+    <Content Include="Resources\MenuImages\ACC_DET_INFRACCIONES_X_CHOFER.png" />
     <Content Include="Resources\MenuImages\ACC_RANKING_CHOFERES.png" />
     <Content Include="Resources\MenuImages\ACC_REP_DETALLE_RECORRIDO.png" />
     <Content Include="Resources\MenuImages\ACC_REP_VARIACION_VELOCIDAD.png" />
