@@ -2,8 +2,8 @@
 
 <Configuration xmlns="urn:Scheduler.Configuration">
 
-  <Timer Enabled="true" Name="Programacion de Reportes" StartTime="00:00:00" Periodicity="Day" Notifiers="lucasm@logictracker.com" RunAtStart="true" >
-    <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=87;" />
+  <Timer Enabled="true" Name="Message Count" StartTime="00:00:00" Periodicity="Day" Notifiers="lucasm@logictracker.com" RunAtStart="true" >
+    <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.MessageCountServiceTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=lucasm@logictracker.com;" />
   </Timer>
 
 </Configuration>

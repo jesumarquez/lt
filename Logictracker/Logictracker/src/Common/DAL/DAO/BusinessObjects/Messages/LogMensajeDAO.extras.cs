@@ -26,6 +26,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                 .Select(Projections.RowCount())
                 .SingleOrDefault<int>();
         }
+        public int Count(int vehiculo, DateTime desde, DateTime hasta)
+        {
+            return Session.QueryOver<LogMensaje>()
+                          .Where(m => m.Coche.Id == vehiculo)
+                          .And(m => m.Fecha >= desde && m.Fecha <= hasta)
+                          .Select(Projections.RowCount())
+                          .SingleOrDefault<int>();
+        }
 
         public IEnumerable<LoginLogout> GetDrivers(int vehiculo, DateTime desde, DateTime hasta, int maxMonths)
         {

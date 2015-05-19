@@ -57,6 +57,8 @@ namespace Logictracker.Types.BusinessObjects
             public const string IconoPorCentroDeCosto = "icono.por.cc";
             public const string Icono = "icono.";
             public const string GoogleMapsEnabled = "google.maps.enabled";
+            public const string MessageCountEnabled = "msg.count.enabled";
+            public const string MessageCountValue = "msg.count.value";
 
             public const string AsignoDistribucionPorMensaje = "distribucion.asigno.mensaje";
             public const string AsignoDistribucionPrefijoMensaje = "distribucion.asigno.mensaje.prefijo";
@@ -519,6 +521,28 @@ namespace Logictracker.Types.BusinessObjects
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return true;
                 return aplica;
+            }
+        }
+
+        public virtual bool MessageCountEnabled
+        {
+            get
+            {
+                var valor = GetParameter(Params.MessageCountEnabled);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual int MessageCountValue
+        {
+            get
+            {
+                var valor = GetParameter(Params.MessageCountValue);
+                int cant;
+                if (valor == null || !int.TryParse(valor, out cant)) return 1000;
+                return cant;
             }
         }
 
