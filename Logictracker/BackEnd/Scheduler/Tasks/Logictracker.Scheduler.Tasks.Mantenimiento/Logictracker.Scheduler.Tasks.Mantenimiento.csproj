@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WatchDogServiceTask.cs" />
     <Compile Include="EstadoGarminTask.cs" />
     <Compile Include="UpdateGeocercasTask.cs" />
     <Compile Include="ReiniciarServiciosTask.cs" />

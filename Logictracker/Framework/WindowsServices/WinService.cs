@@ -179,12 +179,18 @@ namespace Logictracker.WindowsServices
 
         public static IEnumerable<ServiceController> GetLogictrackerServices()
         {
-            return ServiceController
-                .GetServices()
-                .Where(srv => srv.ServiceName.Contains("Gateway") 
-                           || srv.ServiceName.Contains("Dispatcher")
-                           || srv.ServiceName.Contains("LogicTracker"))
-                .ToList();
+            return ServiceController.GetServices()
+                                    .Where(srv => srv.ServiceName.Contains("Gateway") 
+                                               || srv.ServiceName.Contains("Dispatcher")
+                                               || srv.ServiceName.Contains("LogicTracker"))
+                                    .ToList();
+        }
+
+        public static IEnumerable<ServiceController> GetServicesToWatch(string service)
+        {
+            return ServiceController.GetServices()
+                                    .Where(srv => srv.ServiceName.Contains(service))
+                                    .ToList();
         }
 
 	    internal static void InstallAllServices(bool AutomaticUninstall, bool Purge, bool AutomaticInstall, bool AutomaticUpdate, String ServiceNamePrefix, IEnumerable<WinService> winServicesToInstall, WinServiceInstaller parent)

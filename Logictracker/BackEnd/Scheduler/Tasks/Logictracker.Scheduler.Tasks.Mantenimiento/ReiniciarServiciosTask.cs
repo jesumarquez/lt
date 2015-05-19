@@ -25,6 +25,12 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     STrace.Trace(GetType().FullName, "Servicio a reiniciar: " + service.ServiceName);
                     service.Refresh();
 
+                    if (service.ServiceName.Contains("EDESUR"))
+                    {
+                        STrace.Trace(GetType().FullName, "Se saltea Servicio de EDESUR");
+                        continue;
+                    }
+
                     var detenido = false;
                     var iniciado = false;
                     var retry = 0;
