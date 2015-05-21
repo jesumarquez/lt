@@ -90,6 +90,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Resources\xsd.exe" "$(ProjectDir)Configuration\Configuration.xsd" /c /o:"$(ProjectDir)Configuration\Generados" /edb /l:cs /n:Logictracker.Metrics</PreBuildEvent>
+    <PreBuildEvent>rem "$(ProjectDir)..\..\Resources\xsd.exe" "$(ProjectDir)Configuration\Configuration.xsd" /c /o:"$(ProjectDir)Configuration\Generados" /edb /l:cs /n:Logictracker.Metrics</PreBuildEvent>
   </PropertyGroup>
 </Project>
