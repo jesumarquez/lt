@@ -31,26 +31,26 @@ namespace Logictracker.Scheduler.Tasks.PumpControl
 
                     STrace.Trace(ComponentName, string.Format("Pump Habilitado para: {0}", empresa.RazonSocial));
                     
-                    GetFirstPendingTransactionResponse despacho;
+                    getFirstPendingTransactionResponse despacho;
                     try
                     {
                         despacho = service.GetFirstPendingTransaction(user, password, company);
 
                         if (despacho == null) STrace.Trace(ComponentName, "Primer despacho == null");
-                        if (despacho != null && despacho.TrxId == null) STrace.Trace(ComponentName, "Primer despacho con id nulo");
+                        if (despacho != null && despacho.trx_id == null) STrace.Trace(ComponentName, "Primer despacho con id nulo");
                     }
                     catch (Exception ex) { STrace.Exception(ComponentName, ex); continue; }
 
-                    while (despacho != null && despacho.TrxId != null && Convert.ToInt32(despacho.TrxId) > 0) // CONTROLAR QUE MANDA CUANDO NO HAY MAS DESPACHOS PENDIENTES
+                    while (despacho != null && despacho.trx_id != null && Convert.ToInt32(despacho.trx_id) > 0) // CONTROLAR QUE MANDA CUANDO NO HAY MAS DESPACHOS PENDIENTES
                     {
                         using (var transaction = SmartTransaction.BeginTransaction())
                         {
 
                             try
                             {
-                                if (despacho.LastinformedErrorMsg != null) throw new ApplicationException(despacho.LastinformedErrorMsg);
+                                if (despacho.lastinformed_error_msg != null) throw new ApplicationException(despacho.lastinformed_error_msg);
 
-                                var patente = despacho.CarPlate;
+                                var patente = despacho.car_plate;
                                 if (patente == string.Empty)
                                 {
                                     switch (company)
@@ -65,18 +65,18 @@ namespace Logictracker.Scheduler.Tasks.PumpControl
                                 }
 
                                 var vehiculo = DaoFactory.CocheDAO.FindByPatente(-1, patente);
-                                if (vehiculo == null) throw new ApplicationException(string.Format("Vehículo no encontrado: Patente: {0}", new[] {patente}));
+                                if (vehiculo == null) throw new ApplicationException(string.Format("Vehículo no encontrado: Patente: {0}", patente));
 
                                 var deposito = DaoFactory.DepositoDAO.FindByCode(new[] {vehiculo.Empresa.Id},
-                                    new[] {vehiculo.Linea != null ? vehiculo.Linea.Id : -1}, despacho.Store);
+                                    new[] {vehiculo.Linea != null ? vehiculo.Linea.Id : -1}, despacho.store);
                                 if (deposito == null)
-                                    throw new ApplicationException(string.Format("Depósito no encontrado: Codigo {0}", new[] {despacho.Store}));
+                                    throw new ApplicationException(string.Format("Depósito no encontrado: Codigo {0}", despacho.store));
 
                                 var insumo = DaoFactory.InsumoDAO.FindByCode(new[] {vehiculo.Empresa.Id},
                                     new[] {vehiculo.Linea != null ? vehiculo.Linea.Id : -1}, /*despacho.prod_id*/ "1");
-                                if (insumo == null) throw new ApplicationException(string.Format("Insumo no encontrado: Codigo {0}", new[] {despacho.ProdId}));
+                                if (insumo == null) throw new ApplicationException(string.Format("Insumo no encontrado: Codigo {0}", despacho.prod_id));
 
-                                var nroFactura = despacho.TrxId;
+                                var nroFactura = despacho.trx_id;
                                 var consumoExistente = DaoFactory.ConsumoCabeceraDAO.FindByNroFactura(new[] {vehiculo.Empresa.Id},
                                     new[] {vehiculo.Linea != null ? vehiculo.Linea.Id : -1}, nroFactura);
                                 if (consumoExistente != null)
@@ -87,11 +87,11 @@ namespace Logictracker.Scheduler.Tasks.PumpControl
 
                                 var stock = DaoFactory.StockDAO.GetByDepositoAndInsumo(deposito.Id, insumo.Id) ??
                                             new Stock {Deposito = deposito, Insumo = insumo};
-                                var fecha = Convert.ToDateTime(despacho.TrxDate);
-                                var precioUnitario = Convert.ToDouble(despacho.Ppu, CultureInfo.InvariantCulture);
-                                var cantidad = Convert.ToDouble(despacho.TrxVolume, CultureInfo.InvariantCulture);
-                                var precioTotal = Convert.ToDouble(despacho.Amount, CultureInfo.InvariantCulture);
-                                var km = Convert.ToDouble(despacho.CarKilometer, CultureInfo.InvariantCulture);
+                                var fecha = Convert.ToDateTime(despacho.trx_date);
+                                var precioUnitario = Convert.ToDouble(despacho.ppu, CultureInfo.InvariantCulture);
+                                var cantidad = Convert.ToDouble(despacho.trx_volume, CultureInfo.InvariantCulture);
+                                var precioTotal = Convert.ToDouble(despacho.amount, CultureInfo.InvariantCulture);
+                                var km = Convert.ToDouble(despacho.car_kilometer, CultureInfo.InvariantCulture);
 
                                 var consumoCabecera = new ConsumoCabecera
                                                       {
@@ -141,10 +141,10 @@ namespace Logictracker.Scheduler.Tasks.PumpControl
                                     string.Format("Despacho importado - Fecha: {0:dd/MM/yyyy HH:mm} - Factura: {1}", consumoCabecera.Fecha.AddHours(-3),
                                         consumoCabecera.NumeroFactura));
 
-                                var confirmacion = service.SetLastInformedTransaction(user, password, company, despacho.TrxId);
-                                if (confirmacion.LastinformedErrorMsg != null)
+                                var confirmacion = service.SetLastInformedTransaction(user, password, company, despacho.trx_id);
+                                if (confirmacion.lastinformed_error_msg != null)
                                     STrace.Trace(ComponentName, consumoCabecera.Vehiculo.Dispositivo != null ? consumoCabecera.Vehiculo.Dispositivo.Id : 0,
-                                        string.Format("Mensaje de confirmación: {0}", confirmacion.LastinformedErrorMsg));
+                                        string.Format("Mensaje de confirmación: {0}", confirmacion.lastinformed_error_msg));
                             }
                             catch (Exception ex)
                             {
@@ -153,7 +153,7 @@ namespace Logictracker.Scheduler.Tasks.PumpControl
                             }
                             finally
                             {
-                                despacho = service.GetFirstPendingTransaction(user, password, company, despacho.TrxId);
+                                despacho = service.GetFirstPendingTransaction(user, password, company, despacho.trx_id);
                             }
                         }
                     }

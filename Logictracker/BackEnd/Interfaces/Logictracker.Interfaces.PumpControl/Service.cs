@@ -15,39 +15,39 @@ namespace Logictracker.Interfaces.PumpControl
             get { return _client ?? (_client = new GpsFleetServiceClient(GetHttpBinding(), new EndpointAddress(Url))); }
         }
 
-        public GetFirstPendingTransactionResponse GetFirstPendingTransaction(string user, string pass, string company)
+        public getFirstPendingTransactionResponse GetFirstPendingTransaction(string user, string pass, string company)
         {
 		    return GetFirstPendingTransaction(user, pass, company, string.Empty);
         }
 
-        public GetFirstPendingTransactionResponse GetFirstPendingTransaction(string user, string pass, string company, string lastId)
+        public getFirstPendingTransactionResponse GetFirstPendingTransaction(string user, string pass, string company, string lastId)
         {
             return GetFirstPendingTransaction(user, pass, company, lastId, string.Empty, null);
         }
 
-        public GetFirstPendingTransactionResponse GetFirstPendingTransaction(string user, string pass, string company, string lastId, string patente, DateTime? desde)
+        public getFirstPendingTransactionResponse GetFirstPendingTransaction(string user, string pass, string company, string lastId, string patente, DateTime? desde)
         {
-            var obj = new GetFirstPendingTransaction
+            var obj = new getFirstPendingTransaction
                           {
-                              User = user,
-                              Password = pass,
-                              Company = company,
-                              LastId = lastId,
-                              CarPlate = patente,
-                              DateFrom = (desde.HasValue ? desde.Value : new DateTime()).ToString("dd-MM-yyyy")
+                              user = user,
+                              password = pass,
+                              company = company,
+                              last_id = lastId,
+                              car_plate = patente,
+                              date_from = (desde.HasValue ? desde.Value : new DateTime()).ToString("dd-MM-yyyy")
                           };
 
             return Client.getFirstPendingTransaction(obj);
         }
 
-        public SetLastInformedTransactionResponse SetLastInformedTransaction(string user, string pass, string company, string lastId)
+        public setLastInformedTransactionResponse SetLastInformedTransaction(string user, string pass, string company, string lastId)
         {
-            var obj = new SetLastInformedTransaction
+            var obj = new setLastInformedTransaction
                           {
-                              User = user,
-                              Password = pass,
-                              Company = company,
-                              TrxId = lastId
+                              user = user,
+                              password = pass,
+                              company = company,
+                              trx_id = lastId
                           };
             
             return Client.setLastInformedTransaction(obj);
@@ -77,4 +77,6 @@ namespace Logictracker.Interfaces.PumpControl
             return binding;
         }
     }
+
+  
 }
