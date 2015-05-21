@@ -109,6 +109,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\..\..\Resources\xsd.exe" "$(ProjectDir)Logictracker_Scheduler_Configuration.xsd" /c /o:"$(ProjectDir)Generados" /edb /l:cs /n:Logictracker.Scheduler</PreBuildEvent>
+    <PreBuildEvent>rem "$(ProjectDir)..\..\..\..\Resources\xsd.exe" "$(ProjectDir)Logictracker_Scheduler_Configuration.xsd" /c /o:"$(ProjectDir)Generados" /edb /l:cs /n:Logictracker.Scheduler</PreBuildEvent>
   </PropertyGroup>
 </Project>
