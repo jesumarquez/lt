@@ -4,8 +4,8 @@ del compile.log
 
 echo Compilando Solucion... 
 echo (esta operacion puede tardar varios minutos, horas, dias)
-"%PROGRAMFILES(X86)%\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe" "Logictracker.Full.sln" /build Debug /out "compile.log"
-
+rem "%PROGRAMFILES(X86)%\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe" "Logictracker.Full.sln" /build Debug /out "compile.log"
+msbuild "Logictracker.Full.sln" /p:Configuration=Release
 type compile.log
 
 echo Compilacion Terminada

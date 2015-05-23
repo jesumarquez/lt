@@ -30,14 +30,12 @@ _ReSharper*/
 *.scc
 *.[Rr]e[Ss]harper
 *.[Pp]ublish.xml
-*Logictracker_Scheduler_Configuration.cs
 *LogicTracker_Process_Import_Client.cs
 *Quartz.xml
 *Logictracker_Cameras.cs
 *Logictracker.Full.ncb
 *Logictracker.Full.suo
 Logictracker/Framework/External Libs/zeromq-2.0.7/lib/
-Logictracker/Framework/Logictracker.Metrics/Configuration/Generados/
 Actualizacion/
 PrecompiledWeb/
 /Logictracker\Applications\ImpresionTarjetas\Resources/Bases
@@ -53,7 +51,6 @@ PrecompiledWeb/
 /Logictracker/Framework/External Libs/Quartz/Quartz.xml
 /Logictracker/Framework/Metrics/Configuration/Generados/Configuration.cs
 /Logictracker/Framework/Process/Logictracker.Process.Import.Client/Mapping/Logictracker_Process_Import_Client.cs
-/Logictracker/Logictracker/src/Scheduler/Scheduler.Core/Generados/Logictracker_Scheduler_Configuration.cs
 /Logictracker/Web/Logictracker.Web.Controls/bin/Debug/Logictracker.Cache.dll
 /Logictracker/compile.log
 Debug
