@@ -361,7 +361,6 @@ namespace Logictracker.Web.CustomWebControls.Binding
             
             var mensajes = DaoFactory.MensajeDAO.FindByTipo(tipoMensaje, empresa, linea, user);
             
-
             if (autoBindeable.AddSinMensaje) autoBindeable.AddItem(CultureManager.GetControl("DDL_NO_MESSAGE"), autoBindeable.NoneValue);
 
             var messages = mensajes

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.LogMensajeAdmin,Logictracker.Types" table="opeeven12" lazy="true">
+    <id name="Id" column="id_opeeven12" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti08" name="Dispositivo" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_pareven01" name="Mensaje" not-null="true" lazy="proxy" />
+    <many-to-one column="rela_pareven02" name="Accion" lazy="proxy" />
+    <many-to-one column="rela_parenti03" name="Coche" lazy="proxy" />
+
+    <property column="opeeven12_datetime" type="DateTime" name="Fecha" />
+    <property column="opeeven12_datetime_alta" name="FechaAlta" />
+    <property column="opeeven12_mensaje" type="String" name="Texto" not-null="true" length="1024" />
+    <property column="opeeven12_expiracion" type="DateTime" not-null="false" name="Expiracion" />
+    <property column="opeeven12_estado" type="Byte" name="Estado" not-null="true" />
+
+    <many-to-one column="rela_parenti09" name="Chofer" lazy="proxy" />
+    <many-to-one column="rela_opetick01" name="Horario" lazy="proxy" />
+    <many-to-one column="rela_opetick02" name="DetalleHorario" lazy="proxy" />
+    <many-to-one column="rela_socusua01" name="Usuario" lazy="proxy" />
+    <many-to-one column="rela_parenti89" name="Zona" lazy="proxy" />
+    
+    <property column="opeeven12_latitud" name="Latitud" type="Double" />
+    <property column="opeeven12_longitud" name="Longitud" type="Double" />
+
+    <property column="opeeven12_tienefoto" name="TieneFoto" type="Boolean" />
+
+    <property column="opeeven12_datetime_fin" name="FechaFin" type="DateTime" not-null="false" />
+    <property column="opeeven12_latitud_fin" name="LatitudFin" type="Double" not-null="false" />
+    <property column="opeeven12_longitud_fin" name="LongitudFin" type="Double" not-null="false" />
+    <property column="opeeven12_velocidad_permitida" name="VelocidadPermitida" type="Int32" not-null="false" />
+    <property column="opeeven12_velocidad_alcanzada" name="VelocidadAlcanzada" type="Int32" not-null="false" />
+
+    <property column="rela_parenti05" name="IdPuntoDeInteres" type="Int32" not-null="false" />
+    
+  </class>
+</hibernate-mapping>
