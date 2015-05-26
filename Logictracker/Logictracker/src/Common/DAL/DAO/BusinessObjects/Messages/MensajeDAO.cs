@@ -117,6 +117,21 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
             messages = tipo == null ? messages : (from Mensaje m in messages where m.TipoMensaje != null && m.TipoMensaje.Codigo.Equals(tipo.Codigo) select m).ToList();
 
+            if (tipo != null && tipo.Mensajes.Count > 0)
+            {
+                var agrupados = tipo.Mensajes.Cast<Mensaje>();
+                messages = messages.Union(agrupados).Distinct().ToList();
+            }
+            else if (tipo == null && user.PorTipoMensaje)
+            {
+                messages = new List<Mensaje>();
+                foreach (TipoMensaje tipoMensaje in user.TiposMensaje)
+                {
+                    var agrupados = tipoMensaje.Mensajes.Cast<Mensaje>();
+                    messages = messages.Union(agrupados).Distinct().ToList();
+                }
+            }
+
             return (from Mensaje m in messages where m.Acceso <= user.Tipo select m).ToList();
         }
 
