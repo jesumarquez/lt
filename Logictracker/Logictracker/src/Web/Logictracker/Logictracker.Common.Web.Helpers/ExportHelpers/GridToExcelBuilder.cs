@@ -181,6 +181,9 @@ namespace Logictracker.Web.Helpers.ExportHelpers
         }
         public void GenerateFields<T>(List<T> list, CustomFormat customFormat)
         {
+            // Create new stopwatch
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
             foreach (var data in list)
             {
                 foreach (var excelColumn in _excelColumns)
@@ -234,6 +237,8 @@ namespace Logictracker.Web.Helpers.ExportHelpers
             {
                 _wbPart.UpdateConditionalOver(SheetName, ex.ConditionalFormatStart, ex.ConditionalFormatStart + ":" + ex.ExcelCol + (ex.ExcelRow + ex.LastIndex));
             }
+
+            stopwatch.Stop();
         }
         public void GenerateField(object result)
         {

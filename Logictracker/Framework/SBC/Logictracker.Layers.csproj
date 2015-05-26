@@ -63,8 +63,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseCodec.cs" />
@@ -74,7 +76,12 @@
     <Compile Include="CommanderReader\DeviceCommand.cs" />
     <Compile Include="CommanderReader\DevicesCommandStatus.cs" />
     <Compile Include="DeviceCommandCodecs\BaseDeviceCommand.cs" />
+    <Compile Include="DeviceCommandCodecs\AbsolutDeviceCommand.cs" />
+    <Compile Include="DeviceCommandCodecs\AbsolutObjectSerialized.cs" />
     <Compile Include="DeviceCommandCodecs\GarminFeatures.cs" />
+    <Compile Include="DeviceCommandCodecs\GenericParserSerialized.cs" />
+    <Compile Include="DeviceCommandCodecs\NovatelDeviceCommand.cs" />
+    <Compile Include="DeviceCommandCodecs\NovatelObjectSerialized.cs" />
     <Compile Include="DeviceCommandCodecs\TrimbleDeviceCommand.cs" />
     <Compile Include="DeviceCommandCodecs\GTEDeviceCommand.cs" />
     <Compile Include="DeviceCommandCodecs\VirlocDeviceCommand.cs" />

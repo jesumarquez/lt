@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C3763B3B-1D46-474E-B370-4099E93D893B}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -183,6 +183,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Absolut\Absolut.csproj">
+      <Project>{6BC4CD8F-48BB-405D-8E0C-EF08FA17DD6A}</Project>
+      <Name>Absolut</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\Gte\Trax.csproj">
       <Project>{5E21FE40-F8AC-4182-997B-11E6B83DB504}</Project>
       <Name>Trax</Name>
@@ -331,6 +335,10 @@
       <Project>{A4CBB9B0-1C0B-4112-B9EC-D7F2BF58397C}</Project>
       <Name>Logictracker.Interfaces.LoJackApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker.Novatec\Novatel.csproj">
+      <Project>{27C99A0E-3146-4E44-ACDB-2E55528F608A}</Project>
+      <Name>Novatel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Logictracker.Scheduler.Tasks.LoJack\Logictracker.Scheduler.Tasks.LoJack.csproj">
       <Project>{F5219040-DCC4-4309-89F3-1D608E27B755}</Project>
       <Name>Logictracker.Scheduler.Tasks.LoJack</Name>
@@ -377,6 +385,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Applications\GatewayAbsolut.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Applications\GatewayNovatel.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Applications\DispatcherTrax.xml" />
     <Content Include="Applications\GatewayAccess.xml">
     </Content>
