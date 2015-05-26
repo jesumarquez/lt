@@ -197,6 +197,7 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             var data = LoadSearchData();
             var inicio = DateTime.UtcNow;
+            LblInfo.Visible = false;
 
             if (data.FinalDate.Subtract(data.InitialDate).TotalDays > 31)
             {

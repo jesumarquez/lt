@@ -135,8 +135,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 {
                     var distribucion = DaoFactory.ViajeDistribucionDAO.FindById(idDistribucion);
 
-                    if (!regenera &&
-                        HasBeenProcessed(distribucion))
+                    if (!regenera && HasBeenProcessed(distribucion))
                     {
                         STrace.Trace(GetType().FullName, string.Format("Distribución ya procesada: {0}", distribucion.Id));
                     }

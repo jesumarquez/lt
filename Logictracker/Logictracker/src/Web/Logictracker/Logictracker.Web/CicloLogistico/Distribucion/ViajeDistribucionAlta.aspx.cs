@@ -725,15 +725,14 @@ namespace Logictracker.CicloLogistico.Distribucion
             {
                 var results = GeocoderHelper.GetDireccionSmartSearch(direccion);
                 SetResults(results);
-    
             }
             else
             {
                 Double lat;
                 Double lon;
 
-                var latitud = txtLatitud.Text.Trim();
-                var longitud = txtLongitud.Text.Trim();
+                var latitud = txtLatitud.Text.Trim().Replace('.',',');
+                var longitud = txtLongitud.Text.Trim().Replace('.', ',');
 
                 if (double.TryParse(latitud, out lat) && double.TryParse(longitud, out lon))
                 {

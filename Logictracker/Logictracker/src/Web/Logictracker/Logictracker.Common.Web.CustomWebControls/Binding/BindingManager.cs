@@ -365,6 +365,15 @@ namespace Logictracker.Web.CustomWebControls.Binding
                 var agrupados = tipoMensaje.Mensajes.Cast<Mensaje>();
                 mensajes = mensajes.Union(agrupados).Distinct();
             }
+            else if (tipoMensaje == null && user.PorTipoMensaje)
+            {
+                mensajes = new List<Mensaje>();
+                foreach (TipoMensaje tipo in user.TiposMensaje)
+                {
+                    var agrupados = tipo.Mensajes.Cast<Mensaje>();
+                    mensajes = mensajes.Union(agrupados).Distinct();
+                }
+            }
 
             if (autoBindeable.AddSinMensaje) autoBindeable.AddItem(CultureManager.GetControl("DDL_NO_MESSAGE"), autoBindeable.NoneValue);
 

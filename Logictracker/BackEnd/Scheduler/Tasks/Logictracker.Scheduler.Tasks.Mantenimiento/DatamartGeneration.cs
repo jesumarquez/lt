@@ -10,6 +10,7 @@ using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Scheduler.Tasks.Mantenimiento.Util;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects;
+using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ReportObjects.Datamart;
 using Logictracker.Utils;
 
@@ -92,10 +93,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             var inicio = DateTime.UtcNow;
 
-            foreach (var vehicle in Vehicles)
+            foreach (var vehicleId in Vehicles)
             {
+                var te = new TimeElapsed();
+                var vehicle = DaoFactory.CocheDAO.FindById(vehicleId);
+                STrace.Trace(GetType().FullName, string.Format("CocheDAO.FindById {0} segundos", te.getTimeElapsed().TotalSeconds));
                 try
-                {
+                {   
                     ProcessVehicle(vehicle, today);
                 }
                 catch (Exception ex)
@@ -111,9 +115,9 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                         {
                             ProcessVehicle(vehicle, today);
                             procesado = true;
-                            var parametros = new[] { "Vehículo " + vehicle + " procesado exitosamente luego de " + retry + " intentos.", vehicle.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
+                            var parametros = new[] { "Vehículo " + vehicle.Id + " procesado exitosamente luego de " + retry + " intentos.", vehicle.Id.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
                             SendMail(parametros);
-                            STrace.Trace(GetType().FullName, "Vehículo " + vehicle + " procesado exitosamente luego de " + retry + " intentos.");
+                            STrace.Trace(GetType().FullName, "Vehículo " + vehicle.Id + " procesado exitosamente luego de " + retry + " intentos.");
                         }
                         catch (Exception e)
                         {
@@ -122,9 +126,9 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     }
                     if (retry == 5 && !procesado)
                     {
-                        var parametros = new[] { "No se pudieron generar registros de Datamart para el vehículo: " + vehicle, vehicle.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
+                        var parametros = new[] { "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
                         SendMail(parametros);
-                        STrace.Trace(GetType().FullName, "No se pudieron generar registros de Datamart para el vehículo: " + vehicle);
+                        STrace.Trace(GetType().FullName, "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Id);
                     }
                 }
             }
@@ -145,25 +149,24 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 		/// <summary>
         /// Process the specified vehicle.
         /// </summary>
-        /// <param name="vehicle"></param>
+        /// <param name="coche"></param>
         /// <param name="today"></param>
-        private void ProcessVehicle(int vehicle, DateTime today)
+        private void ProcessVehicle(Coche coche, DateTime today)
         {
-            var lastUpdate = GetStartDate(vehicle);
+            var lastUpdate = GetStartDate(coche.Id);
 
-			var coche = DaoFactory.CocheDAO.FindById(vehicle);
 			var dispo = coche.Dispositivo != null ? coche.Dispositivo.Id : 0;
-			STrace.Trace(GetType().FullName, dispo, String.Format("Processing vehicle with id: {0}", vehicle));
+            STrace.Trace(GetType().FullName, dispo, String.Format("Processing vehicle with id: {0}", coche.Id));
             
             if (!lastUpdate.Equals(DateTime.MinValue))
             {
-                if (Regenerate) RegenerateOldPeriods(lastUpdate, vehicle, today);
+                if (Regenerate) RegenerateOldPeriods(lastUpdate, coche, today);
 
-                ProcessCurrentPeriods(lastUpdate, vehicle, today);
+                ProcessCurrentPeriods(lastUpdate, coche, today);
             }
 			else
             {
-	            STrace.Trace(GetType().FullName, dispo, String.Format("No data to process for vehicle with id: {0}", vehicle));
+                STrace.Trace(GetType().FullName, dispo, String.Format("No data to process for vehicle with id: {0}", coche.Id));
             }
 
 			STrace.Trace(GetType().FullName, String.Format("Vehicles to process: {0}", --VehiclesToProcess));
@@ -175,16 +178,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         /// <param name="lastUpdate"></param>
         /// <param name="vehicle"></param>
         /// <param name="today"></param>
-        private void ProcessCurrentPeriods(DateTime lastUpdate, int vehicle, DateTime today)
+        private void ProcessCurrentPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
-			var coche = DaoFactory.CocheDAO.FindById(vehicle);
-			var dispo = coche.Dispositivo != null ? coche.Dispositivo.Id : 0;
+            var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
             while (lastUpdate < today)
             {
                 var lastDay = lastUpdate.AddDays(1) > today ? today : lastUpdate.AddDays(1);
                 ProcessPeriod(vehicle, lastUpdate, lastDay);
 
-				STrace.Trace(GetType().FullName, dispo, String.Format("Processed period from {0} to {1} for the vehicle with id: {2}", lastUpdate, lastDay, vehicle));
+				STrace.Trace(GetType().FullName, dispo, String.Format("Processed period from {0} to {1} for the vehicle with id: {2}", lastUpdate, lastDay, vehicle.Id));
 
                 lastUpdate = lastUpdate.AddDays(1);
             }
@@ -196,10 +198,9 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         /// <param name="lastUpdate"></param>
         /// <param name="vehicle"></param>
         /// <param name="today"></param>
-        private void RegenerateOldPeriods(DateTime lastUpdate, int vehicle, DateTime today)
+        private void RegenerateOldPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
-			var coche = DaoFactory.CocheDAO.FindById(vehicle);
-			var dispo = coche.Dispositivo != null ? coche.Dispositivo.Id : 0;
+            var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
 			
 			var regenerate = GetDaysToRegenerate(vehicle, lastUpdate, today);
 
@@ -209,7 +210,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             {
                 ProcessPeriod(vehicle, period.Desde, period.Hasta);
 
-				STrace.Trace(GetType().FullName, dispo, String.Format("Regenerated period from {0} to {1} for the vehicle with id: {2}", period.Desde, period.Hasta, vehicle));
+				STrace.Trace(GetType().FullName, dispo, String.Format("Regenerated period from {0} to {1} for the vehicle with id: {2}", period.Desde, period.Hasta, vehicle.Id));
             }
         }
 
@@ -220,15 +221,14 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         /// <param name="lastUpdate"></param>
         /// <param name="today"></param>
         /// <returns></returns>
-        private List<RegenerateDatamart> GetDaysToRegenerate(int vehicle, DateTime lastUpdate, DateTime today)
+        private List<RegenerateDatamart> GetDaysToRegenerate(Coche vehicle, DateTime lastUpdate, DateTime today)
         {
-			var coche = DaoFactory.CocheDAO.FindById(vehicle);
-			var dispo = coche.Dispositivo != null ? coche.Dispositivo.Id : 0;
-			STrace.Trace(GetType().FullName, dispo, String.Format("Checking for periods to regenerate for the vehicle with id: {0}", vehicle));
+            var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
+			STrace.Trace(GetType().FullName, dispo, String.Format("Checking for periods to regenerate for the vehicle with id: {0}", vehicle.Id));
 
             var regenerate = DaoFactory.DatamartDAO.GetDaysToRegenerate(vehicle, lastUpdate, today, _threeMonthsAgo);
             
-			if (regenerate.Count.Equals(0)) STrace.Trace(GetType().FullName, dispo, String.Format("No periods to regenerate for the vehicle with id: {0}", vehicle));
+			if (regenerate.Count.Equals(0)) STrace.Trace(GetType().FullName, dispo, String.Format("No periods to regenerate for the vehicle with id: {0}", vehicle.Id));
 
             return regenerate;
         }
@@ -258,22 +258,21 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         /// <param name="vehicle"></param>
         /// <param name="from"></param>
         /// <param name="to"></param>
-        private void ProcessPeriod(int vehicle, DateTime from, DateTime to)
+        private void ProcessPeriod(Coche vehicle, DateTime from, DateTime to)
         {
             using (var transaction = SmartTransaction.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 try
                 {
                     // Set environment data
-                    var vehiculo = DaoFactory.CocheDAO.FindById(vehicle);
                     var inicio = new DateTime(from.Year, from.Month, from.Day, from.Hour, 0, 0);
                     var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 0, 0);
 
                     // Deletes all previously generated datamart records for the current vehicle and time span.
-                    DaoFactory.DatamartDAO.DeleteRecords(vehiculo.Id, inicio, fin);
+                    DaoFactory.DatamartDAO.DeleteRecords(vehicle.Id, inicio, fin);
                     List<Datamart> records;
 
-                    using (var data = new PeriodData(DaoFactory, vehiculo, inicio, fin))
+                    using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
                     {
                         records = GenerateRecords(data);
                     }

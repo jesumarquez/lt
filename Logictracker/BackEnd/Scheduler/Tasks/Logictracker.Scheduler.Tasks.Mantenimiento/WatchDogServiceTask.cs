@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceProcess;
 using System.Threading;
+using Logictracker.Configuration;
 using Logictracker.DatabaseTracer.Core;
+using Logictracker.Mailing;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Utils;
 using Logictracker.WindowsServices;
@@ -47,6 +51,9 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                             {
                                 STrace.Trace(GetType().FullName, "Servicio iniciado: " + service.ServiceName);
                                 iniciado = true;
+
+                                var parametros = new[] { service.ServiceName };
+                                SendMail(parametros);
                             }
                         }
 
@@ -65,6 +72,18 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             {
                 ClearData();
             }
+        }
+
+        private void SendMail(IList<string> parametros)
+        {
+            var configFile = Config.Mailing.WatchDogMailingConfiguration;
+
+            if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
+
+            var sender = new MailSender(configFile);
+            sender.Config.Subject = "Servicio iniciado: " + parametros[0];
+
+            SendMailToAllDestinations(sender, parametros.ToList());
         }
 
         private void ClearData()
