@@ -124,7 +124,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             }
             else if (tipo == null && user.PorTipoMensaje)
             {
-                messages = new List<Mensaje>();
+                var idsTipos = user.TiposMensaje.Cast<TipoMensaje>().Select(tm => tm.Id);
+                messages = messages.Where(m => idsTipos.Contains(m.TipoMensaje.Id)).ToList();
                 foreach (TipoMensaje tipoMensaje in user.TiposMensaje)
                 {
                     var agrupados = tipoMensaje.Mensajes.Cast<Mensaje>();
