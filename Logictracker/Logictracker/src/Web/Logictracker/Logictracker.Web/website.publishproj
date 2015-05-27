@@ -19,7 +19,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <ProjectGuid>{6b727a04-f808-4210-bad1-d70bd1661c29}</ProjectGuid>
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
     <SourceWebVirtualPath>/Logictracker.Web</SourceWebVirtualPath>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <SourceWebProject>C:\Code\Logitracker\Logictracker\Logictracker\src\Web\Logictracker\Logictracker.Web</SourceWebProject>
     <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/3/ROOT</SourceWebMetabasePath>
   </PropertyGroup>
@@ -97,6 +97,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <ProjectReference Include="..\..\..\..\..\Framework\ExpressionEvaluator\Logictracker.ExpressionEvaluator.csproj">
       <Project>{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}</Project>
       <Name>Logictracker.ExpressionEvaluator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\External Libs\NHibernate.Glimpse\NHibernate.Glimpse.csproj">
+      <Project>{588C88A1-ADFD-4501-B42F-6977D932CCDD}</Project>
+      <Name>NHibernate.Glimpse</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\External Libs\Quartz\Quartz.2008.csproj">
       <Project>{AEF8823B-E45B-4B35-A4D0-C08C1196D017}</Project>
