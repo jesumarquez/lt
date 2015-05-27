@@ -55,6 +55,7 @@ PrecompiledWeb/
 /Logictracker/compile.log
 Debug
 lib
+packages/
 /Logictracker/Logictracker.Full.opensdf
 /Logictracker/Logictracker.Full.sdf
 /Logictracker/UpgradeLog.htm

@@ -3,6 +3,7 @@ using System.Linq;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ValueObjects.Organizacion;
 using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.DAL.DAO.BaseClasses;
 
 namespace Logictracker.Organizacion
 {
@@ -22,7 +23,7 @@ namespace Logictracker.Organizacion
         protected override List<PerfilVo> GetListData()
         {
             var user = DAOFactory.UsuarioDAO.FindById(Usuario.Id);
-            var list = user.Perfiles.IsEmpty ? DAOFactory.PerfilDAO.FindAll() : (from Perfil p in user.Perfiles where p.FechaBaja == null select p).ToList();
+            var list = user.Perfiles.IsEmpty() ? DAOFactory.PerfilDAO.FindAll() : (from Perfil p in user.Perfiles where p.FechaBaja == null select p).ToList();
             return list.Select(p => new PerfilVo(p)).ToList();
         }
 

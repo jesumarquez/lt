@@ -1,7 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Logictracker.DAL.Filtros
 {
+
+    
     [Serializable]
     public class Filtro
     {

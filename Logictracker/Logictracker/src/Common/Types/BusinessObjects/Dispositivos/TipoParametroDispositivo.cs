@@ -3,6 +3,7 @@
 using System;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -13,7 +14,7 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
     {
         #region Private Properties
 
-        private ISet _detallesDispositivo;
+        private ISet<DetalleDispositivo> _detallesDispositivo;
 
         #endregion
 
@@ -37,7 +38,7 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
         
         public virtual TipoDispositivo DispositivoTipo { get; set; }
 
-        public virtual ISet DispositivoDetalle { get { return _detallesDispositivo ?? (_detallesDispositivo = new ListSet()); } }
+        public virtual ISet<DetalleDispositivo> DispositivoDetalle { get { return _detallesDispositivo ?? (_detallesDispositivo = new HashSet<DetalleDispositivo>()); } }
 
         #endregion
 

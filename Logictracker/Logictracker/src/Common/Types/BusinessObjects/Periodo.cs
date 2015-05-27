@@ -3,6 +3,7 @@
 using System;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -15,7 +16,7 @@ namespace Logictracker.Types.BusinessObjects
         public const short Cerrado = 1;
         public const short Liquidado = 2;
 
-        private ISet _detalles;
+        private ISet<DetallePeriodo> _detalles;
 
         #region IAuditable
 
@@ -30,9 +31,9 @@ namespace Logictracker.Types.BusinessObjects
         public virtual short Estado { get; set; }
         public virtual Empresa Empresa { get; set; }
 
-        public virtual ISet Detalles
+        public virtual ISet<DetallePeriodo> Detalles
         {
-            get { return _detalles ?? (_detalles = new ListSet()); }
+            get { return _detalles ?? (_detalles = new HashSet<DetallePeriodo>()); }
         }
 
         public virtual DateTime FechaHoraHasta

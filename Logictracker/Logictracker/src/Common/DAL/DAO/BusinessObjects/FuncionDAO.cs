@@ -43,7 +43,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
             return (from Funcion f in Session.Query<Funcion>().ToList()
                     where f.FechaBaja == null
-                    && (user.Perfiles.IsEmpty || userAvailableFunctions.Contains(f.Id))
+                    && (user.Perfiles.IsEmpty()|| userAvailableFunctions.Contains(f.Id))
                     orderby f.Sistema.Orden , f.Sistema.Descripcion , f.Modulo , f.Descripcion
                     select f).ToList();
         }

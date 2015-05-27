@@ -483,8 +483,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
         {
             return (from Mensaje m in mensajes
                     where !m.EsBaja && ((m.Empresa == null && m.Linea == null)
-                        || (m.Empresa != null && m.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(m.Empresa)))
-                        || (m.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(m.Linea))))
+                        || (m.Empresa != null && m.Linea == null && (user.Empresas.IsEmpty()|| user.Empresas.Contains(m.Empresa)))
+                        || (m.Linea != null && (user.Lineas.IsEmpty()|| user.Lineas.Contains(m.Linea))))
                     select m).ToList();
         }
 

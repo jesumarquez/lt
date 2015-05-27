@@ -43,9 +43,9 @@ namespace Logictracker.Types.BusinessObjects.Support
         public virtual Subcategoria Subcategoria { get; set; }
         public virtual Nivel NivelObj { get; set; }
 
-        private ISet _states;
+        private ISet<SupportTicketDetail> _states;
         
-        public virtual ISet States { get { return _states ?? (_states = new ListSet()); } }
+        public virtual ISet<SupportTicketDetail> States { get { return _states ?? (_states = new HashSet<SupportTicketDetail>()); } }
 
         public virtual void ClearStates() { States.Clear(); }
 

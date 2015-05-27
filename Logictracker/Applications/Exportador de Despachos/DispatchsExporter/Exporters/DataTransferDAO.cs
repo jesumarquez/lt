@@ -229,7 +229,7 @@ namespace DispatchsExporter.Exporters
         private static IEnumerable<string> GetConnectionsStringByPefil(Usuario user)
         {
             var connStr =
-                ConfigurationManager.AppSettings[String.Concat("SQL.",user.Lineas.IsEmpty ? "all" : (from Linea l in user.Lineas select l).First().Id.ToString())];
+                ConfigurationManager.AppSettings[String.Concat("SQL.",user.Lineas.Count==0 ? "all" : (from Linea l in user.Lineas select l).First().Id.ToString())];
 
             if( connStr == null || connStr.Equals(String.Empty)) throw new Exception("Error al obtener la ConnectionString para el perfil asociado");
 

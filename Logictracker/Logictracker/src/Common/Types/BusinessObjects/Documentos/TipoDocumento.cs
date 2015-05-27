@@ -3,6 +3,7 @@
 using System;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -11,7 +12,7 @@ namespace Logictracker.Types.BusinessObjects.Documentos
     [Serializable]
     public class TipoDocumento : IAuditable, ISecurable
     {
-        private ISet _parametros;
+        private ISet<TipoDocumentoParametro> _parametros;
 
         #region IAuditable
 
@@ -34,14 +35,14 @@ namespace Logictracker.Types.BusinessObjects.Documentos
 
         public virtual Funcion Funcion { get; set; }
 
-        public virtual ISet Parametros
+        public virtual ISet<TipoDocumentoParametro> Parametros
         {
-            get { return _parametros ?? (_parametros = new ListSet()); }
+            get { return _parametros ?? (_parametros = new HashSet<TipoDocumentoParametro>()); }
         }
 
         public virtual string Strategy { get; set; }
 
-        public virtual ISet Estrategias { get; set; }
+        public virtual ISet<TipoDocumentoEstrategia> Estrategias { get; set; }
 
         public virtual string Template { get; set; }
 

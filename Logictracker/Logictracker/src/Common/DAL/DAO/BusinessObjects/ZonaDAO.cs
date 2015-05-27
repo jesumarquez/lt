@@ -46,9 +46,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
             obj.Baja = true;
             var geocercaDao = new ReferenciaGeograficaDAO();
-            foreach(ReferenciaZona r in obj.Referencias)
+            foreach(ReferenciaGeografica r in obj.Referencias)
             {
-                geocercaDao.ClearGeocerca(r.ReferenciaGeografica.Id);
+                geocercaDao.ClearGeocerca(r.Id);
             }
 
             SaveOrUpdate(obj);

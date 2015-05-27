@@ -2,6 +2,7 @@ using System;
 using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects.Mantenimiento
 {
@@ -42,7 +43,7 @@ namespace Logictracker.Types.BusinessObjects.Mantenimiento
         public virtual Deposito Deposito { get; set; }
         public virtual Deposito DepositoDestino { get; set; }
 
-        private ISet _detalles;
-        public virtual ISet Detalles { get { return _detalles ?? (_detalles = new ListSet()); } }
+        private ISet<ConsumoDetalle> _detalles;
+        public virtual ISet<ConsumoDetalle> Detalles { get { return _detalles ?? (_detalles = new HashSet<ConsumoDetalle>()); } }
     }
 }

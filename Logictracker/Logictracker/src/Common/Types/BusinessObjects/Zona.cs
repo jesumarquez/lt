@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects
 {
@@ -29,8 +30,8 @@ namespace Logictracker.Types.BusinessObjects
         public virtual int Prioridad { get; set; }
         public virtual bool Baja { get; set; }
 
-        private ISet _referencias;
-        public virtual ISet Referencias { get { return _referencias ?? (_referencias = new ListSet()); } }
+        private ISet<ReferenciaGeografica> _referencias;
+        public virtual ISet<ReferenciaGeografica> Referencias { get { return _referencias ?? (_referencias = new HashSet<ReferenciaGeografica>()); } }
 
         public virtual ReferenciaGeografica GetReferencia(int idReferencia)
         {

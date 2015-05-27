@@ -12,7 +12,7 @@ using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Types.BusinessObjects;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
-
+using Logictracker.DAL.DAO.BaseClasses;
 namespace Logictracker.Organizacion
 {
     public partial class AltaUsuario : SecuredAbmPage<Usuario>
@@ -131,11 +131,11 @@ namespace Logictracker.Organizacion
             AddCoches();
             AddIpRanges();
 
-            EditObject.PorCoche = !EditObject.Coches.IsEmpty;
-            EditObject.PorCentroCostos = !EditObject.CentrosCostos.IsEmpty;
-            EditObject.PorTipoMensaje = !EditObject.TiposMensaje.IsEmpty;
-            EditObject.PorLinea =  !EditObject.Lineas.IsEmpty;
-            EditObject.PorEmpresa = !EditObject.Empresas.IsEmpty;
+            EditObject.PorCoche = !EditObject.Coches.IsEmpty();
+            EditObject.PorCentroCostos = !EditObject.CentrosCostos.IsEmpty();
+            EditObject.PorTipoMensaje = !EditObject.TiposMensaje.IsEmpty();
+            EditObject.PorLinea =  !EditObject.Lineas.IsEmpty();
+            EditObject.PorEmpresa = !EditObject.Empresas.IsEmpty();
             EditObject.InhabilitadoCambiarPass = EditObject.Tipo <= 2 && chkNoCambioPass.Checked;
             EditObject.InhabilitadoCambiarUso = EditObject.Tipo <= 2 && chkNoCambioUso.Checked;
 

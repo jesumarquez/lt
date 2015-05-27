@@ -68,8 +68,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             if (user == null) return feriados;
 
             return (from f in feriados
-                    where ((f.Empresa == null && f.Linea == null) || (f.Empresa != null && f.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(f.Empresa)))
-                        || (f.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(f.Linea))))
+                    where ((f.Empresa == null && f.Linea == null) || (f.Empresa != null && f.Linea == null && (user.Empresas.IsEmpty()|| user.Empresas.Contains(f.Empresa)))
+                        || (f.Linea != null && (user.Lineas.IsEmpty() || user.Lineas.Contains(f.Linea))))
                     select f).ToList();
         }
 

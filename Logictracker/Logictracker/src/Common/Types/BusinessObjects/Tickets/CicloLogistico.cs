@@ -4,6 +4,7 @@ using System;
 using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -36,9 +37,9 @@ namespace Logictracker.Types.BusinessObjects.Tickets
         public virtual string Custom3 { get; set; }
         public virtual bool Baja { get; set; }
 
-        private ISet _detalles;
+        private ISet<DetalleCiclo> _detalles;
 
-        public virtual ISet Detalles { get { return _detalles ?? (_detalles = new ListSet()); } }
+        public virtual ISet<DetalleCiclo> Detalles { get { return _detalles ?? (_detalles = new HashSet<DetalleCiclo>()); } }
 
         public CicloLogistico()
         {

@@ -24,7 +24,7 @@ namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
         private double _innerminx;
         private double _innerminy;
 
-        private ISet _puntos;
+        private ISet<Punto> _puntos;
 
         private bool _centerValid;
         private bool _validBounds;
@@ -44,7 +44,7 @@ namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
         public virtual double MinX { get; set; }
         public virtual double MinY { get; set; }
 
-        public virtual ISet Puntos { get { return _puntos ?? (_puntos = new ListSet()); } }
+        public virtual ISet<Punto> Puntos { get { return _puntos ?? (_puntos = new HashSet<Punto>()); } }
 
         public virtual PointF FirstPoint
         {

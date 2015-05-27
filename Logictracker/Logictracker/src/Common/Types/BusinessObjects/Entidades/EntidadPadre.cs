@@ -4,6 +4,7 @@ using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.Dispositivos;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects.Entidades
 {
@@ -29,8 +30,8 @@ namespace Logictracker.Types.BusinessObjects.Entidades
         public virtual Dispositivo Dispositivo { get; set; }
         public virtual TipoEntidad TipoEntidad { get; set; }
         
-        private ISet _detalles;
-        public virtual ISet Detalles { get { return _detalles ?? (_detalles = new ListSet()); } }
+        private ISet<DetalleValor> _detalles;
+        public virtual ISet<DetalleValor> Detalles { get { return _detalles ?? (_detalles = new HashSet<DetalleValor>()); } }
 
         public virtual DetalleValor GetDetalle(int idDetalle)
         {

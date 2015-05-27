@@ -18,7 +18,7 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
     {
         #region Private properties
 
-        private ISet _asignaciones;
+        private ISet<Coche> _asignaciones;
 
         #endregion
 
@@ -83,7 +83,7 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
         /// <summary>
         /// Gets assigned Centers and vehicle types to the current shift.
         /// </summary>
-        public virtual ISet Asignaciones { get { return _asignaciones ?? (_asignaciones = new ListSet()); } }
+        public virtual ISet<Coche> Asignaciones { get { return _asignaciones ?? (_asignaciones = new HashSet<Coche>()); } }
 
         #endregion
 

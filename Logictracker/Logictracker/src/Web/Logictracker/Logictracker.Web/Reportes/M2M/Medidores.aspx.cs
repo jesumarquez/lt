@@ -452,7 +452,7 @@ namespace Logictracker.Reportes.M2M
         {
             var entidadesId = cbEntidad.SelectedValues;
 
-            if (QueryExtensions.IncludesAll((IEnumerable<int>) entidadesId))
+            if (Logictracker.DAL.DAO.BaseClasses.QueryExtensions.IncludesAll((IEnumerable<int>) entidadesId))
                 entidadesId = DAOFactory.EntidadDAO.GetList(new[] {cbEmpresa.Selected},
                                                             new[] {cbLinea.Selected},
                                                             new[] {-1},

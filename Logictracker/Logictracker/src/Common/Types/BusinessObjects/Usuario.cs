@@ -41,14 +41,14 @@ namespace Logictracker.Types.BusinessObjects
             public const short SuperAdmin = 100;
         }
 
-        private ISet _perfiles;
-        private ISet _coches;
-        private ISet _empresas;
-        private ISet _lineas;
-        private ISet _transportistas;
-        private ISet _centrosCostos;
-        private ISet _tiposMensaje;
-        private ISet _ipRanges;
+        private ISet<Perfil> _perfiles;
+        private ISet<Coche> _coches;
+        private ISet<Empresa> _empresas;
+        private ISet<Linea> _lineas;
+        private ISet<Transportista> _transportistas;
+        private ISet<CentroDeCostos> _centrosCostos;
+        private ISet<TipoMensaje> _tiposMensaje;
+        private ISet<IpRange> _ipRanges;
 
         Type IAuditable.TypeOf() { return GetType(); }
 
@@ -72,7 +72,7 @@ namespace Logictracker.Types.BusinessObjects
         /// <summary>
         /// A list of assigned profiles.
         /// </summary>
-        public virtual ISet Perfiles { get { return _perfiles ?? (_perfiles = new ListSet()); } }
+        public virtual ISet<Perfil> Perfiles { get { return _perfiles ?? (_perfiles = new HashSet<Perfil>()); } }
         /// <summary>
         /// The current theme to use for this user.
         /// </summary>
@@ -146,33 +146,33 @@ namespace Logictracker.Types.BusinessObjects
         /// <summary>
         /// Gets the vehicles assigned to the user.
         /// </summary>
-        public virtual ISet Coches { get { return _coches ?? (_coches = new ListSet()); } }
+        public virtual ISet<Coche> Coches { get { return _coches ?? (_coches = new HashSet<Coche>()); } }
         /// <summary>
         /// Gets the transports companies assigned to the user.
         /// </summary>
-        public virtual ISet Transportistas { get { return _transportistas ?? (_transportistas = new ListSet()); } }
+        public virtual ISet<Transportista> Transportistas { get { return _transportistas ?? (_transportistas = new HashSet<Transportista>()); } }
         /// <summary>
         /// Gets the cost centers assigned to the user.
         /// </summary>
-        public virtual ISet CentrosCostos { get { return _centrosCostos ?? (_centrosCostos = new ListSet()); } }
+        public virtual ISet<CentroDeCostos> CentrosCostos { get { return _centrosCostos ?? (_centrosCostos = new HashSet<CentroDeCostos>()); } }
         
-        public virtual ISet TiposMensaje { get { return _tiposMensaje ?? (_tiposMensaje = new ListSet()); } }
+        public virtual ISet<TipoMensaje> TiposMensaje { get { return _tiposMensaje ?? (_tiposMensaje = new HashSet<TipoMensaje>()); } }
         /// <summary>
         /// Gets the companies assigned to the user.
         /// </summary>
-        public virtual ISet Empresas { get { return _empresas ?? (_empresas = new ListSet()); } }
+        public virtual ISet<Empresa> Empresas { get { return _empresas ?? (_empresas = new HashSet<Empresa>()); } }
         /// <summary>
         /// Gets the locations assigned to the user.
         /// </summary>
-        public virtual ISet Lineas { get { return _lineas ?? (_lineas = new ListSet()); } }
+        public virtual ISet<Linea> Lineas { get { return _lineas ?? (_lineas = new HashSet<Linea>()); } }
         /// <summary>
         /// Determines if the user filters by any criteria.
         /// </summary>
         public virtual bool AppliesFilters { get { return PorEmpresa || PorLinea || PorTransportista || PorCoche || PorCentroCostos; } }
 
-        public virtual ISet IpRanges
+        public virtual ISet<IpRange> IpRanges
         {
-            get { return _ipRanges ?? (_ipRanges = new ListSet()); } 
+            get { return _ipRanges ?? (_ipRanges = new HashSet<IpRange>()); } 
         }
 
         private IList<ParametroUsuario> _parametros;

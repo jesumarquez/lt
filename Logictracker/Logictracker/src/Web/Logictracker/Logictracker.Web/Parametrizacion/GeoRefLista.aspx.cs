@@ -10,7 +10,7 @@ using Logictracker.Types.ValueObjects.ReferenciasGeograficas;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects;
-
+using Logictracker.DAL.DAO.BaseClasses;
 namespace Logictracker.Parametrizacion
 {
     public partial class GeoRefLista : SecuredListPage<ReferenciaGeograficaVo>

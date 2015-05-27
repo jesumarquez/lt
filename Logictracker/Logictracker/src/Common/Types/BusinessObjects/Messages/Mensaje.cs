@@ -3,6 +3,7 @@
 using System;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -36,12 +37,12 @@ namespace Logictracker.Types.BusinessObjects.Messages
         public virtual int Revision { get; set; }
         public virtual bool EsSoloDeRespuesta { get; set; }
 
-        private ISet _respuestas;
+        private ISet<Mensaje> _respuestas;
 
         /// <summary>
         /// A list of possible responses to the message.
         /// </summary>
-        public virtual ISet Respuestas { get { return _respuestas ?? (_respuestas = new ListSet()); } }
+        public virtual ISet<Mensaje> Respuestas { get { return _respuestas ?? (_respuestas = new HashSet<Mensaje>()); } }
 
         #endregion
 
