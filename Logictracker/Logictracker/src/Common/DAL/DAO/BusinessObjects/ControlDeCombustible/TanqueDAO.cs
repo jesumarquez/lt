@@ -148,8 +148,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ControlDeCombustible
         {
             return (from Tanque t in Session.Query<Tanque>().ToList()
                         where t.Linea != null && t.Equipo == null &&
-                        (empresa <= 0 || (t.Linea.Empresa.Id == empresa )&& (user.Empresas.IsEmpty || user.Empresas.Contains(t.Linea.Empresa))) 
-                              && (linea <= 0 || (t.Linea.Id == linea && (user.Lineas.IsEmpty || user.Lineas.Contains(t.Linea))))
+                        (empresa <= 0 || (t.Linea.Empresa.Id == empresa )&& (user.Empresas.IsEmpty() || user.Empresas.Contains(t.Linea.Empresa))) 
+                              && (linea <= 0 || (t.Linea.Id == linea && (user.Lineas.IsEmpty() || user.Lineas.Contains(t.Linea))))
                         orderby t.Descripcion
                         select t).ToList();
         }

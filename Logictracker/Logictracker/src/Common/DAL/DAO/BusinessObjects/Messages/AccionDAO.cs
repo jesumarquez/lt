@@ -53,11 +53,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
             var acciones = (from Accion a in resultados
                             where (a.Empresa == null && a.Linea == null && a.Transportista == null)
-                               || (a.Empresa != null && a.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(a.Empresa)))
-                               || (a.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(a.Linea)) && (user.Empresas.IsEmpty || user.Empresas.Contains(a.Linea.Empresa)))
+                               || (a.Empresa != null && a.Linea == null && (user.Empresas.IsEmpty() || user.Empresas.Contains(a.Empresa)))
+                               || (a.Linea != null && (user.Lineas.IsEmpty() || user.Lineas.Contains(a.Linea)) && (user.Empresas.IsEmpty() || user.Empresas.Contains(a.Linea.Empresa)))
                             select a);
 
-            if (!user.Transportistas.IsEmpty)
+            if (!user.Transportistas.IsEmpty())
             {
                 acciones = acciones.Where(a => a.Transportista == null || user.Transportistas.Contains(a.Transportista));
             }

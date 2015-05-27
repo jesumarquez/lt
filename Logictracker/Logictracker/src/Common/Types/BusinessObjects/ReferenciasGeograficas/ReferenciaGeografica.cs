@@ -6,6 +6,7 @@ using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -42,13 +43,13 @@ namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
         public virtual string Observaciones { get; set; }
         public virtual bool IgnoraLogiclink { get; set; }
 
-        private ISet _zonas;
-        private ISet _historia;
-        private ISet _velocidades;
+        private ISet<ReferenciaZona> _zonas;
+        private ISet<HistoriaGeoRef> _historia;
+        private ISet<ReferenciaVelocidad> _velocidades;
 
-        public virtual ISet Zonas { get { return _zonas ?? (_zonas = new ListSet()); } }
+        public virtual ISet<ReferenciaZona> Zonas { get { return _zonas ?? (_zonas = new HashSet<ReferenciaZona>()); } }
 
-        public virtual ISet Historia { get { return _historia ?? (_historia = new ListSet()); } }
+        public virtual ISet<HistoriaGeoRef> Historia { get { return _historia ?? (_historia = new HashSet<HistoriaGeoRef>()); } }
 
         public ReferenciaGeografica()
         {
@@ -56,7 +57,7 @@ namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
             Vigencia = new Vigencia();
         }
 
-        public virtual ISet VelocidadesMaximas { get { return _velocidades ?? (_velocidades = new ListSet()); } }
+        public virtual ISet<ReferenciaVelocidad> VelocidadesMaximas { get { return _velocidades ?? (_velocidades = new HashSet<ReferenciaVelocidad>()); } }
 
         public virtual HistoriaGeoRef GetHistoria(DateTime date)
         {

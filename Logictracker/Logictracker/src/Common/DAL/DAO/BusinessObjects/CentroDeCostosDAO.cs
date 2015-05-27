@@ -90,9 +90,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             if (user == null) return centros;
 
             return (from CentroDeCostos c in centros
-                    where ((user.CentrosCostos.IsEmpty || user.CentrosCostos.Contains(c)) && ((c.Empresa == null && c.Linea == null) 
-                            || (c.Empresa != null && c.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(c.Empresa)))
-                            || (c.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(c.Linea)) && (user.Empresas.IsEmpty || user.Empresas.Contains(c.Linea.Empresa)))))
+                    where ((user.CentrosCostos.IsEmpty() || user.CentrosCostos.Contains(c)) && ((c.Empresa == null && c.Linea == null) 
+                            || (c.Empresa != null && c.Linea == null && (user.Empresas.IsEmpty() || user.Empresas.Contains(c.Empresa)))
+                            || (c.Linea != null && (user.Lineas.IsEmpty() || user.Lineas.Contains(c.Linea)) && (user.Empresas.IsEmpty() || user.Empresas.Contains(c.Linea.Empresa)))))
                     orderby c.Descripcion
                     select c
                     ).ToList();

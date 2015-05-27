@@ -9,6 +9,7 @@ using Logictracker.Types.BusinessObjects.Organizacion;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects;
+using Logictracker.DAL.DAO.BaseClasses;
 
 namespace Logictracker.Organizacion
 {
@@ -254,7 +255,7 @@ namespace Logictracker.Organizacion
         /// <param name="user"></param>
         private void AddPerfilToUser(Usuario user)
         {
-            if (!user.Perfiles.IsEmpty && (from Perfil p in user.Perfiles where p.Id == EditObject.Id select p).Count().Equals(0))
+            if (!user.Perfiles.IsEmpty() && (from Perfil p in user.Perfiles where p.Id == EditObject.Id select p).Count().Equals(0))
             {
                 user.Perfiles.Add(DAOFactory.PerfilDAO.FindById(EditObject.Id));
                 DAOFactory.UsuarioDAO.SaveOrUpdate(user);

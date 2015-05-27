@@ -4,6 +4,7 @@ using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.Dispositivos;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects.Tickets
 {
@@ -26,11 +27,11 @@ namespace Logictracker.Types.BusinessObjects.Tickets
 
         Type IAuditable.TypeOf() { return GetType(); }
 
-        private ISet _detalles;
+        private ISet<DetalleTicket> _detalles;
 
-        public virtual ISet Detalles
+        public virtual ISet<DetalleTicket> Detalles
         {
-            get { return _detalles ?? (_detalles = new ListSet()); }
+            get { return _detalles ?? (_detalles = new HashSet<DetalleTicket>()); }
         }
 
         public virtual Empresa Empresa { get; set; }

@@ -57,9 +57,9 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
 
         #region Private Properties
 
-        private ISet _odometros;
-        private ISet _clientes;
-        private ISet _turnos;
+        private ISet<MovOdometroVehiculo> _odometros;
+        private ISet<Cliente> _clientes;
+        private ISet<Shift> _turnos;
 
         #endregion
 
@@ -115,18 +115,18 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
         
         public virtual double TotalOdometer { get { return InitialOdometer + ApplicationOdometer; } }
 
-        public virtual ISet Odometros { get { return _odometros ?? (_odometros = new ListSet()); } }
+        public virtual ISet<MovOdometroVehiculo> Odometros { get { return _odometros ?? (_odometros = new HashSet<MovOdometroVehiculo>()); } }
 
-        public virtual ISet Clientes { get { return _clientes ?? (_clientes = new ListSet()); } }
+        public virtual ISet<Cliente> Clientes { get { return _clientes ?? (_clientes = new HashSet<Cliente>()); } }
 
-        public virtual ISet Turnos { get { return _turnos ?? (_turnos = new ListSet()); } }
+        public virtual ISet<Shift> Turnos { get { return _turnos ?? (_turnos = new HashSet<Shift>()); } }
 
         public virtual int VelocidadPromedio { get; set; }
 
 
         // Cuando se cambia el dispositivo 
         // se guarda el valor viejo para poder actualizar la cache
-        public virtual Dispositivo OldDispositivo { get; private set; }
+        public virtual Dispositivo OldDispositivo { get;  set; }
 
         private Dispositivo _dispositivo;
         public virtual Dispositivo Dispositivo

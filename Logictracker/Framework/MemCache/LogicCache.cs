@@ -4,7 +4,7 @@ using System.Linq;
 using Logictracker.Cache.Interfaces;
 using Logictracker.Configuration;
 using Logictracker.DatabaseTracer.Core;
-using Memcached.ClientLibrary;
+using Memcached.Client;
 
 namespace Logictracker.Cache
 {

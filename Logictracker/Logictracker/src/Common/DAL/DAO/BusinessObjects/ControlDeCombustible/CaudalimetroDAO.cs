@@ -53,10 +53,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ControlDeCombustible
                         && ((equipo == null || c.Equipo == equipo)
                                 && (c.Equipo.Empresa == null
                                     || ((empresa == null || c.Equipo.Empresa == empresa)
-                                        && (user.Empresas.IsEmpty || user.Empresas.Contains(c.Equipo.Empresa))))
+                                        && (user.Empresas.IsEmpty() || user.Empresas.Contains(c.Equipo.Empresa))))
                                 && (c.Equipo.Linea == null
                                     || ((linea == null || c.Equipo.Linea == linea)
-                                        && (user.Lineas.IsEmpty || user.Lineas.Contains(c.Equipo.Linea)))))
+                                        && (user.Lineas.IsEmpty() || user.Lineas.Contains(c.Equipo.Linea)))))
                     select c).ToList();
         }
 

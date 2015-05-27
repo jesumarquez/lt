@@ -3,13 +3,14 @@ using System.Globalization;
 using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.Mantenimiento;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects.Vehiculos
 {
     [Serializable]
     public class Odometro : IAuditable, ISecurable, IHasInsumo
     {
-        private ISet _tiposDeVehiculo;
+        private ISet<TipoCoche> _tiposDeVehiculo;
         
         #region IAuditable
 
@@ -114,7 +115,7 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
 
         public virtual bool EsReseteable { get; set; }
 
-        public virtual ISet TiposDeVehiculo { get { return _tiposDeVehiculo ?? (_tiposDeVehiculo = new ListSet()); } }
+        public virtual ISet<TipoCoche> TiposDeVehiculo { get { return _tiposDeVehiculo ?? (_tiposDeVehiculo = new HashSet<TipoCoche>()); } }
 
         public virtual void ClearVehicleTypes() { TiposDeVehiculo.Clear(); }
 

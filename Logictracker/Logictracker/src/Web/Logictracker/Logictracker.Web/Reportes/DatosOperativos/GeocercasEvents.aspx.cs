@@ -59,9 +59,9 @@ namespace Logictracker.Reportes.DatosOperativos
             try
             {
                 var selectedGeocercas = GetSelectedGeocercas();
-                if (QueryExtensions.IncludesAll(selectedGeocercas))
+                if (Logictracker.DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(selectedGeocercas))
                 {
-                    if (QueryExtensions.IncludesAll(lbTipoDomicilio.SelectedValues))
+                    if (Logictracker.DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(lbTipoDomicilio.SelectedValues))
                         ShowError("Por favor, seleccione un Tipo de Referencia Geográfica.");
                     else
                         ShowError("No se encontraron Referencias Geográficas para los filtros seleccionados");

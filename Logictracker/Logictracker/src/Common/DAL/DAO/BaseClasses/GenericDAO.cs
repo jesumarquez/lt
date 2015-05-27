@@ -17,6 +17,16 @@ using NHibernate.Linq;
 
 namespace Logictracker.DAL.DAO.BaseClasses
 {
+    public static class Extension
+    {
+        public static bool IsEmpty<T>(this IEnumerable<T> collection) { return !collection.Any(); }
+
+        public static bool ContainsAll<T>(this IEnumerable<T> superSet , IEnumerable<T> subSet)
+        {
+            return !subSet.Except(superSet).Any();
+        }
+    }
+
     #region Public Classes
 
     /// <summary>
@@ -42,7 +52,8 @@ namespace Logictracker.DAL.DAO.BaseClasses
         /// <summary>
         /// NHibernate data access session accessor.
         /// </summary>
-        protected ISession Session {
+        protected ISession Session
+        {
             get { return SessionHelper.Current; }
         }
 
@@ -50,7 +61,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
         {
             get
             {
-                return DaoType.GetInterface(typeof (ISecurable).FullName) != null;
+                return DaoType.GetInterface(typeof(ISecurable).FullName) != null;
             }
         }
 
@@ -106,7 +117,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
         /// </summary>
         /// <param name="id"> Id del objeto</param>
         /// <returns> el objeto o null si no existe </returns>
-        public virtual TDaotype FindById(int id) { return (TDaotype) Session.Load(typeof(TDaotype), id); }
+        public virtual TDaotype FindById(int id) { return (TDaotype)Session.Load(typeof(TDaotype), id); }
 
         /// <summary>
         /// Deletes the object specified by its id using the givenn generic dao class.
@@ -227,7 +238,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
                         transaction.Commit();
                     }
                     catch (Exception ex)
-                    {                       
+                    {
                         STrace.Exception(typeof(GenericDAO<TDaotype>).FullName, ex, "Exception in Save(TDaotype) -> transaction.Commit();");
                         throw ex;
                     }
@@ -300,7 +311,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
         #endregion
 
         #region Protected Methods
-        
+
         #endregion
 
         #region Private Methods
@@ -354,20 +365,20 @@ namespace Logictracker.DAL.DAO.BaseClasses
                     }
                     catch (Exception ex)
                     {
-                        STrace.Exception(typeof (GenericDAO<TDaotype>).FullName, ex, "Exception in Update(TDaotype) -> transaction.Commit();");
+                        STrace.Exception(typeof(GenericDAO<TDaotype>).FullName, ex, "Exception in Update(TDaotype) -> transaction.Commit();");
                         throw ex;
                     }
                 }
                 catch (Exception ex)
                 {
-                    STrace.Exception(typeof (GenericDAO<TDaotype>).FullName, ex, "Exception in Update(TDaotype)");
+                    STrace.Exception(typeof(GenericDAO<TDaotype>).FullName, ex, "Exception in Update(TDaotype)");
                     try
                     {
                         transaction.Rollback();
                     }
                     catch (Exception ex2)
                     {
-                        STrace.Exception(typeof (GenericDAO<TDaotype>).FullName, ex2, "Exception in Update(TDaotype) -> transaction.Rollback();");
+                        STrace.Exception(typeof(GenericDAO<TDaotype>).FullName, ex2, "Exception in Update(TDaotype) -> transaction.Rollback();");
                     }
                     throw ex;
                 }
@@ -420,7 +431,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
                     throw ex;
                 }
             }
-            
+
         }
 
         /// <summary>
@@ -437,7 +448,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
         #endregion
 
 
-        public void EnqueueSync<T>(T obj, string query, string operacion) where T: ISecurable, IAuditable
+        public void EnqueueSync<T>(T obj, string query, string operacion) where T : ISecurable, IAuditable
         {
             new OutQueueDAO().Enqueue(obj, query, operacion);
         }

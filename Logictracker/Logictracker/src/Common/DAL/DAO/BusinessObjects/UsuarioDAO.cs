@@ -118,10 +118,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             return (from Usuario u in FindAll()
                     where user.Tipo >= u.Tipo
-                          && (user.Coches.IsEmpty || (!u.Coches.IsEmpty && user.Coches.ContainsAll(u.Coches)))
-                          && (user.Transportistas.IsEmpty || (!u.Transportistas.IsEmpty && user.Transportistas.ContainsAll(u.Transportistas)))
-                          && (user.Lineas.IsEmpty || (!u.Lineas.IsEmpty && user.Lineas.ContainsAll(u.Lineas)))
-                          && (user.Empresas.IsEmpty || (!u.Empresas.IsEmpty && user.Empresas.ContainsAll(u.Empresas)))
+                          && (user.Coches.IsEmpty()|| (!u.Coches.IsEmpty()&& user.Coches.ContainsAll(u.Coches)))
+                          && (user.Transportistas.IsEmpty()|| (!u.Transportistas.IsEmpty()&& user.Transportistas.ContainsAll(u.Transportistas)))
+                          && (user.Lineas.IsEmpty()|| (!u.Lineas.IsEmpty()&& user.Lineas.ContainsAll(u.Lineas)))
+                          && (user.Empresas.IsEmpty()|| (!u.Empresas.IsEmpty()&& user.Empresas.ContainsAll(u.Empresas)))
                     orderby user.NombreUsuario
                     select u).ToList();
         }

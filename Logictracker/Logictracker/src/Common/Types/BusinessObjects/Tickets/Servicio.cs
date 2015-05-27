@@ -5,6 +5,7 @@ using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -40,9 +41,9 @@ namespace Logictracker.Types.BusinessObjects.Tickets
         public virtual Empleado Chofer { get; set; }
 
 
-        private ISet _detalles;
+        private ISet<DetalleServicio> _detalles;
 
-        public virtual ISet Detalles { get { return _detalles ?? (_detalles = new ListSet()); } }
+        public virtual ISet<DetalleServicio> Detalles { get { return _detalles ?? (_detalles = new HashSet<DetalleServicio>()); } }
 
         public Servicio()
         {

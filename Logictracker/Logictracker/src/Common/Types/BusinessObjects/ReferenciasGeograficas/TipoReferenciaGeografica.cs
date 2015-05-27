@@ -3,6 +3,7 @@ using System;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
 {
@@ -42,7 +43,7 @@ namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
         public virtual bool Baja { get; set; }
         public virtual bool ExcluirMonitor { get; set; }
         public virtual bool EsTaller { get; set; }
-        private ISet _velocidades;
+        private ISet<TipoReferenciaVelocidad> _velocidades;
 
         public TipoReferenciaGeografica()
         {
@@ -50,9 +51,9 @@ namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
             Vigencia = new Vigencia();
         }
 
-        public virtual ISet VelocidadesMaximas
+        public virtual ISet<TipoReferenciaVelocidad> VelocidadesMaximas
         {
-            get { return _velocidades ?? (_velocidades = new ListSet()); }
+            get { return _velocidades ?? (_velocidades = new HashSet<TipoReferenciaVelocidad>()); }
         }
 
         public virtual int GetVelocidadMaxima(TipoCoche tipoCoche) { return GetVelocidadMaxima(tipoCoche.Id); }

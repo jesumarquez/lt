@@ -32,7 +32,7 @@ namespace Logictracker.Types.BusinessObjects.Entidades
 
         // Cuando se cambia el sensor 
         // se guarda el valor viejo para poder actualizar la cache
-        public virtual Sensor OldSensor { get; private set; }
+        public virtual Sensor OldSensor { get;  set; }
 
         private Sensor _sensor;
         public virtual Sensor Sensor

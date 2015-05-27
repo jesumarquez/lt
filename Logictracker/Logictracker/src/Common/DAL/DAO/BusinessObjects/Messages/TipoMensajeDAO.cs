@@ -97,8 +97,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                 tipos = (from TipoMensaje t in query.List()
                         where user == null
                            || (t.Empresa == null && t.Linea == null)
-                           || (t.Empresa != null && t.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(t.Empresa)))
-                           || (t.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(t.Linea)))
+                           || (t.Empresa != null && t.Linea == null && (user.Empresas.IsEmpty()|| user.Empresas.Contains(t.Empresa)))
+                           || (t.Linea != null && (user.Lineas.IsEmpty()|| user.Lineas.Contains(t.Linea)))
                         select t).ToList();
             }
             return tipos;

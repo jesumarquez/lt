@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using Iesi.Collections;
 using Logictracker.Culture;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Tickets;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.ValueObjects.CicloLogistico
 {
@@ -62,11 +62,11 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico
 
         public bool HasCoche { get; set; }
 
-        private ISet _detalles;
+        private ISet<DetalleTicket> _detalles;
 
-        public virtual ISet Detalles
+        public virtual ISet<DetalleTicket> Detalles
         {
-            get { if (_detalles == null) _detalles = new ListSet(); return _detalles; }
+            get { if (_detalles == null) _detalles = new HashSet<DetalleTicket>(); return _detalles; }
             set { _detalles = value; }
         }
 

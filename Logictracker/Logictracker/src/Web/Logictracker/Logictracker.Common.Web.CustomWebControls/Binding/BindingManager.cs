@@ -422,7 +422,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
             AddDefaultItems(autoBindeable);
 
             var user = DaoFactory.UsuarioDAO.FindById(autoBindeable.Usuario.Id);
-            var perfs = user.Perfiles.IsEmpty ? DaoFactory.PerfilDAO.FindAll().OrderBy(p => p.Descripcion).ToList() : user.Perfiles.OfType<Perfil>().OrderBy(p => p.Descripcion).ToList();
+            var perfs = user.Perfiles.IsEmpty() ? DaoFactory.PerfilDAO.FindAll().OrderBy(p => p.Descripcion).ToList() : user.Perfiles.OrderBy(p => p.Descripcion).ToList();
 
             foreach (var perfil in perfs) autoBindeable.AddItem(perfil.Descripcion, perfil.Id);
         }
@@ -902,7 +902,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
             var idsDepartamento = autoBindeable.ParentSelectedValues<Departamento>();
             var idsCentroDeCosto = autoBindeable.ParentSelectedValues<CentroDeCostos>();
 
-            if (!QueryExtensions.IncludesAll(idsCentroDeCosto)) idsCentroDeCosto.Add(-1);
+            if (!Logictracker.DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(idsCentroDeCosto)) idsCentroDeCosto.Add(-1);
 
             var subCenters = DaoFactory.SubCentroDeCostosDAO.GetList(idsEmpresa, idsLinea, idsDepartamento, idsCentroDeCosto);
 

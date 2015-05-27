@@ -172,8 +172,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
             return (from Odometro o in list
                     where user == null
                             || (o.Empresa == null && o.Linea == null)
-                            || (o.Empresa != null && o.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(o.Empresa)))
-                            || (o.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(o.Linea)))
+                            || (o.Empresa != null && o.Linea == null && (user.Empresas.IsEmpty()|| user.Empresas.Contains(o.Empresa)))
+                            || (o.Linea != null && (user.Lineas.IsEmpty()|| user.Lineas.Contains(o.Linea)))
                     select o).ToList();
         }
 

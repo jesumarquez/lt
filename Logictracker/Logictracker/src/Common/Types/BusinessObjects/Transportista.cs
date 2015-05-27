@@ -4,6 +4,8 @@ using System;
 using Iesi.Collections;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using Logictracker.Types.BusinessObjects.Vehiculos;
+using System.Collections.Generic;
 
 #endregion
 
@@ -12,8 +14,8 @@ namespace Logictracker.Types.BusinessObjects
     [Serializable]
     public class Transportista : IAuditable, ISecurable
     {
-        private ISet _coches;
-        private ISet _tarifas;
+        private ISet<Coche> _coches;
+        private ISet<TarifaTransportista> _tarifas;
 
         #region IAuditable
 
@@ -39,9 +41,9 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Descripcion { get; set; }
         public virtual bool IdentificaChoferes { get; set; }
 
-        public virtual ISet Coches { get { return _coches ?? (_coches = new ListSet()); } }
+        public virtual ISet<Coche> Coches { get { return _coches ?? (_coches = new HashSet<Coche>()); } }
 
-        public virtual ISet Tarifas { get { return _tarifas ?? (_tarifas = new ListSet()); } }
+        public virtual ISet<TarifaTransportista> Tarifas { get { return _tarifas ?? (_tarifas = new HashSet<TarifaTransportista>()); } }
 
         public override bool Equals(object obj)
         {

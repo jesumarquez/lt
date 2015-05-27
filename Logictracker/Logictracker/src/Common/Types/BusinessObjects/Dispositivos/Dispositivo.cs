@@ -32,8 +32,8 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
 
         #region Private Properties
 
-        private ISet _detallesDispositivo;
-        private ISet _configuraciones;
+        private ISet<DetalleDispositivo> _detallesDispositivo;
+        private ISet<ConfiguracionDispositivo> _configuraciones;
 
         #endregion
 
@@ -78,12 +78,12 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
         /// <summary>
         /// Gets device parameters configuration.
         /// </summary>
-        public virtual ISet DetallesDispositivo { get { return _detallesDispositivo ?? (_detallesDispositivo = new ListSet()); } }
+        public virtual ISet<DetalleDispositivo> DetallesDispositivo { get { return _detallesDispositivo ?? (_detallesDispositivo = new HashSet<DetalleDispositivo>()); } }
 
         /// <summary>
         /// A list of assigned configurations.
         /// </summary>
-        public virtual ISet Configuraciones { get { return _configuraciones ?? (_configuraciones = new ListSet()); } }
+        public virtual ISet<ConfiguracionDispositivo> Configuraciones { get { return _configuraciones ?? (_configuraciones = new HashSet<ConfiguracionDispositivo>()); } }
 
         public virtual String ConfiguracionAsString { get { return Configuraciones == null ? String.Empty : String.Join(", ", Configuraciones.Cast<ConfiguracionDispositivo>().Select(c => c.Descripcion).ToArray()); } }
 

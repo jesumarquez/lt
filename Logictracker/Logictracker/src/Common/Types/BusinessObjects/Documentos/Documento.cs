@@ -18,12 +18,12 @@ namespace Logictracker.Types.BusinessObjects.Documentos
             public const short Cerrado = 9;
         }
 
-        private ISet _parametros;
+        private ISet<DocumentoValor> _parametros;
         private Dictionary<string, object> _valores;
 
         public Documento()
         {
-            _parametros = new ListSet();
+            _parametros = new HashSet<DocumentoValor>();
         }
 
         #region IAuditable
@@ -73,7 +73,7 @@ namespace Logictracker.Types.BusinessObjects.Documentos
         public virtual bool EnviadoAviso2 { get; set; }
         public virtual bool EnviadoAviso3 { get; set; }
 
-        public virtual ISet Parametros
+        public virtual ISet<DocumentoValor> Parametros
         {
             get { return _parametros; }
             set { _parametros = value; }

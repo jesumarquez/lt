@@ -60,10 +60,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
             var equipos = FindByEmpresaLineaYCliente(emp, lin, cli);
             return (from Equipo e in equipos where 
-                (e.CentroDeCostos == null || user.CentrosCostos.IsEmpty || user.CentrosCostos.Contains(e.CentroDeCostos))
+                (e.CentroDeCostos == null || user.CentrosCostos.IsEmpty()|| user.CentrosCostos.Contains(e.CentroDeCostos))
                         && ((e.Empresa == null && e.Linea == null)
-                        || (e.Empresa != null && e.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(e.Empresa)))
-                        || (e.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(e.Linea))))
+                        || (e.Empresa != null && e.Linea == null && (user.Empresas.IsEmpty()|| user.Empresas.Contains(e.Empresa)))
+                        || (e.Linea != null && (user.Lineas.IsEmpty()|| user.Lineas.Contains(e.Linea))))
                     select e).ToList();
         }
 
@@ -82,10 +82,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         public IList FindAllByUsuario(Usuario user)
         {
             return (from Equipo e in Session.Query<Equipo>().ToList()
-                    where (e.CentroDeCostos == null || user.CentrosCostos.IsEmpty || user.CentrosCostos.Contains(e.CentroDeCostos))
+                    where (e.CentroDeCostos == null || user.CentrosCostos.IsEmpty()|| user.CentrosCostos.Contains(e.CentroDeCostos))
                         && ((e.Empresa == null && e.Linea == null)
-                        || (e.Empresa != null && e.Linea == null && (user.Empresas.IsEmpty || user.Empresas.Contains(e.Empresa)))
-                        || (e.Linea != null && (user.Lineas.IsEmpty || user.Lineas.Contains(e.Linea))))
+                        || (e.Empresa != null && e.Linea == null && (user.Empresas.IsEmpty()|| user.Empresas.Contains(e.Empresa)))
+                        || (e.Linea != null && (user.Lineas.IsEmpty()|| user.Lineas.Contains(e.Linea))))
                     select e).ToList();
         }
 

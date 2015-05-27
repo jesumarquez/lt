@@ -13,8 +13,8 @@ namespace Logictracker.Types.BusinessObjects
     {
         #region Private Properties
 
-        private ISet _coches;
-        private ISet _funciones;
+        private ISet<Coche> _coches;
+        private ISet<MovMenu> _funciones;
 
         #endregion
 
@@ -43,9 +43,9 @@ namespace Logictracker.Types.BusinessObjects
 
         public virtual bool TipoPermiso { get; set; }
 
-        public virtual ISet Coches { get { return _coches ?? (_coches = new ListSet()); } }
+        public virtual ISet<Coche> Coches { get { return _coches ?? (_coches = new HashSet<Coche>()); } }
 
-        public virtual ISet Funciones { get { return _funciones ?? (_funciones = new ListSet()); } }
+        public virtual ISet<MovMenu> Funciones { get { return _funciones ?? (_funciones = new HashSet<MovMenu>()); } }
 
         private IList<AseguradoEnPerfil> _asegurados;
         public virtual IList<AseguradoEnPerfil> Asegurados

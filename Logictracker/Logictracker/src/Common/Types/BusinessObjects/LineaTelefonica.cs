@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects
 {
@@ -19,9 +20,9 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Imei { get; set; }
         public virtual bool Baja { get; set; }
 
-        private ISet _vigencias;
+        private ISet<VigenciaPlanLinea> _vigencias;
 
-        public virtual ISet Vigencias { get { return _vigencias ?? (_vigencias = new ListSet()); } }
+        public virtual ISet<VigenciaPlanLinea> Vigencias { get { return _vigencias ?? (_vigencias = new HashSet<VigenciaPlanLinea>()); } }
 
         public virtual VigenciaPlanLinea GetVigencia(DateTime date)
         {

@@ -3,6 +3,7 @@
 using System;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -13,7 +14,7 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
     {
         #region Private Properties
 
-        private ISet _odometros;
+        private ISet<Odometro> _odometros;
 
         #endregion
 
@@ -57,7 +58,7 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
         public virtual int DesvioMaximo { get; set; }
         public virtual bool AlarmaConsumo { get; set; }
 
-        public virtual ISet Odometros { get { return _odometros ?? (_odometros = new ListSet()); } }
+        public virtual ISet<Odometro> Odometros { get { return _odometros ?? (_odometros = new HashSet<Odometro>()); } }
 
         #endregion
 

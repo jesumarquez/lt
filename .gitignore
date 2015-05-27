@@ -55,3 +55,4 @@ PrecompiledWeb/
 /Logictracker/compile.log
 Debug
 lib
+packages/

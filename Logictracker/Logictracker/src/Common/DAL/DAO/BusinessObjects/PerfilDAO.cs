@@ -33,7 +33,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
             IEnumerable<Perfil> list;
 
-            if (user.Perfiles.IsEmpty)
+            if (user.Perfiles.IsEmpty())
             {
                 list = FindAll();
             }
@@ -159,7 +159,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             var perfiles = selectedProfile > 0
                     ? new List<int> { selectedProfile }
-                    : usuario.Perfiles.IsEmpty
+                    : usuario.Perfiles.IsEmpty()
                             ? new List<int> { -1 }
                             : (from Perfil perfil in usuario.Perfiles select perfil.Id).ToList();
 

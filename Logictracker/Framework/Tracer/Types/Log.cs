@@ -3,6 +3,7 @@
 using System;
 using Iesi.Collections.Generic;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 #endregion
 
@@ -27,7 +28,7 @@ namespace Logictracker.DatabaseTracer.Types
         public virtual String Module { get; set; }
         public virtual String Component { get; set; }
         public virtual String Message { get; set; }
-        public virtual ISet<LogContext> Context { get { return _context ?? (_context = new HashedSet<LogContext>()); } }
+        public virtual ISet<LogContext> Context { get { return _context ?? (_context = new HashSet<LogContext>()); } }
         public virtual Int32? Vehicle { get; set; }
         public virtual Int32? Device { get; set; }
 

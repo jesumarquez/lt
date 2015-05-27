@@ -7,6 +7,7 @@ using Logictracker.DAL.NHibernate;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects;
+using Logictracker.DAL.DAO.BaseClasses;
 
 namespace Logictracker.Parametrizacion
 {
@@ -231,7 +232,7 @@ namespace Logictracker.Parametrizacion
         /// </summary>
         protected override void OnDelete()
         {
-            if (!EditObject.Coches.IsEmpty) throw new ApplicationException(CultureManager.GetError("CANT_DEL_TRANSPORTISTA"));
+            if (!EditObject.Coches.IsEmpty()) throw new ApplicationException(CultureManager.GetError("CANT_DEL_TRANSPORTISTA"));
 
             DAOFactory.TransportistaDAO.Delete(EditObject);
         }

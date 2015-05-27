@@ -1,6 +1,7 @@
 using System;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects.Messages
 {
@@ -10,7 +11,7 @@ namespace Logictracker.Types.BusinessObjects.Messages
         public virtual int Id { get; set; }
         public virtual Type TypeOf() { return GetType(); }
 
-        private ISet _mensajes;
+        private ISet<Mensaje> _mensajes;
 
         public virtual Empresa Empresa { get; set; }
         public virtual Linea Linea { get; set; }
@@ -28,7 +29,7 @@ namespace Logictracker.Types.BusinessObjects.Messages
         public virtual bool DeAtencion { get; set; }
         public virtual bool Baja { get; set; }
 
-        public virtual ISet Mensajes { get { return _mensajes ?? (_mensajes = new ListSet()); } }
+        public virtual ISet<Mensaje> Mensajes { get { return _mensajes ?? (_mensajes = new HashSet<Mensaje>()); } }
 
         #region Public Methods
 

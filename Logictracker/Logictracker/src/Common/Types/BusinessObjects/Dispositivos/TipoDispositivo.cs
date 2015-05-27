@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Iesi.Collections;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 #endregion
 
@@ -18,9 +19,9 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
     {
         #region Private Properties
 
-        private ISet _dispositivos;
-        private ISet _tiposParametro;
-        private ISet _configuraciones;
+        private ISet<Dispositivo> _dispositivos;
+        private ISet<TipoParametroDispositivo> _tiposParametro;
+        private ISet<ConfiguracionDispositivo> _configuraciones;
 
         #endregion
 
@@ -43,14 +44,14 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
 
         public virtual Firmware BaseFirmware { get { return TipoDispositivoPadre != null ? TipoDispositivoPadre.BaseFirmware : Firmware; } }
      
-        public virtual ISet TiposParametro { get { return _tiposParametro ?? (_tiposParametro = new ListSet()); } }
+        public virtual ISet<TipoParametroDispositivo> TiposParametro { get { return _tiposParametro ?? (_tiposParametro = new HashSet<TipoParametroDispositivo>()); } }
 
-        public virtual ISet Dispositivos { get { return _dispositivos ?? (_dispositivos = new ListSet()); } }
+        public virtual ISet<Dispositivo> Dispositivos { get { return _dispositivos ?? (_dispositivos = new HashSet<Dispositivo>()); } }
 
         /// <summary>
         /// A list of assigned configurations.
         /// </summary>
-        public virtual ISet Configuraciones { get { return _configuraciones ?? (_configuraciones = new ListSet()); } }
+        public virtual ISet<ConfiguracionDispositivo> Configuraciones { get { return _configuraciones ?? (_configuraciones = new HashSet<ConfiguracionDispositivo>()); } }
 
         #endregion
 
