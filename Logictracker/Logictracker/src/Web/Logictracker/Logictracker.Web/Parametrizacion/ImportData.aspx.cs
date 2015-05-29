@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using LinqToExcel;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.Dispositivos;
 using Logictracker.Types.BusinessObjects.Vehiculos;
@@ -182,6 +183,7 @@ namespace Logictracker.Parametrizacion
                         );
 
                     DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(geocerca);
+                    STrace.Trace("QtreeReset", "ImportData 1");
                 }
 
                 infoLabel1.Mode = InfoLabelMode.INFO;
@@ -264,6 +266,7 @@ namespace Logictracker.Parametrizacion
 
 
                     DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoDeInteres);
+                    STrace.Trace("QtreeReset", "ImportData 2");
                 }
 
                 infoLabel1.Mode = InfoLabelMode.INFO;

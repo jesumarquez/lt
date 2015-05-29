@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using Logictracker.Configuration;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
@@ -255,6 +256,7 @@ namespace Logictracker.Parametrizacion
             if (EditObject.TipoReferenciaGeografica.ControlaVelocidad) AddSpeedLimits();
 
             DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(EditObject);
+            STrace.Trace("QtreeReset", "GeoRefAlta");
         }
 
 

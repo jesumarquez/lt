@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using C1.Web.UI.Controls.C1GridView;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Components;
@@ -152,6 +153,7 @@ namespace Logictracker.Web.CicloLogistico
 
                 nuevaReferencia.AddHistoria(direccion, poligono, utcNow);
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(nuevaReferencia);
+                STrace.Trace("QtreeReset", "InfoDetencion 1");
 
                 foreach (var punto in puntos)
                 {
@@ -159,6 +161,7 @@ namespace Logictracker.Web.CicloLogistico
                     punto.ReferenciaGeografica.Poligono.Vigencia.Fin = utcNow;
                     punto.ReferenciaGeografica.Vigencia.Fin = utcNow;
                     DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(punto.ReferenciaGeografica);
+                    STrace.Trace("QtreeReset", "InfoDetencion 2");
                     
                     punto.ReferenciaGeografica = nuevaReferencia;
                     DAOFactory.PuntoEntregaDAO.SaveOrUpdate(punto);

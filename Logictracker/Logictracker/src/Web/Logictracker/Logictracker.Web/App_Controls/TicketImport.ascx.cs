@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Geocoder.Core.VO;
 using LinqToExcel;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
 using Logictracker.Services.Helpers;
 using Logictracker.Types.BusinessObjects;
@@ -523,6 +524,7 @@ namespace Logictracker.App_Controls
                                             });
 
             DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoDeInteres);
+            STrace.Trace("QtreeReset", "TicketImport");
             return puntoDeInteres;
         }
 

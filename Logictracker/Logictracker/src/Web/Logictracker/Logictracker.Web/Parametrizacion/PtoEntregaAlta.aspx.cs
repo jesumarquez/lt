@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Logictracker.DAL.NHibernate;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.BaseClasses.BasePages;
 
@@ -105,6 +106,7 @@ namespace Logictracker.Parametrizacion
                         EditObject.ReferenciaGeografica.Codigo = code;
 
                         DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(EditObject.ReferenciaGeografica);
+                        STrace.Trace("QtreeReset", "PtoEntregaAlta");
                     }
 
                     DAOFactory.PuntoEntregaDAO.SaveOrUpdate(EditObject);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using C1.Web.UI.Controls.C1GridView;
 using Logictracker.DAL.NHibernate;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.ValueObjects.ReferenciasGeograficas;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -116,6 +117,7 @@ namespace Logictracker.Parametrizacion
                         georef.Vigencia.Fin = DateTime.UtcNow;
 
                         DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(georef);
+                        STrace.Trace("QtreeReset", "GeoRefLista");
                     }
 
                     transaction.Commit();

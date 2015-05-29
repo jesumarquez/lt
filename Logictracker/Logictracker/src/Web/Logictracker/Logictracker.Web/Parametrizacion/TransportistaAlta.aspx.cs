@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.UI.WebControls;
 using Logictracker.DAL.NHibernate;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects;
@@ -295,6 +296,7 @@ namespace Logictracker.Parametrizacion
                 EditObject.ReferenciaGeografica.Descripcion = EditObject.Descripcion;
                 EditObject.ReferenciaGeografica.Codigo = EditObject.Descripcion;
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(EditObject.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "TransportistaAlta");
             }
 
             var user = DAOFactory.UsuarioDAO.FindById(Usuario.Id);

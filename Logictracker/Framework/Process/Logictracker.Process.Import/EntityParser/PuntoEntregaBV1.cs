@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Globalization;
 using Logictracker.DAL.Factories;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Process.Import.Client.Types;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Components;
@@ -108,6 +109,7 @@ namespace Logictracker.Process.Import.EntityParser
                 oPuntoEntrega.ReferenciaGeografica.Vigencia.Fin = DateTime.UtcNow;
 
                 DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(oPuntoEntrega.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "PuntoEntregaBV1 1");
             }
             
             return oPuntoEntrega;
@@ -144,6 +146,7 @@ namespace Logictracker.Process.Import.EntityParser
                                         });
 
             DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoDeInteres);
+            STrace.Trace("QtreeReset", "PuntoEntregaBV1 2");
 
             return puntoDeInteres;
         }

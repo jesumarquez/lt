@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Geocoder.Core.VO;
 using Logictracker.DAL.Factories;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Process.Import.Client.Types;
 using Logictracker.Services.Helpers;
 using Logictracker.Types.BusinessObjects;
@@ -142,7 +143,11 @@ namespace Logictracker.Process.Import.EntityParser
         public override void SaveOrUpdate(object parsedData, int empresa, int linea, IData data)
         {
             var item = parsedData as ReferenciaGeografica;
-            if (ValidateSaveOrUpdate(item)) DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(item);
+            if (ValidateSaveOrUpdate(item))
+            {
+                DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(item);
+                STrace.Trace("QtreeReset", "ReferenciaGeograficaV1 1");
+            }
         }
 
         public override void Delete(object parsedData, int empresa, int linea, IData data)
@@ -154,13 +159,21 @@ namespace Logictracker.Process.Import.EntityParser
         public override void Save(object parsedData, int empresa, int linea, IData data)
         {
             var item = parsedData as ReferenciaGeografica;
-            if (ValidateSave(item)) DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(item);
+            if (ValidateSave(item))
+            {
+                DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(item);
+                STrace.Trace("QtreeReset", "ReferenciaGeograficaV1 2");
+            }
         }
 
         public override void Update(object parsedData, int empresa, int linea, IData data)
         {
             var item = parsedData as ReferenciaGeografica;
-            if (ValidateUpdate(item)) DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(item);
+            if (ValidateUpdate(item))
+            {
+                DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(item);
+                STrace.Trace("QtreeReset", "ReferenciaGeograficaV1 3");
+            }
         }
 
         #endregion

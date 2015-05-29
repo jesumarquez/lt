@@ -3,6 +3,7 @@ using System.IO;
 using System.Web.UI.WebControls;
 using Logictracker.Configuration;
 using Logictracker.DAL.NHibernate;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Entidades;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -114,6 +115,7 @@ namespace Logictracker.Parametrizacion
                         geoRef.Descripcion = EditObject.Descripcion;
                         geoRef.Codigo = EditObject.Codigo;
                         DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(geoRef);
+                        STrace.Trace("QtreeReset", "EntidadAlta");
                         EditObject.ReferenciaGeografica = geoRef;
                     }
 

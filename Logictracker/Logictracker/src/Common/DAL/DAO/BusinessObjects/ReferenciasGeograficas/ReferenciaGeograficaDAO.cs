@@ -293,19 +293,23 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
             t = new TimeElapsed();
             foreach (var geo in results)
             {
-                if (geo.DireccionId != null && !direcciones.ContainsKey(geo.DireccionId.Value))
+                Direccion direccion = null;
+                if (geo.DireccionId != null)
                 {
-                    STrace.Debug("DispatcherLock", string.Format("ERROR DIRECCION NO ENCONTRADA EN CACHE !!! {0} ({1},{2}) ", geo.DireccionId.Value, empresaId, lineaId));
+                    if (direcciones.ContainsKey(geo.DireccionId.Value))
+                        direccion = direcciones[geo.DireccionId.Value];
+                    else
+                        STrace.Debug("DispatcherLock", string.Format("ERROR DIRECCION NO ENCONTRADA EN CACHE !!! {0} ({1},{2}) ", geo.DireccionId.Value, empresaId, lineaId));
                 }
 
-                var direccion = geo.DireccionId != null ? direcciones[geo.DireccionId.Value] : null;
-
-                if (geo.PoligonoId != null && !poligonos.ContainsKey(geo.PoligonoId.Value))
+                Poligono poligono = null;
+                if (geo.PoligonoId != null)
                 {
-                    STrace.Debug("DispatcherLock", string.Format("ERROR POLIGONO NO ENCONTRADO EN CACHE !!! {0} ({1},{2}) ", geo.PoligonoId.Value, empresaId, lineaId));
+                    if (poligonos.ContainsKey(geo.PoligonoId.Value))
+                        poligono = poligonos[geo.PoligonoId.Value];
+                    else
+                        STrace.Debug("DispatcherLock", string.Format("ERROR POLIGONO NO ENCONTRADO EN CACHE !!! {0} ({1},{2}) ", geo.PoligonoId.Value, empresaId, lineaId));
                 }
-
-                var poligono = geo.PoligonoId != null ? poligonos[geo.PoligonoId.Value] : null;
                 
                 if (direccion != null || poligono != null)
                     geo.Calculate(direccion, poligono);
@@ -338,7 +342,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
         }
 
         public void SingleSaveOrUpdate(ReferenciaGeografica obj)
-        {
+        {   
             SaveOrUpdate(obj);
             UpdateGeocercas(obj);
         }
