@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C3763B3B-1D46-474E-B370-4099E93D893B}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -400,8 +400,8 @@
     <Content Include="Applications\GatewayMAppsUDP.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Applications\GatewayNovatel.xml" />
     <Content Include="Applications\GatewayTorino.xml" />
-    <Content Include="Applications\GatewayTrax.xml" />
     <Content Include="Applications\Generator.xml">
     </Content>
     <Content Include="Applications\Instalar y Mantener Servicios.xml">
