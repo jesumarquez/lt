@@ -93,11 +93,18 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             var inicio = DateTime.UtcNow;
 
+            var id = GetInt32("Id");
+            if (id.HasValue) Vehicles = new List<int> {id.Value};
+
+            var distrito = GetInt32("Distrito");
+            if (distrito.HasValue)
+                Vehicles = DaoFactory.CocheDAO.GetList(new[]{distrito.Value}, new[]{-1}).Select(v => v.Id).ToList();
+
+            VehiclesToProcess = Vehicles.Count;
+
             foreach (var vehicleId in Vehicles)
             {
-                var te = new TimeElapsed();
                 var vehicle = DaoFactory.CocheDAO.FindById(vehicleId);
-                STrace.Trace(GetType().FullName, string.Format("CocheDAO.FindById {0} segundos", te.getTimeElapsed().TotalSeconds));
                 try
                 {   
                     ProcessVehicle(vehicle, today);
@@ -269,15 +276,22 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 0, 0);
 
                     // Deletes all previously generated datamart records for the current vehicle and time span.
+                    var t = new TimeElapsed();
                     DaoFactory.DatamartDAO.DeleteRecords(vehicle.Id, inicio, fin);
+                    STrace.Trace("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("DeleteRecords en {0} segundos", t.getTimeElapsed().TotalSeconds));
                     List<Datamart> records;
 
                     using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
                     {
+                        t.Restart();
                         records = GenerateRecords(data);
+                        STrace.Trace("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GenerateRecords en {0} segundos", t.getTimeElapsed().TotalSeconds));
                     }
 
+                    t.Restart();
                     foreach (var record in records) DaoFactory.DatamartDAO.Save(record);
+
+                    STrace.Trace("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("Save en {0} segundos", t.getTimeElapsed().TotalSeconds));
 
                     transaction.Commit();
                 }

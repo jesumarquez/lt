@@ -25,6 +25,7 @@ namespace Logictracker.Types.ValueObject.Messages
             Descripcion = msj.Descripcion;
             Destino = msj.Destino;
             Origen = msj.Origen;
+            Acceso = msj.Acceso;
             Codigo = msj.Codigo;
             TTL = msj.Ttl;
             IsParent = msj.Empresa == null && msj.Linea == null;
@@ -42,6 +43,8 @@ namespace Logictracker.Types.ValueObject.Messages
         public string Descripcion { get; set; }
 
         public short Destino { get; set; }
+
+        public short Acceso { get; set; }
 
         public byte Origen { get; set; }
 

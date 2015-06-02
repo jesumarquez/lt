@@ -40,10 +40,12 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                         STrace.Trace(GetType().FullName, string.Format("Procesando vehículo: {0}", vehiculo.Id));
 
                         var msgs = DaoFactory.LogMensajeDAO.Count(vehiculo.Id, desde, hasta);
+                        var msgsAdmin = DaoFactory.LogMensajeAdminDAO.Count(vehiculo.Id, desde, hasta);
+                        var total = msgs + msgsAdmin;
 
-                        if (msgs > maxCant)
+                        if (total > maxCant)
                         {
-                            STrace.Trace(GetType().FullName, string.Format("Vehículo {0} con {1} mensajes", vehiculo.Id, msgs));
+                            STrace.Trace(GetType().FullName, string.Format("Vehículo {0} con {1} mensajes", vehiculo.Id, total));
 
                             var parametros = new[]
                                  {
@@ -53,7 +55,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                      vehiculo.Patente,
                                      desde.ToString("dd/MM/yyyy HH:mm"),
                                      hasta.ToString("dd/MM/yyyy HH:mm"),
-                                     msgs.ToString("#0")
+                                     total.ToString("#0") + " - (Mensajes Admin: " + msgsAdmin.ToString("#0") + ")"
                                  };
                             SendMail(parametros);
                         }

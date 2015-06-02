@@ -8,7 +8,6 @@ using Logictracker.Description.Attributes;
 using Logictracker.Dispatcher.Core;
 using Logictracker.Dispatcher.Handlers.Common;
 using Logictracker.Messages.Saver;
-using Logictracker.Messages.Sender;
 using Logictracker.Messaging;
 using Logictracker.Model;
 using Logictracker.Model.EnumTypes;

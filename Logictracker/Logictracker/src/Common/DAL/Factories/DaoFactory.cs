@@ -175,6 +175,9 @@ namespace Logictracker.DAL.Factories
         private LogMensajeDAO _logMensajeDao;
         public LogMensajeDAO LogMensajeDAO { get { return _logMensajeDao ?? (_logMensajeDao = GetDao<LogMensajeDAO>()); } }
 
+        private LogMensajeAdminDAO _logMensajeAdminDao;
+        public LogMensajeAdminDAO LogMensajeAdminDAO { get { return _logMensajeAdminDao ?? (_logMensajeAdminDao = GetDao<LogMensajeAdminDAO>()); } }
+
         private AtencionEventoDAO _atencionEventoDAO;
         public AtencionEventoDAO AtencionEventoDAO { get { return _atencionEventoDAO ?? (_atencionEventoDAO = GetDao<AtencionEventoDAO>()); } }
 

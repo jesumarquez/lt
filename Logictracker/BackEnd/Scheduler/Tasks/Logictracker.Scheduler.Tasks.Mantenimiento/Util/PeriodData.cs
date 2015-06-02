@@ -85,18 +85,14 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
         private void LoadData()
         {
             LoadCulture();
-            
             LoadTurnos();
-            
             LoadCicloLogistico();
-            
             LoadEvents();
             
             //LoadTimeTracking();
             //LoadConsumos();
-            
+
             LoadPosiciones();
-            
             LoadFechasDeCorte();
         }
         private void LoadCulture()
@@ -210,9 +206,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
             var maxMonths = Vehiculo.Empresa != null ? Vehiculo.Empresa.MesesConsultaPosiciones : 3;
 
             PosicionSiguiente = posicionDao.GetFirstPositionNewerThanDate(Vehiculo.Id, Fin, maxMonths);
-            
             PosicionAnterior = Vehiculo.LastOdometerUpdate.HasValue ? posicionDao.GetFirstPositionOlderThanDate(Vehiculo.Id, Inicio, maxMonths) : null;
-            
             var originalPositions = posicionDao.GetPositionsBetweenDates(Vehiculo.Id, Inicio, Fin, maxMonths);
             
             if (Vehiculo.Dispositivo != null && !DaoFactory.DetalleDispositivoDAO.GetDiscardsInvalidPositionsValue(Vehiculo.Dispositivo.Id))

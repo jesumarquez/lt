@@ -1,6 +1,5 @@
 using System;
 using Logictracker.Types.BusinessObjects.BaseObjects;
-using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 
 namespace Logictracker.Types.BusinessObjects.Messages
 {
@@ -8,9 +7,6 @@ namespace Logictracker.Types.BusinessObjects.Messages
     public class LogMensajeAdmin : LogMensajeBase
     {
         public virtual Zona Zona { get; set; }
-        public virtual EvenDistri EvenDistri { get; set; }
-        public virtual ViajeDistribucion Viaje { get; set; }
-        public virtual EntregaDistribucion Entrega { get; set; }
 
         public virtual int IdCoche { get; set; }
         public virtual string CodigoMensaje { get; set; }

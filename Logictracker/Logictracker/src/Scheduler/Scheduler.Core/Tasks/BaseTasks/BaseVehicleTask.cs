@@ -1,12 +1,7 @@
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Logictracker.DatabaseTracer.Core;
-using Logictracker.Types.BusinessObjects.Vehiculos;
-
-#endregion
 
 namespace Logictracker.Scheduler.Core.Tasks.BaseTasks
 {
