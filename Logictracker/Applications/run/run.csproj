@@ -385,7 +385,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Applications\DispatcherAbsolut.xml" />
+    <Content Include="Applications\DispatcherAbsolut.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Applications\GatewayAbsolut.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -402,6 +404,9 @@
     </Content>
     <Content Include="Applications\GatewayNovatel.xml" />
     <Content Include="Applications\GatewayTorino.xml" />
+    <Content Include="Applications\GatewayTrax.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Applications\Generator.xml">
     </Content>
     <Content Include="Applications\Instalar y Mantener Servicios.xml">

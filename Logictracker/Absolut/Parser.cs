@@ -167,7 +167,12 @@ namespace Logictracker.Absolut
                         break;
                 }
                 var msg_ = subcode.FactoryEvent(code, inode.Id, mid, null, dt, null, null);
-                msg_.SensorsDataString = "T1:" + parse[11];
+                //5   U1 en voltios            var hdop = (byte)0;
+                //6   I1 en Ampere por 10. (10 equivale a 1.0 Amp)            var entradas = Convert.ToByte("0", 16);
+                //7   U2 en voltios            var time = DateTimeUtils.SafeParseFormat(parse[10] + parse[2].Split('.')[0], "ddMMyyHHmmss");
+                //8   I2 en Ampere por 10. (27 equivale a 2.7 Amp)
+
+                msg_.SensorsDataString = "U1:" + parse[5] + "I1:" + parse[6] + "U2:" + parse[7] + "I2:" + parse[8] + "T1:" + parse[11] + ",T2:" + parse[12] + ",T3:" + parse[13] + ",T4:" + parse[14];
                 msg = msg_;
                 var ackStr = dc.BuildAck().ToString(true);
                 /*$B,353234020014377,ACK=12,$E*/
