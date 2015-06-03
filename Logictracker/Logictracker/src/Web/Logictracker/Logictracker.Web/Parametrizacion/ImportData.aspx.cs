@@ -376,6 +376,8 @@ namespace Logictracker.Parametrizacion
                             if ( empleadoImportador.Transportista != null)
                             {
                                 var transportista = DAOFactory.TransportistaDAO.FindByCodigo(empresa.Id, linea!=null? linea.Id:-1, empleadoImportador.Transportista);
+                                
+                                
                                 empleado.Transportista = transportista;
 
                             }
@@ -386,8 +388,7 @@ namespace Logictracker.Parametrizacion
                                 empleado.Categoria = categoria;
 
                             }
-
-                           
+                         
                             DAOFactory.EmpleadoDAO.SaveOrUpdate(empleado); //So id doesn't insert empty rows
 
                             if (empleadoImportador.Patente != string.Empty)

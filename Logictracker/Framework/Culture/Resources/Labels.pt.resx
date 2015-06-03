@@ -4489,4 +4489,8 @@
   <data name="AGRUPADOR" xml:space="preserve">
     <value>Garoupa</value>
   </data>
+  <data name="ULTIMA_POSICION" xml:space="preserve">
+    <value>Últimas Posição GPS</value>
+  </data>
+
 </root>

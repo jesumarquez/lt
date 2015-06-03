@@ -4625,4 +4625,7 @@
   <data name="AGRUPADOR" xml:space="preserve">
     <value>Agrupador</value>
   </data>
+  <data name="ULTIMA_POSICION" xml:space="preserve">
+    <value>Ultima posicion GPS</value>
+  </data>
 </root>
