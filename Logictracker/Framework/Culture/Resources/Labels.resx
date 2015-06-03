@@ -4628,4 +4628,8 @@
   <data name="ULTIMA_POSICION" xml:space="preserve">
     <value>Última Posición GPS</value>
   </data>
+  <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
+    <value>Ver Eventos Admin</value>
+  </data>
+  
 </root>

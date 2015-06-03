@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Logictracker.Configuration;
 using Logictracker.Security;
+using Logictracker.Types.BusinessObjects.BaseObjects;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Web.CustomWebControls.Labels;
@@ -20,6 +21,7 @@ namespace Logictracker.Operacion.Consola
         private bool _auto;
         private List<int> _coches;
         private int _lastId;
+        private int _lastIdAdmin;
         private List<string> _mensajes;
 
         private bool _selectAllTipoMensaje;
@@ -35,13 +37,22 @@ namespace Logictracker.Operacion.Consola
                 return _auto ? "addMessages([], true, 0);" : "addMessages('', false, 0);";
 
             if (!_auto)
+            {
                 _lastId = -1;
+                _lastIdAdmin = -1;
+            }
 
             var mensajesConsola = DAOFactory.LogMensajeDAO.GetMensajesConsola(_coches, _mensajes, _lastId, MaxResults);
-
             var maxId = !mensajesConsola.Any() ? 0 : (from LogMensaje m in mensajesConsola select m.Id).Max();
-
+            
             var mensajes = (from LogMensaje mensaje in mensajesConsola select _auto ? GetRow(mensaje) : GetRowText(mensaje)).ToList();
+
+            if (chkVerAdmin.Checked)
+            {
+                var mensajesAdmin = DAOFactory.LogMensajeAdminDAO.GetMensajesConsola(_coches, _mensajes, _lastIdAdmin, MaxResults);
+                mensajes.AddRange((from LogMensajeAdmin mensaje in mensajesAdmin select _auto ? GetRow(mensaje) : GetRowText(mensaje)).ToList());
+            }
+
             var sonido = mensajesConsola.FirstOrDefault(x => x.Accion != null && x.Accion.EsAlarmaSonora);
             var textoMensajes = _auto
                                     ? string.Concat("[", string.Join(",", mensajes.ToArray()), "]")
@@ -97,6 +108,8 @@ namespace Logictracker.Operacion.Consola
 
         protected void CbMensajesSelectedIndexChanged(object sender, EventArgs e) { if (IsPostBack || IsCallback) Refresh(); }
 
+        protected void ChkVerAdminCheckedChanged(object sender, EventArgs e) { if (IsPostBack || IsCallback) Refresh(); }
+
         #endregion
 
         #region Register JavaScript
@@ -133,13 +146,13 @@ namespace Logictracker.Operacion.Consola
 
         #region Helper Methods
 
-        private static string GetRow(LogMensaje mensaje)
+        private static string GetRow(LogMensajeBase mensaje)
         {
             const string template = "\"{0}\"";
             return string.Format(template, GetRowText(mensaje));
         }
 
-        private static string GetRowText(LogMensaje mensaje)
+        private static string GetRowText(LogMensajeBase mensaje)
         {
             const string template = "<table o='{8}' style='background-color:#{5};color:#{6};' onclick='s({7});'><tr><td class='r1'><h6>{0}</h6> {1}</td><td class='r2'>{2}</td><td class='r3'>{3}</td><td>{4}</td><td class='r4'>{9}</td></tr></table>";
             var col = mensaje.Accion != null
@@ -226,6 +239,8 @@ namespace Logictracker.Operacion.Consola
 
             _selectAllMensajes = true;
             _selectAllVehiculos = true;
+
+            chkVerAdmin.Visible = Usuario.AccessLevel >= Types.BusinessObjects.Usuario.NivelAcceso.SysAdmin;
         }
 
         protected override void OnPreRender(EventArgs e)

@@ -4498,5 +4498,8 @@
   <data name="ULTIMA_POSICION" xml:space="preserve">
     <value>Latest position GPS</value>
   </data>
+  <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
+    <value>View Admin Events</value>
+  </data>
 
 </root>
