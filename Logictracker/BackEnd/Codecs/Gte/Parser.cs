@@ -406,6 +406,9 @@ namespace Logictracker.Trax.v1
                             salida = GetSalida(dc, deviceStatus);
                         }
                         break;
+                    case Reporte.TemperatureInfo:
+                        
+                        break;
                     case Reporte.Evento:
                     case Reporte.Evento2:
                     case Reporte.FinInfraccion:
@@ -413,17 +416,14 @@ namespace Logictracker.Trax.v1
                         var code = GetCodEvent(data[2].Substring(2, 2));
                         try
                         {
-
                             pos = Posicion.Parse(data);
                             if (pos != null)
-                                pos.SetEngineStatus(BitHelper.AreBitsSet(Convert.ToByte(data[2].Substring(0, 1), 16),
-                                                                         0x8));
+                                pos.SetEngineStatus(BitHelper.AreBitsSet(Convert.ToByte(data[2].Substring(0, 1), 16), 0x8));
 
                         }
                         catch (ArgumentOutOfRangeException e)
                         {
-                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null,
-                                       String.Format("Posicion invalida {0}", buffer));
+                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null, String.Format("Posicion invalida {0}", buffer));
                             break;
                         }
 
@@ -448,8 +448,7 @@ namespace Logictracker.Trax.v1
                         }
                         catch (ArgumentOutOfRangeException e)
                         {
-                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null,
-                                       String.Format("Posicion invalida {0}", buffer));
+                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null, String.Format("Posicion invalida {0}", buffer));
                             break;
                         }
 
@@ -1296,6 +1295,7 @@ namespace Logictracker.Trax.v1
             private const String Personalizado = ">RUS";
             public const String IdReq = ">RUS00";
             public const String OldEvento = ">RUS01";
+            public const String TemperatureInfo = ">RUS03";
             public const String Evento = ">RUS04";
             public const String Evento2 = ">RUS08";
             public const String FinInfraccion = ">RUS05";
