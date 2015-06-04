@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web.UI.WebControls;
 using Logictracker.Culture;
 using Logictracker.DAL.Factories;
 using Logictracker.Security;
@@ -115,7 +114,13 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
                     case ViajeDistribucion.Estados.Cerrado:
                         if (estadoVerKm)
                         {
-                            kms = dao.CocheDAO.GetDistance(viaje.Vehiculo.Id, viaje.InicioReal.Value, viaje.Fin);
+                            if (viaje.InicioReal.Value < DateTime.Today)
+                            {
+                                var dmViaje = dao.DatamartViajeDAO.GetRecords(viaje.Id).FirstOrDefault();
+                                if (dmViaje != null) kms = dmViaje.KmTotales;
+                            }
+                            else kms = dao.CocheDAO.GetDistance(viaje.Vehiculo.Id, viaje.InicioReal.Value, viaje.Fin);
+                            
                             recorrido = new TimeSpan(0, 0, (int)viaje.Fin.Subtract(viaje.InicioReal.Value).TotalSeconds);
                         }
                         break;

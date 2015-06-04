@@ -102,7 +102,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                         {
                             var parametros = new[] { "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id, distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
                             SendMail(parametros);
-                            STrace.Trace(GetType().FullName, "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id);
+                            STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id);
                         }
                     }
                 }

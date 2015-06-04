@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Logictracker.DAL.DAO.BaseClasses;
-using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ReportObjects.Datamart;
-using NHibernate;
 
 namespace Logictracker.DAL.DAO.BusinessObjects
 {
@@ -11,19 +9,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
     {
 //        public DatamartViajeDAO(ISession session) : base(session) { }
 
-        public void DeleteRecords(ViajeDistribucion distribucion)
+        public void DeleteRecords(int idViaje)
         {
-            var registros = GetRecords(distribucion);
+            var registros = GetRecords(idViaje);
             foreach (var registro in registros) Delete(registro);
         }
 
-        public List<DatamartViaje> GetRecords(ViajeDistribucion viaje)
+        public List<DatamartViaje> GetRecords(int idViaje)
         {
-            return Query.FilterEmpresa(Session, new[] { viaje.Empresa.Id })
-                        .FilterLinea(Session, new[] { viaje.Empresa.Id }, new[] { viaje.Linea.Id })
-                        .FilterVehiculo(Session, new[] { viaje.Empresa.Id }, new[] { viaje.Linea.Id }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { viaje.Vehiculo != null ? viaje.Vehiculo.Id : -1 })
-                        .FilterViajeDistribucion(Session, new[] { viaje.Empresa.Id }, new[] { viaje.Linea.Id }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { viaje.Vehiculo != null ? viaje.Vehiculo.Id : -1 }, new[] { viaje.Id })
-                        .ToList();
+            return Query.Where(dm => dm.Viaje.Id == idViaje).ToList();
         }
 
         public List<DatamartViaje> GetList(int[] idsViajes)

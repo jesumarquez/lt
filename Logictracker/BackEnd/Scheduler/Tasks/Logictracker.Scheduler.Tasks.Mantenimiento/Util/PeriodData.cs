@@ -209,7 +209,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
             PosicionAnterior = Vehiculo.LastOdometerUpdate.HasValue ? posicionDao.GetFirstPositionOlderThanDate(Vehiculo.Id, Inicio, maxMonths) : null;
             var t = new TimeElapsed();
             var originalPositions = posicionDao.GetPositionsBetweenDates(Vehiculo.Id, Inicio, Fin, maxMonths);
-            STrace.Trace("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetPositionsBetweenDates en {0} segundos", t.getTimeElapsed().TotalSeconds));
+            var ts = t.getTimeElapsed().TotalSeconds;
+            if (ts > 2) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetPositionsBetweenDates en {0} segundos", ts));
 
             if (Vehiculo.Dispositivo != null && !DaoFactory.DetalleDispositivoDAO.GetDiscardsInvalidPositionsValue(Vehiculo.Dispositivo.Id))
             {

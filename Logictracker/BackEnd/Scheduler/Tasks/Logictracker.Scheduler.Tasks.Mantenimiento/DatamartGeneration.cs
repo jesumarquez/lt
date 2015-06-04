@@ -135,7 +135,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     {
                         var parametros = new[] { "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
                         SendMail(parametros);
-                        STrace.Trace(GetType().FullName, "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Id);
+                        STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Id);
                     }
                 }
             }
@@ -278,20 +278,20 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     // Deletes all previously generated datamart records for the current vehicle and time span.
                     var t = new TimeElapsed();
                     DaoFactory.DatamartDAO.DeleteRecords(vehicle.Id, inicio, fin);
-                    STrace.Trace("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("DeleteRecords en {0} segundos", t.getTimeElapsed().TotalSeconds));
+                    var ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 1) STrace.Trace(GetType().FullName, string.Format("DeleteRecords en {0} segundos", ts));
                     List<Datamart> records;
 
                     using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
                     {
-                        t.Restart();
                         records = GenerateRecords(data);
-                        STrace.Trace("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GenerateRecords en {0} segundos", t.getTimeElapsed().TotalSeconds));
                     }
 
                     t.Restart();
                     foreach (var record in records) DaoFactory.DatamartDAO.Save(record);
 
-                    STrace.Trace("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("Save en {0} segundos", t.getTimeElapsed().TotalSeconds));
+                    ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 1) STrace.Trace(GetType().FullName, string.Format("Save en {0} segundos", ts));
 
                     transaction.Commit();
                 }
@@ -315,8 +315,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         {
             var datamarter = new Datamarter(data);
 
-            if(data.Posiciones.Count == 0)
+            if (data.Posiciones.Count == 0)
             {
+                STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - Sin Posiciones - Id: {0}", data.Vehiculo.Id));
+
                 var distancia = data.PosicionAnterior != null && data.PosicionSiguiente != null 
                     ? data.GetDistancia(data.PosicionAnterior, data.PosicionSiguiente, data.Inicio, data.Fin)
                     : 0;
@@ -342,8 +344,9 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 	            var posCount = 0;
 	            var km = 0.0;
 
-                if(fecha < lastPosition.FechaMensaje)
+                if (fecha < lastPosition.FechaMensaje)
                 {
+                    STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - fecha < lastPosition.FechaMensaje - Id: {0}", data.Vehiculo.Id));
                     listado.AddRange(datamarter.CreateNoReportDatamartRecords(inicio, fecha, 0));
                     inicio = fecha;
                     continue;
@@ -384,6 +387,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 			            km = distancia;
 			            if (noreport)
 			            {
+                            STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - NoReport - Id: {0}", data.Vehiculo.Id));
 				            var datamarts = datamarter.CreateNoReportDatamartRecords(lastPosition.FechaMensaje, position.FechaMensaje, km);
 				            listado.AddRange(datamarts);
 				            km = 0;
@@ -420,6 +424,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
 		            if (posCount == 0)
 		            {
+                        STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - posCount == 0 - Id: {0}", data.Vehiculo.Id));
 			            var datamart2 = datamarter.CreateNoReportDatamartRecords(inicio, fecha, km);
 			            listado.AddRange(datamart2);
 		            }
