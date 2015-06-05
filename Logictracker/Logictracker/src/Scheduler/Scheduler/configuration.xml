@@ -3,7 +3,8 @@
 <Configuration xmlns="urn:Scheduler.Configuration">
 
   <Timer Enabled="true" Name="Data Maintenance" StartTime="00:00:01" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
-    <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="MaxMessageCount=5000;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;Desde=03/06/2015;Hasta=04/06/2015;Id=6811;" />
+    <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;Desde=03/06/2015;Hasta=04/06/2015;Distrito=58;" />
+    <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartViajeTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;Desde=03/06/2015;Hasta=04/06/2015;Empresas=58;" />
   </Timer>
 
 </Configuration>

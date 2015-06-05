@@ -36,7 +36,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         /// Three months for today.
         /// </summary>
         private readonly DateTime _threeMonthsAgo = DateTime.UtcNow.AddMonths(-3);
-
         /// <summary>
         /// Determines if regeneration is enabled for current datamart generation.
         /// </summary>
@@ -60,7 +59,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 return endDate.HasValue ? endDate.Value : DateTime.UtcNow;
             }
         }
-
         /// <summary>
         /// Gets the datamart start of generation period datetime for the specified vehicle.
         /// </summary>
@@ -77,10 +75,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         #region Protected Methods
 
-        /// <summary>
-        /// Performs tasks main activities.
-        /// </summary>
-        /// <param name="timer"></param>
         protected override void OnExecute(Timer timer)
         {
             base.OnExecute(timer);
@@ -153,11 +147,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         #region Private Methods
 
-		/// <summary>
-        /// Process the specified vehicle.
-        /// </summary>
-        /// <param name="coche"></param>
-        /// <param name="today"></param>
         private void ProcessVehicle(Coche coche, DateTime today)
         {
             var lastUpdate = GetStartDate(coche.Id);
@@ -179,12 +168,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 			STrace.Trace(GetType().FullName, String.Format("Vehicles to process: {0}", --VehiclesToProcess));
         }
 
-        /// <summary>
-        /// Process the current periods of the specified vehicle.
-        /// </summary>
-        /// <param name="lastUpdate"></param>
-        /// <param name="vehicle"></param>
-        /// <param name="today"></param>
         private void ProcessCurrentPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
@@ -199,12 +182,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             }
         }
 
-        /// <summary>
-        /// Regenerates old period for the specified vehicle.
-        /// </summary>
-        /// <param name="lastUpdate"></param>
-        /// <param name="vehicle"></param>
-        /// <param name="today"></param>
         private void RegenerateOldPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
@@ -221,13 +198,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             }
         }
 
-        /// <summary>
-        /// Gets the days that need to be regenerated for the current vehicle.
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <param name="lastUpdate"></param>
-        /// <param name="today"></param>
-        /// <returns></returns>
         private List<RegenerateDatamart> GetDaysToRegenerate(Coche vehicle, DateTime lastUpdate, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
@@ -240,16 +210,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             return regenerate;
         }
 
-        /// <summary>
-        /// Gets the last datamart update for the current vehicle.
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <returns></returns>
         private DateTime GetLastDatamartUpdate(int vehicle) { return DaoFactory.DatamartDAO.GetLastDatamartUpdate(vehicle); }
 
-        /// <summary>
-        /// Deletes old datamart records.
-        /// </summary>
         private void DeleteOldDatamartRecords()
         {
             var oneYearAgo = DateTime.UtcNow.AddYears(-1);
@@ -259,12 +221,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             DaoFactory.DatamartDAO.DeleteOldDatamartRecords(oneYearAgo);
         }
 
-        /// <summary>
-        /// Process the specified period for the givenn vehicle.
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
         private void ProcessPeriod(Coche vehicle, DateTime from, DateTime to)
         {
             using (var transaction = SmartTransaction.BeginTransaction(IsolationLevel.ReadUncommitted))
@@ -280,11 +236,21 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     DaoFactory.DatamartDAO.DeleteRecords(vehicle.Id, inicio, fin);
                     var ts = t.getTimeElapsed().TotalSeconds;
                     if (ts > 1) STrace.Trace(GetType().FullName, string.Format("DeleteRecords en {0} segundos", ts));
-                    List<Datamart> records;
 
-                    using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
+                    var records = new List<Datamart>();
+                    var registrosValidos = false;
+                    var retry = 0;
+
+                    while (!registrosValidos && retry < 5)
                     {
-                        records = GenerateRecords(data);
+                        retry++;
+
+                        using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
+                        {
+                            records = GenerateRecords(data);
+                            registrosValidos = ValidateRecords(data, records);
+                            if (!registrosValidos) STrace.Error(GetType().FullName, string.Format("Registros no válidos para el vehículo: {0}", vehicle.Id));
+                        }
                     }
 
                     t.Restart();
@@ -294,6 +260,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     if (ts > 1) STrace.Trace(GetType().FullName, string.Format("Save en {0} segundos", ts));
 
                     transaction.Commit();
+
+                    if (retry == 5 && !registrosValidos)
+                    {
+                        var parametros = new[] { "Se generaron registros de Datamart posiblemente inválidos para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), DateTime.Today.ToString("dd/MM/yyyy HH:mm") };
+                        SendMail(parametros);
+                        STrace.Error(GetType().FullName, "Se generaron registros de Datamart posiblemente inválidos para el vehículo: " + vehicle.Id);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -308,17 +281,12 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             }
         }
 
-        /// <summary>
-        /// Generate current period datamart records.
-        /// </summary>
         private List<Datamart> GenerateRecords(PeriodData data)
         {
             var datamarter = new Datamarter(data);
 
             if (data.Posiciones.Count == 0)
             {
-                STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - Sin Posiciones - Id: {0}", data.Vehiculo.Id));
-
                 var distancia = data.PosicionAnterior != null && data.PosicionSiguiente != null 
                     ? data.GetDistancia(data.PosicionAnterior, data.PosicionSiguiente, data.Inicio, data.Fin)
                     : 0;
@@ -340,13 +308,12 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 	            var minSpeed = int.MaxValue;
 	            var maxSpeed = 0;
 	            var sumSpeed = 0;
-	            var lastHash = String.Empty;
+	            var lastHash = string.Empty;
 	            var posCount = 0;
 	            var km = 0.0;
 
                 if (fecha < lastPosition.FechaMensaje)
                 {
-                    STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - fecha < lastPosition.FechaMensaje - Id: {0}", data.Vehiculo.Id));
                     listado.AddRange(datamarter.CreateNoReportDatamartRecords(inicio, fecha, 0));
                     inicio = fecha;
                     continue;
@@ -387,8 +354,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 			            km = distancia;
 			            if (noreport)
 			            {
-                            STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - NoReport - Id: {0}", data.Vehiculo.Id));
-				            var datamarts = datamarter.CreateNoReportDatamartRecords(lastPosition.FechaMensaje, position.FechaMensaje, km);
+                            var datamarts = datamarter.CreateNoReportDatamartRecords(lastPosition.FechaMensaje, position.FechaMensaje, km);
 				            listado.AddRange(datamarts);
 				            km = 0;
 			            }
@@ -424,8 +390,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
 		            if (posCount == 0)
 		            {
-                        STrace.Error(GetType().FullName, string.Format("CreateNoReportDatamartRecords - posCount == 0 - Id: {0}", data.Vehiculo.Id));
-			            var datamart2 = datamarter.CreateNoReportDatamartRecords(inicio, fecha, km);
+                        var datamart2 = datamarter.CreateNoReportDatamartRecords(inicio, fecha, km);
 			            listado.AddRange(datamart2);
 		            }
 		            else
@@ -446,9 +411,17 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             return listado;
         }
 
-        /// <summary>
-        /// Release all asigned resources.
-        /// </summary>
+        private bool ValidateRecords(PeriodData data, IEnumerable<Datamart> records)
+        {
+            var valido = true;
+            var tuvoMovimiento = data.Posiciones.Any(p => p.Velocidad > 0);
+            var generoKilometros = records.Any(r => r.Kilometers > 0);
+
+            if (tuvoMovimiento && !generoKilometros) valido = false;
+
+            return valido;
+        }
+
         private void ClearData()
         {
             ClearSessions();
