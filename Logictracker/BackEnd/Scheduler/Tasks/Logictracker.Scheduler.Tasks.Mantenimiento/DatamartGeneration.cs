@@ -87,14 +87,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             var inicio = DateTime.UtcNow;
 
-            var id = GetInt32("Id");
-            if (id.HasValue) Vehicles = new List<int> {id.Value};
-
-            var distrito = GetInt32("Distrito");
-            if (distrito.HasValue)
-                Vehicles = DaoFactory.CocheDAO.GetList(new[]{distrito.Value}, new[]{-1}).Select(v => v.Id).ToList();
-
-            VehiclesToProcess = Vehicles.Count;
+            SetVehicles();
 
             foreach (var vehicleId in Vehicles)
             {
@@ -141,6 +134,19 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             SendSuccessMail(param);
 
             DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRecorridos, "Datamart finalizado exitosamente");
+        }
+
+        private void SetVehicles()
+        {
+            var ids = GetListOfInt("Ids");
+            var distrito = GetInt32("Distrito");
+
+            if (distrito.HasValue)
+                Vehicles = DaoFactory.CocheDAO.GetList(new[] { distrito.Value }, new[] { -1 }).Select(v => v.Id).ToList();
+            else if (ids.Count > 0)
+                Vehicles = ids;
+
+            VehiclesToProcess = Vehicles.Count;
         }
 
         #endregion
@@ -414,10 +420,11 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private bool ValidateRecords(PeriodData data, IEnumerable<Datamart> records)
         {
             var valido = true;
+            var tuvoPosiciones = data.Posiciones.Count > 1;
             var tuvoMovimiento = data.Posiciones.Any(p => p.Velocidad > 0);
             var generoKilometros = records.Any(r => r.Kilometers > 0);
 
-            if (tuvoMovimiento && !generoKilometros) valido = false;
+            if (tuvoPosiciones && tuvoMovimiento && !generoKilometros) valido = false;
 
             return valido;
         }
