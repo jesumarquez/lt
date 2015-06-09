@@ -4498,7 +4498,7 @@
   <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
     <value>View Admin Events</value>
   </data>
-  <data name="ULTIMA_POSICION" xml:space="preserve">
-    <value>Latest position GPS</value>
+  <data name="ULTIMA_POSICION_GPS" xml:space="preserve">
+    <value>Latest GPS position </value>
   </data>
 </root>
