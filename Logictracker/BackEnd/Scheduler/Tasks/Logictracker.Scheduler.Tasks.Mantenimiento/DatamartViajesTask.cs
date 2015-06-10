@@ -141,9 +141,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     }
                     else
                     {
-                        STrace.Trace(GetType().FullName, string.Format("Eliminando registros del viaje: {0}", idViaje));
                         DaoFactory.DatamartViajeDAO.DeleteRecords(idViaje);
-                        STrace.Trace(GetType().FullName, string.Format("Generando registros del viaje: {0}", idViaje));
                         ProcessViaje(viaje);
                         STrace.Trace(GetType().FullName, string.Format("Viaje procesado: {0}", idViaje));
                     }
