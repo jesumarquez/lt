@@ -718,7 +718,7 @@ namespace Logictracker.Layers
             return GetFilePath(Device.Id, path, ext);
         }
 
-        private static String GetFilePath(IFoteable Device, String ext)
+        public static String GetFilePath(IFoteable Device, String ext)
         {
             return GetFilePath(Device.Id, Device.FotaFolder, ext);
         }

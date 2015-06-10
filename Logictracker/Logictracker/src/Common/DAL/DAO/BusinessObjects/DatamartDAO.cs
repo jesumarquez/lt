@@ -362,7 +362,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             {
                 maxMonths = 3;
             }
-             
 
             var te = new TimeElapsed();
             var start = posicionesDao.GetRegenerationStartDate(vehicle.Id, from, to, refference, maxMonths);

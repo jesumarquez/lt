@@ -143,7 +143,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             if (distrito.HasValue)
                 Vehicles = DaoFactory.CocheDAO.GetList(new[] { distrito.Value }, new[] { -1 }).Select(v => v.Id).ToList();
-            else if (ids.Count > 0)
+            else if (ids != null && ids.Count > 0)
                 Vehicles = ids;
 
             VehiclesToProcess = Vehicles.Count;

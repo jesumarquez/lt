@@ -23,22 +23,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return q.ToList();
         }
 
-        public void DeleteRecords(ViajeDistribucion viaje)
+        public void DeleteRecords(int idViaje)
         {
-            var registros = GetRecords(viaje);
+            var registros = GetRecords(idViaje);
             foreach (var registro in registros) Delete(registro);
         }
 
-        public List<DatamartDistribucion> GetRecords(ViajeDistribucion viaje)
+        public List<DatamartDistribucion> GetRecords(int idViaje)
         {
-            var idCentroDeCostos = viaje.CentroDeCostos != null ? viaje.CentroDeCostos.Id : -1;
-            var idVehiculo = viaje.Vehiculo != null ? viaje.Vehiculo.Id : -1;
-
-            return Query.FilterEmpresa(Session, new[] {viaje.Empresa.Id})
-                        .FilterLinea(Session, new[] {viaje.Empresa.Id}, new[] {viaje.Linea.Id})
-                        .FilterVehiculo(Session, new[] { viaje.Empresa.Id }, new[] { viaje.Linea.Id }, new[] { -1 }, new[] { -1 }, new[] { idCentroDeCostos}, new[] { -1 }, new[] { idVehiculo })
-                        .FilterViajeDistribucion(Session, new[] { viaje.Empresa.Id }, new[] { viaje.Linea.Id }, new[] { -1 }, new[] { -1 }, new[] { idCentroDeCostos }, new[] { -1 }, new[] { idVehiculo }, new[] { viaje.Id })
-                        .ToList();
+            return Query.Where(dm => dm.Viaje.Id == idViaje).ToList();
         }
     }
 }

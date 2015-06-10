@@ -675,6 +675,8 @@ namespace Logictracker.Messages.Sender
             /// </remarks>
             public const string ResetStateMachine = "ResetStateMachine";
 
+            public const string ClearFota = "ClearFOTA";
+
             /// <summary>
             /// 
             /// </summary>

@@ -205,12 +205,20 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
 
             var maxMonths = Vehiculo.Empresa != null ? Vehiculo.Empresa.MesesConsultaPosiciones : 3;
 
-            PosicionSiguiente = posicionDao.GetFirstPositionNewerThanDate(Vehiculo.Id, Fin, maxMonths);
-            PosicionAnterior = Vehiculo.LastOdometerUpdate.HasValue ? posicionDao.GetFirstPositionOlderThanDate(Vehiculo.Id, Inicio, maxMonths) : null;
             var t = new TimeElapsed();
-            var originalPositions = posicionDao.GetPositionsBetweenDates(Vehiculo.Id, Inicio, Fin, maxMonths);
+            PosicionSiguiente = posicionDao.GetFirstPositionNewerThanDate(Vehiculo.Id, Fin, maxMonths);
             var ts = t.getTimeElapsed().TotalSeconds;
-            if (ts > 2) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetPositionsBetweenDates en {0} segundos", ts));
+            if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetFirstPositionNewerThanDate en {0} segundos", ts));
+
+            t.Restart();
+            PosicionAnterior = Vehiculo.LastOdometerUpdate.HasValue ? posicionDao.GetFirstPositionOlderThanDate(Vehiculo.Id, Inicio, maxMonths) : null;
+            ts = t.getTimeElapsed().TotalSeconds;
+            if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetFirstPositionOlderThanDate en {0} segundos", ts));
+
+            t.Restart();
+            var originalPositions = posicionDao.GetPositionsBetweenDates(Vehiculo.Id, Inicio, Fin, maxMonths);
+            ts = t.getTimeElapsed().TotalSeconds;
+            if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetPositionsBetweenDates en {0} segundos", ts));
 
             if (Vehiculo.Dispositivo != null && !DaoFactory.DetalleDispositivoDAO.GetDiscardsInvalidPositionsValue(Vehiculo.Dispositivo.Id))
             {

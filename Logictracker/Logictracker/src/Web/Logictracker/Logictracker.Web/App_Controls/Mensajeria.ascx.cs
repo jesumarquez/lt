@@ -1,9 +1,13 @@
 using System;
+using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Logictracker.Configuration;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
+using Logictracker.Layers;
 using Logictracker.Messages.Saver;
 using Logictracker.Messages.Sender;
 using Logictracker.Security;
@@ -231,6 +235,8 @@ namespace Logictracker.App_Controls
         /// <param name="e"></param>
         protected void btnClearQueues_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ResetStateMachine); }
 
+        protected void btnClearFota_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ClearFota); }
+
         /// <summary>
         /// Envia mensaje para purgar la configuracion del dispositivo.
         /// </summary>
@@ -293,8 +299,7 @@ namespace Logictracker.App_Controls
 
                 var dispositivo = c.Dispositivo;
 
-
-                if(cmd == "PurgeConfiguration")
+                if (cmd == "PurgeConfiguration")
                 {
                     DAOFactory.DispositivoDAO.PurgeConfiguration(dispositivo);
                     if (dispositivo.DetallesDispositivo.Cast<DetalleDispositivo>().Any(detail => detail.TipoParametro.RequiereReset))
@@ -330,6 +335,7 @@ namespace Logictracker.App_Controls
                         case MessageSender.Comandos.RetrievePictures: message.AddDateRange(dtFotoDesde.SelectedDate.Value.ToDataBaseDateTime(), dtFotoHasta.SelectedDate.Value.ToDataBaseDateTime()); break;
                         case MessageSender.Comandos.DisableFuel: message.AddInmediately(param == "1"); break;
                         case MessageSender.Comandos.EnableFuel: break;
+                        case MessageSender.Comandos.ClearFota: DeleteFota(dispositivo); return;
                         default: sendState = false; break;
                     }
                     sendState = message.Send();
@@ -350,6 +356,49 @@ namespace Logictracker.App_Controls
             if (ok > 0) JsAlert(string.Format(CultureManager.GetSystemMessage("MESSAGE_SENT"), sent));
             if (nogarmin > 0) JsAlert(string.Format(CultureManager.GetError("DEVICE_WITHOUT_GARMIN_CONFIGURED"), nogarminfailed));
             if (error > 0) JsAlert(string.Format(CultureManager.GetError("MESSAGE_NOT_SENT"), failed));        
+        }
+
+        private void DeleteFota(Dispositivo dispositivo)
+        {
+            var path = Config.Directory.FotaDirectory + "\\" + dispositivo.Empresa.RazonSocial.ToLower() + "." + dispositivo.Empresa.Id;
+            var pathTxt = path + "\\" + dispositivo.Id.ToString("0000") + ".txt";
+            var pathTxr = path + "\\" + dispositivo.Id.ToString("0000") + ".txR";
+
+            STrace.Trace("Mensajeria", string.Format("Buscando: {0}", pathTxt));
+            if (File.Exists(pathTxt))
+            {
+                try
+                {
+                    File.Delete(pathTxt);
+                    STrace.Trace("Mensajeria", string.Format("Archivo eliminado: {0}", pathTxt));
+                }
+                catch (Exception ex)
+                {
+                    STrace.Exception("Mensajeria", ex);
+                }
+            }
+            else
+            {
+                STrace.Trace("Mensajeria", string.Format("Archivo no encontrado: {0}", pathTxt));
+            }
+
+            STrace.Trace("Mensajeria", string.Format("Buscando: {0}", pathTxr));
+            if (File.Exists(pathTxr))
+            {
+                try
+                {
+                    File.Delete(pathTxr);
+                    STrace.Trace("Mensajeria", string.Format("Archivo eliminado: {0}", pathTxr));
+                }
+                catch (Exception ex)
+                {
+                    STrace.Exception("Mensajeria", ex);
+                }
+            }
+            else
+            {
+                STrace.Trace("Mensajeria", string.Format("Archivo no encontrado: {0}", pathTxr));
+            }
         }
 
         private void JsAlert(string msg) { ScriptManager.RegisterStartupScript(Page, typeof(string), "al", "alert(\'" + msg + "\');", true); }
