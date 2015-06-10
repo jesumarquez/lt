@@ -407,7 +407,29 @@ namespace Logictracker.Trax.v1
                         }
                         break;
                     case Reporte.TemperatureInfo:
-                        
+                    {
+                        string[] temperatura = data[2].Split(':');
+                        if (String.IsNullOrEmpty(temperatura[1]))
+                            temperatura[1] = "0.0";
+                        float temperaturamedida = Convert.ToSingle(temperatura[1].Replace('.',','));
+                        string extra1 = String.Format(
+                            CultureInfo.InvariantCulture,
+                            @"Temperatura:{0:0.0}",
+                            temperaturamedida
+                            );
+                        GPSPoint pos31 = Posicion.ParseCompact(data[1], false);
+                        var resul = ((Event)(salida = MessageIdentifier.CaudalimeterTelemetricData.FactoryEvent(MessageIdentifier.TelemetricData, Id,
+                                                                                    msgId, pos31, pos31.GetDate(), null,
+                                                                                null)));resul.SensorsDataString = extra1;
+                        //var ackNolish = BaseDeviceCommand.createFrom(String.Format(">{0}<", Mensaje.IMEIReq), this, null).ToString(true);
+                        /*var ackNolish = BaseDeviceCommand.createFrom(
+                              String.Format(">{0}<", String.Format(Mensaje.SetId, data[3])),
+                              this, null).ToString(true);*/
+
+                        var replyStr = dc.BuildAck().ToString(true);
+                        resul.AddStringToSend(replyStr);
+
+                    }
                         break;
                     case Reporte.Evento:
                     case Reporte.Evento2:

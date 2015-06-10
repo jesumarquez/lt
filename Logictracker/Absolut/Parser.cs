@@ -22,7 +22,7 @@ namespace Logictracker.Absolut
         [FrameworkElement(XName = "AbsolutParser", IsContainer = false)]
         public class Parser : BaseCodec
         {
-            public override NodeTypes NodeType { get { return NodeTypes.Novatel; } }
+            public override NodeTypes NodeType { get { return NodeTypes.Absolut; } }
 
             protected override UInt32 NextSequenceMin()
             {
@@ -94,8 +94,8 @@ namespace Logictracker.Absolut
 
                 message.AddParameter("T1", parse[11]);
                 message.AddParameter("T2", parse[12]);
-                message.AddParameter("T3", parse[13]);
-                message.AddParameter("T4", parse[14]);
+                message.AddParameter("U1", parse[5]);
+                message.AddParameter("I1", parse[6]);
                 // message.Send();
                 // IMessage mensaje = (M2mMessageSender)message;
                 // return new UserMessage(dev.Id, dev.IdNum);
@@ -172,7 +172,7 @@ namespace Logictracker.Absolut
                 //7   U2 en voltios            var time = DateTimeUtils.SafeParseFormat(parse[10] + parse[2].Split('.')[0], "ddMMyyHHmmss");
                 //8   I2 en Ampere por 10. (27 equivale a 2.7 Amp)
 
-                msg_.SensorsDataString = "U1:" + parse[5] + "I1:" + parse[6] + "U2:" + parse[7] + "I2:" + parse[8] + "T1:" + parse[11] + ",T2:" + parse[12] + ",T3:" + parse[13] + ",T4:" + parse[14];
+                msg_.SensorsDataString = "U1:" + parse[5] + ",I1:" + parse[6] + ",T1:" + parse[11] + ",T2:" + parse[12] + ",T3:" + parse[13] + ",T4:" + parse[14];
                 msg = msg_;
                 var ackStr = dc.BuildAck().ToString(true);
                 /*$B,353234020014377,ACK=12,$E*/
