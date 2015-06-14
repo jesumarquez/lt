@@ -287,7 +287,7 @@ namespace Logictracker.Organizacion
         private void LoadMovMenus()
         {
             if (EditMode && _movmenus.Count == 0)
-                foreach (MovMenu mm in DAOFactory.PerfilDAO.FindMovMenuBySistema(new List<int>{EditObject.Id}))
+                foreach (MovMenu mm in DAOFactory.PerfilDAO.FindMovMenuByProfile(new List<int> { EditObject.Id }))
                     _movmenus.Add(mm.Funcion.Id, mm);
         }
 

@@ -137,7 +137,7 @@ namespace Logictracker.Web.BaseClasses.Handlers
             Context.Application[sessionId] = loginInfo;
 
             var usuario = DAOFactory.UsuarioDAO.FindById(loginInfo.UserId);
-            IEnumerable<MovMenu> modules;
+            IEnumerable<Logictracker.Types.SecurityObjects.Module> modules;
             IEnumerable<Asegurable> securables;
             IEnumerable<int> perfiles = DAOFactory.PerfilDAO.GetProfileAccess(usuario, -1, out modules, out securables);
 

@@ -50,10 +50,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return results;
         }
 
-        public IList<MovMenu> FindMovMenuBySistema(List<int> perfiles)
+        public IList<MovMenu> FindMovMenuByProfile(List<int> perfiles)
         {
-            MovMenu mv = null;
-
             var dc = DetachedCriteria.For<MovMenu>()
                 .CreateAlias("Perfil", "p", JoinType.InnerJoin)
                 .CreateAlias("Funcion", "f", JoinType.InnerJoin)
@@ -65,43 +63,113 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 dc.Add(Restrictions.In("p.Id", perfiles));
             }
 
-            dc.SetProjection(Projections.Property("Id"));            
+            dc.SetProjection(Projections.Property("Id"));
 
-            var projectionList = Projections.ProjectionList().Add(
-                Projections.Max(Projections.Cast(NHibernateUtil.Int32, Projections.Property<MovMenu>(c => c.Alta))).WithAlias(() => mv.Alta))
-                .Add(Projections.Max(Projections.Cast(NHibernateUtil.Int32, Projections.Property<MovMenu>(c => c.Baja))).WithAlias(() => mv.Baja))
-                .Add(Projections.Max(Projections.Cast(NHibernateUtil.Int32, Projections.Property<MovMenu>(c => c.Consulta))).WithAlias(() => mv.Consulta))
-                .Add(Projections.Max(Projections.Cast(NHibernateUtil.Int32, Projections.Property<MovMenu>(c => c.Modificacion))).WithAlias(() => mv.Modificacion))
-                .Add(Projections.Max(Projections.Cast(NHibernateUtil.Int32, Projections.Property<MovMenu>(c => c.VerMapa))).WithAlias(() => mv.VerMapa))
-                .Add(Projections.Max(Projections.Cast(NHibernateUtil.Int32, Projections.Property<MovMenu>(c => c.Reporte))).WithAlias(() => mv.Reporte))
-                .Add(Projections.Min(Projections.Property<MovMenu>(c => c.Orden)).WithAlias(() => mv.Orden))
-                .Add(Projections.Group<MovMenu>(c => c.Funcion).WithAlias(() => mv.Funcion));
-
+            var projectionList = Projections.ProjectionList()
+                .Add(Projections.Property("Alta"), "Alta")
+                .Add(Projections.Property("Baja"), "Baja")
+                .Add(Projections.Property("Consulta"), "Consulta")
+                .Add(Projections.Property("Modificacion"), "Modificacion")
+                .Add(Projections.Property("VerMapa"), "VerMapa")
+                .Add(Projections.Property("Reporte"), "Reporte")
+                .Add(Projections.Property("Orden"), "Orden")
+                .Add(Projections.Property("Funcion"), "Funcion");
 
             var preresult = Session.CreateCriteria<MovMenu>()
                 .Add(Subqueries.PropertyIn("Id", dc))
-                .SetFetchMode("Funcion", FetchMode.Select)
+                .CreateAlias("Funcion", "f")
+                .CreateAlias("f.Sistema", "s")
+                .AddOrder(Order.Asc("s.Orden"))
+                .AddOrder(Order.Asc("s.Descripcion"))
+                .AddOrder(Order.Asc("Orden"))
+                .AddOrder(Order.Asc("f.Descripcion"))
+                .SetFetchMode("f", FetchMode.Eager)
+                .SetFetchMode("s", FetchMode.Eager)
                 .SetProjection(projectionList);
 
-            var result = preresult.SetResultTransformer(Transformers.AliasToBean<tmpMovMenu>())
-                .List<tmpMovMenu>();
+            var result = preresult.SetResultTransformer(Transformers.AliasToBean<MovMenu>())
+                .List<MovMenu>();
 
-            return result.Select(m => new MovMenu
-                                          {
-                                              Alta = m.Alta == 1,
-                                              Baja = m.Baja == 1,
-                                              Consulta = m.Consulta == 1,
-                                              Modificacion = m.Modificacion == 1,
-                                              VerMapa = m.VerMapa == 1,
-                                              Reporte = m.Reporte == 1,
-                                              Orden = m.Orden,
-                                              Funcion = m.Funcion
-                                          })
-                .OrderBy(m => m.Funcion.Sistema.Orden)
-                .ThenBy(m => m.Funcion.Sistema.Descripcion)
-                .ThenBy(m => m.Orden)
-                .ThenBy(m => m.Funcion.Descripcion)
-                .ToList();
+            return result;
+        }
+
+        public IList<Logictracker.Types.SecurityObjects.Module> FindMovMenuBySistema(List<int> perfiles)
+        {
+            var dc = DetachedCriteria.For<MovMenu>()
+                .CreateAlias("Perfil", "p", JoinType.InnerJoin)
+                .CreateAlias("Funcion", "f", JoinType.InnerJoin)
+                .Add(Restrictions.IsNull("p.FechaBaja"))
+                .Add(Restrictions.IsNull("f.FechaBaja"));
+
+            if (perfiles.Any(p => p != -1))
+            {
+                dc.Add(Restrictions.In("p.Id", perfiles));
+            }
+
+            dc.SetProjection(Projections.Property("Id"));
+
+            var projectionList = Projections.ProjectionList()
+                .Add(Projections.Property("f.Id"), "Id")
+                .Add(Projections.Property("f.Descripcion"), "Name")
+                .Add(Projections.Property("f.Ref"), "RefName")
+                .Add(Projections.Property("f.Url"), "Url")
+                .Add(Projections.Property("Alta"), "Add")
+                .Add(Projections.Property("Baja"), "Delete")
+                .Add(Projections.Property("Modificacion"), "Edit")
+                .Add(Projections.Property("Consulta"), "View")
+                .Add(Projections.Property("Reporte"), "Report")
+                .Add(Projections.Property("s.Id"), "GroupId")
+                .Add(Projections.Property("s.Url"), "GroupUrl")
+                .Add(Projections.Property("s.Descripcion"), "Group")
+                .Add(Projections.Property("s.Orden"), "GroupOrder")
+                .Add(Projections.Property("Orden"), "ModuleOrder")
+                .Add(Projections.Property("f.Modulo"), "ModuleSubGroup")
+                .Add(Projections.Property("f.Parametros"), "Parameters")
+                ;
+
+            //var projectionList = Projections.ProjectionList()
+            //    .Add(Projections.Property("Alta"), "Alta" )
+            //    .Add(Projections.Property("Baja"), "Baja")
+            //    .Add(Projections.Property("Consulta"), "Consulta")
+            //    .Add(Projections.Property("Modificacion"), "Modificacion")
+            //    .Add(Projections.Property("VerMapa"), "VerMapa")
+            //    .Add(Projections.Property("Reporte"), "Reporte")
+            //    .Add(Projections.Property("Orden"), "Orden")
+            //    .Add(Projections.Property("Funcion"), "Funcion");
+
+            var preresult = Session.CreateCriteria<MovMenu>()
+                .Add(Subqueries.PropertyIn("Id", dc))
+                .CreateAlias("Funcion", "f")
+                .CreateAlias("f.Sistema", "s")
+                .AddOrder(Order.Asc("s.Orden"))
+                .AddOrder(Order.Asc("s.Descripcion"))
+                .AddOrder(Order.Asc("Orden"))
+                .AddOrder(Order.Asc("f.Descripcion"))
+                .SetFetchMode("f", FetchMode.Eager)
+                .SetFetchMode("s", FetchMode.Eager)
+                .SetProjection(projectionList);
+
+            var result = preresult.SetResultTransformer(Transformers.AliasToBean<Logictracker.Types.SecurityObjects.Module>())
+                .List<Logictracker.Types.SecurityObjects.Module>();
+
+            return result;
+
+            //return result.Select(m => new MovMenu
+            //                              {
+            //                                  Alta = m.Alta == 1,
+            //                                  Baja = m.Baja == 1,
+            //                                  Consulta = m.Consulta == 1,
+            //                                  Modificacion = m.Modificacion == 1,
+            //                                  VerMapa = m.VerMapa == 1,
+            //                                  Reporte = m.Reporte == 1,
+            //                                  Orden = m.Orden,
+            //                                  Funcion = m.Funcion
+            //                              })
+            //    .OrderBy(m => m.Funcion.Sistema.Orden)
+            //    .ThenBy(m => m.Funcion.Sistema.Descripcion)
+            //    .ThenBy(m => m.Orden)
+            //    .ThenBy(m => m.Funcion.Descripcion)
+            //    .ToList();
         }
 
         public List<Asegurable> GetAsegurables(IEnumerable<Perfil> perfiles)
@@ -155,7 +223,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return perfiles.List<Perfil>().ToList(); /* TODO: use IList everywhere */
         }
 
-        public IEnumerable<int> GetProfileAccess(Usuario usuario, int selectedProfile, out IEnumerable<MovMenu> modules, out IEnumerable<Asegurable> securables)
+        public IEnumerable<int> GetProfileAccess(Usuario usuario, int selectedProfile, out IEnumerable<Logictracker.Types.SecurityObjects.Module> modules, out IEnumerable<Asegurable> securables)
         {
             var perfiles = selectedProfile > 0
                     ? new List<int> { selectedProfile }

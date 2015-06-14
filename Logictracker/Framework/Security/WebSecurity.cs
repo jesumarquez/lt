@@ -87,7 +87,7 @@ namespace Logictracker.Security
             return string.IsNullOrEmpty(securable) || (AuthenticatedUser != null && AuthenticatedUser.IsSecuredAllowed(securable));
         }
 
-        public static void Login(Usuario usuario, IEnumerable<int> perfiles, IEnumerable<MovMenu> modules, IEnumerable<Asegurable> asegurables)
+        public static void Login(Usuario usuario, IEnumerable<int> perfiles, IEnumerable<Module> modules, IEnumerable<Asegurable> asegurables)
         {
             var user = new UserSessionData(usuario, perfiles.ToList());
 
