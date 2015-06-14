@@ -106,7 +106,7 @@ namespace Logictracker.Reportes.CicloLogistico
                                                                                  new[] {Departamento}, 
                                                                                  new[] {cc.Id},
                                                                                  new[] {subcc.Id})
-                                     select (subcc.Objetivo * vehiculos.Count * Dias)).Sum();
+                                     select (subcc.Objetivo * vehiculos.Count() * Dias)).Sum();
 
                 var entregados = DAOFactory.EntregaDistribucionDAO.GetList(new[] {Empresa},
                                                                            new[] {Linea},
@@ -207,7 +207,7 @@ namespace Logictracker.Reportes.CicloLogistico
                                                             new[] { idCc },
                                                             new[] { scc.Id });
                 var cantVehiculos = vehiculos.Count();
-                var objetivoTotal = scc.Objetivo * vehiculos.Count * Dias;
+                var objetivoTotal = scc.Objetivo * vehiculos.Count() * Dias;
                 var entregados = DAOFactory.EntregaDistribucionDAO.GetList(new[] {Empresa},
                                                                            new[] {Linea},
                                                                            new[] {-1}, // TRANSPORTISTAS
@@ -220,7 +220,7 @@ namespace Logictracker.Reportes.CicloLogistico
                                                                            Desde.ToDataBaseDateTime(),
                                                                            Hasta.ToDataBaseDateTime()).Count;
 
-                var objetivoHistorico = scc.Objetivo * vehiculos.Count * DiasHistorico;
+                var objetivoHistorico = scc.Objetivo * vehiculos.Count() * DiasHistorico;
                 var entregadosHistorico = DAOFactory.EntregaDistribucionDAO.GetList(new[] {Empresa},
                                                                                     new[] {Linea},
                                                                                     new[] {-1}, // TRANSPORTISTAS

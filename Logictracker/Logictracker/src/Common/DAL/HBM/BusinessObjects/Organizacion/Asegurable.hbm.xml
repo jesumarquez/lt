@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-    <class name="Logictracker.Types.BusinessObjects.Organizacion.Asegurable,Logictracker.Types" table="[soc.sys_func_01_tbl_asegurables]" lazy="true">
+    <class name="Logictracker.Types.BusinessObjects.Organizacion.Asegurable,Logictracker.Types" table="[soc.sys_func_01_tbl_asegurables]" lazy="true" batch-size="20">
         <cache usage="read-write" />
 
         <id name="Id" column="id_sysfunc01" type="Int32" unsaved-value="0">

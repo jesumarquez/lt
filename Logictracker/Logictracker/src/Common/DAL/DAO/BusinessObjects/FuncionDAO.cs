@@ -53,11 +53,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// </summary>
         /// <param name="sistema"></param>
         /// <returns></returns>
-        public List<Funcion> GetBySistema(int sistema)
+        public IQueryable<Funcion> GetBySistema(int sistema)
         {
             return Session.Query<Funcion>()
-                .Where(f => f.Sistema.Id == sistema && f.FechaBaja == null)
-                .ToList();
+                .Where(f => f.Sistema.Id == sistema && f.FechaBaja == null);
         }
 
         public IList FindAllOrderBySistema()

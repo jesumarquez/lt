@@ -125,7 +125,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
 
             var coches = cocheDao.GetList(empresas, lineas);
 
-            if (coches.Count == 0) return new List<MobilePoi>();
+            if (!coches.Any()) return new List<MobilePoi>();
 
             return posDao.GetLastVehiclesPositions(coches).Values
                 .Where(position => position != null)

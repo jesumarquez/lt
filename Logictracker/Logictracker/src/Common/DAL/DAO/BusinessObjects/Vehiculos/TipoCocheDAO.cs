@@ -39,13 +39,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         /// Finds all active vehicle types.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerable<TipoCoche> FindAll()
+        public override IQueryable<TipoCoche> FindAll()
         {
             return Session.Query<TipoCoche>()
                 .Where(t => !t.Baja)
                 .OrderBy(t => t.Descripcion)
-                .Cacheable()
-                .ToList();
+                .Cacheable();
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
         {
             var datas = DAOFactory.DatamartDAO.GetBetweenDates(vehiculo, desde, hasta);
             
-            if (datas.Count <= 0) return new List<DetentionTimes>();
+            if (!datas.Any()) return new List<DetentionTimes>();
 
             var actualDate = desde;
 

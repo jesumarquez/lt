@@ -396,12 +396,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// <param name="desde"></param>
         /// <param name="hasta"></param>
         /// <returns></returns>
-        public IList<Datamart> GetBetweenDates(Int32 vehicle, DateTime desde, DateTime hasta)
+        public IEnumerable<Datamart> GetBetweenDates(Int32 vehicle, DateTime desde, DateTime hasta)
         {
             DetachedCriteria dc = GetDatamartDetachedCriteria(vehicle).FilterBeginBetween(desde, hasta);
             ICriteria crit = GetDatamartCriteria(0, dc, Order.Asc("Begin"));
 
-            IList<Datamart> result = crit.List<Datamart>();
+            var result = crit.SetTimeout(0).Future<Datamart>();
             return result;
         }
 

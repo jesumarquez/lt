@@ -2,7 +2,7 @@
 
 <!-- $Id: Empleado.hbm.xml 392 2007-08-24 18:56:45Z rbugallo $ -->
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.Empleado,Logictracker.Types" table="parenti09" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.Empleado,Logictracker.Types" table="parenti09" lazy="true" batch-size="20">
     <cache usage="read-write" />
 
     <id name="Id" column="id_parenti09" type="Int32" unsaved-value="0">

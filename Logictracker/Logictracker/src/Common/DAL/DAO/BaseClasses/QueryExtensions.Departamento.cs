@@ -10,7 +10,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
 {
     public static partial class QueryExtensions
     {
-        public static IEnumerable<TQuery> FilterDepartamento<TQuery>(this IEnumerable<TQuery> q, List<Departamento> departamentos)
+        public static IQueryable<TQuery> FilterDepartamento<TQuery>(this IQueryable<TQuery> q, IQueryable<Departamento> departamentos)
            where TQuery : IHasDepartamento
         {
             if (departamentos != null) q = q.Where(t => t.Departamento == null || departamentos.Contains(t.Departamento));
@@ -35,22 +35,22 @@ namespace Logictracker.DAL.DAO.BaseClasses
             return q;
         }
 
-        private static IEnumerable<Departamento> GetDepartamentos(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> departamentos)
+        private static IQueryable<Departamento> GetDepartamentos(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> departamentos)
         {
             var sessionUser = WebSecurity.AuthenticatedUser;
             var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
             return GetDepartamentos(session, empresas, lineas, departamentos, user);
         }
-        private static List<Departamento> GetDepartamentos(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> departamentos, Usuario user)
+        private static IQueryable<Departamento> GetDepartamentos(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> departamentos, Usuario user)
         {
             if (empresas == null && lineas == null && IncludesAll(departamentos)) return null;
 
             var dao = new DepartamentoDAO();
             var deps = dao.GetList(empresas, lineas);
 
-            if (!IncludesAll(departamentos)) deps = deps.Where(l => departamentos.Contains(l.Id)).ToList();
+            if (!IncludesAll(departamentos)) deps = deps.Where(l => departamentos.Contains(l.Id));
 
-            return deps.ToList();
+            return deps;
         }
 
     }

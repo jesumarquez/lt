@@ -92,7 +92,7 @@ namespace Logictracker.DAL.NHibernate
         /// <returns>The current binded NHibernate ISession.</returns>
         public static ISession GetCurrentSession()
         {
-            if (!CurrentSessionContext.HasBind(SessionFactory))
+             if (!CurrentSessionContext.HasBind(SessionFactory))
             {
                 CurrentSessionContext.Bind(OpenSession());
             }

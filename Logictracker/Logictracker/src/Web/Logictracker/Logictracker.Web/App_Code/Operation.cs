@@ -34,7 +34,7 @@ public class Operation : BaseWebService
        
             var coches = DAOFactory.CocheDAO.GetList(new[]{empresa.Id}, new[]{linea.Id});
 
-            if (coches.Count == 0) throw new ApplicationException("No se encontraron móviles para " + empresa + " - " + linea);
+            if (!coches.Any() ) throw new ApplicationException("No se encontraron móviles para " + empresa + " - " + linea);
 
             var pois = ReportFactory.MobilePoiDAO.GetMobilesNearPoint(coches, latitude, longitude, 10000);
 
@@ -68,7 +68,7 @@ public class Operation : BaseWebService
 
             var coches = DAOFactory.CocheDAO.GetList(new[] { empresa.Id }, new[] { linea != null ? linea.Id : -1 });
 
-            if (coches.Count == 0) throw new ApplicationException("No se encontraron móviles para " + empresa + " - " + linea);
+            if (!coches.Any()) throw new ApplicationException("No se encontraron móviles para " + empresa + " - " + linea);
 
             var posiciones = coches.Select(coche => GetPosicion(coche)).Where(p => p != null).ToArray();
 

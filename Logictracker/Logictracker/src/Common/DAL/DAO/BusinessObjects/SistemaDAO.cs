@@ -29,12 +29,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// Finds all systems.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerable<Sistema> FindAll()
+        public override IQueryable<Sistema> FindAll()
         {
             return Session.Query<Sistema>()
                 .Where(s => s.Enabled == 1)
-                .Cacheable()
-                .ToList();
+                .Cacheable();
         }
 
         /// <summary>

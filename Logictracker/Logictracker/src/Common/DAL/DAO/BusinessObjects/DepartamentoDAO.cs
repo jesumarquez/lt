@@ -27,13 +27,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         #region Get Methods
 
-        public List<Departamento> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas)
+        public IQueryable<Departamento> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas)
         {
             return Query.FilterEmpresa(Session, empresas)
                 .FilterLinea(Session, empresas, lineas)
                 .Where(l => !l.Baja)
-                .Cacheable()
-                .ToList();
+                .Cacheable();
         }
 
         #endregion

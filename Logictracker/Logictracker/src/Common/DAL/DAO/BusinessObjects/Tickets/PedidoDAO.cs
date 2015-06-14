@@ -64,7 +64,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Tickets
             if (desde.HasValue) q = q.Where(b => b.FechaEnObra >= desde.Value);
             if (hasta.HasValue) q = q.Where(b => b.FechaEnObra < hasta.Value);
 
-            IEnumerable<Pedido> list = q.ToList();
+            var list = q;
             if(!QueryExtensions.IncludesAll(clientes))list = list.FilterCliente(Session, empresas, lineas, clientes);
             if (!QueryExtensions.IncludesAll(puntoentregas)) list = list.FilterPuntoEntrega(Session, empresas, lineas, clientes, puntoentregas);
             if(!QueryExtensions.IncludesAll(bocasDeCarga)) list = list.FilterBocaDeCarga(Session, empresas, lineas, bocasDeCarga);

@@ -34,7 +34,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Postal
         /// Finds all clients.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerable<Distribuidor> FindAll() { return Session.Query<Distribuidor>().Where(distributor => distributor.FechaBaja == null).ToList(); }
+        public override IQueryable<Distribuidor> FindAll() { return Session.Query<Distribuidor>().Where(distributor => distributor.FechaBaja == null); }
 
         /// <summary>
         /// Gets the distributor associated to the specified ptm distributor code.

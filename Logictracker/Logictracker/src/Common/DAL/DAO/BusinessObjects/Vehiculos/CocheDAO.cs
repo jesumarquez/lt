@@ -221,21 +221,21 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
             }
         }
 
-        public List<Coche> FindList(IEnumerable<int> empresas, IEnumerable<int> lineas)
+        public IQueryable<Coche> FindList(IEnumerable<int> empresas, IEnumerable<int> lineas)
         {
             return FindList(empresas, lineas, new[] {-1});
         }
 
-        public List<Coche> FindList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo)
+        public IQueryable<Coche> FindList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo)
         {
             return FindList(empresas, lineas, tipoVehiculo, null);
         }
-        public List<Coche> FindList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, Usuario user)
+        public IQueryable<Coche> FindList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, Usuario user)
         {
             return Query.FilterEmpresa(Session, empresas, user)
                         .FilterLinea(Session, empresas, lineas, user)
                         .FilterTipoVehiculo(Session, empresas, lineas, tipoVehiculo, user)
-                        .ToList();
+                        ;
         }
 
         public List<Coche> FindByModelo(int modelo)
@@ -386,52 +386,52 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
                         .Where(c => listEstados.Contains(c.Estado))
                         .ToList();
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas)
         {
             return GetList(empresas, lineas, new[] {-1});
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo)
         {
             return GetList(empresas, lineas, tipoVehiculo, new[] { -1 });
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, new[] {-1});
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, new[] { -1 });
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, costCenters, new[] { -1 });
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, costCenters, costSubCenters, new[] { -1 });
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, bool soloConDispositivo)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, bool soloConDispositivo)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, costCenters, costSubCenters, soloConDispositivo, false);
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, bool soloConDispositivo, bool soloConGarmin)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, bool soloConDispositivo, bool soloConGarmin)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, costCenters, costSubCenters, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, soloConDispositivo, soloConGarmin);
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, costCenters, costSubCenters, clientes, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, false, false);
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes, IEnumerable<int> marcas, IEnumerable<int> modelos, IEnumerable<int> empleados)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes, IEnumerable<int> marcas, IEnumerable<int> modelos, IEnumerable<int> empleados)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, costCenters, costSubCenters, clientes, marcas, modelos, new[]{-1},empleados);        
         }
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes, IEnumerable<int> marcas, IEnumerable<int> modelos, IEnumerable<int> tipoEmpleados, IEnumerable<int> empleados)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes, IEnumerable<int> marcas, IEnumerable<int> modelos, IEnumerable<int> tipoEmpleados, IEnumerable<int> empleados)
         {
             return GetList(empresas, lineas, tipoVehiculo, transportistas, departamentos, costCenters, costSubCenters, clientes, marcas, modelos, tipoEmpleados, empleados, false , false );
         }
          
-        public List<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes, IEnumerable<int> marcas, IEnumerable<int> modelos, IEnumerable<int> tipoEmpleados, IEnumerable<int> empleados, bool soloConDispositivo, bool soloConGarmin)
+        public IQueryable<Coche> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tipoVehiculo, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> costCenters, IEnumerable<int> costSubCenters, IEnumerable<int> clientes, IEnumerable<int> marcas, IEnumerable<int> modelos, IEnumerable<int> tipoEmpleados, IEnumerable<int> empleados, bool soloConDispositivo, bool soloConGarmin)
         {
             var dc = DetachedCriteria.For<Coche>("c").SetProjection(Projections.Property("c.Id"));
 
@@ -597,12 +597,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
                 }
             }
 
-            var coches = GetCriteria(dc, null).List<Coche>().ToList();
+            var coches = GetCriteria(dc, null).Future<Coche>().AsQueryable();
             
             if (!QueryExtensions.IncludesAll(clientes))
             {
                 var client = clientes.ToList();
-                coches = coches.Where(c => c.IsAssignedToAnyClient(client)).ToList<Coche>();
+                coches = coches.Where(c => c.IsAssignedToAnyClient(client));
             }
 
             return coches;

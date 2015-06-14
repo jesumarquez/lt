@@ -44,7 +44,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
 
             var turnos = DAOFactory.ShiftDAO.GetVehicleShifts(movil);
 
-            if (datamarts.Count <= 0 || !DAOFactory.ShiftDAO.HasShifts(movil)) return new List<VehicleUtilization>();
+            if (!datamarts.Any() || !DAOFactory.ShiftDAO.HasShifts(movil)) return new List<VehicleUtilization>();
 
             var fechaActual = desde;
 

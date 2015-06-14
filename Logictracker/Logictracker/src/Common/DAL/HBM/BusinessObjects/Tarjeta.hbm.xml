@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.Tarjeta,Logictracker.Types" table="parenti23" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.Tarjeta,Logictracker.Types" table="parenti23" lazy="true" batch-size="30">
     <cache usage="read-write" />
 
     <id name="Id" column="id_parenti23" type="Int32" unsaved-value="0">

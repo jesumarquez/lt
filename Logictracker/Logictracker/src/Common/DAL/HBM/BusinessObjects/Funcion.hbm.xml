@@ -2,7 +2,7 @@
 
 <!-- $Id: Funcion.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.Funcion,Logictracker.Types" table="sysfunc03" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.Funcion,Logictracker.Types" table="sysfunc03" lazy="true" batch-size="100">
     <cache usage="read-write" />
 
     <id name="Id" column="id_sysfunc03" type="Int32" unsaved-value="0">

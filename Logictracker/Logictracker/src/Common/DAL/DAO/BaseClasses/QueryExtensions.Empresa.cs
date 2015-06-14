@@ -34,8 +34,8 @@ namespace Logictracker.DAL.DAO.BaseClasses
         {
             return FilterEmpresa(q, GetEmpresas(session, empresas, user));
         }
-
-        public static IQueryable<TQuery> FilterEmpresa<TQuery>(this IQueryable<TQuery> q, IEnumerable<Empresa> empresas)
+     
+        public static IQueryable<TQuery> FilterEmpresa<TQuery>(this IQueryable<TQuery> q, IQueryable<Empresa> empresas)
             where TQuery : IHasEmpresa
         {
             if (empresas != null) q = q.Where(t => t.Empresa == null || empresas.Contains(t.Empresa));
@@ -43,28 +43,14 @@ namespace Logictracker.DAL.DAO.BaseClasses
             return q;
         }
 
-        public static IEnumerable<TQuery> FilterEmpresa<TQuery>(this IEnumerable<TQuery> q, ISession session, IEnumerable<int> empresas, Usuario user)
-            where TQuery : IHasEmpresa
-        {
-            return FilterEmpresa(q, GetEmpresas(session, empresas, user));
-        }
-
-        public static IEnumerable<TQuery> FilterEmpresa<TQuery>(this IEnumerable<TQuery> q, IEnumerable<Empresa> empresas)
-            where TQuery : IHasEmpresa
-        {
-            if (empresas != null) q = q.Where(t => t.Empresa == null || empresas.Contains(t.Empresa));
-
-            return q;
-        }
-
-        public static List<Empresa> GetEmpresas(ISession session, IEnumerable<int> empresas)
+        public static IQueryable<Empresa> GetEmpresas(ISession session, IEnumerable<int> empresas)
         {
             var sessionUser = WebSecurity.AuthenticatedUser;
             var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
 
             return GetEmpresas(session, empresas, user);
         }
-        public static List<Empresa> GetEmpresas(ISession session, IEnumerable<int> empresas, Usuario user)
+        public static IQueryable<Empresa> GetEmpresas(ISession session, IEnumerable<int> empresas, Usuario user)
         {
             var empresaDao = new EmpresaDAO();
 
@@ -74,13 +60,13 @@ namespace Logictracker.DAL.DAO.BaseClasses
             if (empresas == null) empresas = new[] { -1 };
 
             var empresasU = (user != null && user.PorEmpresa
-                ? user.Empresas.OfType<Empresa>()
+                ? user.Empresas.AsQueryable()
                 : empresaDao.FindAll()
                 );
 
             if (!IncludesAll(empresas))
                 empresasU = empresasU.Where(e => empresas.Contains(e.Id));
-            return empresasU.ToList();
+            return empresasU;
         } 
     }
 }

@@ -2,7 +2,7 @@
 
 <!-- $Id: LogPosicion.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.Positions.LogPosicionDescartada,Logictracker.Types" table="opeposi08" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.Positions.LogPosicionDescartada,Logictracker.Types" table="opeposi08" lazy="true" batch-size="10" >
     <id name="Id" column="id_opeposi08" type="Int32" unsaved-value="0">
       <generator class="native" />
     </id>

@@ -40,7 +40,7 @@ public class OperationService : BaseWebService
             if (!lin.Interfaceable) return Respuesta<Distancia[]>.CreateError("La Linea " + linea + " no acepta consultas de esta interface");
         
             var coches = DAOFactory.CocheDAO.FindList(new[]{emp.Id}, new[]{lin.Id});
-            if (coches.Count == 0)
+            if (!coches.Any())
                 return Respuesta<Distancia[]>.CreateError("No se encontraron móviles para " + empresa + " - " + linea);
 
             var pois = ReportFactory.MobilePoiDAO.GetMobilesNearPoint(coches, latitud, longitud, 10000);

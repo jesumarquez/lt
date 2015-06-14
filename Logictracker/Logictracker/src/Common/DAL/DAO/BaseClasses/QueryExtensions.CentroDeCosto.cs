@@ -32,7 +32,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
             return FilterCentroDeCostos(q, centrosDeCostosU, includesAll, includesNone, user);
         }
 
-        public static IQueryable<TQuery> FilterCentroDeCostos<TQuery>(this IQueryable<TQuery> q, List<CentroDeCostos> centrosDeCostos, bool includesAll, bool includesNone, Usuario user)
+        public static IQueryable<TQuery> FilterCentroDeCostos<TQuery>(this IQueryable<TQuery> q, IQueryable<CentroDeCostos> centrosDeCostos, bool includesAll, bool includesNone, Usuario user)
             where TQuery : IHasCentroDeCosto
         {
             if (centrosDeCostos != null) q = q.Where(t => t.CentroDeCostos == null || centrosDeCostos.Contains(t.CentroDeCostos));
@@ -43,18 +43,8 @@ namespace Logictracker.DAL.DAO.BaseClasses
 
             return q;
         }
-        public static IEnumerable<TQuery> FilterCentroDeCostos<TQuery>(this IEnumerable<TQuery> q, List<CentroDeCostos> centrosDeCostos, bool includesAll, bool includesNone, Usuario user)
-            where TQuery : IHasCentroDeCosto
-        {
-            if (centrosDeCostos != null) q = q.Where(t => t.CentroDeCostos == null || centrosDeCostos.Contains(t.CentroDeCostos));
-
-            var porCentroDeCostos = user != null && user.PorCentroCostos;
-
-            if ((!includesNone && !includesAll) || porCentroDeCostos) q = q.Where(t => t.CentroDeCostos != null);
-
-            return q;
-        }
-        public static List<CentroDeCostos> GetCentrosDeCosto(ISession session, IEnumerable<Empresa> empresas, IEnumerable<Linea> lineas, IEnumerable<Departamento> departamentos, IEnumerable<int> centrosCosto)
+     
+        public static IQueryable<CentroDeCostos> GetCentrosDeCosto(ISession session, IQueryable<Empresa> empresas, IQueryable<Linea> lineas, IQueryable<Departamento> departamentos, IEnumerable<int> centrosCosto)
         {
             var sessionUser = WebSecurity.AuthenticatedUser;
             var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
@@ -67,16 +57,15 @@ namespace Logictracker.DAL.DAO.BaseClasses
             if (centrosCosto == null) centrosCosto = new[] { -1 };
 
             var centroDeCostosU = (user != null && user.CentrosCostos.Count > 0
-                                       ? user.CentrosCostos.OfType<CentroDeCostos>()
+                                       ? user.CentrosCostos.AsQueryable()
                                        : centroDeCostoDao.FindAll()
                                   );
-            if (empresas != null) centroDeCostosU = centroDeCostosU.FilterEmpresa(empresas.ToList());
-            if (lineas != null) centroDeCostosU = centroDeCostosU.FilterLinea(lineas.ToList());
-            if (departamentos != null) centroDeCostosU = centroDeCostosU.FilterDepartamento(departamentos.ToList());
-
+            if (empresas != null) centroDeCostosU = centroDeCostosU.FilterEmpresa(empresas);
+            if (lineas != null) centroDeCostosU = centroDeCostosU.FilterLinea(lineas);
+            if (departamentos != null) centroDeCostosU = centroDeCostosU.FilterDepartamento(departamentos);
             if (!IncludesAll(centrosCosto)) centroDeCostosU = centroDeCostosU.Where(l => centrosCosto.Contains(l.Id));
 
-            return centroDeCostosU.ToList();
+            return centroDeCostosU;
         } 
     }
 }

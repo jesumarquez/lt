@@ -141,7 +141,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             
         }
 
-        public override IEnumerable<Perfil> FindAll()
+        public override IQueryable<Perfil> FindAll()
         {
             var dc = DetachedCriteria.For<Perfil>()
                 .Add(Restrictions.IsNull(Projections.Property<Perfil>(p=> p.FechaBaja)))
@@ -152,7 +152,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                     .Add(Subqueries.PropertyIn("Id", dc))
                     .AddOrder(Order.Asc(Projections.Property<Perfil>(p=> p.Descripcion)))
                     .SetCacheable(true);
-            return perfiles.List<Perfil>().ToList(); /* TODO: use IList everywhere */
+            return perfiles.Future<Perfil>().AsQueryable(); /* TODO: use IList everywhere */
         }
 
         public IEnumerable<int> GetProfileAccess(Usuario usuario, int selectedProfile, out IEnumerable<MovMenu> modules, out IEnumerable<Asegurable> securables)

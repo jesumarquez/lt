@@ -56,13 +56,13 @@ namespace Logictracker.DAL.DAO.BaseClasses
             return q;
         }
 
-        public static IEnumerable<Linea> GetLineas(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas)
+        public static IQueryable<Linea> GetLineas(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas)
         {
             var sessionUser = WebSecurity.AuthenticatedUser;
             var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
             return GetLineas(session, empresas, lineas, user);
         }
-        public static IEnumerable<Linea> GetLineas(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, Usuario user)
+        public static IQueryable<Linea> GetLineas(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, Usuario user)
         {
             if (empresas == null && (user == null || !user.PorLinea) && IncludesAll(lineas))
                 return null;
@@ -70,15 +70,14 @@ namespace Logictracker.DAL.DAO.BaseClasses
             var lineaDao = new LineaDAO();
 
             var lineasU = user != null && user.PorLinea
-                                       ? user.Lineas.OfType<Linea>().ToList()
+                                       ? user.Lineas.AsQueryable()
                                        : lineaDao.FindAll();
 
             lineasU = lineasU
                 .FilterEmpresa(session, empresas, user)
-                .Where(l => !l.Baja)
-                .ToList();
+                .Where(l => !l.Baja);
 
-            if (!IncludesAll(lineas)) lineasU = lineasU.Where(l => lineas.Contains(l.Id)).ToList();
+            if (!IncludesAll(lineas)) lineasU = lineasU.Where(l => lineas.Contains(l.Id));
 
             return lineasU;
         } 

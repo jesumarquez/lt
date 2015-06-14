@@ -36,7 +36,7 @@ namespace Logictracker.Reportes.Bolland
 
             var coches = DAOFactory.CocheDAO.GetList(empresas, lineas);
             if (vehiculos.Count > 0 && !vehiculos.Any(v => v <= 0))
-                coches = coches.Where(c => vehiculos.Contains(c.Id)).ToList();
+                coches = coches.Where(c => vehiculos.Contains(c.Id));
 
             var dispositivos = coches.Where(c => c.Dispositivo != null).Select(c => c.Dispositivo.Id);
 
@@ -49,7 +49,7 @@ namespace Logictracker.Reportes.Bolland
             var eventos = DAOFactory.InfraccionDAO.GetByVehiculos(vehiculos, desde, hasta);
             var evByDispositivo = eventos.Where(x=>x.Vehiculo.Dispositivo != null).GroupBy(e => e.Vehiculo.Dispositivo.Id);
 
-            var result = new List<PerformanceVo>(coches.Count);
+            var result = new List<PerformanceVo>(coches.Count());
             foreach (var coche in coches)
             {
                 var performance = new PerformanceVo();

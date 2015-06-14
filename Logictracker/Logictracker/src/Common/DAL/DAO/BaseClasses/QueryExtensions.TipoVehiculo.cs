@@ -45,7 +45,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
 
             return q;
         }
-        public static IEnumerable<TQuery> FilterTipoVehiculo<TQuery>(this IEnumerable<TQuery> q, List<TipoCoche> tipos)
+        public static IQueryable<TQuery> FilterTipoVehiculo<TQuery>(this IQueryable<TQuery> q, List<TipoCoche> tipos)
             where TQuery : IHasTipoVehiculo
         {
             if (tipos != null) q = q.Where(t => t.TipoCoche == null || tipos.Contains(t.TipoCoche));

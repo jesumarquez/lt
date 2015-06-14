@@ -79,7 +79,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
             return GetTransportistas(session, empresas, lineas, transportistas, user);
         }
 
-        public static IEnumerable<Transportista> GetTransportistas(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, Usuario user)
+        public static IQueryable<Transportista> GetTransportistas(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, Usuario user)
         {
             if (empresas == null && lineas == null && (user == null || !user.PorTransportista) && IncludesAll(transportistas))
                 return null;
@@ -87,16 +87,15 @@ namespace Logictracker.DAL.DAO.BaseClasses
             var transportistaDao = new TransportistaDAO();
 
             var transportistasU = user != null && user.PorTransportista
-                                       ? user.Transportistas.OfType<Transportista>().ToList()
+                                       ? user.Transportistas.AsQueryable()
                                        : transportistaDao.FindAll();
 
             transportistasU = transportistasU
                 .FilterEmpresa(session, empresas, user)
                 .FilterLinea(session, empresas, lineas, user)
-                .Where(t => !t.Baja)
-                .ToList();
+                .Where(t => !t.Baja);
 
-            if (!IncludesAll(transportistas)) transportistasU = transportistasU.Where(l => transportistas.Contains(l.Id)).ToList();
+            if (!IncludesAll(transportistas)) transportistasU = transportistasU.Where(l => transportistas.Contains(l.Id));
 
             return transportistasU;
         } 

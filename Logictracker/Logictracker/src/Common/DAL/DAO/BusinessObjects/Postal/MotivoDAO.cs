@@ -34,7 +34,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Postal
         /// Finds all clients.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerable<Motivo> FindAll() { return Session.Query<Motivo>().Where(reason => reason.FechaBaja == null).ToList(); }
+        public override IQueryable<Motivo> FindAll() { return Session.Query<Motivo>().Where(reason => reason.FechaBaja == null); }
 
         public Motivo FindByCodigo(string codigo)
         {

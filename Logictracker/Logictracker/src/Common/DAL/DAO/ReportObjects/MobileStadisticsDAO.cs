@@ -32,7 +32,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
         {
             var datamarts = DAOFactory.DatamartDAO.GetBetweenDates(mobile, iniDate, finDate);
 
-            if (datamarts.Count <= 0) return new MobileStadistics();
+            if (!datamarts.Any()) return new MobileStadistics();
 
             var stats = datamarts
                 .GroupBy(datamart => new

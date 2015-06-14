@@ -38,6 +38,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                     && posicion.FechaMensaje >= inicio 
                     && posicion.FechaMensaje < fin)
                 .OrderBy(p=>p.FechaMensaje)
+                .Timeout(0)
                 .ToList()
                 .Select(posicion => GetRoutePosition(posicion, false, -1)).ToList();
             

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -79,7 +80,7 @@ namespace Logictracker.Parametrizacion
         {
             var coches = DAOFactory.CocheDAO.FindList(new[] {-1}, new[] {-1}, new[] {EditObject.Id});
 
-            if (coches != null && coches.Count > 0) 
+            if (coches != null && coches.Any()) 
                 throw new Exception(CultureManager.GetError("ASSIGNED_VEHICLE_TYPE"));
         }
     }

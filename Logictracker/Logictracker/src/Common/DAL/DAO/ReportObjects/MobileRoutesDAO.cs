@@ -36,7 +36,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
         {
             var results = DAOFactory.DatamartDAO.GetBetweenDates(mobile, from, to);
 
-            if (results.Count <= 0) return new List<MobileRoutes>();
+            if (!results.Any()) return new List<MobileRoutes>();
 
             return results.Select(data => new MobileRoutes
                                     {

@@ -79,14 +79,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// Finds all active users.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerable<Usuario> FindAll()
+        public override IQueryable<Usuario> FindAll()
         {
             var dc = DetachedCriteria.For<Usuario>()
                 .Add(Restrictions.IsNull(Projections.Property<Usuario>(u => u.FechaBaja)))
                 .SetProjection(Projections.Property<Usuario>(u=> u.Id));
 
             return Session.CreateCriteria<Usuario>()
-                .Add(Subqueries.PropertyIn("Id", dc)).List<Usuario>().ToList();
+                .Add(Subqueries.PropertyIn("Id", dc)).Future<Usuario>().AsQueryable();
         }
 
         /// <summary>

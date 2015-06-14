@@ -23,7 +23,7 @@ namespace Logictracker.Organizacion
         protected override List<PerfilVo> GetListData()
         {
             var user = DAOFactory.UsuarioDAO.FindById(Usuario.Id);
-            var list = user.Perfiles.IsEmpty() ? DAOFactory.PerfilDAO.FindAll() : (from Perfil p in user.Perfiles where p.FechaBaja == null select p).ToList();
+            var list = user.Perfiles.IsEmpty() ? DAOFactory.PerfilDAO.FindAll() : user.Perfiles.Where(p=> p.FechaBaja == null);
             return list.Select(p => new PerfilVo(p)).ToList();
         }
 

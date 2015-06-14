@@ -110,7 +110,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
         /// Busca todos
         /// </summary>
         /// <returns> </returns>
-        public virtual IEnumerable<TDaotype> FindAll() { return Session.Query<TDaotype>().Cacheable().ToList(); }
+        public virtual IQueryable<TDaotype> FindAll() { return Session.Query<TDaotype>().Cacheable(); }
 
         /// <summary>
         /// Carga un objeto identificado x su Id en especial

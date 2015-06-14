@@ -34,15 +34,8 @@ namespace Logictracker.DAL.DAO.BaseClasses
 
             return FilterVehiculo(q, vehiculosU, includesAll, user);
         }
-        public static IEnumerable<Coche> FilterVehiculo(this IEnumerable<Coche> q, ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> centrosDeCostos, IEnumerable<int> tipos)
-        {
-            var vehiculosU = GetVehiculos(session, empresas, lineas, transportistas, departamentos, centrosDeCostos, tipos, new[] { -1 });
-
-            if (vehiculosU != null) q = q.Where(vehiculosU.Contains);
-
-            return q;
-        }
-        public static IQueryable<TQuery> FilterVehiculo<TQuery>(this IQueryable<TQuery> q, List<Coche> vehiculos, bool includesAll, Usuario user)
+       
+        public static IQueryable<TQuery> FilterVehiculo<TQuery>(this IQueryable<TQuery> q, IQueryable<Coche> vehiculos, bool includesAll, Usuario user)
             where TQuery : IHasVehiculo
         {
             if (vehiculos != null) q = q.Where(m => m.Vehiculo == null || vehiculos.Contains(m.Vehiculo));
@@ -51,7 +44,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
 
             if (user != null && user.PorCoche)
             {
-                var coches = user.Coches.OfType<Coche>().ToList();
+                var coches = user.Coches;
                 q = q.Where(m => m.Vehiculo == null || coches.Contains(m.Vehiculo));
             }
 
@@ -69,7 +62,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
 
             return FilterVehiculo(q, vehiculosU, includesAll, user);
         }
-        public static IEnumerable<TQuery> FilterVehiculo<TQuery>(this IEnumerable<TQuery> q, List<Coche> vehiculos, bool includesAll, Usuario user)
+        public static IEnumerable<TQuery> FilterVehiculo<TQuery>(this IEnumerable<TQuery> q, IQueryable<Coche> vehiculos, bool includesAll, Usuario user)
             where TQuery : IHasVehiculo
         {
             if (vehiculos != null) q = q.Where(m => m.Vehiculo == null || vehiculos.Contains(m.Vehiculo));
@@ -85,7 +78,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
             return q;
         }
 
-        public static List<Coche> GetVehiculos(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> centrosDeCostos, IEnumerable<int> tipos, IEnumerable<int> vehiculos)
+        public static IQueryable<Coche> GetVehiculos(ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> centrosDeCostos, IEnumerable<int> tipos, IEnumerable<int> vehiculos)
         {
             var sessionUser = WebSecurity.AuthenticatedUser;
             var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
@@ -105,7 +98,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
             var centrosDeCostosU = GetCentrosDeCosto(session, empresasU, lineasU, departamentosU, centrosDeCostos);
 
             var vehiculosQ = (user != null && user.PorCoche
-                                       ? user.Coches.OfType<Coche>().FilterEmpresa(empresasU).FilterLinea(lineasU).FilterTipoVehiculo(tiposU)
+                                       ? user.Coches.AsQueryable().FilterEmpresa(empresasU).FilterLinea(lineasU).FilterTipoVehiculo(tiposU)
                                        : cocheDao.FindList(empresas, lineas, tipos)
                                   );
             if(transportistasU != null)
@@ -123,10 +116,10 @@ namespace Logictracker.DAL.DAO.BaseClasses
                 vehiculosQ = vehiculosQ.FilterCentroDeCostos(centrosDeCostosU, includesAll, includesNone, user);
             }
 
-            var vehiculosU = vehiculosQ.ToList();
+            var vehiculosU = vehiculosQ;
 
-            if (!IncludesAll(vehiculos)) 
-                vehiculosU = vehiculosU.Where(l => vehiculos.Contains(l.Id)).ToList();
+            if (!IncludesAll(vehiculos))
+                vehiculosU = vehiculosU.Where(l => vehiculos.Contains(l.Id));
 
             return vehiculosU;
         }

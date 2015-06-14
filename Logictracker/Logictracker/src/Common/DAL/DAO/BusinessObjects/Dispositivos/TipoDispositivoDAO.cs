@@ -56,14 +56,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Dispositivos
         /// Finds all active device types.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerable<TipoDispositivo> FindAll()
+        public override IQueryable<TipoDispositivo> FindAll()
         {
             var dc = getBaseDetachedCriteria(0);
 
             var c = Session.CreateCriteria<TipoDispositivo>()
                 .Add(Subqueries.PropertyIn("Id", dc));
 
-            return c.List<TipoDispositivo>().ToList();
+            return c.Future<TipoDispositivo>().AsQueryable();
         }
 
         /// <summary>

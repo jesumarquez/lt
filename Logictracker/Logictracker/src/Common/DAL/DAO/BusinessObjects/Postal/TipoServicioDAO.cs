@@ -30,11 +30,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Postal
         /// Finds all clients.
         /// </summary>
         /// <returns></returns>
-        public override IEnumerable<TipoServicio> FindAll()
+        public override IQueryable<TipoServicio> FindAll()
         {
             return Session.Query<TipoServicio>()
-                .Where(service => service.FechaBaja == null)
-                .ToList();
+                .Where(service => service.FechaBaja == null);
         }
 
         /// <summary>

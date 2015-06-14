@@ -139,8 +139,8 @@ namespace Logictracker.Reportes.Estadistica
             LoadLabelsHoy();
             LoadGaugesHoy();
             
-            LoadLabelsAyer(coches.Count, entradasBase.Count, entradasGeocerca.Count, averageSpeed, averageTimeGeofence, tickets);
-            LoadGaugesAyer(coches.Count, entradasBase.Count, entradasGeocerca.Count, averageSpeed, tickets);
+            LoadLabelsAyer(coches.Count(), entradasBase.Count, entradasGeocerca.Count, averageSpeed, averageTimeGeofence, tickets);
+            LoadGaugesAyer(coches.Count(), entradasBase.Count, entradasGeocerca.Count, averageSpeed, tickets);
 
             LoadLabelsMes();
             LoadGaugesMes();

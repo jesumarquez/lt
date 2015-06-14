@@ -119,11 +119,12 @@ namespace Logictracker
         public static IEnumerable<LogUltimaPosicionVo> GetLastPositionByInterno(string interno, DAOFactory daoF, int empresa, int linea, bool hideWithNoDevice)
         {
             var coches = daoF.CocheDAO.GetList(new[] {empresa}, new[] {linea});
-            coches = coches.Where(c => c.Interno.ToLower().Contains(interno.ToLower())).ToList();
 
-            if (hideWithNoDevice) coches = coches.Where(c => c.Dispositivo != null).ToList();
+            coches = coches.Where(c => c.Interno.ToLower().Contains(interno.ToLower()));
 
-            return coches.Count <= 0 ? new List<LogUltimaPosicionVo>() : UpdatePositions(coches);
+            if (hideWithNoDevice) coches = coches.Where(c => c.Dispositivo != null);
+
+            return !coches.Any()  ? new List<LogUltimaPosicionVo>() : UpdatePositions(coches);
         }
     }
 
