@@ -59,3 +59,6 @@ packages/
 /Logictracker/Logictracker.Full.opensdf
 /Logictracker/Logictracker.Full.sdf
 /Logictracker/UpgradeLog.htm
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/en/Logictracker.Culture.resources.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/es/Logictracker.Culture.resources.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/pt/Logictracker.Culture.resources.dll
