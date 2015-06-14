@@ -14,6 +14,12 @@ namespace Logictracker.Types.SecurityObjects
     public class Module
     {
         /// <summary>
+        /// Contructor
+        /// </summary>
+        public Module()
+        {
+        }
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="item">MovMenu item for this module</param>
