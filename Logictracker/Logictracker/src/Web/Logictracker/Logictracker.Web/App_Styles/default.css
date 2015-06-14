@@ -782,6 +782,14 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     border: none;
     cursor: pointer;
 }
+#mensajeria .config_button_fota {
+	background-color: transparent;
+    width: 32px;
+    height: 26px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+} 
 #mensajeria .config_button_red, 
 #mensajeria .config_button_green, 
 #mensajeria .config_button_blue { width: 34px; }
@@ -790,6 +798,7 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
 #mensajeria .config_button_firm { background-image: url(img/mensajeria/firm.png); }
 #mensajeria .config_button_config{ background-image: url(img/mensajeria/config.png); } 
 #mensajeria .config_button_queue{ background-image: url(img/mensajeria/queue.png); } 
+#mensajeria .config_button_fota{ background-image: url(img/mensajeria/fota.png); } 
 #mensajeria .config_button_message{ background-image: url(img/mensajeria/message.png); }
 #mensajeria .config_button_red { background-image: url(img/mensajeria/button_red.png); }
 #mensajeria .config_button_green { background-image: url(img/mensajeria/button_green.png); }

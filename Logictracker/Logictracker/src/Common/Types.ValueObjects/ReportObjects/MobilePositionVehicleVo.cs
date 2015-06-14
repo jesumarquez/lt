@@ -61,7 +61,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
         [GridMapping(Index = IndexDispositivo, ResourceName = "Entities", VariableName = "PARENTI08", AllowGroup = false, IncludeInSearch = true)]
         public string Dispositivo { get; set; }
 
-        [GridMapping(Index = IndexFecha, ResourceName = "Labels", VariableName = "DATE", DataFormatString = "{0:G}", AllowGroup = false)]
+        [GridMapping(Index = IndexFecha, ResourceName = "Labels", VariableName = "ULTIMA_POSICION_GPS", DataFormatString = "{0:G}", AllowGroup = false)]
         public DateTime? Fecha { get; set; }
 
         [GridMapping(Index = IndexVelocidad, ResourceName = "Labels", VariableName = "VELOCIDAD_KM", AllowGroup = false)]

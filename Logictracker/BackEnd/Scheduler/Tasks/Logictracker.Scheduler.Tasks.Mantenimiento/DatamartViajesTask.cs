@@ -102,7 +102,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                         {
                             var parametros = new[] { "No se pudieron generar registros de Datamart para el viaje " + viaje.Id, viaje.Id.ToString("#0"), viaje.Inicio.ToString("dd/MM/yyyy HH:mm") };
                             SendMail(parametros);
-                            STrace.Trace(GetType().FullName, "No se pudieron generar registros de Datamart para el viaje " + viaje.Id);
+                            STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para el viaje " + viaje.Id);
                         }
                     }
                 }
@@ -135,18 +135,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 {
                     var viaje = DaoFactory.ViajeDistribucionDAO.FindById(idViaje);
 
-                    if (!regenera &&
-                        HasBeenProcessed(viaje))
+                    if (!regenera && HasBeenProcessed(idViaje))
                     {
-                        STrace.Trace(GetType().FullName, string.Format("Viaje ya procesado: {0}", viaje.Id));
+                        STrace.Trace(GetType().FullName, string.Format("Viaje ya procesado: {0}", idViaje));
                     }
                     else
                     {
-                        STrace.Trace(GetType().FullName, string.Format("Eliminando registros del viaje: {0}", viaje.Id));
-                        DaoFactory.DatamartViajeDAO.DeleteRecords(viaje);
-                        STrace.Trace(GetType().FullName, string.Format("Generando registros del viaje: {0}", viaje.Id));
+                        DaoFactory.DatamartViajeDAO.DeleteRecords(idViaje);
                         ProcessViaje(viaje);
-                        STrace.Trace(GetType().FullName, string.Format("Viaje procesado: {0}", viaje.Id));
+                        STrace.Trace(GetType().FullName, string.Format("Viaje procesado: {0}", idViaje));
                     }
                     transaction.Commit();
                 }
@@ -196,6 +193,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             var kmProgramados = viaje.Detalles.Sum(d => d.KmCalculado);
             var kmTotales = kmProductivos + kmImproductivos;
+            if (kmTotales <= 0) STrace.Error(GetType().FullName, string.Format("Viaje con kilometros en 0 - Id: {0}", viaje.Id));
+
             var costoViaje = viaje.Vehiculo.CocheOperacion != null
                                  ? viaje.Vehiculo.CocheOperacion.CostoKmUltimoMes * kmTotales
                                  : 0.0;
@@ -249,9 +248,9 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             DaoFactory.DatamartViajeDAO.SaveOrUpdate(dmViaje);
         }
 
-        private bool HasBeenProcessed(ViajeDistribucion viaje)
+        private bool HasBeenProcessed(int idViaje)
         {
-            var records = DaoFactory.DatamartViajeDAO.GetRecords(viaje);
+            var records = DaoFactory.DatamartViajeDAO.GetRecords(idViaje);
             return records.Count != 0;
         }
 

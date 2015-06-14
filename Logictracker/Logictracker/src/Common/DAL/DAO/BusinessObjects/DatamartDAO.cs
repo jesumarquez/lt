@@ -1,8 +1,5 @@
-#region Usings
-
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DAL.DAO.BusinessObjects.Positions;
@@ -22,8 +19,6 @@ using NHibernate.Criterion;
 using NHibernate.Dialect.Function;
 using NHibernate.SqlCommand;
 using NHibernate.Transform;
-
-#endregion
 
 namespace Logictracker.DAL.DAO.BusinessObjects
 {
@@ -348,21 +343,28 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// <summary>
         /// Gets datamart regeneration periods.
         /// </summary>
-        /// <param name="coche"></param>
+        /// <param name="vehicle"></param>
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <param name="refference"></param>
         /// <returns></returns>
-        public List<RegenerateDatamart> GetDaysToRegenerate(int coche, DateTime from, DateTime to, DateTime refference)
+        public List<RegenerateDatamart> GetDaysToRegenerate(Coche vehicle, DateTime from, DateTime to, DateTime refference)
         {
             var posicionesDao = new LogPosicionDAO();
-            var cocheDao = new CocheDAO();
 
-            var vehicle = cocheDao.FindById(coche);
-            var maxMonths = vehicle != null && vehicle.Empresa != null ? vehicle.Empresa.MesesConsultaPosiciones : 3;
+            int maxMonths;
+
+            try
+            {
+                maxMonths = vehicle != null && vehicle.Empresa != null ? vehicle.Empresa.MesesConsultaPosiciones : 3;
+            }
+            catch (Exception)
+            {
+                maxMonths = 3;
+            }
 
             var te = new TimeElapsed();
-            var start = posicionesDao.GetRegenerationStartDate(coche, from, to, refference, maxMonths);
+            var start = posicionesDao.GetRegenerationStartDate(vehicle.Id, from, to, refference, maxMonths);
             var ts = te.getTimeElapsed().TotalSeconds;
             if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetRegenerationStartDate en {0} segundos", ts));
 
@@ -371,7 +373,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             var startDate = start.Value;
 
             te.Restart();
-            var endDate = posicionesDao.GetRegenerationEndDate(coche, from, to, maxMonths);
+            var endDate = posicionesDao.GetRegenerationEndDate(vehicle.Id, from, to, maxMonths);
             ts = te.getTimeElapsed().TotalSeconds;
             if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetRegenerationEndDate en {0} segundos", ts));
 

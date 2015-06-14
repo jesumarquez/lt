@@ -1,6 +1,7 @@
 #region Usings
 
 using System;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.BaseClasses.BasePages;
 
@@ -79,6 +80,7 @@ namespace Logictracker.Parametrizacion
                 EditObject.ReferenciaGeografica.Empresa = EditObject.Empresa;
                 EditObject.ReferenciaGeografica.Linea = EditObject.Linea;
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(EditObject.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "EquipoAlta");
             }
 
             DAOFactory.EquipoDAO.SaveOrUpdate(EditObject);

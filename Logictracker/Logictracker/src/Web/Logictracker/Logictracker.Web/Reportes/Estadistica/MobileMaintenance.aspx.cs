@@ -34,7 +34,7 @@ namespace Logictracker.Reportes.Estadistica
 
             var user = DAOFactory.UsuarioDAO.FindById(Usuario.Id);
 
-            var vehiculos = DAOFactory.CocheDAO.GetList((IEnumerable<int>) ddlDistrito.SelectedValues, (IEnumerable<int>) ddlBase.SelectedValues, (IEnumerable<int>) ddlTipoVehiculo.SelectedValues);
+            var vehiculos = DAOFactory.CocheDAO.GetList(ddlDistrito.SelectedValues, ddlBase.SelectedValues, ddlTipoVehiculo.SelectedValues);
 
             var list = ReportFactory.MobileMaintenanceDAO.GetMobilesMaintenanceData(user, vehiculos, desde, hasta)
                 .Select(o => new MobileManteinanceVo(o))

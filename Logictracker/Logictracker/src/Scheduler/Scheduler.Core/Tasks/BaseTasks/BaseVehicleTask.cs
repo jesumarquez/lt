@@ -1,11 +1,7 @@
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Logictracker.DatabaseTracer.Core;
-
-#endregion
 
 namespace Logictracker.Scheduler.Core.Tasks.BaseTasks
 {
@@ -26,7 +22,7 @@ namespace Logictracker.Scheduler.Core.Tasks.BaseTasks
 
         #region Protected Properties
 
-        protected List<Int32> Vehicles;
+        protected List<int> Vehicles;
 
         /// <summary>
         /// Auxiliar variable for logging the amount of remaining vehicles to process.
@@ -61,12 +57,13 @@ namespace Logictracker.Scheduler.Core.Tasks.BaseTasks
 			STrace.Trace(GetType().FullName, "Retrieving vehicles to process.");
 
             var initialId = GetInt32(InitialId) ?? 0;
+            var ints = GetListOfInt(VehiclesParameter);
 
-            var vehicles = GetListOfInt(VehiclesParameter) ?? DaoFactory.CocheDAO.FindAllActivos().Select(vehicle => vehicle.Id).ToList();
+            Vehicles = ints ?? DaoFactory.CocheDAO.FindAllActivos().Select(v => v.Id).Where(id => id > initialId).ToList();
+            //var vehicles = ints != null ? DaoFactory.CocheDAO.GetByIds(ints).ToList() : DaoFactory.CocheDAO.FindAllActivos().ToList();
+            //Vehicles = vehicles.OrderBy(vehicle => vehicle.Id).Where(vehicle => vehicle.Id >= initialId).ToList();
 
-            Vehicles = vehicles.OrderBy(vehicle => vehicle).Where(vehicle => vehicle >= initialId).ToList();
-
-            VehiclesToProcess = vehicles.Count();
+            VehiclesToProcess = Vehicles.Count();
 
             STrace.Trace(GetType().FullName, String.Format("Vehicles to process: {0}", VehiclesToProcess));
         }

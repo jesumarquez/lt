@@ -149,6 +149,7 @@ namespace Logictracker.Process.Import.EntityParser
                     puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
                 DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoEntrega.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "DistribucionBV1");
                 DaoFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
             }
 

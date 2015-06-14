@@ -540,5 +540,26 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
         #endregion
 
+        public IList<LogMensaje> GetByVehiclesAndCodes(List<int> vehiclesId, List<string> codes, DateTime initialDate, DateTime finalDate, int maxMonths, int idEmpresa)
+        {
+            var tableVehiculos = Ids2DataTable(vehiclesId);
+            var dao = new DAOFactory();
+            var mensajesIds = dao.MensajeDAO.FindByCodes(codes).Select(m => m.Id);
+            var tableMensajes = Ids2DataTable(mensajesIds);
+
+            var minDate = DateTime.UtcNow.AddMonths(-maxMonths);
+
+            if (initialDate < minDate) initialDate = minDate;
+            if (finalDate < minDate) finalDate = minDate;
+
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetByVehiclesAndMessages] @vehiculosIds = :vehiculosIds, @mensajesIds = :mensajesIds, @desde = :desde, @hasta = :hasta;")
+                              .AddEntity(typeof(LogMensaje))
+                              .SetStructured("vehiculosIds", tableVehiculos)
+                              .SetStructured("mensajesIds", tableMensajes)
+                              .SetDateTime("desde", initialDate)
+                              .SetDateTime("hasta", finalDate);
+            var results = sqlQ.List<LogMensaje>();
+            return results;
+        }
     }
 }

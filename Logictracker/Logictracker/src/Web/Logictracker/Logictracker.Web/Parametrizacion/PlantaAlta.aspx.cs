@@ -89,6 +89,7 @@ namespace Logictracker.Parametrizacion
                         EditObject.ReferenciaGeografica.Codigo = code;
 
                         DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(EditObject.ReferenciaGeografica);
+                        STrace.Trace("QtreeReset", "PlantaAlta");
                     }
 
                     if (!EditMode &&

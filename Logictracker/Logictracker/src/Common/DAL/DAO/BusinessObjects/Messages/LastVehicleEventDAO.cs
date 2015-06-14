@@ -5,7 +5,6 @@ using Logictracker.DAL.NHibernate;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils.NHibernate;
-using NHibernate;
 using NHibernate.Criterion;
 
 namespace Logictracker.DAL.DAO.BusinessObjects.Messages
@@ -62,10 +61,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
                 var last = Session.CreateCriteria<LastVehicleEvent>().Add(Subqueries.PropertyIn("Id", dc)).UniqueResult<LastVehicleEvent>();
 
-                if (last == null)
-                {
-                    last = new LastVehicleEvent {TipoEvento = type, Vehiculo = logMensaje.Coche};
-                }
+                if (last == null) last = new LastVehicleEvent {TipoEvento = type, Vehiculo = logMensaje.Coche};
 
                 last.LogMensaje = logMensaje;
                 SaveOrUpdate(last);

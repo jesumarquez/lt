@@ -15,7 +15,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
 {
     public class LogPosicionDAO : MaintenanceDAO<LogPosicion>
     {
-//        public LogPosicionDAO(ISession session) : base(session) { }
+        //public LogPosicionDAO(ISession session) : base(session) { }
 
         private const int FirstRow = 1;
 
@@ -57,7 +57,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
                 dc.Add(dateToReceived != null
                            ? Restrictions.Between("dlp.FechaRecepcion", dateFromReceived, dateToReceived)
                            : Restrictions.Ge("dlp.FechaRecepcion", dateFromReceived));
-            } else
+            }
+            else
             {
                 dc.Add(Restrictions.EqProperty("dlp.FechaMensaje", "lp.FechaMensaje"));
             }
@@ -104,19 +105,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
 
                 var maxMonths = coche.Empresa != null ? coche.Empresa.MesesConsultaPosiciones : 3;
 
-                var te = new TimeElapsed();
                 var q = InternalGetLastNPositionsBetweenDates(coche.Id, FirstRow, null, null, maxMonths, Order.Desc("lp.FechaMensaje"), null, null);
                 var fe = q.UniqueResult<LogPosicion>();
-                var totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", coche.Dispositivo.Id, "InternalGetLastNPositionsBetweenDates: " + totalSecs);
 
                 if (fe != null)
                     lastPositionVo = new LogUltimaPosicionVo(fe);
 
-                te.Restart();
                 coche.StoreLastPosition(lastPositionVo);
-                totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", coche.Dispositivo.Id, "StoreLastPosition: " + totalSecs);
 
                 return lastPositionVo;
             }
@@ -126,7 +121,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
                 return null;
             }
         }
-
 
         public LogUltimaPosicionVo GetLastVehiclePosition(Coche coche)
         {

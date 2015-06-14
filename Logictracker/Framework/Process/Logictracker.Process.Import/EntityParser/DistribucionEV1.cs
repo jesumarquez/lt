@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using Logictracker.DAL.Factories;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Process.Import.Client.Types;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico;
@@ -146,6 +147,7 @@ namespace Logictracker.Process.Import.EntityParser
                                                 });
 
                 DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoDeInteres);
+                STrace.Trace("QtreeReset", "DistribucionEV1 1");
 
                 puntoEntrega = new PuntoEntrega
                                    {
@@ -179,6 +181,7 @@ namespace Logictracker.Process.Import.EntityParser
                     puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
                 DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoEntrega.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "DistribucionEV1 2");
             }
 
             DaoFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);

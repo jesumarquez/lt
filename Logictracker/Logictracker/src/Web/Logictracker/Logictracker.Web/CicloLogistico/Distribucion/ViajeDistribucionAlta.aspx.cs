@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Messages.Saver;
 using Logictracker.Process.CicloLogistico;
 using Logictracker.Process.CicloLogistico.Events;
@@ -647,6 +648,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             {
                 punto.ReferenciaGeografica.Vigencia.Fin = end;
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(punto.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "DistribucionAlta 1");
                 DAOFactory.PuntoEntregaDAO.SaveOrUpdate(punto);
             }
             var entrega = new Entrega
@@ -725,15 +727,14 @@ namespace Logictracker.CicloLogistico.Distribucion
             {
                 var results = GeocoderHelper.GetDireccionSmartSearch(direccion);
                 SetResults(results);
-    
             }
             else
             {
                 Double lat;
                 Double lon;
 
-                var latitud = txtLatitud.Text.Trim();
-                var longitud = txtLongitud.Text.Trim();
+                var latitud = txtLatitud.Text.Trim().Replace('.',',');
+                var longitud = txtLongitud.Text.Trim().Replace('.', ',');
 
                 if (double.TryParse(latitud, out lat) && double.TryParse(longitud, out lon))
                 {
@@ -870,6 +871,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                                             Vigencia = new Vigencia {Inicio = DateTime.UtcNow}
                                         });
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(georef);
+                STrace.Trace("QtreeReset", "DistribucionAlta 2");
 
                 puntoEntrega = new PuntoEntrega
                                    {
@@ -900,6 +902,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                 
                 puntoEntrega.ReferenciaGeografica.Vigencia.Fin = DateTime.UtcNow.AddHours(24);
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoEntrega.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "DistribucionAlta 3");
             }
 
             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);

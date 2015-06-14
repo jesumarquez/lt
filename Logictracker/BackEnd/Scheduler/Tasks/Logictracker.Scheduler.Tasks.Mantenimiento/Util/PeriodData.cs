@@ -88,14 +88,18 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
             LoadTurnos();
             LoadCicloLogistico();
             LoadEvents();
-            LoadTimeTracking();
-            LoadCosumos();
+            
+            //LoadTimeTracking();
+            //LoadConsumos();
+
             LoadPosiciones();
             LoadFechasDeCorte();
         }
         private void LoadCulture()
-        {
-			var timeZoneId = Vehiculo.Linea != null ? Vehiculo.Linea.TimeZoneId : Vehiculo.Empresa != null ? Vehiculo.Empresa.TimeZoneId : String.Empty;
+        {   
+            var timeZoneId = Vehiculo.Linea != null
+                                ? Vehiculo.Linea.TimeZoneId
+                                : Vehiculo.Empresa != null ? Vehiculo.Empresa.TimeZoneId : string.Empty;
 			Culture = String.IsNullOrEmpty(timeZoneId) ? null : TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
             GmtModifier = Culture != null ? Culture.BaseUtcOffset.TotalHours : 0;
         }
@@ -111,11 +115,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
         }
         private void LoadEvents()
         {
-            var te = new TimeElapsed();
             var lastDatamart = DaoFactory.DatamartDAO.GetLastDatamart(Vehiculo.Id, Inicio);
-            var ts = te.getTimeElapsed().TotalSeconds;
-            if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetLastDatamart en {0} segundos", ts));
-
+            
             var lastDatamartDate = lastDatamart != null ? (DateTime?)lastDatamart.End : null;
             var lastDriver = lastDatamart != null ? lastDatamart.Employee : null;
             var lastGeocerca = lastDatamart != null ? lastDatamart.GeograficRefference : null;
@@ -123,7 +124,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
             EventosRfid = new Dictionary<DateTime, int?> { { lastDatamartDate.HasValue ? lastDatamartDate.Value : DateTime.MinValue, lastDriver != null ? lastDriver.Id : new int?() } };
             EventosGeocerca = new Dictionary<DateTime, ReferenciaGeografica> { { lastDatamartDate.HasValue ? lastDatamartDate.Value : DateTime.MinValue, lastGeocerca } };
             Infracciones = DaoFactory.InfraccionDAO.GetByVehiculo(Vehiculo.Id, Inicio, Fin);
-
+            
             var maxMonths = Vehiculo.Empresa != null ? Vehiculo.Empresa.MesesConsultaPosiciones : 3;
 
             var events = DaoFactory.LogMensajeDAO.GetEventos(Vehiculo.Id, Inicio, Fin, maxMonths,
@@ -132,8 +133,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
                 MessageCode.InsideGeoRefference.GetMessageCode(),
                 MessageCode.OutsideGeoRefference.GetMessageCode()
                 );
-                //DaoFactory.LogMensajeDAO.GetEvents(Vehiculo.Id, Inicio, Fin);
-
+            
             foreach (var mensaje in events)
             {
                 if (mensaje.Mensaje.Codigo.Equals(MessageCode.RfidDriverLogin.GetMessageCode()) ||
@@ -181,7 +181,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
                 }
             }
         }
-        private void LoadCosumos()
+        private void LoadConsumos()
         {
             var sensorConsumo = Vehiculo.Dispositivo != null ? DaoFactory.SensorDAO.FindByDispositivoAndTipoMedicion(Vehiculo.Dispositivo.Id, "NU") : null;
 
@@ -205,19 +205,19 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
 
             var maxMonths = Vehiculo.Empresa != null ? Vehiculo.Empresa.MesesConsultaPosiciones : 3;
 
-            var te = new TimeElapsed();
+            var t = new TimeElapsed();
             PosicionSiguiente = posicionDao.GetFirstPositionNewerThanDate(Vehiculo.Id, Fin, maxMonths);
-            var ts = te.getTimeElapsed().TotalSeconds;
+            var ts = t.getTimeElapsed().TotalSeconds;
             if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetFirstPositionNewerThanDate en {0} segundos", ts));
-            
-            te.Restart();
+
+            t.Restart();
             PosicionAnterior = Vehiculo.LastOdometerUpdate.HasValue ? posicionDao.GetFirstPositionOlderThanDate(Vehiculo.Id, Inicio, maxMonths) : null;
-            ts = te.getTimeElapsed().TotalSeconds;
+            ts = t.getTimeElapsed().TotalSeconds;
             if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetFirstPositionOlderThanDate en {0} segundos", ts));
 
-            te.Restart();
+            t.Restart();
             var originalPositions = posicionDao.GetPositionsBetweenDates(Vehiculo.Id, Inicio, Fin, maxMonths);
-            ts = te.getTimeElapsed().TotalSeconds;
+            ts = t.getTimeElapsed().TotalSeconds;
             if (ts > 1) STrace.Error("Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration", string.Format("GetPositionsBetweenDates en {0} segundos", ts));
 
             if (Vehiculo.Dispositivo != null && !DaoFactory.DetalleDispositivoDAO.GetDiscardsInvalidPositionsValue(Vehiculo.Dispositivo.Id))
@@ -242,7 +242,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
                         lastValidPosition = position;
                     }
                 }
-
                 Posiciones = CorrectGeorefferenciation(cleanPositions);
             }
         }
@@ -357,7 +356,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
                 .Union(Distribuciones.Where(d => d.InicioReal.HasValue).Select(d => d.Fin))
                 .Union(EventosRfid.Select(e => e.Key))
                 .Union(EventosGeocerca.Select(e => e.Key))
-                .Union(EventosTimeTracking.Select(e => e.Key))
+                //.Union(EventosTimeTracking.Select(e => e.Key))
                 .Union(horas)
                 .Where(h=> h >= Inicio && h <= Fin)
                 .Distinct()
@@ -411,8 +410,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
         private int _indexTimeTracking;
         public bool GetTimeTracking(DateTime date)
         {
-            if (EventosTimeTracking.Count == 0) return false;
-            bool iniciado = false;
+            if (EventosTimeTracking == null || EventosTimeTracking.Count == 0) return false;
+            var iniciado = false;
             DateTime key;
             while (_indexTimeTracking < EventosTimeTracking.Count && (key = EventosTimeTracking.Keys.ElementAt(_indexTimeTracking)) <= date)
             {
@@ -452,7 +451,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento.Util
         private int _indexConsumo;
         public double GetConsumo(DateTime date)
         {
-            if (Consumos.Count == 0 || _indexConsumo >= Consumos.Count) return 0;
+            if (Consumos == null || Consumos.Count == 0 || _indexConsumo >= Consumos.Count) return 0;
             if (UltimoConsumo == null) UltimoConsumo = Consumos[_indexConsumo];
 
             var first = _indexConsumo;

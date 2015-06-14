@@ -98,5 +98,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
         }
 
         #endregion
+
+
     }
 }

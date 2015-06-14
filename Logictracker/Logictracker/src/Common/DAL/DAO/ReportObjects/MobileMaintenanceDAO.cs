@@ -44,7 +44,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
 
             foreach (var mobile in result)
             {
-                var coche = DAOFactory.CocheDAO.FindById(mobile.IdVehiculo);
+                var coche = vehiculos.FirstOrDefault(v => v.Id == mobile.IdVehiculo);
 
                 var empresa = coche.Empresa != null ? coche.Empresa.Id : -1;
                 var linea = coche.Linea != null ? coche.Linea.Id : -1;

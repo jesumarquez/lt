@@ -179,19 +179,32 @@
                     <div class="config_container">
                         <div class="config_title">PURGAR</div>
                         <div>
-                            <table><tr><td>
-                            <asp:Button ID="btPurgarMensajes" runat="server" CssClass="config_button_message" OnClick="btPurgarMensajes_Click"/>
-                            <br/>
-                            Mensajes
-                            </td><td>
-                            <asp:Button ID="btnPurgarConfiguracion" runat="server" CssClass="config_button_config" OnClick="btnPurgarConfiguracion_Click"/>
-                            <br/>
-                            Config
-                            </td><td>
-                            <asp:Button ID="btnClearQueues" runat="server" CssClass="config_button_queue" OnClick="btnClearQueues_Click"/>
-                            <br/>
-                            Colas
-                            </td></tr></table>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="btPurgarMensajes" runat="server" CssClass="config_button_message" OnClick="btPurgarMensajes_Click"/>
+                                        <br/>
+                                        Mensajes
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="btnPurgarConfiguracion" runat="server" CssClass="config_button_config" OnClick="btnPurgarConfiguracion_Click"/>
+                                        <br/>
+                                        Config
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="btnClearQueues" runat="server" CssClass="config_button_queue" OnClick="btnClearQueues_Click"/>
+                                        <br/>
+                                        Colas
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="btnClearFota" runat="server" CssClass="config_button_fota" OnClick="btnClearFota_Click" OnClientClick="return confirm('¿Confirma que desea resetear los archivos FOTA?');"/>
+                                        <br/>
+                                        FOTA
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </td></tr></table>

@@ -102,7 +102,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                         {
                             var parametros = new[] { "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id, distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
                             SendMail(parametros);
-                            STrace.Trace(GetType().FullName, "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id);
+                            STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id);
                         }
                     }
                 }
@@ -135,17 +135,14 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 {
                     var distribucion = DaoFactory.ViajeDistribucionDAO.FindById(idDistribucion);
 
-                    if (!regenera &&
-                        HasBeenProcessed(distribucion))
+                    if (!regenera && HasBeenProcessed(distribucion))
                     {
                         STrace.Trace(GetType().FullName, string.Format("Distribución ya procesada: {0}", distribucion.Id));
                     }
                     else
                     {
-                        STrace.Trace(GetType().FullName, string.Format("Eliminando registros de la distribución: {0}", distribucion.Id));
-                        DaoFactory.DatamartDistribucionDAO.DeleteRecords(distribucion);
+                        DaoFactory.DatamartDistribucionDAO.DeleteRecords(distribucion.Id);
 
-                        STrace.Trace(GetType().FullName, string.Format("Generando registros de la distribución: {0}", distribucion.Id));
                         ProcessDistribucionPorGps(distribucion);
 
                         STrace.Trace(GetType().FullName, string.Format("Distribución procesada: {0}", distribucion.Id));
@@ -190,7 +187,11 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     }
 
                     if (entrega.Viaje.Vehiculo != null && anterior.FechaMin < entrega.FechaMin && entrega.FechaMin < DateTime.MaxValue)
-                        kms = DaoFactory.CocheDAO.GetDistance(entrega.Viaje.Vehiculo.Id, anterior.FechaMin, entrega.FechaMin);
+                    { 
+                        var dm = DaoFactory.DatamartDAO.GetMobilesKilometers(anterior.FechaMin, entrega.FechaMin, new List<int> {entrega.Viaje.Vehiculo.Id}).FirstOrDefault();
+                        kms = dm != null ? dm.Kilometers : 0.0;
+                        //kms = DaoFactory.CocheDAO.GetDistance(entrega.Viaje.Vehiculo.Id, anterior.FechaMin, entrega.FechaMin);
+                    }
                 }
 
                 var tiempoEntrega = entrega.Salida.HasValue && entrega.Entrada.HasValue
@@ -237,14 +238,12 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 if (entrega.Estado.Equals(EntregaDistribucion.Estados.Completado)
                  || entrega.Estado.Equals(EntregaDistribucion.Estados.Visitado))
                     anterior = entrega;
-
-                STrace.Trace(GetType().FullName, string.Format("Entrega {0} procesada en {1} segundos", entrega.Id, te.getTimeElapsed().TotalSeconds));
             }
         }
 
         private bool HasBeenProcessed(ViajeDistribucion distribucion)
         {
-            var records = DaoFactory.DatamartDistribucionDAO.GetRecords(distribucion);
+            var records = DaoFactory.DatamartDistribucionDAO.GetRecords(distribucion.Id);
             return records.Count == distribucion.EntregasTotalCount;
         }
 

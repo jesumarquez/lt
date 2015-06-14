@@ -360,12 +360,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
             var empresa = linea != null ? linea.Empresa : idEmpresa > 0 ? DaoFactory.EmpresaDAO.FindById(idEmpresa) : null;
             
             var mensajes = DaoFactory.MensajeDAO.FindByTipo(tipoMensaje, empresa, linea, user);
-            if (tipoMensaje != null && tipoMensaje.Mensajes.Count > 0)
-            {
-                var agrupados = tipoMensaje.Mensajes.Cast<Mensaje>();
-                mensajes = mensajes.Union(agrupados).Distinct();
-            }
-
+            
             if (autoBindeable.AddSinMensaje) autoBindeable.AddItem(CultureManager.GetControl("DDL_NO_MESSAGE"), autoBindeable.NoneValue);
 
             var messages = mensajes

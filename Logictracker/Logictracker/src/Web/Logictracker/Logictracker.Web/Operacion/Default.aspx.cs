@@ -1864,6 +1864,7 @@ namespace Logictracker.Operacion
                              });
 
             DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(poi);
+            STrace.Trace("QtreeReset", "Default");
             JsAlert(CultureManager.GetSystemMessage("POI_CREATE_OK"));
         }
         

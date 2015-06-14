@@ -406,6 +406,31 @@ namespace Logictracker.Trax.v1
                             salida = GetSalida(dc, deviceStatus);
                         }
                         break;
+                    case Reporte.TemperatureInfo:
+                    {
+                        string[] temperatura = data[2].Split(':');
+                        if (String.IsNullOrEmpty(temperatura[1]))
+                            temperatura[1] = "0.0";
+                        float temperaturamedida = Convert.ToSingle(temperatura[1].Replace('.',','));
+                        string extra1 = String.Format(
+                            CultureInfo.InvariantCulture,
+                            @"Temperatura:{0:0.0}",
+                            temperaturamedida
+                            );
+                        GPSPoint pos31 = Posicion.ParseCompact(data[1], false);
+                        var resul = ((Event)(salida = MessageIdentifier.CaudalimeterTelemetricData.FactoryEvent(MessageIdentifier.TelemetricData, Id,
+                                                                                    msgId, pos31, pos31.GetDate(), null,
+                                                                                null)));resul.SensorsDataString = extra1;
+                        //var ackNolish = BaseDeviceCommand.createFrom(String.Format(">{0}<", Mensaje.IMEIReq), this, null).ToString(true);
+                        /*var ackNolish = BaseDeviceCommand.createFrom(
+                              String.Format(">{0}<", String.Format(Mensaje.SetId, data[3])),
+                              this, null).ToString(true);*/
+
+                        var replyStr = dc.BuildAck().ToString(true);
+                        resul.AddStringToSend(replyStr);
+
+                    }
+                        break;
                     case Reporte.Evento:
                     case Reporte.Evento2:
                     case Reporte.FinInfraccion:
@@ -413,17 +438,14 @@ namespace Logictracker.Trax.v1
                         var code = GetCodEvent(data[2].Substring(2, 2));
                         try
                         {
-
                             pos = Posicion.Parse(data);
                             if (pos != null)
-                                pos.SetEngineStatus(BitHelper.AreBitsSet(Convert.ToByte(data[2].Substring(0, 1), 16),
-                                                                         0x8));
+                                pos.SetEngineStatus(BitHelper.AreBitsSet(Convert.ToByte(data[2].Substring(0, 1), 16), 0x8));
 
                         }
                         catch (ArgumentOutOfRangeException e)
                         {
-                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null,
-                                       String.Format("Posicion invalida {0}", buffer));
+                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null, String.Format("Posicion invalida {0}", buffer));
                             break;
                         }
 
@@ -448,8 +470,7 @@ namespace Logictracker.Trax.v1
                         }
                         catch (ArgumentOutOfRangeException e)
                         {
-                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null,
-                                       String.Format("Posicion invalida {0}", buffer));
+                            STrace.Log(GetType().FullName, e, Id, LogTypes.Debug, null, String.Format("Posicion invalida {0}", buffer));
                             break;
                         }
 
@@ -1296,6 +1317,7 @@ namespace Logictracker.Trax.v1
             private const String Personalizado = ">RUS";
             public const String IdReq = ">RUS00";
             public const String OldEvento = ">RUS01";
+            public const String TemperatureInfo = ">RUS03";
             public const String Evento = ">RUS04";
             public const String Evento2 = ">RUS08";
             public const String FinInfraccion = ">RUS05";

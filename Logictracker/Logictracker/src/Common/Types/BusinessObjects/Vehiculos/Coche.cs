@@ -5,7 +5,6 @@ using System.Linq;
 using Iesi.Collections;
 using Logictracker.Cache;
 using Logictracker.Cache.Interfaces;
-using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects.BaseObjects;
 using Logictracker.Types.BusinessObjects.Dispositivos;
 using Logictracker.Types.InterfacesAndBaseClasses;

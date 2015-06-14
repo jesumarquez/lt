@@ -47,7 +47,7 @@ namespace Logictracker.Web.Reportes.DatosOperativos
             var eventos = DAOFactory.LogMensajeDAO.GetEventos(vehiculos, MessageCode.PrivacyOn.GetMessageCode(), MessageCode.PrivacyOff.GetMessageCode(), desde, hasta);
             eventos = eventos.OrderBy(e => e.Fecha).ToList();
 
-                foreach (var vehiculo in vehiculos)
+            foreach (var vehiculo in vehiculos)
             {
                 var eventosVehiculo = eventos.Where(ev => ev.IdCoche == vehiculo);
                 var tiempoEncendido = new TimeSpan();

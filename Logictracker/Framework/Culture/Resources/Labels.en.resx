@@ -4495,4 +4495,13 @@
   <data name="AGRUPADOR" xml:space="preserve">
     <value>Grouper</value>
   </data>
+  <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
+    <value>View Admin Events</value>
+  </data>
+  <data name="ULTIMA_POSICION_GPS" xml:space="preserve">
+    <value>Latest GPS position </value>
+  </data>
+  <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
+    <value>View Admin Events</value>
+  </data>
 </root>

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Geocoder.Core.VO;
 using LinqToExcel;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
@@ -283,6 +284,7 @@ namespace Logictracker.App_Controls
                     referencia.Vigencia = new Vigencia { Inicio = desde, Fin = hasta};
                 }
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(referencia);
+                STrace.Trace("QtreeReset", "DireccionImport 1");
             }
         }
 
@@ -406,6 +408,7 @@ namespace Logictracker.App_Controls
             referencia.AddHistoria(dir, pol, DateTime.UtcNow);
 
             DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(referencia);
+            STrace.Trace("QtreeReset", "DireccionImport 2");
         }
 
         private class ImportDireccion

@@ -18,12 +18,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             var left = Vehicles.Count;
             foreach (var vehicleId in Vehicles)
             {
+                var vehicle = DaoFactory.CocheDAO.FindById(vehicleId);
+
                 try
                 {
-                    var vehicle = DaoFactory.CocheDAO.FindById(vehicleId);
                     if (vehicle.CocheOperacion == null)
                     {
-                        STrace.Error(GetType().FullName, String.Format("El vehiculo id={0} no tiene datos operativos asociados(opeenti03)", vehicleId));
+                        STrace.Error(GetType().FullName, String.Format("El vehiculo id={0} no tiene datos operativos asociados(opeenti03)", vehicle.Id));
                         continue;
                     }
 
@@ -177,12 +178,12 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     }
                     catch (Exception)
                     {
-                        STrace.Error(GetType().FullName, String.Format("El vehiculo id={0} produjo un error al evaluar alarmas por consumo de combustible.", vehicleId));
+                        STrace.Error(GetType().FullName, String.Format("El vehiculo id={0} produjo un error al evaluar alarmas por consumo de combustible.", vehicle.Id));
                     }
 
                     DaoFactory.CocheDAO.SaveOrUpdate(vehicle);
 
-                    STrace.Trace(GetType().FullName, String.Format("Terminado Vehiculo Id={0}. Faltan: {1}.", vehicleId, --left));
+                    STrace.Trace(GetType().FullName, String.Format("Terminado Vehiculo Id={0}. Faltan: {1}.", vehicle.Id, --left));
                     DaoFactory.SessionClear();
                 }
                 catch(Exception ex)

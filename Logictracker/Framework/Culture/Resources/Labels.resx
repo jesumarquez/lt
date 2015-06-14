@@ -635,7 +635,7 @@
     <value>Pico</value>
   </data>
   <data name="PONDERACION" xml:space="preserve">
-    <value>Ponderaci&amp;oacute;n</value>
+    <value>Ponderación</value>
   </data>
   <data name="PUNTAJE" xml:space="preserve">
     <value>Puntaje</value>
@@ -4625,4 +4625,15 @@
   <data name="AGRUPADOR" xml:space="preserve">
     <value>Agrupador</value>
   </data>
+  <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
+    <value>Ver Eventos Admin</value>
+  </data>
+  <data name="ULTIMA_POSICION_GPS" xml:space="preserve">
+    <value>Última Posición GPS</value>
+  </data>
+
+  <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
+    <value>Ver Eventos Admin</value>
+  </data>
+
 </root>

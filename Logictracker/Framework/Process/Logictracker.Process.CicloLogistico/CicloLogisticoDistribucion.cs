@@ -691,6 +691,7 @@ namespace Logictracker.Process.CicloLogistico
                     ms.Send();
                     break;
                 case EntregaDistribucion.Estados.Cancelado:
+                case EntregaDistribucion.Estados.NoCompletado:
                     if (detalle.Manual.HasValue)
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: Ya se ha confirmado la realización de la entrega(" + destDetail + ")");

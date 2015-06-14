@@ -117,6 +117,22 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
             messages = tipo == null ? messages : (from Mensaje m in messages where m.TipoMensaje != null && m.TipoMensaje.Codigo.Equals(tipo.Codigo) select m).ToList();
 
+            if (tipo != null && tipo.Mensajes.Count > 0)
+            {
+                var agrupados = tipo.Mensajes.Cast<Mensaje>();
+                messages = messages.Union(agrupados).Distinct().ToList();
+            }
+            else if (tipo == null && user.PorTipoMensaje)
+            {
+                var idsTipos = user.TiposMensaje.Cast<TipoMensaje>().Select(tm => tm.Id);
+                messages = messages.Where(m => idsTipos.Contains(m.TipoMensaje.Id)).ToList();
+                foreach (TipoMensaje tipoMensaje in user.TiposMensaje)
+                {
+                    var agrupados = tipoMensaje.Mensajes.Cast<Mensaje>();
+                    messages = messages.Union(agrupados).Distinct().ToList();
+                }
+            }
+
             return (from Mensaje m in messages where m.Acceso <= user.Tipo select m).ToList();
         }
 
@@ -407,6 +423,16 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return mensajes;
         }
 
+        public IEnumerable<Mensaje> GetMensajesDeUsuario(int[] empresas, int[] lineas)
+        {
+            var dc = GetMensajeDetachedCriteria(false, empresas, lineas);
+            //dc.Add(Restrictions.Eq("TipoMensaje.DeRechazo", true));
+
+            var crit = GetMensajeCriteria(0, dc, null);
+            var mensajes = crit.List<Mensaje>().Where(m => m.TipoMensaje.DeUsuario).ToList();
+            return mensajes;
+        }
+
         #endregion
 
         #region Private Methods
@@ -618,5 +644,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
         }
 
         #endregion
+
     }
 }

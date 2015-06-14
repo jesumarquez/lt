@@ -22,6 +22,10 @@
 
             public static string CambioEstadoMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.cambio.estado", "Logictracker.Mailing.CambioEstado.config")); } }
 
+            public static string MessageCountMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.message.count", "Logictracker.Mailing.MessageCount.config")); } }
+
+            public static string WatchDogMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.watchdog", "Logictracker.Mailing.WatchDog.config")); } }
+
             public static string DatamartErrorMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.datamart.error", "Logictracker.Mailing.DatamartError.config")); } }
 
             public static string DatamartSuccessMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.datamart.success", "Logictracker.Mailing.DatamartSuccess.config")); } }

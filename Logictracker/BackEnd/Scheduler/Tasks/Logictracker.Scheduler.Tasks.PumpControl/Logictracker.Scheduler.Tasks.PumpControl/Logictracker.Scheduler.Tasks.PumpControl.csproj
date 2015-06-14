@@ -78,7 +78,7 @@
       <Name>Logictracker.Scheduler.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Interfaces\Logictracker.Interfaces.PumpControl\Logictracker.Interfaces.PumpControl.csproj">
-      <Project>{C6BFA41C-816C-44E3-9586-EC462F08981F}</Project>
+      <Project>{c6bfa41c-816c-44e3-9586-ec462f08981f}</Project>
       <Name>Logictracker.Interfaces.PumpControl</Name>
     </ProjectReference>
   </ItemGroup>

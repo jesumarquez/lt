@@ -83,86 +83,90 @@ namespace Logictracker.Messages.Saver
         }
         public LogMensajeBase Save(IMessage evento, string codigo, Dispositivo dispositivo, Coche coche, Empleado chofer, DateTime fecha, GPSPoint inicio, GPSPoint fin, string texto, int? velPermitida, int? velAlcanzada, int? idReferenciaGeografica, Zona zonaManejo, ViajeDistribucion viaje, EntregaDistribucion entrega)
         {
-	        /*STrace.Debug(GetType().FullName, dispositivo.GetId(),
-	                     "Guardando: evento={0} codigo={1} coche={2} chofer={3} fecha={4} inicio={5} fin={6} texto={7}",
-	                     evento,
-	                     codigo,
-	                     coche,
-	                     chofer,
-	                     fecha,
-	                     inicio,
-	                     fin,
-	                     texto);//*/
-
             try
             {
-                var t = new TimeElapsed();
                 var device = dispositivo ?? DaoFactory.DispositivoDAO.GetGenericDevice(coche.Empresa);
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", device.Id, String.Format("MessageSaver.Save/GeocercaManager.Process ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
                 var driver = chofer ?? (coche != null && !coche.IdentificaChoferes ? coche.Chofer : null);
-
-                //var lastPosition = DaoFactory.LogPosicionDAO.GetLastOnlineVehiclePosition(coche);
-                //var startPosition = inicio ?? (lastPosition == null
-                //                 ? new GPSPoint()
-                //                 : new GPSPoint(fecha, (float)lastPosition.Latitud, (float)lastPosition.Longitud));
-
+                
                 if (string.IsNullOrEmpty(codigo.Trim())) return null;
-                t.Restart();
                 var mensaje = DaoFactory.MensajeDAO.GetByCodigo(codigo, coche != null ? coche.Empresa : null, coche != null ? coche.Linea : null);
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", device.Id, String.Format("MessageSaver.Save/DaoFactory.MensajeDAO.GetByCodigo ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
                 if (mensaje == null) return DiscardDueToInvalidMessage(codigo, coche, inicio, device, fin, driver, fecha);
                 
-                //if (fin == null && DiscartInhibitor(mensaje, coche, startPosition.Lat, startPosition.Lon)) return DiscardDueToInhibitor(coche, inicio, mensaje, device, null, driver, fecha);
-
-                t.Restart();
                 var ticket = DaoFactory.TicketDAO.FindEnCurso(dispositivo);
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", device.Id, String.Format("MessageSaver.Save/DaoFactory.MensajeDAO.GetByCodigo ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
-                t.Restart();
                 var detalleTicket = ticket == null ? null : ticket.GetDetalleProximo();
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", device.Id, String.Format("MessageSaver.Save/GetDetalleProximo ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
                 driver = driver ?? (ticket != null ? ticket.Empleado : null);
-                
-                t.Restart();
-                var log = new LogMensaje
-                {
-                    Chofer = driver,
-                    Coche = coche,
-                    Dispositivo = device,
-                    Estado = 0,
-                    Fecha = fecha,
-                    FechaAlta = DateTime.UtcNow,
-                    Expiracion = DateTime.UtcNow.AddDays(1),
-                    Horario = ticket,
-                    DetalleHorario = detalleTicket,
-                    Usuario = null,
-                    Latitud = inicio != null ? inicio.Lat : 0,
-                    Longitud = inicio != null ? inicio.Lon : 0,
-                    FechaFin = fin != null ? fin.Date : (DateTime?)null,
-                    LatitudFin = fin != null ? new Double?(fin.Lat) : null,
-                    LongitudFin = fin != null ? new Double?(fin.Lon) : null,
-                    VelocidadAlcanzada = velAlcanzada,
-                    VelocidadPermitida = velPermitida,
-                    IdPuntoDeInteres = idReferenciaGeografica,
-                    Mensaje = DaoFactory.MensajeDAO.FindById(mensaje.Id),
-                    Texto = String.Concat(mensaje.Texto, ' ', texto),
-                    TieneFoto = codigo == ((int)MessageIdentifier.Picture).ToString(CultureInfo.InvariantCulture),
-                    Viaje = viaje,
-                    Entrega = entrega
-                };
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", device.Id, String.Format("MessageSaver.Save/new LogMensaje ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
-                t.Restart();
-                ProcessActions(log);
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", device.Id, String.Format("MessageSaver.Save/ProcessActions ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
-                t.Restart();
-                if (MessageIdentifierX.IsEngineOnOffEvent(log.Mensaje))
-                    DaoFactory.LastVehicleEventDAO.Save(log, Coche.Totalizador.EstadoMotor);
-                else if (MessageIdentifierX.IsGarminOnOffEvent(log.Mensaje))
-                    DaoFactory.LastVehicleEventDAO.Save(log, Coche.Totalizador.EstadoGarmin);
-                else if (MessageIdentifierX.IsPrivacyOnOffEvent(log.Mensaje))
-                    DaoFactory.LastVehicleEventDAO.Save(log, Coche.Totalizador.EstadoGps);
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", device.Id, String.Format("MessageSaver.Save/LastVehicleEventDAO ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
 
-                return log;
+                if (mensaje.Acceso >= Usuario.NivelAcceso.SysAdmin)
+                {
+                    var log = new LogMensajeAdmin
+                    {
+                        Chofer = driver,
+                        Coche = coche,
+                        Dispositivo = device,
+                        Estado = 0,
+                        Fecha = fecha,
+                        FechaAlta = DateTime.UtcNow,
+                        Expiracion = DateTime.UtcNow.AddDays(1),
+                        Horario = ticket,
+                        DetalleHorario = detalleTicket,
+                        Usuario = null,
+                        Latitud = inicio != null ? inicio.Lat : 0,
+                        Longitud = inicio != null ? inicio.Lon : 0,
+                        FechaFin = fin != null ? fin.Date : (DateTime?)null,
+                        LatitudFin = fin != null ? new Double?(fin.Lat) : null,
+                        LongitudFin = fin != null ? new Double?(fin.Lon) : null,
+                        VelocidadAlcanzada = velAlcanzada,
+                        VelocidadPermitida = velPermitida,
+                        IdPuntoDeInteres = idReferenciaGeografica,
+                        Mensaje = DaoFactory.MensajeDAO.FindById(mensaje.Id),
+                        Texto = String.Concat(mensaje.Texto, ' ', texto),
+                        TieneFoto = codigo == ((int)MessageIdentifier.Picture).ToString(CultureInfo.InvariantCulture)
+                    };
+
+                    ProcessActions(log);
+
+                    return log;
+                }
+                else
+                {
+                    var log = new LogMensaje
+                    {
+                        Chofer = driver,
+                        Coche = coche,
+                        Dispositivo = device,
+                        Estado = 0,
+                        Fecha = fecha,
+                        FechaAlta = DateTime.UtcNow,
+                        Expiracion = DateTime.UtcNow.AddDays(1),
+                        Horario = ticket,
+                        DetalleHorario = detalleTicket,
+                        Usuario = null,
+                        Latitud = inicio != null ? inicio.Lat : 0,
+                        Longitud = inicio != null ? inicio.Lon : 0,
+                        FechaFin = fin != null ? fin.Date : (DateTime?) null,
+                        LatitudFin = fin != null ? new Double?(fin.Lat) : null,
+                        LongitudFin = fin != null ? new Double?(fin.Lon) : null,
+                        VelocidadAlcanzada = velAlcanzada,
+                        VelocidadPermitida = velPermitida,
+                        IdPuntoDeInteres = idReferenciaGeografica,
+                        Mensaje = DaoFactory.MensajeDAO.FindById(mensaje.Id),
+                        Texto = String.Concat(mensaje.Texto, ' ', texto),
+                        TieneFoto = codigo == ((int) MessageIdentifier.Picture).ToString(CultureInfo.InvariantCulture),
+                        Viaje = viaje,
+                        Entrega = entrega
+                    };
+
+                    ProcessActions(log);
+
+                    if (MessageIdentifierX.IsEngineOnOffEvent(log.Mensaje))
+                        DaoFactory.LastVehicleEventDAO.Save(log, Coche.Totalizador.EstadoMotor);
+                    else if (MessageIdentifierX.IsGarminOnOffEvent(log.Mensaje))
+                        DaoFactory.LastVehicleEventDAO.Save(log, Coche.Totalizador.EstadoGarmin);
+                    else if (MessageIdentifierX.IsPrivacyOnOffEvent(log.Mensaje))
+                        DaoFactory.LastVehicleEventDAO.Save(log, Coche.Totalizador.EstadoGps);
+
+                    return log;
+                }
             }
             catch (Exception ex)
             {
@@ -303,6 +307,52 @@ namespace Logictracker.Messages.Saver
                 STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("ProcessActions/GuardarEvento ({0} secs)", totalSeconds));
         }
 
+        private void ProcessActions(LogMensajeAdmin log)
+        {
+            var appliesToAnyAction = false;
+
+            var t = new TimeElapsed();
+            var actions = DaoFactory.AccionDAO.FindByMensaje(log.Mensaje);
+            var totalSeconds = t.getTimeElapsed().TotalSeconds;
+            if (totalSeconds > 1)
+                STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("ProcessActions/FindByMensaje ({0} secs)", totalSeconds));
+
+            t.Restart();
+            var filteredActions = FilterActions(actions, log);
+            totalSeconds = t.getTimeElapsed().TotalSeconds;
+            if (totalSeconds > 1)
+                STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("ProcessActions/FilterActions ({0} secs)", totalSeconds));
+
+            t.Restart();
+            foreach (var accion in filteredActions)
+            {
+                appliesToAnyAction = true;
+
+                DaoFactory.RemoveFromSession(log);
+
+                log.Id = 0;
+                log.Accion = accion;
+
+                if (accion.CambiaMensaje) log.Texto += string.Concat(" ", accion.MensajeACambiar);
+                if (accion.PideFoto) PedirFoto(log);
+                if (accion.GrabaEnBase) GuardarEvento(log);
+                if (accion.EsAlarmaDeMail) SendMail(log);
+                if (accion.EsAlarmaSms) SendSms(log);
+                if (accion.Habilita) HabilitarUsuario(log.Accion);
+                if (accion.Inhabilita) InhabilitarUsuario(log.Accion);
+                if (accion.ReportarAssistCargo) ReportarAssistCargo(log, accion.CodigoAssistCargo);
+            }
+            totalSeconds = t.getTimeElapsed().TotalSeconds;
+            if (totalSeconds > 1)
+                STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("ProcessActions/foreach ({0} secs)", totalSeconds));
+
+            t.Restart();
+            if (!appliesToAnyAction) GuardarEvento(log);
+            totalSeconds = t.getTimeElapsed().TotalSeconds;
+            if (totalSeconds > 1)
+                STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("ProcessActions/GuardarEvento ({0} secs)", totalSeconds));
+        }
+
         private void GuardarEvento(LogMensaje log)
         {
             var t = new TimeElapsed();
@@ -327,6 +377,15 @@ namespace Logictracker.Messages.Saver
             totalSeconds = t.getTimeElapsed().TotalSeconds;
             if (totalSeconds > 1)
                 STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("GuardarEvento/EvenDistriDAO.Save ({0} secs)", totalSeconds));
+        }
+
+        private void GuardarEvento(LogMensajeAdmin log)
+        {
+            var t = new TimeElapsed();
+            DaoFactory.LogMensajeAdminDAO.Save(log);
+            var totalSeconds = t.getTimeElapsed().TotalSeconds;
+            if (totalSeconds > 1)
+                STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("GuardarEvento/LogMensajeAdminDAO.Save ({0} secs)", totalSeconds));
         }
 
         private IEnumerable<Accion> FilterActions(ICollection<Accion> actions, LogMensajeBase mensaje)
@@ -445,7 +504,6 @@ namespace Logictracker.Messages.Saver
 
             SendSmsToAllDestinations(destinatarios, sender, parameters);
         }
-
         
         /// <summary>
         /// Enables the user
@@ -540,7 +598,7 @@ namespace Logictracker.Messages.Saver
             }
         }
 
-	    private static void SendMail(LogMensaje log)
+	    private static void SendMail(LogMensajeBase log)
         {
             const int minutes = 15;
             var monitor = Config.Monitor.HistoricMonitorLink;
@@ -649,7 +707,5 @@ namespace Logictracker.Messages.Saver
             return chofer.Reporta3 == null ? null : new List<string> { chofer.Reporta3.Mail };
         } 
         #endregion
-
-
     }
 }

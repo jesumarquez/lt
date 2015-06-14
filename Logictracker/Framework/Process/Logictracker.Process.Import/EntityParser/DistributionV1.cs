@@ -210,6 +210,7 @@ namespace Logictracker.Process.Import.EntityParser
                                                 });
 
                 DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoDeInteres);
+                STrace.Trace("QtreeReset", "DistribucionV1 1");
 
                 puntoEntrega = new PuntoEntrega
                                    {
@@ -243,6 +244,7 @@ namespace Logictracker.Process.Import.EntityParser
                     puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
                 DaoFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(puntoEntrega.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "DistribucionV1 2");
             }
 
             DaoFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);

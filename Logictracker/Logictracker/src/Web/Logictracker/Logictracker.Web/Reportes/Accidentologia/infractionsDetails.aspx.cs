@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using C1.Web.UI.Controls.C1GridView;
-using Logictracker.DatabaseTracer.Core;
-using Logictracker.Types.ValueObjects.ReportObjects;
-using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects;
+using Logictracker.Types.ValueObjects.ReportObjects;
+using Logictracker.Web.BaseClasses.BasePages;
 
-namespace Logictracker.Reportes.Accidentologia
+namespace Logictracker.Web.Reportes.Accidentologia
 {
     public partial class ReportesReportsInfractionsDetails : SecuredGridReportPage<InfractionDetailVo>
     {
@@ -20,7 +20,7 @@ namespace Logictracker.Reportes.Accidentologia
         private const string SinDefinir = "SIN_DEFINIR";
 
         protected override string GetRefference() { return "INFRACTIONS_DETAILS"; }
-        protected override string VariableName{ get { return "ACC_DET_INFRACCIONES"; }  }
+        protected override string VariableName{ get { return "ACC_DET_INFRACCIONES_X_CHOFER"; }  }
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
 
@@ -107,8 +107,8 @@ namespace Logictracker.Reportes.Accidentologia
 
         protected override List<InfractionDetailVo> GetResults()
         {
-            var desde = SecurityExtensions.ToDataBaseDateTime(dpDesde.SelectedDate.GetValueOrDefault());
-            var hasta = SecurityExtensions.ToDataBaseDateTime(dpHasta.SelectedDate.GetValueOrDefault());
+            var desde = dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+            var hasta = dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
 
             var inicio = DateTime.UtcNow;
             try

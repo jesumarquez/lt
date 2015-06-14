@@ -117,6 +117,18 @@
                                 <asp:AsyncPostBackTrigger ControlID="cbTipoMensaje" EventName="SelectedIndexChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
+                        <asp:UpdatePanel ID="updCheckAdmin" runat="server" UpdateMode="Always">
+                            <ContentTemplate>
+                                <table width="100%" border="0">
+                                    <tr>
+                                        <td align="center">
+                                            <cwc:ResourceCheckBox ID="chkVerAdmin" runat="server" AutoPostBack="true" ResourceName="Labels" VariableName="VER_EVENTOS_ADMIN" OnCheckedChanged="ChkVerAdminCheckedChanged" />            
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        
                     </ContentTemplate>
                 </cc1:TabPanel>
             </cc1:TabContainer>

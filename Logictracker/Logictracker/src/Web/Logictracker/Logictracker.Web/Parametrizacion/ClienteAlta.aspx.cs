@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.BaseClasses.BasePages;
 
@@ -96,6 +97,7 @@ namespace Logictracker.Parametrizacion
                 EditObject.ReferenciaGeografica.Codigo = code;
                 EditObject.ReferenciaGeografica.TipoReferenciaGeografica = DAOFactory.TipoReferenciaGeograficaDAO.FindById(EditEntityGeoRef1.TipoReferenciaGeograficaId);
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(EditObject.ReferenciaGeografica);
+                STrace.Trace("QtreeReset", "ClienteAlta");
             }
             EditObject.Nomenclado = true;
 
