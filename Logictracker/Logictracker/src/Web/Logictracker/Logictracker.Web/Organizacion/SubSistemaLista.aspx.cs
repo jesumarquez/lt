@@ -21,7 +21,15 @@ namespace Logictracker.Organizacion
 
         protected override List<SistemaVo> GetListData()
         {
-            return DAOFactory.SistemaDAO.FindAll().Select(s => new SistemaVo(s)).ToList();
+            var list = new List<SistemaVo>();
+            var query = DAOFactory.SistemaDAO.FindAll();
+
+            foreach(Logictracker.Types.BusinessObjects.Sistema sistema in query)
+            {
+                list.Add(new SistemaVo(sistema));
+            }
+
+            return list;
         }
 
         protected override void OnRowDataBound(C1GridView grid, C1GridViewRowEventArgs e, SistemaVo dataItem)
