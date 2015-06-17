@@ -151,7 +151,7 @@ function processQtree(data) {
 
     if (data.qtree.length > 0) {
         $.each(data.qtree, function(i, item) {
-        Logictracker.Monitor.Mapa.aGC("t" + item.Id, createBox(item), Logictracker.Monitor.Layers.Qtree);
+        Logictracker.Monitor.Mapa.aGC("t" + item.id, createBox(item), Logictracker.Monitor.Layers.Qtree);
         });
 
     }
@@ -202,21 +202,26 @@ function CallForData(qs, center) {
                     processQualityMessages(data2);
                     showProgress("Cargando referencias geográficas...");
                     AbortAjaxRequest();
-                    currentAjaxRequest = $.getJSON("?op=g&qs=" + qs, function(data3) {
+                    currentAjaxRequest = $.getJSON("?op=g&qs=" + qs, function (data3) {
                         try {
                             if (data3.geocercas.length > 1000) {
                                 hideProgress();
                                 showError("Hay demasiados eventos de geocercas (" + data3.geocercas.length + ")");
                                 return;
                             }
+                            
                             processGeocercas(data3);
 
-                            if ($(Logictracker.Monitor.QtreeCheck).is(':checked')) {
+                            if ($('#'+Logictracker.Monitor.QtreeCheck).is(':checked')) {
                                 showProgress("Cargando qtree...");
                                 AbortAjaxRequest();
-                                currentAjaxRequest = $.getJSON("?op=t&qs=" + qs, function(data4) {
+                                currentAjaxRequest = $.getJSON("?op=t&qs=" + qs, function (data4) {
                                     processQtree(data4);
                                     hideProgress();
+                                }).fail(function (jqxhr, textStatus, error) {
+                                    var err = textStatus + ", " + error;
+                                    showError(err); hideProgress();
+
                                 });
                             }
                             else {
@@ -224,12 +229,27 @@ function CallForData(qs, center) {
                             }
                         }
                         catch (ex) { showError(ex); hideProgress(); }
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        showError(err); hideProgress();
+
                     });
                 }
                 catch (ex) { showError(ex); hideProgress(); }
+            })
+            .fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                showError(err); hideProgress();
+
             });
         }
         catch (ex) { showError(ex); hideProgress(); }
+    })
+    .fail(function (jqxhr, textStatus, error) {
+        var err = textStatus + ", " + error;
+        showError(err); hideProgress();
+
     });
 }
 function AbortAjaxRequest() {

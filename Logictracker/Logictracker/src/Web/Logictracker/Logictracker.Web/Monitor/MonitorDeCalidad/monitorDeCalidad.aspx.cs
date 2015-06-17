@@ -99,7 +99,8 @@ namespace Logictracker.Monitor.MonitorDeCalidad
                 }
                 else if (Request.QueryString["op"] == "t")
                 {
-                    if (WebSecurity.IsSecuredAllowed(Securables.ViewQtree) && chkQtree.Checked)
+                    Response.ContentType = "application/json";
+                    if (WebSecurity.IsSecuredAllowed(Securables.ViewQtree))
                     {
                         var positions = DAOFactory.RoutePositionsDAO.GetPositions(param.Vehiculo, param.Desde, param.Hasta, maxMonths);
                         double hres, vres;
@@ -217,15 +218,25 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         }
         private string SerializeQtree(QLeaf x, double hres, double vres)
         {
-            return string.Format("{{ \"id\": {0}-{1}, \"lon\": {2}, \"lat\": {3}, \"hres\": {4}, \"vres\": {5}, \"color\": \"{6}\" }}",
-                x.Index.Y,
-                x.Index.X,
+
+         return 
+             string.Format("{{'id':'{0}','lon':{1},'lat':{2},'hres':{3},'vres':{4},'color':'{5}'}}",
+                x.Index.Y.ToString()+"-"+x.Index.X.ToString(),
                 x.Posicion.Longitud.ToString(CultureInfo.InvariantCulture),
                 x.Posicion.Latitud.ToString(CultureInfo.InvariantCulture),
                 hres.ToString(CultureInfo.InvariantCulture),
                 vres.ToString(CultureInfo.InvariantCulture),
-                HexColorUtil.ColorToHex(BaseQtree.GetColorForLevel(x.Valor))
-                );
+                System.Web.HttpUtility.JavaScriptStringEncode(HexColorUtil.ColorToHex(BaseQtree.GetColorForLevel(x.Valor)))
+                ).Replace("'","\"");
+            //return string.Format("{{ \"id\": '{0}{1}', \"lon\": {2}, \"lat\": {3}, \"hres\": {4}, \"vres\": {5}, \"color\": \"{6}\" }}",
+            //    x.Index.Y,
+            //    x.Index.X,
+            //    x.Posicion.Longitud.ToString(CultureInfo.InvariantCulture),
+            //    x.Posicion.Latitud.ToString(CultureInfo.InvariantCulture),
+            //    hres.ToString(CultureInfo.InvariantCulture),
+            //    vres.ToString(CultureInfo.InvariantCulture),
+            //    HexColorUtil.ColorToHex(BaseQtree.GetColorForLevel(x.Valor))
+            //    );
         }
         private long SerializeDate(DateTime date)
         {

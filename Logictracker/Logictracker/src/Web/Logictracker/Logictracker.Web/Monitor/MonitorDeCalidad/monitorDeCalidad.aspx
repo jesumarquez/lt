@@ -228,7 +228,7 @@
             
             <div class="x-panel-body" style="text-align: center; padding-top: 10px;">
                 <div style="text-align: left; padding: 10px;">
-                    <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="false" />    
+                    <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />    
                 </div>
                 
                 <td align="center" colspan="2">

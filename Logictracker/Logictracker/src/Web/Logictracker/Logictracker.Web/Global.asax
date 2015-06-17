@@ -10,7 +10,7 @@
 <%@ Import Namespace="Logictracker.Types.SecurityObjects" %>
 <%@ Import Namespace="NHibernate" %>
 
-<script runat="server">
+<script RunAt="server">
 
     /// <summary>Hold all the extensions we treat as static</summary>
     static HashSet<string> allowedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -46,12 +46,29 @@
     {
         //  Code that runs on application shutdown
     }
+    
+    public static bool IsAjaxRequest(HttpRequest request)
+    {
+        if (request == null)
+        {
+            throw new ArgumentNullException("request");
+        }
+
+        return (request["X-Requested-With"] == "XMLHttpRequest") || ((request.Headers != null) && (request.Headers["X-Requested-With"] == "XMLHttpRequest"));
+    }
 
     private void Application_Error(object sender, EventArgs e)
     {
+        
         if (HttpContext.Current == null ||
             HttpContext.Current.Session == null) return;
 
+        if (HttpContext.Current.Request !=null && IsAjaxRequest(HttpContext.Current.Request))
+        { 
+            SessionHelper.CloseSession();
+            return;
+        }
+        
         HttpContext.Current.Session["Error"] = HttpContext.Current.Server.GetLastError();
         HttpContext.Current.Session["LastVisitedPage"] = HttpContext.Current.Request.Url.AbsolutePath;
 
@@ -73,7 +90,7 @@
             SessionHelper.CloseSession();
         }
     }
-
+  
     private void Session_Start(object sender, EventArgs e)
     {
         // Code that runs when a new session is started
