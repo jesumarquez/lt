@@ -37,8 +37,6 @@ namespace Logictracker.Dispatcher.Handlers
 		{
 			//STrace.Debug(typeof(Events).FullName, message.DeviceId, "OnDeviceHandleMessage (EventsHandler)");
 
-		    var t = new TimeElapsed();
-
 			AdjustRfidData(message);
             var code = GetGenericEventCode(message);
 			STrace.Debug(typeof(Events).FullName, message.DeviceId, String.Format("code:{0} Subcode:{1}", code, message.GetData()));
@@ -52,11 +50,16 @@ namespace Logictracker.Dispatcher.Handlers
 
             #endregion protect garmin on/off messages from be banned because of invalid date
 
+		    if (IsGarbageMessage(code))
+		    {
+                STrace.Error(GetType().FullName, Dispositivo.Id, string.Format("Mensaje ignorado. Código {0}", code));
+		        return HandleResults.BreakSuccess;
+		    }
 
-            if (IsInvalidMessage(code, message))
-			{
-			    return HandleResults.BreakSuccess;
-			}
+		    if (IsInvalidMessage(code, message))
+		    {
+		        return HandleResults.BreakSuccess;
+		    }
 
             ExtraText = new ExtraText(DaoFactory);
 
@@ -72,8 +75,6 @@ namespace Logictracker.Dispatcher.Handlers
 				ProcessEvent(code, message);
 				ProcessPosition(message);
 			}
-
-            STrace.Debug("DispatcherLock", "OnDeviceHandleMessage: " + t.getTimeElapsed().TotalSeconds);
 
 			return HandleResults.Success;
 		}
@@ -435,6 +436,20 @@ namespace Logictracker.Dispatcher.Handlers
 
 			return true;
 		}
+
+        private bool IsGarbageMessage(string code)
+        {
+            var isGarbage = false;
+
+            if (Dispositivo != null)
+            {
+                var mensajes = DaoFactory.MensajeIgnoradoDAO.GetCodigosByDispositivo(Dispositivo.Id);
+
+                if (mensajes.Contains(code)) isGarbage = true;
+            }
+
+            return isGarbage;
+        }
 
 		private bool IsVelocidadInvalida(IGeoPoint message)
 		{

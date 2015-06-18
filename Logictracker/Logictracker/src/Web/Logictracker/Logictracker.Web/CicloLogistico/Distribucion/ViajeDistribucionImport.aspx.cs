@@ -719,7 +719,10 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                         #region Properties
 
                         var stringFecha = row[GetColumnByValue(Fields.Fecha.Value)];
-                        var fecha = new DateTime(Convert.ToInt32(stringFecha.Substring(0, 4)), Convert.ToInt32(stringFecha.Substring(4, 2)), Convert.ToInt32(stringFecha.Substring(6, 2)));
+                        var fecha = new DateTime(Convert.ToInt32(stringFecha.Substring(0, 4)), 
+                                                 Convert.ToInt32(stringFecha.Substring(4, 2)), 
+                                                 Convert.ToInt32(stringFecha.Substring(6, 2)), 
+                                                 6, 0, 0);
 
                         var patente = row[GetColumnByValue(Fields.Vehiculo.Value)];
                         var codigoPedido = row[GetColumnByValue(Fields.CodigoPedido.Value)];

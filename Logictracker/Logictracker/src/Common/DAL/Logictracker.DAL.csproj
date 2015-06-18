@@ -146,6 +146,7 @@
     <Compile Include="DAO\BusinessObjects\DatamartDistribucionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Mantenimiento\TicketMantenimientoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\AtencionEventoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\MensajeIgnoradoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\LogMensajeAdminDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\LastVehicleEventDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\EvenDistriDAO.cs" />
@@ -794,6 +795,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Messages\LogMensajeAdmin.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\MensajeIgnorado.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -186,7 +186,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             desde = desde < limite ? limite : desde;
             hasta = hasta < limite ? limite : hasta;
             
-            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetPositionsBetweenDates] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta;")
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetPositionsBetweenDates_2] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
                               .SetDateTime("desde", desde)
@@ -213,7 +213,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             from = from < limite ? limite : from;
             to = to < limite ? limite : to;
 
-            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetRegenerationStartDate] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta, @recepcionDesde = :recepcionDesde, @recepcionHasta = :recepcionHasta;")
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetRegenerationStartDate_2] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta, @recepcionDesde = :recepcionDesde, @recepcionHasta = :recepcionHasta;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
                               .SetDateTime("desde", refference)
@@ -236,7 +236,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             var desde = from < limite ? limite : from;
             var hasta = to < limite ? limite : to;
 
-            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetRegenerationEndDate] @vehicleId = :vehicleId, @desde = :desde, @recepcionDesde = :recepcionDesde, @recepcionHasta = :recepcionHasta;")
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetRegenerationEndDate_2] @vehicleId = :vehicleId, @desde = :desde, @recepcionDesde = :recepcionDesde, @recepcionHasta = :recepcionHasta;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
                               .SetDateTime("desde", desde)
@@ -258,7 +258,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             var limite = DateTime.UtcNow.AddMonths(-maxMonths);
             date = date < limite ? limite : date;
 
-            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetFirstPositionOlderThanDate] @vehicleId = :vehicleId, @date = :date;")
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetFirstPositionOlderThanDate_2] @vehicleId = :vehicleId, @date = :date;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
                               .SetDateTime("date", date);
@@ -274,7 +274,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             var limite = DateTime.UtcNow.AddMonths(-maxMonths);
             date = date < limite ? limite : date;
             
-            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetFirstPositionNewerThanDate] @vehicleId = :vehicleId, @date = :date;")
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetFirstPositionNewerThanDate_2] @vehicleId = :vehicleId, @date = :date;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
                               .SetDateTime("date", date);

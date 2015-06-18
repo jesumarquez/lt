@@ -51,20 +51,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
-            var desde = StartDate;
-            var hasta = EndDate;
             var regenera = Regenera;
-            var empresas = Empresas;
 
-            STrace.Trace(GetType().FullName, string.Format("Procesando viajes. Desde: {0} - Hasta: {1} - Regenera: {2} - Empresas: {3}", desde, hasta, regenera, empresas));
+            STrace.Trace(GetType().FullName, string.Format("Procesando viajes. Desde: {0} - Hasta: {1} - Regenera: {2} - Empresas: {3}", StartDate, EndDate, regenera, Empresas));
 
             var inicio = DateTime.UtcNow;
 
             try
             {
-                var viajes = DaoFactory.ViajeDistribucionDAO.GetListForDatamart(empresas, desde, hasta)
-                                                            .Where(v => v.InicioReal.HasValue)
-                                                            .ToList();
+                var viajes = GetViajes();
                 var viajesPendientes = viajes.Count;
                 STrace.Trace(GetType().FullName, string.Format("Viajes a procesar: {0}", viajesPendientes));
 
@@ -125,6 +120,16 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             {
                 ClearData();
             }
+        }
+
+        private IList<ViajeDistribucion> GetViajes()
+        {
+            var ids = GetListOfInt("Ids");
+            if (ids != null && ids.Count > 0)
+                return DaoFactory.ViajeDistribucionDAO.FindByIds(ids).Where(v => v.InicioReal.HasValue).ToList();
+
+            return DaoFactory.ViajeDistribucionDAO.GetListForDatamart(Empresas, StartDate, EndDate)
+                                                  .Where(v => v.InicioReal.HasValue).ToList();
         }
 
         private void ProcesarViaje(int idViaje, bool regenera)

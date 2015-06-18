@@ -66,8 +66,7 @@ namespace Logictracker.Process.Geofences
                 //var viajeActivo = daoFactory.ViajeDistribucionDAO.FindEnCurso(vehiculo);
                 //if (viajeActivo != null)
                 //{
-                //    var idsEntregas = daoFactory.EntregaDistribucionDAO.GetReferenciasGeograficasIds(viajeActivo);
-
+                //    var idsEntregas = viajeActivo.Detalles.Select(d => d.ReferenciaGeografica.Id);
                 //    var faltantes = idsEntregas.Where(id => !idGeocercas.Contains(id));
 
                 //    if (faltantes.Any())
@@ -82,6 +81,8 @@ namespace Logictracker.Process.Geofences
                 //            catch { }
                 //        }
                 //    }
+                //    geocercas = geocercas.Where(g => idsEntregas.Contains(g.Id)).ToList();
+                //    STrace.Debug("GeocercasEnViaje", vehiculo.Dispositivo.Id, String.Format("Geocercas Totales: {0} - Entregas: {0}", geocercas.Count, idsEntregas.Count()));
                 //}
                 //if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/idGeocercas.Union ({0} secs)", t.getTimeElapsed().TotalSeconds));
 

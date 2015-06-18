@@ -547,7 +547,7 @@ namespace Logictracker.Parametrizacion
             {
                 if (ddlPlantaVehiculos.Selected <= 0) ThrowMustEnter("PARENTI02");
 
-                if(ddlTipoVehiculo.Selected <= 0) ThrowMustEnter("PARENTI17");
+                if (ddlTipoVehiculo.Selected <= 0) ThrowMustEnter("PARENTI17");
 
 
                 fileName = string.Concat(Server.MapPath(TmpDir), DateTime.Now.ToString("yyyyMMdd-HHmmss"), ".xls");

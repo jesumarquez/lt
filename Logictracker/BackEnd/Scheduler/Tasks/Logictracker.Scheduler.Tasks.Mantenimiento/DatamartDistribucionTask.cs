@@ -53,18 +53,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
-            var desde = StartDate;
-            var hasta = EndDate;
             var regenera = Regenera;
-            var empresas = Empresas;
 
-            STrace.Trace(GetType().FullName, string.Format("Procesando distribuciones. Desde: {0} - Hasta: {1} - Regenera: {2} - Empresas: {3}", desde, hasta, regenera, empresas));
+            STrace.Trace(GetType().FullName, string.Format("Procesando distribuciones. Desde: {0} - Hasta: {1} - Regenera: {2} - Empresas: {3}", StartDate, EndDate, regenera, Empresas));
 
             var inicio = DateTime.UtcNow;
 
             try
             {
-                var distribuciones = DaoFactory.ViajeDistribucionDAO.GetListForDatamart(empresas, desde, hasta);
+                var distribuciones = GetDistribuciones();
                 var distribucionesPendientes = distribuciones.Count;
                 STrace.Trace(GetType().FullName, string.Format("Distribuciones a procesar: {0}", distribucionesPendientes));
 
@@ -125,6 +122,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             {
                 ClearData();
             }
+        }
+
+        private IList<ViajeDistribucion> GetDistribuciones()
+        {
+            var ids = GetListOfInt("Ids");
+            if (ids != null && ids.Count > 0)
+                return DaoFactory.ViajeDistribucionDAO.FindByIds(ids);
+            
+            return DaoFactory.ViajeDistribucionDAO.GetListForDatamart(Empresas, StartDate, EndDate);
         }
 
         private void ProcesarDistribucion(int idDistribucion, bool regenera)

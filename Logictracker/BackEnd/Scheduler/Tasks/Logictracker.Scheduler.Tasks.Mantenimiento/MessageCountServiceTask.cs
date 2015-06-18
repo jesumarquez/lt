@@ -11,6 +11,23 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 {
     public class MessageCountServiceTask : BaseTask
     {
+        private DateTime StartDate
+        {
+            get
+            {
+                var startDate = GetDateTime("Desde");
+                return startDate.HasValue ? startDate.Value : DateTime.Today.AddDays(-1).AddHours(3);
+            }
+        }
+        private DateTime EndDate
+        {
+            get
+            {
+                var endDate = GetDateTime("Hasta");
+                return endDate.HasValue ? endDate.Value : StartDate.AddHours(24);
+            }
+        }
+
         protected override void OnExecute(Timer timer)
         {
             STrace.Trace(GetType().FullName, "Iniciando MessageCount...");
@@ -22,8 +39,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             var te = new TimeElapsed();
 
-            var desde = DateTime.UtcNow.Date.AddDays(-1).AddHours(3);
-            var hasta = DateTime.UtcNow.Date.AddHours(3);
+            var desde = StartDate;
+            var hasta = EndDate;
 
             try
             {
@@ -52,7 +69,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                      vehiculo.Empresa != null ? vehiculo.Empresa.RazonSocial : string.Empty,
                                      vehiculo.Linea != null ? vehiculo.Linea.Descripcion : string.Empty,
                                      vehiculo.Interno,
-                                     vehiculo.Patente,
+                                     vehiculo.Patente + " - (Id Dispositivo: " + vehiculo.Dispositivo.Id + ")",
                                      desde.ToString("dd/MM/yyyy HH:mm"),
                                      hasta.ToString("dd/MM/yyyy HH:mm"),
                                      total.ToString("#0") + " - (Mensajes Admin: " + msgsAdmin.ToString("#0") + ")"

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.MensajeIgnorado,Logictracker.Types" table="aux04" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_aux04" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti08" name="Dispositivo" lazy="proxy" />
+    <property column="aux04_codigo" name="Codigo" />
+    
+  </class>
+</hibernate-mapping>

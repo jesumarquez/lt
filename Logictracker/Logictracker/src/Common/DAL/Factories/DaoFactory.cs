@@ -178,6 +178,9 @@ namespace Logictracker.DAL.Factories
         private EvenDistriDAO _evenDistriDAO;
         public EvenDistriDAO EvenDistriDAO { get { return _evenDistriDAO ?? (_evenDistriDAO = GetDao<EvenDistriDAO>()); } }
 
+        private MensajeIgnoradoDAO _mensajeIgnoradoDAO;
+        public MensajeIgnoradoDAO MensajeIgnoradoDAO { get { return _mensajeIgnoradoDAO ?? (_mensajeIgnoradoDAO = GetDao<MensajeIgnoradoDAO>()); } }
+
         #endregion
 
         #region Entidades
