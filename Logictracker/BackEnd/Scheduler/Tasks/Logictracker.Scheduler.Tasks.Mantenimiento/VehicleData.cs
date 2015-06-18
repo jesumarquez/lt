@@ -1,4 +1,5 @@
 ﻿using System;
+using Logictracker.DAL.DAO.BusinessObjects;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
@@ -39,8 +40,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     //lastMonth = lastMonth < historicStart ? historicStart : lastMonth;
                     var monthStart = new DateTime(lastMonth.Year, lastMonth.Month, 1);
                     var monthEnd = new DateTime(today.Year, today.Month, 1);
-                    var monthDm = DaoFactory.DatamartDAO.GetSummarizedDatamart(monthStart, monthEnd, vehicle.Id);
-                    
+                    var monthDm = new DatamartDAO.SummarizedDatamart();
+
                     //var yearStart = monthEnd.AddYears(-1);
                     //yearStart = yearStart < historicStart ? historicStart : yearStart;
                     //var yearEnd = monthEnd;
@@ -60,6 +61,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                         case "caudalimetro":
                             if (vehicle.Modelo != null && vehicle.Modelo.Insumo != null && vehicle.Modelo.Insumo.ValorReferencia > 0.0)
                             {
+                                monthDm = DaoFactory.DatamartDAO.GetSummarizedDatamart(monthStart, monthEnd, vehicle.Id);
                                 monthCost = monthDm.Consumo * vehicle.Modelo.Insumo.ValorReferencia;
                                 //yearCost = yearDm.Consumo * vehicle.Modelo.Insumo.ValorReferencia;
                                 //historicCost = historicDm.Consumo * vehicle.Modelo.Insumo.ValorReferencia;
@@ -68,6 +70,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                         default:
                             if (vehicle.Modelo != null && (vehicle.Modelo.Rendimiento > 0.0 || vehicle.Modelo.RendimientoRalenti > 0.0) && vehicle.Modelo.Insumo != null && vehicle.Modelo.Insumo.ValorReferencia > 0.0)
                             {
+                                monthDm = DaoFactory.DatamartDAO.GetSummarizedDatamart(monthStart, monthEnd, vehicle.Id);
                                 var hsRalentiMonth = monthDm.HsMarcha - monthDm.HsMovimiento;
                                 if (hsRalentiMonth < 0) hsRalentiMonth = 0.00;
                                 //var hsRalentiYear = yearDm.HsMarcha - yearDm.HsMovimiento;
