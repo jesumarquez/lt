@@ -125,7 +125,7 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
 
         // Cuando se cambia el dispositivo 
         // se guarda el valor viejo para poder actualizar la cache
-        public virtual Dispositivo OldDispositivo { get;  set; }
+        public virtual Dispositivo OldDispositivo { get; set; }
 
         private Dispositivo _dispositivo;
         public virtual Dispositivo Dispositivo

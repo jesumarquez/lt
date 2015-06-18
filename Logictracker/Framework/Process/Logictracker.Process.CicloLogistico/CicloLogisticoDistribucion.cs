@@ -646,7 +646,7 @@ namespace Logictracker.Process.CicloLogistico
                 STrace.Error(typeof(CicloLogisticoDistribucion).FullName, 0, "data NULL");
 
             STrace.Debug(GetType().FullName, Distribucion.Vehiculo.Dispositivo.Id,
-                         string.Format("Procesando evento Garmin. Ticket={0} Vehiculo={1} Id={2} Estado={3} Fecha={4}",
+                         string.Format("Procesando evento Mobile. Ticket={0} Vehiculo={1} Id={2} Estado={3} Fecha={4}",
                                        Distribucion.Id, Distribucion.Vehiculo.Id, data.DetailId, data.Estado,
                                        data.Date.ToString("dd/MM/yyyy HH:mm:ss")));
 
