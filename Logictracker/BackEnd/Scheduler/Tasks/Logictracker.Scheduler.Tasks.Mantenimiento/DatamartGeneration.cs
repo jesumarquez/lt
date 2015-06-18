@@ -153,11 +153,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         #region Private Methods
 
-		/// <summary>
-        /// Process the specified vehicle.
-        /// </summary>
-        /// <param name="coche"></param>
-        /// <param name="today"></param>
         private void ProcessVehicle(Coche coche, DateTime today)
         {
             var lastUpdate = GetStartDate(coche.Id);
@@ -179,12 +174,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 			STrace.Trace(GetType().FullName, String.Format("Vehicles to process: {0}", --VehiclesToProcess));
         }
 
-        /// <summary>
-        /// Process the current periods of the specified vehicle.
-        /// </summary>
-        /// <param name="lastUpdate"></param>
-        /// <param name="vehicle"></param>
-        /// <param name="today"></param>
         private void ProcessCurrentPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
@@ -199,12 +188,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             }
         }
 
-        /// <summary>
-        /// Regenerates old period for the specified vehicle.
-        /// </summary>
-        /// <param name="lastUpdate"></param>
-        /// <param name="vehicle"></param>
-        /// <param name="today"></param>
         private void RegenerateOldPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
@@ -221,13 +204,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             }
         }
 
-        /// <summary>
-        /// Gets the days that need to be regenerated for the current vehicle.
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <param name="lastUpdate"></param>
-        /// <param name="today"></param>
-        /// <returns></returns>
         private List<RegenerateDatamart> GetDaysToRegenerate(Coche vehicle, DateTime lastUpdate, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
@@ -240,16 +216,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             return regenerate;
         }
 
-        /// <summary>
-        /// Gets the last datamart update for the current vehicle.
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <returns></returns>
         private DateTime GetLastDatamartUpdate(int vehicle) { return DaoFactory.DatamartDAO.GetLastDatamartUpdate(vehicle); }
 
-        /// <summary>
-        /// Deletes old datamart records.
-        /// </summary>
         private void DeleteOldDatamartRecords()
         {
             var oneYearAgo = DateTime.UtcNow.AddYears(-1);
@@ -259,12 +227,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             DaoFactory.DatamartDAO.DeleteOldDatamartRecords(oneYearAgo);
         }
 
-        /// <summary>
-        /// Process the specified period for the givenn vehicle.
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
         private void ProcessPeriod(Coche vehicle, DateTime from, DateTime to)
         {
             using (var transaction = SmartTransaction.BeginTransaction(IsolationLevel.ReadUncommitted))
