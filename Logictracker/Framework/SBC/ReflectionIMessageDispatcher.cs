@@ -12,6 +12,7 @@ using Logictracker.Description.Runtime;
 using Logictracker.Model;
 using Logictracker.Model.EnumTypes;
 using Logictracker.Model.Utils;
+using System.Collections.Concurrent;
 
 #endregion
 
@@ -130,13 +131,15 @@ namespace Logictracker.Layers
 				_rwls.EnterWriteLock();
 				try
 				{
-					var handlers = Elements()
-						.Where(i => i.GenericType != null && i.GenericType == mtype)
+                    var pre =  Elements();
+                    var pre2 = pre
+                        .Where(i => i.GenericType != null && i.GenericType == mtype);
+					var handlers =pre2
 						.Where(hh => HandlesThisMessageType(hh.GetType(), mtype))
 						.Select(handler => BuildDelegate(handler, mtype, FeDHandler))
 						.ToArray();
 
-					DHandlers.Add(mtypename, handlers);
+					DHandlers.AddOrUpdate(mtypename, handlers,(k,v)=>v);
 					return handlers;
 				}
 				finally
@@ -153,8 +156,8 @@ namespace Logictracker.Layers
 		/// <summary>
 		/// Lamba que llama a la funcion "HandleMessage" para todos los "IMessageHandler" que manejan un tipo de mensaje que es la clave del diccionario
 		/// </summary>
-		private Dictionary<String, MHandler<IMessage>[]> _dhandlers;
-    	private Dictionary<String, MHandler<IMessage>[]> DHandlers { get { return _dhandlers ?? (_dhandlers = new Dictionary<String, MHandler<IMessage>[]>()); } }
+		private ConcurrentDictionary<String, MHandler<IMessage>[]> _dhandlers;
+        private ConcurrentDictionary<String, MHandler<IMessage>[]> DHandlers { get { return _dhandlers ?? (_dhandlers = new ConcurrentDictionary<String, MHandler<IMessage>[]>()); } }
 
 		/// <summary>
 		/// Tabla de correspondencia entre FrameworkElement - MHandler, utilizando como key el atributo xml string x:Key y como value el delegate

@@ -98,10 +98,6 @@ Copyright (C) Microsoft Corporation. All rights reserved.
       <Project>{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}</Project>
       <Name>Logictracker.ExpressionEvaluator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Framework\External Libs\NHibernate.Glimpse\NHibernate.Glimpse.csproj">
-      <Project>{588C88A1-ADFD-4501-B42F-6977D932CCDD}</Project>
-      <Name>NHibernate.Glimpse</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\External Libs\Quartz\Quartz.2008.csproj">
       <Project>{AEF8823B-E45B-4B35-A4D0-C08C1196D017}</Project>
       <Name>Quartz.2008</Name>

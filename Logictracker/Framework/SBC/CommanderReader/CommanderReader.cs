@@ -214,7 +214,8 @@ namespace Logictracker.Layers.CommanderReader
 
                         if (_tree.ReadBodyStream)
                         {
-                            if (_tree.MessageQueue.Handler.Formatter is XmlMessageFormatter)
+                            if (_tree.MessageQueue.Formatter == "XmlMessageFormatter")
+                            //if (_tree.MessageQueue.Handler.Formatter is XmlMessageFormatter)
                             {
                                 textCommand = HttpUtility.UrlDecode((String) cmd.Body);
                             }

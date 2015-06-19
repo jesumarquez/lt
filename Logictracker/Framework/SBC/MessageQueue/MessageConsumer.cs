@@ -1,7 +1,6 @@
 #region Usings
 
 using System;
-using System.Messaging;
 using System.Threading;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Description.Attributes;
@@ -15,7 +14,7 @@ using Logictracker.Utils;
 namespace Logictracker.Layers.MessageQueue
 {
     [FrameworkElement(XName = "MessageConsumer", IsContainer = false)]
-    public class MessageConsumer : FrameworkElement, ILayer
+    public class MessageConsumer : FrameworkElement, ILayer 
 	{
 		#region Attributes
 
@@ -46,15 +45,15 @@ namespace Logictracker.Layers.MessageQueue
 
 		[ElementAttribute(XName = "SleepTime", DefaultValue = 100, IsRequired = false)]
 		public int SleepTime { get; set; }
+
+
 		
 		#endregion
 
 		#region Properties
 
 		private IDispatcherLayer DispatcherLayer;
-        private System.Messaging.MessageQueue Queue { get { return MessageQueue.Handler; } }
-        private System.Messaging.MessageQueue DeadQueue { get { return DeadMessageQueue == null ? null : DeadMessageQueue.Handler; } }
-
+     
  		#endregion
 
 		#region ILayer
@@ -64,27 +63,28 @@ namespace Logictracker.Layers.MessageQueue
 			if (MessageQueue.Transactional)
 			{
 			    STrace.Debug("DispatcherLock", "Queue.BeginPeek");
-				Queue.BeginPeek(AsyncTimeout, null, MessagePeeked);
+				//Queue.BeginPeek(AsyncTimeout, null, MessagePeeked);
+                MessageQueue.BeginPeek(AsyncTimeout, null, MessagePeeked);
 			}
 			else
 			{
                 STrace.Debug("DispatcherLock", "Queue.BeginReceive");
-				Queue.BeginReceive(AsyncTimeout, null, MessageReceived);
+				MessageQueue.BeginReceive(AsyncTimeout, null, MessageReceived);
 			}
 			return true;
 		}
 
 		public bool ServiceStop()
 		{
-			if (Queue != null)
+            if (MessageQueue != null)
 			{
-				Queue.Close();
-				Queue.Dispose();
+                MessageQueue.Close();
+                MessageQueue.Dispose();
 			}
-			if (DeadQueue != null)
+            if (DeadMessageQueue != null)
 			{
-				DeadQueue.Close();
-				DeadQueue.Dispose();
+				DeadMessageQueue.Close();
+                DeadMessageQueue.Dispose();
 			}
 			return true;
 		}
@@ -111,17 +111,17 @@ namespace Logictracker.Layers.MessageQueue
 	        try
 	        {
 	            var t = new TimeElapsed();
-	            Queue.EndPeek(ar);
+	            MessageQueue.EndPeek(ar);
 	            var ts = t.getTimeElapsed().TotalSeconds;
                 if (ts > 1) STrace.Debug("DispatcherLock", "Queue.EndPeek: " + ts);
 	            //transaction.Begin();
 	            // Create a transaction.
 	            //var msg = Queue.Receive(transaction);                
-	            Message msg = null;
+	            System.Messaging.Message msg = null;
                 lock (peekLock)
 	            {
                     t.Restart();
-	                msg = Queue.Receive(MessageQueueTransactionType.None);
+                    msg = MessageQueue.Receive(System.Messaging.MessageQueueTransactionType.None);
 	                ts = t.getTimeElapsed().TotalSeconds;
                     if (ts > 1) STrace.Debug("DispatcherLock", String.Format("Queue.Receive: {0}", ts));
 	            }
@@ -135,8 +135,8 @@ namespace Logictracker.Layers.MessageQueue
 	            if (payload == null)
 	            {
 	                STrace.Debug(GetType().FullName, String.Format("MessageConsumer: IMessage no castea. Body.ToString='{0}'", msg.Body));
-	                if (DeadQueue != null)
-	                    DeadQueue.Send(msg);
+                    if (DeadMessageQueue != null)
+                        DeadMessageQueue.Send(msg);
 
 	                //transaction.Commit();
 	                return;
@@ -146,8 +146,8 @@ namespace Logictracker.Layers.MessageQueue
 	                //if (AbortOnFailure)
 	                    //transaction.Abort();
 	                //else 
-                    if (DeadQueue != null)
-	                    DeadQueue.Send(msg);
+                    if (DeadMessageQueue != null)
+                        DeadMessageQueue.Send(msg);
 
 	                return;
 	            }
@@ -155,9 +155,9 @@ namespace Logictracker.Layers.MessageQueue
 	            //transaction.Commit();
 	            //if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", "transaction.Commit: " + t.getTimeElapsed().TotalSeconds);
 	        }
-	        catch (MessageQueueException e)
+	        catch (System.Messaging.MessageQueueException e)
 	        {
-	            if (e.MessageQueueErrorCode != MessageQueueErrorCode.IOTimeout)
+	            if (e.MessageQueueErrorCode != System.Messaging.MessageQueueErrorCode.IOTimeout)
 	            {
                     //if (transaction != null)
                     //{
@@ -182,53 +182,44 @@ namespace Logictracker.Layers.MessageQueue
 	        }
 	        finally
 	        {
-	            if (!CountMore(Queue, MinMessagesToSleep))
+                if (!CountMore(MessageQueue, MinMessagesToSleep))
 	            {
 	                //STrace.Debug(GetType().FullName, "Sleep");
 	                Thread.Sleep(SleepTime);
 	            }
-	            if (Queue != null)
-	                Queue.BeginPeek(AsyncTimeout, null, MessagePeeked);
+                if (MessageQueue != null)
+                    MessageQueue.BeginPeek(AsyncTimeout, null, MessagePeeked);
 	        }
 	    }
 
-		private static bool CountMore(System.Messaging.MessageQueue queue, int top)
-		{
-			try
-			{
-				var cnt = 0;
-				var enumerator = queue.GetMessageEnumerator2();
-				while (enumerator.MoveNext() && cnt <= top) cnt++;
-				return cnt > top;
-			}
-			catch (MessageQueueException)
-			{
-				return false;
-			}
-		}
+        private bool CountMore(IMessageQueue messageQueue, int minMessagesToSleep)
+        {
+            return messageQueue.CountMore(minMessagesToSleep);
+        }
 
+		
 		private void MessageReceived(IAsyncResult ar)
 		{
 		    var t = new TimeElapsed();
 
 			try
 			{
-				var msg = Queue.EndReceive(ar);
+                var msg = MessageQueue.EndReceive(ar);
 				var payload = (IMessage)msg.Body;
 				if (payload == null)
 				{
 					STrace.Debug(GetType().FullName, String.Format("MessageConsumer: IMessage no castea. Body.ToString='{0}'", msg.Body));
-					if (DeadQueue != null)
-						DeadQueue.Send(msg);
+                    if (DeadMessageQueue != null)
+                        DeadMessageQueue.Send(msg);
 					return;
 				}
 				if (DispatcherLayer.Dispatch(payload).Action == ReplyAction.None) return;
-				if (DeadQueue != null)
-					DeadQueue.Send(msg);
+                if (DeadMessageQueue != null)
+                    DeadMessageQueue.Send(msg);
 			}
-			catch (MessageQueueException e)
+			catch (System.Messaging.MessageQueueException e)
 			{
-				if (e.MessageQueueErrorCode != MessageQueueErrorCode.IOTimeout)
+				if (e.MessageQueueErrorCode != System.Messaging.MessageQueueErrorCode.IOTimeout)
 				{
 					STrace.Exception(GetType().FullName, e);
 				}
@@ -239,13 +230,13 @@ namespace Logictracker.Layers.MessageQueue
 			}
 			finally
 			{
-				if (!CountMore(Queue, MinMessagesToSleep))
+                if (!CountMore(MessageQueue, MinMessagesToSleep))
 				{
 					//STrace.Debug(GetType().FullName, "Sleep");
 					Thread.Sleep(SleepTime);
 				}
-				if (Queue != null)
-					Queue.BeginReceive(AsyncTimeout, null, MessageReceived);
+				if (MessageQueue != null)
+                    MessageQueue.BeginReceive(AsyncTimeout, null, MessageReceived);
 
 			    var ts = t.getTimeElapsed().TotalSeconds;
                 if (ts > 1) STrace.Debug("DispatcherLock", "MessageReceived: " + ts);
@@ -253,5 +244,10 @@ namespace Logictracker.Layers.MessageQueue
 		}
 
 		#endregion
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace HandlerTest.Controls
             var item = cbEntregas.SelectedItem as EntregaDistribucion;
             var evt = Sender.CreateGenericEvent(messageIdentifier, TestApp.Dispositivo, DateTime.UtcNow, new Int64[] { item.Id });
 
-            Sender.Enqueue(TestApp.Config.Queue, evt);
+            Sender.Enqueue(TestApp.Config.Queue, evt, TestApp.Config.QueueType);
         }
 
         private void chkMostrarEnMapa_CheckedChanged(object sender, EventArgs e)

@@ -121,7 +121,7 @@ namespace HandlerTest.Controls
         private void button1_Click(object sender, EventArgs e)
         {
             var position = Sender.CreatePosition(TestApp.Dispositivo, DateTime.UtcNow, Latitud, Longitud, Velocidad);
-            Sender.Enqueue(TestApp.Config.Queue, position);
+            Sender.Enqueue(TestApp.Config.Queue, position, TestApp.Config.QueueType);
         }
 
         private void lnkUltima_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

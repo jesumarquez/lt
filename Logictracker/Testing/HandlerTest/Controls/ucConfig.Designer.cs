@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txtQueueName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtQueueType = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -43,16 +45,35 @@
             // 
             // txtQueueName
             // 
-            this.txtQueueName.Location = new System.Drawing.Point(77, 22);
+            this.txtQueueName.Location = new System.Drawing.Point(89, 22);
             this.txtQueueName.Name = "txtQueueName";
             this.txtQueueName.Size = new System.Drawing.Size(298, 20);
             this.txtQueueName.TabIndex = 15;
             this.txtQueueName.Text = ".\\private$\\eventos_trax";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 51);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Queue Type";
+            // 
+            // txtQueueType
+            // 
+            this.txtQueueType.Location = new System.Drawing.Point(89, 48);
+            this.txtQueueType.Name = "txtQueueType";
+            this.txtQueueType.Size = new System.Drawing.Size(298, 20);
+            this.txtQueueType.TabIndex = 17;
+            this.txtQueueType.Text = "msmq";
+            // 
             // ucConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtQueueType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtQueueName);
             this.Name = "ucConfig";
@@ -66,5 +87,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtQueueName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtQueueType;
     }
 }

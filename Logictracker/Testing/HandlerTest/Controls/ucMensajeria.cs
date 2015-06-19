@@ -52,7 +52,7 @@ namespace HandlerTest.Controls
 
             var evt = new SpeedingTicket(TestApp.Dispositivo.Id, 0, point1, point2, Math.Max(inicio.Velocidad, fin.Velocidad), limit, null);
 
-            Sender.Enqueue(TestApp.Config.Queue, evt);
+            Sender.Enqueue(TestApp.Config.Queue, evt, TestApp.Config.QueueType);
             btCancelarExceso_Click(sender, e);
         }
 
@@ -76,7 +76,7 @@ namespace HandlerTest.Controls
             var device = TestApp.Dispositivo;
             var mi = (MessageIdentifier) Enum.ToObject(typeof (MessageIdentifier), codigo);
             var evt = mi.FactoryEvent(device.Id, 0, point, now, null, new Int64[0]);
-            Sender.Enqueue(TestApp.Config.Queue, evt);
+            Sender.Enqueue(TestApp.Config.Queue, evt, TestApp.Config.QueueType);
         }
 
         

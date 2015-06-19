@@ -146,7 +146,7 @@ namespace HandlerTest.Controls
             var longitud = lastPosition.Longitud + dLongitud;
 
             var position = Sender.CreatePosition(coche.Dispositivo, DateTime.UtcNow, latitud, longitud, velocidad);
-            Sender.Enqueue(TestApp.Config.Queue, position);
+            Sender.Enqueue(TestApp.Config.Queue, position, TestApp.Config.QueueType);
         }
     }
 }

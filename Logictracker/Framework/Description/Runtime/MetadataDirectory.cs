@@ -46,7 +46,7 @@ namespace Logictracker.Description.Runtime
 		    LoadAssemblies(target);
 		    foreach (var element in Elements)
 		    {
-                STrace.Debug(typeof(ApplicationLoader).FullName, String.Format("Loading Assembly {0}...", element.XName));
+                //STrace.Debug(typeof(ApplicationLoader).FullName, String.Format("Loading Assembly {0}...", element.XName));
 			    element.LoadTypeMembers();
 		    }
 	    }
@@ -119,58 +119,70 @@ namespace Logictracker.Description.Runtime
             STrace.Debug(typeof(ApplicationLoader).FullName, "Getting DLL filenames...");
 		    var files = Directory.GetFiles(path, "Logictracker*.dll");
             STrace.Debug(typeof(ApplicationLoader).FullName, String.Format("{0} DLL found...", files.Count()));
+            var asms = new List<Assembly>();
 		    foreach (var file in files)
 		    {
 			    try
 			    {
-                    STrace.Debug(typeof(ApplicationLoader).FullName, String.Format("Assembly.LoadFrom({0}...", file));
+                    //STrace.Debug(typeof(ApplicationLoader).FullName, String.Format("Assembly.LoadFrom({0}...", file));
 				    var a = Assembly.LoadFrom(file);
-                    STrace.Debug(typeof(ApplicationLoader).FullName, String.Format("PreLoadAssembly({0}...", file));
-				    LoadAssembly(a);
-			    }
+                    asms.Add(a);
+ 			    }
 			    catch (BadImageFormatException)
 			    {
 				    STrace.Error(typeof (MetadataDirectory).FullName, String.Format("Could not load assembly: {0}", file));
 			    }
 		    }
+
+            foreach (var a in asms)
+            {
+                try
+                {
+                     LoadAssembly(a);
+                }
+                catch (BadImageFormatException)
+                {
+                    STrace.Error(typeof(MetadataDirectory).FullName, String.Format("Could not load assembly: {0}", a));
+                }
+            }
 	    }
 
 	    private static void LoadAssembly(Assembly assembly)
 	    {
 		    try
 		    {
-			    STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0}", assembly.FullName));
+                STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0}", assembly.FullName));
                 var tps = assembly.GetTypes();
-                STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 0));
+                //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 0));
 			    foreach (var type in tps)
 			    {
-                    STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 1));
+                    //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 1));
 				    var frameworkElementAttribute = Attribute.GetCustomAttribute(type, typeof (FrameworkElementAttribute)) as FrameworkElementAttribute;
 
-                    STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 2));
+                    //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 2));
 				    if (frameworkElementAttribute != null)
 				    {
-                        STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 3));
+                        //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 3));
 					    var elementMetadata = new ElementMetadata(frameworkElementAttribute, type);
 
 					    if (Elements.Exists(element => element.XName == frameworkElementAttribute.XName && element.XNamespace == frameworkElementAttribute.XNamespace))
 						    throw new ElementException(ElementErrorCodes.UnspecifiedException, elementMetadata.XName);
 
-                        STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 4));
+                        //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 4));
 					    //STrace.Debug(typeof(MetadataDirectory).FullName, "Loaded tag - {0} (namespace: {1})", frameworkElementAttribute.XName, frameworkElementAttribute.XNamespace);
 					    Elements.Add(elementMetadata);
 				    }
 
-                    STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 5));
+                    //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 5));
 				    var customMarkupExtensionAttribute = Attribute.GetCustomAttribute(type, typeof (CustomMarkupExtensionAttribute)) as CustomMarkupExtensionAttribute;
 
 				    if (customMarkupExtensionAttribute == null) continue;
 				    var constructor = type.GetConstructor(Type.EmptyTypes);
 				    var customMarkupExtension = constructor.Invoke(null) as ICustomMarkupExtension;
-                    STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 6));
+                    //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 6));
 				    if (customMarkupExtension == null)
 					    throw new ElementException(ElementErrorCodes.UnableToCreateFrameworkElement, type.Name);
-                    STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 7));
+                    //STrace.Debug(typeof(MetadataDirectory).FullName, String.Format("Loading Assembly: {0} Part#{1}", assembly.FullName, 7));
 				    CustomMarkupExtensions.Add(customMarkupExtensionAttribute.Keyword, customMarkupExtension);
 			    }
 		    }
@@ -195,7 +207,7 @@ namespace Logictracker.Description.Runtime
 				    if (throwns == false) return null;
 				    throw new ElementException(ElementErrorCodes.GenericTypeAttributeExpected, xElement.Name.ToString());
 			    }
-			    var type = Type.GetType(xAttribute.Value);
+			    var type = Type.GetType(xAttribute.Value,true);
 			    if (type == null)
 			    {
 				    if (throwns == false) return null;

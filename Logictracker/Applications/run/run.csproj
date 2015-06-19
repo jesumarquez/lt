@@ -60,6 +60,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\App_Licenses.dll</HintPath>
     </Reference>
+    <Reference Include="Commons">
+      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Commons.dll</HintPath>
+    </Reference>
     <Reference Include="Geocoder.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Geocoder\bin\Debug\Geocoder.Core.dll</HintPath>
@@ -80,9 +83,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Memcached.ClientLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Caches.MemCache">
+      <HintPath>..\..\Resources\nhibernate-cache\4.0.3\NHibernate.Caches.MemCache.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -107,6 +125,7 @@
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -143,6 +162,7 @@
     </Content>
     <None Include="App.config">
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -250,6 +270,10 @@
       <Project>{CC8A4E06-EC41-4705-AA17-0649564F05BA}</Project>
       <Name>Logictracker.Messages.Sender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Messaging\Logictracker.Messaging.MsmqQueue\Logictracker.Messaging.MsmqQueue.csproj">
+      <Project>{779a3ce1-f018-4a35-8e33-18620b09b0a2}</Project>
+      <Name>Logictracker.Messaging.MsmqQueue</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Model\Logictracker.Model.csproj">
       <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
       <Name>Logictracker.Model</Name>
@@ -305,6 +329,10 @@
     <ProjectReference Include="..\..\Logictracker.Interfaces.LoJackApi\Logictracker.Interfaces.LoJackApi.csproj">
       <Project>{A4CBB9B0-1C0B-4112-B9EC-D7F2BF58397C}</Project>
       <Name>Logictracker.Interfaces.LoJackApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logictracker.Messaging.RabbitmqQueue\Logictracker.Messaging.RabbitmqQueue.csproj">
+      <Project>{e3be14d6-2bf7-4b97-96f5-026a96465337}</Project>
+      <Name>Logictracker.Messaging.RabbitmqQueue</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Logictracker.Novatec\Novatel.csproj">
       <Project>{27C99A0E-3146-4E44-ACDB-2E55528F608A}</Project>

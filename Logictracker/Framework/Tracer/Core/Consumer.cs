@@ -35,7 +35,7 @@ namespace Logictracker.DatabaseTracer.Core
         /// Max log retries to trace it to database.
         /// </summary>
         private static readonly Int32 MaxRetries = Config.Tracer.TracerMaxRetries;
-        
+
         #endregion
 
         #region Constructors
@@ -70,21 +70,24 @@ namespace Logictracker.DatabaseTracer.Core
         /// </summary>
         private static void Consume()
         {
-			while (true)
-			{
-				try
-				{
-					Semaphore.WaitOne();
-					Tracer(Queue.Dequeue());
-				}
-				catch (ThreadAbortException)
-				{
-					return;
-				}
-				catch
-				{
-				}
-			}
+            while (true)
+            {
+                try
+                {
+                    using (ISession session = NHibernateHelper.GetSession())
+                    {
+                        Semaphore.WaitOne();
+                        Tracer(Queue.Dequeue(),session);
+                    }
+                }
+                catch (ThreadAbortException)
+                {
+                    return;
+                }
+                catch
+                {
+                }
+            }
         }
 
         /// <summary>
@@ -99,31 +102,57 @@ namespace Logictracker.DatabaseTracer.Core
 
                 using (ISession session = NHibernateHelper.GetSession())
                 {
-                    using (ITransaction tx = session.BeginTransaction())
-                    {
-                        try
-                        {
-                            session.Evict(log);
-                            log.Id = 0;
-                            foreach (var c in log.Context)
-                            {
-                                session.Evict(c);
-                                c.Id = 0;
-                                c.Log = log;
-                            }
-                            session.Save(log);
-                            tx.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            tx.Rollback();
-                            throw ex;
-                        }
-
-                    }
+                    Tracer(log, session);
                     session.Flush();
                     session.Close();
                 }
+                //ses.Flush();
+            }
+            catch (ThreadAbortException)
+            {
+                return;
+            }
+            catch
+            {
+                ReEnqueue(log);
+            }
+            //finally
+            //{
+            //    Semaphore.Release();
+            //}
+        }
+
+        private static void Tracer(Log log, ISession session)
+        {
+            try
+            {
+                if (log == null) return;
+
+
+                using (ITransaction tx = session.BeginTransaction())
+                {
+                    try
+                    {
+                        session.Evict(log);
+                        log.Id = 0;
+                        foreach (var c in log.Context)
+                        {
+                            session.Evict(c);
+                            c.Id = 0;
+                            c.Log = log;
+                        }
+                        session.Save(log);
+                        tx.Commit();
+                        session.Evict(log);
+                    }
+                    catch (Exception ex)
+                    {
+                        tx.Rollback();
+                        throw ex;
+                    }
+
+                }
+                session.Flush();
                 //ses.Flush();
             }
             catch (ThreadAbortException)
@@ -159,7 +188,7 @@ namespace Logictracker.DatabaseTracer.Core
                                         Vehicle = log.Vehicle
                                     };
 
-            foreach (var logContext in log.Context.Select(context => new LogContext {Key = context.Key, Log = duplicatedLog, Value = context.Value}))
+            foreach (var logContext in log.Context.Select(context => new LogContext { Key = context.Key, Log = duplicatedLog, Value = context.Value }))
                 duplicatedLog.Context.Add(logContext);
 
             return duplicatedLog;
@@ -169,9 +198,9 @@ namespace Logictracker.DatabaseTracer.Core
         /// Tries to re enqueue the log.
         /// </summary>
         /// <param name="log"></param>
-		private static void ReEnqueue(Log log)
+        private static void ReEnqueue(Log log)
         {
-            Thread.Sleep(ErrorInterval);           
+            Thread.Sleep(ErrorInterval);
 
             log.Retries++;
 

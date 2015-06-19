@@ -30,20 +30,20 @@ namespace HandlerTest.Classes
             return messageIdentifier.FactoryEvent(MessageIdentifier.GenericMessage, dispositivo.Id, 0, null, date, null, extraData);
         }
 
-        public static void Enqueue(string queue, object message)
+        public static void Enqueue(string queue, object message , string queueType)
         {
             try
             {
                 if (message == null) return;
 
-                var umq = new IMessageQueue { QueueName = queue };
+                var umq = new IMessageQueue(queue) { QueueType = queueType };
 
                 if (umq.LoadResources())
                 {
                     umq.Send(message);
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 
             }

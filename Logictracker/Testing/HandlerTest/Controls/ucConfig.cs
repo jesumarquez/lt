@@ -16,9 +16,13 @@ namespace HandlerTest.Controls
 
         public string Queue { get { return txtQueueName.Text; } set { txtQueueName.Text = value; } }
 
+        public string QueueType { get { return txtQueueType.Text; } set { txtQueueType.Text = value; } }
+
         public ucConfig()
         {
             InitializeComponent();
         }
+
+
     }
 }

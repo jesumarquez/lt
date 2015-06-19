@@ -23,6 +23,7 @@ namespace Logictracker.Configuration
 			public static String QueueRecoverable { get { return ConfigurationBase.GetAsString("logictracker.queues.recoverable", ""); } }
 
 			public static String QueueFormater { get { return ConfigurationBase.GetAsString("logictracker.queues.formater", ""); } }
+            public static String QueueType { get { return ConfigurationBase.GetAsString("logictracker.queues.type", ""); } }
 
 			/// <summary>
 			/// Gets a list of the system queues currently beeing monitored.
