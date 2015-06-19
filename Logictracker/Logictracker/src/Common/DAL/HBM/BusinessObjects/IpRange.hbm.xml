@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.IpRange,Logictracker.Types" table="[soc.soc_usua_07_mov_iprange]" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.IpRange,Logictracker.Types" table="[soc.soc_usua_07_mov_iprange]" lazy="true" batch-size="10" >
     <cache usage="read-write" />
 
     <id name="Id" column="id_socusua07" type="Int32" unsaved-value="0">

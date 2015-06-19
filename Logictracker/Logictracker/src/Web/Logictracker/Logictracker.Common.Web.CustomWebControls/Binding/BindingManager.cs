@@ -380,7 +380,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
             autoBindeable.ClearItems();
             AddDefaultItems(autoBindeable);
 
-            var sistemas = DaoFactory.SistemaDAO.FindAll().OrderBy(t => CultureManager.GetString("Menu", t.Descripcion));
+            var sistemas = DaoFactory.SistemaDAO.FindAll().ToList().OrderBy(t => CultureManager.GetString("Menu", t.Descripcion));
 
             foreach (var subSistema in sistemas) autoBindeable.AddItem(CultureManager.GetString("Menu", subSistema.Descripcion), subSistema.Id.ToString("#0"));
         }

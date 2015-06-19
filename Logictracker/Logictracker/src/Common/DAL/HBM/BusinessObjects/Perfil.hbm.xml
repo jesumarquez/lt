@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.Perfil,Logictracker.Types" table="socusua02" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.Perfil,Logictracker.Types" table="socusua02" lazy="true" batch-size="10">
     <cache usage="read-write" />
 
     <id name="Id" column="id_socusua02" type="Int32" unsaved-value="0">

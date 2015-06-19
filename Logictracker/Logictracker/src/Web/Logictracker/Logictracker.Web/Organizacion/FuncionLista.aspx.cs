@@ -24,7 +24,7 @@ namespace Logictracker.Organizacion
         protected override List<FuncionVo> GetListData()
         {
             var funciones = (cbSubSistema.Selected > 0 ? DAOFactory.FuncionDAO.GetBySistema(cbSubSistema.Selected) : DAOFactory.FuncionDAO.FindAll())
-                            .Where(f => string.IsNullOrEmpty(f.FechaBaja)).Select(f => new FuncionVo(f));
+                            .Where(f => f.FechaBaja == null||f.FechaBaja == string.Empty).Select(f => new FuncionVo(f));
 
             return funciones.ToList();
         }

@@ -68,7 +68,7 @@ namespace Logictracker.Organizacion
         private void BindPermisos()
         {
             chkPermisos.Items.Clear();
-            var asegurables = DAOFactory.AsegurableDAO.FindAll().OrderBy(a => a.GetDescripcion());
+            var asegurables = DAOFactory.AsegurableDAO.FindAll().ToList().OrderBy(a => a.GetDescripcion());
             foreach (var asegurable in asegurables)
             {
                 if (WebSecurity.AuthenticatedUser.AccessLevel >= Types.BusinessObjects.Usuario.NivelAcceso.SysAdmin || WebSecurity.IsSecuredAllowed(asegurable.Referencia))
