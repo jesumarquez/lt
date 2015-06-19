@@ -6,7 +6,7 @@
 	RunMode="WinService">
 
 	<Resources>
-		<MessageQueue Path=".\private$\eventos_trax" Transactional="true" Recoverable="true" />
+		<MessageQueue Path=".\private$\eventos_trax" Transactional="false" Recoverable="true" />
 	</Resources>
 
 

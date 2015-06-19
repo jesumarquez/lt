@@ -109,6 +109,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
         /// </summary>
         protected T EditObject { get { return _editobj ?? (_editobj = Id > 0 ? GDao.FindById(Id) : new T()); } }
 
+    
+
         #endregion
 
         #region Protected Methods

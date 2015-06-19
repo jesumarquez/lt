@@ -40,7 +40,7 @@ namespace Logictracker.CicloLogistico.Distribucion
         protected override string VariableName { get { return "CLOG_DISTRIBUCION"; } }
         protected override string RedirectUrl { get { return "ViajeDistribucionLista.aspx"; } }
         protected override string GetRefference() { return "DISTRIBUCION"; }
-        protected override bool DuplicateButton { get { return false; } }
+        protected override bool DuplicateButton { get { return true; } }
         protected override bool MapButton { get { return EditMode && EditObject.InicioReal.HasValue; } }
         protected override bool EventButton { get { return EditMode && EditObject.InicioReal.HasValue; } }
         protected override bool SaveButton 
@@ -121,7 +121,13 @@ namespace Logictracker.CicloLogistico.Distribucion
         }
 
         #region Acciones (Bind, Save, Validate, ViewMap, Regenerate)
-        
+
+        protected override void OnDuplicate()
+        {
+            base.OnDuplicate();
+        }
+
+
         protected override void Bind()
         {
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
@@ -216,7 +222,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbTransportista.Enabled = pendiente;
             cbVehiculo.Enabled = pendiente;
             cbChofer.Enabled = pendiente;
-            txtCodigo.Enabled = pendiente;
+           // txtCodigo.Enabled = pendiente;
             dtFecha.Enabled = pendiente;
             txtUmbral.Enabled = pendiente;
             chkRegresaABase.Enabled = pendiente;
@@ -303,7 +309,12 @@ namespace Logictracker.CicloLogistico.Distribucion
                                   };
                         if (det.Id > 0)
                         {
-                            det = dicDetalles[entrega.Id];
+                            if (dicDetalles.Count > 0 && dicDetalles.ContainsKey(entrega.Id))
+                                det = dicDetalles[entrega.Id];
+                            else
+                            {
+                                det.Id = 0;
+                            }
                             det.Orden = entrega.Orden;
                             det.Programado = entrega.Programado;
                             det.ProgramadoHasta = entrega.ProgramadoHasta;
