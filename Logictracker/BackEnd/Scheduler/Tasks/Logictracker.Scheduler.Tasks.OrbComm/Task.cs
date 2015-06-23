@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using Logictracker.Cache;
 using Logictracker.Cache.Interfaces;
@@ -79,7 +80,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
                 }
                 else sessionId = this.Retrieve<string>(OrbcommSessionIdCacheKey);
 
-                var messages = service.RetrieveMessages(sessionId, Service.MessageFlags.All, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
+                var messages = service.RetrieveMessages(sessionId, Service.MessageFlags.Unread, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
                 
                 if (messages.Result == -1)
                 {
@@ -91,7 +92,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
                         return;
                     }
                     sessionId = login.SessionId;
-                    messages = service.RetrieveMessages(sessionId, Service.MessageFlags.All, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
+                    messages = service.RetrieveMessages(sessionId, Service.MessageFlags.Unread, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
                 }
                 STrace.Debug(ComponentName, string.Format("Mensajes recibidos: {0}", messages.Messages.Count));
 
@@ -161,7 +162,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
 						}
 
                     	estado = "Marcando mensaje como leido";
-                        //Service.SetMessageFlag(sessionId, Service.SetMessageSelect.ByMessageId, message.MessageId.ToString(CultureInfo.InvariantCulture), Service.SetMessageFlags.Read);
+                        Service.SetMessageFlag(sessionId, Service.SetMessageSelect.ByMessageId, message.MessageId.ToString(CultureInfo.InvariantCulture), Service.SetMessageFlags.Read);
                     }
                     catch (Exception e)
                     {
