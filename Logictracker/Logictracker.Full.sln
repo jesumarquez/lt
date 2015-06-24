@@ -355,6 +355,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Messaging.Msmq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Messaging.RabbitmqQueue", "Logictracker.Messaging.RabbitmqQueue\Logictracker.Messaging.RabbitmqQueue.csproj", "{E3BE14D6-2BF7-4B97-96F5-026A96465337}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novatel", "Logictracker.Novatec\Novatel.csproj", "{27C99A0E-3146-4E44-ACDB-2E55528F608A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -2625,6 +2627,24 @@ Global
 		{E3BE14D6-2BF7-4B97-96F5-026A96465337}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E3BE14D6-2BF7-4B97-96F5-026A96465337}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E3BE14D6-2BF7-4B97-96F5-026A96465337}.Release|Win32.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Release|.NET.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2784,5 +2804,6 @@ Global
 		{6BC4CD8F-48BB-405D-8E0C-EF08FA17DD6A} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
 		{779A3CE1-F018-4A35-8E33-18620B09B0A2} = {2E771EDC-BAB9-44B2-B50F-AE402159A532}
 		{E3BE14D6-2BF7-4B97-96F5-026A96465337} = {2E771EDC-BAB9-44B2-B50F-AE402159A532}
+		{27C99A0E-3146-4E44-ACDB-2E55528F608A} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
 	EndGlobalSection
 EndGlobal
