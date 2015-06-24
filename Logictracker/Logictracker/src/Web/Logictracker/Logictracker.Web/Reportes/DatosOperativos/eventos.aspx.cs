@@ -16,7 +16,7 @@ namespace Logictracker.Reportes.DatosOperativos
     public partial class ReportesEventos : SecuredGridReportPage<MobileEventVo>
     {
         [Serializable]
-        private class SearchData
+        public class SearchData
         {
             public List<int> VehiclesId { get; set; }
             public IEnumerable<int> MessageId { get; set; }
@@ -210,6 +210,7 @@ namespace Logictracker.Reportes.DatosOperativos
                 var empresa = DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected);
                 var maxMonths = empresa != null && empresa.Id > 0 ? empresa.MesesConsultaPosiciones : 3;
 
+                
                 var results = ReportFactory.MobileEventDAO.GetMobilesEvents(data.VehiclesId, 
                                                                             data.MessageId,
                                                                             data.DriverId, 

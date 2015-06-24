@@ -43,6 +43,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Task.cs" />
@@ -57,9 +60,17 @@
       <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
       <Name>Logictracker.Culture</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Description\Logictracker.Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Logictracker.Description</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
       <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{FA528F7B-1FE9-4B7E-B964-EB95730791AB}</Project>
+      <Name>Logictracker.Layers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\Security\Logictracker.Security.csproj">
       <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
@@ -68,6 +79,10 @@
     <ProjectReference Include="..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj">
+      <Project>{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}</Project>
+      <Name>Logictracker.Reports.Messaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>

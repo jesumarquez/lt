@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B4CACBB4-0F42-4C57-813B-BB72C7FC82EF}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -39,6 +39,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Logictracker.DAL, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.DAL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -247,10 +251,6 @@
     <ProjectReference Include="..\Services.Helpers\Logictracker.Services.Helpers.csproj">
       <Project>{335550D5-F4A2-4AD0-A22F-C4AB705C6606}</Project>
       <Name>Logictracker.Services.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAL\Logictracker.DAL.csproj">
-      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
-      <Name>Logictracker.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Types\Logictracker.Types.csproj">
       <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>

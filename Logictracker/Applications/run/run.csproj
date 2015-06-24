@@ -413,6 +413,7 @@
     <Content Include="Applications\Instalar y Mantener Servicios.xml">
     </Content>
     <Content Include="Applications\Scheduler.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Applications\Gateway.xml">
     </Content>

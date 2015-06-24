@@ -16,7 +16,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
         public List<ProgramacionReporte> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas)
         {
             return Query.FilterEmpresa(Session, empresas, null)
-                        .FilterLinea(Session, empresas, lineas)
+                        //.FilterLinea(Session, empresas, lineas)
                         .ToList();
         }
 
@@ -26,7 +26,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
 
         public List<ProgramacionReporte> FindByPeriodicidad(char periodicidad)
         {
-            return Session.Query<ProgramacionReporte>().Where(programacion => programacion.Periodicidad == periodicidad && !programacion.Baja).ToList();
+            return Session.Query<ProgramacionReporte>().Where(programacion => programacion.Periodicity == periodicidad && programacion.Active).ToList();
         }
 
         #endregion

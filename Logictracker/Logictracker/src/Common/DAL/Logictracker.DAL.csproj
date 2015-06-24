@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="Logictracker.Types.ValueObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Types.ValueObjects\bin\Debug\Logictracker.Types.ValueObjects.dll</HintPath>
+      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.Types.ValueObjects.dll</HintPath>
     </Reference>
     </Reference>
     <Reference Include="System" />
@@ -396,6 +396,10 @@
       <Project>{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}</Project>
       <Name>Logictracker.QueueStatus</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Logictracker.Utils.csproj">
       <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>

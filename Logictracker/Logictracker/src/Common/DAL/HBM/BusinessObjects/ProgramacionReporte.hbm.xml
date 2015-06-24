@@ -9,14 +9,15 @@
       <generator class="native" />
     </id>
 
-    <property column="parenti56_reporte" type="String" name="Reporte" not-null="true" length="100" />
-    <property column="parenti56_parametros" type="String" name="Parametros" not-null="true" length="500" />
-    <property column="parenti56_periodicidad" type="Char" name="Periodicidad" not-null="true" />
+    <property column="parenti56_report" type="String" name="Report" not-null="true" length="100" />
+    <property column="parenti56_vehicles" type="String" name="Vehicles" not-null="true" length="500" />
+    <property column="parenti56_periodicity" type="Char" name="Periodicity" not-null="true" />
+    <property column="parenti56_active" type="Boolean" name="Active" not-null="true" />
     <property column="parenti56_mail" type="String" name="Mail" not-null="true" />
-    <property column="parenti56_baja" type="Boolean" name="Baja" not-null="true" />
-    <property column="parenti56_parametrosCSV" type="String" name="ParametrosCsv" not-null="false" length="500" />
+    <property column="parenti56_drivers" type="String" name="Drivers" not-null="false" length="500" />
+    <property column="parenti56_messageTypes" type="String" name="MessageTypes" not-null="false" length="500" />
+    <property column="parenti56_created" type="Date" name="Created" not-null="false" length="500" />
     
     <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" not-null="true" />
-    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" not-null="false" />
   </class>
 </hibernate-mapping>

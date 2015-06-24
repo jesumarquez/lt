@@ -363,6 +363,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPickerExtender", "Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraxEmu", "Applications\TraxEmu\TraxEmu.csproj", "{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Reports.Messaging", "Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj", "{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET

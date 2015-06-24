@@ -28,16 +28,16 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
 
         public ProgramacionReporteVo(ProgramacionReporte progReporte)
         {
-            switch (progReporte.Periodicidad)
+            switch (progReporte.Periodicity)
             {
                 case 'D': Periodicidad = CultureManager.GetLabel("DIARIO"); break;
                 case 'S': Periodicidad = CultureManager.GetLabel("SEMANAL"); break;
                 case 'M': Periodicidad = CultureManager.GetLabel("MENSUAL"); break;
             }
             Id = progReporte.Id;
-            Reporte = progReporte.Reporte;
+            Reporte = progReporte.Report;
             Mail = progReporte.Mail;
-            Estado = progReporte.Baja ? CultureManager.GetLabel("SUSPENDIDO") : CultureManager.GetLabel("ACTIVO");
+            Estado = progReporte.Active ? CultureManager.GetLabel("ACTIVO") : CultureManager.GetLabel("INACTIVO");
         }
     }
 }

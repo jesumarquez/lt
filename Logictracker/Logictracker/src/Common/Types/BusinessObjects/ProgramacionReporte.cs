@@ -4,7 +4,7 @@ using Logictracker.Types.InterfacesAndBaseClasses;
 namespace Logictracker.Types.BusinessObjects
 {
     [Serializable]
-    public class ProgramacionReporte : IAuditable, IHasEmpresa, IHasLinea
+    public class ProgramacionReporte : IAuditable, IHasEmpresa
     {
         #region IAuditable Members
 
@@ -13,13 +13,15 @@ namespace Logictracker.Types.BusinessObjects
 
         #endregion
 
-        public virtual string Parametros { get; set; }
-        public virtual string Reporte { get; set; }
-        public virtual char Periodicidad { get; set; }
+        public virtual string Report { get; set; }
+        public virtual string Vehicles { get; set; }
+        public virtual char Periodicity { get; set; }
+        public virtual bool Active{ get; set; }
         public virtual string Mail { get; set; }
-        public virtual bool Baja { get; set; }
+        public virtual string Drivers { get; set; }
+        public virtual string MessageTypes { get; set; }
+        public virtual DateTime Created { get; set; }
+
         public virtual Empresa Empresa { get; set; }
-        public virtual Linea Linea { get; set; }
-        public virtual string ParametrosCsv { get; set; }
     }
 }

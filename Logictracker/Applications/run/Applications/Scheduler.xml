@@ -8,4 +8,5 @@
 	RunMode="WinService">
 
   <scheduler:LogictrackerScheduler />
+  
 </Application>

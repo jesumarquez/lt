@@ -46,7 +46,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             var vehiculosIds = Ids2DataTable(vehiculos);
             var estadosIds = Ids2DataTable(estados);
-            
+
             var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_DatamartDistribucionDAO_GetReporteDistribucion] :empresaId, :lineaId, :vehiculosIds, :puntoEntregaId, :estadosIds, :desde, :hasta;")
                               .SetInt32("empresaId", empresa)
                               .SetInt32("lineaId", linea)
