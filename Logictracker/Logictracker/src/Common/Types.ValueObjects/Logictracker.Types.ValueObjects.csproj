@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.DAL.dll</HintPath>
     </Reference>
+    <Reference Include="Logictracker.DAL, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.DAL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
