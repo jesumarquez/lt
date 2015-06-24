@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="PtoEntregaLista.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionPtoEntregaLista" Title="Untitled Page" %>
-<%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>
@@ -14,10 +13,11 @@
             </td>
             <td>
                 <cwc:ResourceLabel ID="lblCliente" runat="server" ResourceName="Entities" VariableName="CLIENT" /><br />
-                <cwc:ClienteDropDownList ID="ddlCliente" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito, ddlBase" onselectedindexchanged="FilterChangedHandler" AddAllItem="true" />
+                <cwc:ClienteDropDownList ID="ddlCliente" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito,ddlBase" onselectedindexchanged="FilterChangedHandler" AddAllItem="false" />
             </td>
         </tr>
     </table>
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentFiltrosAvanzados" Runat="Server">
 </asp:Content>

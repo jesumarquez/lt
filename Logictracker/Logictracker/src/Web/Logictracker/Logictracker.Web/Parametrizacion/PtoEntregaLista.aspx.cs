@@ -6,6 +6,7 @@ using System.Linq;
 using C1.Web.UI.Controls.C1GridView;
 using Logictracker.Types.ValueObjects.Parametrizacion;
 using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.Types.BusinessObjects;
 
 #endregion
 
@@ -28,8 +29,11 @@ namespace Logictracker.Parametrizacion
 
         protected override List<PuntoEntregaVo> GetListData()
         {
-            return DAOFactory.PuntoEntregaDAO.GetList(new[]{ddlDistrito.Selected}, new[]{ddlBase.Selected}, new[]{ddlCliente.Selected})
-                .Select(p=>new PuntoEntregaVo(p)).ToList();               
+            var puntos = new List<PuntoEntrega>();
+            if (ddlCliente.Selected > 0)
+                puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected);
+            
+            return puntos.Select(p => new PuntoEntregaVo(p)).ToList();               
         }
 
         protected override void OnRowDataBound(C1GridView grid, C1GridViewRowEventArgs e, PuntoEntregaVo dataItem)
