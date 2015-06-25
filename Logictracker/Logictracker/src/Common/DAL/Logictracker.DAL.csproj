@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -68,10 +68,6 @@
     </Reference>
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Resources\LinFu.DynamicProxy.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Types.ValueObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.Types.ValueObjects.dll</HintPath>
     </Reference>
     </Reference>
     <Reference Include="System" />

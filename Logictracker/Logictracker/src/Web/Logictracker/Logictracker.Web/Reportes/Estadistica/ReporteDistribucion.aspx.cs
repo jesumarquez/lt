@@ -9,6 +9,7 @@ using Logictracker.Culture;
 using Logictracker.Security;
 using Logictracker.Web.BaseClasses.BasePages;
 using C1.Web.UI.Controls.C1GridView;
+using NHibernate.Transform;
 
 namespace Logictracker.Reportes.Estadistica
 {
@@ -80,7 +81,7 @@ namespace Logictracker.Reportes.Estadistica
 
                 var desde = dpDesde.SelectedDate.Value.ToDataBaseDateTime();
                 var hasta = dpHasta.SelectedDate.Value.ToDataBaseDateTime();
-                var report = DAOFactory.DatamartDistribucionDAO.GetReporteDistribucion(ddlLocacion.Selected,
+                var sql = DAOFactory.DatamartDistribucionDAO.GetReporteDistribucion(ddlLocacion.Selected,
                                                                                        ddlPlanta.Selected,
                                                                                        ddlVehiculo.SelectedValues,
                                                                                        ddlPuntoEntrega.Selected,
@@ -88,6 +89,8 @@ namespace Logictracker.Reportes.Estadistica
                                                                                        desde,
                                                                                        hasta);
 
+                sql.SetResultTransformer(Transformers.AliasToBean(typeof(ReporteDistribucionVo)));
+                var report = sql.List<ReporteDistribucionVo>();
                 results = report.Select(r => new ReporteDistribucionVo(r)).ToList();
 
                 if (hasta > DateTime.Today.ToDataBaseDateTime())

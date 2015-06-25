@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Logictracker.DAL.DAO.BaseClasses;
-using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.ReportObjects.Datamart;
-using Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico;
 using Logictracker.Utils.NHibernate;
-using NHibernate.Transform;
+using NHibernate;
 
 namespace Logictracker.DAL.DAO.BusinessObjects
 {
@@ -42,7 +39,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return Query.Where(dm => idsViajes.Contains(dm.Viaje.Id));
         }
 
-        public List<ReporteDistribucionVo> GetReporteDistribucion(int empresa, int linea, IEnumerable<int> vehiculos, int puntoEntrega, IEnumerable<int> estados, DateTime desde, DateTime hasta)
+        public IQuery GetReporteDistribucion(int empresa, int linea, IEnumerable<int> vehiculos, int puntoEntrega, IEnumerable<int> estados, DateTime desde, DateTime hasta)
         {
             var vehiculosIds = Ids2DataTable(vehiculos);
             var estadosIds = Ids2DataTable(estados);
@@ -56,9 +53,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                               .SetDateTime("desde", desde)
                               .SetDateTime("hasta", hasta);
 
-            sqlQ.SetResultTransformer(Transformers.AliasToBean(typeof(ReporteDistribucionVo)));
-            var results = sqlQ.List<ReporteDistribucionVo>();
-            return results.ToList();
+            return sqlQ;
         }
     }
 }
