@@ -317,7 +317,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     reporte = "Cercanía a Puntos de Interés";
                     break;
                 case "ASP.reportes_datosoperativos_eventos_aspx":
-                    reporte = "Reporte de Eventos";
+                    reporte = "EventsReport";
                     break;
                 case "ASP.reportes_datosoperativos_geocercasevents_aspx":
                     reporte = "Reporte de Geocercas";
@@ -343,44 +343,48 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var linea = GetLinea();
             var prog = new ProgramacionReporte
                            {
-                               Reporte = reporte,
-                               Periodicidad = CbSchedulePeriodicidad.SelectedValue[0],
+                               Report = reporte,
+                               Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
                                Mail = TxtScheduleMail.Text,
                                Empresa = empresa ?? linea.Empresa,
-                               Linea = linea,
-                               Baja = true
+                               Created = DateTime.Now,
+                               Active = true
                            };
 
-            var parametros = new StringBuilder();
+            prog.Vehicles = GetSelectedVehicles();
+            prog.Drivers = GetSelectedDrivers();
+            prog.MessageTypes = GetSelectedMessageTypes();
 
-            // PARAMETROS PARA CREAR REPORTE
-            var filtros = GetFilterValuesProgramados();
+            //var parametros = new StringBuilder();
 
-            foreach (var key in filtros.Keys)
-            {
-                if (!parametros.ToString().Equals(""))
-                    parametros.Append("&");
+            //// PARAMETROS PARA CREAR REPORTE
+            //var filtros = GetFilterValuesProgramados();
 
-                parametros.Append(key + "=" + filtros[key] + "");
-            }
+            //foreach (var key in filtros.Keys)
+            //{
+            //    if (!parametros.ToString().Equals(""))
+            //        parametros.Append("&");
 
-            prog.Parametros = parametros.ToString();
+            //    parametros.Append(key + "=" + filtros[key] + "");
+            //}
 
-            // PARAMETROS PARA CREAR ENCABEZADO
-            parametros = new StringBuilder();
-            filtros = GetFilterValues();
-            filtros.Remove("Desde");
-            filtros.Remove("Hasta");
+            //prog.Drivers = parametros.ToString();
 
-            foreach (var key in filtros.Keys)
-            {
-                if (!parametros.ToString().Equals(""))
-                    parametros.Append("&");
+            //// PARAMETROS PARA CREAR ENCABEZADO
+            //parametros = new StringBuilder();
+            //filtros = GetFilterValues();
+            //filtros.Remove("Desde");
+            //filtros.Remove("Hasta");
 
-                parametros.Append(key + "=" + filtros[key] + "");
-            }
+            //foreach (var key in filtros.Keys)
+            //{
+            //    if (!parametros.ToString().Equals(""))
+            //        parametros.Append("&");
 
-            prog.ParametrosCsv = parametros.ToString();
+            //    parametros.Append(key + "=" + filtros[key] + "");
+            //}
+
+            //prog.MessageTypes = parametros.ToString();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 

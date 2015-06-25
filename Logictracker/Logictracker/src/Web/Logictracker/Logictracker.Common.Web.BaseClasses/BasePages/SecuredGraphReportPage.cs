@@ -339,11 +339,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var linea = GetLinea();
             var prog = new ProgramacionReporte
             {
-                Reporte = reporte,
-                Periodicidad = CbSchedulePeriodicidad.SelectedValue[0],
+                Report = reporte,
+                Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
                 Mail = TxtScheduleMail.Text,
-                Empresa = empresa ?? linea.Empresa,
-                Linea = linea,
+                Empresa = empresa ?? linea.Empresa
             };
 
             var parametros = new StringBuilder();
@@ -359,7 +358,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 parametros.Append(key + "=" + filtros[key] + "");
             }
 
-            prog.Parametros = parametros.ToString();
+            prog.Drivers = parametros.ToString();
 
             // PARAMETROS PARA CREAR ENCABEZADO
             parametros = new StringBuilder();
@@ -375,7 +374,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 parametros.Append(key + "=" + filtros[key] + "");
             }
 
-            prog.ParametrosCsv = parametros.ToString();
+            prog.MessageTypes = parametros.ToString();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 

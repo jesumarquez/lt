@@ -324,6 +324,63 @@ namespace Logictracker.Reportes.DatosOperativos
         }
 
         /// <summary>
+        /// Returns vehicles id for a report programming
+        /// </summary>
+        /// <returns>string with csv vehicles id</returns>
+        protected override string GetSelectedMessageTypes()
+        {
+            var sMensajes = new StringBuilder();
+
+            foreach (var mensaje in lbMensajes.SelectedValues)
+            {
+                if (!sMensajes.ToString().Equals(""))
+                    sMensajes.Append(",");
+
+                sMensajes.Append((string)mensaje.ToString());
+            }
+
+            return sMensajes.ToString();
+        }
+
+        /// <summary>
+        /// Returns drivers id for a report programming
+        /// </summary>
+        /// <returns>string with csv drivers id</returns>
+        protected override string GetSelectedDrivers()
+        {
+            var sChoferes = new StringBuilder();
+
+            foreach (var chofer in lbChoferes.SelectedValues)
+            {
+                if (!sChoferes.ToString().Equals(""))
+                    sChoferes.Append(",");
+
+                sChoferes.Append((string)chofer.ToString());
+            }
+
+            return sChoferes.ToString();
+        }
+
+        /// <summary>
+        /// Returns vehicles id for a report programming
+        /// </summary>
+        /// <returns>string with csv vehicles id</returns>
+        protected override string GetSelectedVehicles()
+        {
+            var sVehiculos = new StringBuilder();
+
+            foreach (var vehiculo in lbCamiones.SelectedValues)
+            {
+                if (!sVehiculos.ToString().Equals(""))
+                    sVehiculos.Append(",");
+
+                sVehiculos.Append((string)vehiculo.ToString());
+            }
+
+            return sVehiculos.ToString();
+        }
+
+        /// <summary>
         /// Initial filters set up when called from another report.
         /// </summary>
         private void SetInitialFilterValues()

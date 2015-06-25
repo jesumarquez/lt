@@ -117,6 +117,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected virtual Dictionary<String, String> GetFilterValuesProgramados() { return new Dictionary<String, String>(); }
 
+        protected virtual string GetSelectedVehicles() { return string.Empty; }
+        protected virtual string GetSelectedDrivers() { return string.Empty; }
+        protected virtual string GetSelectedMessageTypes() { return string.Empty; }
+
         /// <summary>
         /// Send the data displayed at the grid to report print page.
         /// </summary>

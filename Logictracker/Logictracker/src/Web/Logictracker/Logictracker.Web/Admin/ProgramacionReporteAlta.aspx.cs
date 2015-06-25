@@ -23,16 +23,16 @@ namespace Logictracker.Admin
             cbPeriodicidad.Items.Insert(2, new ListItem(CultureManager.GetLabel("MENSUAL"), "M"));
 
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
-            cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
-            txtReporte.Text = EditObject.Reporte;
-            cbPeriodicidad.SelectedValue = EditObject.Periodicidad.ToString();
+            //cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
+            txtReporte.Text = EditObject.Report;
+            cbPeriodicidad.SelectedValue = EditObject.Periodicity.ToString();
             txtMail.Text = EditObject.Mail;
-            chkBaja.Checked = !EditObject.Baja;
+            chkBaja.Checked = EditObject.Active;
         }
 
         protected override void OnDelete()
         {
-            EditObject.Baja = true;
+            EditObject.Active = false;
             DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
         }
 
@@ -42,10 +42,10 @@ namespace Logictracker.Admin
             {
 
                 EditObject.Empresa = (cbEmpresa.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
-                EditObject.Linea = (cbLinea.Selected > 0) ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
-                EditObject.Periodicidad = cbPeriodicidad.SelectedValue[0];
+                //EditObject.Linea = (cbLinea.Selected > 0) ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+                EditObject.Periodicity = cbPeriodicidad.SelectedValue[0];
                 EditObject.Mail = txtMail.Text;
-                EditObject.Baja = !chkBaja.Checked;
+                EditObject.Active = chkBaja.Checked;
 
                 DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
 
