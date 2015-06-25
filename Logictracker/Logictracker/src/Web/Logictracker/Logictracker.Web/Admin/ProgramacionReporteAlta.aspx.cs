@@ -24,7 +24,7 @@ namespace Logictracker.Admin
 
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
             //cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
-            txtReporte.Text = EditObject.Report;
+            txtReporte.Text = CultureManager.GetLabel(EditObject.Report);
             cbPeriodicidad.SelectedValue = EditObject.Periodicity.ToString();
             txtMail.Text = EditObject.Mail;
             chkBaja.Checked = EditObject.Active;

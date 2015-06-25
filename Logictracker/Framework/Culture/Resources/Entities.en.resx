@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,184 +59,184 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="AREAOPERACION" xml:space="preserve">
-		<value>Operating Area</value>
-	</data>
-	<data name="CLIENT" xml:space="preserve">
-		<value>Customer</value>
-	</data>
-	<data name="FUNCION" xml:space="preserve">
-		<value>Function</value>
-	</data>
-	<data name="OPECOMB01" xml:space="preserve">
-		<value>Movement Type</value>
-	</data>
-	<data name="PARENTI01" xml:space="preserve">
-		<value>District</value>
-	</data>
-	<data name="PARENTI02" xml:space="preserve">
-		<value>Base</value>
-	</data>
-	<data name="PARENTI03" xml:space="preserve">
-		<value>Vehicle</value>
-	</data>
-	<data name="PARENTI04" xml:space="preserve">
-		<value>Operator</value>
-	</data>
-	<data name="PARENTI05" xml:space="preserve">
-		<value>Geographic Reference</value>
-	</data>
-	<data name="PARENTI07" xml:space="preserve">
-		<value>Carrier</value>
-	</data>
-	<data name="PARENTI08" xml:space="preserve">
-		<value>Device</value>
-	</data>
-	<data name="PARENTI09" xml:space="preserve">
-		<value>Employee</value>
-	</data>
-	<data name="PARENTI10" xml:space="preserve">
-		<value>Geographic Reference Rate</value>
-	</data>
-	<data name="PARENTI16" xml:space="preserve">
-		<value>Message Type</value>
-	</data>
-	<data name="PARENTI17" xml:space="preserve">
-		<value>Vehicle Type</value>
-	</data>
-	<data name="PARENTI18" xml:space="preserve">
-		<value>Customer</value>
-	</data>
-	<data name="PARENTI19" xml:space="preserve">
-		<value>Team</value>
-	</data>
-	<data name="PARENTI25" xml:space="preserve">
-		<value>Document Type</value>
-	</data>
-	<data name="PARENTI32" xml:space="preserve">
-		<value>Device Type</value>
-	</data>
-	<data name="PARENTI36" xml:space="preserve">
-		<value>Tank</value>
-	</data>
-	<data name="PARENTI37" xml:space="preserve">
-		<value>Cost Center</value>
-	</data>
-	<data name="PARENTI39" xml:space="preserve">
-		<value>Motor</value>
-	</data>
-	<data name="PARENTI40" xml:space="preserve">
-		<value>Odometer</value>
-	</data>
-	<data name="PARENTI43" xml:space="preserve">
-		<value>Employee Type</value>
-	</data>
-	<data name="PARENTI44" xml:space="preserve">
-		<value>Delivery Point</value>
-	</data>
-	<data name="PARENTI46" xml:space="preserve">
-		<value>Shifts</value>
-	</data>
-	<data name="PARENTI47" xml:space="preserve">
-		<value>Holiday</value>
-	</data>
-	<data name="PAREVEN01" xml:space="preserve">
-		<value>Message</value>
-	</data>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AREAOPERACION" xml:space="preserve">
+    <value>Operating Area</value>
+  </data>
+  <data name="CLIENT" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="FUNCION" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="OPECOMB01" xml:space="preserve">
+    <value>Movement Type</value>
+  </data>
+  <data name="PARENTI01" xml:space="preserve">
+    <value>District</value>
+  </data>
+  <data name="PARENTI02" xml:space="preserve">
+    <value>Base</value>
+  </data>
+  <data name="PARENTI03" xml:space="preserve">
+    <value>Vehicle</value>
+  </data>
+  <data name="PARENTI04" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="PARENTI05" xml:space="preserve">
+    <value>Geographic Reference</value>
+  </data>
+  <data name="PARENTI07" xml:space="preserve">
+    <value>Carrier</value>
+  </data>
+  <data name="PARENTI08" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="PARENTI09" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="PARENTI10" xml:space="preserve">
+    <value>Geographic Reference Rate</value>
+  </data>
+  <data name="PARENTI16" xml:space="preserve">
+    <value>Message Type</value>
+  </data>
+  <data name="PARENTI17" xml:space="preserve">
+    <value>Vehicle Type</value>
+  </data>
+  <data name="PARENTI18" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="PARENTI19" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="PARENTI25" xml:space="preserve">
+    <value>Document Type</value>
+  </data>
+  <data name="PARENTI32" xml:space="preserve">
+    <value>Device Type</value>
+  </data>
+  <data name="PARENTI36" xml:space="preserve">
+    <value>Tank</value>
+  </data>
+  <data name="PARENTI37" xml:space="preserve">
+    <value>Cost Center</value>
+  </data>
+  <data name="PARENTI39" xml:space="preserve">
+    <value>Motor</value>
+  </data>
+  <data name="PARENTI40" xml:space="preserve">
+    <value>Odometer</value>
+  </data>
+  <data name="PARENTI43" xml:space="preserve">
+    <value>Employee Type</value>
+  </data>
+  <data name="PARENTI44" xml:space="preserve">
+    <value>Delivery Point</value>
+  </data>
+  <data name="PARENTI46" xml:space="preserve">
+    <value>Shifts</value>
+  </data>
+  <data name="PARENTI47" xml:space="preserve">
+    <value>Holiday</value>
+  </data>
+  <data name="PAREVEN01" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="OPETICK01" xml:space="preserve">
     <value>Ticket</value>
   </data>
-	<data name="PARRECO01" xml:space="preserve">
-		<value>Service</value>
-	</data>
-	<data name="PARTICK01" xml:space="preserve">
-		<value>Cycle Logistics</value>
-	</data>
-	<data name="ROLE" xml:space="preserve">
-		<value>Profile</value>
-	</data>
-	<data name="SISTEMA" xml:space="preserve">
-		<value>System</value>
-	</data>
-	<data name="TARJETA" xml:space="preserve">
-		<value>Card</value>
-	</data>
-	<data name="TICKET" xml:space="preserve">
-		<value>Ticket</value>
-	</data>
-	<data name="TIPODISPOSITIVO" xml:space="preserve">
-		<value>Device Type</value>
-	</data>
-	<data name="USUARIO" xml:space="preserve">
-		<value>User</value>
-	</data>
-	<data name="DOCUMENTOS" xml:space="preserve">
-		<value>Documents</value>
-	</data>
-	<data name="BOCADECARGA" xml:space="preserve">
-		<value>Mouth Load</value>
-	</data>
-	<data name="PEDIDO" xml:space="preserve">
-		<value>Order</value>
-	</data>
+  <data name="PARRECO01" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="PARTICK01" xml:space="preserve">
+    <value>Cycle Logistics</value>
+  </data>
+  <data name="ROLE" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="SISTEMA" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="TARJETA" xml:space="preserve">
+    <value>Card</value>
+  </data>
+  <data name="TICKET" xml:space="preserve">
+    <value>Ticket</value>
+  </data>
+  <data name="TIPODISPOSITIVO" xml:space="preserve">
+    <value>Device Type</value>
+  </data>
+  <data name="USUARIO" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="DOCUMENTOS" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="BOCADECARGA" xml:space="preserve">
+    <value>Mouth Load</value>
+  </data>
+  <data name="PEDIDO" xml:space="preserve">
+    <value>Order</value>
+  </data>
   <data name="PARENTI59" xml:space="preserve">
     <value>Provider</value>
   </data>
@@ -335,5 +335,8 @@
   </data>
   <data name="SOCUSUA02" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="EventsReport" xml:space="preserve">
+    <value>Events Report</value>
   </data>
 </root>

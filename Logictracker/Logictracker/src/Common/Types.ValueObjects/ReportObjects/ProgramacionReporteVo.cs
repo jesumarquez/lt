@@ -35,9 +35,9 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
                 case 'M': Periodicidad = CultureManager.GetLabel("MENSUAL"); break;
             }
             Id = progReporte.Id;
-            Reporte = progReporte.Report;
+            Reporte =   CultureManager.GetLabel(progReporte.Report);
             Mail = progReporte.Mail;
-            Estado = progReporte.Active ? CultureManager.GetLabel("ACTIVO") : CultureManager.GetLabel("INACTIVO");
+            Estado = progReporte.Active ? CultureManager.GetLabel("ACTIVE") : CultureManager.GetLabel("INACTIVE");
         }
     }
 }
