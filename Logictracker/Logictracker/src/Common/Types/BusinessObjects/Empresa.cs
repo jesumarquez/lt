@@ -41,6 +41,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
             public const string InicioDistribucionSiguienteAlCerrar = "distribucion.inicio.siguiente";
+
             public const string MesesConsultaPosiciones = "meses.consulta.posiciones";
             public const string EliminaRutas = "elimina.rutas";
             public const string EliminaPuntosDeEntrega = "elimina.puntos";
@@ -62,6 +63,11 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string AsignoDistribucionPorMensaje = "distribucion.asigno.mensaje";
             public const string AsignoDistribucionPrefijoMensaje = "distribucion.asigno.mensaje.prefijo";
+
+            public const string CierreDistribucionPorMensaje = "distribucion.cierre.mensaje";
+            public const string CierreDistribucionCodigoMensaje = "distribucion.cierre.mensaje.codigo";
+
+            public const string CierreDistribucionCompleta = "distribucion.cierre.completa";
         }
         public static class OrdenRuta
         {
@@ -326,7 +332,35 @@ namespace Logictracker.Types.BusinessObjects
                 return valor.ToLowerInvariant();
             }
         }
-
+        public virtual bool CierreDistribucionPorMensaje
+        {
+            get
+            {
+                var valor = GetParameter(Params.CierreDistribucionPorMensaje);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+        public virtual string CierreDistribucionCodigoMensaje
+        {
+            get
+            {
+                var valor = GetParameter(Params.CierreDistribucionCodigoMensaje);
+                if (valor == null || valor.Trim() == string.Empty) return "22";
+                return valor.ToLowerInvariant();
+            }
+        }
+        public virtual bool CierreDistribucionCompleta
+        {
+            get
+            {
+                var valor = GetParameter(Params.CierreDistribucionCompleta);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return true;
+                return aplica;
+            }
+        }
         public virtual bool AsignoDistribucionPorMensaje
         {
             get

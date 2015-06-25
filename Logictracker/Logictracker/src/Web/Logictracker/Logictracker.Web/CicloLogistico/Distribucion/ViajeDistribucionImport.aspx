@@ -68,7 +68,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <cwc:ResourceCheckBox runat="server" ID="chkRegresaABase" ResourceName="Labels" VariableName="REGRESA_A_BASE" Checked="true"/>
+                            <cwc:ResourceCheckBox runat="server" ID="chkRegresaABase" ResourceName="Labels" VariableName="REGRESA_A_BASE" Checked="False"/>
                         </td>
                     </tr>
                     <tr>

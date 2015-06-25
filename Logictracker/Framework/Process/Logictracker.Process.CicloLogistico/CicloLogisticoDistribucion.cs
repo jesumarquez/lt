@@ -817,23 +817,16 @@ namespace Logictracker.Process.CicloLogistico
                 Distribucion.Estado == ViajeDistribucion.Estados.Anulado ||
                 Distribucion.Estado == ViajeDistribucion.Estados.Cerrado)
                 return;
-
-            var cerrarPorTiempo = Distribucion.Empresa.CicloDistribucionCerrar;
-
-            // Si pasaron mas de EndMarginMinutes horas desde la hora final del ticket, lo cierro.
-            var close = cerrarPorTiempo && Distribucion.Fin.AddMinutes(Distribucion.Empresa.EndMarginMinutes) < DateTime.UtcNow;
-
-            if (close) 
-                STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por tiempo.", Distribucion.Id));
-
+            
             if (Distribucion.RegresoABase)
             {
                 // Si termina en base y llegó a base lo cierro
                 var ultimo = Distribucion.Detalles.Last(d => d.Linea != null);
                 if (ultimo.Entrada.HasValue)
                 {
-                    close = true;
+                    CerrarDistribucion();
                     STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por regreso a base.", Distribucion.Id));
+                    return;
                 }
             }
             else
@@ -841,27 +834,42 @@ namespace Logictracker.Process.CicloLogistico
                 if (Distribucion.Tipo != ViajeDistribucion.Tipos.Desordenado)
                 {
                     // Si el ultimo evento del ciclo ya fue procesado, cierro el ticket.
-                    if (Distribucion.EntregasTotalCountConBases > 0 && Distribucion.Detalles.Last().Salida.HasValue)
+                    if (Distribucion.Empresa.CierreDistribucionCompleta &&
+                        Distribucion.EntregasTotalCountConBases > 0 && 
+                        Distribucion.Detalles.Last().Salida.HasValue)
                     {
-                        close = true;
+                        CerrarDistribucion();
                         STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por cumplir última entrega.", Distribucion.Id));
+                        return;
                     }
                 }
                 else
                 {
                     // Si todas las entregas ya fueron realizadas cierro el ticket.
-                    if (Distribucion.Detalles.Where(d => d.PuntoEntrega != null).All(d => EntregaDistribucion.Estados.EstadosFinales.Contains(d.Estado)))
+                    if (Distribucion.Empresa.CierreDistribucionCompleta &&
+                        Distribucion.Detalles.Where(d => d.PuntoEntrega != null).All(d => EntregaDistribucion.Estados.EstadosFinales.Contains(d.Estado)))
                     {
-                        close = true;
+                        CerrarDistribucion();
                         STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por cumplir todas las entregas.", Distribucion.Id));
+                        return;
                     }
                 }
             }
+
+            var cerrarPorTiempo = Distribucion.Empresa.CicloDistribucionCerrar;
+            // Si pasaron mas de EndMarginMinutes horas desde la hora final del ticket, lo cierro.
+            var close = cerrarPorTiempo && Distribucion.Fin.AddMinutes(Distribucion.Empresa.EndMarginMinutes) < DateTime.UtcNow;
             if (close)
             {
-                var evento = EventFactory.GetCloseEvent(DateTime.UtcNow, true);
-                Process(evento as CloseEvent);
+                CerrarDistribucion();
+                STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por tiempo.", Distribucion.Id));
             }
+        }
+
+        public void CerrarDistribucion()
+        {
+            var evento = EventFactory.GetCloseEvent(DateTime.UtcNow, true);
+            Process(evento as CloseEvent);
         }
 
         #endregion

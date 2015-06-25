@@ -111,6 +111,18 @@ namespace Logictracker.Dispatcher.Handlers
                 }
             }
 
+            if (Coche.Empresa.CierreDistribucionPorMensaje &&
+                code == Coche.Empresa.CierreDistribucionCodigoMensaje)
+            {
+                var distribucion = DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche);
+                if (distribucion != null)
+                {
+                    var evento = new CloseEvent(generico.Tiempo);
+                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
+                    ciclo.ProcessEvent(evento);
+                }
+            }
+
 		    if (MessageIdentifierX.IsRfidEvent(generico.Code)) applicationCode = ProcessRfidEvent(code, generico);
             else if (MessageIdentifierX.IsEstadoLogistico(generico.GetData())) applicationCode = ProcessEstadoLogistico(code, generico);
             else if (code.Equals(MessageCode.SpeedingTicket.GetMessageCode())) applicationCode = ProcessVelocidadExcedidaGenericEvent(generico);
