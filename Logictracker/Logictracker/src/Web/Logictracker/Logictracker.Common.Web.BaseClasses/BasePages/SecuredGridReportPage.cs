@@ -8,7 +8,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using AjaxControlToolkit;
 using C1.Web.UI.Controls.C1GridView;
+using Logictracker.Configuration;
 using Logictracker.Culture;
+using Logictracker.Layers.MessageQueue;
+using Logictracker.Mailing;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.BaseClasses.Util;
 using Logictracker.Web.CustomWebControls.Buttons;
@@ -355,6 +358,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
             prog.Drivers = GetSelectedDrivers();
             prog.MessageTypes = GetSelectedMessageTypes();
 
+
+
             //var parametros = new StringBuilder();
 
             //// PARAMETROS PARA CREAR REPORTE
@@ -389,8 +394,45 @@ namespace Logictracker.Web.BaseClasses.BasePages
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
             ModalSchedule.Hide();
+
+            SendConfirmationMail(prog);
+        }
+
+        private void SendConfirmationMail(ProgramacionReporte prog)
+        {
+            var configFile = Config.Mailing.ReportConfirmation;
+
+            if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
+
+            var sender = new MailSender(configFile);
+
+            sender.Config.Subject = "Se ha creado un nuevo reporte programado";
+            var body = new StringBuilder("Datos del nuevo reporte programado:\n\n");
+            body.AppendFormat("Conductores: {0} \n",prog.Drivers);
+            body.AppendFormat("Correo detino: {0} \n",prog.Mail);
+            body.AppendFormat("Tipos de mensajes: {0} \n",prog.MessageTypes);
+            body.AppendFormat("Reporte: {0} \n", prog.Report);
+            body.AppendFormat("Vehiculos: {0} \n", prog.Vehicles);
+            body.AppendFormat("Creado: {0} \n", prog.Created.ToString());
+            body.AppendFormat("Empresa: {0} \n", prog.Empresa.RazonSocial);
+
+            sender.Config.Body = body.ToString();
+            
+            sender.SendMail();
         }
 
         #endregion
+
+        private IMessageQueue GetReportMailServiceQueue()
+        {
+            var queueName = Config.LogicOut.Fichada.QueueName;
+            var queueType = Config.LogicOut.Fichada.QueueType;
+            if (String.IsNullOrEmpty(queueName)) return null;
+
+            var umq = new IMessageQueue(queueName);
+            if (queueType.ToLower() == "xml") umq.Formatter = "XmlMessageFormatter";
+
+            return !umq.LoadResources() ? null : umq;
+        }
     }
 }

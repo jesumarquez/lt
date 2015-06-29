@@ -6,6 +6,7 @@ namespace Logictracker.Reports.Messaging
     [Serializable]
     public class EventReportCommand
     {
+        public int ReportId { get; set; }
         public int BaseId { get; set; }
         public int CustomerId { get; set; }
         public string Email { get; set; }

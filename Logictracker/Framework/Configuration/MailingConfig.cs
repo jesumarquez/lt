@@ -28,6 +28,8 @@
 
             public static string DatamartErrorMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.datamart.error", "Logictracker.Mailing.DatamartError.config")); } }
 
+            public static string ReportConfirmation { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.reportConfirmation", "Logictracker.Mailing.ReportConfirmation.config")); } }
+
             public static string DatamartSuccessMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.datamart.success", "Logictracker.Mailing.DatamartSuccess.config")); } }
             
             public static string MonitoreoGarminMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.monitoreo.garmin", "Logictracker.Mailing.MonitoreoGarmin.config")); } }

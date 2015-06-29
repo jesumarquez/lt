@@ -50,24 +50,40 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             //solo para reportes de eventos
             foreach (var prog in reportesProgramados)
             {
-                var msg = GenerateReportEventCommand(prog.Empresa.Id, prog.Mail, CsvToList(prog.Vehicles),
-                    CsvToList(prog.MessageTypes), CsvToList(prog.Drivers), GetInitialDate(prog.Periodicity), GetFinalDate(prog.Periodicity));
+                var msg = GenerateReportEventCommand(prog.Id, prog.Empresa.Id, prog.Mail, CsvToList(prog.Vehicles),
+                    CsvToList(prog.MessageTypes), CsvToList(prog.Drivers), GetInitialDate(prog.Periodicity), GetFinalDate());
                 queue.Send(msg);
             }
         }
 
-        private DateTime GetFinalDate(char periodicity)
+        private DateTime GetFinalDate()
         {
-            //daily
+            //diario, semanal, mensual
             var initialDate = DateTime.Now.AddDays(-1);
             return new DateTime(initialDate.Year, initialDate.Month, initialDate.Day, 23, 59, 59);
         }
 
         private DateTime GetInitialDate(char periodicity)
         {
-            //daily
-            var initialDate = DateTime.Now.AddDays(-1);
-            return new DateTime(initialDate.Year,initialDate.Month,initialDate.Day,0,0,0);
+            DateTime initialDate = DateTime.Now;
+
+            switch (periodicity)
+            {
+                case 'D':
+                    initialDate = DateTime.Now.AddDays(-1);
+                    return new DateTime(initialDate.Year, initialDate.Month, initialDate.Day, 0, 0, 0);
+
+                case 'S':
+                    initialDate = DateTime.Now.AddDays(-7);
+                    return new DateTime(initialDate.Year, initialDate.Month, initialDate.Day, 0, 0, 0);
+                
+                case 'M':
+                    initialDate = DateTime.Now.AddMonths(-1);
+                    return new DateTime(initialDate.Year, initialDate.Month, initialDate.Day, 0, 0, 0);
+                
+                default:
+                    return new DateTime(initialDate.Year, initialDate.Month, initialDate.Day, 0, 0, 0);
+            }
         }
 
         private List<int> CsvToList(string csvValues)
@@ -78,11 +94,11 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             return (from v in idArray where !string.IsNullOrEmpty(v) select int.Parse(v)).ToList();
         }
 
-        private EventReportCommand GenerateReportEventCommand(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId,
-            DateTime initialDate, DateTime finalDate)
+        private EventReportCommand GenerateReportEventCommand(int id, int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate)
         {
             return new EventReportCommand()
             {
+                ReportId = id,
                 CustomerId = customerId,
                 Email = email,
                 DriversId = driversId,

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5B5F86DC-6A0B-43D5-B060-A2653FA47CA9}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -172,6 +172,10 @@
     <Compile Include="Util\RowEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Framework\Description\Logictracker.Description.csproj">
+      <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
+      <Name>Logictracker.Description</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
       <Name>Logictracker.Cache</Name>
@@ -187,6 +191,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Process\Logictracker.Process.Import.Client\Logictracker.Process.Import.Client.csproj">
       <Project>{AB0E5E1F-EE7F-4C66-892D-EBA6CAF3C9E0}</Project>
       <Name>Logictracker.Process.Import.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{FA528F7B-1FE9-4B7E-B964-EB95730791AB}</Project>
+      <Name>Logictracker.Layers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
       <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>

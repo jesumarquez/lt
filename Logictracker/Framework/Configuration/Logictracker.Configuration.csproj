@@ -57,7 +57,10 @@
     <Compile Include="Config.cs" />
     <Compile Include="ConfigurationBase.cs" />
     <Compile Include="HttpGatewayConfig.cs" />
-    <Compile Include="LogicOutConfig.cs" />
+    <Compile Include="LogicOutConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ReportMsmqConfig.cs" />
     <Compile Include="Torino.cs" />
     <Compile Include="DirectoryConfig.cs" />
     <Compile Include="DispatcherConfig.cs" />

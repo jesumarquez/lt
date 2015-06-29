@@ -36,7 +36,7 @@ namespace Logictracker.Mailing.AuxClasses
         /// <summary>
         /// Mail Body.
         /// </summary>
-        public readonly string Body;
+        public string Body;
 
         /// <summary>
         /// Determines whither to enable SSL.
