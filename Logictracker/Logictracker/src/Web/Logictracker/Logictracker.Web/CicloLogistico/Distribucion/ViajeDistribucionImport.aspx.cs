@@ -188,6 +188,10 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
         protected override void OnImportModeChange()
         {
             panelAxiodis.Visible = CurrentImportMode == Modes.Axiodis || CurrentImportMode == Modes.AxiodisF;
+            if (CurrentImportMode == Modes.AxiodisF)
+            {
+                txtVigencia.Text = "20";
+            }
             panelRoadshow.Visible = CurrentImportMode == Modes.Roadshow || CurrentImportMode == Modes.RoadshowCsv || CurrentImportMode == Modes.RoadshowCsv2;
             panelExcel.Visible = CurrentImportMode == Modes.ExcelTemplate;
             panelRoadnet.Visible = CurrentImportMode == Modes.Roadnet;
