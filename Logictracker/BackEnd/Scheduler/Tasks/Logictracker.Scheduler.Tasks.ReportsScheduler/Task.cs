@@ -1,23 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Logictracker.Configuration;
-using Logictracker.Culture;
-using Logictracker.DAL.NHibernate;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Reports.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
-using Logictracker.Types.BusinessObjects;
-using Logictracker.Types.BusinessObjects.Vehiculos;
-using Logictracker.Types.ReportObjects;
-using Logictracker.Types.ReportObjects.ControlDeCombustible;
-using Logictracker.Types.ValueObjects.Combustible;
-using Logictracker.Types.ValueObjects.ReportObjects;
-using Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico;
 using Logictracker.Layers.MessageQueue;
-using Logictracker.Web.Helpers.ExportHelpers;
 
 namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 {
