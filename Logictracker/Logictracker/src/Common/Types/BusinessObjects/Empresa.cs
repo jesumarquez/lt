@@ -63,11 +63,11 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string AsignoDistribucionPorMensaje = "distribucion.asigno.mensaje";
             public const string AsignoDistribucionPrefijoMensaje = "distribucion.asigno.mensaje.prefijo";
-
             public const string CierreDistribucionPorMensaje = "distribucion.cierre.mensaje";
             public const string CierreDistribucionCodigoMensaje = "distribucion.cierre.mensaje.codigo";
-
             public const string CierreDistribucionCompleta = "distribucion.cierre.completa";
+
+            public const string DistribucionEvaluaSoloGeocercasViaje = "distribucion.geocercas.solo.viaje";
         }
         public static class OrdenRuta
         {
@@ -577,6 +577,17 @@ namespace Logictracker.Types.BusinessObjects
                 int cant;
                 if (valor == null || !int.TryParse(valor, out cant)) return 1000;
                 return cant;
+            }
+        }
+
+        public virtual bool EvaluaSoloGeocercasViaje
+        {
+            get
+            {
+                var valor = GetParameter(Params.DistribucionEvaluaSoloGeocercasViaje);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
             }
         }
 

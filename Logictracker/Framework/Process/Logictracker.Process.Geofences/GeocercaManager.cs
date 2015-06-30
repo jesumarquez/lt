@@ -7,7 +7,6 @@ using Logictracker.DAL.NHibernate;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Messaging;
 using Logictracker.Process.Geofences.Classes;
-using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ValueObject;
 using Logictracker.Utils;
@@ -56,35 +55,37 @@ namespace Logictracker.Process.Geofences
                 if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/EntroAlLock ({0} secs)", t.getTimeElapsed().TotalSeconds));           
                 
                 t.Restart();
-
                 var qtree = GetQtree(vehiculo);
                 if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/GetQTree ({0} secs)", t.getTimeElapsed().TotalSeconds));
                 var geocercas = qtree.GetData(position.Lat, position.Lon) ?? new List<Geocerca>(0);
-                //var idGeocercas = geocercas.Select(g => g.Id);
+                
+                t.Restart();
+                if (vehiculo.Empresa.EvaluaSoloGeocercasViaje)
+                {
+                    var viajeActivo = daoFactory.ViajeDistribucionDAO.FindEnCurso(vehiculo);
+                    if (viajeActivo != null)
+                    {
+                        var idsEntregas = viajeActivo.Detalles.Select(d => d.ReferenciaGeografica.Id);
+                        var idGeocercas = geocercas.Select(g => g.Id);
+                        var faltantes = idsEntregas.Where(id => !idGeocercas.Contains(id));
 
-                //t.Restart();
-                //var viajeActivo = daoFactory.ViajeDistribucionDAO.FindEnCurso(vehiculo);
-                //if (viajeActivo != null)
-                //{
-                //    var idsEntregas = viajeActivo.Detalles.Select(d => d.ReferenciaGeografica.Id);
-                //    var faltantes = idsEntregas.Where(id => !idGeocercas.Contains(id));
-
-                //    if (faltantes.Any())
-                //    {
-                //        foreach (var idGeocerca in faltantes)
-                //        {
-                //            try
-                //            {
-                //                var geocerca = daoFactory.ReferenciaGeograficaDAO.FindGeocerca(idGeocerca);
-                //                geocercas.Add(geocerca);
-                //            }
-                //            catch { }
-                //        }
-                //    }
-                //    geocercas = geocercas.Where(g => idsEntregas.Contains(g.Id)).ToList();
-                //    STrace.Debug("GeocercasEnViaje", vehiculo.Dispositivo.Id, String.Format("Geocercas Totales: {0} - Entregas: {0}", geocercas.Count, idsEntregas.Count()));
-                //}
-                //if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/idGeocercas.Union ({0} secs)", t.getTimeElapsed().TotalSeconds));
+                        if (faltantes.Any())
+                        {
+                            foreach (var idGeocerca in faltantes)
+                            {
+                                try
+                                {
+                                    var geocerca = daoFactory.ReferenciaGeograficaDAO.FindGeocerca(idGeocerca);
+                                    geocercas.Add(geocerca);
+                                }
+                                catch { }
+                            }
+                        }
+                        geocercas = geocercas.Where(g => idsEntregas.Contains(g.Id)).ToList();
+                        var ts = t.getTimeElapsed().TotalSeconds;
+                        STrace.Debug("GeocercasEnViaje", vehiculo.Dispositivo.Id, String.Format("Geocercas Totales: {0} - Entregas: {1} | {2} segundos", geocercas.Count, idsEntregas.Count(), ts));
+                    }
+                }
 
                 t.Restart();
                 foreach (var geocerca in geocercas)
