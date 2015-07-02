@@ -361,6 +361,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Externals", "Externals", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPickerExtender", "Web\ColorPickerExtender\ColorPickerExtender.csproj", "{01DC3C5E-6F1D-48FE-BCAC-B38642A2EC59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraxEmu", "Applications\TraxEmu\TraxEmu.csproj", "{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -2667,6 +2669,24 @@ Global
 		{01DC3C5E-6F1D-48FE-BCAC-B38642A2EC59}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{01DC3C5E-6F1D-48FE-BCAC-B38642A2EC59}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{01DC3C5E-6F1D-48FE-BCAC-B38642A2EC59}.Release|Win32.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|.NET.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2829,5 +2849,6 @@ Global
 		{27C99A0E-3146-4E44-ACDB-2E55528F608A} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
 		{9F35A769-E4D4-4330-AAB5-FB3D0DA4B9C0} = {81C43A95-CD18-4960-ABAB-A98EB3466E17}
 		{01DC3C5E-6F1D-48FE-BCAC-B38642A2EC59} = {9F35A769-E4D4-4330-AAB5-FB3D0DA4B9C0}
+		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12} = {F8C52E81-C7ED-47EC-948A-BF5E39B4A70D}
 	EndGlobalSection
 EndGlobal

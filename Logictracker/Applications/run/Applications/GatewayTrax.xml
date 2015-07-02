@@ -7,12 +7,10 @@
 	RunMode="WinService">
 
 	<Resources>
-		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_trax" Transactional="false" Recoverable="true" 
-                  QueueType="rabbitmq"  />
+		<MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_trax" Transactional="false" Recoverable="true" />
 		<MessageQueue x:Key="commanderQueue" Path=".\private$\comandos_trax" Transactional="false" Recoverable="false" />
 		<SQLDataProvider Comment="Deshabilitar para el gateway 911" />
 		<!--VirtualDataProvider Comment="Habilitar para el gateway 911" /-->
-
 		<LinksTree />
 		<NodesTree MessageQueue="{StaticResource commanderQueue}" />
 		<DataLinkLayer />
@@ -23,7 +21,7 @@
 		<UDPNetworkServer>
 			<ReplicationClient></ReplicationClient>
 		</UDPNetworkServer>
-		<TraxParser				Port="6062" />
+		<TraxParser				Port="5050" />
 	</Resources>
 
 	<StackChannel>

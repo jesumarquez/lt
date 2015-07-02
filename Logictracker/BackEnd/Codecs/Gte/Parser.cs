@@ -232,6 +232,10 @@ namespace Logictracker.Trax.v1
         [ElementAttribute(XName = "Port", IsRequired = false, DefaultValue = 5050)]
         public override int Port { get; set; }
 
+
+        [ElementAttribute(XName = "CheckIMEI", IsRequired = false, DefaultValue = true)]
+        public bool CheckIMEI { get; set; }
+
         #endregion
 
         #region private
@@ -338,18 +342,18 @@ namespace Logictracker.Trax.v1
             string[] data = buffer.Replace(",\"+,\",", ",\"+\",").Split(';')[0].Split(',');
 
             var dc = (GTEDeviceCommand) BaseDeviceCommand.createFrom(buffer, this, null);
-
-            string tipoReporte = Reporte.GetTipoReporte(buffer);
-
-            var sinIMEI = (_askedIMEI == null && tipoReporte != Reporte.IMEIResponsePrefix);
-            var sinNodo = (ParserUtils.IsInvalidDeviceId(Id) && (tipoReporte != Reporte.IdReq));
             var t = new TimeElapsed();
-            if (online)
+            string tipoReporte = Reporte.GetTipoReporte(buffer);
+            if (CheckIMEI)
             {
-                if (sinIMEI) tipoReporte = Reporte.SinIMEI;
-                else if (sinNodo) tipoReporte = Reporte.SinNodo;
+                var sinIMEI = (_askedIMEI == null && tipoReporte != Reporte.IMEIResponsePrefix);
+                var sinNodo = (ParserUtils.IsInvalidDeviceId(Id) && (tipoReporte != Reporte.IdReq));
+                if (online)
+                {
+                    if (sinIMEI) tipoReporte = Reporte.SinIMEI;
+                    else if (sinNodo) tipoReporte = Reporte.SinNodo;
+                }
             }
-
             try
             {
                 t.Restart();
