@@ -6,17 +6,14 @@ namespace Logictracker.Configuration
     {
         public static class ReportMsmq
         {
-            public static class MailReport
+            public static String QueueName
             {
-                public static String QueueName
-                {
-                    get { return ConfigurationBase.GetAsString("logictracker.reports.queuename", ""); }
-                }
+                get { return ConfigurationBase.GetAsString("logictracker.reports.queuename", ""); }
+            }
 
-                public static String QueueType
-                {
-                    get { return ConfigurationBase.GetAsString("logictracker.reports.queuetype", ""); }
-                }
+            public static String QueueType
+            {
+                get { return ConfigurationBase.GetAsString("logictracker.reports.queuetype", ""); }
             }
         }
     }

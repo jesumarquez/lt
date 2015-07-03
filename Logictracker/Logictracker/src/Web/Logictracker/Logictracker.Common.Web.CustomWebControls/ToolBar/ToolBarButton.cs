@@ -27,7 +27,8 @@ namespace Logictracker.Web.CustomWebControls.ToolBar
         Start, 
         Anular,
         Excel,
-        Edit
+        Edit,
+        SendReport
     }
 
     /// <summary>
@@ -183,6 +184,7 @@ namespace Logictracker.Web.CustomWebControls.ToolBar
                 case ToolBarButtonImages.Split: img = "spliter.png"; break;
                 case ToolBarButtonImages.Regenerate: img = "regenerate.png"; break;
                 case ToolBarButtonImages.Schedule: img = "schedule.png"; break;
+                case ToolBarButtonImages.SendReport: img = "sendReport.png"; break;
                 case ToolBarButtonImages.Start: img = "start.png"; break;
                 case ToolBarButtonImages.Anular: img = "anular.png"; break;
                 case ToolBarButtonImages.Edit: img = "edit.png"; break;

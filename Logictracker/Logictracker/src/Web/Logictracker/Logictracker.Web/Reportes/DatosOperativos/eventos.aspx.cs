@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using C1.Web.UI.Controls.C1GridView;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,7 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             ViewState["SearchData"] = data;
         }
+        
         private SearchData LoadSearchData() 
         {
             var data = ViewState["SearchData"] as SearchData;
@@ -56,8 +59,9 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override string GetRefference() { return "REP_EVENTOS"; }
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
         private const int Interval = 5;
-        
+
         protected override Empresa GetEmpresa()
         {
             return (ddlLocacion.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected) : null;
@@ -331,12 +335,14 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             var sMensajes = new StringBuilder();
 
+            if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
+
             foreach (var mensaje in lbMensajes.SelectedValues)
             {
                 if (!sMensajes.ToString().Equals(""))
                     sMensajes.Append(",");
 
-                sMensajes.Append((string)mensaje.ToString());
+                sMensajes.Append(mensaje.ToString());
             }
 
             return sMensajes.ToString();
@@ -355,11 +361,12 @@ namespace Logictracker.Reportes.DatosOperativos
                 if (!sChoferes.ToString().Equals(""))
                     sChoferes.Append(",");
 
-                sChoferes.Append((string)chofer.ToString());
+                sChoferes.Append(chofer.ToString());
             }
 
             return sChoferes.ToString();
         }
+
 
         /// <summary>
         /// Returns vehicles id for a report programming
@@ -369,15 +376,96 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             var sVehiculos = new StringBuilder();
 
+            if (lbCamiones.SelectedValues.Contains(0)) lbCamiones.ToogleItems();
+
             foreach (var vehiculo in lbCamiones.SelectedValues)
             {
                 if (!sVehiculos.ToString().Equals(""))
                     sVehiculos.Append(",");
 
-                sVehiculos.Append((string)vehiculo.ToString());
+                sVehiculos.Append(vehiculo.ToString());
             }
 
             return sVehiculos.ToString();
+        }            
+
+        protected override string GetSelectedVehicleNames()
+        {
+            var sVehiculos = new StringBuilder();
+
+            if (lbCamiones.SelectedValues.Contains(0)) lbCamiones.ToogleItems();
+
+            foreach (var vehiculo in lbCamiones.SelectedStringValues)
+            {
+                sVehiculos.Append(vehiculo);
+            }
+            sVehiculos.Remove(sVehiculos.Length - 2, 1);
+
+            return sVehiculos.ToString();
+        }
+        
+        protected override string GetSelectedMessageNames()
+        {
+            var sMessages = new StringBuilder();
+
+            if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
+
+            foreach (var message in lbMensajes.SelectedStringValues)
+            {              
+                sMessages.Append(message.ToString());
+            }
+            sMessages.Remove(sMessages.Length - 2, 1);
+
+            return sMessages.ToString();
+        }
+
+        protected override string GetSelectedDriverNames()
+        {
+            var sDrivers = new StringBuilder();
+
+            if (lbChoferes.SelectedValues.Contains(0)) return "Ninguno";
+
+            foreach (var driver in lbChoferes.SelectedStringValues)
+            {
+                sDrivers.Append(driver);
+            }
+            sDrivers.Remove(sDrivers.Length - 2, 1);
+            return sDrivers.ToString();
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            switch (field)
+            {
+                case "drivers":
+                    return lbChoferes.SelectedValues;
+
+                case "messages":
+                    if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
+                    return lbMensajes.SelectedValues;
+
+                case "vehicles":
+                    if (lbCamiones.SelectedValues.Contains(0)) lbCamiones.ToogleItems();
+                    return lbCamiones.SelectedValues;
+                
+                default:
+                    return new List<int>();
+            }
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override DateTime GetToDateTime()
+        {
+            return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();    
         }
 
         /// <summary>

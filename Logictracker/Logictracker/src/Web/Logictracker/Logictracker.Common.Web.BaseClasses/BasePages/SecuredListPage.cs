@@ -282,6 +282,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case ToolBar.ButtonCommandNameNew: New(); break;
                 case ToolBar.ButtonCommandNameCsv: ExportToCsv(); break;
                 case ToolBar.ButtonCommandNameExcel: ExportToExcel(); break;
+                case ToolBar.ButtonCommandNameSendReport: SendReportToMail(); break;
                 case ToolBar.ButtonCommandNameDuplicate: Duplicate(); break;
                 case ToolBar.ButtonCommandNameDelete: Delete(); break;
                 case ToolBar.ButtonCommandNameImport: Import(); break;
@@ -383,6 +384,24 @@ namespace Logictracker.Web.BaseClasses.BasePages
             builder.GenerateColumns(list);
             builder.GenerateFields(list);
             
+            SetExcelSessionVars(builder.CloseAndSave());
+
+            OpenWin(String.Concat(ApplicationPath, "Common/exportExcel.aspx"), CultureManager.GetSystemMessage("EXPORT_CSV_DATA"));
+        }
+
+        protected virtual void SendReportToMail()
+        {
+            var path = HttpContext.Current.Request.Url.AbsolutePath;
+            path = Path.GetFileNameWithoutExtension(path) + ".xlsx";
+
+            var builder = new GridToExcelBuilder(path, Usuario.ExcelFolder);
+
+            var list = GridUtils.Search(Data, SearchString);
+
+            builder.GenerateHeader(CultureManager.GetMenu(VariableName), new Dictionary<string, string>());
+            builder.GenerateColumns(list);
+            builder.GenerateFields(list);
+
             SetExcelSessionVars(builder.CloseAndSave());
 
             OpenWin(String.Concat(ApplicationPath, "Common/exportExcel.aspx"), CultureManager.GetSystemMessage("EXPORT_CSV_DATA"));

@@ -30,6 +30,8 @@ namespace Logictracker.Admin.Log
 
         protected override ResourceButton BtnSearch { get { return null; } }
 
+      
+
         protected override bool PrintButton { get { return false; } }
 
         protected override string GetRefference() { return "LOGS_ADMIN"; }

@@ -26,6 +26,7 @@ namespace Logictracker.Web.CustomWebControls.ToolBar
         public const string ToolBarButtonMapId = "__map";
         public const string ToolBarButtonEventId = "__event";
         public const string ToolBarButtonScheduleId = "__toolbarbutton_schedule";
+        public const string ToolBarButtonSendReportId = "__toolbarbutton_sendreport";
         public const string ToolBarButtonStartAllId = "__toolbarbutton_startall";
         public const string ToolBarButtonStartId = "__toolbarbutton_start";
         public const string ToolBarButtonCancelId = "__toolbarbutton_cancel";
@@ -45,6 +46,7 @@ namespace Logictracker.Web.CustomWebControls.ToolBar
         public const string ButtonCommandNameView = "View";
         public const string ButtonCommandNameEvent = "Event";
         public const string ButtonCommandNameSchedule = "Schedule";
+        public const string ButtonCommandNameSendReport = "SendReport";
         public const string ButtonCommandNameRegenerate = "Regenerate";
         public const string ButtonCommandNameCancel = "Cancel";
         public const string ButtonCommandNameStart = "Start";
@@ -266,6 +268,14 @@ namespace Logictracker.Web.CustomWebControls.ToolBar
         public void AddScheduleButton()
         {
             AddControls(new ToolBarButton { ID = ToolBarButtonScheduleId, SkinID = "Schedule", CommandName = ButtonCommandNameSchedule, Text = CultureManager.GetControl("BUTTON_SCHEDULE") });
+        }
+
+        /// <summary>
+        /// Adds the SendReport action button to the toolbar.
+        /// </summary>
+        public void AddSendReportButton()
+        {
+            AddControls(new ToolBarButton { ID = ToolBarButtonSendReportId, SkinID = "SendReport", CommandName = ButtonCommandNameSendReport, Text = CultureManager.GetControl("BUTTON_SENDREPORT") });
         }
 
         /// <summary>

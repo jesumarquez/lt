@@ -73,6 +73,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected virtual Boolean ExcelButton { get { return false; } }
 
+        protected virtual Boolean SendReportButton { get { return false; } }
+
         /// <summary>
         /// Determines wither to add or not the print button.
         /// </summary>
@@ -103,7 +105,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected abstract void ExportToExcel();
 
-        protected virtual void Schedule(){}
+        protected virtual void Schedule() { }
+
+        protected virtual void SendReportToMail() { }
 
         protected virtual Empresa GetEmpresa() { throw new NotImplementedException(); }
 
@@ -117,9 +121,19 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected virtual Dictionary<String, String> GetFilterValuesProgramados() { return new Dictionary<String, String>(); }
 
+        //programacion de reportes
         protected virtual string GetSelectedVehicles() { return string.Empty; }
         protected virtual string GetSelectedDrivers() { return string.Empty; }
         protected virtual string GetSelectedMessageTypes() { return string.Empty; }
+        protected virtual string GetSelectedVehicleNames() { return string.Empty; }
+        protected virtual string GetSelectedDriverNames() { return string.Empty; }
+        protected virtual string GetSelectedMessageNames() { return string.Empty; }
+        
+        //envio manual de reportes
+        protected virtual List<int> GetSelectedListByField(string field) { return new List<int>(); }
+        protected virtual DateTime GetSinceDateTime() { return DateTime.UtcNow.AddDays(-1); }
+        protected virtual DateTime GetToDateTime() { return DateTime.UtcNow; }
+        protected virtual int GetCompanyId() { return 0; }
 
         /// <summary>
         /// Send the data displayed at the grid to report print page.
@@ -159,6 +173,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     case ToolBar.ButtonCommandNamePrint: Print(); break;
                     case ToolBar.ButtonCommandNameCsv: ExportToCsv(); break;
                     case ToolBar.ButtonCommandNameSchedule: Schedule(); break;
+                    case ToolBar.ButtonCommandNameSendReport : SendReportToMail(); break;
                     case ToolBar.ButtonCommandNameExcel: ExportToExcel();break;
                 }
             }
@@ -227,6 +242,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
             if (PrintButton) ToolBar.AddPrintToolbarButton();
 
             if (ScheduleButton) ToolBar.AddScheduleButton();
+
+            if (SendReportButton) ToolBar.AddSendReportButton();
         }
 
         /// <summary>

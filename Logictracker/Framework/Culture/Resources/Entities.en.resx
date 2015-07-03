@@ -339,4 +339,7 @@
   <data name="EventsReport" xml:space="preserve">
     <value>Events Report</value>
   </data>
+  <data name="BUTTON_SENDREPORT" xml:space="preserve">
+    <value>Send Report to e-mail</value>
+  </data>
 </root>

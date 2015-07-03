@@ -91,6 +91,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -188,6 +189,10 @@
       <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
       <Name>Logictracker.Culture</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Process\Logictracker.Process.Import.Client\Logictracker.Process.Import.Client.csproj">
       <Project>{AB0E5E1F-EE7F-4C66-892D-EBA6CAF3C9E0}</Project>
       <Name>Logictracker.Process.Import.Client</Name>
@@ -203,6 +208,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj">
+      <Project>{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}</Project>
+      <Name>Logictracker.Reports.Messaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Web\Logictracker.Common.Web\Logictracker.Web.csproj">
       <Project>{327F6143-1118-4881-8C79-5F0913F63F6B}</Project>

@@ -6,6 +6,7 @@ using Logictracker.Reports.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Layers.MessageQueue;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 {
@@ -25,11 +26,17 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             }
 
             // BUSCO TODOS LAS PROGRAMACIONES DIARIAS
-            var reportesProgramados = DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('D');
+            var reportesProgramados = new List<ProgramacionReporte>();
             
             // SI ES LUNES AGREGO LAS PROGRAMACIONES SEMANALES
             if (DateTime.UtcNow.ToDisplayDateTime().DayOfWeek == DayOfWeek.Monday)
-                reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('S'));
+            {
+                reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('S'));                
+            }
+            else
+            {
+                reportesProgramados = DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('D');
+            }
 
             // SI ES 1° AGREGO LAS PROGRAMACIONES MENSUALES
             if (DateTime.UtcNow.ToDisplayDateTime().Day == 1)
@@ -42,6 +49,17 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     CsvToList(prog.MessageTypes), CsvToList(prog.Drivers), GetInitialDate(prog.Periodicity), GetFinalDate());
                 queue.Send(msg);
             }
+            //comando para generar el correo informando el estado de las ejecuciones
+            queue.Send(GenerateFinalExecutionCommand());
+        }
+
+        private FinalExecutionCommand GenerateFinalExecutionCommand()
+        {
+            return new FinalExecutionCommand
+            {
+                Email = "julian.millan@logictracker.com",
+                InitialDate = DateTime.Now
+            };
         }
 
         private DateTime GetFinalDate()

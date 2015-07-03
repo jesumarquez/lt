@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -12,6 +11,7 @@ using Logictracker.Configuration;
 using Logictracker.Culture;
 using Logictracker.Layers.MessageQueue;
 using Logictracker.Mailing;
+using Logictracker.Reports.Messaging;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.BaseClasses.Util;
 using Logictracker.Web.CustomWebControls.Buttons;
@@ -20,6 +20,7 @@ using Logictracker.Web.CustomWebControls.Labels;
 using Logictracker.Web.CustomWebControls.ToolBar;
 using Logictracker.Web.Helpers;
 using Logictracker.Web.Helpers.ExportHelpers;
+using Logictracker.Messaging;
 
 namespace Logictracker.Web.BaseClasses.BasePages
 {
@@ -36,11 +37,17 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected override InfoLabel NotFound { get { return MasterPage.LblInfo; } }
         protected override ToolBar ToolBar { get { return MasterPage.ToolBar; } }
         protected override ResourceButton BtnSearch { get { return MasterPage.btnSearch; } }
+        
         protected DropDownList CbSchedulePeriodicidad { get { return MasterPage.cbSchedulePeriodicidad; } }
         protected TextBox TxtScheduleMail { get { return MasterPage.txtScheduleMail; } }
         protected ResourceButton BtScheduleGuardar { get { return MasterPage.btScheduleGuardar; } }
         protected ModalPopupExtender ModalSchedule { get { return MasterPage.modalSchedule; } }
-       
+
+        protected TextBox SendReportTextBoxEmail { get { return MasterPage.SendReportTextBoxEmail; } }
+        protected TextBox SendReportTextBoxReportName{ get { return MasterPage.SendReportTextBoxReportName; } }
+        protected ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
+        protected ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
+        
         #region IGridded
 
         /// <summary>
@@ -92,6 +99,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         public virtual OutlineMode GridOutlineMode { get { return OutlineMode.None; } }
 
         public virtual bool HasTotalRow { get { return false; } }
+        //protected abstract bool SendReportButton { get; }
 
         #endregion
 
@@ -107,7 +115,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
             GridUtils.SelectedIndexChanged += GridUtils_SelectedIndexChanged;
             GridUtils.Binding += GridUtils_Binding;
             GridUtils.AggregateCustomFormat += GridUtils_AggregateCustomFormat;
-            if(ScheduleButton) BtScheduleGuardar.Click += BtScheduleGuardarClick;
+            if (ScheduleButton) BtScheduleGuardar.Click += BtScheduleGuardarClick;
+            if (SendReportButton) SendReportOkButton.Click += ButtonOkSendReportClick;
         }
 
         protected override void OnPreLoad(EventArgs e)
@@ -273,18 +282,19 @@ namespace Logictracker.Web.BaseClasses.BasePages
         {
             return value != null ? value.ToString() : string.Empty;
         }
-
         
         protected void SetCsvSessionVars(string csv)
         {
             Session["CSV_EXPORT"] = csv;
             Session["CSV_FILE_NAME"] = CultureManager.GetMenu(Module.Name);
         }
+
         protected void SetExcelSessionVars(string filename)
         {
             Session["TMP_FILE_NAME"] = filename;
             Session["CSV_FILE_NAME"] = CultureManager.GetMenu(Module.Name);
         }
+        
         protected override void Schedule()
         {
             CbSchedulePeriodicidad.Items.Clear();
@@ -346,12 +356,15 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var linea = GetLinea();
             var prog = new ProgramacionReporte
                            {
+                               ReportName = SendReportTextBoxReportName.Text,
                                Report = reporte,
                                Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
                                Mail = TxtScheduleMail.Text,
                                Empresa = empresa ?? linea.Empresa,
                                Created = DateTime.Now,
-                               Active = true
+                               Description = SendReportTextBoxReportName.Text,
+                               //Description = BuildDescription(),
+                               Active = false
                            };
 
             prog.Vehicles = GetSelectedVehicles();
@@ -398,6 +411,33 @@ namespace Logictracker.Web.BaseClasses.BasePages
             SendConfirmationMail(prog);
         }
 
+        private string BuildDescription()
+        {
+            var desc = new StringBuilder();
+            desc.AppendFormat("Empresa : {0} - Vehiculos: ", GetEmpresa().RazonSocial);
+
+            foreach (var vehicleName in GetSelectedVehicleNames())
+            {
+                desc.Append(vehicleName + ",");
+            }
+            
+            desc.Append(" Mensajes: ");
+            
+            foreach (var messageName in GetSelectedMessageNames())
+            {
+                desc.Append(messageName + ",");
+            }
+
+            desc.Append(" Conductores: ");
+
+            foreach (var driverName in GetSelectedDriverNames())
+            {
+                desc.Append(driverName + ",");
+            }
+
+            return desc.ToString();
+        }
+
         private void SendConfirmationMail(ProgramacionReporte prog)
         {
             var configFile = Config.Mailing.ReportConfirmation;
@@ -421,12 +461,41 @@ namespace Logictracker.Web.BaseClasses.BasePages
             sender.SendMail();
         }
 
-        #endregion
-
-        private IMessageQueue GetReportMailServiceQueue()
+        protected override void SendReportToMail()
         {
-            var queueName = Config.LogicOut.Fichada.QueueName;
-            var queueType = Config.LogicOut.Fichada.QueueType;
+            SendReportModalPopupExtender.Show();
+        }
+
+        private void ButtonOkSendReportClick(object sender, EventArgs e)
+        {
+            var eventReportCmd = new EventReportCommand()
+            {
+                BaseId = 0,
+                CustomerId = GetCompanyId(),
+                Email = SendReportTextBoxEmail.Text,
+                DriversId = GetSelectedListByField("drivers"),
+                FinalDate = GetToDateTime(),
+                InitialDate = GetSinceDateTime(),
+                MessagesId = GetSelectedListByField("messages"),
+                VehiclesId = GetSelectedListByField("vehicles")
+            };
+
+            var queue = GetMailReportMsmq();
+            if (queue == null)
+            {
+                throw new ApplicationException("No se pudo crear la cola");
+            }
+            queue.Send(eventReportCmd);
+
+            ModalSchedule.Hide();
+
+            //SendConfirmationMail(eventReportCmd);
+        }
+
+        private IMessageQueue GetMailReportMsmq()
+        {
+            var queueName = Config.ReportMsmq.QueueName;
+            var queueType = Config.ReportMsmq.QueueType;
             if (String.IsNullOrEmpty(queueName)) return null;
 
             var umq = new IMessageQueue(queueName);
@@ -434,5 +503,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             return !umq.LoadResources() ? null : umq;
         }
+
+        #endregion
+
     }
 }

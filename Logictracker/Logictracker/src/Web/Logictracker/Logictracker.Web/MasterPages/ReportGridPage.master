@@ -19,6 +19,14 @@
                     <table>
                         <tr>
                             <td align="right">
+                                <cwc:ResourceLabel ID="labelReportName" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="REPORTNAME" />
+                            </td>
+                            <td align="left">
+                                <asp:TextBox ID="textBoxReportName" runat="server" MaxLength="120" TextMode="SingleLine" Width="300px" Height="30px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
                                 <cwc:ResourceLabel ID="ResourceLabel7" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="PERIODICIDAD" />
                             </td>
                             <td align="left">
@@ -64,6 +72,33 @@
         <Triggers>
         </Triggers>
         </asp:UpdatePanel>  
+        
+       <asp:UpdatePanel ID="UpdatePanelSendReport" runat="server">
+        <ContentTemplate>
+            <asp:Panel ID="PanelModalSendReport" runat="server" style="display: none;">
+                <div style="background-color: White; border: solid 1px black; width: auto; padding: 30px;">
+                    <table>
+                        <tr>
+                            <td align="right">
+                                <cwc:ResourceLabel ID="LabelMailSendReport" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="MAIL" />
+                            </td>
+                            <td align="left">
+                                <asp:TextBox ID="TextBoxEmailSendReport" runat="server" MaxLength="500" TextMode="SingleLine" Width="300px" Height="40px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <cwc:ResourceButton ID="ButtonOkSendReport" runat="server" ResourceName="Controls" VariableName="BUTTON_SOLICITAR" />
+                                <cwc:ResourceButton ID="ButtonCancelSendReport" runat="server" ResourceName="Controls" VariableName="BUTTON_CANCEL" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </asp:Panel>
+            <asp:Panel ID="hiddenPanelSendReport" runat="server"></asp:Panel>
+            <AjaxToolkit:ModalPopupExtender TargetControlId="hiddenPanelSendReport" PopupControlID="PanelModalSendReport" ID="popUpSendReport" CancelControlID="ButtonCancelSendReport" runat="server" BackgroundCssClass="disabled_back" />
+        </ContentTemplate>
+        </asp:UpdatePanel>
     
 </asp:Content>
 
