@@ -232,9 +232,9 @@ namespace Logictracker.Trax.v1
         [ElementAttribute(XName = "Port", IsRequired = false, DefaultValue = 5050)]
         public override int Port { get; set; }
 
-
         [ElementAttribute(XName = "CheckIMEI", IsRequired = false, DefaultValue = true)]
         public bool CheckIMEI { get; set; }
+
 
         #endregion
 
@@ -341,7 +341,7 @@ namespace Logictracker.Trax.v1
             ulong msgId = GetMessageId(buffer);            
             string[] data = buffer.Replace(",\"+,\",", ",\"+\",").Split(';')[0].Split(',');
 
-            var dc = (GTEDeviceCommand) BaseDeviceCommand.createFrom(buffer, this, null);
+            var dc = (GTEDeviceCommand)BaseDeviceCommand.createFrom(buffer, this, null);
             var t = new TimeElapsed();
             string tipoReporte = Reporte.GetTipoReporte(buffer);
             if (CheckIMEI)
@@ -354,6 +354,7 @@ namespace Logictracker.Trax.v1
                     else if (sinNodo) tipoReporte = Reporte.SinNodo;
                 }
             }
+
             try
             {
                 t.Restart();
