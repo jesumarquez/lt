@@ -68,6 +68,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string CierreDistribucionCompleta = "distribucion.cierre.completa";
 
             public const string DistribucionEvaluaSoloGeocercasViaje = "distribucion.geocercas.solo.viaje";
+            public const string TiposGeocercaViaje = "distribucion.tipos.geocerca.viaje";
         }
         public static class OrdenRuta
         {
@@ -588,6 +589,25 @@ namespace Logictracker.Types.BusinessObjects
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;
+            }
+        }
+
+        public virtual List<int> TiposGeocercaViaje
+        {
+            get
+            {
+                var lista = new List<int>();
+                var valor = GetParameter(Params.TiposGeocercaViaje);
+                if (!string.IsNullOrEmpty(valor))
+                {
+                    try
+                    {
+                        lista = valor.Split(',').Select(t => Convert.ToInt32(t)).ToList();
+                    }
+                    catch (Exception) { }
+                }
+
+                return lista;
             }
         }
 

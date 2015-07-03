@@ -65,10 +65,15 @@ namespace Logictracker.Process.Geofences
                     var viajeActivo = daoFactory.ViajeDistribucionDAO.FindEnCurso(vehiculo);
                     if (viajeActivo != null)
                     {
-                        var idsEntregas = viajeActivo.Detalles.Select(d => d.ReferenciaGeografica.Id);
-                        var idGeocercas = geocercas.Select(g => g.Id);
+                        var tiposGeocercaViaje = vehiculo.Empresa.TiposGeocercaViaje;
+                        var idGeocercas = geocercas.Where(g => !tiposGeocercaViaje.Contains(g.TipoReferenciaGeograficaId)).Select(g => g.Id).ToList();
+                        
+                        var idsEntregas = viajeActivo.Detalles.Select(d => d.ReferenciaGeografica.Id).Distinct().ToList();
+                        
+                        idGeocercas.AddRange(idsEntregas);
+                        idGeocercas = idGeocercas.Distinct().ToList();
+                        
                         var faltantes = idsEntregas.Where(id => !idGeocercas.Contains(id));
-
                         if (faltantes.Any())
                         {
                             foreach (var idGeocerca in faltantes)
@@ -81,9 +86,9 @@ namespace Logictracker.Process.Geofences
                                 catch { }
                             }
                         }
-                        geocercas = geocercas.Where(g => idsEntregas.Contains(g.Id)).ToList();
-                        var ts = t.getTimeElapsed().TotalSeconds;
-                        STrace.Debug("GeocercasEnViaje", vehiculo.Dispositivo.Id, String.Format("Geocercas Totales: {0} - Entregas: {1} | {2} segundos", geocercas.Count, idsEntregas.Count(), ts));
+                        
+                        geocercas = geocercas.Where(g => idGeocercas.Contains(g.Id)).ToList();
+                        if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercasViaje: {0} segundos", t.getTimeElapsed().TotalSeconds));
                     }
                 }
 
