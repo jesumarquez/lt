@@ -366,6 +366,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
             var tempfn = Path.GetTempFileName();
             _document.Close();
             var temp = File.Open(tempfn, FileMode.Create);
+            _stream.Position = 0;
             _stream.CopyTo(temp);
             temp.Close();
             return tempfn;
