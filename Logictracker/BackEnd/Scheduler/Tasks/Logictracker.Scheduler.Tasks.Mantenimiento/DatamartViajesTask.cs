@@ -166,36 +166,56 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         private void ProcessViaje(ViajeDistribucion viaje)
         {
+            var kmProductivos = 0.0;
             var kmImproductivos = 0.0;
             var detalles = viaje.Detalles.Where(d => d.Linea == null);
 
-            var primera = detalles.Min(e => e.Entrada);
-            if (primera.HasValue)
+            DateTime? ultima = null;
+            DateTime? primera = null;
+
+            var primeraEntrada = detalles.Min(e => e.Entrada);
+            var primeraSalida = detalles.Min(e => e.Salida);
+            var ultimaEntrada = detalles.Max(e => e.Entrada);
+            var ultimaSalida = detalles.Max(e => e.Salida);
+
+            if (primeraSalida.HasValue && primeraEntrada.HasValue)
+                primera = primeraEntrada <= primeraSalida ? primeraEntrada : primeraSalida;
+            else if (primeraEntrada.HasValue) primera = primeraEntrada;
+            else if (primeraSalida.HasValue) primera = primeraSalida;
+
+            if (ultimaSalida.HasValue && ultimaEntrada.HasValue)
+                ultima = ultimaSalida >= ultimaEntrada ? ultimaSalida : ultimaEntrada;
+            else if (ultimaSalida.HasValue) ultima = ultimaSalida;
+            else if (ultimaEntrada.HasValue) ultima = ultimaEntrada;
+
+            if (primera.HasValue && ultima.HasValue)
             {
-                var dm = DaoFactory.DatamartDAO.GetMobilesKilometers(viaje.InicioReal.Value, primera.Value, new List<int> {viaje.Vehiculo.Id}).FirstOrDefault();
-                kmImproductivos += dm != null ? dm.Kilometers : 0.0;
+                if (primera == ultima) // TODOS KMS IMPRODUCTIVOS
+                {
+                    var dm = DaoFactory.DatamartDAO.GetMobilesKilometers(viaje.InicioReal.Value, viaje.Fin, new List<int> { viaje.Vehiculo.Id }).FirstOrDefault();
+                    kmImproductivos += dm != null ? dm.Kilometers : 0.0;
+                }
+                else
+                {
+                    // PRIMER TRAMO IMPRODUCTIVO
+                    var dm = DaoFactory.DatamartDAO.GetMobilesKilometers(viaje.InicioReal.Value, primera.Value, new List<int> { viaje.Vehiculo.Id }).FirstOrDefault();
+                    kmImproductivos += dm != null ? dm.Kilometers : 0.0;
+
+                    // SEGUNDO TRAMO PRODUCTIVO
+                    dm = DaoFactory.DatamartDAO.GetMobilesKilometers(primera.Value, ultima.Value, new List<int> { viaje.Vehiculo.Id }).FirstOrDefault();
+                    kmProductivos += dm != null ? dm.Kilometers : 0.0;
+
+                    // TERCER TRAMO IMPRODUCTIVO
+                    dm = DaoFactory.DatamartDAO.GetMobilesKilometers(ultima.Value, viaje.Fin, new List<int> { viaje.Vehiculo.Id }).FirstOrDefault();
+                    kmImproductivos += dm != null ? dm.Kilometers : 0.0;
+                }
             }
-            
-            var ultima = detalles.Max(e => e.Salida);
-            if (ultima.HasValue)
-            {
-                var dm = DaoFactory.DatamartDAO.GetMobilesKilometers(ultima.Value, viaje.Fin, new List<int> { viaje.Vehiculo.Id }).FirstOrDefault();
-                kmImproductivos += dm != null ? dm.Kilometers : 0.0;
-            }
-            
-            if (!primera.HasValue && !ultima.HasValue)
-            {
+            else if (!primera.HasValue && !ultima.HasValue) // TODOS KMS IMPRODUCTIVOS
+            { 
                 var dm = DaoFactory.DatamartDAO.GetMobilesKilometers(viaje.InicioReal.Value, viaje.Fin, new List<int> { viaje.Vehiculo.Id }).FirstOrDefault();
                 kmImproductivos += dm != null ? dm.Kilometers : 0.0;
             }
-
-            var kmProductivos = 0.0;
-            if (primera.HasValue && ultima.HasValue)
-            {
-                var dm = DaoFactory.DatamartDAO.GetMobilesKilometers(primera.Value, ultima.Value, new List<int>{viaje.Vehiculo.Id}).FirstOrDefault();
-                kmProductivos += dm != null ? dm.Kilometers : 0.0;
-            }
-
+            
             var kmProgramados = viaje.Detalles.Sum(d => d.KmCalculado);
             var kmTotales = kmProductivos + kmImproductivos;
             if (kmTotales <= 0) STrace.Error(GetType().FullName, string.Format("Viaje con kilometros en 0 - Id: {0}", viaje.Id));
