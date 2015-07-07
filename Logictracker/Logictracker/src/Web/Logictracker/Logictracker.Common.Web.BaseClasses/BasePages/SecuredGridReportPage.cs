@@ -362,8 +362,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                                Mail = TxtScheduleMail.Text,
                                Empresa = empresa ?? linea.Empresa,
                                Created = DateTime.Now,
-                               Description = SendReportTextBoxReportName.Text,
-                               //Description = BuildDescription(),
+                               Description = GetDescription(),
                                Active = false
                            };
 
@@ -408,55 +407,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             ModalSchedule.Hide();
 
-            SendConfirmationMail(prog);
+            SendConfirmationMail(prog.Description);
         }
 
-        private string BuildDescription()
-        {
-            var desc = new StringBuilder();
-            desc.AppendFormat("Empresa : {0} - Vehiculos: ", GetEmpresa().RazonSocial);
-
-            foreach (var vehicleName in GetSelectedVehicleNames())
-            {
-                desc.Append(vehicleName + ",");
-            }
-            
-            desc.Append(" Mensajes: ");
-            
-            foreach (var messageName in GetSelectedMessageNames())
-            {
-                desc.Append(messageName + ",");
-            }
-
-            desc.Append(" Conductores: ");
-
-            foreach (var driverName in GetSelectedDriverNames())
-            {
-                desc.Append(driverName + ",");
-            }
-
-            return desc.ToString();
-        }
-
-        private void SendConfirmationMail(ProgramacionReporte prog)
+        private void SendConfirmationMail(string description)
         {
             var configFile = Config.Mailing.ReportConfirmation;
 
             if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
 
             var sender = new MailSender(configFile);
-
             sender.Config.Subject = "Se ha creado un nuevo reporte programado";
-            var body = new StringBuilder("Datos del nuevo reporte programado:\n\n");
-            body.AppendFormat("Conductores: {0} \n",prog.Drivers);
-            body.AppendFormat("Correo detino: {0} \n",prog.Mail);
-            body.AppendFormat("Tipos de mensajes: {0} \n",prog.MessageTypes);
-            body.AppendFormat("Reporte: {0} \n", prog.Report);
-            body.AppendFormat("Vehiculos: {0} \n", prog.Vehicles);
-            body.AppendFormat("Creado: {0} \n", prog.Created.ToString());
-            body.AppendFormat("Empresa: {0} \n", prog.Empresa.RazonSocial);
-
-            sender.Config.Body = body.ToString();
+            sender.Config.Body = description;
             
             sender.SendMail();
         }
@@ -470,7 +432,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         {
             var eventReportCmd = new EventReportCommand()
             {
-                BaseId = 0,
+                ReportId = 83, //Id de reporte manual inactivo
                 CustomerId = GetCompanyId(),
                 Email = SendReportTextBoxEmail.Text,
                 DriversId = GetSelectedListByField("drivers"),

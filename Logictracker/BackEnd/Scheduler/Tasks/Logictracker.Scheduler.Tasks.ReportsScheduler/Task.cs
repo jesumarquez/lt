@@ -45,7 +45,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             //solo para reportes de eventos
             foreach (var prog in reportesProgramados)
             {
-                var msg = GenerateReportEventCommand(prog.Id, prog.Empresa.Id, prog.Mail, CsvToList(prog.Vehicles),
+                var msg = GenerateReportEventCommand(prog.Id, prog.ReportName, prog.Empresa.Id, prog.Mail, CsvToList(prog.Vehicles),
                     CsvToList(prog.MessageTypes), CsvToList(prog.Drivers), GetInitialDate(prog.Periodicity), GetFinalDate());
                 queue.Send(msg);
             }
@@ -57,7 +57,6 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
         {
             return new FinalExecutionCommand
             {
-                Email = "julian.millan@logictracker.com",
                 InitialDate = DateTime.Now
             };
         }
@@ -100,11 +99,12 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             return (from v in idArray where !string.IsNullOrEmpty(v) select int.Parse(v)).ToList();
         }
 
-        private EventReportCommand GenerateReportEventCommand(int id, int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate)
+        private EventReportCommand GenerateReportEventCommand(int id, string reportName, int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate)
         {
             return new EventReportCommand()
             {
                 ReportId = id,
+                ReportName = reportName,
                 CustomerId = customerId,
                 Email = email,
                 DriversId = driversId,

@@ -4643,4 +4643,16 @@
   <data name="EventsReport" xml:space="preserve">
     <value>Reporte de Eventos</value>
   </data>
+  <data name="REPORTDESCRIPTION" xml:space="preserve">
+    <value>Descripción del Reporte</value>
+  </data>
+  <data name="REPORTNAME" xml:space="preserve">
+    <value>Reporte</value>
+  </data>
+  <data name="ERRORS" xml:space="preserve">
+    <value>Errores</value>
+  </data>
+  <data name="ROWS" xml:space="preserve">
+    <value>Filas</value>
+  </data>
 </root>

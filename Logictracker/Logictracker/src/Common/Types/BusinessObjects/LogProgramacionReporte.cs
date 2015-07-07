@@ -6,6 +6,19 @@ namespace Logictracker.Types.BusinessObjects
     [Serializable]
     public class LogProgramacionReporte : IAuditable
     {
+        public static class ReportType
+        {
+            public const short EventsReport = 0;
+
+            public static string GetString(short modulo)
+            {
+                switch (modulo)
+                {
+                    default: return "Reporte de Eventos";
+                }
+            }
+        }
+
         #region IAuditable Members
 
         public virtual int Id { get; set; }

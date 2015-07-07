@@ -15,5 +15,6 @@ namespace Logictracker.Reports.Messaging
         public List<int> DriversId { get; set; }
         public DateTime InitialDate { get; set; }
         public DateTime FinalDate { get; set; }
+        public string ReportName { get; set; }
     }
 }

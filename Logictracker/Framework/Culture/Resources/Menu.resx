@@ -865,7 +865,7 @@
     <value>Subcentros de Costos</value>
   </data>
   <data name="DISTRIBUCION_GLOBAL_ENTREGAS" xml:space="preserve">
-    <value>Distribución Global de Entregas</value>    
+    <value>Distribución Global de Entregas</value>
   </data>
   <data name="SYS_TELEMETRIA" xml:space="preserve">
     <value>Telemetría</value>
@@ -938,5 +938,8 @@
   </data>
   <data name="KILOMETROS_DIARIOS" xml:space="preserve">
     <value>Kilómetros Diarios</value>
+  </data>
+  <data name="REPORT_LOG" xml:space="preserve">
+    <value>Log de Reportes Ejecutados</value>
   </data>
 </root>

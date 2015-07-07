@@ -8,14 +8,18 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
     public class ProgramacionReporteVo
     {
         public const int IndexReporte = 0;
-        public const int IndexPeriodicidad = 1;
-        public const int IndexMail = 2;
-        public const int IndexBaja = 3;
+        public const int IndexReportName= 1;
+        public const int IndexPeriodicidad = 2;
+        public const int IndexMail = 3;
+        public const int IndexBaja = 4;
 
         public int Id { get; set; }
 
         [GridMapping(Index = IndexReporte, ResourceName = "Labels", VariableName = "REPORTE", InitialSortExpression = true, AllowGroup = true, IncludeInSearch = true)]
         public string Reporte { get; set; }
+
+        [GridMapping(Index = IndexReportName, ResourceName = "Labels", VariableName = "REPORTNAME", InitialSortExpression = true, AllowGroup = true, IncludeInSearch = true)]
+        public string ReportName { get; set; }
 
         [GridMapping(Index = IndexPeriodicidad, ResourceName = "Labels", VariableName = "PERIODICIDAD", AllowGroup = true)]
         public string Periodicidad { get; set; }
@@ -36,6 +40,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
             }
             Id = progReporte.Id;
             Reporte =   CultureManager.GetLabel(progReporte.Report);
+            ReportName = progReporte.ReportName;            
             Mail = progReporte.Mail;
             Estado = progReporte.Active ? CultureManager.GetLabel("ACTIVE") : CultureManager.GetLabel("INACTIVE");
         }

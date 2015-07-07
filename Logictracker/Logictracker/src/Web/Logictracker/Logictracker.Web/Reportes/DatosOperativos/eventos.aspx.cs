@@ -366,7 +366,7 @@ namespace Logictracker.Reportes.DatosOperativos
 
             return sChoferes.ToString();
         }
-
+               
 
         /// <summary>
         /// Returns vehicles id for a report programming
@@ -389,50 +389,23 @@ namespace Logictracker.Reportes.DatosOperativos
             return sVehiculos.ToString();
         }            
 
-        protected override string GetSelectedVehicleNames()
+        protected override string GetDescription()
         {
-            var sVehiculos = new StringBuilder();
-
+            var linea = GetLinea();
             if (lbCamiones.SelectedValues.Contains(0)) lbCamiones.ToogleItems();
-
-            foreach (var vehiculo in lbCamiones.SelectedStringValues)
-            {
-                sVehiculos.Append(vehiculo);
-            }
-            sVehiculos.Remove(sVehiculos.Length - 2, 1);
-
-            return sVehiculos.ToString();
-        }
-        
-        protected override string GetSelectedMessageNames()
-        {
-            var sMessages = new StringBuilder();
-
             if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
 
-            foreach (var message in lbMensajes.SelectedStringValues)
-            {              
-                sMessages.Append(message.ToString());
-            }
-            sMessages.Remove(sMessages.Length - 2, 1);
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Tipo de Vehiculo: {0} - ",ddlTipoVehiculo.SelectedItem.Text);
+            sDescription.AppendFormat("Tipo de Mensajes: {0} ", ddlTipoMensaje.SelectedItem.Text);
+            sDescription.AppendFormat("Cantidad Vehiculos: {0} ", lbCamiones.SelectedStringValues.Count);
+            sDescription.AppendFormat("Cantidad Mensajes: {0} ", lbMensajes.SelectedStringValues.Count);
+            sDescription.AppendFormat("Cantidad Conductores: {0}", lbChoferes.SelectedStringValues.Count);
 
-            return sMessages.ToString();
+            return sDescription.ToString();
         }
-
-        protected override string GetSelectedDriverNames()
-        {
-            var sDrivers = new StringBuilder();
-
-            if (lbChoferes.SelectedValues.Contains(0)) return "Ninguno";
-
-            foreach (var driver in lbChoferes.SelectedStringValues)
-            {
-                sDrivers.Append(driver);
-            }
-            sDrivers.Remove(sDrivers.Length - 2, 1);
-            return sDrivers.ToString();
-        }
-
+        
         protected override int GetCompanyId()
         {
             return GetEmpresa().Id;

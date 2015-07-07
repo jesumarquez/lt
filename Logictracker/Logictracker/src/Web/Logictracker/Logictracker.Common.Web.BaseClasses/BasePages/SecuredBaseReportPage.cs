@@ -125,9 +125,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual string GetSelectedVehicles() { return string.Empty; }
         protected virtual string GetSelectedDrivers() { return string.Empty; }
         protected virtual string GetSelectedMessageTypes() { return string.Empty; }
-        protected virtual string GetSelectedVehicleNames() { return string.Empty; }
-        protected virtual string GetSelectedDriverNames() { return string.Empty; }
-        protected virtual string GetSelectedMessageNames() { return string.Empty; }
+        protected virtual string GetDescription() { return string.Empty; }
         
         //envio manual de reportes
         protected virtual List<int> GetSelectedListByField(string field) { return new List<int>(); }

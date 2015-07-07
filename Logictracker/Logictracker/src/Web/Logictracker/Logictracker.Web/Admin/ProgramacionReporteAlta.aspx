@@ -20,8 +20,14 @@
                             </Triggers>
                         </asp:UpdatePanel>
 
+                        <cwc:ResourceLabel ID="LabelReportName" runat="server" ResourceName="Labels" VariableName="REPORTNAME" />
+                        <asp:TextBox ID="txtReportName" runat="server" Width="300px" Enabled="false" />
+
                         <cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="Labels" VariableName="REPORTE" />
-                        <asp:TextBox ID="txtReporte" runat="server" Width="300px" Enabled="false" />
+                        <asp:TextBox ID="txtReporte" runat="server" Width="500px" Enabled="false" TextMode="MultiLine" />
+                        
+                        <cwc:ResourceLabel ID="LabelReportDescription" runat="server" ResourceName="Labels" VariableName="REPORTDESCRIPTION" />
+                        <asp:TextBox ID="txtReportDescription" runat="server" Width="300px" Enabled="false" />
                         
                         <cwc:ResourceLabel ID="ResourceLabel7" runat="server" ResourceName="Labels" VariableName="PERIODICIDAD" />
                         <asp:DropDownList ID="cbPeriodicidad" runat="server" />

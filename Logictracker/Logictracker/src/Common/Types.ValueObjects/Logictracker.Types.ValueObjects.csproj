@@ -110,6 +110,7 @@
     <Compile Include="ReportObjects\CicloLogistico\TimeTrackingVo.cs" />
     <Compile Include="ReportObjects\CicloLogistico\EntregaVo.cs" />
     <Compile Include="ReportObjects\CicloLogistico\ReporteDistribucionVo.cs" />
+    <Compile Include="ReportObjects\ReportLogVo.cs" />
     <Compile Include="ReportObjects\VehicleInfractionDetailVo.cs" />
     <Compile Include="ReportObjects\KilometrosDiariosVo.cs" />
     <Compile Include="ReportObjects\ResumenActividadVo.cs" />
