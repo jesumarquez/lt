@@ -671,7 +671,7 @@
     <EmbeddedResource Include="ToolBar\excel.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ToolBar\edit.png" />
+    <EmbeddedResource Include="ToolBar\edit.png" />
     <EmbeddedResource Include="ToolBar\sendReport.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -12,7 +12,7 @@
                 <cwc:PlantaDropDownList ID="ddlBase" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito" AddAllItem="true" onselectedindexchanged="FilterChangedHandler" />
             </td>
             <td>
-                <cwc:ResourceLabel ID="lblCliente" runat="server" ResourceName="Entities" VariableName="CLIENT" /><br />
+                <cwc:ResourceLabel ID="lblCliente" runat="server" ResourceName="Entities" VariableName="PARENTI18" /><br />
                 <cwc:ClienteDropDownList ID="ddlCliente" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito,ddlBase" onselectedindexchanged="FilterChangedHandler" AddAllItem="false" />
             </td>
         </tr>

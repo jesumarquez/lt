@@ -307,7 +307,7 @@
 		<value>Fluxômetros</value>
 	</data>
 	<data name="PAR_CLIENTES" xml:space="preserve">
-		<value>Clientes</value>
+		<value>Tipo do Clientes / Cadena</value>
 	</data>
 	<data name="PAR_DET_DISPOSITIVOS" xml:space="preserve">
 		<value>Detalhes do dispositivo</value>
@@ -397,7 +397,7 @@
     <value>Marcas</value>
   </data>
 	<data name="PTOS_ENTREGA" xml:space="preserve">
-		<value>Pontos de Entrega</value>
+		<value>Clientes / Pontos de Entrega</value>
 	</data>
 	<data name="REPORTE_ODOMETROS" xml:space="preserve">
 		<value>Odômetro Relatório</value>

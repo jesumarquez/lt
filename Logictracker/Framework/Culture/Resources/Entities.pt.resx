@@ -163,7 +163,7 @@
 		<value>Tipo de veículo</value>
 	</data>
 	<data name="PARENTI18" xml:space="preserve">
-		<value>Cliente</value>
+		<value>Tipo do Cliente</value>
 	</data>
 	<data name="PARENTI19" xml:space="preserve">
 		<value>Equipe</value>
@@ -190,7 +190,7 @@
 		<value>Empregado Tipo</value>
 	</data>
 	<data name="PARENTI44" xml:space="preserve">
-		<value>Ponto de Entrega</value>
+		<value>Cliente</value>
 	</data>
 	<data name="PARENTI46" xml:space="preserve">
 		<value>Turnos</value>

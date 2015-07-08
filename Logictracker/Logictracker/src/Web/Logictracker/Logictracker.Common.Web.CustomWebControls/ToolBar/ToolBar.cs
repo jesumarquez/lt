@@ -336,16 +336,11 @@ namespace Logictracker.Web.CustomWebControls.ToolBar
         }
 
         /// <summary>
-        /// Adds a custom action button to the toolbar.
+        /// Adds a edit button to the toolbar.
         /// </summary>
-        /// <param name="id">The id of the custom button.</param>
-        /// <param name="skin">The skin id to be assigned to the button.</param>
-        /// <param name="text">The text of the button.</param>
-        /// <param name="commandName">The associated button command name.</param>
-        /// <param name="onClienClickString"></param>
         public void AddEditToolbarButton()
         {
-            AddControls(new ToolBarButton { ID = ToolBarButtonEditId, SkinID = "Duplicate", CommandName = ButtonCommandNameEdit, Text = CultureManager.GetControl("BUTTON_EDIT") });
+            AddControls(new ToolBarButton { ID = ToolBarButtonEditId, SkinID = "Edit", CommandName = ButtonCommandNameEdit, Text = CultureManager.GetControl("BUTTON_EDIT") });
         }
 
         public void RemoveButton(string id)

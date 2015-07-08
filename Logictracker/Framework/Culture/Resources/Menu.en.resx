@@ -307,7 +307,7 @@
 		<value>Flowmeters</value>
 	</data>
 	<data name="PAR_CLIENTES" xml:space="preserve">
-		<value>Customers</value>
+		<value>Customers Type / Chain</value>
 	</data>
 	<data name="PAR_DET_DISPOSITIVOS" xml:space="preserve">
 		<value>Device Details</value>
@@ -397,7 +397,7 @@
     <value>Trademarks</value>
   </data>
 	<data name="PTOS_ENTREGA" xml:space="preserve">
-		<value>Delivery Points</value>
+		<value>Customers / Delivery Points</value>
 	</data>
 	<data name="REPORTE_ODOMETROS" xml:space="preserve">
 		<value>Odometer Report</value>

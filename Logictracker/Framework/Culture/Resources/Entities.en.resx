@@ -163,7 +163,7 @@
     <value>Vehicle Type</value>
   </data>
   <data name="PARENTI18" xml:space="preserve">
-    <value>Customer</value>
+    <value>Customer Type</value>
   </data>
   <data name="PARENTI19" xml:space="preserve">
     <value>Team</value>
@@ -190,7 +190,7 @@
     <value>Employee Type</value>
   </data>
   <data name="PARENTI44" xml:space="preserve">
-    <value>Delivery Point</value>
+    <value>Customer</value>
   </data>
   <data name="PARENTI46" xml:space="preserve">
     <value>Shifts</value>

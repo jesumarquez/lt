@@ -307,7 +307,7 @@
     <value>Caudalimetros</value>
   </data>
   <data name="PAR_CLIENTES" xml:space="preserve">
-    <value>Clientes</value>
+    <value>Tipo de Clientes / Cadena</value>
   </data>
   <data name="PAR_DET_DISPOSITIVOS" xml:space="preserve">
     <value>Detalles de Dispositivo</value>
@@ -397,7 +397,7 @@
     <value>Marcas</value>
   </data>
   <data name="PTOS_ENTREGA" xml:space="preserve">
-    <value>Puntos de Entrega</value>
+    <value>Clientes / Puntos de Entrega</value>
   </data>
   <data name="REPORTE_ODOMETROS" xml:space="preserve">
     <value>Reporte de Odómetros</value>

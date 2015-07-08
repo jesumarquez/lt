@@ -224,8 +224,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 if (puntoEntrega == null)
                 {
-                    var empresaGeoRef = item.Vehiculo != null && item.Vehiculo.Empresa == null ? null : Cliente.Empresa == null ? null : Empresa;
-                    var lineaGeoRef = item.Vehiculo != null && item.Vehiculo.Linea == null ? null : Cliente.Linea == null ? null : oLinea;
+                    var empresaGeoRef = Empresa;
+                    var lineaGeoRef = oLinea;
 
                     var puntoDeInteres = new ReferenciaGeografica
                                              {
