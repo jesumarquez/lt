@@ -32,13 +32,13 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
         {
             if (IdEmpresa <= 0) return;
 
-            var archivosPendiente = DaoFactory.LogicLinkFileDAO.GetNextPendiente(IdEmpresa);
-            if (archivosPendiente != null)
+            var archivoPendiente = DaoFactory.LogicLinkFileDAO.FindById(14817);//DaoFactory.LogicLinkFileDAO.GetNextPendiente(IdEmpresa);
+            if (archivoPendiente != null)
             {
-                STrace.Trace(Component, "Archivo a procesar: " + archivosPendiente.FilePath);
+                STrace.Trace(Component, "Archivo a procesar: " + archivoPendiente.FilePath);
 
                 var te = new TimeElapsed();
-                ProcessArchivo(archivosPendiente);
+                ProcessArchivo(archivoPendiente);
                 STrace.Trace(Component, "Archivo procesado en: " + te.getTimeElapsed().TotalSeconds + " segundos.");
             }
         }

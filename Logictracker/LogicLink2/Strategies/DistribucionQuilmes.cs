@@ -469,7 +469,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 {
                     var puntos = DaoFactory.PuntoEntregaDAO.FindByCodes(new[] { Empresa.Id },
                                                                         new[] { -1 },
-                                                                        new[] { -1 },
+                                                                        new[] { Cliente.Id },
                                                                         l);
                     if (puntos != null && puntos.Any())
                     {
