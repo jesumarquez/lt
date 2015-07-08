@@ -311,42 +311,45 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             switch (Page.ToString())
             {
-                case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
-                    reporte = "Mensajes Vehículo";
-                    break;
-                case "ASP.reportes_accidentologia_infractionsdetails_aspx":
-                    reporte = "Detalle de Infracciones";
-                    break;
-                case "ASP.reportes_accidentologia_operatorranking_aspx":
-                    reporte = "Ranking de Choferes";
-                    break;
-                case "ASP.reportes_combustibleenpozos_consistenciastockpozo_aspx":
-                    reporte = "Consistencia de Pozos";
-                    break;
-                case "ASP.reportes_combustibleenpozos_eventoscombustible_aspx":
-                    reporte = "Eventos Combustible";
-                    break;
-                case "ASP.reportes_estadistica_mobilepoishistoric_aspx":
-                    reporte = "Cercanía a Puntos de Interés";
-                    break;
                 case "ASP.reportes_datosoperativos_eventos_aspx":
                     reporte = "EventsReport";
                     break;
-                case "ASP.reportes_datosoperativos_geocercasevents_aspx":
-                    reporte = "Reporte de Geocercas";
+                case "ASP.reportes_estadistica_kilometrosdiarios_aspx":
+                    reporte = "AccumulatedKilometersReport";
                     break;
-                case "ASP.reportes_estadistica_reporteodometros_aspx":
-                    reporte = "Reporte de Odometros";
-                    break;
-                case "ASP.reportes_estadistica_actividadvehicular_aspx":
-                    reporte = "Reporte de Actividad Vehicular";
-                    break;
-                case "ASP.reporte_estadistica_accidentologiaresumenvehicular_aspx":
-                    reporte = "Resumen Vehicular";
-                    break;
-                case "ASP.reportes_ciclologistico_duracionestadosticket_aspx":
-                    reporte = "Control de Ciclo";
-                    break;
+                //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
+                //    reporte = "Mensajes Vehículo";
+                //    break;
+                //case "ASP.reportes_accidentologia_infractionsdetails_aspx":
+                //    reporte = "Detalle de Infracciones";
+                //    break;
+                //case "ASP.reportes_accidentologia_operatorranking_aspx":
+                //    reporte = "Ranking de Choferes";
+                //    break;
+                //case "ASP.reportes_combustibleenpozos_consistenciastockpozo_aspx":
+                //    reporte = "Consistencia de Pozos";
+                //    break;
+                //case "ASP.reportes_combustibleenpozos_eventoscombustible_aspx":
+                //    reporte = "Eventos Combustible";
+                //    break;
+                //case "ASP.reportes_estadistica_mobilepoishistoric_aspx":
+                //    reporte = "Cercanía a Puntos de Interés";
+                //    break;
+                //case "ASP.reportes_datosoperativos_geocercasevents_aspx":
+                //    reporte = "Reporte de Geocercas";
+                //    break;
+                //case "ASP.reportes_estadistica_reporteodometros_aspx":
+                //    reporte = "Reporte de Odometros";
+                //    break;
+                //case "ASP.reportes_estadistica_actividadvehicular_aspx":
+                //    reporte = "Reporte de Actividad Vehicular";
+                //    break;
+                //case "ASP.reporte_estadistica_accidentologiaresumenvehicular_aspx":
+                //    reporte = "Resumen Vehicular";
+                //    break;
+                //case "ASP.reportes_ciclologistico_duracionestadosticket_aspx":
+                //    reporte = "Control de Ciclo";
+                //    break;
                 default:
                     reporte = Page.ToString();
                     break;
@@ -369,8 +372,6 @@ namespace Logictracker.Web.BaseClasses.BasePages
             prog.Vehicles = GetSelectedVehicles();
             prog.Drivers = GetSelectedDrivers();
             prog.MessageTypes = GetSelectedMessageTypes();
-
-
 
             //var parametros = new StringBuilder();
 

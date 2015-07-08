@@ -57,6 +57,7 @@ namespace Logictracker.Reportes.DatosOperativos
 
         protected override string VariableName { get { return "DOP_REP_EVENTOS"; } }
         protected override string GetRefference() { return "REP_EVENTOS"; }
+
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
         protected override bool SendReportButton { get { return true; } }
@@ -66,10 +67,12 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             return (ddlLocacion.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected) : null;
         }
+
         protected override Linea GetLinea()
         {
             return (ddlPlanta != null && ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
         }
+
         private int Location
         {
             get
