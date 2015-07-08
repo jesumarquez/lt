@@ -336,4 +336,7 @@
   <data name="BUTTON_AGREGAR_NUEVO_PUNTO" xml:space="preserve">
     <value>Adicionar Novo Ponto</value>
   </data>
+  <data name="BUTTON_SENDREPORT" xml:space="preserve">
+    <value>Enviar relatório por e-mail</value>
+  </data>
 </root>

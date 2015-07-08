@@ -177,6 +177,7 @@
 <cwc:ToolBarButton SkinID="Import" runat="server" Image="Import" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
 <cwc:ToolBarButton SkinID="Regenerate" runat="server" Image="Regenerate" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
 <cwc:ToolBarButton SkinID="Schedule" runat="server" Image="Schedule" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="SendReport" runat="server" Image="SendReport" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
 <cwc:ToolBarButton SkinID="Start" runat="server" Image="Start" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
 <cwc:ToolBarButton SkinID="StartAll" runat="server" Image="Start" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
 <cwc:ToolBarButton SkinID="Cancel" runat="server" Image="Anular" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />

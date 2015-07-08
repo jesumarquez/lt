@@ -900,5 +900,8 @@
   <data name="KILOMETROS_DIARIOS" xml:space="preserve">
     <value>Daily Kilometers</value>
   </data>
+  <data name="REPORT_LOG" xml:space="preserve">
+    <value>Ejecuted Reports Log</value>
+  </data>
 </root>
 

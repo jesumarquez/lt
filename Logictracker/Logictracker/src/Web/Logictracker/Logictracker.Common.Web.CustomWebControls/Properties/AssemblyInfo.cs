@@ -51,6 +51,7 @@ using System.Web.UI;
 [assembly: WebResource("Logictracker.Web.CustomWebControls.ToolBar.import.png", "image/png")]
 [assembly: WebResource("Logictracker.Web.CustomWebControls.ToolBar.regenerate.png", "image/png")]
 [assembly: WebResource("Logictracker.Web.CustomWebControls.ToolBar.schedule.png", "image/png")]
+[assembly: WebResource("Logictracker.Web.CustomWebControls.ToolBar.sendReport.png", "image/png")]
 [assembly: WebResource("Logictracker.Web.CustomWebControls.ToolBar.anular.png", "image/png")]
 [assembly: WebResource("Logictracker.Web.CustomWebControls.ToolBar.event.png", "image/png")]
 [assembly: WebResource("Logictracker.Web.CustomWebControls.ToolBar.edit.png", "image/png")]

@@ -337,7 +337,6 @@
     <value>Agregar Nuevo Punto</value>
   </data>
   <data name="BUTTON_SENDREPORT" xml:space="preserve">
-    <value>Enviar reporte al e-mail</value>
-    <comment>Enviar un reporte al correo electronico</comment>
+    <value>Enviar reporte por e-mail</value>
   </data>
 </root>
