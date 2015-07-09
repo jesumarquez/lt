@@ -2,6 +2,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -14,6 +15,7 @@ namespace Logictracker.ExpressionEvaluator
     /// </summary>
     public class ExpressionDelegateFactory
     {
+
         /// <summary>
         /// Compiles an expression and returns a delegate to the compiled code.
         /// </summary>
@@ -89,17 +91,6 @@ namespace Logictracker.ExpressionEvaluator
         {
             DynamicMethodState methodState;
 
-        	//create an AppDomain
-            var loSetup = new AppDomainSetup
-                          	{
-                          		ApplicationBase = AppDomain.CurrentDomain.BaseDirectory
-                          	};
-        	var loAppDomain = AppDomain.CreateDomain("CompilerDomain", null, loSetup);
-
-            //get the compiler to use based on the language
-
-
-            //create an instance of a compiler
             var compiler = new CSharpExpressionCompiler();
 
             try
@@ -122,13 +113,7 @@ namespace Logictracker.ExpressionEvaluator
 
                 throw new ApplicationException(exceptionMessage.ToString());
             }
-            finally
-            {
-                //unload the AppDomain
-                AppDomain.Unload(loAppDomain);
-            }
-
-            //if for some reason the code byte were not sent then return null
+          
             if (methodState != null && methodState.CodeBytes == null)
             {
                 methodState = null;
