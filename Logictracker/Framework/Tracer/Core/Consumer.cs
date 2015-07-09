@@ -1,11 +1,9 @@
 using System;
-using System.Linq;
 using System.Threading;
 using Logictracker.Configuration;
 using Logictracker.DatabaseTracer.NHibernateManagers;
 using Logictracker.DatabaseTracer.Types;
 using NHibernate;
-using NHibernate.Event;
 
 namespace Logictracker.DatabaseTracer.Core
 {
@@ -74,10 +72,11 @@ namespace Logictracker.DatabaseTracer.Core
             {
                 try
                 {
+                    Semaphore.WaitOne();
                     using (ISession session = NHibernateHelper.GetSession())
                     {
-                        Semaphore.WaitOne();
                         Tracer(Queue.Dequeue(),session);
+                        session.Close();
                     }
                 }
                 catch (ThreadAbortException)
@@ -86,40 +85,9 @@ namespace Logictracker.DatabaseTracer.Core
                 }
                 catch
                 {
+                    //ignore
                 }
             }
-        }
-
-        /// <summary>
-        /// Trace the specified log into database.
-        /// </summary>
-        /// <param name="log"></param>
-        private static void Tracer(Log log)
-        {
-            try
-            {
-                if (log == null) return;
-
-                using (ISession session = NHibernateHelper.GetSession())
-                {
-                    Tracer(log, session);
-                    session.Flush();
-                    session.Close();
-                }
-                //ses.Flush();
-            }
-            catch (ThreadAbortException)
-            {
-                return;
-            }
-            catch
-            {
-                ReEnqueue(log);
-            }
-            //finally
-            //{
-            //    Semaphore.Release();
-            //}
         }
 
         private static void Tracer(Log log, ISession session)
@@ -157,41 +125,11 @@ namespace Logictracker.DatabaseTracer.Core
             }
             catch (ThreadAbortException)
             {
-                return;
             }
             catch
             {
                 ReEnqueue(log);
             }
-            //finally
-            //{
-            //    Semaphore.Release();
-            //}
-        }
-
-        /// <summary>
-        /// Duplicates the current log to solve nhibernate session issues.
-        /// </summary>
-        /// <param name="log"></param>
-        /// <returns></returns>
-        private static Log DuplicateLog(Log log)
-        {
-            var duplicatedLog = new Log()
-                                    {
-                                        Component = log.Component,
-                                        DateTime = log.DateTime,
-                                        Device = log.Device,
-                                        Message = log.Message,
-                                        Module = log.Module,
-                                        Retries = log.Retries,
-                                        Type = log.Type,
-                                        Vehicle = log.Vehicle
-                                    };
-
-            foreach (var logContext in log.Context.Select(context => new LogContext { Key = context.Key, Log = duplicatedLog, Value = context.Value }))
-                duplicatedLog.Context.Add(logContext);
-
-            return duplicatedLog;
         }
 
         /// <summary>
@@ -201,11 +139,8 @@ namespace Logictracker.DatabaseTracer.Core
         private static void ReEnqueue(Log log)
         {
             Thread.Sleep(ErrorInterval);
-
             log.Retries++;
-
             if (log.Retries < MaxRetries) Queue.Enqueue(log);
-
             Semaphore.Release();
         }
 
