@@ -73,9 +73,12 @@ namespace Logictracker.DatabaseTracer.Core
                 try
                 {
                     Semaphore.WaitOne();
-                    using (ISession session = NHibernateHelper.GetSession())
+                    using (var session = NHibernateHelper.GetSession())
                     {
-                        Tracer(Queue.Dequeue(),session);
+                        Log log;
+                        while ((log = Queue.Dequeue()) != null)
+                            Tracer(log, session);
+                        session.Flush();
                         session.Close();
                     }
                 }
@@ -120,8 +123,6 @@ namespace Logictracker.DatabaseTracer.Core
                     }
 
                 }
-                session.Flush();
-                //ses.Flush();
             }
             catch (ThreadAbortException)
             {

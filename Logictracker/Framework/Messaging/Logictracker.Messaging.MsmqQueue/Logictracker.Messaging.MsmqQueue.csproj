@@ -48,18 +48,22 @@
     <ProjectReference Include="..\..\Configuration\Logictracker.Configuration.csproj">
       <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
       <Name>Logictracker.Configuration</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Description\Logictracker.Description.csproj">
       <Project>{f67c8673-0361-41e7-8ec9-a1357bad1ed1}</Project>
       <Name>Logictracker.Description</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\SBC\Logictracker.Layers.csproj">
       <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
       <Name>Logictracker.Layers</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4aefc2c1-47ff-444d-96a1-eb57fba1be7f}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

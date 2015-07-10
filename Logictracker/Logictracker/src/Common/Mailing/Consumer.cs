@@ -67,7 +67,11 @@ namespace Logictracker.Mailing
 				try
 				{
 					Semaphore.WaitOne();
-					SendMail(Queue.Dequeue());
+				    Email em;
+				    while ((em = Queue.Dequeue()) != null)
+				    {
+				        SendMail(em);
+                    }
 				}
 				catch (ThreadAbortException)
 				{

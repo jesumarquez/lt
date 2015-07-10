@@ -18,7 +18,7 @@ namespace Logictracker.Runtime
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        [MTAThread]
 		public static void Main(String[] args)
         {
             

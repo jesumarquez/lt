@@ -1,7 +1,10 @@
 #region Usings
 
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Security.Policy;
 using Logictracker.Mailing.AuxClasses;
+using Microsoft.Win32;
 
 #endregion
 
@@ -17,7 +20,7 @@ namespace Logictracker.Mailing
         /// <summary>
         /// Mailing internal queue.
         /// </summary>
-        private static readonly List<Email> Emails = new List<Email>();
+        private static readonly ConcurrentQueue<Email> Emails = new ConcurrentQueue<Email>();
 
         #endregion
 
@@ -29,12 +32,8 @@ namespace Logictracker.Mailing
         /// <param name="email"></param>
         public static void Enqueue(Email email)
         {
-            lock (Emails)
-            {
-                Emails.Add(email);
-
-                Consumer.Start();
-            }
+            Emails.Enqueue(email);
+            Consumer.Start();
         }
 
         /// <summary>
@@ -43,16 +42,8 @@ namespace Logictracker.Mailing
         /// <returns></returns>
         public static Email Dequeue()
         {
-            lock (Emails)
-            {
-                if (Emails.Count.Equals(0)) return null;
-
-                var email = Emails[0];
-
-                Emails.RemoveAt(0);
-
-                return email;
-            }
+            Email rv;
+            return Emails.TryDequeue(out rv) ? rv : null;
         }
 
         #endregion

@@ -26,17 +26,12 @@ using Logictracker.DAL.NHibernate;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Data;
 
 namespace Logictracker.DAL.Factories
 {
-    public class DAOFactory : IDisposable
+    public class DAOFactory 
     {
-        #region constructors
-
-        #endregion
-
         #region Private Properties
 
         /// <summary>
@@ -45,14 +40,7 @@ namespace Logictracker.DAL.Factories
         public ISession Session {
             get { return SessionHelper.Current; }
         }
-
-        /// <summary>
-        /// Dictionary for holding the currently instanciated daos.
-        /// </summary>
-        private Dictionary<Type, IGenericDAO> _daos;
-
-        private readonly object _lockDictionary = new object();
-
+        
         #endregion
 
         #region Public Properties
@@ -547,18 +535,6 @@ namespace Logictracker.DAL.Factories
         public GenericDAO<T> GetGenericDAO<T>() where T : IAuditable { return new GenericDAO<T>(); }
 
         /// <summary>
-        /// Dispose all assigned resources.
-        /// </summary>
-        public void Dispose()
-        {
-            if(_daos != null)
-            {
-                _daos.Clear();
-                _daos = null;
-            }
-        }
-
-        /// <summary>
         /// Creates anew database command using the current stateless session.
         /// </summary>
         /// <returns></returns>
@@ -583,5 +559,33 @@ namespace Logictracker.DAL.Factories
         {
             Session.Clear();
         }
+
+        //public void Dispose()
+        //{
+        //    Dispose(true);
+        //    GC.SuppressFinalize(this);
+        //}
+
+        //protected virtual void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+                
+        //        //// free managed resources
+        //        //if (managedResource != null)
+        //        //{
+        //        //    managedResource.Dispose();
+        //        //    managedResource = null;
+        //        //}
+        //    }
+        //    // free native resources if there are any.
+        //    //if (nativeResource != IntPtr.Zero)
+        //    //{
+        //    //    Marshal.FreeHGlobal(nativeResource);
+        //    //    nativeResource = IntPtr.Zero;
+        //    //}
+        //}
+
+
     }
 }

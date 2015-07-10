@@ -1,6 +1,7 @@
 #region Usings
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Logictracker.DatabaseTracer.Types;
 
@@ -15,8 +16,7 @@ namespace Logictracker.DatabaseTracer.Core
     {
         #region Private Properties
 
-		private static readonly Object Locker = new Object();
-		private static readonly List<Log> InternalQueue = new List<Log>();
+        private static readonly ConcurrentQueue<Log> InternalQueue = new ConcurrentQueue<Log>();
 
         #endregion
 
@@ -28,12 +28,7 @@ namespace Logictracker.DatabaseTracer.Core
         /// <param name="log">The log instance to be enqueued.</param>
         public static void Enqueue(Log log)
         {
-			lock (Locker)
-            {
-                InternalQueue.Add(log);
-
-                Consumer.Start();
-            }
+            InternalQueue.Enqueue(log);
         }
 
         /// <summary>
@@ -42,16 +37,8 @@ namespace Logictracker.DatabaseTracer.Core
         /// <returns></returns>
         public static Log Dequeue()
         {
-			lock (Locker)
-            {
-                if (InternalQueue.Count.Equals(0)) return null;
-
-                var log = InternalQueue[0];
-
-                InternalQueue.RemoveAt(0);
-
-                return log;
-            }
+            Log rv;
+            return InternalQueue.TryDequeue(out rv) ? rv : null;
         }
 
         #endregion

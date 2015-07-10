@@ -111,7 +111,7 @@ namespace Logictracker.Messages.Saver.BaseClasses
 
 		public void DisposeSessions()
 		{
-            _daof.Dispose();
+         //   _daof.Dispose();
             _daof = null;
 		}
     }

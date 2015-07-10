@@ -82,7 +82,7 @@ namespace Logictracker.Layers.MessageQueue
         {
             try
             {
-                switch(QueueType.ToLower())
+                switch (QueueType.ToLower())
                 {
                     case "msmq":
                         QueueType = "Logictracker.Messaging.MsmqQueue.MessageQueueMsmq,Logictracker.Messaging.MsmqQueue";
@@ -112,15 +112,17 @@ namespace Logictracker.Layers.MessageQueue
 
         public Boolean Send(Object message)
         {
-            var msgsnd = new Message(message);
-            Send(msgsnd);
+
+            using (var msgsnd = new Message(message))
+                Send(msgsnd);
+
             return true;
         }
 
         public Boolean Send(Object message, String label)
         {
-            var msgsnd = new Message(message) { Label = label };
-            Send(msgsnd);
+            using (var msgsnd = new Message(message) { Label = label })
+                Send(msgsnd);
             return true;
         }
 
@@ -142,13 +144,16 @@ namespace Logictracker.Layers.MessageQueue
         public void SendStOnline()
         {
             const string msg = "ST,ONLINE";
-            var msgsnd = new Message(msg)
+            using (
+                var msgsnd = new Message(msg)
+                {
+                    Label = msg,
+                    Priority = MessagePriority.Highest,
+                    TimeToBeReceived = new TimeSpan(0, 5, 0),
+                })
             {
-                Label = msg,
-                Priority = MessagePriority.Highest,
-                TimeToBeReceived = new TimeSpan(0, 5, 0),
-            };
-            Send(msgsnd);
+                Send(msgsnd);
+            }
         }
 
         public int GetCount()
