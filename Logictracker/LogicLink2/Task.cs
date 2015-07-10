@@ -32,7 +32,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
         {
             if (IdEmpresa <= 0) return;
 
-            var archivoPendiente = DaoFactory.LogicLinkFileDAO.FindById(14817);//DaoFactory.LogicLinkFileDAO.GetNextPendiente(IdEmpresa);
+            var archivoPendiente = DaoFactory.LogicLinkFileDAO.GetNextPendiente(IdEmpresa);
             if (archivoPendiente != null)
             {
                 STrace.Trace(Component, "Archivo a procesar: " + archivoPendiente.FilePath);
