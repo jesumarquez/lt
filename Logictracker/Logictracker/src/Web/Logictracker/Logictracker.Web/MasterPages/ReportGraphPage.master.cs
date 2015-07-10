@@ -79,6 +79,14 @@ namespace Logictracker.MasterPages
 
         public override ModalPopupExtender modalSchedule { get { return mpePanel; } }
 
+        public override TextBox SendReportTextBoxEmail { get { return TextBoxEmailSendReport; } }
+
+        public override TextBox SendReportTextBoxReportName { get { return textBoxReportName; } }
+
+        public override ModalPopupExtender SendReportModalPopupExtender { get { return popUpSendReport; } }
+        
+        public override ResourceButton SendReportOkButton { get { return ButtonOkSendReport; } }
+
         public override Control PanelSearch { get { return null; } }
         public override TextBox TextBoxSearch { get { return null; } }
 

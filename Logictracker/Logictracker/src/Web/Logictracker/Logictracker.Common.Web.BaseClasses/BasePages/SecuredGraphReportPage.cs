@@ -3,14 +3,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using AjaxControlToolkit;
 using InfoSoftGlobal;
+using Logictracker.Configuration;
 using Logictracker.Culture;
+using Logictracker.Layers.MessageQueue;
+using Logictracker.Mailing;
+using Logictracker.Reports.Messaging;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.CustomWebControls.Buttons;
 using Logictracker.Web.CustomWebControls.Helpers;
@@ -99,6 +102,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected TextBox TxtScheduleMail { get { return MasterPage.txtScheduleMail; } }
         protected ResourceButton BtScheduleGuardar { get { return MasterPage.btScheduleGuardar; } }
         protected ModalPopupExtender ModalSchedule { get { return MasterPage.modalSchedule; } }
+
+        protected TextBox SendReportTextBoxEmail { get { return MasterPage.SendReportTextBoxEmail; } }
+        protected TextBox SendReportTextBoxReportName { get { return MasterPage.SendReportTextBoxReportName; } }
+        protected ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
+        protected ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
 
         /// <summary>
         /// List of FusionChartsItem used by the graph.
@@ -193,6 +201,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             AddSizeHandlingControl();
             if (ScheduleButton) BtScheduleGuardar.Click += BtScheduleGuardarClick;
+            if (SendReportButton) SendReportOkButton.Click += ButtonOkSendReportClick;
         }
 
         /// <summary>
@@ -326,9 +335,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
             string reporte;
 
             switch (Page.ToString())
-            {   
-                case "ASP.reportes_estadistica_resumenvehicular_aspx":
-                    reporte = "Resumen Vehicular";
+            {
+                case "ASP.reportes_estadistica_mobileskilometers_aspx":
+                    reporte = "AccumulatedKilometersReport";
                     break;
                 default:
                     reporte = Page.ToString();
@@ -337,48 +346,82 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             var empresa = GetEmpresa();
             var linea = GetLinea();
+
             var prog = new ProgramacionReporte
             {
+                ReportName = SendReportTextBoxReportName.Text,
                 Report = reporte,
                 Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
                 Mail = TxtScheduleMail.Text,
-                Empresa = empresa ?? linea.Empresa
+                Empresa = empresa ?? linea.Empresa,
+                Created = DateTime.Now,
+                Description = GetDescription(),
+                Active = false
             };
 
-            var parametros = new StringBuilder();
-
-            // PARAMETROS PARA CREAR REPORTE
-            var filtros = GetFilterValuesProgramados();
-
-            foreach (var key in filtros.Keys)
-            {
-                if (!parametros.ToString().Equals(""))
-                    parametros.Append("&");
-
-                parametros.Append(key + "=" + filtros[key] + "");
-            }
-
-            prog.Drivers = parametros.ToString();
-
-            // PARAMETROS PARA CREAR ENCABEZADO
-            parametros = new StringBuilder();
-            filtros = GetFilterValues();
-            filtros.Remove("Desde");
-            filtros.Remove("Hasta");
-
-            foreach (var key in filtros.Keys)
-            {
-                if (!parametros.ToString().Equals(""))
-                    parametros.Append("&");
-
-                parametros.Append(key + "=" + filtros[key] + "");
-            }
-
-            prog.MessageTypes = parametros.ToString();
+            prog.Vehicles = GetSelectedVehicles();
+            prog.Drivers = GetSelectedDrivers();
+            prog.MessageTypes = GetSelectedMessageTypes();
+            prog.InCicle = GetCicleCheck();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
             ModalSchedule.Hide();
+
+            SendConfirmationMail(reporte,prog.Description);
+        }
+      
+        private void SendConfirmationMail(string reportType, string description)
+        {
+            var configFile = Config.Mailing.ReportConfirmation;
+
+            if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
+
+            var sender = new MailSender(configFile);
+            sender.Config.Subject = string.Format("Se ha creado un nuevo reporte programado ({0})", reportType);
+            sender.Config.Body = description;
+
+            sender.SendMail();
+        }
+
+        protected override void SendReportToMail()
+        {
+            SendReportModalPopupExtender.Show();
+        }
+
+        private void ButtonOkSendReportClick(object sender, EventArgs e)
+        {
+            var accumKmReport = new AccumulatedKilometersReportCommand
+            {
+                ReportId = 83, //Id de reporte manual inactivo
+                CustomerId = GetCompanyId(),
+                Email = SendReportTextBoxEmail.Text,
+                FinalDate = GetToDateTime(),
+                InitialDate = GetSinceDateTime(),
+                InCicle = GetCicleCheck(),
+                VehiclesId = GetSelectedListByField("vehicles")
+            };
+
+            var queue = GetMailReportMsmq();
+            if (queue == null)
+            {
+                throw new ApplicationException("No se pudo crear la cola");
+            }
+            queue.Send(accumKmReport);
+
+            ModalSchedule.Hide();
+        }
+
+        private IMessageQueue GetMailReportMsmq()
+        {
+            var queueName = Config.ReportMsmq.QueueName;
+            var queueType = Config.ReportMsmq.QueueType;
+            if (String.IsNullOrEmpty(queueName)) return null;
+
+            var umq = new IMessageQueue(queueName);
+            if (queueType.ToLower() == "xml") umq.Formatter = "XmlMessageFormatter";
+
+            return !umq.LoadResources() ? null : umq;
         }
 
         /// <summary>

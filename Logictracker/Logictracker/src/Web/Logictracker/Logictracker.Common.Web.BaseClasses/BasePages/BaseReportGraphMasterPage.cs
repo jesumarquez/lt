@@ -45,6 +45,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
         public abstract ResourceButton btScheduleGuardar { get; }
         public abstract ModalPopupExtender modalSchedule { get; }
 
+        public abstract TextBox SendReportTextBoxEmail { get; }
+        public abstract TextBox SendReportTextBoxReportName { get; }
+        public abstract ModalPopupExtender SendReportModalPopupExtender { get; }
+        public abstract ResourceButton SendReportOkButton { get; }
+
         #endregion
 
         #region Public Events

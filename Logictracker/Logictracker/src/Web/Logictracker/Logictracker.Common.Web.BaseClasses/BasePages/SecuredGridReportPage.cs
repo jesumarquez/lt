@@ -314,9 +314,6 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "ASP.reportes_datosoperativos_eventos_aspx":
                     reporte = "EventsReport";
                     break;
-                case "ASP.reportes_estadistica_kilometrosdiarios_aspx":
-                    reporte = "AccumulatedKilometersReport";
-                    break;
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
                 //    break;
@@ -408,17 +405,17 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             ModalSchedule.Hide();
 
-            SendConfirmationMail(prog.Description);
+            SendConfirmationMail(reporte, prog.Description);
         }
 
-        private void SendConfirmationMail(string description)
+        private void SendConfirmationMail(string reportType, string description)
         {
             var configFile = Config.Mailing.ReportConfirmation;
 
             if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
 
             var sender = new MailSender(configFile);
-            sender.Config.Subject = "Se ha creado un nuevo reporte programado";
+            sender.Config.Subject = string.Format("Se ha creado un nuevo reporte programado ({0})", reportType);
             sender.Config.Body = description;
             
             sender.SendMail();

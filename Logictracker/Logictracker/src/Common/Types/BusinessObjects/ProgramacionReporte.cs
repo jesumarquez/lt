@@ -25,5 +25,6 @@ namespace Logictracker.Types.BusinessObjects
         public virtual Empresa Empresa { get; set; }
         public virtual string ReportName { get; set; }
         public virtual string Description { get; set; }
+        public virtual bool InCicle { get; set; }
     }
 }

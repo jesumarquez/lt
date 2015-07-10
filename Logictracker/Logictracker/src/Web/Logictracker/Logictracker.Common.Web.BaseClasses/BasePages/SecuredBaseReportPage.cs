@@ -113,6 +113,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected virtual Linea GetLinea() { throw new NotImplementedException(); }
 
+        protected virtual bool GetCicleCheck() { return false; }
+
         /// <summary>
         /// Gets the associated filter vaues.
         /// </summary>

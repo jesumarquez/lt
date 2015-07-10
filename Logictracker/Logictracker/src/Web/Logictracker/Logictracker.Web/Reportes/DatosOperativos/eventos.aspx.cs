@@ -17,6 +17,14 @@ namespace Logictracker.Reportes.DatosOperativos
 {
     public partial class ReportesEventos : SecuredGridReportPage<MobileEventVo>
     {
+        protected override string VariableName { get { return "DOP_REP_EVENTOS"; } }
+        protected override string GetRefference() { return "REP_EVENTOS"; }
+
+        protected override bool ExcelButton { get { return true; } }
+        protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
+        private const int Interval = 5;
+
         [Serializable]
         public class SearchData
         {
@@ -54,14 +62,6 @@ namespace Logictracker.Reportes.DatosOperativos
             SaveSearchData(data);
             return data;
         }
-
-        protected override string VariableName { get { return "DOP_REP_EVENTOS"; } }
-        protected override string GetRefference() { return "REP_EVENTOS"; }
-
-        protected override bool ExcelButton { get { return true; } }
-        protected override bool ScheduleButton { get { return true; } }
-        protected override bool SendReportButton { get { return true; } }
-        private const int Interval = 5;
 
         protected override Empresa GetEmpresa()
         {

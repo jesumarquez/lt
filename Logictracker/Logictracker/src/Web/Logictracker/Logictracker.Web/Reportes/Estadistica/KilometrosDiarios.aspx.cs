@@ -17,8 +17,6 @@ namespace Logictracker.Web.Reportes.Estadistica
         protected override string VariableName { get { return "KILOMETROS_DIARIOS"; } }
         
         protected override bool ExcelButton { get { return true; } }
-        protected override bool ScheduleButton { get { return true; } }
-        protected override bool SendReportButton { get { return true; } }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -48,16 +46,6 @@ namespace Logictracker.Web.Reportes.Estadistica
             STrace.Trace("Kilómetros Diarios", string.Format("Reporte: Duración de la consulta: {0} segundos", t.getTimeElapsed().TotalSeconds));
 
             return kilometrosDiarios.Select(km => new KilometrosDiariosVo(km)).ToList();
-        }
-
-        protected override Empresa GetEmpresa()
-        {
-            return (ddlLocation.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlLocation.Selected) : null;
-        }
-
-        protected override Linea GetLinea()
-        {
-            return (ddlPlanta != null && ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
         }
     }
 }
