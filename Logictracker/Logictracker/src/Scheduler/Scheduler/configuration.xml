@@ -42,15 +42,15 @@
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Desde=13/09/2014;Hasta=14/09/2014;" />
     </Timer-->
     
-    <!--Timer Enabled="true" Name="Data Maintenance" StartTime="00:00:01" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
-      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="MaxMessageCount=5000;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;" />
+    <Timer Enabled="true" Name="Data Maintenance" StartTime="00:00:01" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
+      <!--Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="MaxMessageCount=5000;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;" />
       <Task Class="Logictracker.Scheduler.Tasks.VencimientoDocumentos.Task, Logictracker.Scheduler.Tasks.VencimientoDocumentos" />
-      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartDistribucionTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Empresas=-1;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;" />
-      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartViajeTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Empresas=-1;Destinatarios=lucasm@logictracker.com;Ids=246591;" />
-      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartEstadoVehiculoTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=gfernandez@logictracker.com,pablof@logictracker.com;"/>
+      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartDistribucionTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Empresas=-1;Destinatarios=lucasm@logictracker.com;Ids=245132;" /-->
+      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartViajeTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Empresas=-1;Destinatarios=lucasm@logictracker.com;Ids=245132;" />
+      <!--Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartEstadoVehiculoTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=gfernandez@logictracker.com,pablof@logictracker.com;"/>
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.MessageCountServiceTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=flavioa@logictracker.com,soporte@logictracker.com,lucasm@logictracker.com;" />
-      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.VehicleData, Logictracker.Scheduler.Tasks.Mantenimiento" />
-    </Timer-->
+      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.VehicleData, Logictracker.Scheduler.Tasks.Mantenimiento" /-->
+    </Timer>
 
     <!--<Timer Enabled="true" Name="LogicLink 2 - FEMSA" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=75;" />
@@ -60,9 +60,9 @@
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=86;" />
     </Timer-->
 
-    <Timer Enabled="true" Name="LogicLink 2 - QUILMES" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+  <!--Timer Enabled="true" Name="LogicLink 2 - QUILMES" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=74;" />
-    </Timer>
+    </Timer-->
 
   <!--Timer Enabled="false" Name="Pump" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.PumpControl.Task, Logictracker.Scheduler.Tasks.PumpControl"/>
