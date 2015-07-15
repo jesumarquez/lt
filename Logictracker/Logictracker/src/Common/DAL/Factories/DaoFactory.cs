@@ -30,7 +30,7 @@ using System.Data;
 
 namespace Logictracker.DAL.Factories
 {
-    public class DAOFactory 
+    public class DAOFactory : IDisposable
     {
         #region Private Properties
 
@@ -560,11 +560,11 @@ namespace Logictracker.DAL.Factories
             Session.Clear();
         }
 
-        //public void Dispose()
-        //{
-        //    Dispose(true);
-        //    GC.SuppressFinalize(this);
-        //}
+        public void Dispose()
+        {
+            //Dispose(true);
+            //GC.SuppressFinalize(this);
+        }
 
         //protected virtual void Dispose(bool disposing)
         //{
