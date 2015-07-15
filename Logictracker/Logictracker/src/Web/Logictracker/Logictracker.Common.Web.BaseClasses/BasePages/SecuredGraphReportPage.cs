@@ -355,7 +355,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 Mail = TxtScheduleMail.Text,
                 Empresa = empresa ?? linea.Empresa,
                 Created = DateTime.Now,
-                Description = GetDescription(),
+                Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
                 Active = false
             };
 

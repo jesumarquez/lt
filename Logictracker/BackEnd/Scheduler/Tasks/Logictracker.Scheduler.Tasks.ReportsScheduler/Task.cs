@@ -73,11 +73,24 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     return new AccumulatedKilometersReportCommand
                     {
                         ReportId = prog.Id,
+                        ReportName = prog.ReportName,
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         InCicle = prog.InCicle,
+                        VehiclesId = CsvToList(prog.Vehicles)
+                    };
+                case "VehicleActivityReport":
+                    return new VehicleActivityReportCommand
+                    {
+                        ReportId = prog.Id,
+                        ReportName = prog.ReportName,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        OvercomeKilometers = prog.OvercomeKilometers,
                         VehiclesId = CsvToList(prog.Vehicles)
                     }; 
                 default:
@@ -138,4 +151,5 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             return !umq.LoadResources() ? null : umq;
         }        
     }
+
 }

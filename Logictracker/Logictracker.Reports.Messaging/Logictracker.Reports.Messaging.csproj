@@ -73,6 +73,7 @@
     <Compile Include="EventReportCommand.cs" />
     <Compile Include="IReportCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VehicleActivityReportCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

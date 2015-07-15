@@ -115,6 +115,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected virtual bool GetCicleCheck() { return false; }
 
+        protected virtual int GetOvercomeKilometers()
+        {
+            return 0;
+        }
+
         /// <summary>
         /// Gets the associated filter vaues.
         /// </summary>
@@ -127,7 +132,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual string GetSelectedVehicles() { return string.Empty; }
         protected virtual string GetSelectedDrivers() { return string.Empty; }
         protected virtual string GetSelectedMessageTypes() { return string.Empty; }
-        protected virtual string GetDescription() { return string.Empty; }
+        protected virtual string GetDescription(string s) { return string.Empty; }
         
         //envio manual de reportes
         protected virtual List<int> GetSelectedListByField(string field) { return new List<int>(); }

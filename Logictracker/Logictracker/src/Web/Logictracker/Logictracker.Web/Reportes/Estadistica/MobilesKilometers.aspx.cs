@@ -166,7 +166,7 @@ namespace Logictracker.Reportes.Estadistica
             return sVehiculos.ToString();
         }
 
-        protected override string GetDescription()
+        protected override string GetDescription(string s)
         {
             var linea = GetLinea();
             if (lbMobiles.SelectedValues.Contains(0)) lbMobiles.ToogleItems();

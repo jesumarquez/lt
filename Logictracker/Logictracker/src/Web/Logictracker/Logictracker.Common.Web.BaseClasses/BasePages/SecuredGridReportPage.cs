@@ -305,13 +305,41 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         void BtScheduleGuardarClick(object sender, EventArgs e)
         {
-            string reporte;
+            var reporte = GetReportType(); 
+            var empresa = GetEmpresa();
+            var linea = GetLinea();
 
+            var prog = new ProgramacionReporte
+                           {
+                               ReportName = SendReportTextBoxReportName.Text,
+                               Report = reporte,
+                               Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
+                               Mail = TxtScheduleMail.Text,
+                               Empresa = empresa ?? linea.Empresa,
+                               Created = DateTime.Now,
+                               Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
+                               Active = false
+                           };
+
+            prog.Vehicles = GetSelectedVehicles();
+            prog.Drivers = GetSelectedDrivers();
+            prog.MessageTypes = GetSelectedMessageTypes();
+            prog.OvercomeKilometers = GetOvercomeKilometers();
+
+            DAOFactory.ProgramacionReporteDAO.Save(prog);
+
+            ModalSchedule.Hide();
+            SendConfirmationMail(reporte, prog.Description);
+        }
+
+        private string GetReportType()
+        {
             switch (Page.ToString())
             {
                 case "ASP.reportes_datosoperativos_eventos_aspx":
-                    reporte = "EventsReport";
-                    break;
+                    return "EventsReport";
+                case "ASP.reportes_estadistica_actividadvehicular_aspx":
+                    return "VehicleActivityReport";
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
                 //    break;
@@ -336,9 +364,6 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 //case "ASP.reportes_estadistica_reporteodometros_aspx":
                 //    reporte = "Reporte de Odometros";
                 //    break;
-                //case "ASP.reportes_estadistica_actividadvehicular_aspx":
-                //    reporte = "Reporte de Actividad Vehicular";
-                //    break;
                 //case "ASP.reporte_estadistica_accidentologiaresumenvehicular_aspx":
                 //    reporte = "Resumen Vehicular";
                 //    break;
@@ -346,64 +371,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 //    reporte = "Control de Ciclo";
                 //    break;
                 default:
-                    reporte = Page.ToString();
-                    break;
+                    return Page.ToString();
             }
-
-            var empresa = GetEmpresa();
-            var linea = GetLinea();
-            var prog = new ProgramacionReporte
-                           {
-                               ReportName = SendReportTextBoxReportName.Text,
-                               Report = reporte,
-                               Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
-                               Mail = TxtScheduleMail.Text,
-                               Empresa = empresa ?? linea.Empresa,
-                               Created = DateTime.Now,
-                               Description = GetDescription(),
-                               Active = false
-                           };
-
-            prog.Vehicles = GetSelectedVehicles();
-            prog.Drivers = GetSelectedDrivers();
-            prog.MessageTypes = GetSelectedMessageTypes();
-
-            //var parametros = new StringBuilder();
-
-            //// PARAMETROS PARA CREAR REPORTE
-            //var filtros = GetFilterValuesProgramados();
-
-            //foreach (var key in filtros.Keys)
-            //{
-            //    if (!parametros.ToString().Equals(""))
-            //        parametros.Append("&");
-
-            //    parametros.Append(key + "=" + filtros[key] + "");
-            //}
-
-            //prog.Drivers = parametros.ToString();
-
-            //// PARAMETROS PARA CREAR ENCABEZADO
-            //parametros = new StringBuilder();
-            //filtros = GetFilterValues();
-            //filtros.Remove("Desde");
-            //filtros.Remove("Hasta");
-
-            //foreach (var key in filtros.Keys)
-            //{
-            //    if (!parametros.ToString().Equals(""))
-            //        parametros.Append("&");
-
-            //    parametros.Append(key + "=" + filtros[key] + "");
-            //}
-
-            //prog.MessageTypes = parametros.ToString();
-
-            DAOFactory.ProgramacionReporteDAO.Save(prog);
-
-            ModalSchedule.Hide();
-
-            SendConfirmationMail(reporte, prog.Description);
         }
 
         private void SendConfirmationMail(string reportType, string description)
@@ -426,28 +395,49 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         private void ButtonOkSendReportClick(object sender, EventArgs e)
         {
-            var eventReportCmd = new EventReportCommand()
-            {
-                ReportId = 83, //Id de reporte manual inactivo
-                CustomerId = GetCompanyId(),
-                Email = SendReportTextBoxEmail.Text,
-                DriversId = GetSelectedListByField("drivers"),
-                FinalDate = GetToDateTime(),
-                InitialDate = GetSinceDateTime(),
-                MessagesId = GetSelectedListByField("messages"),
-                VehiclesId = GetSelectedListByField("vehicles")
-            };
-
+            var reportCommand = GenerateReportCommand(GetReportType());
+            
             var queue = GetMailReportMsmq();
-            if (queue == null)
-            {
-                throw new ApplicationException("No se pudo crear la cola");
-            }
-            queue.Send(eventReportCmd);
+
+            if (queue == null) { throw new ApplicationException("No se pudo acceder a la cola"); }
+            if (reportCommand != null) queue.Send(reportCommand);
 
             ModalSchedule.Hide();
 
             //SendConfirmationMail(eventReportCmd);
+        }
+
+        private IReportCommand GenerateReportCommand(string getReportType)
+        {
+            switch (Page.ToString())
+            {
+                case "ASP.reportes_datosoperativos_eventos_aspx":
+                    return new EventReportCommand()
+                    {
+                        ReportId = 83, //Id de reporte manual inactivo
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        DriversId = GetSelectedListByField("drivers"),
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        MessagesId = GetSelectedListByField("messages"),
+                        VehiclesId = GetSelectedListByField("vehicles")
+                    };
+                case "ASP.reportes_estadistica_actividadvehicular_aspx":
+                    return new VehicleActivityReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        OvercomeKilometers = GetOvercomeKilometers(),
+                        VehiclesId = GetSelectedListByField("vehicles")
+                    }; 
+
+                default:
+                    return null;
+            }
         }
 
         private IMessageQueue GetMailReportMsmq()

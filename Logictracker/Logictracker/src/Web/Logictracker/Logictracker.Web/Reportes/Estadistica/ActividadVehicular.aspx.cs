@@ -16,11 +16,15 @@ namespace Logictracker.Reportes.Estadistica
     {
         protected override string VariableName { get { return "STAT_ACTI_VEHICULAR"; } }
         protected override string GetRefference() { return "REP_ACT_VEHI"; }
+        
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
 
-        protected override Empresa GetEmpresa() { return null; }
-
+        protected override Empresa GetEmpresa()
+        {
+            return (cbEmpresa.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
+        }
         protected override Linea GetLinea() { return (ddlBase != null && ddlBase.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlBase.Selected) : null; }
 
         /// <summary>
@@ -203,5 +207,68 @@ namespace Logictracker.Reportes.Estadistica
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Returns vehicles id for a report programming
+        /// </summary>
+        /// <returns>string with csv vehicles id</returns>
+        protected override string GetSelectedVehicles()
+        {
+            var sVehiculos = new StringBuilder();
+
+            if (lbVehiculos.SelectedValues.Contains(0)) lbVehiculos.ToogleItems();
+
+            foreach (var vehiculo in lbVehiculos.SelectedValues)
+            {
+                if (!sVehiculos.ToString().Equals(""))
+                    sVehiculos.Append(",");
+
+                sVehiculos.Append(vehiculo.ToString());
+            }
+
+            return sVehiculos.ToString();
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            if (lbVehiculos.SelectedValues.Contains(0)) lbVehiculos.ToogleItems();
+            
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base: {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0},", reporte);
+            sDescription.AppendFormat("Tipo de Vehiculo: {0}, ", ddlTipoVehiculo.SelectedItem.Text);
+            sDescription.AppendFormat("Cantidad Vehiculos: {0} ", lbVehiculos.SelectedStringValues.Count);
+            
+            return sDescription.ToString();
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            if (lbVehiculos.SelectedValues.Contains(0)) lbVehiculos.ToogleItems();
+            
+            return lbVehiculos.SelectedValues;
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override DateTime GetToDateTime()
+        {
+            return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override int GetOvercomeKilometers()
+        {
+            return Convert.ToInt32((double) npKm.Value);
+        }
     }
 }

@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using C1.Web.UI.Controls.C1GridView;
 using System;
 using System.Collections.Generic;
@@ -366,7 +369,6 @@ namespace Logictracker.Reportes.DatosOperativos
 
             return sChoferes.ToString();
         }
-               
 
         /// <summary>
         /// Returns vehicles id for a report programming
@@ -389,7 +391,7 @@ namespace Logictracker.Reportes.DatosOperativos
             return sVehiculos.ToString();
         }            
 
-        protected override string GetDescription()
+        protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();
             if (lbCamiones.SelectedValues.Contains(0)) lbCamiones.ToogleItems();
@@ -397,7 +399,8 @@ namespace Logictracker.Reportes.DatosOperativos
 
             var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
             if (linea != null) sDescription.AppendFormat("Base {0} - ", linea.Descripcion);
-            sDescription.AppendFormat("Tipo de Vehiculo: {0} - ",ddlTipoVehiculo.SelectedItem.Text);
+            sDescription.AppendFormat("Reporte: {0} - ", reporte);
+            sDescription.AppendFormat("Tipo de Vehiculo: {0} - ", ddlTipoVehiculo.SelectedItem.Text);
             sDescription.AppendFormat("Tipo de Mensajes: {0} ", ddlTipoMensaje.SelectedItem.Text);
             sDescription.AppendFormat("Cantidad Vehiculos: {0} ", lbCamiones.SelectedStringValues.Count);
             sDescription.AppendFormat("Cantidad Mensajes: {0} ", lbMensajes.SelectedStringValues.Count);
