@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using AjaxControlToolkit;
 using C1.Web.UI.Controls.C1GridView;
 using Logictracker.Culture;
@@ -14,8 +15,8 @@ using Logictracker.Web.CustomWebControls.Buttons;
 using Logictracker.Web.CustomWebControls.Helpers;
 using Logictracker.Web.CustomWebControls.Labels;
 using Logictracker.Web.CustomWebControls.ToolBar;
+using Logictracker.Web.Helpers;
 using Logictracker.Web.Helpers.ExportHelpers;
-using System.Web.UI.WebControls;
 
 namespace Logictracker.Web.BaseClasses.BasePages
 {
@@ -213,6 +214,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected override void ExportToExcel()
         {
+            Logger.Debug("ExportToExcel start");
             var path = HttpContext.Current.Request.Url.AbsolutePath;
             path = Path.GetFileNameWithoutExtension(path) + ".xlsx";
 
@@ -220,13 +222,19 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             var list = GridUtils.Search(Data, SearchString);
 
+            Logger.Debug("ExportToExcel builder.GenerateHeader");
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
+            Logger.Debug("ExportToExcel builder.GenerateColumns");
             builder.GenerateColumns(list);
+            Logger.Debug("ExportToExcel builder.GenerateFields");
+            //  Hay que mejorar este GenerateFields
             builder.GenerateFields(list, CustomExportFormat);
 
+            Logger.Debug("ExportToExcel SetExcelSessionVars");
             SetExcelSessionVars(builder.CloseAndSave());
 
             OpenWin(String.Concat(ApplicationPath, "Common/exportExcel.aspx"), CultureManager.GetSystemMessage("EXPORT_CSV_DATA"));
+            Logger.Debug("ExportToExcel end");
         }
 
         /// <summary>

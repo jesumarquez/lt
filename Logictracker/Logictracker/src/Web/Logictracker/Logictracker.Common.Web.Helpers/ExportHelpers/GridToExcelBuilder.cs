@@ -53,7 +53,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
         public GridToExcelBuilder(string path)
         {
             _stream = new MemoryStream();
-            File.Open(path, FileMode.Open).CopyTo(_stream);
+            File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite).CopyTo(_stream);
 
             _stream.Position = 0;
             _document = SpreadsheetDocument.Open(_stream, true);
@@ -67,12 +67,12 @@ namespace Logictracker.Web.Helpers.ExportHelpers
             _stream = new MemoryStream();
             try
             {
-                File.Open(_filename, FileMode.Open).CopyTo(_stream);
+                File.Open(_filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite).CopyTo(_stream);
             }
             catch (Exception)
             {
                 _filename = HttpContext.Current.Server.MapPath("~/ExcelTemplate/Logictracker/" + templateName);
-                File.Open(_filename, FileMode.Open).CopyTo(_stream);
+                File.Open(_filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite).CopyTo(_stream);
             }
             
             _stream.Position = 0;
@@ -94,10 +94,12 @@ namespace Logictracker.Web.Helpers.ExportHelpers
 
         public void GenerateColumns<T>(List<T> list)
         {
+            Logger.Debug("GenerateColumns start"); 
             var properties = typeof(T).GetProperties()
                 .Where(p => p.GetGridMappingAttributes().Any())
                 .OrderBy(p => (p.GetGridMappingAttributes().First()).Index);
 
+            Logger.Debug("GenerateColumns foreach properties");
             foreach (var property in properties)
             {
                 var attribute = property.GetGridMappingAttributes().First();
@@ -130,6 +132,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
                 _excelColumns.Add(excelCol);
                 _wbPart.UpdateValue(SheetName, _wbPart.GetDefinedName(templateName), headerText, 0, CellValues.SharedString);
             }
+            Logger.Debug("GenerateColumns end");
         }
         public void GenerateCols(IEnumerable list)
         {
@@ -366,6 +369,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
             var tempfn = Path.GetTempFileName();
             _document.Close();
             var temp = File.Open(tempfn, FileMode.Create);
+            _stream.Position = 0;
             _stream.CopyTo(temp);
             temp.Close();
             return tempfn;
