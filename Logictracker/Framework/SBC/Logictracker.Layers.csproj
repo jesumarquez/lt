@@ -105,42 +105,52 @@
     <ProjectReference Include="..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
       <Name>Logictracker.DAL</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
       <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
       <Name>Logictracker.Types</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
       <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
       <Name>Logictracker.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\AVL\Logictracker.AVL.csproj">
       <Project>{0FD2623E-2379-410D-81E3-C8749BC014DE}</Project>
       <Name>Logictracker.AVL</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Description\Logictracker.Description.csproj">
       <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
       <Name>Logictracker.Description</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
       <Name>Logictracker.Cache</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
       <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
       <Name>Logictracker.Messaging</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Model\Logictracker.Model.csproj">
       <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
       <Name>Logictracker.Model</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

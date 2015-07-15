@@ -131,13 +131,9 @@ namespace Logictracker.Dispatcher.Core
             _m2MMessageSaver = null;
         	lock (_lockDaoFactory)
         	{
-        		if (_daoFactory != null)
-        		{
-        			_daoFactory.Dispose();
-        			_daoFactory = null;
-        		}
+        	    if (_daoFactory == null) return;
+        	    _daoFactory = null;
         	}
-        	
         }
 
     	#endregion

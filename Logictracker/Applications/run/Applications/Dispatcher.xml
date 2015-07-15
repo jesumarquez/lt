@@ -14,11 +14,11 @@
 		<!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
 		<!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
 		<MessageDispatcher>
-			<EventsHandler g:Type="Logictracker.AVL.Event, Logictracker.AVL" />
-			<PositionsHandler g:Type="Logictracker.AVL.Position, Logictracker.AVL" />
-			<TicketsHandler g:Type="Logictracker.AVL.SpeedingTicket, Logictracker.AVL" />
-			<TextEventsHandler g:Type="Logictracker.AVL.TextEvent, Logictracker.AVL" />
-			<SetDetailHandler g:Type="Logictracker.AVL.SetDetail, Logictracker.AVL" />
+			<EventsHandler g:Type="Logictracker.AVL.Messages.Event, Logictracker.AVL" />
+			<PositionsHandler g:Type="Logictracker.AVL.Messages.Position, Logictracker.AVL" />
+			<TicketsHandler g:Type="Logictracker.AVL.Messages.SpeedingTicket, Logictracker.AVL" />
+			<TextEventsHandler g:Type="Logictracker.AVL.Messages.TextEvent, Logictracker.AVL" />
+			<SetDetailHandler g:Type="Logictracker.AVL.Messages.SetDetail, Logictracker.AVL" />
 		</MessageDispatcher>
 	</StackChannel>
 
