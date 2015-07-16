@@ -21,7 +21,11 @@ namespace Logictracker.Reportes.DatosOperativos
 
         protected override string VariableName { get { return "DOP_VERI_VEHICULO"; } }
         protected override string GetRefference() { return "TOMAS_MOVILES"; }
+
         protected override bool ExcelButton { get { return true; } }
+        protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
+
         public override C1GridView Grid { get { return grid; } }
 
         protected override InfoLabel NotFound { get { return infoLabel1; } }

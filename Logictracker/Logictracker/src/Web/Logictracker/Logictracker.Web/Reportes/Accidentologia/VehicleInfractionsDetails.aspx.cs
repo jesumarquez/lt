@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using C1.Web.UI.Controls.C1GridView;
 using Logictracker.Culture;
 using Logictracker.DatabaseTracer.Core;
@@ -21,7 +22,10 @@ namespace Logictracker.Web.Reportes.Accidentologia
 
         protected override string GetRefference() { return "VEHICLE_INFRACTIONS_DETAILS"; }
         protected override string VariableName{ get { return "ACC_DET_INFRACCIONES_X_VEHICULO"; }  }
+        
         protected override bool ExcelButton { get { return true; } }
+        protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
 
         protected override Empresa GetEmpresa()
         {
@@ -207,6 +211,64 @@ namespace Logictracker.Web.Reportes.Accidentologia
             else dpHasta.SetDate();
 
             if (Vehicle != 0) Bind();
+        }
+
+        protected override string GetSelectedVehicles()
+        {
+            var sVehiculos = new StringBuilder();
+
+            if (lbVehiculo.SelectedValues.Contains(0)) lbVehiculo.ToogleItems();
+
+            foreach (var vehiculo in lbVehiculo.SelectedValues)
+            {
+                if (!sVehiculos.ToString().Equals(""))
+                    sVehiculos.Append(",");
+
+                sVehiculos.Append(vehiculo.ToString());
+            }
+
+            return sVehiculos.ToString();
+        }
+
+        protected override bool GetShowCornersCheck()
+        {
+            return chkVerEsquinas.Checked;
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            ToogleItems(lbVehiculo);
+            return lbVehiculo.SelectedValues;
+        }
+        
+        protected override DateTime GetToDateTime()
+        {
+            return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            ToogleItems(lbVehiculo);
+
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0} - ", reporte);
+            sDescription.AppendFormat("Tipo de Vehiculo: {0} - ", ddlTipoVehiculo.SelectedItem.Text);
+            sDescription.AppendFormat("Linea: {0} ", ddlBase.SelectedItem.Text);
+            sDescription.AppendFormat("Cantidad Vehiculos: {0} ", lbVehiculo.SelectedStringValues.Count);
+
+            return sDescription.ToString();
         }
     }
 }

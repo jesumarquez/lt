@@ -92,7 +92,18 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         InitialDate = GetInitialDate(prog.Periodicity),
                         OvercomeKilometers = prog.OvercomeKilometers,
                         VehiclesId = CsvToList(prog.Vehicles)
-                    }; 
+                    };
+                case "VehicleInfractionsReport":
+                    return new VehicleInfractionsReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        ShowCorners = prog.ShowCorners,
+                        VehiclesId = CsvToList(prog.Vehicles)
+                    };
                 default:
                     return new FinalExecutionCommand
                     {

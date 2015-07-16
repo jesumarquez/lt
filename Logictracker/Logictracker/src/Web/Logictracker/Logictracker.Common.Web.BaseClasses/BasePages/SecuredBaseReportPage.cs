@@ -109,16 +109,15 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected virtual void SendReportToMail() { }
 
-        protected virtual Empresa GetEmpresa() { throw new NotImplementedException(); }
+        protected virtual Empresa GetEmpresa() { return null; }
 
-        protected virtual Linea GetLinea() { throw new NotImplementedException(); }
+        protected virtual Linea GetLinea() { return null; }
 
         protected virtual bool GetCicleCheck() { return false; }
 
-        protected virtual int GetOvercomeKilometers()
-        {
-            return 0;
-        }
+        protected virtual int GetOvercomeKilometers() { return 0; }
+
+        protected virtual bool GetShowCornersCheck() { return false; } 
 
         /// <summary>
         /// Gets the associated filter vaues.

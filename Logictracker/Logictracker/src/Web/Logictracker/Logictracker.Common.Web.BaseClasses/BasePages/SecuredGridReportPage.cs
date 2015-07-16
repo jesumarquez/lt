@@ -325,6 +325,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
             prog.Drivers = GetSelectedDrivers();
             prog.MessageTypes = GetSelectedMessageTypes();
             prog.OvercomeKilometers = GetOvercomeKilometers();
+            prog.ShowCorners = GetShowCornersCheck();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
@@ -340,11 +341,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return "EventsReport";
                 case "ASP.reportes_estadistica_actividadvehicular_aspx":
                     return "VehicleActivityReport";
+                case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
+                    return "VehicleInfractionsReport";
+
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
-                //    break;
-                //case "ASP.reportes_accidentologia_infractionsdetails_aspx":
-                //    reporte = "Detalle de Infracciones";
                 //    break;
                 //case "ASP.reportes_accidentologia_operatorranking_aspx":
                 //    reporte = "Ranking de Choferes";
@@ -433,8 +434,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         InitialDate = GetSinceDateTime(),
                         OvercomeKilometers = GetOvercomeKilometers(),
                         VehiclesId = GetSelectedListByField("vehicles")
-                    }; 
-
+                    };
+                case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
+                    return new VehicleInfractionsReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        ShowCorners = GetShowCornersCheck(),
+                        VehiclesId = GetSelectedListByField("vehicles")
+                    };
                 default:
                     return null;
             }

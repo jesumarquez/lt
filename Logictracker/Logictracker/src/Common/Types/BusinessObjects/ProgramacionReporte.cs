@@ -27,5 +27,6 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Description { get; set; }
         public virtual bool InCicle { get; set; }
         public virtual int OvercomeKilometers { get; set; }
+        public virtual bool ShowCorners { get; set; }
     }
 }
