@@ -140,6 +140,8 @@ namespace Logictracker.Types.ReportObjects
 
         public int? IdPuntoInteres { get; set; }
 
+        public int IdMensaje { get; set; }
+
         #endregion
 
         #region Public Methods

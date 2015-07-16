@@ -21,6 +21,7 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Drivers { get; set; }
         public virtual string MessageTypes { get; set; }
         public virtual DateTime Created { get; set; }
+        public virtual short Format { get; set; }
 
         public virtual Empresa Empresa { get; set; }
         public virtual string ReportName { get; set; }
@@ -28,5 +29,11 @@ namespace Logictracker.Types.BusinessObjects
         public virtual bool InCicle { get; set; }
         public virtual int OvercomeKilometers { get; set; }
         public virtual bool ShowCorners { get; set; }
+
+        public static class FormatoReporte
+        {
+            public const short Excel = 1;
+            public const short Html = 2;
+        }
     }
 }

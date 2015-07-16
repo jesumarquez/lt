@@ -186,6 +186,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return mensajes;
         }
 
+        public IEnumerable<Mensaje> FindByIds(IEnumerable<int> ids)
+        {
+            return Query.Where(m => ids.Contains(m.Id)).ToList();
+        }
+
         /// <summary>
         /// Determines if a message with the givenn code for the specified location and base already exists.
         /// </summary>
