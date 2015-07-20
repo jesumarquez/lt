@@ -25,7 +25,8 @@ namespace Logictracker.Web.Helpers.ExtensionMethods
 
 
             stringTable.AppendChild(new SharedStringItem(new Text(value)));
-            stringTable.Save();
+            // Se graba al final
+            //stringTable.Save();
 
             return index;
         }

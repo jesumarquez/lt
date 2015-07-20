@@ -366,6 +366,8 @@ namespace Logictracker.Web.Helpers.ExportHelpers
         /// <returns></returns>
         public string CloseAndSave()
         {
+            _wbPart.SharedStringTablePart.SharedStringTable.Save();
+
             var tempfn = Path.GetTempFileName();
             _document.Close();
             var temp = File.Open(tempfn, FileMode.Create);
