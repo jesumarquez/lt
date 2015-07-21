@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using C1.Web.UI.Controls.C1GridView;
 using Logictracker.Culture;
 using Logictracker.DatabaseTracer.Core;
@@ -22,7 +23,9 @@ namespace Logictracker.Web.Reportes.Accidentologia
         protected override string GetRefference() { return "INFRACTIONS_DETAILS"; }
         protected override string VariableName{ get { return "ACC_DET_INFRACCIONES_X_CHOFER"; }  }
         protected override bool ExcelButton { get { return true; } }
+
         protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
 
         protected override Empresa GetEmpresa()
         {
@@ -225,6 +228,62 @@ namespace Logictracker.Web.Reportes.Accidentologia
             else dpHasta.SetDate();
 
             if(Operator != 0)Bind();
+        }
+
+        protected override string GetSelectedDrivers()
+        {
+            var sChoferes = new StringBuilder();
+
+            foreach (var chofer in _lbEmpleado.SelectedValues)
+            {
+                if (!sChoferes.ToString().Equals(""))
+                    sChoferes.Append(",");
+
+                sChoferes.Append(chofer.ToString());
+            }
+
+            return sChoferes.ToString();
+        }
+
+        protected override bool GetShowCornersCheck()
+        {
+            return chkVerEsquinas.Checked;
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            ToogleItems(_lbEmpleado);
+
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0} - ", reporte);
+            sDescription.AppendFormat("Tipo de Empleado: {0} - ", ddlTipoEmpleado.SelectedItem.Text);
+            sDescription.AppendFormat("Linea: {0} ", ddlBase.SelectedItem.Text);
+            sDescription.AppendFormat("Cantidad Conductores: {0} ", _lbEmpleado.SelectedStringValues.Count);
+
+            return sDescription.ToString();
+        }
+
+        protected override DateTime GetToDateTime()
+        {
+            return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            ToogleItems(_lbEmpleado);
+            return _lbEmpleado.SelectedValues;
         }
     }
 }

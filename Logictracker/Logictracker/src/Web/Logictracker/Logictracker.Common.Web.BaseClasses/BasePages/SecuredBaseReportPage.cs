@@ -70,18 +70,15 @@ namespace Logictracker.Web.BaseClasses.BasePages
         /// Determines wither to add or not the csv export button.
         /// </summary>
         protected virtual Boolean CsvButton { get { return true; } }
-
         protected virtual Boolean ExcelButton { get { return false; } }
 
+        protected virtual Boolean ScheduleButton { get { return false; } }
         protected virtual Boolean SendReportButton { get { return false; } }
 
         /// <summary>
         /// Determines wither to add or not the print button.
         /// </summary>
         protected virtual Boolean PrintButton { get { return true; } }
-
-        protected virtual Boolean ScheduleButton { get { return false; } }
-
         protected virtual Control PanelSearch { get { return BaseReportMasterPage != null ? BaseReportMasterPage.PanelSearch : null; } }
         protected virtual TextBox TextBoxSearch { get { return BaseReportMasterPage != null ? BaseReportMasterPage.TextBoxSearch : null; } }
         protected virtual bool HideSearch { get { return false; } }

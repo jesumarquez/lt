@@ -330,6 +330,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
             ModalSchedule.Hide();
+
             SendConfirmationMail(reporte, prog.Description);
         }
 
@@ -343,7 +344,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return "VehicleActivityReport";
                 case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
                     return "VehicleInfractionsReport";
-
+                case "ASP.reportes_accidentologia_infractionsdetails_aspx":
+                    return "DriversInfractionsReport";
+                case "ASP.reportes_datosoperativos_geocercasevents_aspx":
+                    return "GeofenceEventsReport";
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
                 //    break;
@@ -445,6 +449,17 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         InitialDate = GetSinceDateTime(),
                         ShowCorners = GetShowCornersCheck(),
                         VehiclesId = GetSelectedListByField("vehicles")
+                    };
+                case "ASP.reportes_accidentologia_infractionsdetails_aspx":
+                    return new DriversInfractionsReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        ShowCorners = GetShowCornersCheck(),
+                        DriversId = GetSelectedListByField("drivers")
                     };
                 default:
                     return null;

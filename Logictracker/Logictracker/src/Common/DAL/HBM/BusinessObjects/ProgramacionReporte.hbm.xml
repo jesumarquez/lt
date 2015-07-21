@@ -16,7 +16,7 @@
     <property column="parenti56_mail" type="String" name="Mail" not-null="true" />
     <property column="parenti56_drivers" type="String" name="Drivers" not-null="false" length="500" />
     <property column="parenti56_messageTypes" type="String" name="MessageTypes" not-null="false" length="500" />
-    <property column="parenti56_created" type="Date" name="Created" not-null="false" length="500" />
+    <property column="parenti56_created" type="DateTime" name="Created" not-null="false" length="500" />
     <property column="parenti56_inCicle" type="Boolean" name="InCicle" not-null="true" />
     <property column="parenti56_overcomeKilometers" type="Int32" name="OvercomeKilometers" not-null="true" />
     <property column="parenti56_showCorners" type="Boolean" name="ShowCorners" not-null="true" />
@@ -25,6 +25,7 @@
     <property column="parenti56_description" type="String" name="Description" not-null="true" length="80000"  />
 
     <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" not-null="true" />
+    <many-to-one column="rela_parenti02_linea" name="Linea" lazy="proxy" not-null="false" />
   </class>
   
 </hibernate-mapping>

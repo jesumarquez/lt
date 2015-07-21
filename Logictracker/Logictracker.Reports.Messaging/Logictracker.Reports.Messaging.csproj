@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccumulatedKilometersReportCommand.cs" />
+    <Compile Include="DriversInfractionsReportCommand.cs" />
     <Compile Include="FinalExecutionCommand.cs" />
     <Compile Include="EventReportCommand.cs" />
     <Compile Include="IReportCommand.cs" />

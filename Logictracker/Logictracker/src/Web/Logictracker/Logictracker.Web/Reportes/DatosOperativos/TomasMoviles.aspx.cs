@@ -29,7 +29,7 @@ namespace Logictracker.Reportes.DatosOperativos
         public override C1GridView Grid { get { return grid; } }
 
         protected override InfoLabel NotFound { get { return infoLabel1; } }
-        protected override ToolBar ToolBar { get { return ToolBar1; } }
+        //protected override ToolBar ToolBar { get { return ToolBar1; } }
         protected override InfoLabel LblInfo { get { return infoLabel1; } }
         protected override ResourceButton BtnSearch { get { return btnActualizar; } }
         protected override UpdatePanel UpdatePanelGrid { get { return updGrid; } }

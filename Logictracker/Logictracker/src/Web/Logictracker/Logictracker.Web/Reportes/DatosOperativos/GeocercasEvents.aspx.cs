@@ -28,7 +28,9 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override string VariableName { get { return "DOP_REP_GEOCERCAS"; } }
         protected override string GetRefference() { return "REP_GEOCERCAS"; }
         protected override bool ExcelButton { get { return true; } }
+
         protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
 
         protected override Empresa GetEmpresa()
         {
@@ -334,5 +336,58 @@ namespace Logictracker.Reportes.DatosOperativos
         }
 
         #endregion
+
+        protected override string GetSelectedVehicles()
+        {
+            var sVehiculos = new StringBuilder();
+
+            if (lbMobile.SelectedValues.Contains(0)) lbMobile.ToogleItems();
+
+            foreach (var vehiculo in lbMobile.SelectedValues)
+            {
+                if (!sVehiculos.ToString().Equals(""))
+                    sVehiculos.Append(",");
+
+                sVehiculos.Append(vehiculo.ToString());
+            }
+
+            return sVehiculos.ToString();
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            if (lbMobile.SelectedValues.Contains(0)) lbMobile.ToogleItems();
+
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0} - ", reporte);
+            sDescription.AppendFormat("Tipo de Vehiculo: {0} - ", ddlTipoDeVehiculo.SelectedItem.Text);
+            //sDescription.AppendFormat("Geocerca: {0} ", lbGeocerca.SelectedItem.Text);
+            sDescription.AppendFormat("Cantidad Vehiculos: {0} ", lbMobile.SelectedStringValues.Count);
+
+            return sDescription.ToString();
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            if (lbMobile.SelectedValues.Contains(0)) lbMobile.ToogleItems();
+            return lbMobile.SelectedValues;
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dpInitDate.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override DateTime GetToDateTime()
+        {
+            return dpEndDate.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
     }
 }
