@@ -327,11 +327,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
                                Created = DateTime.Now,
                                Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
                                Active = false,
-                               Format = RadioButtonExcel.Checked
-                                            ? ProgramacionReporte.FormatoReporte.Excel
-                                            : RadioButtonHtml.Checked
-                                                ? ProgramacionReporte.FormatoReporte.Html
-                                                : (short)0
+                               Format = RadioButtonHtml.Checked
+                                            ? ProgramacionReporte.FormatoReporte.Html
+                                            : ProgramacionReporte.FormatoReporte.Excel
                            };
 
             prog.Vehicles = GetSelectedVehicles();
@@ -359,6 +357,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return ProgramacionReporte.Reportes.ReporteEventos;
                 case "ASP.reportes_estadistica_actividadvehicular_aspx":
                     return ProgramacionReporte.Reportes.ActividadVehicular;
+                case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
+                    return "VehicleInfractionsReport";
+                case "ASP.reportes_accidentologia_infractionsdetails_aspx":
+                    return "DriversInfractionsReport";
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
                 //    break;

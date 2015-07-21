@@ -354,11 +354,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 Created = DateTime.Now,
                 Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
                 Active = false,
-                Format = RadioButtonExcel.Checked
-                                            ? ProgramacionReporte.FormatoReporte.Excel
-                                            : RadioButtonHtml.Checked
-                                                ? ProgramacionReporte.FormatoReporte.Html
-                                                : (short)0
+                Format = RadioButtonHtml.Checked
+                            ? ProgramacionReporte.FormatoReporte.Html
+                            : ProgramacionReporte.FormatoReporte.Excel
             };
 
             prog.Vehicles = GetSelectedVehicles();

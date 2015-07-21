@@ -15,7 +15,6 @@ using Logictracker.Culture;
 using Logictracker.Web.CustomWebControls.Buttons;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Web.CustomWebControls.Labels;
-using Logictracker.Web.CustomWebControls.ToolBar;
 
 namespace Logictracker.Reportes.DatosOperativos
 {
@@ -317,11 +316,9 @@ namespace Logictracker.Reportes.DatosOperativos
                 Created = DateTime.Now,
                 Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
                 Active = false,
-                Format = RadioButtonExcel.Checked
-                            ? ProgramacionReporte.FormatoReporte.Excel
-                            : RadioButtonHtml.Checked
+                Format = RadioButtonHtml.Checked
                                 ? ProgramacionReporte.FormatoReporte.Html
-                                : (short) 0
+                                : ProgramacionReporte.FormatoReporte.Excel
             };
 
             prog.Vehicles = GetSelectedVehicles();
