@@ -4655,4 +4655,10 @@
   <data name="ROWS" xml:space="preserve">
     <value>Filas</value>
   </data>
+  <data name="EXCEL_DEMASIADOS_MENSAJES" xml:space="preserve">
+    <value>La consulta solicitada excede la cantidad de registros recomendados para realizar la importación. Intente utilizar la opción 'Enviar reporte por e-mail'</value>
+  </data>
+  <data name="FORMATO" xml:space="preserve">
+    <value>Formato</value>
+  </data>
 </root>

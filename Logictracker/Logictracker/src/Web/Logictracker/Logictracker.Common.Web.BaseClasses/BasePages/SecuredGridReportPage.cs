@@ -35,16 +35,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected override InfoLabel NotFound { get { return MasterPage.LblInfo; } }
         protected override ToolBar ToolBar { get { return MasterPage.ToolBar; } }
         protected override ResourceButton BtnSearch { get { return MasterPage.btnSearch; } }
-        
-        protected DropDownList CbSchedulePeriodicidad { get { return MasterPage.cbSchedulePeriodicidad; } }
-        protected TextBox TxtScheduleMail { get { return MasterPage.txtScheduleMail; } }
-        protected ResourceButton BtScheduleGuardar { get { return MasterPage.btScheduleGuardar; } }
-        protected ModalPopupExtender ModalSchedule { get { return MasterPage.modalSchedule; } }
 
-        protected TextBox SendReportTextBoxEmail { get { return MasterPage.SendReportTextBoxEmail; } }
-        protected TextBox SendReportTextBoxReportName{ get { return MasterPage.SendReportTextBoxReportName; } }
-        protected ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
-        protected ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
+        protected virtual DropDownList CbSchedulePeriodicidad { get { return MasterPage.cbSchedulePeriodicidad; } }
+        protected virtual TextBox TxtScheduleMail { get { return MasterPage.txtScheduleMail; } }
+        protected virtual ResourceButton BtScheduleGuardar { get { return MasterPage.btScheduleGuardar; } }
+        protected virtual ModalPopupExtender ModalSchedule { get { return MasterPage.modalSchedule; } }
+        protected virtual RadioButton RadioButtonExcel { get { return MasterPage.RadioButtonExcel; } }
+        protected virtual RadioButton RadioButtonHtml { get { return MasterPage.RadioButtonHtml; } }
+
+        protected virtual TextBox SendReportTextBoxEmail { get { return MasterPage.SendReportTextBoxEmail; } }
+        protected virtual TextBox SendReportTextBoxReportName { get { return MasterPage.SendReportTextBoxReportName; } }
+        protected virtual ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
+        protected virtual ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
         
         #region IGridded
 
@@ -233,6 +235,12 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var list = GridUtils.Search(Data, SearchString);
 
             Logger.Debug("ExportToExcel builder.GenerateHeader");
+            if (list.Count > 5000)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
+
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
             Logger.Debug("ExportToExcel builder.GenerateColumns");
             builder.GenerateColumns(list);
@@ -318,7 +326,12 @@ namespace Logictracker.Web.BaseClasses.BasePages
                                Empresa = empresa ?? linea.Empresa,
                                Created = DateTime.Now,
                                Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
-                               Active = false
+                               Active = false,
+                               Format = RadioButtonExcel.Checked
+                                            ? ProgramacionReporte.FormatoReporte.Excel
+                                            : RadioButtonHtml.Checked
+                                                ? ProgramacionReporte.FormatoReporte.Html
+                                                : (short)0
                            };
 
             prog.Vehicles = GetSelectedVehicles();
@@ -343,17 +356,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
             switch (Page.ToString())
             {
                 case "ASP.reportes_datosoperativos_eventos_aspx":
-                    return "EventsReport";
+                    return ProgramacionReporte.Reportes.ReporteEventos;
                 case "ASP.reportes_estadistica_actividadvehicular_aspx":
-                    return "VehicleActivityReport";
-                case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
-                    return "VehicleInfractionsReport";
-                case "ASP.reportes_accidentologia_infractionsdetails_aspx":
-                    return "DriversInfractionsReport";
-                case "ASP.reportes_datosoperativos_geocercasevents_aspx":
-                    return "GeofenceEventsReport";
-                case "ASP.documentos_reportevencimiento_aspx":
-                    return "DocumentsExpirationReport";
+                    return ProgramacionReporte.Reportes.ActividadVehicular;
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
                 //    break;

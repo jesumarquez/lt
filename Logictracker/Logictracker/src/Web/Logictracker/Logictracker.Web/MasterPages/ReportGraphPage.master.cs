@@ -90,6 +90,9 @@ namespace Logictracker.MasterPages
         public override Control PanelSearch { get { return null; } }
         public override TextBox TextBoxSearch { get { return null; } }
 
+        public override RadioButton RadioButtonExcel { get { return rbutExcel; } }
+        public override RadioButton RadioButtonHtml { get { return rbutHtml; } }
+
         #endregion
     }
 }

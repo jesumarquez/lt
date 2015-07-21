@@ -11,7 +11,8 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
         public const int IndexReportName= 1;
         public const int IndexPeriodicidad = 2;
         public const int IndexMail = 3;
-        public const int IndexBaja = 4;
+        public const int IndexFormato = 4;
+        public const int IndexBaja = 5;
 
         public int Id { get; set; }
 
@@ -27,6 +28,9 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
         [GridMapping(Index = IndexMail, ResourceName = "Labels", VariableName = "MAIL", AllowGroup = false, IncludeInSearch = true)]
         public string Mail { get; set; }
 
+        [GridMapping(Index = IndexFormato, ResourceName = "Labels", VariableName = "FORMATO", AllowGroup = false, IncludeInSearch = true)]
+        public string Formato { get; set; }
+
         [GridMapping(Index = IndexBaja, ResourceName = "Labels", VariableName = "ESTADO", AllowGroup = true)]
         public string Estado { get; set; }
 
@@ -37,6 +41,12 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
                 case 'D': Periodicidad = CultureManager.GetLabel("DIARIO"); break;
                 case 'S': Periodicidad = CultureManager.GetLabel("SEMANAL"); break;
                 case 'M': Periodicidad = CultureManager.GetLabel("MENSUAL"); break;
+            }
+            switch (progReporte.Format)
+            {
+                case ProgramacionReporte.FormatoReporte.Excel: Formato = "Excel Completo"; break;
+                case ProgramacionReporte.FormatoReporte.Html: Formato = "Email Resumido"; break;
+                default: Formato = "Ninguno"; break;
             }
             Id = progReporte.Id;
             Reporte =   CultureManager.GetLabel(progReporte.Report);

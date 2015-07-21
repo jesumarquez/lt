@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logictracker.DAL.Factories;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Reports.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Layers.MessageQueue;
 using Logictracker.Types.BusinessObjects;
+using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Types.ReportObjects;
+using Logictracker.Types.ValueObjects.ReportObjects;
 
 namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 {
@@ -44,7 +48,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
         {
             switch (prog.Report)
             {
-                case "EventsReport":
+                case ProgramacionReporte.Reportes.ReporteEventos:
                     return new EventReportCommand
                     {
                         ReportId = prog.Id,
@@ -57,7 +61,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         MessagesId = CsvToList(prog.MessageTypes),
                         VehiclesId = CsvToList(prog.Vehicles)
                     };
-                case "AccumulatedKilometersReport":
+                case ProgramacionReporte.Reportes.KilometrosAcumulados:
                     return new AccumulatedKilometersReportCommand
                     {
                         ReportId = prog.Id,
@@ -69,7 +73,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         InCicle = prog.InCicle,
                         VehiclesId = CsvToList(prog.Vehicles)
                     };
-                case "VehicleActivityReport":
+                case ProgramacionReporte.Reportes.ActividadVehicular:
                     return new VehicleActivityReportCommand
                     {
                         ReportId = prog.Id,
@@ -135,6 +139,40 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     {
                         InitialDate = DateTime.Now
                     };
+            }
+        }
+
+        private void GenerateHtmlReport(ProgramacionReporte prog)
+        {
+            switch (prog.Report)
+            {
+                case ProgramacionReporte.Reportes.ReporteEventos:
+                    var vehiculos = prog.Vehicles.Split(',').Select(v => int.Parse(v)).ToList();
+                    var mensajes = prog.MessageTypes.Split(',').Select(v => int.Parse(v)).ToList();
+                    var choferes = prog.Drivers.Split(',').Select(v => int.Parse(v)).ToList();
+                    var desde = GetInitialDate(prog.Periodicity);
+                    var hasta = GetFinalDate();
+                    var result = GetEventReport(vehiculos, mensajes, choferes, desde, hasta);
+
+                    break;
+                case ProgramacionReporte.Reportes.VerificadorVehiculos:
+                    var mobiles = DaoFactory.CocheDAO.GetList(new[] {prog.Empresa.Id},
+                                                      ddlLinea.SelectedValues,
+                                                      ddlTipoVehiculo.SelectedValues,
+                                                      ddlTransportista.SelectedValues,
+                                                      new[] { -1 }, // DEPARTAMENTOS
+                                                      ddlCostCenter.SelectedValues,
+                                                      new[] { -1 }, // SUB CENTROS DE COSTO
+                                                      chkDispositivosAsignados.Checked,
+                                                      chkSoloConGarmin.Checked)
+                                             .Where(m => m.Estado != Coche.Estados.Inactivo || !chkOcultarInactivos.Checked);
+
+                    return ReportFactory.MobilePositionDAO.GetMobilesLastPosition(mobiles)
+                                                          .Select(pos => new MobilePositionVehicleVo(pos))
+                                                          .ToList();
+                    break;
+                default:
+                    break;
             }
         }
 

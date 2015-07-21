@@ -4510,4 +4510,7 @@
   <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
     <value>View Admin Events</value>
   </data>
+  <data name="FORMATO" xml:space="preserve">
+    <value>Format</value>
+  </data>
 </root>

@@ -4,7 +4,11 @@ using System.Drawing;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AjaxControlToolkit;
 using C1.Web.UI.Controls.C1GridView;
+using Logictracker.Configuration;
+using Logictracker.Mailing;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Culture;
@@ -28,6 +32,18 @@ namespace Logictracker.Reportes.DatosOperativos
 
         public override C1GridView Grid { get { return grid; } }
 
+        protected override DropDownList CbSchedulePeriodicidad { get { return cbPeriodicidad; } }
+        protected override TextBox TxtScheduleMail { get { return txtMail; } }
+        protected override ResourceButton BtScheduleGuardar { get { return btnGuardar; } }
+        protected override ModalPopupExtender ModalSchedule { get { return mpePanel; } }
+
+        protected override TextBox SendReportTextBoxEmail { get { return TextBoxEmailSendReport; } }
+        protected override TextBox SendReportTextBoxReportName { get { return textBoxReportName; } }
+        protected override ModalPopupExtender SendReportModalPopupExtender { get { return popUpSendReport; } }
+        protected override ResourceButton SendReportOkButton { get { return ButtonOkSendReport; } }
+        protected override RadioButton RadioButtonExcel { get { return rbutExcel; } }
+        protected override RadioButton RadioButtonHtml { get { return rbutHtml; } } 
+
         protected override InfoLabel NotFound { get { return infoLabel1; } }
         //protected override ToolBar ToolBar { get { return ToolBar1; } }
         protected override InfoLabel LblInfo { get { return infoLabel1; } }
@@ -38,7 +54,7 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override Repeater PrintFilters { get { return FiltrosPrint; } }
         public override int PageSize { get { return 10000; } }
         public override string SearchString { get { return txtBuscar.Text; } }
-        
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -283,6 +299,65 @@ namespace Logictracker.Reportes.DatosOperativos
             AddSessionParameters();
 
             OpenWin("TomasDetalle.aspx", "Detalle posiciones");
+        }
+
+        protected void BtScheduleGuardarClick(object sender, EventArgs e)
+        {
+            var reporte = ProgramacionReporte.Reportes.VerificadorVehiculos;
+            var empresa = GetEmpresa();
+            var linea = GetLinea();
+
+            var prog = new ProgramacionReporte
+            {
+                ReportName = SendReportTextBoxReportName.Text,
+                Report = reporte,
+                Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
+                Mail = TxtScheduleMail.Text,
+                Empresa = empresa ?? linea.Empresa,
+                Created = DateTime.Now,
+                Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
+                Active = false,
+                Format = RadioButtonExcel.Checked
+                            ? ProgramacionReporte.FormatoReporte.Excel
+                            : RadioButtonHtml.Checked
+                                ? ProgramacionReporte.FormatoReporte.Html
+                                : (short) 0
+            };
+
+            prog.Vehicles = GetSelectedVehicles();
+            prog.Drivers = GetSelectedDrivers();
+            prog.MessageTypes = GetSelectedMessageTypes();
+            prog.OvercomeKilometers = GetOvercomeKilometers();
+
+            DAOFactory.ProgramacionReporteDAO.Save(prog);
+
+            ModalSchedule.Hide();
+            SendConfirmationMail(reporte, prog.Description);
+        }
+
+        private void SendConfirmationMail(string reportType, string description)
+        {
+            var configFile = Config.Mailing.ReportConfirmation;
+
+            if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
+
+            var sender = new MailSender(configFile);
+            sender.Config.Subject = string.Format("Se ha creado un nuevo reporte programado ({0})", reportType);
+            sender.Config.Body = description;
+
+            sender.SendMail();
+        }
+
+        protected override Empresa GetEmpresa()
+        {
+            var id = ddlDistrito.Selected;
+            return id > 0 ? DAOFactory.EmpresaDAO.FindById(id) : null;
+        }
+
+        protected override Linea GetLinea()
+        {
+            var id = ddlLinea.Selected;
+            return id > 0 ? DAOFactory.LineaDAO.FindById(id) : null;
         }
     }
 }

@@ -50,6 +50,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
         public abstract ModalPopupExtender SendReportModalPopupExtender { get; }
         public abstract ResourceButton SendReportOkButton { get; }
 
+        public abstract RadioButton RadioButtonExcel { get; }
+        public abstract RadioButton RadioButtonHtml { get; }
+
         #endregion
 
         #region Public Events

@@ -25,6 +25,7 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string MessageTypes { get; set; }
         public virtual DateTime Created { get; set; }
         public virtual short Format { get; set; }
+        public virtual Linea Linea { get; set; }
         public virtual string ReportName { get; set; }
         public virtual string Description { get; set; }
         public virtual bool InCicle { get; set; }
@@ -34,14 +35,18 @@ namespace Logictracker.Types.BusinessObjects
         public virtual bool CalculateKm { get; set; }
         public virtual double GeofenceTime { get; set; }
 
-        public static class ReportFormat
+        public static class Reportes
         {
-            public const short Excel = 0;
-            public const short Html = 1;
-            public const short HtmlAttached = 2;
-            public const short Csv = 3;
-            public const short CsvAttached = 4;
+            public const string ReporteEventos = "EventsReport";
+            public const string VerificadorVehiculos = "VerificadorVehiculos";
+            public const string ActividadVehicular = "VehicleActivityReport";
+            public const string KilometrosAcumulados = "AccumulatedKilometersReport";
+        }
 
+        public static class FormatoReporte
+        {
+            public const short Excel = 1;
+            public const short Html = 2;
         }
     }
 }

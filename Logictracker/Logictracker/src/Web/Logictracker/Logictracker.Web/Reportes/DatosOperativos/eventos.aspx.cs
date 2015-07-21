@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using C1.Web.UI.Controls.C1GridView;
 using System;
 using System.Collections.Generic;
@@ -306,21 +303,21 @@ namespace Logictracker.Reportes.DatosOperativos
                 if (!sVehiculos.ToString().Equals(""))
                     sVehiculos.Append(",");
 
-                sVehiculos.Append((string) vehiculo.ToString());
+                sVehiculos.Append(vehiculo.ToString("#0"));
             }
             foreach (var mensaje in lbMensajes.SelectedValues)
             {
                 if (!sMensajes.ToString().Equals(""))
                     sMensajes.Append(",");
 
-                sMensajes.Append((string) mensaje.ToString());
+                sMensajes.Append(mensaje.ToString("#0"));
             }
             foreach (var chofer in lbChoferes.SelectedValues)
             {
                 if (!sChoferes.ToString().Equals(""))
                     sChoferes.Append(",");
 
-                sChoferes.Append((string) chofer.ToString());
+                sChoferes.Append(chofer.ToString("#0"));
             }
 
             dic.Add("VEHICULOS", sVehiculos.ToString());
@@ -345,7 +342,7 @@ namespace Logictracker.Reportes.DatosOperativos
                 if (!sMensajes.ToString().Equals(""))
                     sMensajes.Append(",");
 
-                sMensajes.Append(mensaje.ToString());
+                sMensajes.Append(mensaje.ToString("#0"));
             }
 
             return sMensajes.ToString();
@@ -364,7 +361,7 @@ namespace Logictracker.Reportes.DatosOperativos
                 if (!sChoferes.ToString().Equals(""))
                     sChoferes.Append(",");
 
-                sChoferes.Append(chofer.ToString());
+                sChoferes.Append(chofer.ToString("#0"));
             }
 
             return sChoferes.ToString();
@@ -385,7 +382,7 @@ namespace Logictracker.Reportes.DatosOperativos
                 if (!sVehiculos.ToString().Equals(""))
                     sVehiculos.Append(",");
 
-                sVehiculos.Append(vehiculo.ToString());
+                sVehiculos.Append(vehiculo.ToString("#0"));
             }
 
             return sVehiculos.ToString();

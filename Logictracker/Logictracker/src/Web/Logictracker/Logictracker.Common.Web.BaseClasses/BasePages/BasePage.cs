@@ -379,6 +379,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         {
             LblInfo.Mode = InfoLabelMode.ERROR;
             LblInfo.Text = text;
+            LblInfo.Visible = true;
         }
 
         /// <summary>
@@ -391,6 +392,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             LblInfo.Mode = InfoLabelMode.INFO;
             LblInfo.Text = text;
+            LblInfo.Visible = true;
         }
 
         #endregion

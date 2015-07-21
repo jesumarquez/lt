@@ -30,6 +30,8 @@ namespace Logictracker.Admin
             cbPeriodicidad.SelectedValue = EditObject.Periodicity.ToString();
             txtMail.Text = EditObject.Mail;
             chkBaja.Checked = EditObject.Active;
+            rbutExcel.Checked = EditObject.Format == ProgramacionReporte.FormatoReporte.Excel;
+            rbutHtml.Checked = EditObject.Format == ProgramacionReporte.FormatoReporte.Html;
         }
 
         protected override void OnDelete()

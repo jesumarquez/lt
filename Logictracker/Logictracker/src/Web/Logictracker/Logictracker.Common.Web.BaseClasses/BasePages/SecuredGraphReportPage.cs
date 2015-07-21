@@ -108,6 +108,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
         protected ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
 
+        protected virtual RadioButton RadioButtonExcel { get { return MasterPage.RadioButtonExcel; } }
+        protected virtual RadioButton RadioButtonHtml { get { return MasterPage.RadioButtonHtml; } }
+
         /// <summary>
         /// List of FusionChartsItem used by the graph.
         /// </summary>
@@ -300,6 +303,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var builder = new GridToExcelBuilder(path, Usuario.ExcelFolder);
             
             var list = GetExcelItemList();
+            if (list.Count > 5000)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
             var extraItems = GetExcelExtraItemList();
 
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
@@ -345,7 +353,12 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 Empresa = empresa ?? linea.Empresa,
                 Created = DateTime.Now,
                 Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
-                Active = false
+                Active = false,
+                Format = RadioButtonExcel.Checked
+                                            ? ProgramacionReporte.FormatoReporte.Excel
+                                            : RadioButtonHtml.Checked
+                                                ? ProgramacionReporte.FormatoReporte.Html
+                                                : (short)0
             };
 
             prog.Vehicles = GetSelectedVehicles();
@@ -425,11 +438,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             switch (Page.ToString())
             {
                 case "ASP.reportes_estadistica_mobileskilometers_aspx":
-                    return "AccumulatedKilometersReport";
-                case "ASP.reportes_estadistica_mobilestime_aspx":
-                    return "MobilesTimeReport";
+                    reporte = ProgramacionReporte.Reportes.KilometrosAcumulados;
+                    break;
                 default:
-                    return Page.ToString();
+                    reporte = Page.ToString();
+                    break;
             }
         }
 
@@ -514,6 +527,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var builder = new GridToExcelBuilder(path, Usuario.ExcelFolder);
 
             var list = GetExcelItemList();
+            if (list.Count > 5000)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
 
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
             builder.AddExcelItemList(list);

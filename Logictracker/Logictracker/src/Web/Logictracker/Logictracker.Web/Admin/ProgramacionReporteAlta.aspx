@@ -20,7 +20,7 @@
                             </Triggers>
                         </asp:UpdatePanel>
 
-                        <cwc:ResourceLabel ID="LabelReportName" runat="server" ResourceName="Labels" VariableName="REPORTNAME" />
+                        <cwc:ResourceLabel ID="LabelReportName" runat="server" ResourceName="Labels" VariableName="NAME" />
                         <asp:TextBox ID="txtReportName" runat="server" Width="300px" Enabled="false" />
 
                         <cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="Labels" VariableName="REPORTE" />
@@ -34,6 +34,12 @@
                         
                         <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="MAIL" />
                         <asp:TextBox ID="txtMail" runat="server" MaxLength="500" TextMode="MultiLine" Width="300px" Height="40px" />
+                        
+                        <cwc:ResourceLabel ID="ResourceLabel3" runat="server" ResourceName="Labels" VariableName="FORMATO" />
+                        <asp:Panel runat="server">
+                            <asp:RadioButton ID="rbutExcel" runat="server" Text="Excel completo" GroupName="FormatList" ValidationGroup="FormatList" />
+                            <asp:RadioButton ID="rbutHtml" runat="server" Text="Email resumido" GroupName="FormatList" ValidationGroup="FormatList" />    
+                        </asp:Panel>
                         
                         <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="Labels" VariableName="ACTIVO" />
                         <asp:CheckBox ID="chkBaja" runat="server" />
