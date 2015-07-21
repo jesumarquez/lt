@@ -28,7 +28,6 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
         protected override bool SendReportButton { get { return true; } }
-
         public override C1GridView Grid { get { return grid; } }
 
         protected override DropDownList CbSchedulePeriodicidad { get { return cbPeriodicidad; } }
