@@ -107,14 +107,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual void SendReportToMail() { }
 
         protected virtual Empresa GetEmpresa() { return null; }
-
         protected virtual Linea GetLinea() { return null; }
-
         protected virtual bool GetCicleCheck() { return false; }
-
         protected virtual int GetOvercomeKilometers() { return 0; }
-
-        protected virtual bool GetShowCornersCheck() { return false; } 
+        protected virtual bool GetShowCornersCheck() { return false; }
+        protected virtual bool GetCalculateKilometers() { return false; } 
 
         /// <summary>
         /// Gets the associated filter vaues.
@@ -127,6 +124,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         //programacion de reportes
         protected virtual string GetSelectedVehicles() { return string.Empty; }
         protected virtual string GetSelectedDrivers() { return string.Empty; }
+        protected virtual string GetSelectedGeofences() { return string.Empty; }
         protected virtual string GetSelectedMessageTypes() { return string.Empty; }
         protected virtual string GetDescription(string s) { return string.Empty; }
         

@@ -18,8 +18,10 @@
     <property column="parenti56_messageTypes" type="String" name="MessageTypes" not-null="false" length="500" />
     <property column="parenti56_created" type="DateTime" name="Created" not-null="false" length="500" />
     <property column="parenti56_inCicle" type="Boolean" name="InCicle" not-null="true" />
+    <property column="parenti56_calculateKm" type="Boolean" name="CalculateKm" not-null="true" />
     <property column="parenti56_overcomeKilometers" type="Int32" name="OvercomeKilometers" not-null="true" />
     <property column="parenti56_showCorners" type="Boolean" name="ShowCorners" not-null="true" />
+    <property column="parenti56_geofences" type="String" name="Drivers" not-null="false" length="500" />
 
     <property column="parenti56_reportName" type="String" name="ReportName" not-null="true" length="50" />
     <property column="parenti56_description" type="String" name="Description" not-null="true" length="80000"  />

@@ -354,6 +354,25 @@ namespace Logictracker.Reportes.DatosOperativos
             return sVehiculos.ToString();
         }
 
+        protected override string GetSelectedGeofences()
+        {
+            var sGeocercas = new StringBuilder();
+
+            foreach (var geof in ControlHelper.GetSelectedValues(lbGeocerca))
+            {
+                if (!sGeocercas.ToString().Equals(""))
+                    sGeocercas.Append(",");
+
+                sGeocercas.Append(geof.ToString(CultureInfo.InvariantCulture));
+            }
+            return sGeocercas.ToString();
+        }
+
+        protected override bool GetCalculateKilometers()
+        {
+            return chkCalcularKmRecorridos.Checked;    
+        }
+
         protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();

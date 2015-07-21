@@ -323,9 +323,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             prog.Vehicles = GetSelectedVehicles();
             prog.Drivers = GetSelectedDrivers();
+            prog.Geofences = GetSelectedGeofences();
             prog.MessageTypes = GetSelectedMessageTypes();
             prog.OvercomeKilometers = GetOvercomeKilometers();
             prog.ShowCorners = GetShowCornersCheck();
+            prog.CalculateKm = GetCalculateKilometers();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
@@ -460,6 +462,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         InitialDate = GetSinceDateTime(),
                         ShowCorners = GetShowCornersCheck(),
                         DriversId = GetSelectedListByField("drivers")
+                    };
+                case "ASP.reportes_datosoperativos_geocercasevents_aspx":
+                    return new GeofenceEventsReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        CalculateKm = GetShowCornersCheck(),
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        Geofences = GetSelectedListByField("geofences")
                     };
                 default:
                     return null;

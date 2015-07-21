@@ -30,6 +30,8 @@ namespace Logictracker.Types.BusinessObjects
         public virtual bool InCicle { get; set; }
         public virtual int OvercomeKilometers { get; set; }
         public virtual bool ShowCorners { get; set; }
+        public virtual string Geofences { get; set; }
+        public virtual bool CalculateKm { get; set; }
 
         public static class ReportFormat
         {
