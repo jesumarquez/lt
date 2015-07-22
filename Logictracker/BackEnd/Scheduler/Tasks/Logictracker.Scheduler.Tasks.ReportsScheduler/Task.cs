@@ -85,12 +85,50 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     return new VehicleInfractionsReportCommand
                     {
                         ReportId = prog.Id,
+                        ReportName = prog.ReportName,
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         ShowCorners = prog.ShowCorners,
                         VehiclesId = CsvToList(prog.Vehicles)
+                    };
+                case "DriversInfractionsReport":
+                    return new DriversInfractionsReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        ShowCorners = prog.ShowCorners,
+                        DriversId = CsvToList(prog.Drivers),
+                        ReportName = prog.ReportName
+                    };
+                case "GeofenceEventsReport":
+                    return new GeofenceEventsReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        Geofences = CsvToList(prog.Geofences),
+                        VehiclesId = CsvToList(prog.Vehicles),
+                        CalculateKm = prog.CalculateKm,
+                        InGeofenceTime = prog.GeofenceTime, 
+                        ReportName = prog.ReportName
+                    };
+                case "MobilesTimeReport":
+                    return new MobilesTimeReportCommand
+                    {
+                        ReportId = prog.Id,
+                        ReportName = prog.ReportName,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        VehiclesId = CsvToList(prog.Vehicles)                        
                     };
                 default:
                     return new FinalExecutionCommand

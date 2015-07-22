@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Web.Helpers.FussionChartHelpers;
 using Logictracker.Culture;
@@ -20,6 +22,8 @@ namespace Logictracker.Reportes.Estadistica
         protected override string GetRefference() { return "MOBILES_TIME"; }
         protected override GraphTypes GraphType { get { return GraphTypes.Barrs; } }
         protected override bool ExcelButton { get { return true; } }
+        protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
         protected override string XAxisLabel { get { return CultureManager.GetEntity(Parenti03); } }
         protected override string YAxisLabel { get { return CultureManager.GetLabel(Horas); } }
 
@@ -119,6 +123,68 @@ namespace Logictracker.Reportes.Estadistica
             if (lbMobiles.SelectedValues.Contains(0)) lbMobiles.ToogleItems();
 
             return lbMobiles.SelectedValues;
+        }
+
+        protected override Empresa GetEmpresa()
+        {
+            return (ddlLocacion.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected) : null;
+        }
+
+        protected override Linea GetLinea()
+        {
+            return (ddlPlanta != null && ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
+        }
+
+        protected override string GetSelectedVehicles()
+        {
+            var sVehiculos = new StringBuilder();
+
+            if (lbMobiles.SelectedValues.Contains(0)) lbMobiles.ToogleItems();
+
+            foreach (var vehiculo in lbMobiles.SelectedValues)
+            {
+                if (!sVehiculos.ToString().Equals(""))
+                    sVehiculos.Append(",");
+
+                sVehiculos.Append(vehiculo.ToString());
+            }
+
+            return sVehiculos.ToString();
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            if (lbMobiles.SelectedValues.Contains(0)) lbMobiles.ToogleItems();
+            
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0} - ", reporte);
+            sDescription.AppendFormat("Tipo de Vehiculo: {0} - ", ddlTipoVehiculo.SelectedItem.Text);
+            sDescription.AppendFormat("Cantidad Vehiculos: {0} ", lbMobiles.SelectedStringValues.Count);
+
+            return sDescription.ToString();
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            if (lbMobiles.SelectedValues.Contains(0)) lbMobiles.ToogleItems();
+            return lbMobiles.SelectedValues;
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override DateTime GetToDateTime()
+        {
+            return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
         }
     }
 }

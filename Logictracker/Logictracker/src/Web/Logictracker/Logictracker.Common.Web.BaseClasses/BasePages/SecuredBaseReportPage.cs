@@ -112,6 +112,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual int GetOvercomeKilometers() { return 0; }
         protected virtual bool GetShowCornersCheck() { return false; }
         protected virtual bool GetCalculateKilometers() { return false; } 
+        protected virtual double GetInGeofenceTime() { return 0; }
 
         /// <summary>
         /// Gets the associated filter vaues.
@@ -126,6 +127,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual string GetSelectedDrivers() { return string.Empty; }
         protected virtual string GetSelectedGeofences() { return string.Empty; }
         protected virtual string GetSelectedMessageTypes() { return string.Empty; }
+        protected virtual string GetSelectedDocuments () { return string.Empty; }
         protected virtual string GetDescription(string s) { return string.Empty; }
         
         //envio manual de reportes

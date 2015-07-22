@@ -328,6 +328,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
             prog.OvercomeKilometers = GetOvercomeKilometers();
             prog.ShowCorners = GetShowCornersCheck();
             prog.CalculateKm = GetCalculateKilometers();
+            prog.GeofenceTime = GetInGeofenceTime();
+            //prog.Documents = GetSelectedDocuments();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
@@ -350,6 +352,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return "DriversInfractionsReport";
                 case "ASP.reportes_datosoperativos_geocercasevents_aspx":
                     return "GeofenceEventsReport";
+                case "ASP.documentos_reportevencimiento_aspx":
+                    return "DocumentsExpirationReport";
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
                 //    break;
@@ -414,11 +418,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             //SendConfirmationMail(eventReportCmd);
         }
 
-        private IReportCommand GenerateReportCommand(string getReportType)
+        private IReportCommand GenerateReportCommand(string reportType)
         {
-            switch (Page.ToString())
+            switch (reportType)
             {
-                case "ASP.reportes_datosoperativos_eventos_aspx":
+                case "EventsReport":
                     return new EventReportCommand()
                     {
                         ReportId = 83, //Id de reporte manual inactivo
@@ -430,7 +434,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         MessagesId = GetSelectedListByField("messages"),
                         VehiclesId = GetSelectedListByField("vehicles")
                     };
-                case "ASP.reportes_estadistica_actividadvehicular_aspx":
+                case "VehicleActivityReport":
                     return new VehicleActivityReportCommand
                     {
                         ReportId = 83,
@@ -441,7 +445,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         OvercomeKilometers = GetOvercomeKilometers(),
                         VehiclesId = GetSelectedListByField("vehicles")
                     };
-                case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
+                case "VehicleInfractionsReport":
                     return new VehicleInfractionsReportCommand
                     {
                         ReportId = 83,
@@ -452,7 +456,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         ShowCorners = GetShowCornersCheck(),
                         VehiclesId = GetSelectedListByField("vehicles")
                     };
-                case "ASP.reportes_accidentologia_infractionsdetails_aspx":
+                case "DriversInfractionsReport":
                     return new DriversInfractionsReportCommand
                     {
                         ReportId = 83,
@@ -463,7 +467,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         ShowCorners = GetShowCornersCheck(),
                         DriversId = GetSelectedListByField("drivers")
                     };
-                case "ASP.reportes_datosoperativos_geocercasevents_aspx":
+                case "GeofenceEventsReport":
                     return new GeofenceEventsReportCommand
                     {
                         ReportId = 83,
@@ -471,10 +475,24 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        CalculateKm = GetShowCornersCheck(),
+                        CalculateKm = GetCalculateKilometers(),
                         VehiclesId = GetSelectedListByField("vehicles"),
-                        Geofences = GetSelectedListByField("geofences")
+                        Geofences = GetSelectedListByField("geofences"),
+                        InGeofenceTime = GetInGeofenceTime()
                     };
+                //case "DocumentsExpirationReport":
+                //    return new DocumentsExpirationReportCommand
+                //    {
+                //        ReportId = 83,
+                //        CustomerId = GetCompanyId(),
+                //        Email = SendReportTextBoxEmail.Text,
+                //        FinalDate = GetToDateTime(),
+                //        InitialDate = GetSinceDateTime(),
+                //        CalculateKm = GetCalculateKilometers(),
+                //        VehiclesId = GetSelectedListByField("vehicles"),
+                //        Geofences = GetSelectedListByField("geofences"),
+                //        InGeofenceTime = GetInGeofenceTime()
+                //    };
                 default:
                     return null;
             }

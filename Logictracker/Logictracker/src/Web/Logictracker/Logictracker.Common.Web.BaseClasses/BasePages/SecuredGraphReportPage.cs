@@ -332,18 +332,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         void BtScheduleGuardarClick(object sender, EventArgs e)
         {
-            string reporte;
-
-            switch (Page.ToString())
-            {
-                case "ASP.reportes_estadistica_mobileskilometers_aspx":
-                    reporte = "AccumulatedKilometersReport";
-                    break;
-                default:
-                    reporte = Page.ToString();
-                    break;
-            }
-
+            var reporte = GetReportType();
             var empresa = GetEmpresa();
             var linea = GetLinea();
 
@@ -391,25 +380,57 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         private void ButtonOkSendReportClick(object sender, EventArgs e)
         {
-            var accumKmReport = new AccumulatedKilometersReportCommand
-            {
-                ReportId = 83, //Id de reporte manual inactivo
-                CustomerId = GetCompanyId(),
-                Email = SendReportTextBoxEmail.Text,
-                FinalDate = GetToDateTime(),
-                InitialDate = GetSinceDateTime(),
-                InCicle = GetCicleCheck(),
-                VehiclesId = GetSelectedListByField("vehicles")
-            };
+            var reportCommand = GenerateReportCommand(GetReportType());
 
             var queue = GetMailReportMsmq();
-            if (queue == null)
-            {
-                throw new ApplicationException("No se pudo crear la cola");
-            }
-            queue.Send(accumKmReport);
+
+            if (queue == null) { throw new ApplicationException("No se pudo acceder a la cola"); }
+            if (reportCommand != null) queue.Send(reportCommand);
 
             ModalSchedule.Hide();
+        }
+
+        private IReportCommand GenerateReportCommand(string reportType)
+        {
+            switch (reportType)
+            {
+                case "AccumulatedKilometersReport":
+                    return new AccumulatedKilometersReportCommand
+                    {
+                        ReportId = 83, //Id de reporte manual inactivo
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        InCicle = GetCicleCheck(),
+                        VehiclesId = GetSelectedListByField("vehicles")
+                    };
+                case "MobilesTimeReport":
+                    return new MobilesTimeReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                    };
+                default:
+                    return null;
+            }
+        }
+
+        private string GetReportType()
+        {
+            switch (Page.ToString())
+            {
+                case "ASP.reportes_estadistica_mobileskilometers_aspx":
+                    return "AccumulatedKilometersReport";
+                case "ASP.reportes_estadistica_mobilestime_aspx":
+                    return "MobilesTimeReport";
+                default:
+                    return Page.ToString();
+            }
         }
 
         private IMessageQueue GetMailReportMsmq()
