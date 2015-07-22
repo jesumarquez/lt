@@ -355,6 +355,7 @@ namespace Logictracker.Trax.v1
                 }
             }
 
+
             try
             {
                 t.Restart();
