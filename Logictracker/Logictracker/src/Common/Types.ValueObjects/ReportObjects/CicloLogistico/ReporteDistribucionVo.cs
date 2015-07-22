@@ -5,6 +5,7 @@ using Logictracker.Culture;
 using Logictracker.DAL.Factories;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
+using Logictracker.Types.ReportObjects.Datamart;
 
 namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 {
@@ -34,8 +35,17 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
         public int Id { get; set; }
         public int IdDispositivo { get; set; }
+        public DateTime Date { get; set; }
+        public DateTime? DateManual { get; set; }
+        public DateTime? DateEntrada { get; set; }
+        public DateTime? DateSalida { get; set; }
+        public double TiempoEntrega { get; set; }
+        public DateTime? DateGarminUnreadInactive { get; set; }
+        public DateTime? DateGarminReadInactive { get; set; }
+        public DateTime? DateConfirmacion { get; set; }
+
         public DateTime Desde { get; set; }
-        public DateTime Hasta { get; set; } 
+        public DateTime Hasta { get; set; }
 
         [GridMapping(Index = IndexRuta, ResourceName = "Labels", VariableName = "RUTA", AllowGroup = true)]
         public string Ruta { get; set; }
@@ -182,5 +192,103 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
                               : (DateTime?) null;
             }
         }
+
+        public ReporteDistribucionVo(DatamartDistribucion dm, bool verConfirmacion)
+        {
+            Id = dm.Viaje.Id;
+            Descripcion = dm.Entrega;
+            IdDispositivo = dm.Viaje.Vehiculo != null && dm.Viaje.Vehiculo.Dispositivo != null
+                                ? dm.Viaje.Vehiculo.Dispositivo.Id
+                                : 0;
+            Ruta = dm.Ruta;
+            TipoVehiculo = dm.Viaje.Vehiculo != null && dm.Viaje.Vehiculo.TipoCoche != null
+                               ? dm.Viaje.Vehiculo.TipoCoche.Descripcion
+                               : string.Empty;
+            Vehiculo = dm.Vehiculo != null ? dm.Vehiculo.Interno : string.Empty;
+            Empleado = dm.Viaje.Empleado != null && dm.Viaje.Empleado.Entidad != null
+                           ? dm.Viaje.Empleado.Entidad.Descripcion
+                           : string.Empty;
+            Fecha = dm.Fecha.ToDisplayDateTime().ToString("dd/MM/yyyy");
+            Orden = dm.Detalle.Orden;
+            OrdenReal = dm.Orden;
+            PuntoEntrega = dm.PuntoEntrega != null
+                               ? dm.PuntoEntrega.Descripcion
+                               : dm.Detalle.ReferenciaGeografica != null
+                                     ? dm.Detalle.ReferenciaGeografica.Descripcion
+                                     : string.Empty;
+            Manual = dm.Manual.HasValue
+                         ? dm.Manual.Value.ToDisplayDateTime().ToString("HH:mm")
+                         : string.Empty;
+            Entrada = dm.Entrada.HasValue
+                          ? dm.Entrada.Value.ToDisplayDateTime().ToString("HH:mm")
+                          : string.Empty;
+            Salida = dm.Salida.HasValue
+                         ? dm.Salida.Value.ToDisplayDateTime().ToString("HH:mm")
+                         : string.Empty;
+            var duracion = new TimeSpan(0, 0, (int)dm.TiempoEntrega*60);
+            Duracion = dm.TiempoEntrega >= 0
+                           ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
+                           : string.Empty;
+            Estado = dm.Estado;
+            Km = dm.Km;
+            UnreadInactive = dm.Detalle.GarminUnreadInactiveAt.HasValue
+                                ? dm.Detalle.GarminUnreadInactiveAt.Value.ToDisplayDateTime().ToString("HH:mm")
+                                : string.Empty;
+            ReadInactive = dm.Detalle.GarminReadInactiveAt.HasValue
+                                ? dm.Detalle.GarminReadInactiveAt.Value.ToDisplayDateTime().ToString("HH:mm")
+                                : string.Empty;
+
+            if (verConfirmacion && dm.Vehiculo != null)
+            {
+                Confirmacion = dm.Confirmacion;
+                Horario = dm.Detalle.RecepcionConfirmacion.HasValue
+                              ? dm.Detalle.RecepcionConfirmacion.Value.ToDisplayDateTime()
+                              : (DateTime?)null;
+            }
+        }
+
+        public ReporteDistribucionVo(ReporteDistribucionVo dm)
+        {
+            Id = dm.Id;
+            IdDispositivo = dm.IdDispositivo;
+            Ruta = dm.Ruta;
+            TipoVehiculo = dm.TipoVehiculo;
+            Vehiculo = dm.Vehiculo;
+            Empleado = dm.Empleado;
+            Orden = dm.Orden;
+            OrdenReal = dm.OrdenReal;
+            PuntoEntrega = dm.PuntoEntrega;
+            Descripcion = dm.Descripcion;
+            Km = dm.Km;
+            Estado = dm.Estado;
+            Confirmacion = dm.Confirmacion;
+
+            Fecha = dm.Date.ToDisplayDateTime().ToString("dd/MM/yyyy");
+            Manual = dm.DateManual.HasValue
+                         ? dm.DateManual.Value.ToDisplayDateTime().ToString("HH:mm")
+                         : string.Empty;
+            Entrada = dm.DateEntrada.HasValue
+                          ? dm.DateEntrada.Value.ToDisplayDateTime().ToString("HH:mm")
+                          : string.Empty;
+            Salida = dm.DateSalida.HasValue
+                         ? dm.DateSalida.Value.ToDisplayDateTime().ToString("HH:mm")
+                         : string.Empty;
+            var duracion = new TimeSpan(0, 0, (int)dm.TiempoEntrega * 60);
+            Duracion = duracion.TotalSeconds >= 0
+                           ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
+                           : string.Empty;
+            UnreadInactive = dm.DateGarminUnreadInactive.HasValue
+                                ? dm.DateGarminUnreadInactive.Value.ToDisplayDateTime().ToString("HH:mm")
+                                : string.Empty;
+            ReadInactive = dm.DateGarminReadInactive.HasValue
+                                ? dm.DateGarminReadInactive.Value.ToDisplayDateTime().ToString("HH:mm")
+                                : string.Empty;
+            Confirmacion = dm.Confirmacion;
+            Horario = dm.DateConfirmacion.HasValue 
+                            ? dm.DateConfirmacion.Value.ToDisplayDateTime()
+                            : (DateTime?) null;
+        }
+
+        public ReporteDistribucionVo() { }
     }
 }

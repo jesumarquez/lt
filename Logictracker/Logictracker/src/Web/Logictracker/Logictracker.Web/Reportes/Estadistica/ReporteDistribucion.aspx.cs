@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DatabaseTracer.Core;
-using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico;
 using Logictracker.Culture;
 using Logictracker.Security;
@@ -61,71 +61,31 @@ namespace Logictracker.Reportes.Estadistica
             {
                 var results = new List<ReporteDistribucionVo>();
 
-                var viajes = DAOFactory.ViajeDistribucionDAO.GetList(ddlLocacion.SelectedValues,
-                                                                     ddlPlanta.SelectedValues,
-                                                                     ddlTransportista.SelectedValues,
-                                                                     new[] { -1 }, // DEPARTAMENTOS
-                                                                     new[] { -1 }, // CENTROS DE COSTO
-                                                                     new[] { -1 }, // SUB CENTROS DE COSTO
-                                                                     ddlVehiculo.SelectedValues,
-                                                                     new[] { -1 }, // EMPLEADOS
-                                                                     new[] { -1 }, // ESTADOS
-                                                                     dpDesde.SelectedDate.Value.ToDataBaseDateTime(),
-                                                                     dpHasta.SelectedDate.Value.ToDataBaseDateTime())
-                                                            .Where(e => e.Id == ddlRuta.Selected || ddlRuta.Selected == 0);
-                
-                foreach (var viaje in viajes)
+                if (ddlRuta.Selected > 0)
                 {
-                    EntregaDistribucion anterior = null;
-
-                    var estados = ddlEstados.SelectedValues;
-                    if (ddlEstados.SelectedStringValues.Count == 0)
+                    var dms = DAOFactory.DatamartDistribucionDAO.GetRecords(ddlRuta.Selected);
+                    foreach (var dm in dms)
                     {
-                        estados.Clear();
-                        estados.Add(EntregaDistribucion.Estados.Cancelado);
-                        estados.Add(EntregaDistribucion.Estados.Completado);
-                        estados.Add(EntregaDistribucion.Estados.NoCompletado);
-                        estados.Add(EntregaDistribucion.Estados.EnSitio); 
-                        estados.Add(EntregaDistribucion.Estados.Pendiente);
-                        estados.Add(EntregaDistribucion.Estados.Visitado); 
-                        estados.Add(EntregaDistribucion.Estados.SinVisitar);
+                        results.Add(new ReporteDistribucionVo(dm, chkVerConfirmacion.Checked));
                     }
 
-                    var detalles = viaje.Detalles;
-
-                    if (chkVerOrdenManual.Checked)
-                        detalles = viaje.GetEntregasPorOrdenManual();
-                    else if (viaje.Tipo == ViajeDistribucion.Tipos.Desordenado)
-                        detalles = viaje.GetEntregasPorOrdenReal();
-                    
-                    detalles = detalles.Where(e => ddlPuntoEntrega.Selected == 0 ||
-                                                   (e.PuntoEntrega != null && e.PuntoEntrega.Id == ddlPuntoEntrega.Selected))
-                                       .Where(e => estados.Contains(e.Estado))
-                                       .ToList();
-                    
-                    var orden = 0;
-                    foreach (var entrega in detalles)
-                    {
-                        var kms = 0.0;
-
-
-                        //CAMBIAR LAS CONDICIONES DE ESTE IF .. MATIAS
-
-                        if (anterior != null && !entrega.Estado.Equals(EntregaDistribucion.Estados.Cancelado)
-                            && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
-                            && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar)
-                         && entrega.Viaje.Vehiculo != null && anterior.FechaMin < entrega.FechaMin && entrega.FechaMin < DateTime.MaxValue)
-                                kms = DAOFactory.CocheDAO.GetDistance(entrega.Viaje.Vehiculo.Id, anterior.FechaMin, entrega.FechaMin);
-                        
-                        results.Add(new ReporteDistribucionVo(entrega, anterior, orden, kms, chkVerConfirmacion.Checked));
-                        orden++;
-
-                        if (!entrega.Estado.Equals(EntregaDistribucion.Estados.Cancelado)
-                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
-                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar))
-                            anterior = entrega;
-                    }
+                    return results;
                 }
+
+                if (QueryExtensions.IncludesAll(ddlVehiculo.SelectedValues))
+                    ddlVehiculo.ToogleItems();
+                if (ddlEstados.SelectedStringValues.Count == 0)
+                    ddlEstados.ToogleItems();
+
+                var report = DAOFactory.DatamartDistribucionDAO.GetReporteDistribucion(ddlLocacion.Selected,
+                                                                                    ddlPlanta.Selected,
+                                                                                    ddlVehiculo.SelectedValues,
+                                                                                    ddlPuntoEntrega.Selected,
+                                                                                    ddlEstados.SelectedStringValues.Count > 0 ? ddlEstados.SelectedValues : new List<int> {-1},
+                                                                                    dpDesde.SelectedDate.Value.ToDataBaseDateTime(),
+                                                                                    dpHasta.SelectedDate.Value.ToDataBaseDateTime());
+
+                results = report.Select(r => new ReporteDistribucionVo(r)).ToList();
 
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 

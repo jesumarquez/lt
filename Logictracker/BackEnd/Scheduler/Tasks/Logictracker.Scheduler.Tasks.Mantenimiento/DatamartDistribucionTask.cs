@@ -244,7 +244,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private bool HasBeenProcessed(ViajeDistribucion distribucion)
         {
             var records = DaoFactory.DatamartDistribucionDAO.GetRecords(distribucion.Id);
-            return records.Count == distribucion.EntregasTotalCount;
+            return records.Count() == distribucion.EntregasTotalCount;
         }
 
         private void ClearData()
