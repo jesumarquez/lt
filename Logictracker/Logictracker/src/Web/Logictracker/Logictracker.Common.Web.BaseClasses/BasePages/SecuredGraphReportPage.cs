@@ -340,7 +340,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         void BtScheduleGuardarClick(object sender, EventArgs e)
         {
-            var reporte = GetReportType();
+            var reporte = GetReportType();           
             var empresa = GetEmpresa();
             var linea = GetLinea();
 
