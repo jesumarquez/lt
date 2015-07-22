@@ -1,6 +1,40 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="TomasMoviles.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaTomasMoviles" Title="Verificador de Vehiculos" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TomasMoviles.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaTomasMoviles" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="server">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <cwc:CustomScriptManager ID="CustomScriptManager1" runat="server" />
+    <%--TOOLBAR--%>
+    <cwc:ToolBar ID="ToolBar1" runat="server" />
+
+    <script type="text/javascript">
+function PrintReport(){
+    try{
+        
+        var oIframe = document.getElementById('ifPrint');
+        var oContent = document.getElementById('printContent').innerHTML;
+        var oDoc = (oIframe.contentWindow || oIframe.contentDocument);
+        if (oDoc.document) oDoc = oDoc.document;
+                
+		oDoc.write("<html><head><title>"+document.getElementsByTagName('title')[0].innerHTML);
+		oDoc.write("</title>");
+		var links = document.getElementsByTagName('link');		
+		for(l in links) if(links[l].type == 'text/css') oDoc.write('<link href="'+links[l].getAttribute('href')+'" type="text/css" rel="stylesheet" />');
+		oDoc.write("</head><body onload='this.focus(); this.print();'>");
+		oDoc.write(oContent + "</body></html>");	    
+		oDoc.close();
+    }
+    catch(e){
+    alert(e);
+	    self.print();
+    }
+}
+    </script>
+
     <%--FILTROS--%>
     <asp:Panel ID="panel" runat="server" SkinID="FilterPanel">
         <table width="100%">
@@ -249,4 +283,9 @@
             </Triggers>
         </asp:UpdatePanel>
     </div>
-</asp:Content>
+    <iframe id="ifPrint" width="0" height="0" style="visibility: hidden;">
+        <%--<iframe id="ifPrint" width="100%" height="600" >--%>
+    </iframe>
+    </form>
+</body>
+</html>

@@ -84,6 +84,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Logictracker.Mailing.VerificadorVehiculos.config" />
     <None Include="Logictracker.Mailing.MessageCount.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,6 +15,7 @@ using Logictracker.Culture;
 using Logictracker.Web.CustomWebControls.Buttons;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Web.CustomWebControls.Labels;
+using Logictracker.Web.CustomWebControls.ToolBar;
 
 namespace Logictracker.Reportes.DatosOperativos
 {
@@ -43,7 +44,7 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override RadioButton RadioButtonHtml { get { return rbutHtml; } } 
 
         protected override InfoLabel NotFound { get { return infoLabel1; } }
-        //protected override ToolBar ToolBar { get { return ToolBar1; } }
+        protected override ToolBar ToolBar { get { return ToolBar1; } }
         protected override InfoLabel LblInfo { get { return infoLabel1; } }
         protected override ResourceButton BtnSearch { get { return btnActualizar; } }
         protected override UpdatePanel UpdatePanelGrid { get { return updGrid; } }

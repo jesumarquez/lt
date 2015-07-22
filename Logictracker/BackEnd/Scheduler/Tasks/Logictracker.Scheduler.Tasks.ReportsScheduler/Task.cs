@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Logictracker.DAL.Factories;
+using Logictracker.Configuration;
 using Logictracker.DatabaseTracer.Core;
+using Logictracker.Mailing;
 using Logictracker.Reports.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Layers.MessageQueue;
 using Logictracker.Types.BusinessObjects;
-using Logictracker.Types.BusinessObjects.Vehiculos;
-using Logictracker.Types.ReportObjects;
-using Logictracker.Types.ValueObjects.ReportObjects;
 
 namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 {
@@ -39,6 +37,19 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             // SI ES 1° AGREGO LAS PROGRAMACIONES MENSUALES
             if (DateTime.UtcNow.ToDisplayDateTime().Day == 1)
                 reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('M'));
+
+            foreach (var reporte in reportesProgramados)
+            {
+                switch (reporte.Format)
+                {
+                    case ProgramacionReporte.FormatoReporte.Excel:
+                        queue.Send(GenerateReportCommand(reporte));
+                        break;
+                    case ProgramacionReporte.FormatoReporte.Html:
+                        GenerateHtmlReport(reporte);
+                        break;
+                }
+            }
 
             //genera un FinalExecutionCommand
             queue.Send(GenerateReportCommand(new ProgramacionReporte()));
@@ -147,33 +158,41 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             switch (prog.Report)
             {
                 case ProgramacionReporte.Reportes.ReporteEventos:
-                    var vehiculos = prog.Vehicles.Split(',').Select(v => int.Parse(v)).ToList();
-                    var mensajes = prog.MessageTypes.Split(',').Select(v => int.Parse(v)).ToList();
-                    var choferes = prog.Drivers.Split(',').Select(v => int.Parse(v)).ToList();
-                    var desde = GetInitialDate(prog.Periodicity);
-                    var hasta = GetFinalDate();
-                    var result = GetEventReport(vehiculos, mensajes, choferes, desde, hasta);
-
                     break;
                 case ProgramacionReporte.Reportes.VerificadorVehiculos:
                     var mobiles = DaoFactory.CocheDAO.GetList(new[] {prog.Empresa.Id},
-                                                      ddlLinea.SelectedValues,
-                                                      ddlTipoVehiculo.SelectedValues,
-                                                      ddlTransportista.SelectedValues,
-                                                      new[] { -1 }, // DEPARTAMENTOS
-                                                      ddlCostCenter.SelectedValues,
-                                                      new[] { -1 }, // SUB CENTROS DE COSTO
-                                                      chkDispositivosAsignados.Checked,
-                                                      chkSoloConGarmin.Checked)
-                                             .Where(m => m.Estado != Coche.Estados.Inactivo || !chkOcultarInactivos.Checked);
+                                                              new[] {prog.Linea != null ? prog.Linea.Id : 0},
+                                                              new[] { -1 }, // TipoVehiculo
+                                                              new[] { -1 }, // Transportista
+                                                              new[] { -1 }, // DEPARTAMENTOS
+                                                              new[] { -1 }, // CostCenter
+                                                              new[] { -1 }, // SUB CENTROS DE COSTO
+                                                              true,         // DispositivosAsignados,
+                                                              false         // SoloConGarmin
+                                                              );
 
-                    return ReportFactory.MobilePositionDAO.GetMobilesLastPosition(mobiles)
-                                                          .Select(pos => new MobilePositionVehicleVo(pos))
-                                                          .ToList();
+                    var lastPositions = ReportFactory.MobilePositionDAO.GetMobilesLastPosition(mobiles);
+
+                    var reportando = lastPositions.Count(p => p.EstadoReporte < 2);
+                    var activos = lastPositions.Count(p => p.EstadoReporte == 2);
+                    var inactivos = lastPositions.Count(p => p.EstadoReporte > 2);
+
+                    SendVerificadorVehiculosHtmlReport(prog, reportando, activos, inactivos);
                     break;
                 default:
                     break;
             }
+        }
+
+        private void SendVerificadorVehiculosHtmlReport(ProgramacionReporte programacion, int reportando, int activos, int inactivos)
+        {
+            var configFile = Config.Mailing.VerificadorVehiculosMailingConfiguration;
+            if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
+            
+            var sender = new MailSender(configFile);
+            
+            var parametros = new List<string> { programacion.ReportName, reportando.ToString("#0"), activos.ToString("#0"), inactivos.ToString("#0") };
+            SendMailToAllDestinations(sender, parametros, programacion.Mail);
         }
 
         private DateTime GetFinalDate()

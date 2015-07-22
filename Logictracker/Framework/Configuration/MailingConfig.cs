@@ -34,6 +34,8 @@
             
             public static string MonitoreoGarminMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.monitoreo.garmin", "Logictracker.Mailing.MonitoreoGarmin.config")); } }
 
+            public static string VerificadorVehiculosMailingConfiguration { get { return ConfigurationBase.GetLocalPath(ConfigurationBase.GetAsString("logictracker.mailing.verificador.vehiculos", "Logictracker.Mailing.VerificadorVehiculos.config")); } }
+
             /// <summary>
             /// Gets the logictracker notifier mailing configuration.
             /// </summary>
