@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using TraxEmu.Componentes;
 
 namespace TraxEmu
@@ -33,6 +34,7 @@ namespace TraxEmu
                 case "TD":
                     return QTD(cmd.Substring(2));
             }
+            return string.Empty;
         }
 
         private string QTD(string cmd)
@@ -56,6 +58,7 @@ namespace TraxEmu
                 case "TD":
                     return STD(cmd.Substring(3));
             }
+            return string.Empty;
         }
 
         private string STD(string cmd)
@@ -88,7 +91,8 @@ namespace TraxEmu
 
         private string QAD()
         {
-            return string.Format("RAD00{0:ddMMyyHHmmss}{1:0000}{2:0000}{3:0000}{4:0000}",DateTime.UtcNow,ports.IN4,ports.IN5,ports.AuxBat,ports.MainBat)
+            return string.Format("RAD00{0:ddMMyyHHmmss}{1:0000}{2:0000}{3:0000}{4:0000}", DateTime.UtcNow, ports.IN4,
+                ports.IN5, ports.AuxBat, ports.MainBat);
         }
     }
 }

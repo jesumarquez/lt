@@ -188,7 +188,7 @@
       <Name>Logictracker.DatabaseTracer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
-      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Logictracker\src\Common\Mailing\Logictracker.Mailing.csproj">
