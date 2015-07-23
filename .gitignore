@@ -35,6 +35,7 @@ _ReSharper*/
 *Logictracker_Cameras.cs
 *Logictracker.Full.ncb
 *Logictracker.Full.suo
+*.DotSettings
 Logictracker/Framework/External Libs/zeromq-2.0.7/lib/
 Actualizacion/
 PrecompiledWeb/
