@@ -2611,7 +2611,10 @@
     <value>Média</value>
   </data>
   <data name="CAPACIDAD_CARGA" xml:space="preserve">
-    <value>Capacidade</value>
+    <value>Capacidade do carga</value>
+  </data>
+  <data name="CAPACIDAD_COMBUSTIBLE" xml:space="preserve">
+    <value>Capacidade do combustivel</value>
   </data>
   <data name="DISTANCIA_A_OBRA" xml:space="preserve">
     <value>Distância para o Trabalho</value>

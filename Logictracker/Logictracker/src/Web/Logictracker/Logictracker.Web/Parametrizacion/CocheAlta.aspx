@@ -203,8 +203,11 @@
                                 <cwc:ResourceLabel ID="lblKilometros" runat="server" ResourceName="Labels" VariableName="KILOMETROS_REFERENCIA" />                    
                                 <c1:C1NumericInput ID="npKilometros" runat="server" Width="100px" Height="17px" NullText="" ShowNullText="true" MaxValue="999999" Value="0" Increment="1" DecimalPlaces="0" />
                                         
-                                <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="CAPACIDAD_CARGA" />
-                                <c1:C1NumericInput runat="server" ID="txtCapacidad" DecimalPlaces="0" MaxValue="999999" MinValue="0" Width="100px" Height="15px" Value="0" SmartInputMode="true" />
+                                <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="CAPACIDAD_COMBUSTIBLE" />
+                                <c1:C1NumericInput ID="txtCapacidad" runat="server" Width="100px" Height="15px" DecimalPlaces="0" MaxValue="999999" MinValue="0" Value="0" SmartInputMode="true" />
+                                        
+                                <cwc:ResourceLabel ID="lblCapacidadCarga" runat="server" ResourceName="Labels" VariableName="CAPACIDAD_CARGA" />                    
+                                <c1:C1NumericInput ID="npCapacidadCarga" runat="server" Width="100px" Height="15px" Value="0" MaxValue="999999" Increment="1" DecimalPlaces="0" />
                                         
                                 <div></div>
                                 <cwc:ResourceCheckBox ID="chkControlaKm" runat="server" ResourceName="Labels" AutoPostBack="true" VariableName="CONTROLA_KM" OnCheckedChanged="ChkChanged"/>

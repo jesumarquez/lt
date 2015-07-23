@@ -17,6 +17,7 @@
     <property column="parenti17_controla_kilometraje" type="Boolean" name="ControlaKilometraje" />
     <property column="parenti17_controla_turno" type="Boolean" name="ControlaTurno" />
     <property column="parenti17_capacidad" type="Int32" name="Capacidad" />
+    <property column="parenti17_capacidad_carga" type="Int32" name="CapacidadCarga" />
     <property column="parenti17_desvio_combustible_minimo" type="Int32" name="DesvioMinimo" />
     <property column="parenti17_desvio_combustible_maximo" type="Int32" name="DesvioMaximo" />
     <property column="parenti17_seguimiento_persona" type="Boolean" name="SeguimientoPersona" />

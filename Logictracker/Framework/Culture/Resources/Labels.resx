@@ -2665,8 +2665,10 @@
     <value>dias antes del vencimiento</value>
   </data>
   <data name="CAPACIDAD_CARGA" xml:space="preserve">
-    <value>Capacidad</value>
-    <comment>Capacidad de carga de un vehiculo o tipo de vehiculo</comment>
+    <value>Capacidad de carga</value>
+  </data>
+  <data name="CAPACIDAD_COMBUSTIBLE" xml:space="preserve">
+    <value>Capacidad de combustible</value>
   </data>
   <data name="DISTANCIA_A_OBRA" xml:space="preserve">
     <value>Distancia a Obra</value>
