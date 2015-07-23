@@ -210,6 +210,7 @@
     <Compile Include="BusinessObjects\Dispositivos\TipoParametroDispositivo.cs" />
     <Compile Include="BusinessObjects\Vehiculos\Shift.cs" />
     <Compile Include="BusinessObjects\VigenciaPlanLinea.cs" />
+    <Compile Include="ImportadorObjects\DocumentoImportador.cs" />
     <Compile Include="ImportadorObjects\ImportTicket.cs" />
     <Compile Include="ImportadorObjects\DispositivoImportador.cs" />
     <Compile Include="ImportadorObjects\EmpleadoImportador.cs" />

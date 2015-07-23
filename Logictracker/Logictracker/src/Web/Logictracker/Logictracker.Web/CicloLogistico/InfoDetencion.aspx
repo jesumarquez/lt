@@ -26,6 +26,12 @@
             </tr>
             <tr>
                 <td align="left">
+                    <asp:Label ID="lblLatLong" runat="server"  />
+                </td>
+                
+            </tr>
+            <tr>
+                <td align="left">
                     <C1:c1GridView ID="gridEntregas" runat="server" OnRowDataBound="GridEntregasRowDataBound" SkinID="SmallGrid" >
                         <Columns>
                             <C1:C1TemplateField HeaderText="Orden" >

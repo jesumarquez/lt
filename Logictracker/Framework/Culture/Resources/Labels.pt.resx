@@ -1710,8 +1710,14 @@
   <data name="IMPORT_DISPOSITIVO_HELP_TITLE" xml:space="preserve">
     <value>Importador Wellcome dispositivos de auxílio.</value>
   </data>
+  <data name="IMPORT_DOCUMENTO_HELP_TITLE" xml:space="preserve">
+    <value>Importador Wellcome documentos de auxílio.</value>
+  </data>
   <data name="IMP_DISPOSITIVO" xml:space="preserve">
     <value>Dispositivo Importador</value>
+  </data>
+  <data name="IMP_DOCUMENTO" xml:space="preserve">
+    <value>Documento Importador</value>
   </data>
   <data name="GRUPO" xml:space="preserve">
     <value>Grupo</value>

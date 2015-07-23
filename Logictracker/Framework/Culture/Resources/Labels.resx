@@ -1725,8 +1725,14 @@
   <data name="IMPORT_DISPOSITIVO_HELP_TITLE" xml:space="preserve">
     <value>Bienvienido a la ayuda del Importador de Dispositivos.</value>
   </data>
+  <data name="IMPORT_DOCUMENTO_HELP_TITLE" xml:space="preserve">
+    <value>Bienvienido a la ayuda del Importador de Documentos.</value>
+  </data>
   <data name="IMP_DISPOSITIVO" xml:space="preserve">
     <value>Importador de Dispositivos</value>
+  </data>
+  <data name="IMP_DOCUMENTO" xml:space="preserve">
+    <value>Importador de Documentos</value>
   </data>
   <data name="GRUPO" xml:space="preserve">
     <value>Grupo</value>

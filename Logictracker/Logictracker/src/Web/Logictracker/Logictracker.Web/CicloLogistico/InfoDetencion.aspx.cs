@@ -64,7 +64,7 @@ namespace Logictracker.Web.CicloLogistico
                 {
                     lblFecha.Text = evento.Fecha.ToDisplayDateTime().ToString("dd-MM-yyyy HH:mm");
                     lblEvento.Text = evento.Texto;
-
+                    lblLatLong.Text = "(" + evento.Latitud + " ; " + evento.Longitud + ")";
                     gridEntregas.DataSource = viaje.Detalles.Where(d => d.PuntoEntrega != null);
                     gridEntregas.DataBind();
                 }

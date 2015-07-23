@@ -10,6 +10,7 @@ using LinqToExcel;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.Dispositivos;
+using Logictracker.Types.BusinessObjects.Documentos;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ImportadorObjects;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -18,6 +19,7 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Web.CustomWebControls.Labels;
 using System.Collections.Generic;
+using Logictracker.DAL.Factories;
 
 #endregion
 
@@ -427,7 +429,14 @@ namespace Logictracker.Parametrizacion
                                 }
 
                             }
+                            if (empleadoImportador.Transportista != null)
+                            {
+                                var transportista = DAOFactory.TransportistaDAO.FindByCodigo(empresa.Id, linea != null ? linea.Id : -1, empleadoImportador.Transportista);
 
+
+                                empleado.Transportista = transportista;
+
+                            }
 
                             contadorRepetidos++;
 
@@ -548,7 +557,7 @@ namespace Logictracker.Parametrizacion
 
                 var linea = DAOFactory.LineaDAO.FindById(ddlPlantaVehiculos.Selected);
                 var tipo = DAOFactory.TipoCocheDAO.FindById(ddlTipoVehiculo.Selected);
-                var distrito = DAOFactory.EmpresaDAO.FindById(ddlDistrito.Selected);
+                var distrito = DAOFactory.EmpresaDAO.FindById(ddlLocacionVehiculos.Selected);
 
                 var file = new ExcelQueryFactory(fileName);
                 var mobilesList = file.Worksheet("Importar").ToList();
@@ -573,7 +582,7 @@ namespace Logictracker.Parametrizacion
                     aMobile.Poliza = aMobile.Poliza ?? string.Empty;
                     
 
-                    var byInterno = DAOFactory.CocheDAO.FindByInterno(new[] { -1 }, ddlPlantaVehiculos.SelectedValues, aMobile.Interno);
+                    var byInterno = DAOFactory.CocheDAO.FindByInterno(ddlLocacionVehiculos.SelectedValues, ddlPlantaVehiculos.SelectedValues, aMobile.Interno);
                     var duplicado = byInterno != null && byInterno.Id != aMobile.Id;
                     if (duplicado) continue;
 
@@ -720,8 +729,22 @@ namespace Logictracker.Parametrizacion
 
             Response.End();
         }
+        protected void btnTemplateDocumento_Click(object sender, EventArgs e)
+        {
+            //Set the appropriate ContentType.
+            Response.ContentType = "application/vnd.ms-excel";
+
+            Response.AppendHeader("content-disposition", "attachment; filename=FormularioDocumentos.xls");
+
+            //Write the file directly to the HTTP content output stream.
+            Response.WriteFile(MapPath("ImportadorMasivo/Templates/FormularioDocumentos.xls"));
+
+            Response.End();
+        }
 
         protected void btnHelpDispositivo_Click(object sender, EventArgs e) { OpenWin("ImportadorMasivo/Help/HelpDispositivo.aspx", "Help Dispositivo", 250, 450); }
+        
+        protected void btnHelpDocumento_Click(object sender, EventArgs e) { OpenWin("ImportadorMasivo/Help/HelpDocumento.aspx", "Help Documento", 250, 450); }
 
         /// <summary>
         /// Card import button click. Checks wither if there is un uploaded file and if
@@ -734,6 +757,13 @@ namespace Logictracker.Parametrizacion
             if (CheckXlsFile())
                 ImportDevices();
         }
+
+        protected void btnImportarDocumento_Click(object sender, EventArgs e)
+        {
+            if (CheckXlsFile())
+                ImportDocuments();
+        }
+
 
         /// <summary>
         /// Card massive import procedure using LinqToExcel
@@ -784,10 +814,95 @@ namespace Logictracker.Parametrizacion
             finally { File.Delete(fileName); }
         }
 
+        //IMPORTADOR DE DOCUMENTOS
+        
+        private void ImportDocuments()
+        {
+            var fileName = string.Concat(Server.MapPath(TmpDir), DateTime.Now.ToString("yyyyMMdd-HHmmss"), ".xls");
+            var contadorDocumentos = 0;
+
+            try
+            {
+                fuImportData.SaveAs(fileName);
+
+                var linea = ddlBaseDocumento.Selected > 0 ? DAOFactory.LineaDAO.FindById(ddlBaseDocumento.Selected) : null;
+                var empresa = ddlDistritoDocumento.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(ddlDistritoDocumento.Selected) : linea != null ? linea.Empresa : null;
+                var tipo = DAOFactory.TipoDocumentoDAO.FindById(ddlTipoDocumento.Selected);
+
+                var file = new ExcelQueryFactory(fileName);
+                var data = from c in file.Worksheet<DocumentoImportador>("Importar") select c;
+
+                string listVehiculosInexistentes = string.Empty;
+
+                foreach (var docImp in data)
+                {
+                    if (!TieneDatos(docImp)) continue;
+
+                    var document = SetDocumentDefaultValues(docImp, empresa, linea, tipo);
+
+                    var vehiculo = DAOFactory.CocheDAO.FindByPatente(empresa.Id, docImp.PatenteVehiculo);
+
+                    if (vehiculo != null)
+                    {
+                        document.Vehiculo = vehiculo;
+                    }
+                    else
+                    {
+                        var nuevaPatente = docImp.PatenteVehiculo.Replace(" ",string.Empty);
+                        var vehiculo2 = DAOFactory.CocheDAO.FindByPatente(empresa.Id, nuevaPatente);
+                        
+                        if(vehiculo2 != null)
+                        {
+                            document.Vehiculo = vehiculo2;
+                        }
+                        else
+                        {
+                            if (listVehiculosInexistentes != String.Empty)
+                            {
+                                listVehiculosInexistentes = listVehiculosInexistentes + ", ";
+                            }
+
+                            listVehiculosInexistentes  = listVehiculosInexistentes + docImp.PatenteVehiculo;
+                        }
+
+                    }
+
+                   // DAOFactory.DocumentoDAO.SaveOrUpdate(document);
+
+                    contadorDocumentos++;
+                }
+
+                infoLabel1.Mode = InfoLabelMode.INFO;
+
+                if (listVehiculosInexistentes != string.Empty)
+                {
+                    infoLabel1.Text = @"- Se ha finalizado con éxito la importación de " + contadorDocumentos.ToString() +
+                                      " Documentos. <br> <br> - Vehículos inexistentes en la plataforma: " +
+                                      listVehiculosInexistentes;
+                }
+                else
+                {
+                    infoLabel1.Text = @"- Se ha finalizado con éxito la importación de " + contadorDocumentos.ToString() +
+                                      " Documentos.";
+                }
+
+
+            }
+            catch (Exception e) { ShowError(new Exception(CultureManager.GetError(FileFormat), e)); }
+            finally { File.Delete(fileName); }
+        }
+
+
         private static bool TieneDatos(DispositivoImportador disp)
         {
             return (!string.IsNullOrEmpty(disp.Codigo) && !string.IsNullOrEmpty(disp.Clave) && disp.PollInterval > 0 && !string.IsNullOrEmpty(disp.Imei)
                     && !string.IsNullOrEmpty(disp.IpAdress) && disp.Port > 0 && !string.IsNullOrEmpty(disp.Telefono));
+        }
+
+        private static bool TieneDatos(DocumentoImportador doc)
+        {
+            return (!string.IsNullOrEmpty(doc.CodigoDocumento) && !string.IsNullOrEmpty(doc.DescripcionDocumento) && (doc.VencimientoDocumento.HasValue) && !string.IsNullOrEmpty(doc.PatenteVehiculo));
+
         }
     
         /// <summary>
@@ -813,6 +928,22 @@ namespace Logictracker.Parametrizacion
                            Linea = linea,
                            Telefono = dev.Telefono.Trim()
                        };
+        }
+
+        private static Documento SetDocumentDefaultValues(DocumentoImportador doc, Empresa empresa, Linea linea, TipoDocumento tipo)
+        {
+            return new Documento
+            {
+                TipoDocumento = tipo,
+                Empresa = empresa,
+                Linea = linea,
+                Codigo = doc.CodigoDocumento,
+                Descripcion = doc.DescripcionDocumento,
+                Vencimiento = doc.VencimientoDocumento.Value, 
+                Presentacion = doc.PresentacionDocumento,
+                FechaAlta = DateTime.UtcNow
+                
+            };
         }
 
         #endregion

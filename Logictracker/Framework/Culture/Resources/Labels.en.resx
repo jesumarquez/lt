@@ -1713,8 +1713,14 @@
   <data name="IMPORT_DISPOSITIVO_HELP_TITLE" xml:space="preserve">
     <value>Wellcome aid Importer Devices.</value>
   </data>
+  <data name="IMPORT_DOCUMENTO_HELP_TITLE" xml:space="preserve">
+    <value>Wellcome aid Importer Documents.</value>
+  </data>
   <data name="IMP_DISPOSITIVO" xml:space="preserve">
     <value>Device Importer</value>
+  </data>
+  <data name="IMP_DOCUMENTO" xml:space="preserve">
+    <value>Document Importer</value>
   </data>
   <data name="GRUPO" xml:space="preserve">
     <value>Group</value>

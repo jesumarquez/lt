@@ -382,6 +382,72 @@
                 </Content>
             </AjaxToolkit:AccordionPane>
             
+            
+           <%--DocumentoS--%>
+           
+            <AjaxToolkit:AccordionPane runat="server" ID="apDocumentos">
+                <Header>
+                    <cwc:ResourceLabel ID="lblImpDocumentos" runat="server" ResourceName="Labels" VariableName="IMP_DOCUMENTO" Font-Bold="true" />
+                </Header>
+                <Content>
+                    <table width="100%" style="font-weight: bold">
+                        <tr>
+                            <td align="left" style="width: 225px">
+                                <cwc:ResourceLabel ID="lblDistritoDocumento" runat="server" ResourceName="Entities" VariableName="PARENTI01" />
+                                <cwc:LocacionDropDownList ID="ddlDistritoDocumento" AddAllItem="true" runat="server" Width="175px" />
+                            </td>
+                            <td align="left" style="width: 225px">
+                                <cwc:ResourceLabel ID="lblBaseDocumento" runat="server" ResourceName="Entities" VariableName="PARENTI02" />
+                                <asp:UpdatePanel runat="server" ID="upBaseDocumento" UpdateMode="Conditional" RenderMode="Inline">
+                                    <ContentTemplate>
+                                        <cwc:PlantaDropDownList ID="ddlBaseDocumento" AddAllItem="true" runat="server" Width="175px" ParentControls="ddlDistritoDocumento" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="ddlDistritoDocumento" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+                            </td>
+                             <td align="left" style="width: 225px">
+                                <cwc:ResourceLabel ID="lblTipoDocumento" runat="server" ResourceName="Entities" VariableName="PARENTI25" />
+                                <asp:UpdatePanel runat="server" ID="UpdatePanel7" UpdateMode="Conditional" RenderMode="Inline">
+                                    <ContentTemplate>
+                                        <cwc:TipoDocumentoDropDownList ID="ddlTipoDocumento" ParentControls="ddlDistritoDocumento,ddlBaseDocumento" runat="server" Width="175px" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="ddlDistritoDocumento" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="ddlBaseDocumento" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+                            </td>
+                            
+                            <td align="left" style="width: 75px">
+                                <cwc:ResourceLinkButton ID="btnTemplateDocumento" runat="server" OnClick="btnTemplateDocumento_Click"
+                                    ResourceName="Labels" VariableName="PLANTILLA" />
+                            </td>
+                            <td align="left" style="width: 75px"> 
+                                <asp:UpdatePanel ID="upHelpDocumento" runat="server" UpdateMode="Conditional" >
+                                    <ContentTemplate>
+                                        <cwc:ResourceLinkButton ID="btnHelpDocumento" runat="server" OnClick="btnHelpDocumento_Click"
+                                            ResourceName="Controls" VariableName="BUTTON_HELP" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="btnHelpDocumento" EventName="Click" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+                            </td>                    
+                        </tr>
+                        <tr>
+                            <td colspan="5" align="right" style="width: 100%">
+                                <br />
+                                <cwc:ResourceButton ID="btnImportarDocumento" runat="server" Width="85px" ResourceName="Controls"
+                                    OnClick="btnImportarDocumento_Click" VariableName="BUTTON_IMPORT" />
+                            </td>
+                        </tr>
+                    </table>
+                </Content>
+            </AjaxToolkit:AccordionPane>
+
+            
             <%--Tickets--%>
             
             <AjaxToolkit:AccordionPane runat="server" ID="apTickets">
