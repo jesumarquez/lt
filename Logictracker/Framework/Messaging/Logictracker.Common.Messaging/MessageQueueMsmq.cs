@@ -1,11 +1,11 @@
-﻿using Logictracker.Configuration;
+﻿using System;
+using System.Messaging;
+using Logictracker.Configuration;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Layers.MessageQueue;
 using Logictracker.Layers.MessageQueue.Implementations;
-using System;
-using System.Messaging;
 
-namespace Logictracker.Messaging.MsmqQueue
+namespace Logictracker.Messaging
 {
 
     public class MessageQueueMsmq : IMessageQueueImplementation
@@ -19,7 +19,7 @@ namespace Logictracker.Messaging.MsmqQueue
             {
                 if (System.Messaging.MessageQueue.Exists(MessageQueue.QueueName))
                 {
-                    Handler = new System.Messaging.MessageQueue(MessageQueue.QueueName);
+                    Handler = new MessageQueue(MessageQueue.QueueName);
                     if (MessageQueue.Transactional != Handler.Transactional)
                     {
                         STrace.Error(typeof(IMessageQueue).FullName, String.Format("MSMQ '{0}' - 'Transactional' no coincide.", MessageQueue.QueueName));
@@ -83,7 +83,7 @@ namespace Logictracker.Messaging.MsmqQueue
             return true;
         }
 
-        private static Message PeekWithoutTimeout(System.Messaging.MessageQueue q, Cursor cursor, PeekAction action)
+        private static Message PeekWithoutTimeout(MessageQueue q, Cursor cursor, PeekAction action)
         {
             Message ret = null;
             try
