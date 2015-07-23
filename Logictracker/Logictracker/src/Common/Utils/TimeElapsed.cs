@@ -2,7 +2,7 @@
 
 namespace Logictracker.Utils
 {
-    public class TimeElapsed : IDisposable
+    public class TimeElapsed
     {
 
         public TimeElapsed()
@@ -27,9 +27,5 @@ namespace Logictracker.Utils
             return DateTime.UtcNow.Subtract(_startedAt);
         }
 
-        public void Dispose()
-        {
-            
-        }
     }
 }

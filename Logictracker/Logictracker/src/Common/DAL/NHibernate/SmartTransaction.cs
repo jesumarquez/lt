@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Odbc;
-using System.Linq;
-using System.Text;
 using Logictracker.DatabaseTracer.Core;
 using NHibernate;
 
@@ -13,7 +9,7 @@ namespace Logictracker.DAL.NHibernate
     {
         private ITransaction _actualTransaction;
         private ISession _actualSession;
-        private bool _newTransaction = false;
+        private bool _newTransaction;
 
         public static SmartTransaction BeginTransaction()
         {
@@ -61,7 +57,7 @@ namespace Logictracker.DAL.NHibernate
                 catch (Exception ex)
                 {
                     STrace.Exception(typeof(SmartTransaction).FullName, ex, "Exception doing CommitTransaction();");
-                    throw ex;
+                    throw;
                 }
             }
         }
@@ -81,16 +77,42 @@ namespace Logictracker.DAL.NHibernate
                 catch (Exception ex)
                 {
                     STrace.Exception(typeof(SmartTransaction).FullName, ex, "Exception doing RollbackTransaction();");
-                    throw ex;
+                    throw;
                 }
             }
         }
 
         public void Dispose()
         {
-            _actualTransaction = null;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+
+        }
+
+        ~SmartTransaction()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing) return;
+
+            if (_actualTransaction == null) return;
+            if (_actualTransaction != null)
+            {
+                if (!_actualTransaction.IsActive)
+                    _actualTransaction.Dispose();
+                _actualTransaction = null;
+            }
             _actualSession = null;
-            _newTransaction = false;
+
+            // free native resources if there are any.
+            //if (nativeResource != IntPtr.Zero)
+            //{
+            //    Marshal.FreeHGlobal(nativeResource);
+            //    nativeResource = IntPtr.Zero;
+            //}
         }
     }
 }

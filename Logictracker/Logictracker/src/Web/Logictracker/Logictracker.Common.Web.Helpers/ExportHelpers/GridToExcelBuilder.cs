@@ -49,11 +49,12 @@ namespace Logictracker.Web.Helpers.ExportHelpers
         private readonly WorkbookPart _wbPart;
         private const string SheetName = "Informe";
         private readonly List<ExcelColumn> _excelColumns = new List<ExcelColumn>();
+        private Dictionary<string, int> _sharedStrings = new Dictionary<string, int>();
 
         public GridToExcelBuilder(string path)
         {
             _stream = new MemoryStream();
-            File.Open(path, FileMode.Open).CopyTo(_stream);
+            File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite).CopyTo(_stream);
 
             _stream.Position = 0;
             _document = SpreadsheetDocument.Open(_stream, true);
@@ -67,12 +68,12 @@ namespace Logictracker.Web.Helpers.ExportHelpers
             _stream = new MemoryStream();
             try
             {
-                File.Open(_filename, FileMode.Open).CopyTo(_stream);
+                File.Open(_filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite).CopyTo(_stream);
             }
             catch (Exception)
             {
                 _filename = HttpContext.Current.Server.MapPath("~/ExcelTemplate/Logictracker/" + templateName);
-                File.Open(_filename, FileMode.Open).CopyTo(_stream);
+                File.Open(_filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite).CopyTo(_stream);
             }
             
             _stream.Position = 0;
@@ -87,17 +88,19 @@ namespace Logictracker.Web.Helpers.ExportHelpers
                 if (filter.Key.Trim().Equals(string.Empty)) continue;
 
                 var range = _wbPart.GetDefinedName(filter.Key.Replace(" ", "_").Replace("/", "_").Replace("%", "_").Replace("-", "_"));
-                _wbPart.UpdateValue(SheetName, range, filter.Value, 0, CellValues.SharedString);
+                _wbPart.UpdateValue(SheetName, range, filter.Value, 0, CellValues.SharedString, _sharedStrings);
             }
-            _wbPart.UpdateValue(SheetName, _wbPart.GetDefinedName("Titulo"), reportName, 0, CellValues.SharedString);
+            _wbPart.UpdateValue(SheetName, _wbPart.GetDefinedName("Titulo"), reportName, 0, CellValues.SharedString, _sharedStrings);
         }
 
         public void GenerateColumns<T>(List<T> list)
         {
+            Logger.Debug("GenerateColumns start"); 
             var properties = typeof(T).GetProperties()
                 .Where(p => p.GetGridMappingAttributes().Any())
                 .OrderBy(p => (p.GetGridMappingAttributes().First()).Index);
 
+            Logger.Debug("GenerateColumns foreach properties");
             foreach (var property in properties)
             {
                 var attribute = property.GetGridMappingAttributes().First();
@@ -128,8 +131,9 @@ namespace Logictracker.Web.Helpers.ExportHelpers
                 excelCol.Style = _wbPart.GetStyle(SheetName, templateCell);
                 excelCol.ConditionalFormatStart = _wbPart.HasConditionals(SheetName, templateCell) ? templateCell : string.Empty;
                 _excelColumns.Add(excelCol);
-                _wbPart.UpdateValue(SheetName, _wbPart.GetDefinedName(templateName), headerText, 0, CellValues.SharedString);
+                _wbPart.UpdateValue(SheetName, _wbPart.GetDefinedName(templateName), headerText, 0, CellValues.SharedString, _sharedStrings);
             }
+            Logger.Debug("GenerateColumns end");
         }
         public void GenerateCols(IEnumerable list)
         {
@@ -229,7 +233,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
                     }
 
                     var address = excelColumn.ExcelCol + (excelColumn.ExcelRow + excelColumn.LastIndex);
-                    _wbPart.UpdateValue(SheetName, address, value, style, excelCellValue);
+                    _wbPart.UpdateValue(SheetName, address, value, style, excelCellValue, _sharedStrings);
                 }
             }
             // Actualizo los condicionales
@@ -260,7 +264,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
                 }
 
                 var address = excelColum.ExcelCol + (excelColum.ExcelRow + excelColum.LastIndex);
-                _wbPart.UpdateValue(SheetName, address, value, excelColum.Style, excelColum.ExcelCellValue);
+                _wbPart.UpdateValue(SheetName, address, value, excelColum.Style, excelColum.ExcelCellValue, _sharedStrings);
             }
             // Actualizo los condicionales
             foreach (var ex in _excelColumns.Where(e => !string.IsNullOrEmpty(e.ConditionalFormatStart)))
@@ -276,8 +280,8 @@ namespace Logictracker.Web.Helpers.ExportHelpers
             {
                 if (item.Key.Trim().Equals(string.Empty)) continue;
 
-                _wbPart.UpdateValue(SheetName, "A" + i, item.Key, 0, CellValues.SharedString);
-                _wbPart.UpdateValue(SheetName, "B" + i, item.Value, 0, CellValues.Number);
+                _wbPart.UpdateValue(SheetName, "A" + i, item.Key, 0, CellValues.SharedString, _sharedStrings);
+                _wbPart.UpdateValue(SheetName, "B" + i, item.Value, 0, CellValues.Number, _sharedStrings);
                 i++;
             }
 
@@ -314,7 +318,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
 
                 foreach (var value in values)
                 {
-                    _wbPart.UpdateValue(SheetName, ch + i.ToString("#0"), value, 0, CellValues.SharedString);
+                    _wbPart.UpdateValue(SheetName, ch + i.ToString("#0"), value, 0, CellValues.SharedString, _sharedStrings);
                     ch = GetNextChar(ch);
                 }
                 i++;
@@ -363,9 +367,12 @@ namespace Logictracker.Web.Helpers.ExportHelpers
         /// <returns></returns>
         public string CloseAndSave()
         {
+            _wbPart.SharedStringTablePart.SharedStringTable.Save();
+
             var tempfn = Path.GetTempFileName();
             _document.Close();
             var temp = File.Open(tempfn, FileMode.Create);
+            _stream.Position = 0;
             _stream.CopyTo(temp);
             temp.Close();
             return tempfn;

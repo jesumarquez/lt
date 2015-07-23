@@ -4,11 +4,37 @@ using System.Linq;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Collections.Generic;
 
 namespace Logictracker.Web.Helpers.ExtensionMethods
 {
     public static class ExcelExtensions
     {
+        
+        private static int InsertSharedStringItem(this WorkbookPart wbPart, string value, Dictionary<string, int> sharedStrings)
+        {
+            var stringTablePart = wbPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault() ??
+                                  wbPart.AddNewPart<SharedStringTablePart>();
+
+            var stringTable = stringTablePart.SharedStringTable ?? new SharedStringTable();
+
+            var i = 0;
+
+            if (!sharedStrings.TryGetValue(value, out i))
+            {
+                i = (int)stringTable.Elements().Count();
+
+                // The text does not exist in the part. Create the SharedStringItem now.
+                stringTable.AppendChild(new SharedStringItem(new Text(value)));
+
+                sharedStrings.Add(value, i);
+
+                return i;
+            }            
+
+            return i;
+        }
+
         private static int InsertSharedStringItem(this WorkbookPart wbPart, string value)
         {
             var index = 0;
@@ -25,6 +51,7 @@ namespace Logictracker.Web.Helpers.ExtensionMethods
 
 
             stringTable.AppendChild(new SharedStringItem(new Text(value)));
+            // Se graba al final
             stringTable.Save();
 
             return index;
@@ -94,7 +121,7 @@ namespace Logictracker.Web.Helpers.ExtensionMethods
         }
 
 
-        public static void UpdateValue(this WorkbookPart wbPart, string sheetName, string addressName, string value, UInt32Value styleIndex, CellValues dataType)
+        public static void UpdateValue(this WorkbookPart wbPart, string sheetName, string addressName, string value, UInt32Value styleIndex, CellValues dataType, Dictionary<string, int> sharedStrings)
         {
             //   if (string.IsNullOrEmpty(value)) return;
             //throw new NullReferenceException("value is empty.");
@@ -121,11 +148,11 @@ namespace Logictracker.Web.Helpers.ExtensionMethods
                         // Tengo que remover el anterior; al office no le gustan las huerfanas.
                         var oldIdex = int.Parse(cell.CellValue.Text);
                         cell.CellValue.Text = "-1";
-                        wbPart.RemoveSharedStringItem(oldIdex);
+                        wbPart.RemoveSharedStringItem(oldIdex, sharedStrings);
                         ws.Save();
                     }
 
-                    var stringIndex = wbPart.InsertSharedStringItem(value);
+                    var stringIndex = wbPart.InsertSharedStringItem(value, sharedStrings);
                     cell.CellValue = new CellValue(stringIndex.ToString(CultureInfo.InvariantCulture));
                     cell.DataType = CellValues.SharedString;
                     //        System.Diagnostics.Debug.WriteLine(String.Format("{0} {1} {2}" , cell.CellValue.Text , cell ));
@@ -151,7 +178,7 @@ namespace Logictracker.Web.Helpers.ExtensionMethods
             //ws.Save();
         }
 
-        private static void RemoveSharedStringItem(this WorkbookPart wbPart, int shareStringId)
+        private static void RemoveSharedStringItem(this WorkbookPart wbPart, int shareStringId, Dictionary<string, int> sharedStrings)
         {
             var shareStringTablePart = wbPart.SharedStringTablePart;
 
@@ -173,6 +200,9 @@ namespace Logictracker.Web.Helpers.ExtensionMethods
 
             if (item == null) return;
 
+            // Lo elimino del diccionario
+            sharedStrings.Remove(item.InnerText);
+            
             item.Remove();
 
             // Refresh all the shared string references.

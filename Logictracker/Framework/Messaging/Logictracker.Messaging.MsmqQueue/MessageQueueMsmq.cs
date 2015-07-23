@@ -10,7 +10,7 @@ namespace Logictracker.Messaging.MsmqQueue
 
     public class MessageQueueMsmq : IMessageQueueImplementation
     {
-        internal System.Messaging.MessageQueue Handler { get; private set; }
+        internal MessageQueue Handler { get; private set; }
 
         public bool LoadResources()
         {
@@ -105,13 +105,11 @@ namespace Logictracker.Messaging.MsmqQueue
             var count = 0;
             var cursor = Handler.CreateCursor();
 
-            if (PeekWithoutTimeout(Handler, cursor, PeekAction.Current) != null)
+            if (PeekWithoutTimeout(Handler, cursor, PeekAction.Current) == null) return count;
+            count = 1;
+            while ((PeekWithoutTimeout(Handler, cursor, PeekAction.Next)) != null)
             {
-                count = 1;
-                while ((PeekWithoutTimeout(Handler, cursor, PeekAction.Next)) != null)
-                {
-                    count++;
-                }
+                count++;
             }
             return count;
         }
@@ -122,8 +120,10 @@ namespace Logictracker.Messaging.MsmqQueue
             try
             {
                 var cnt = 0;
-                var enumerator = Handler.GetMessageEnumerator2();
-                while (enumerator.MoveNext() && cnt <= top) cnt++;
+                using (var enumerator = Handler.GetMessageEnumerator2())
+                {
+                    while (enumerator.MoveNext() && cnt <= top) cnt++;
+                }
                 return cnt > top;
             }
             catch (MessageQueueException)

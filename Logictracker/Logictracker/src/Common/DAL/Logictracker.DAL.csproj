@@ -59,10 +59,12 @@
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -354,38 +356,47 @@
     <ProjectReference Include="..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
       <Name>Logictracker.Cache</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
       <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
       <Name>Logictracker.Culture</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
       <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
       <Name>Logictracker.Messaging</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\Security\Logictracker.Security.csproj">
       <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
       <Name>Logictracker.Security</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\QueueStatus\Logictracker.QueueStatus.csproj">
       <Project>{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}</Project>
       <Name>Logictracker.QueueStatus</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Logictracker.Utils.csproj">
       <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
       <Name>Logictracker.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Types\Logictracker.Types.csproj">
       <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
       <Name>Logictracker.Types</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -777,7 +788,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Messages\LogMensajeAdmin.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

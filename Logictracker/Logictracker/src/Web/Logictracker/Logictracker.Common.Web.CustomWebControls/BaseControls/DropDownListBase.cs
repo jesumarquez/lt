@@ -390,9 +390,11 @@ namespace Logictracker.Web.CustomWebControls.BaseControls
         {
             Bind();
 
+            var prev = SelectedIndex;
             SetSelectedValue();
 
-            OnSelectedIndexChanged(EventArgs.Empty);
+            if(SelectedIndex != prev)
+                OnSelectedIndexChanged(EventArgs.Empty);
         }
 
         /// <summary>
