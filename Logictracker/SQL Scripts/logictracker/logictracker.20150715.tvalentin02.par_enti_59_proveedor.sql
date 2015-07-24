@@ -22,13 +22,13 @@ GO
 
 
 ALTER TABLE [dbo].[par.par_enti_59_proveedor]  
-ADD nombre_contacto VARCHAR(255) NULL 
+ADD parenti59_nombre_contacto VARCHAR(255) NULL 
 GO
 ALTER TABLE [dbo].[par.par_enti_59_proveedor]  
-ADD telefono_contacto VARCHAR(50) NULL
+ADD parenti59_telefono_contacto VARCHAR(50) NULL
 GO
 ALTER TABLE [dbo].[par.par_enti_59_proveedor]  
-ADD contacto_mail VARCHAR(128) NULL 
+ADD parenti59_contacto_mail VARCHAR(128) NULL 
 GO
 ALTER TABLE [dbo].[par.par_enti_59_proveedor]  
 ADD rela_parenti05 INT NULL 

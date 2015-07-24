@@ -24,10 +24,10 @@ ALTER TABLE [dbo].[par.par_enti_58_insumos]
 ADD rela_parenti59 int NULL 
 GO
 ALTER TABLE [dbo].[par.par_enti_58_insumos] 
-ADD Volumen float NULL DEFAULT 0
+ADD parenti58_volumen float NULL DEFAULT 0
 GO
 ALTER TABLE [dbo].[par.par_enti_58_insumos] 
-ADD Peso float NULL DEFAULT 0
+ADD parenti58_peso float NULL DEFAULT 0
 GO
 
 ALTER TABLE [dbo].[par.par_enti_58_insumos]  WITH CHECK ADD  CONSTRAINT [FK_par.par_enti_58_insumos_par.par_enti_59_proveedor] FOREIGN KEY([rela_parenti59])

@@ -43,3 +43,6 @@ REFERENCES [dbo].[par.par_enti_58_insumos] ([id_parenti58])
 GO
 ALTER TABLE [dbo].[par.par_enti_105_det_orden] CHECK CONSTRAINT [FK_par.par_enti_105_det_orden.par_enti_58_insumos]
 GO
+
+CREATE SYNONYM [dbo].[parenti105] FOR [dbo].[par.par_enti_105_det_orden]
+GO

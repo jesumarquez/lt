@@ -67,3 +67,6 @@ REFERENCES [dbo].[par.par_enti_09_cab_empleados] ([id_parenti09])
 GO
 ALTER TABLE [dbo].[par.par_enti_104_cab_orden] CHECK CONSTRAINT [FK_par.par_enti_104_cab_orden.par_enti_09_cab_empleados]
 GO
+
+CREATE SYNONYM [dbo].[parenti104] FOR [dbo].[par.par_enti_104_cab_orden]
+GO
