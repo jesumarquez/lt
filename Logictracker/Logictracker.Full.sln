@@ -363,7 +363,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPickerExtender", "Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraxEmu", "Applications\TraxEmu\TraxEmu.csproj", "{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}"
 EndProject
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Reports.Messaging", "Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj", "{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}"
 EndProject
 Global
@@ -2690,6 +2689,24 @@ Global
 		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BBF4DD0E-0BD0-4DBE-B89E-DF1BB8BE4C12}.Release|Win32.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Release|.NET.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
