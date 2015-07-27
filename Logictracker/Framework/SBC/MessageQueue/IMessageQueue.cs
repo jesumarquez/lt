@@ -7,6 +7,7 @@ using Logictracker.DatabaseTracer.Core;
 using Logictracker.Description.Attributes;
 using Logictracker.Description.Runtime;
 using Logictracker.Layers.MessageQueue.Implementations;
+using Logictracker.Messaging;
 using Logictracker.Model;
 
 #endregion
@@ -85,14 +86,14 @@ namespace Logictracker.Layers.MessageQueue
                 switch (QueueType.ToLower())
                 {
                     case "msmq":
-                        QueueType = "Logictracker.Messaging.MsmqQueue.MessageQueueMsmq,Logictracker.Messaging.MsmqQueue";
+                        QueueType = "Logictracker.Messaging.MsmqQueue.MessageQueueMsmq , Logictracker.Messaging.MsmqQueue, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+                        implementation = new MessageQueueMsmq();
                         break;
                     case "rabbitmq":
                         QueueType = "Logictracker.Messaging.RabbitmqQueue.MessageQueueRabbitMq,Logictracker.Messaging.RabbitmqQueue";
+                        implementation = Activator.CreateInstance(Type.GetType(QueueType, true)) as IMessageQueueImplementation;
                         break;
                 }
-
-                implementation = Activator.CreateInstance(Type.GetType(QueueType, true)) as IMessageQueueImplementation;
                 if (implementation == null)
                     throw new ArgumentException("QueueType invalid", "QueueType");
                 implementation.MessageQueue = this;

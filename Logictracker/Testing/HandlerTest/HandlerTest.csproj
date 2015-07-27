@@ -273,10 +273,6 @@
       <Project>{3811E3C9-E240-46FC-A2B2-3FCC0F31F7FA}</Project>
       <Name>Logictracker.Messages.Saver</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Messaging\Logictracker.Messaging.MsmqQueue\Logictracker.Messaging.MsmqQueue.csproj">
-      <Project>{779a3ce1-f018-4a35-8e33-18620b09b0a2}</Project>
-      <Name>Logictracker.Messaging.MsmqQueue</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Model\Logictracker.Model.csproj">
       <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
       <Name>Logictracker.Model</Name>
