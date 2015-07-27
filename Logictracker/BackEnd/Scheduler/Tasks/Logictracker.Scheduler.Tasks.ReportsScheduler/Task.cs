@@ -181,6 +181,20 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             switch (prog.Report)
             {
                 case ProgramacionReporte.Reportes.ReporteEventos:
+                    var vehiclesId = prog.Vehicles.Split(',').Select(v => Convert.ToInt32(v)).ToList();
+                    var tiposMensajeId = prog.MessageTypes.Split(',').Select(m => Convert.ToInt32(m));
+                    var driversId = prog.Drivers.Split(',').Select(d => Convert.ToInt32(d)).ToList();
+                    var fin = GetFinalDate();
+                    var inicio = GetInitialDate(prog.Periodicity);
+
+                    var results = ReportFactory.MobileEventDAO.GetMobilesEvents(vehiclesId,
+                                                                                tiposMensajeId,
+                                                                                driversId,
+                                                                                inicio,
+                                                                                fin,
+                                                                                3);
+
+
                     break;
                 case ProgramacionReporte.Reportes.VerificadorVehiculos:
                     var mobiles = DaoFactory.CocheDAO.GetList(new[] {prog.Empresa.Id},
@@ -196,25 +210,24 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 
                     var lastPositions = ReportFactory.MobilePositionDAO.GetMobilesLastPosition(mobiles);
 
-                    var reportando = lastPositions.Count(p => p.EstadoReporte < 2);
-                    var activos = lastPositions.Count(p => p.EstadoReporte == 2);
+                    var activos = lastPositions.Count(p => p.EstadoReporte <= 2);
                     var inactivos = lastPositions.Count(p => p.EstadoReporte > 2);
 
-                    SendVerificadorVehiculosHtmlReport(prog, reportando, activos, inactivos);
+                    SendVerificadorVehiculosHtmlReport(prog, activos, inactivos);
                     break;
                 default:
                     break;
             }
         }
 
-        private void SendVerificadorVehiculosHtmlReport(ProgramacionReporte programacion, int reportando, int activos, int inactivos)
+        private void SendVerificadorVehiculosHtmlReport(ProgramacionReporte programacion, int activos, int inactivos)
         {
             var configFile = Config.Mailing.VerificadorVehiculosMailingConfiguration;
             if (string.IsNullOrEmpty(configFile)) throw new Exception("No pudo cargarse configuración de mailing");
             
             var sender = new MailSender(configFile);
             
-            var parametros = new List<string> { programacion.ReportName, reportando.ToString("#0"), activos.ToString("#0"), inactivos.ToString("#0") };
+            var parametros = new List<string> { programacion.ReportName, activos.ToString("#0"), inactivos.ToString("#0") };
             SendMailToAllDestinations(sender, parametros, programacion.Mail);
         }
 

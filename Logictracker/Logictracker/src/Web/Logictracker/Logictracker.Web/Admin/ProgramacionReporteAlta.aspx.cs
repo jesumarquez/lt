@@ -23,20 +23,20 @@ namespace Logictracker.Admin
             cbPeriodicidad.Items.Insert(2, new ListItem(CultureManager.GetLabel("MENSUAL"), "M"));
 
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
-            //cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
+            cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
             txtReporte.Text = CultureManager.GetLabel(EditObject.Report);
             txtReportName.Text = EditObject.ReportName;
             txtReportDescription.Text = EditObject.Description;
             cbPeriodicidad.SelectedValue = EditObject.Periodicity.ToString();
             txtMail.Text = EditObject.Mail;
-            chkBaja.Checked = EditObject.Active;
+            chkActivo.Checked = EditObject.Active;
             rbutExcel.Checked = EditObject.Format == ProgramacionReporte.FormatoReporte.Excel;
             rbutHtml.Checked = EditObject.Format == ProgramacionReporte.FormatoReporte.Html;
         }
 
         protected override void OnDelete()
         {
-            EditObject.Active = false;
+            EditObject.Active = false;            
             DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
         }
 
@@ -44,12 +44,11 @@ namespace Logictracker.Admin
         {
             using (var transaction = SmartTransaction.BeginTransaction())
             {
-
                 EditObject.Empresa = (cbEmpresa.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
-                //EditObject.Linea = (cbLinea.Selected > 0) ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+                EditObject.Linea = (cbLinea.Selected > 0) ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
                 EditObject.Periodicity = cbPeriodicidad.SelectedValue[0];
                 EditObject.Mail = txtMail.Text;
-                EditObject.Active = chkBaja.Checked;
+                EditObject.Active = chkActivo.Checked;
 
                 DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
 
@@ -60,7 +59,7 @@ namespace Logictracker.Admin
         protected override void ValidateSave()
         {
             ValidateEntity(cbEmpresa.Selected, "PARENTI01");
-            ValidateEmpty((string) txtMail.Text, (string) "MAIL");
+            ValidateEmpty(txtMail.Text, "MAIL");
         }
     }
 }

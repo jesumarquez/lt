@@ -42,7 +42,7 @@
                         </asp:Panel>
                         
                         <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="Labels" VariableName="ACTIVO" />
-                        <asp:CheckBox ID="chkBaja" runat="server" />
+                        <asp:CheckBox ID="chkActivo" runat="server" />
                         
                     </cwc:AbmTitledPanel>
                 </td>
