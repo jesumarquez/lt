@@ -6,6 +6,7 @@ using C1.Web.UI.Controls.C1GridView;
 using System.Linq;
 using System.Web.UI;
 using Logictracker.Security;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Documentos;
 using Logictracker.Types.ValueObjects.Documentos;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -25,6 +26,16 @@ namespace Logictracker.Documentos
             base.OnLoad(e);
 
             dtFecha.SetDate();
+        }
+
+        protected override Empresa GetEmpresa()
+        {
+            return (cbLocacion.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(cbLocacion.Selected) : null;
+        }
+
+        protected override Linea GetLinea()
+        {
+            return (cbPlanta != null && cbPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(cbPlanta.Selected) : null;
         }
 
         protected override void BtnSearchClick(object sender, EventArgs e)

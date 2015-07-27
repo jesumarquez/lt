@@ -108,11 +108,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected virtual Empresa GetEmpresa() { return null; }
         protected virtual Linea GetLinea() { return null; }
-        protected virtual bool GetCicleCheck() { return false; }
-        protected virtual int GetOvercomeKilometers() { return 0; }
-        protected virtual bool GetShowCornersCheck() { return false; }
-        protected virtual bool GetCalculateKilometers() { return false; } 
-        protected virtual double GetInGeofenceTime() { return 0; }
+
 
         /// <summary>
         /// Gets the associated filter vaues.
@@ -129,7 +125,13 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual string GetSelectedMessageTypes() { return string.Empty; }
         protected virtual string GetSelectedDocuments () { return string.Empty; }
         protected virtual string GetDescription(string s) { return string.Empty; }
-        
+        protected virtual bool GetCicleCheck() { return false; }
+        protected virtual int GetOvercomeKilometers() { return 0; }
+        protected virtual bool GetShowCornersCheck() { return false; }
+        protected virtual bool GetCalculateKilometers() { return false; }
+        protected virtual string GetOdometerType() { return string.Empty; }
+        protected virtual double GetInGeofenceTime() { return 0; }
+
         //envio manual de reportes
         protected virtual List<int> GetSelectedListByField(string field) { return new List<int>(); }
         protected virtual DateTime GetSinceDateTime() { return DateTime.UtcNow.AddDays(-1); }

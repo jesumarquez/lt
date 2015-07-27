@@ -19,11 +19,13 @@ namespace Logictracker.Reportes.Estadistica
         protected override string VariableName { get { return "REPORTE_ODOMETROS"; } }
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
 
         protected override Empresa GetEmpresa()
         {
             return (ddlLocation.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlLocation.Selected) : null;
         }
+        
         protected override Linea GetLinea()
         {
             return (ddlPlanta != null && ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
@@ -141,6 +143,73 @@ namespace Logictracker.Reportes.Estadistica
             ids = lbMovil.GetSelectedIndices().Aggregate(ids, (current, index) => string.Concat(current, string.Format("{0}, ", showDescription ? lbMovil.Items[index].Text : lbMovil.Items[index].Value)));
 
             return ids.TrimEnd(',');
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            if (lbMovil.SelectedValues.Contains(0)) lbMovil.ToogleItems();
+
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base: {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0},", reporte);
+            sDescription.AppendFormat("Moviles: {0}, ", lbMovil.SelectedStringValues);
+            sDescription.AppendFormat("Odometros: {0}, ", lbOdometro.SelectedStringValues);
+
+            return sDescription.ToString();
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            if ("vehicles".Equals(field))
+            {
+                if (lbMovil.SelectedValues.Contains(0)) lbMovil.ToogleItems();
+                return lbMovil.SelectedValues;                                
+            }
+            else
+            {
+                if (lbOdometro.SelectedValues.Contains(0)) lbOdometro.ToogleItems();
+                return lbOdometro.SelectedValues;
+            }
+        }
+
+        protected override string GetSelectedVehicles()
+        {
+            var sVehiculos = new StringBuilder();
+
+            if (lbMovil.SelectedValues.Contains(0)) lbMovil.ToogleItems();
+
+            foreach (var vehiculo in lbMovil.SelectedValues)
+            {
+                if (!sVehiculos.ToString().Equals(""))
+                    sVehiculos.Append(",");
+
+                sVehiculos.Append(vehiculo.ToString());
+            }
+
+            return sVehiculos.ToString();
+        }
+
+        protected override string GetOdometerType()
+        {
+            var sOdometro = new StringBuilder();
+
+            if (lbOdometro.SelectedValues.Contains(0)) lbMovil.ToogleItems();
+
+            foreach (var odom in lbOdometro.SelectedValues)
+            {
+                if (!sOdometro.ToString().Equals(""))
+                    sOdometro.Append(",");
+
+                sOdometro.Append(odom.ToString());
+            }
+
+            return sOdometro.ToString();
         }
     }
 }

@@ -33,6 +33,8 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Geofences { get; set; }
         public virtual bool CalculateKm { get; set; }
         public virtual double GeofenceTime { get; set; }
+        public virtual string Documents { get; set; }
+        public virtual string Odometers { get; set; }
 
         public static class Reportes
         {
@@ -40,6 +42,12 @@ namespace Logictracker.Types.BusinessObjects
             public const string VerificadorVehiculos = "VerificadorVehiculos";
             public const string ActividadVehicular = "VehicleActivityReport";
             public const string KilometrosAcumulados = "AccumulatedKilometersReport";
+            public const string InfraccionesVehiculo = "VehicleInfractionsReport";
+            public const string InfraccionesConductor = "DriversInfractionsReport";
+            public const string EventosGeocercas = "GeofenceEventsReport";
+            public const string VencimientoDocumentos = "DocumentsExpirationReport";
+            public const string TiempoAcumulado = "MobilesTimeReport";
+            public const string ReporteOdometros = "OdometersReport";
         }
 
         public static class FormatoReporte

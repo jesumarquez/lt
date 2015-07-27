@@ -96,7 +96,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         OvercomeKilometers = prog.OvercomeKilometers,
                         VehiclesId = CsvToList(prog.Vehicles)
                     };
-                case "VehicleInfractionsReport":
+                case ProgramacionReporte.Reportes.InfraccionesVehiculo:
                     return new VehicleInfractionsReportCommand
                     {
                         ReportId = prog.Id,
@@ -108,7 +108,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         ShowCorners = prog.ShowCorners,
                         VehiclesId = CsvToList(prog.Vehicles)
                     };
-                case "DriversInfractionsReport":
+                case ProgramacionReporte.Reportes.InfraccionesConductor:
                     return new DriversInfractionsReportCommand
                     {
                         ReportId = prog.Id,
@@ -120,7 +120,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         DriversId = CsvToList(prog.Drivers),
                         ReportName = prog.ReportName
                     };
-                case "GeofenceEventsReport":
+                case ProgramacionReporte.Reportes.EventosGeocercas:
                     return new GeofenceEventsReportCommand
                     {
                         ReportId = prog.Id,
@@ -134,7 +134,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         InGeofenceTime = prog.GeofenceTime, 
                         ReportName = prog.ReportName
                     };
-                case "MobilesTimeReport":
+                case ProgramacionReporte.Reportes.TiempoAcumulado:
                     return new MobilesTimeReportCommand
                     {
                         ReportId = prog.Id,
@@ -144,6 +144,29 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         VehiclesId = CsvToList(prog.Vehicles)                        
+                    };
+                case ProgramacionReporte.Reportes.VencimientoDocumentos:
+                    return new DocumentsExpirationReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        Documents = CsvToList(prog.Documents),
+                        ReportName = prog.ReportName
+                    };
+                case "OdometersReport":
+                    return new OdometersReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        Odometers = CsvToList(prog.Odometers),
+                        VehiclesId = CsvToList(prog.Vehicles),
+                        ReportName = prog.ReportName
                     };
                 default:
                     return new FinalExecutionCommand
