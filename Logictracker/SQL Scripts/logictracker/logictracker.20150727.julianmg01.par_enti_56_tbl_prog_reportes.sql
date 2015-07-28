@@ -62,9 +62,6 @@ The column [dbo].[par.par_enti_56_tbl_prog_reportes].[parenti56_report] on table
 The column [dbo].[par.par_enti_56_tbl_prog_reportes].[parenti56_vehicles] on table [dbo].[par.par_enti_56_tbl_prog_reportes] must be added, but the column has no default value and does not allow NULL values. If the table contains data, the ALTER script will not work. To avoid this issue you must either: add a default value to the column, mark it as allowing NULL values, or enable the generation of smart-defaults as a deployment option.
 */
 
-IF EXISTS (select top 1 1 from [dbo].[par.par_enti_56_tbl_prog_reportes])
-    RAISERROR (N'Rows were detected. The schema update is terminating because data loss might occur.', 16, 127) WITH NOWAIT
-
 GO
 PRINT N'Dropping [dbo].[FK_par.par_enti_62_log_reportes_programados_par.par_enti_56_tbl_prog_reportes]...';
 
@@ -186,6 +183,7 @@ CREATE TABLE [dbo].[tmp_ms_xx_par.par_enti_56_tbl_prog_reportes] (
     [parenti56_calculateKm]        BIT           NULL,
     [parenti56_inGeofenceTime]     FLOAT (53)    NULL,
     [parenti56_documents]          VARCHAR (500) NULL,
+	[parenti56_odometers]	       VARCHAR (500) NULL,
     CONSTRAINT [tmp_ms_xx_constraint_PK_par.par_enti_56_tbl_prog_reportes] PRIMARY KEY CLUSTERED ([id_parenti56] ASC)
 );
 

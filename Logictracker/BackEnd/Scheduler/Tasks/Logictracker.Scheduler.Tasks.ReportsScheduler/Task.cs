@@ -156,7 +156,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Documents = CsvToList(prog.Documents),
                         ReportName = prog.ReportName
                     };
-                case "OdometersReport":
+                case ProgramacionReporte.Reportes.ReporteOdometros:
                     return new OdometersReportCommand
                     {
                         ReportId = prog.Id,

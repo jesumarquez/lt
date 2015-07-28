@@ -199,7 +199,7 @@ namespace Logictracker.Reportes.Estadistica
         {
             var sOdometro = new StringBuilder();
 
-            if (lbOdometro.SelectedValues.Contains(0)) lbMovil.ToogleItems();
+            if (lbOdometro.SelectedValues.Contains(0)) lbOdometro.ToogleItems();
 
             foreach (var odom in lbOdometro.SelectedValues)
             {

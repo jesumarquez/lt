@@ -520,7 +520,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         InitialDate = GetSinceDateTime(),
                         Odometers = GetSelectedListByField("odometers"),
                         VehiclesId = GetSelectedListByField("vehicles"),
-                        ReportName = "Reporte de Odometros" + DateTime.Now.ToShortDateString()
+                        ReportName = "Reporte de Odometros " + DateTime.Now.ToShortDateString()
                     };
                 default:
                     return null;
