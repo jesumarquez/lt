@@ -43,6 +43,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Messaging" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -61,6 +62,9 @@
     <Compile Include="Common\RunMode.cs" />
     <Compile Include="CustomMarkupExtensions\DefaultExtension.cs" />
     <Compile Include="CustomMarkupExtensions\StaticResourceExtension.cs" />
+    <Compile Include="Layer\IMessageQueue.cs" />
+    <Compile Include="Layer\Implementations\IMessageQueueImplementation.cs" />
+    <Compile Include="Messaging\MessageQueueMsmq.cs" />
     <Compile Include="Metadata\ItemConstraintMetadata.cs" />
     <Compile Include="Metadata\ItemManagmentCommandMetadata.cs" />
     <Compile Include="Common\ApplicationElement.cs" />
@@ -99,6 +103,10 @@
     <ProjectReference Include="..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
       <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
       <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Configuration\Logictracker.Configuration.csproj">
+      <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
+      <Name>Logictracker.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Diagnostics\Logictracker.Diagnostics.csproj">
       <Project>{7FBF3686-AE82-4EE7-B164-7F5AFE5ECED6}</Project>

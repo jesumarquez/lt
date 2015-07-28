@@ -92,13 +92,11 @@
     <Compile Include="Fota.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="LinksTree.cs" />
-    <Compile Include="MessageQueue\Implementations\IMessageQueueImplementation.cs" />
     <Compile Include="ReflectionIMessageDispatcher.cs" />
     <Compile Include="IDataProvider\SQLDataProvider.cs" />
     <Compile Include="IDataProvider\VirtualDataProvider.cs" />
     <Compile Include="MessageQueue\MessageConsumer.cs" />
     <Compile Include="MessageQueue\MessageHandler.cs" />
-    <Compile Include="MessageQueue\IMessageQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

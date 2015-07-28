@@ -168,22 +168,22 @@ namespace Logictracker.Layers.MessageQueue
 
 
 
-        internal Message Receive(MessageQueueTransactionType messageQueueTransactionType)
+        public Message Receive(MessageQueueTransactionType messageQueueTransactionType)
         {
             return implementation.Receive(messageQueueTransactionType);
         }
 
-        internal bool CountMore(int minMessagesToSleep)
+        public bool CountMore(int minMessagesToSleep)
         {
             return implementation.CountMore(minMessagesToSleep);
         }
 
-        internal Message EndPeek(IAsyncResult ar)
+        public Message EndPeek(IAsyncResult ar)
         {
             return implementation.EndPeek(ar);
         }
 
-        internal void Dispose()
+        public void Dispose()
         {
             implementation.Dispose();
         }
@@ -193,18 +193,18 @@ namespace Logictracker.Layers.MessageQueue
             implementation.Dispose();
         }
 
-        internal void Close()
+        public void Close()
         {
             implementation.Close();
 
         }
 
-        internal System.Messaging.Message EndReceive(IAsyncResult ar)
+        public System.Messaging.Message EndReceive(IAsyncResult ar)
         {
             return implementation.EndReceive(ar);
         }
 
-        internal IAsyncResult BeginReceive(TimeSpan AsyncTimeout, object stateObject, AsyncCallback MessageReceived)
+        public IAsyncResult BeginReceive(TimeSpan AsyncTimeout, object stateObject, AsyncCallback MessageReceived)
         {
             return implementation.BeginReceive(AsyncTimeout, stateObject, MessageReceived);
         }
