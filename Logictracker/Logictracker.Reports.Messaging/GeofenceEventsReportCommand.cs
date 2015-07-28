@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Logictracker.Reports.Messaging
 {
@@ -19,5 +17,6 @@ namespace Logictracker.Reports.Messaging
         public string ReportName { get; set; }
         public List<int> Geofences { get; set; }
         public bool CalculateKm { get; set; }
+        public double InGeofenceTime { get; set; }
     }
 }

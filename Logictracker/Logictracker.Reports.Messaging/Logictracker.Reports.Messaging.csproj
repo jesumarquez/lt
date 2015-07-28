@@ -69,11 +69,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccumulatedKilometersReportCommand.cs" />
+    <Compile Include="DocumentsExpirationReportCommand.cs" />
     <Compile Include="DriversInfractionsReportCommand.cs" />
     <Compile Include="FinalExecutionCommand.cs" />
     <Compile Include="EventReportCommand.cs" />
     <Compile Include="GeofenceEventsReportCommand.cs" />
     <Compile Include="IReportCommand.cs" />
+    <Compile Include="MobilesTimeReportCommand.cs" />
+    <Compile Include="OdometersReportCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VehicleActivityReportCommand.cs" />
     <Compile Include="VehicleInfractionsReportCommand.cs" />
