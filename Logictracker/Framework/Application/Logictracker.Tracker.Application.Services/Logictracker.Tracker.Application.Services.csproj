@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Logictracker.Tracker.Application.Services</RootNamespace>
     <AssemblyName>Logictracker.Tracker.Application.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,36 +36,6 @@
     </Reference>
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\..\packages\Common.Logging.Core.3.1.0\lib\net40\Common.Logging.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Cache">
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Cache.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.DAL, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.DAL.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Messages.Saver">
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Messages.Saver.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Messages.Sender">
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Messages.Sender.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Messaging">
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Messaging.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Model">
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Model.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Process.CicloLogistico, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Process.CicloLogistico.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Types, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Types.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.Utils">
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Aop">
       <HintPath>..\..\..\packages\Spring.Aop.2.0.1\lib\net45\Spring.Aop.dll</HintPath>
@@ -96,6 +67,48 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-fd4b-460a-931b-6a3b4d4eef5c}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
+      <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>
+      <Name>Logictracker.Tracker.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MemCache\Logictracker.Cache.csproj">
+      <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{a5c107d7-cc1b-4d48-9275-0c6ee216ba61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Messaging\Logictracker.Messages.Saver\Logictracker.Messages.Saver.csproj">
+      <Project>{3811e3c9-e240-46fc-a2b2-3fcc0f31f7fa}</Project>
+      <Name>Logictracker.Messages.Saver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
+      <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
+      <Name>Logictracker.Messages.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Logictracker.Model.csproj">
+      <Project>{9f45020b-8b93-4962-89b6-4591c385e68d}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Process\Logictracker.Process.CicloLogistico\Logictracker.Process.CicloLogistico.csproj">
+      <Project>{c23d6940-c665-4076-96b7-c5b29ee304f0}</Project>
+      <Name>Logictracker.Process.CicloLogistico</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

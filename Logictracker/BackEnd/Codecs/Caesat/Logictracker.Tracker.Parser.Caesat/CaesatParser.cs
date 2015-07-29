@@ -12,7 +12,7 @@ namespace Logictracker.Tracker.Parser.Caesat
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(CaesatParser));
         
-        public IFrame ParseCaesatFrame(string frame)
+        public CaesatFrame ParseCaesatFrame(string frame)
         {
             Logger.DebugFormat("ParseCaesatFrame: {0} ", frame);
 
