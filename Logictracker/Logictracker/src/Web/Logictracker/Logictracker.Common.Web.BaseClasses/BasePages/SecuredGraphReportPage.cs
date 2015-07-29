@@ -436,11 +436,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             switch (Page.ToString())
             {
                 case "ASP.reportes_estadistica_mobileskilometers_aspx":
-                    reporte = ProgramacionReporte.Reportes.KilometrosAcumulados;
-                    break;
+                    return "AccumulatedKilometersReport";
+                case "ASP.reportes_estadistica_mobilestime_aspx":
+                    return "MobilesTimeReport";
                 default:
-                    reporte = Page.ToString();
-                    break;
+                    return Page.ToString();
             }
         }
 
