@@ -35,6 +35,7 @@
         <property column="pae03_controla_servicios" type="Boolean" not-null="true" name="ControlaServicios" />
         <property column="pae03_porc_productividad" type="Int32" name="PorcentajeProductividad" />
         <property column="parenti03_capacidad" type="Int32" name="Capacidad" />
+        <property column="parenti03_capacidad_carga" type="Int32" name="CapacidadCarga" />
         <property column="parenti03_identifica_choferes" type="Boolean" name="IdentificaChoferes" not-null="true" />
         <property column="parenti03_reporta_ac" name="ReportaAssistCargo" />
         <property column="parenti03_espuerta" name="EsPuerta" />

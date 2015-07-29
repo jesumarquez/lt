@@ -122,6 +122,8 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
 
         public virtual int VelocidadPromedio { get; set; }
 
+        public virtual int CapacidadCarga { get; set; }
+
 
         // Cuando se cambia el dispositivo 
         // se guarda el valor viejo para poder actualizar la cache

@@ -32,15 +32,31 @@ namespace Logictracker.Types.BusinessObjects
         public virtual bool ShowCorners { get; set; }
         public virtual string Geofences { get; set; }
         public virtual bool CalculateKm { get; set; }
+        public virtual double GeofenceTime { get; set; }
+        public virtual string Documents { get; set; }
+        public virtual string Odometers { get; set; }
 
-        public static class ReportFormat
+        public static class Reportes
+        {
+            public const string ReporteEventos = "EventsReport";
+            public const string VerificadorVehiculos = "VerificadorVehiculos";
+            public const string ActividadVehicular = "VehicleActivityReport";
+            public const string KilometrosAcumulados = "AccumulatedKilometersReport";
+            public const string InfraccionesVehiculo = "VehicleInfractionsReport";
+            public const string InfraccionesConductor = "DriversInfractionsReport";
+            public const string EventosGeocercas = "GeofenceEventsReport";
+            public const string VencimientoDocumentos = "DocumentsExpirationReport";
+            public const string TiempoAcumulado = "MobilesTimeReport";
+            public const string ReporteOdometros = "OdometersReport";
+        }
+
+        public static class FormatoReporte
         {
             public const short Excel = 0;
             public const short Html = 1;
             public const short HtmlAttached = 2;
             public const short Csv = 3;
             public const short CsvAttached = 4;
-
         }
     }
 }

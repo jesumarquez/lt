@@ -269,7 +269,8 @@ namespace Logictracker.Reportes.DatosOperativos
         /// <param name="geocercas"></param>
         /// <param name="calcularKms"></param>
         /// <param name="daoFactory"></param>
-        private static void CalculateDurations(IList<MobileGeocerca> geocercas, bool calcularKms, DAOFactory daoFactory)
+        private static void 
+            CalculateDurations(IList<MobileGeocerca> geocercas, bool calcularKms, DAOFactory daoFactory)
         {
             for (var i = 0; i < geocercas.Count - 1; i++)
             {
@@ -373,6 +374,11 @@ namespace Logictracker.Reportes.DatosOperativos
             return chkCalcularKmRecorridos.Checked;    
         }
 
+        protected override double GetInGeofenceTime()
+        {
+            return tpEnGeocerca.SelectedTime.TotalSeconds;
+        }
+
         protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();
@@ -395,6 +401,8 @@ namespace Logictracker.Reportes.DatosOperativos
 
         protected override List<int> GetSelectedListByField(string field)
         {
+            if ("geofences".Equals(field)) return GetSelectedGeocercas();
+            
             if (lbMobile.SelectedValues.Contains(0)) lbMobile.ToogleItems();
             return lbMobile.SelectedValues;
         }

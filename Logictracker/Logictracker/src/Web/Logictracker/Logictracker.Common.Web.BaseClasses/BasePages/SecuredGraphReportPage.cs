@@ -108,6 +108,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
         protected ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
 
+        protected virtual RadioButton RadioButtonExcel { get { return MasterPage.RadioButtonExcel; } }
+        protected virtual RadioButton RadioButtonHtml { get { return MasterPage.RadioButtonHtml; } }
+
         /// <summary>
         /// List of FusionChartsItem used by the graph.
         /// </summary>
@@ -300,6 +303,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var builder = new GridToExcelBuilder(path, Usuario.ExcelFolder);
             
             var list = GetExcelItemList();
+            if (list.Count > 5000)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
             var extraItems = GetExcelExtraItemList();
 
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
@@ -332,18 +340,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         void BtScheduleGuardarClick(object sender, EventArgs e)
         {
-            string reporte;
-
-            switch (Page.ToString())
-            {
-                case "ASP.reportes_estadistica_mobileskilometers_aspx":
-                    reporte = "AccumulatedKilometersReport";
-                    break;
-                default:
-                    reporte = Page.ToString();
-                    break;
-            }
-
+            var reporte = GetReportType();           
             var empresa = GetEmpresa();
             var linea = GetLinea();
 
@@ -356,7 +353,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 Empresa = empresa ?? linea.Empresa,
                 Created = DateTime.Now,
                 Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
-                Active = false
+                Active = false,
+                Format = RadioButtonHtml.Checked
+                            ? ProgramacionReporte.FormatoReporte.Html
+                            : ProgramacionReporte.FormatoReporte.Excel
             };
 
             prog.Vehicles = GetSelectedVehicles();
@@ -391,25 +391,57 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         private void ButtonOkSendReportClick(object sender, EventArgs e)
         {
-            var accumKmReport = new AccumulatedKilometersReportCommand
-            {
-                ReportId = 83, //Id de reporte manual inactivo
-                CustomerId = GetCompanyId(),
-                Email = SendReportTextBoxEmail.Text,
-                FinalDate = GetToDateTime(),
-                InitialDate = GetSinceDateTime(),
-                InCicle = GetCicleCheck(),
-                VehiclesId = GetSelectedListByField("vehicles")
-            };
+            var reportCommand = GenerateReportCommand(GetReportType());
 
             var queue = GetMailReportMsmq();
-            if (queue == null)
-            {
-                throw new ApplicationException("No se pudo crear la cola");
-            }
-            queue.Send(accumKmReport);
+
+            if (queue == null) { throw new ApplicationException("No se pudo acceder a la cola"); }
+            if (reportCommand != null) queue.Send(reportCommand);
 
             ModalSchedule.Hide();
+        }
+
+        private IReportCommand GenerateReportCommand(string reportType)
+        {
+            switch (reportType)
+            {
+                case "AccumulatedKilometersReport":
+                    return new AccumulatedKilometersReportCommand
+                    {
+                        ReportId = 83, //Id de reporte manual inactivo
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        InCicle = GetCicleCheck(),
+                        VehiclesId = GetSelectedListByField("vehicles")
+                    };
+                case "MobilesTimeReport":
+                    return new MobilesTimeReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                    };
+                default:
+                    return null;
+            }
+        }
+
+        private string GetReportType()
+        {
+            switch (Page.ToString())
+            {
+                case "ASP.reportes_estadistica_mobileskilometers_aspx":
+                    reporte = ProgramacionReporte.Reportes.KilometrosAcumulados;
+                    break;
+                default:
+                    reporte = Page.ToString();
+                    break;
+            }
         }
 
         private IMessageQueue GetMailReportMsmq()
@@ -493,6 +525,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var builder = new GridToExcelBuilder(path, Usuario.ExcelFolder);
 
             var list = GetExcelItemList();
+            if (list.Count > 5000)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
 
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
             builder.AddExcelItemList(list);

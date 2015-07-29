@@ -39,5 +39,8 @@ namespace Logictracker.MasterPages
 
         public override ModalPopupExtender SendReportModalPopupExtender { get { return popUpSendReport; } }
         public override ResourceButton SendReportOkButton { get { return ButtonOkSendReport; } }
+
+        public override RadioButton RadioButtonExcel { get { return rbutExcel; } }
+        public override RadioButton RadioButtonHtml { get { return rbutHtml; } }
     }
 }

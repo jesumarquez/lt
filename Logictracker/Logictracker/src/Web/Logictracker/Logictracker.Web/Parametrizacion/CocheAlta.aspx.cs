@@ -95,6 +95,7 @@ namespace Logictracker.Parametrizacion
             npKilometros.Value = Convert.ToInt32(EditObject.KilometrosDiarios);
             npVelocidadPromedio.Value = EditObject.VelocidadPromedio;
             txtCapacidad.Value = EditObject.Capacidad;
+            npCapacidadCarga.Value = EditObject.CapacidadCarga;
 
             npOdometroInicial.Value = Convert.ToInt32(EditObject.InitialOdometer);
             cbCliente.SelectedValues = EditObject.Clientes.OfType<Cliente>().Where(c => !c.Baja).Select(c => c.Id).ToList();
@@ -190,6 +191,7 @@ namespace Logictracker.Parametrizacion
                     EditObject.KilometrosDiarios = npKilometros.Value;
                     EditObject.VelocidadPromedio = Convert.ToInt32(npVelocidadPromedio.Value);
                     EditObject.Capacidad = Convert.ToInt32(txtCapacidad.Value);
+                    EditObject.CapacidadCarga = Convert.ToInt32(npCapacidadCarga.Value);
                     EditObject.IdentificaChoferes = chkIdentificaChoferes.Checked;
                     if (chkReportaAssistCargo.Visible) EditObject.ReportaAssistCargo = chkReportaAssistCargo.Checked;
                     if (chkEsPuerta.Visible) EditObject.EsPuerta = chkEsPuerta.Checked;
@@ -439,6 +441,7 @@ namespace Logictracker.Parametrizacion
                 var tipoCoche = DAOFactory.TipoCocheDAO.FindById(cbTipoCoche.Selected);
                 npKilometros.Value = Convert.ToInt32(tipoCoche.KilometrosDiarios);
                 txtCapacidad.Value = tipoCoche.Capacidad;
+                npCapacidadCarga.Value = tipoCoche.CapacidadCarga;
             }
 
             var tipo = DAOFactory.TipoCocheDAO.FindById(cbTipoCoche.Selected);

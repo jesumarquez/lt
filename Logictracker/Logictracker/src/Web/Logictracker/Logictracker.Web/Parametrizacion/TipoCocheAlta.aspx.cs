@@ -29,6 +29,7 @@ namespace Logictracker.Parametrizacion
             chkControlaTurno.Checked = EditObject.ControlaTurno;
             chkSeguimientoPersona.Checked = EditObject.SeguimientoPersona;
             txtCapacidad.Value = EditObject.Capacidad;
+            npCapacidadCarga.Value = EditObject.CapacidadCarga;
             npDesvioMinimo.Value = EditObject.DesvioMinimo;
             npDesvioMaximo.Value = EditObject.DesvioMaximo;
             chkNoEsVehiculo.Checked = EditObject.NoEsVehiculo;
@@ -45,17 +46,18 @@ namespace Logictracker.Parametrizacion
             EditObject.IconoAdelanto = DAOFactory.IconoDAO.FindById(iconAdelanto.Selected);
             EditObject.IconoAtraso = DAOFactory.IconoDAO.FindById(iconAtraso.Selected);
             EditObject.IconoDefault = DAOFactory.IconoDAO.FindById(iconDeafult.Selected);
-            EditObject.MaximaVelocidadAlcanzable = Convert.ToInt32((double) npMaxSpeed.Value);
+            EditObject.MaximaVelocidadAlcanzable = Convert.ToInt32(npMaxSpeed.Value);
             EditObject.Empresa = (ddlLocacion.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected) : null;
             EditObject.Linea = (ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
-            EditObject.KilometrosDiarios = Convert.ToInt32((double) npKilometros.Value);
-            EditObject.VelocidadPromedio = Convert.ToInt32((double) npVelocidadPromedio.Value);
+            EditObject.KilometrosDiarios = Convert.ToInt32(npKilometros.Value);
+            EditObject.VelocidadPromedio = Convert.ToInt32(npVelocidadPromedio.Value);
             EditObject.ControlaKilometraje = chkControlaKilometraje.Checked;
             EditObject.ControlaTurno = chkControlaTurno.Checked;
             EditObject.SeguimientoPersona = chkSeguimientoPersona.Checked;
-            EditObject.Capacidad = Convert.ToInt32((double) txtCapacidad.Value);
-            EditObject.DesvioMinimo = Convert.ToInt32((double) npDesvioMinimo.Value);
-            EditObject.DesvioMaximo = Convert.ToInt32((double) npDesvioMaximo.Value);
+            EditObject.Capacidad = Convert.ToInt32(txtCapacidad.Value);
+            EditObject.CapacidadCarga = Convert.ToInt32(npCapacidadCarga.Value);
+            EditObject.DesvioMinimo = Convert.ToInt32(npDesvioMinimo.Value);
+            EditObject.DesvioMaximo = Convert.ToInt32(npDesvioMaximo.Value);
             EditObject.NoEsVehiculo = chkNoEsVehiculo.Checked;
             EditObject.AlarmaConsumo = chkControlaConsumo.Checked;
 
@@ -73,7 +75,7 @@ namespace Logictracker.Parametrizacion
             if (iconAdelanto.Selected <= 0) ThrowMustEnter("ICONO_ADELANTO");
             if (iconDeafult.Selected <= 0) ThrowMustEnter("ICONO_DEFAULT");
 
-            ValidateHigher(Convert.ToInt32((double) npDesvioMaximo.Value), Convert.ToInt32((double) npDesvioMinimo.Value), "VAL_MAYOR");
+            ValidateHigher(Convert.ToInt32(npDesvioMaximo.Value), Convert.ToInt32(npDesvioMinimo.Value), "VAL_MAYOR");
         }
 
         protected override void ValidateDelete()

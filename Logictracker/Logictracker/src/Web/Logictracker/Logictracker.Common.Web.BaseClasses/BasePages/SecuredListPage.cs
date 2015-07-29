@@ -379,6 +379,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var builder = new GridToExcelBuilder(path, Usuario.ExcelFolder);
 
             var list = GridUtils.Search(Data, SearchString);
+            if (list.Count > 5000)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
 
             builder.GenerateHeader(CultureManager.GetMenu(VariableName),new Dictionary<string, string>());
             builder.GenerateColumns(list);

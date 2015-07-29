@@ -35,16 +35,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected override InfoLabel NotFound { get { return MasterPage.LblInfo; } }
         protected override ToolBar ToolBar { get { return MasterPage.ToolBar; } }
         protected override ResourceButton BtnSearch { get { return MasterPage.btnSearch; } }
-        
-        protected DropDownList CbSchedulePeriodicidad { get { return MasterPage.cbSchedulePeriodicidad; } }
-        protected TextBox TxtScheduleMail { get { return MasterPage.txtScheduleMail; } }
-        protected ResourceButton BtScheduleGuardar { get { return MasterPage.btScheduleGuardar; } }
-        protected ModalPopupExtender ModalSchedule { get { return MasterPage.modalSchedule; } }
 
-        protected TextBox SendReportTextBoxEmail { get { return MasterPage.SendReportTextBoxEmail; } }
-        protected TextBox SendReportTextBoxReportName{ get { return MasterPage.SendReportTextBoxReportName; } }
-        protected ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
-        protected ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
+        protected virtual DropDownList CbSchedulePeriodicidad { get { return MasterPage.cbSchedulePeriodicidad; } }
+        protected virtual TextBox TxtScheduleMail { get { return MasterPage.txtScheduleMail; } }
+        protected virtual ResourceButton BtScheduleGuardar { get { return MasterPage.btScheduleGuardar; } }
+        protected virtual ModalPopupExtender ModalSchedule { get { return MasterPage.modalSchedule; } }
+        protected virtual RadioButton RadioButtonExcel { get { return MasterPage.RadioButtonExcel; } }
+        protected virtual RadioButton RadioButtonHtml { get { return MasterPage.RadioButtonHtml; } }
+
+        protected virtual TextBox SendReportTextBoxEmail { get { return MasterPage.SendReportTextBoxEmail; } }
+        protected virtual TextBox SendReportTextBoxReportName { get { return MasterPage.SendReportTextBoxReportName; } }
+        protected virtual ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
+        protected virtual ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
         
         #region IGridded
 
@@ -233,6 +235,12 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var list = GridUtils.Search(Data, SearchString);
 
             Logger.Debug("ExportToExcel builder.GenerateHeader");
+            if (list.Count > 5000)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
+
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
             Logger.Debug("ExportToExcel builder.GenerateColumns");
             builder.GenerateColumns(list);
@@ -318,7 +326,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                                Empresa = empresa ?? linea.Empresa,
                                Created = DateTime.Now,
                                Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
-                               Active = false
+                               Active = false,
+                               Format = RadioButtonHtml.Checked
+                                            ? ProgramacionReporte.FormatoReporte.Html
+                                            : ProgramacionReporte.FormatoReporte.Excel
                            };
 
             prog.Vehicles = GetSelectedVehicles();
@@ -328,6 +339,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
             prog.OvercomeKilometers = GetOvercomeKilometers();
             prog.ShowCorners = GetShowCornersCheck();
             prog.CalculateKm = GetCalculateKilometers();
+            prog.GeofenceTime = GetInGeofenceTime();
+            prog.Documents = GetSelectedDocuments();
+            prog.Odometers = GetOdometerType();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
@@ -341,15 +355,19 @@ namespace Logictracker.Web.BaseClasses.BasePages
             switch (Page.ToString())
             {
                 case "ASP.reportes_datosoperativos_eventos_aspx":
-                    return "EventsReport";
+                    return ProgramacionReporte.Reportes.ReporteEventos;
                 case "ASP.reportes_estadistica_actividadvehicular_aspx":
-                    return "VehicleActivityReport";
+                    return ProgramacionReporte.Reportes.ActividadVehicular;
                 case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
-                    return "VehicleInfractionsReport";
+                    return ProgramacionReporte.Reportes.InfraccionesVehiculo;
                 case "ASP.reportes_accidentologia_infractionsdetails_aspx":
-                    return "DriversInfractionsReport";
+                    return ProgramacionReporte.Reportes.InfraccionesConductor;
                 case "ASP.reportes_datosoperativos_geocercasevents_aspx":
-                    return "GeofenceEventsReport";
+                    return ProgramacionReporte.Reportes.EventosGeocercas;
+                case "ASP.documentos_reportevencimiento_aspx":
+                    return ProgramacionReporte.Reportes.VencimientoDocumentos;
+                case "ASP.reportes_estadistica_reporteodometros_aspx":
+                    return ProgramacionReporte.Reportes.ReporteOdometros;
                 //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
                 //    reporte = "Mensajes Vehículo";
                 //    break;
@@ -414,11 +432,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             //SendConfirmationMail(eventReportCmd);
         }
 
-        private IReportCommand GenerateReportCommand(string getReportType)
+        private IReportCommand GenerateReportCommand(string reportType)
         {
-            switch (Page.ToString())
+            switch (reportType)
             {
-                case "ASP.reportes_datosoperativos_eventos_aspx":
+                case "EventsReport":
                     return new EventReportCommand()
                     {
                         ReportId = 83, //Id de reporte manual inactivo
@@ -428,9 +446,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         MessagesId = GetSelectedListByField("messages"),
-                        VehiclesId = GetSelectedListByField("vehicles")
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        ReportName = "Reporte de Eventos " + DateTime.Now.ToShortDateString()
                     };
-                case "ASP.reportes_estadistica_actividadvehicular_aspx":
+                case "VehicleActivityReport":
                     return new VehicleActivityReportCommand
                     {
                         ReportId = 83,
@@ -439,9 +458,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         OvercomeKilometers = GetOvercomeKilometers(),
-                        VehiclesId = GetSelectedListByField("vehicles")
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        ReportName = "Reporte de Actividad de Vehiculos " + DateTime.Now.ToShortDateString()
                     };
-                case "ASP.reportes_accidentologia_vehicleinfractionsdetails_aspx":
+                case "VehicleInfractionsReport":
                     return new VehicleInfractionsReportCommand
                     {
                         ReportId = 83,
@@ -450,9 +470,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         ShowCorners = GetShowCornersCheck(),
-                        VehiclesId = GetSelectedListByField("vehicles")
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        ReportName = "Reporte de Eventos por Vehiculo " + DateTime.Now.ToShortDateString()
                     };
-                case "ASP.reportes_accidentologia_infractionsdetails_aspx":
+                case "DriversInfractionsReport":
                     return new DriversInfractionsReportCommand
                     {
                         ReportId = 83,
@@ -461,9 +482,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         ShowCorners = GetShowCornersCheck(),
-                        DriversId = GetSelectedListByField("drivers")
+                        DriversId = GetSelectedListByField("drivers"),
+                        ReportName = "Reporte de Infracciones de Conductores " + DateTime.Now.ToShortDateString()
                     };
-                case "ASP.reportes_datosoperativos_geocercasevents_aspx":
+                case "GeofenceEventsReport":
                     return new GeofenceEventsReportCommand
                     {
                         ReportId = 83,
@@ -471,9 +493,34 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        CalculateKm = GetShowCornersCheck(),
+                        CalculateKm = GetCalculateKilometers(),
                         VehiclesId = GetSelectedListByField("vehicles"),
-                        Geofences = GetSelectedListByField("geofences")
+                        Geofences = GetSelectedListByField("geofences"),
+                        InGeofenceTime = GetInGeofenceTime(),
+                        ReportName = "Reporte de Eventos de Geocercas " + DateTime.Now.ToShortDateString()
+                    };
+                case "DocumentsExpirationReport":
+                    return new DocumentsExpirationReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        Documents = GetSelectedListByField("documents"),
+                        ReportName = "Reporte Vencimiento Documentos " + DateTime.Now.ToShortDateString()
+                    };
+                case "OdometersReport":
+                    return new OdometersReportCommand
+                    {
+                        ReportId = 83,
+                        CustomerId = GetCompanyId(),
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        Odometers = GetSelectedListByField("odometers"),
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        ReportName = "Reporte de Odometros " + DateTime.Now.ToShortDateString()
                     };
                 default:
                     return null;

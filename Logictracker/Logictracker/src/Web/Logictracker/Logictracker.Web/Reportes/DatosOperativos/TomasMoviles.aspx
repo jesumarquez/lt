@@ -1,6 +1,40 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="TomasMoviles.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaTomasMoviles" Title="Verificador de Vehiculos" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TomasMoviles.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaTomasMoviles" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="server">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <cwc:CustomScriptManager ID="CustomScriptManager1" runat="server" />
+    <%--TOOLBAR--%>
+    <cwc:ToolBar ID="ToolBar1" runat="server" />
+
+    <script type="text/javascript">
+function PrintReport(){
+    try{
+        
+        var oIframe = document.getElementById('ifPrint');
+        var oContent = document.getElementById('printContent').innerHTML;
+        var oDoc = (oIframe.contentWindow || oIframe.contentDocument);
+        if (oDoc.document) oDoc = oDoc.document;
+                
+		oDoc.write("<html><head><title>"+document.getElementsByTagName('title')[0].innerHTML);
+		oDoc.write("</title>");
+		var links = document.getElementsByTagName('link');		
+		for(l in links) if(links[l].type == 'text/css') oDoc.write('<link href="'+links[l].getAttribute('href')+'" type="text/css" rel="stylesheet" />');
+		oDoc.write("</head><body onload='this.focus(); this.print();'>");
+		oDoc.write(oContent + "</body></html>");	    
+		oDoc.close();
+    }
+    catch(e){
+    alert(e);
+	    self.print();
+    }
+}
+    </script>
+
     <%--FILTROS--%>
     <asp:Panel ID="panel" runat="server" SkinID="FilterPanel">
         <table width="100%">
@@ -127,6 +161,88 @@
             <asp:AsyncPostBackTrigger ControlID="btnActualizar" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
+    
+    <asp:UpdatePanel ID="updasdf" runat="server">
+        <ContentTemplate>
+            <asp:Panel ID="PanelModal" runat="server" style="display: none;">
+                <div style="background-color: lightgray; border: black; width: auto; padding: 30px;">
+                    <table>
+                        <tr>
+                            <td align="right">
+                                <cwc:ResourceLabel ID="labelReportName" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="REPORTNAME" />
+                            </td>
+                            <td align="left">
+                                <asp:TextBox ID="textBoxReportName" runat="server" MaxLength="120" TextMode="SingleLine" Width="300px" Height="30px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <cwc:ResourceLabel ID="ResourceLabel7" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="PERIODICIDAD" />
+                            </td>
+                            <td align="left">
+                                <asp:DropDownList ID="cbPeriodicidad" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <cwc:ResourceLabel ID="ResourceLabel8" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="MAIL" />
+                            </td>
+                            <td align="left">
+                                <asp:TextBox ID="txtMail" runat="server" MaxLength="500" TextMode="MultiLine" Width="300px" Height="40px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <asp:RadioButton ID="rbutExcel" runat="server" Font-Bold="true" Text="Excel Completo" GroupName="FormatList" ValidationGroup="FormatList" Checked="true" />
+                                <asp:RadioButton ID="rbutHtml" runat="server" Font-Bold="true" Text="Email Resumido" GroupName="FormatList" ValidationGroup="FormatList" Checked="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <cwc:ResourceButton ID="btnGuardar" runat="server" ResourceName="Controls" VariableName="BUTTON_SOLICITAR" OnClick="BtScheduleGuardarClick" />
+                                <cwc:ResourceButton ID="btnCancelar" runat="server" ResourceName="Controls" VariableName="BUTTON_CANCEL" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <cwc:ResourceLabel ID="lblLeyenda" runat="server" ResourceName="Labels" VariableName="CONDICION_REPORTE_PROGRAMADO" ForeColor="#FF0000" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </asp:Panel>
+            <asp:Panel ID="panelBobo" runat="server"></asp:Panel>
+            <AjaxToolkit:ModalPopupExtender TargetControlId="panelBobo" PopupControlID="PanelModal" ID="mpePanel" CancelControlID="btnCancelar" runat="server" BackgroundCssClass="disabled_back" />
+        </ContentTemplate>
+     </asp:UpdatePanel>
+     
+     <asp:UpdatePanel ID="UpdatePanelSendReport" runat="server">
+        <ContentTemplate>
+            <asp:Panel ID="PanelModalSendReport" runat="server" style="display: none;">
+                <div style="background-color: White; border: solid 1px black; width: auto; padding: 30px;">
+                    <table>
+                        <tr>
+                            <td align="right">
+                                <cwc:ResourceLabel ID="LabelMailSendReport" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="MAIL" />
+                            </td>
+                            <td align="left">
+                                <asp:TextBox ID="TextBoxEmailSendReport" runat="server" MaxLength="500" TextMode="SingleLine" Width="300px" Height="40px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <cwc:ResourceButton ID="ButtonOkSendReport" runat="server" ResourceName="Controls" VariableName="BUTTON_SOLICITAR" />
+                                <cwc:ResourceButton ID="ButtonCancelSendReport" runat="server" ResourceName="Controls" VariableName="BUTTON_CANCEL" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </asp:Panel>
+            <asp:Panel ID="hiddenPanelSendReport" runat="server"></asp:Panel>
+            <AjaxToolkit:ModalPopupExtender TargetControlId="hiddenPanelSendReport" PopupControlID="PanelModalSendReport" ID="popUpSendReport" CancelControlID="ButtonCancelSendReport" runat="server" BackgroundCssClass="disabled_back" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    
     <div id="printContent" style="display: none;">
         <asp:UpdatePanel ID="upFiltrosPrinta" runat="server" UpdateMode="Always">
             <ContentTemplate>
@@ -167,4 +283,9 @@
             </Triggers>
         </asp:UpdatePanel>
     </div>
-</asp:Content>
+    <iframe id="ifPrint" width="0" height="0" style="visibility: hidden;">
+        <%--<iframe id="ifPrint" width="100%" height="600" >--%>
+    </iframe>
+    </form>
+</body>
+</html>

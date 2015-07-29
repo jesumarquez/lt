@@ -31,10 +31,12 @@ namespace Logictracker.Web.Reportes.Accidentologia
         {
             return (ddlDistrito.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlDistrito.Selected) : null;
         }
+
         protected override Linea GetLinea()
         {
             return (ddlBase != null && ddlBase.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlBase.Selected) : null;
         }
+
         private int District
         {
             get

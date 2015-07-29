@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using C1.Web.UI.Controls.C1GridView;
 using System.Linq;
 using System.Web.UI;
+using Logictracker.Security;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Documentos;
 using Logictracker.Types.ValueObjects.Documentos;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -15,12 +18,24 @@ namespace Logictracker.Documentos
         protected override string GetRefference() { return "VENCIMIENTO_DOC"; }
         protected override string VariableName { get { return "DOC_REP_VENCIMIENTO"; } }
         protected override bool ExcelButton { get { return true; } }
+        protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
             dtFecha.SetDate();
+        }
+
+        protected override Empresa GetEmpresa()
+        {
+            return (cbLocacion.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(cbLocacion.Selected) : null;
+        }
+
+        protected override Linea GetLinea()
+        {
+            return (cbPlanta != null && cbPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(cbPlanta.Selected) : null;
         }
 
         protected override void BtnSearchClick(object sender, EventArgs e)
@@ -76,6 +91,53 @@ namespace Logictracker.Documentos
             else if (dataItem.DiasAlVencimiento < 0) e.Row.BackColor = Color.Red;
             else if (dataItem.DiasAlVencimiento < data.DiasAviso) e.Row.BackColor = Color.Yellow;
             else e.Row.BackColor = Color.Green;
+        }
+
+        protected override string GetSelectedDocuments()
+        {
+            var sDocumentos = new StringBuilder();
+
+            if (cbTipoDocumento.SelectedValues.Contains(0)) cbTipoDocumento.ToogleItems();
+
+            foreach (var doc in cbTipoDocumento.SelectedValues)
+            {
+                if (!sDocumentos.ToString().Equals(""))
+                    sDocumentos.Append(",");
+
+                sDocumentos.Append(doc.ToString());
+            }
+
+            return sDocumentos.ToString();
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            if (cbTipoDocumento.SelectedValues.Contains(0)) cbTipoDocumento.ToogleItems();
+
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base: {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0},", reporte);
+            sDescription.AppendFormat("Tipo de Documento: {0}, ", cbTipoDocumento.SelectedStringValues);
+
+            return sDescription.ToString();
+        }
+
+        protected override int GetCompanyId()
+        {
+            return GetEmpresa().Id;
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            if (cbTipoDocumento.SelectedValues.Contains(0)) cbTipoDocumento.ToogleItems();
+
+            return cbTipoDocumento.SelectedValues;
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dtFecha.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
         }
 
         [Serializable]

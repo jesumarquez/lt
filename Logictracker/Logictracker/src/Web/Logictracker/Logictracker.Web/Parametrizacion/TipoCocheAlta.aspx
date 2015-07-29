@@ -77,9 +77,12 @@
                         <c1:C1NumericInput runat="server" ID="npKilometros" DecimalPlaces="0" MaxValue="999999" MinValue="0" Width="100px" Height="15px" Value="0" SmartInputMode="true" />
                         
                         <cwc:ResourceLabel ID="lblVelocidadPromedio" runat="server" ResourceName="Labels" VariableName="VELOCIDAD_PROMEDIO" />
-                        <c1:C1NumericInput runat="server" ID="npVelocidadPromedio" DecimalPlaces="0" MaxValue="999" MinValue="0" Width="100px" Height="15px" Value="200" SmartInputMode="true" />
+                        <c1:C1NumericInput runat="server" ID="npVelocidadPromedio" DecimalPlaces="0" MaxValue="999" MinValue="0" Width="100px" Height="15px" Value="20" SmartInputMode="true" />
                         
-                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="CAPACIDAD_CARGA" />
+                        <cwc:ResourceLabel ID="lblCapacidadCarga" runat="server" ResourceName="Labels" VariableName="CAPACIDAD_CARGA" />
+                        <c1:C1NumericInput runat="server" ID="npCapacidadCarga" DecimalPlaces="0" MaxValue="999999" MinValue="0" Width="100px" Height="15px" Value="0" SmartInputMode="true" />
+                        
+                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="CAPACIDAD_COMBUSTIBLE" />
                         <c1:C1NumericInput runat="server" ID="txtCapacidad" DecimalPlaces="0" MaxValue="999999" MinValue="0" Width="100px" Height="15px" Value="0" SmartInputMode="true" />
                         
                         <cwc:ResourceLabel ID="ResourceLabel9" runat="server" ResourceName="Labels" VariableName="DESVIO_MINIMO" />

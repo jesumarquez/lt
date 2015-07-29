@@ -2614,7 +2614,10 @@
     <value>Average</value>
   </data>
   <data name="CAPACIDAD_CARGA" xml:space="preserve">
-    <value>Capacity</value>
+    <value>Charge Capacity</value>
+  </data>
+  <data name="CAPACIDAD_COMBUSTIBLE" xml:space="preserve">
+    <value>Fuel Capacity</value>
   </data>
   <data name="DISTANCIA_A_OBRA" xml:space="preserve">
     <value>Distance to Work</value>
@@ -4509,5 +4512,8 @@
   </data>
   <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
     <value>View Admin Events</value>
+  </data>
+  <data name="FORMATO" xml:space="preserve">
+    <value>Format</value>
   </data>
 </root>

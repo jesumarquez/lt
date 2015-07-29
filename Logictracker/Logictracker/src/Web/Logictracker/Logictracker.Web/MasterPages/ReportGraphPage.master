@@ -17,7 +17,7 @@
 <asp:UpdatePanel ID="updasdf" runat="server">
         <ContentTemplate>
             <asp:Panel ID="PanelModal" runat="server" style="display: none;">
-                <div style="background-color: White; border: solid 1px black; width: auto; padding: 30px;">
+                <div style="background-color: lightgray; border: black; width: auto; padding: 30px;">
                     <table>
                         <tr>
                             <td align="right">
@@ -41,6 +41,12 @@
                             </td>
                             <td align="left">
                                 <asp:TextBox ID="txtMail" runat="server" MaxLength="500" TextMode="MultiLine" Width="300px" Height="40px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <asp:RadioButton ID="rbutExcel" runat="server" Font-Bold="true" Text="Excel Completo" GroupName="FormatList" ValidationGroup="FormatList" Checked="true" />
+                                <asp:RadioButton ID="rbutHtml" runat="server" Font-Bold="true" Text="Email Resumido" GroupName="FormatList" ValidationGroup="FormatList" Checked="false" />
                             </td>
                         </tr>
                         <tr>
