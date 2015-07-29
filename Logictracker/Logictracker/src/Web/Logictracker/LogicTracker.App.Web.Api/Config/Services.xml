@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <object id="RouteService" type="Logictracker.Tracker.Application.Services.RouteService, Logictracker.Tracker.Application.Services" singleton="true"  autowire="autodetect" >
+    <property name="DaoFactory" ref="daoFactory"/>
+  </object>
+
+  <!--<object id="SecureResourceAttribute" type="LogicTracker.App.Web.Api.Filters.SecureResourceAttribute, LogicTracker.App.Web.Api.Filters" singleton="true"  autowire="autodetect" >
+    <property name="DaoFactory" ref="daoFactory"/>
+  </object>-->
+  
+  <object id="DaoFactory" type="Logictracker.DAL.Factories.DAOFactory, Logictracker.DAL" singleton="true"  autowire="autodetect"  />
+
+  <!-- ////////////////////////////////////////////////////////////////////////////////-->
+  <!--             Garmin Message Queue Objects Definitions                            -->
+  <!-- ////////////////////////////////////////////////////////////////////////////////-->
+
+  <!-- My Message Binary Converter to Serialize Messages in MSMQ -->
+  <object id="binaryMessageConverter" type="Spring.Messaging.Support.Converters.BinaryMessageConverter, Spring.Messaging"/>
+
+  <object id="garminMessageQueueTemplate" type="Spring.Messaging.Core.MessageQueueTemplate, Spring.Messaging">
+    <property name="DefaultMessageQueueObjectName" value="garminMessageInputQueue"/>
+    <property name="MessageConverterObjectName" value="binaryMessageConverter"/>
+  </object>
+
+  <!--Mobile Message InputQueue Factory-->
+  <object id="garminMessageInputQueue" type="Spring.Messaging.Support.MessageQueueFactoryObject, Spring.Messaging">
+    <property name="Path" value=".\Private$\eventos_trax"/>
+    <property name="MessageReadPropertyFilterSetAll" value="true"/>
+  </object>
+</objects>

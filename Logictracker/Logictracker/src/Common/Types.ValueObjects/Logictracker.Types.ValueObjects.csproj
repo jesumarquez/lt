@@ -39,18 +39,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Logictracker.DAL, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.DAL.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.DAL, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.DAL.dll</HintPath>
-    </Reference>
-    <Reference Include="Logictracker.DAL, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Web\Logictracker\Logictracker.Web\Bin\Logictracker.DAL.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -256,6 +244,10 @@
     <ProjectReference Include="..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\Logictracker.DAL.csproj">
+      <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
+      <Name>Logictracker.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services.Helpers\Logictracker.Services.Helpers.csproj">
       <Project>{335550D5-F4A2-4AD0-A22F-C4AB705C6606}</Project>

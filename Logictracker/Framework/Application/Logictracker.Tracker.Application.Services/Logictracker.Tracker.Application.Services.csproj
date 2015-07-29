@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC30A8F9-E1B3-4B49-A63F-488538F2A2BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Tracker.Application.Services</RootNamespace>
+    <AssemblyName>Logictracker.Tracker.Application.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\packages\Common.Logging.3.1.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\..\packages\Common.Logging.Core.3.1.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Cache">
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.DAL, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Messages.Saver">
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Messages.Saver.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Messages.Sender">
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Messages.Sender.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Messaging">
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Model">
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Process.CicloLogistico, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Process.CicloLogistico.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Types, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Logictracker.Utils">
+      <HintPath>..\..\..\packages\Logictracker\Logictracker.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop">
+      <HintPath>..\..\..\packages\Spring.Aop.2.0.1\lib\net45\Spring.Aop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\..\..\packages\Spring.Core.2.0.1\lib\net45\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data">
+      <HintPath>..\..\..\packages\Spring.Data.2.0.1\lib\net45\Spring.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spring.Messaging">
+      <HintPath>..\..\..\packages\Spring.Messaging.2.0.1\lib\net45\Spring.Messaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RouteService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
