@@ -30,11 +30,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         }
         public PuntoEntrega FindByCode(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, string code)
         {
-            return Query.FilterCliente(Session, empresas, lineas, clientes, null)
-                .Where(c => !c.Baja)
-                .Where(c => c.Codigo == code)
-                .Cacheable()
-				.SafeFirstOrDefault();
+            var q = Query.FilterCliente(Session, empresas, lineas, clientes, null)
+                        .Where(c => !c.Baja)
+                        .Where(c => c.Codigo == code);
+
+            q = q.Cacheable();
+
+            return q.SafeFirstOrDefault();
         }
         #endregion
 
