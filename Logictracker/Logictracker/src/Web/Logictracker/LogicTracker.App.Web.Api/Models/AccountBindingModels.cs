@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace LogicTracker.App.Web.Api.Models
 {
