@@ -61,3 +61,6 @@ packages/
 /Logictracker/Logictracker.Full.sdf
 /Logictracker/UpgradeLog.htm
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/en/*.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/es/*.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/pt/*.dll
