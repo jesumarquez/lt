@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,9 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\BackEnd\Codecs\Caesat\Logictracker.Tracker.Parser.Caesat\Logictracker.Tracker.Parser.Caesat.csproj">
       <Project>{d74ba63a-1385-489c-9c87-a122856a3ae9}</Project>
       <Name>Logictracker.Tracker.Parser.Caesat</Name>
@@ -62,6 +59,9 @@
       <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
       <Name>Logictracker.Types</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
