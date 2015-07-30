@@ -1,0 +1,22 @@
+USE [logictracker]
+GO
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.[par.par_enti_07_tbl_transportistas] ADD
+	parenti07_costo_por_bulto float(53) NULL,
+	parenti07_costo_por_hora float(53) NULL,
+	parenti07_costo_por_km float(53) NULL
+GO
+ALTER TABLE dbo.[par.par_enti_07_tbl_transportistas] SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
