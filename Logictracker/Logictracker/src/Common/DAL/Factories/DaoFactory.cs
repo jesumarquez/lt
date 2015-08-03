@@ -83,7 +83,11 @@ namespace Logictracker.DAL.Factories
         #region Dispositivos
 
         private DispositivoDAO _dispositivoDao;
-        public DispositivoDAO DispositivoDAO { get { return _dispositivoDao ?? (_dispositivoDao = GetDao<DispositivoDAO>()); } }
+
+        public virtual DispositivoDAO DispositivoDAO
+        {
+            get { return _dispositivoDao ?? (_dispositivoDao = GetDao<DispositivoDAO>()); }
+        }
 
         private ConfiguracionDispositivoDAO _configuracionDispositivoDao;
         public ConfiguracionDispositivoDAO ConfiguracionDispositivoDAO { get { return _configuracionDispositivoDao ?? (_configuracionDispositivoDao = GetDao<ConfiguracionDispositivoDAO>()); } }
@@ -114,7 +118,7 @@ namespace Logictracker.DAL.Factories
         public TipoEmpleadoDAO TipoEmpleadoDAO { get { return _tipoEmpleadoDao ?? (_tipoEmpleadoDao = GetDao<TipoEmpleadoDAO>()); } }
 
         private EmpleadoDAO _empleadoDao;
-        public EmpleadoDAO EmpleadoDAO { get { return _empleadoDao ?? (_empleadoDao = GetDao<EmpleadoDAO>()); } }
+        public virtual EmpleadoDAO EmpleadoDAO { get { return _empleadoDao ?? (_empleadoDao = GetDao<EmpleadoDAO>()); } }
 
         
 
@@ -155,7 +159,7 @@ namespace Logictracker.DAL.Factories
         public TipoMensajeDAO TipoMensajeDAO { get { return _tipoMensajeDao ?? (_tipoMensajeDao = GetDao<TipoMensajeDAO>()); } }
 
         private MensajeDAO _mensajeDao;
-        public MensajeDAO MensajeDAO { get { return _mensajeDao ?? (_mensajeDao = GetDao<MensajeDAO>()); } }
+        public virtual MensajeDAO MensajeDAO { get { return _mensajeDao ?? (_mensajeDao = GetDao<MensajeDAO>()); } }
 
         private AccionDAO _accionDao;
         public AccionDAO AccionDAO { get { return _accionDao ?? (_accionDao = GetDao<AccionDAO>()); } }

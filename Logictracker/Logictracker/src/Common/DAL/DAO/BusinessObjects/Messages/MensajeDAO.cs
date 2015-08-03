@@ -408,7 +408,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 			return LogicCache.Retrieve<MensajeVO>(typeof(MensajeVO), key);
 		}
 
-        public IEnumerable<Mensaje> GetMensajesDeConfirmacion(int[] empresas, int[] lineas)
+        public virtual IEnumerable<Mensaje> GetMensajesDeConfirmacion(int[] empresas, int[] lineas)
         {
             var dc = GetMensajeDetachedCriteria(false, empresas, lineas);
             //dc.Add(Restrictions.Eq("m.TipoMensaje.DeConfirmacion", true));
@@ -418,7 +418,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return mensajes;
         }
 
-        public IEnumerable<Mensaje> GetMensajesDeRechazo(int[] empresas, int[] lineas)
+        public virtual IEnumerable<Mensaje> GetMensajesDeRechazo(int[] empresas, int[] lineas)
         {
             var dc = GetMensajeDetachedCriteria(false, empresas, lineas);
             //dc.Add(Restrictions.Eq("TipoMensaje.DeRechazo", true));
@@ -428,7 +428,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return mensajes;
         }
 
-        public IEnumerable<Mensaje> GetMensajesDeUsuario(int[] empresas, int[] lineas)
+        public virtual IEnumerable<Mensaje> GetMensajesDeUsuario(int[] empresas, int[] lineas)
         {
             var dc = GetMensajeDetachedCriteria(false, empresas, lineas);
             //dc.Add(Restrictions.Eq("TipoMensaje.DeRechazo", true));

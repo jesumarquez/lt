@@ -21,7 +21,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Dispositivos
 //        public DispositivoDAO(ISession session) : base(session) { }
 
         #region Public Methods
-        public Dispositivo FindByImei(string imei)
+        public virtual Dispositivo FindByImei(string imei)
         {
             return Session.Query<Dispositivo>()
                 .Where(d => d.Imei == imei)

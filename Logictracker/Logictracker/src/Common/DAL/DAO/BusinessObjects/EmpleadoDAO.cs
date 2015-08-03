@@ -274,7 +274,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         }
         
         // TODO: Devuelve 1? es el correcto?
-        public Empleado FindEmpleadoByDevice(Dispositivo dispositivo)
+        public virtual Empleado FindEmpleadoByDevice(Dispositivo dispositivo)
         {
             var dc =
                 DetachedCriteria.For<Empleado>("de")
