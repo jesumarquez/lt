@@ -44,9 +44,9 @@ namespace Logictracker.DAL.DAO.BaseClasses
                 .FilterEmpresa(empresas)
                 .FilterLinea(lineas);
 
-            var clientesU = clientesQ.Cacheable();
+            if (!IncludesAll(clientes)) clientesQ = clientesQ.Where(l => clientes.Contains(l.Id));
 
-            if (!IncludesAll(clientes)) clientesU = clientesU.Where(l => clientes.Contains(l.Id));
+            var clientesU = clientesQ.Cacheable();
 
             return clientesU;
         } 
