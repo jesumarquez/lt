@@ -13,5 +13,9 @@
 
     <property column="parenti14_tarifa_tramo_corto" type="Double" name="TarifaTramoCorto" />
     <property column="parenti14_tarifa_tramo_largo" type="Double" name="TarifaTramoLargo" />
+    <property column="parenti14_costo_por_bulto" name="CostoPorBulto" />
+    <property column="parenti14_costo_por_hora" name="CostoPorHora" />
+    <property column="parenti14_costo_por_km" name="CostoPorKm" />
+
   </class>
 </hibernate-mapping>

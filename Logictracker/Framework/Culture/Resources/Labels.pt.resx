@@ -2721,6 +2721,12 @@
   <data name="COSTO_KM" xml:space="preserve">
     <value>Custo Km</value>
   </data>
+  <data name="COSTO_HORA" xml:space="preserve">
+    <value>Custo Hora</value>
+  </data>
+  <data name="COSTO_BULTO" xml:space="preserve">
+    <value>Custo Bulto</value>
+  </data>
   <data name="ESTADO_PEDIDO_CANCELADO" xml:space="preserve">
     <value>Cancelado</value>
   </data>
