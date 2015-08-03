@@ -12,6 +12,7 @@ using Logictracker.Layers.MessageQueue;
 using Logictracker.Mailing;
 using Logictracker.Reports.Messaging;
 using Logictracker.Types.BusinessObjects;
+using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Web.BaseClasses.Util;
 using Logictracker.Web.CustomWebControls.Buttons;
 using Logictracker.Web.CustomWebControls.Helpers;
@@ -302,7 +303,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         }
         
         protected override void Schedule()
-        {
+        {           
             CbSchedulePeriodicidad.Items.Clear();
             CbSchedulePeriodicidad.Items.Insert(0, new ListItem(CultureManager.GetLabel("DIARIO"), "D"));
             CbSchedulePeriodicidad.Items.Insert(1, new ListItem(CultureManager.GetLabel("SEMANAL"), "S"));

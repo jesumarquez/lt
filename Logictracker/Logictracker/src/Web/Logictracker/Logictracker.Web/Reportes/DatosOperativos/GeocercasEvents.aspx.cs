@@ -338,6 +338,27 @@ namespace Logictracker.Reportes.DatosOperativos
 
         #endregion
 
+        protected override void Schedule()
+        {
+            var selectedGeocercas = GetSelectedGeocercas();
+            if (DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(selectedGeocercas))
+            {
+                if (DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(lbTipoDomicilio.SelectedValues))
+                    ShowError("Por favor, seleccione un Tipo de Referencia Geográfica.");
+                else
+                    ShowError("No se encontraron Referencias Geográficas para los filtros seleccionados");
+            }
+            else
+            {
+                CbSchedulePeriodicidad.Items.Clear();
+                CbSchedulePeriodicidad.Items.Insert(0, new ListItem(CultureManager.GetLabel("DIARIO"), "D"));
+                CbSchedulePeriodicidad.Items.Insert(1, new ListItem(CultureManager.GetLabel("SEMANAL"), "S"));
+                CbSchedulePeriodicidad.Items.Insert(2, new ListItem(CultureManager.GetLabel("MENSUAL"), "M"));
+
+                ModalSchedule.Show();
+            }
+        }
+
         protected override string GetSelectedVehicles()
         {
             var sVehiculos = new StringBuilder();

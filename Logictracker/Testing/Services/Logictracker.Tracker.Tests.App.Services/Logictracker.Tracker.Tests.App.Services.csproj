@@ -57,6 +57,28 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.Services\Logictracker.Tracker.Application.Services.csproj">
+      <Project>{AC30A8F9-E1B3-4B49-A63F-488538F2A2BF}</Project>
+      <Name>Logictracker.Tracker.Application.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
+      <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>
+      <Name>Logictracker.Tracker.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937F8161-9C96-42DA-88A3-4CBC1DB92A3D}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
