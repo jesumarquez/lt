@@ -410,7 +410,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5796</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/LogicTracker.App.Web.Api</IISUrl>
+          <IISUrl>http://localhost/Logictracker.Web.Api</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
