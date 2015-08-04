@@ -59,10 +59,6 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Logictracker.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Logictracker\Logictracker.Security.dll</HintPath>
-    </Reference>
     <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Logictracker\Memcached.ClientLibrary.dll</HintPath>
@@ -384,6 +380,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
       <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
       <Name>Logictracker.Messages.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2d0c837c-8644-4c77-8267-be07cad743bd}</Project>
+      <Name>Logictracker.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
