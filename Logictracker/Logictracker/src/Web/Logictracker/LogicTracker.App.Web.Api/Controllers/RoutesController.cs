@@ -7,7 +7,6 @@ using System.Web.Http;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Messages.Saver;
 using Logictracker.Messages.Sender;
-using Logictracker.Tracker.Parser.Caesat;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Dispositivos;
