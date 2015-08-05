@@ -8,7 +8,8 @@ namespace Make
 	internal class Program
 	{
 	    private static void Main(string[] args)
-		{
+	    {
+	        
 			var num = 0;
 			if (args.Length > 0)
 			{
@@ -31,7 +32,7 @@ namespace Make
 				Console.WriteLine();
 				Console.Write("1. Compilando Solución...");
 				stopwatch.Start();
-				var text2 = string.Format("{0}\\Microsoft Visual Studio 9.0\\Common7\\IDE\\devenv.exe", environmentVariable);
+                var text2 = string.Format("{0}\\Microsoft Visual Studio 12.0\\Common7\\IDE\\devenv.exe", environmentVariable);
                 var args2 = string.Format("\"Logictracker.Full.sln\" /build Debug /out \"{0}\"", "compile.log");
 				Execute(text2, args2);
 				Console.WriteLine(stopwatch.Elapsed);
@@ -51,7 +52,7 @@ namespace Make
 				Console.WriteLine();
 				Console.Write("2. Publicando Web...");
 				stopwatch.Reset();
-				const string text2 = "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\aspnet_compiler";
+                const string text2 = "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\aspnet_compiler";
                 const string args2 = "-nologo -v / -p \"Logictracker\\src\\Web\\Logictracker\\Logictracker.Web\" -u \"PrecompiledWeb\\Logictracker.Web\" -f -fixednames";
 				Execute(text2, args2);
 				Console.WriteLine(stopwatch.Elapsed);
