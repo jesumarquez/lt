@@ -33,6 +33,9 @@ namespace Logictracker.Types.BusinessObjects
 
         public virtual Double TarifaTramoCorto { get; set; }
         public virtual Double TarifaTramoLargo { get; set; }
+        public virtual Double CostoPorBulto { get; set; }
+        public virtual Double CostoPorHora { get; set; }
+        public virtual Double CostoPorKm { get; set; }
         public virtual string Telefono { get; set; }
         public virtual string Mail { get; set; }
         public virtual string Contacto { get; set; }

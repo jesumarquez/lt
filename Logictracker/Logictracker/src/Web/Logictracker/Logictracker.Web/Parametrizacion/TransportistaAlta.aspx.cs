@@ -64,6 +64,9 @@ namespace Logictracker.Parametrizacion
 
             var txtCorto = e.Item.FindControl("txtTarifaCorto") as TextBox;
             var txtLargo = e.Item.FindControl("txtTarifaLargo") as TextBox;
+            var txtCostoBulto = e.Item.FindControl("txtCostoBulto") as TextBox;
+            var txtCostoHora = e.Item.FindControl("txtCostoHora") as TextBox;
+            var txtCostoKm = e.Item.FindControl("txtCostoKm") as TextBox;
             var cbCliente = e.Item.FindControl("cbCliente") as DropDownList;
             var btEliminarTarifa = e.Item.FindControl("btEliminarTarifa") as LinkButton;
 
@@ -75,6 +78,9 @@ namespace Logictracker.Parametrizacion
 
             if (txtCorto != null) txtCorto.Text = param.TarifaTramoCorto.ToString();
             if (txtLargo != null) txtLargo.Text = param.TarifaTramoLargo.ToString();
+            if (txtCostoBulto != null) txtCostoBulto.Text = param.CostoPorBulto.ToString();
+            if (txtCostoHora != null) txtCostoHora.Text = param.CostoPorHora.ToString();
+            if (txtCostoKm != null) txtCostoKm.Text = param.CostoPorKm.ToString();
 
             if (param.Cliente == null) return;
 
@@ -94,12 +100,15 @@ namespace Logictracker.Parametrizacion
         {
             var par = Tarifas;
 
-            double corto, largo;
+            double corto, largo, bulto, hora, km;
 
             double.TryParse(txtTarifaCorto.Text, out corto);
             double.TryParse(txtTarifaLargo.Text, out largo);
+            double.TryParse(txtCostoBulto.Text, out bulto);
+            double.TryParse(txtCostoHora.Text, out hora);
+            double.TryParse(txtCostoKm.Text, out km);
 
-            par.Add(new TarifaTransportista { TarifaTramoCorto = corto, TarifaTramoLargo = largo });
+            par.Add(new TarifaTransportista { TarifaTramoCorto = corto, TarifaTramoLargo = largo, CostoPorBulto = bulto, CostoPorHora = hora, CostoPorKm = km });
 
             Tarifas = par;
 
@@ -163,11 +172,13 @@ namespace Logictracker.Parametrizacion
             txtTelefono.Text = EditObject.Telefono;
             txtTarifaCorto.Text = EditObject.TarifaTramoCorto.ToString();
             txtTarifaLargo.Text = EditObject.TarifaTramoLargo.ToString();
+            txtCostoBulto.Text = EditObject.CostoPorBulto.ToString();
+            txtCostoHora.Text = EditObject.CostoPorHora.ToString();
+            txtCostoKm.Text = EditObject.CostoPorKm.ToString();
             chkIdentificaChoferes.Checked = EditObject.IdentificaChoferes;
 
             SelectGeoRef1.SetReferencia(EditObject.ReferenciaGeografica);
-            EditEntityGeoRef1.SetReferencia(EditObject.ReferenciaGeografica);
-        
+            EditEntityGeoRef1.SetReferencia(EditObject.ReferenciaGeografica);        
 
             BindTarifas();
 
@@ -257,6 +268,9 @@ namespace Logictracker.Parametrizacion
             EditObject.Contacto = txtContacto.Text;
             EditObject.TarifaTramoCorto = Convert.ToDouble(txtTarifaCorto.Text);
             EditObject.TarifaTramoLargo = Convert.ToDouble(txtTarifaLargo.Text);
+            EditObject.CostoPorBulto = Convert.ToDouble(txtCostoBulto.Text);
+            EditObject.CostoPorHora = Convert.ToDouble(txtCostoHora.Text);
+            EditObject.CostoPorKm = Convert.ToDouble(txtCostoKm.Text);
             EditObject.IdentificaChoferes = chkIdentificaChoferes.Checked;
         
             var i = 0;
@@ -267,11 +281,17 @@ namespace Logictracker.Parametrizacion
 
                 var txtCorto = item.FindControl("txtTarifaCorto") as TextBox;
                 var txtLargo = item.FindControl("txtTarifaLargo") as TextBox;
+                var txtBulto = item.FindControl("txtCostoBulto") as TextBox;
+                var txtHora = item.FindControl("txtCostoHora") as TextBox;
+                var txtKm = item.FindControl("txtCostoKm") as TextBox;
                 var cbCliente = item.FindControl("cbCliente") as DropDownList;
 
                 if (cbCliente != null) tarifa.Cliente = DAOFactory.ClienteDAO.FindById(Convert.ToInt32(cbCliente.SelectedValue));
                 if (txtCorto != null) tarifa.TarifaTramoCorto = Convert.ToDouble(txtCorto.Text);
                 if (txtLargo != null) tarifa.TarifaTramoLargo = Convert.ToDouble(txtLargo.Text);
+                if (txtBulto != null) tarifa.CostoPorBulto = Convert.ToDouble(txtBulto.Text);
+                if (txtHora != null) tarifa.CostoPorHora = Convert.ToDouble(txtHora.Text);
+                if (txtKm != null) tarifa.CostoPorKm = Convert.ToDouble(txtKm.Text);
 
                 i++;
             }
@@ -410,7 +430,7 @@ namespace Logictracker.Parametrizacion
         /// <param name="ddl"></param>
         private void BindClientes(BaseDataBoundControl ddl)
         {
-            ddl.DataSource = DAOFactory.ClienteDAO.GetList(new[] {-1}, new[] {-1}).OrderBy(c => c.Descripcion);
+            ddl.DataSource = DAOFactory.ClienteDAO.GetList(new[] {cbEmpresa.Selected}, new[] {cbLinea.Selected}).OrderBy(c => c.Descripcion);
 
             ddl.DataBind();
         }

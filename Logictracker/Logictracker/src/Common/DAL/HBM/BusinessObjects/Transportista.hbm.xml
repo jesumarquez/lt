@@ -12,6 +12,9 @@
     <property column="parenti07_descri" type="String" name="Descripcion" not-null="true" length="64" />
     <property column="parenti07_tarifa_tramo_corto" type="Double" name="TarifaTramoCorto" not-null="false" />
     <property column="parenti07_tarifa_tramo_largo" type="Double" name="TarifaTramoLargo" not-null="false" />
+    <property column="parenti07_costo_por_bulto" name="CostoPorBulto" />
+    <property column="parenti07_costo_por_hora" name="CostoPorHora" />
+    <property column="parenti07_costo_por_km" name="CostoPorKm" />
     <property column="parenti07_mail" type="string" name="Mail" />
     <property column="parenti07_contacto" type="string" name="Contacto" />
     <property column="parenti07_telefono" type="string" name="Telefono" />

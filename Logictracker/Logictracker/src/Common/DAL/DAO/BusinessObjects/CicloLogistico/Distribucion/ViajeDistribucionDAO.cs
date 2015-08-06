@@ -277,7 +277,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
                     .Add(Restrictions.Eq("l.Id", linea));
             }            
 
-            var c = GetCriteria(1, dc, Order.Asc("Inicio"));
+            var c = GetCriteria(0, dc, Order.Asc("Inicio"));
                 
             return c.List<ViajeDistribucion>();
         }
