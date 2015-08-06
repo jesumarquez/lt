@@ -729,6 +729,9 @@
   <data name="OPE_MIMICO" xml:space="preserve">
     <value>Mimic</value>
   </data>
+  <data name="OPE_MIMICO_ENTREGAS" xml:space="preserve">
+    <value>Delivery Mimic</value>
+  </data>
   <data name="OPE_MON_VIAJES" xml:space="preserve">
     <value>Trip Monitor</value>
   </data>

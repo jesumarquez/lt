@@ -232,6 +232,11 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     border: solid 1px #999999;
     margin-top: 40px;
 }
+#monitor .vehiculo_mimico_entregas{
+    margin: 20px;
+    border:  #CCCCCC;
+    margin-top: 40px;
+}
 #monitor .mimico{ position: relative; }
 #monitor .vehiculo_mimico table{
     width: 100%;
@@ -245,7 +250,19 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     background-image: url(img/mimico/bk_line.png);
     background-repeat: repeat-x;
 }
+#monitor .vehiculo_mimico_entregas table{
+    width: 100%;
+    height: 32px;
+    border: none;
+    border-spacing: 0px;
+    font-size: xx-small;
+    font-family: Verdana, Arial, Sans-Serif;
+    text-transform: uppercase;
+    background-color: #cccccc;
+}
+
 #monitor .vehiculo_mimico td{ vertical-align: top; }
+#monitor .vehiculo_mimico_entregas td{ vertical-align: top; }
 #monitor .mimico table{
     border-spacing: 1px;
     background-image: url(img/mimico/bk_line.png);
@@ -284,8 +301,10 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
 }
 #monitor .verde { background-color: #78E27D; border: solid 1px #44BE4A; }
 #monitor .azul { background-color: #78A2E2; border: solid 1px #88AFFF; }
-#monitor .rojo { background-color: #E27878; border: solid 1px #BE4444; }
+#monitor .rojo { background-color: #FF1111; border: solid 1px #FF1111; }
 #monitor .amarillo { background-color: #EBE478; border: solid 1px #C8BF2A; }
+#monitor .naranja { background-color: #E4733A; border: solid 1px #E4733A; }
+#monitor .gris { background-color: gray; border: solid 1px #C8BF2A; }
 #monitor .marker_line {
     position: absolute;
     width: 0px;

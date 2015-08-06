@@ -4627,6 +4627,9 @@
   <data name="TIEMPO_APAGADO" xml:space="preserve">
     <value>Tiempo Apagado</value>
   </data>
+  <data name="SIN_INFORMACION" xml:space="preserve">
+    <value>Sin información</value>
+  </data>
   <data name="OCULTAR_SIN_INFORMACION" xml:space="preserve">
     <value>Ocultar registros sin información</value>
   </data>

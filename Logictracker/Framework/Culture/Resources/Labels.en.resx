@@ -4489,6 +4489,9 @@
   <data name="TIEMPO_APAGADO" xml:space="preserve">
     <value>Not Working Time</value>
   </data>
+  <data name="SIN_INFORMACION" xml:space="preserve">
+    <value>No information</value>
+  </data>
   <data name="OCULTAR_SIN_INFORMACION" xml:space="preserve">
     <value>Hide rows without information</value>
   </data>

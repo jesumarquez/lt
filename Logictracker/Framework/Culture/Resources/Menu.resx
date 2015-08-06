@@ -636,6 +636,9 @@
   <data name="OPE_MIMICO" xml:space="preserve">
     <value>Mímico</value>
   </data>
+  <data name="OPE_MIMICO_ENTREGAS" xml:space="preserve">
+    <value>Mímico de Entregas</value>
+  </data>
   <data name="ADMIN_PROGRAMACION_REPORTE" xml:space="preserve">
     <value>Reportes Programados</value>
   </data>

@@ -418,6 +418,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
             return eventos.LastOrDefault();
         }
+        public LogMensaje GetLastByVehicleAndCodes(int vehicleId, string[] codes, DateTime desde, DateTime hasta, int maxMonths)
+        {
+            var eventos = GetEvents(1, new[] { vehicleId }, codes, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Desc("Fecha"));
+
+            return eventos.LastOrDefault();
+        }
 
         public IList<LogMensaje> GetByVehicleAndCode(int vehicleId, string code, DateTime desde, DateTime hasta, int maxMonths)
         {
