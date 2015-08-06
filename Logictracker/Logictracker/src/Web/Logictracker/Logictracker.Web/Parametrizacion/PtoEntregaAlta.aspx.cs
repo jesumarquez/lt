@@ -26,7 +26,7 @@ namespace Logictracker.Parametrizacion
         {
             cbEmpresa.SetSelectedValue(EditObject.Cliente.Empresa != null ? EditObject.Cliente.Empresa.Id : cbEmpresa.AllValue);
             cbLinea.SetSelectedValue(EditObject.Cliente.Linea != null ? EditObject.Cliente.Linea.Id : cbLinea.AllValue);
-
+            cbResponsable.SetSelectedValue(EditObject.Responsable != null ? EditObject.Responsable.Id : cbResponsable.NoneValue);
             ddlCliente.SetSelectedValue(EditObject.Cliente.Id);
 
             txtCodigo.Text = EditObject.Codigo;
@@ -54,7 +54,7 @@ namespace Logictracker.Parametrizacion
             ValidateEmpty((string) txtDescripcion.Text, (string) "DESCRIPCION");
             var cliente = ValidateEntity(ddlCliente.Selected, "CLIENT");
 
-            var byCode = DAOFactory.PuntoEntregaDAO.FindByCode(new int[0], new int[0], new[] {cliente}, code);
+            var byCode = DAOFactory.PuntoEntregaDAO.FindByCode(new[] {cbEmpresa.Selected}, new[] {cbLinea.Selected}, new[] {cliente}, code);
             ValidateDuplicated(byCode, "CODE");
 
             var georef = EditEntityGeoRef1.GetNewGeoRefference();
@@ -68,6 +68,7 @@ namespace Logictracker.Parametrizacion
                 try
                 {
                     EditObject.Cliente = DAOFactory.ClienteDAO.FindById(ddlCliente.Selected);
+                    EditObject.Responsable = cbResponsable.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbResponsable.Selected) : null;
                     EditObject.Codigo = txtCodigo.Text;
                     EditObject.Descripcion = txtDescripcion.Text;
                     EditObject.Telefono = txtTelefono.Text;

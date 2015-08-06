@@ -85,27 +85,34 @@ namespace Logictracker.Web.Reportes.DatosOperativos
                     tiempoEncendido = tiempoEncendido.Add(fin.Subtract(ultimoEvento.Fecha));
                 }
 
-                var result = new ResumenActividadVo(DAOFactory.CocheDAO.FindById(ultimoEvento.IdCoche), tiempoEncendido, tiempoApagado);
+                var result = new ResumenActividadVo(DAOFactory.CocheDAO.FindById(ultimoEvento.IdCoche).Patente, tiempoEncendido, tiempoApagado);
                 results.Add(result);
             }
 
-            var vehicles = vehiculosSinInfo.Select(v => DAOFactory.CocheDAO.FindById(v)).ToArray();
-            if (vehicles.Any())
+            if (vehiculosSinInfo.Any())
             {
-                var lastEvents = DAOFactory.LastVehicleEventDAO.GetEventsByVehiclesAndType(vehicles, Coche.Totalizador.EstadoGps);
-
-                foreach (var msg in lastEvents)
+                foreach (var vehicle in vehiculosSinInfo)
                 {
-                    if (msg.Mensaje.Codigo == MessageCode.PrivacyOn.GetMessageCode())
+                    var lastEvent = DAOFactory.LogMensajeDAO.GetLastByVehicleAndCodes(vehicle, new[] { MessageCode.PrivacyOn.GetMessageCode(), MessageCode.PrivacyOff.GetMessageCode() }, desde.AddMonths(-3), desde, 3);
+                    if (lastEvent != null)
                     {
-                        // Está apagado
-                        var result = new ResumenActividadVo(msg.Coche, new TimeSpan(), fin.Subtract(desde));
-                        results.Add(result);
+                        if (lastEvent.Mensaje.Codigo == MessageCode.PrivacyOn.GetMessageCode())
+                        {
+                            // Está apagado
+                            var result = new ResumenActividadVo(lastEvent.Coche.Patente, new TimeSpan(), fin.Subtract(desde));
+                            results.Add(result);
+                        }
+                        else if (lastEvent.Mensaje.Codigo == MessageCode.PrivacyOff.GetMessageCode())
+                        {
+                            // Está encendido
+                            var result = new ResumenActividadVo(lastEvent.Coche.Patente, fin.Subtract(desde), new TimeSpan());
+                            results.Add(result);
+                        }
                     }
-                    else if (msg.Mensaje.Codigo == MessageCode.PrivacyOff.GetMessageCode())
+                    else
                     {
-                        // Está encendido
-                        var result = new ResumenActividadVo(msg.Coche, fin.Subtract(desde), new TimeSpan());
+                        // Sin información
+                        var result = new ResumenActividadVo(DAOFactory.CocheDAO.FindById(vehicle).Patente, hasta.Subtract(desde));
                         results.Add(result);
                     }
                 }
