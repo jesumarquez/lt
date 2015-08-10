@@ -397,6 +397,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Tests.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicTracker.App.Web.Api", "Logictracker\src\Web\Logictracker\LogicTracker.App.Web.Api\LogicTracker.App.Web.Api.csproj", "{800B8D30-98F8-4C37-A3E4-F2800788E9A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Tests.Web.Api", "Testing\Web\Logictracker.Tracker.Tests.Web.Api\Logictracker.Tracker.Tests.Web.Api.csproj", "{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -2936,6 +2938,24 @@ Global
 		{800B8D30-98F8-4C37-A3E4-F2800788E9A6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{800B8D30-98F8-4C37-A3E4-F2800788E9A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{800B8D30-98F8-4C37-A3E4-F2800788E9A6}.Release|Win32.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Release|.NET.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3119,5 +3139,6 @@ Global
 		{AB6A4599-455C-455C-8F9D-E960A0B7ED6B} = {6D17862C-920A-462D-BAD9-973B381FB950}
 		{724DD195-536E-47EF-B046-1EFBCDEE5D9F} = {C05B8C68-767D-458E-8616-1268E1D35137}
 		{800B8D30-98F8-4C37-A3E4-F2800788E9A6} = {81C43A95-CD18-4960-ABAB-A98EB3466E17}
+		{5CFFC7C8-B154-416F-B3E1-C405029A0D0F} = {F113C330-3BE8-4B47-AA50-29094B1EF5FA}
 	EndGlobalSection
 EndGlobal

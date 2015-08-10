@@ -15,7 +15,7 @@
     <AssemblyName>LogicTracker.App.Web.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -71,12 +71,6 @@
     <Reference Include="NHibernate, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Logictracker\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.ByteCode.LinFu">
-      <HintPath>..\..\..\packages\Logictracker\NHibernate.ByteCode.LinFu.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.Caches.MemCache">
-      <HintPath>..\..\..\packages\Logictracker\NHibernate.Caches.MemCache.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Aop, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -257,6 +251,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Models\MessageList.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
@@ -274,9 +269,21 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CustomMessage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\OrderModels.cs" />
-    <Compile Include="Models\RouteModels.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\JobState.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\MessageType.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\RouteEvent.cs" />
+    <Compile Include="Models\RouteItem.cs" />
+    <Compile Include="Models\RouteList.cs" />
+    <Compile Include="Models\Route.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\RouteState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -381,6 +388,10 @@
       <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
       <Name>Logictracker.Messages.Sender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
+      <Name>Logictracker.Layers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
       <Project>{2d0c837c-8644-4c77-8267-be07cad743bd}</Project>
       <Name>Logictracker.Security</Name>
@@ -412,7 +423,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5796</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2645/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:2645/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

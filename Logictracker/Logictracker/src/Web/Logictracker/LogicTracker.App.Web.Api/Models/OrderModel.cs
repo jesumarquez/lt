@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace LogicTracker.App.Web.Api.Models
 {
-    public class OrderJob
+    public class OrderModel
     {
         public int Id { get; set; }
         public string Description { get; set; }
@@ -28,16 +25,5 @@ namespace LogicTracker.App.Web.Api.Models
         public DateTime? GarminETAInformedAt { get; set; }
         public DateTime? GarminReadInactiveAt { get; set; }
         public DateTime? GarminUnreadInactiveAt { get; set; }
-    }
-
-    public class Order
-    {
-        public String Code { get; set; }
-        public int Id { get; set; }
-        public int Status { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime? RealStartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
-        public OrderJob[] OrderJobs { get; set; }
     }
 }

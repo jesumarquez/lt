@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
@@ -10,7 +11,7 @@ namespace Logictracker.Tracker.Services
 {
     public interface IRouteService
     {
-        IList<Mensaje> GetAllMessages(string deviceId);
+        IList<Mensaje> GetProfileMessages(string deviceId);
         Empleado GetEmployeeByDeviceImei(string imei);
         ViajeDistribucion GetDistributionRouteById(int routeId);
         IList<ViajeDistribucion> GetAvailableRoutes(string deviceId);
@@ -22,6 +23,8 @@ namespace Logictracker.Tracker.Services
         string ReceiveMessageByRouteAndDelivery(int routeId, string messageCode, string text, DateTime dateTime,
             long deliveryId, float lat, float lon, string deviceId);
         IList<LogMensaje> GetMessagesMobile(string deviceId);
+        bool SendMessagesMobile(string deviceId, List<LogMensaje> mensajes);
         int GetMobileIdByImei(string deviceId);
+        IList<LogMensaje> GetMessagesMobile(string getDeviceId, DateTime dt);
     }
 }
