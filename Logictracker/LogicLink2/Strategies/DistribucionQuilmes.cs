@@ -35,9 +35,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         private readonly List<Coche> _cochesBuffer = new List<Coche>();
         private readonly List<TipoServicioCiclo> _tiposServicioBuffer = new List<TipoServicioCiclo>();
 
-        public static Dictionary<int, List<int>> Parse(LogicLinkFile file, out int rutas, out int entregas)
+        public static Dictionary<int, List<int>> Parse(LogicLinkFile file, out int rutas, out int entregas, out string observaciones)
         {
-            new DistribucionQuilmes(file).Parse(out rutas, out entregas);
+            new DistribucionQuilmes(file).Parse(out rutas, out entregas, out observaciones);
             return EmpresasLineas;
         }
 
@@ -50,7 +50,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             Cliente = DaoFactory.ClienteDAO.GetList(new[] { Empresa.Id }, new[] { -1 }).FirstOrDefault();
         }
 
-        public void Parse(out int rutas, out int entregas)
+        public void Parse(out int rutas, out int entregas, out string observaciones)
         {
             const char separator = '|';
             const int vigencia = 12;
@@ -68,6 +68,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
             rutas = 0;
             entregas = 0;
+            observaciones = string.Empty;
 
             STrace.Trace(Component, "Cantidad de filas: " + rows.Count);
             var filas = 0;
@@ -79,16 +80,27 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 var patente = row.Cells[Properties.DistribucionQuilmes.Patente].ToString().Trim();
                 var vehiculo = _cochesBuffer.SingleOrDefault(v => v.Patente == patente);
-            
+                
                 var oLinea = vehiculo != null && vehiculo.Linea != null ? vehiculo.Linea : Linea;
-                if (oLinea == null) ThrowProperty("LINEA", Llfile.Strategy);
+                if (oLinea == null)
+                {
+                    observaciones = "Valor inválido para el campo LINEA";
+                    continue;
+                }
                 
                 var sFecha = row.Cells[Properties.DistribucionQuilmes.Fecha].ToString().Trim();
                 var codigo = sFecha + row.Cells[Properties.DistribucionQuilmes.Ruta].ToString().Trim();
             
                 var sHora = row.Cells[Properties.DistribucionQuilmes.Hora].ToString().Trim();
                 if (sHora.Length == 3) sHora = "0" + sHora;
-                else if (sHora.Length != 4) ThrowProperty("HORARIO", Llfile.Strategy);
+                else if (sHora.Length != 4)
+                {
+                    observaciones = "Valor inválido para el campo HORARIO";
+                    continue;
+                }
+
+                var sOrden = row.Cells[Properties.DistribucionQuilmes.Orden].ToString().Trim();
+                var orden = Convert.ToInt32(sOrden);
 
                 var latitud = row.Cells[Properties.DistribucionQuilmes.Latitud].ToString().Trim();
                 var longitud = row.Cells[Properties.DistribucionQuilmes.Longitud].ToString().Trim();
@@ -157,16 +169,16 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     {
                         var ultimo = item.Detalles.Last().ReferenciaGeografica;
                         var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
-                        var destino = new LatLon(oLinea.ReferenciaGeografica.Latitude,
-                            oLinea.ReferenciaGeografica.Longitude);
-                        var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving,
-                            string.Empty, null);
+                        var destino = new LatLon(oLinea.ReferenciaGeografica.Latitude, oLinea.ReferenciaGeografica.Longitude);
+                        var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
 
                         if (directions != null)
                         {
                             distance = directions.Distance/1000.0;
                             var duracion = directions.Duration;
                             fecha = item.Detalles.Last().Programado.Add(duracion);
+                            if (item.Detalles.Last().TipoServicio != null)
+                                fecha = fecha.AddMinutes(item.Detalles.Last().TipoServicio.Demora);
                         }
                     }
 
@@ -175,7 +187,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         Linea = oLinea,
                         Descripcion = oLinea.Descripcion,
                         Estado = EntregaDistribucion.Estados.Pendiente,
-                        Orden = item.Detalles.Count,
+                        Orden = orden,
                         Programado = fecha,
                         ProgramadoHasta = fecha,
                         Viaje = item,
@@ -205,14 +217,26 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 var codigoPuntoEntrega = row.Cells[Properties.DistribucionQuilmes.CodigoCliente].ToString().Trim();
                 var nombre = row.Cells[Properties.DistribucionQuilmes.DescripcionCliente].ToString().Trim();
-                if (string.IsNullOrEmpty(codigoPuntoEntrega)) ThrowProperty("PUNTO ENTREGA", Llfile.Strategy);
+                if (string.IsNullOrEmpty(codigoPuntoEntrega))
+                {
+                    observaciones = "Valor inválido para el campo PUNTO ENTREGA";
+                    continue;
+                }
 
                 if (item.Detalles.Any(d => d.PuntoEntrega != null && d.PuntoEntrega.Codigo == codigoPuntoEntrega))
                     continue;
 
+                if (item.Detalles.Any(d => d.Orden == orden)) distance = 0;
+
                 TipoServicioCiclo tipoServicio = null;
                 var tipoServ = _tiposServicioBuffer.SingleOrDefault(ts => ts.Linea == null || ts.Linea.Id == oLinea.Id);
                 if (tipoServ != null && tipoServ.Id > 0) tipoServicio = tipoServ;
+
+                if (codigo.Contains("TR"))
+                {
+                    tipoServ = DaoFactory.TipoServicioCicloDAO.FindByCode(new[] { item.Empresa.Id }, new[] { -1 }, "TR");
+                    if (tipoServ != null && tipoServ.Id > 0) tipoServicio = tipoServ;
+                }
 
                 latitud = latitud.Replace(',', '.');
                 longitud = longitud.Replace(',', '.');
@@ -317,8 +341,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                                       PuntoEntrega = puntoEntrega,
                                       Descripcion = codigoPuntoEntrega,
                                       Estado = EntregaDistribucion.Estados.Pendiente,
-                                      Orden = item.Detalles.Count,
-                                      //Orden = Convert.ToInt32(orden, CultureInfo.InvariantCulture),
+                                      Orden = orden,
                                       Programado = fecha,
                                       ProgramadoHasta = fecha,
                                       TipoServicio = tipoServicio,

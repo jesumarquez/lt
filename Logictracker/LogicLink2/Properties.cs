@@ -25,7 +25,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             public const int Viaje = 1;
             public const int Patente = 2;
             public const int Fecha = 3;
-            public const int Campo1 = 4;
+            public const int Orden = 4;
             public const int Campo2 = 5;
             public const int Hora = 6;
             public const int CodigoCliente = 7;

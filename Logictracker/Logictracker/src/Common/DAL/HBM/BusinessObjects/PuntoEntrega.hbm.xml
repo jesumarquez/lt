@@ -21,7 +21,7 @@
     <property column="parenti44_comentario2" name="Comentario2" />
     <property column="parenti44_comentario3" name="Comentario3" />
 
-    <many-to-one column="rela_parenti09" name="Responsable" lazy="false" />
+    <!--<many-to-one column="rela_parenti09" name="Responsable" lazy="false" />-->
     <many-to-one column="rela_parenti18" name="Cliente" not-null="true" lazy="false" />    
     <many-to-one column="rela_parenti05" name="ReferenciaGeografica" cascade="all" not-null="true" lazy="false" />
   </class>

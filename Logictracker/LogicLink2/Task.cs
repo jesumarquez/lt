@@ -55,6 +55,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     STrace.Trace(Component, "Procesando con Estrategia: " + archivo.Strategy);
                     var rutas = 0;
                     var entregas = 0;
+                    var observaciones = string.Empty;
                     ViajeDistribucion viaje = null;
 
                     switch (archivo.Strategy)
@@ -63,7 +64,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             _empresasLineas = DistribucionFemsa.Parse(archivo, out rutas, out entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionQuilmes:
-                            _empresasLineas = DistribucionQuilmes.Parse(archivo, out rutas, out entregas);
+                            _empresasLineas = DistribucionQuilmes.Parse(archivo, out rutas, out entregas, out observaciones);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionMusimundo:
                             //EmpresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas);
@@ -82,6 +83,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     archivo.Status = LogicLinkFile.Estados.Procesado;
                     archivo.DateProcessed = DateTime.UtcNow;
                     var result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                    if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                     archivo.Result = result;
                     DaoFactory.LogicLinkFileDAO.SaveOrUpdate(archivo);
 
