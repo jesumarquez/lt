@@ -23,7 +23,7 @@
             <cc1:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" Height="600px" >
                 
                 <%--Tab: Filtros--%>
-                <cc1:TabPanel ID="TabPanel4" runat="server" HeaderText="<img src=\'../LorryGreen.png\' alt=\'Vehiculos\' title=\'Vehiculos\' />" >
+                <cc1:TabPanel ID="TabPanel4" runat="server" HeaderText="<img src=\'../LorryGreen.png\' alt=\'Vehículos\' title=\'Vehículos\' />" >
                     <ContentTemplate>
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                             <ContentTemplate>
@@ -38,7 +38,7 @@
                                 <div class="header">
                                     <cwc:ResourceLabel ID="lblLinea" runat="server" VariableName="PARENTI02" ResourceName="Entities" />
                                 </div>
-                                <cwc:PlantaDropDownList ID="cbLinea" runat="server" AutoPostBack="true" Width="100%" ParentControls="cbEmpresa" AddAllItem="true" />
+                                <cwc:PlantaDropDownList ID="cbLinea" runat="server" AutoPostBack="true" Width="100%" ParentControls="cbEmpresa" />
                                 
                                 <asp:Panel ID="PanelVehiculo" runat="server" CssClass="header">
                                     <cwc:ResourceLabel ID="lblVehiculo" runat="server" VariableName="PARENTI03" ResourceName="Entities" />
@@ -47,23 +47,72 @@
                                 
                                 <%--Vehiculo--%>
                                 <cwc:SelectAllExtender ID="selVehiculo" runat="server" AutoPostBack="true" TargetControlId="PanelVehiculo" ListControlId="cbVehiculo"  />
-                                <cwc:MovilListBox ID="cbVehiculo" runat="server" SelectionMode="Multiple" ParentControls="cbTipoVehiculo" Width="100%" Height="300px" AutoPostBack="True" UseOptionGroup="true" />
+                                <cwc:MovilListBox ID="cbVehiculo" runat="server" SelectionMode="Multiple" ParentControls="cbTipoVehiculo" Width="100%" Height="200px" AutoPostBack="True" />
                                 
+                                <asp:Panel ID="PanelEstado" runat="server" CssClass="header">
+                                    <cwc:ResourceLabel ID="lblEstadoRuta" runat="server" VariableName="ESTADO_RUTA" ResourceName="Labels" />
+                                </asp:Panel>
+                                <cwc:SelectAllExtender ID="selEstado" runat="server" AutoPostBack="true" TargetControlId="PanelEstado" ListControlId="cbEstadoRuta" />
+                                <cwc:EstadoViajeDistribucionListBox ID="cbEstadoRuta" runat="server" Width="100%" Height="55px" SelectionMode="Multiple" />
+
                                 <div class="header">
                                     <table width="100%">
                                         <tr>
-                                            <td width="50%" align="left">
+                                            <td align="left">
                                                 <cwc:ResourceLabel ID="lblFecha" runat="server" VariableName="FECHA" ResourceName="Labels" />
                                             </td>
                                             <td align="left">
                                                 <cwc:DateTimePicker ID="dtFecha" runat="server" Mode="Date" TimeMode="Start" />
                                             </td>
+                                            <td align="center">
+                                                <cwc:ResourceButton ID="btnBuscar" runat="server" CssClass="LogicButton_Big" ToolTip="Buscar" Width="75px" OnClick="BtnBuscarClick" ResourceName="Controls" VariableName="BUTTON_SEARCH" />
+                                            </td>
+                                        </tr>                                        
+                                    </table>
+                                </div>
+
+                                <div>
+                                    <table width="100%">
+                                        <tr>
+                                            <td width="30%">
+                                                <cwc:ResourceLabel ID="lblCompletadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_COMPLETADO" />
+                                            </td>
+                                            <td style="background-color: #008000; width: 10%;">
+                                                &nbsp;
+                                            </td>
+                                            <td width="50%">
+                                                <cwc:ResourceLabel ID="lblVisitadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_VISITADO" />
+                                            </td>
+                                            <td style="background-color: #FFFF00; width: 10%;">
+                                                &nbsp;
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" align="center">
-                                                <br />
-                                                <cwc:ResourceButton ID="btnBuscar" runat="server" CssClass="LogicButton_Big" ToolTip="Buscar" Width="75px" OnClick="BtnBuscarClick" ResourceName="Controls" VariableName="BUTTON_SEARCH" />
-                                                <br />
+                                            <td>
+                                                <cwc:ResourceLabel ID="lblEnSitio" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_ENSITIO" />
+                                            </td>
+                                            <td style="background-color: #00A2E8">
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                <cwc:ResourceLabel ID="lblEnZona" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_ENZONA" />
+                                            </td>
+                                            <td style="background-color: gray">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>
+                                                <cwc:ResourceLabel ID="lblNoCompletadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_NOCOMPLETADO" />
+                                            </td>
+                                            <td style="background-color: #FF0000">
+                                                &nbsp;
+                                            </td>             
+                                            <td>
+                                                <cwc:ResourceLabel ID="lblNoVisitadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_SINVISITAR" /> - <cwc:ResourceLabel ID="lblPendientes" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_PENDIENTE" /> 
+                                            </td>
+                                            <td style="background-color: #FF4500">
+                                                &nbsp;
                                             </td>
                                         </tr>
                                     </table>
