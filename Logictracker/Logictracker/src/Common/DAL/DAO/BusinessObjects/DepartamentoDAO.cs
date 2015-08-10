@@ -31,8 +31,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             return Query.FilterEmpresa(Session, empresas)
                 .FilterLinea(Session, empresas, lineas)
-                .Where(l => !l.Baja)
-                .Cacheable();
+                .Where(l => !l.Baja);
         }
 
         #endregion
