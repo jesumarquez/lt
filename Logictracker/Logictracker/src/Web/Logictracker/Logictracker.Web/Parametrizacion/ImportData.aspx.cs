@@ -867,7 +867,7 @@ namespace Logictracker.Parametrizacion
 
                     }
 
-                   // DAOFactory.DocumentoDAO.SaveOrUpdate(document);
+                    DAOFactory.DocumentoDAO.SaveOrUpdate(document);
 
                     contadorDocumentos++;
                 }
@@ -941,7 +941,8 @@ namespace Logictracker.Parametrizacion
                 Descripcion = doc.DescripcionDocumento,
                 Vencimiento = doc.VencimientoDocumento.Value, 
                 Presentacion = doc.PresentacionDocumento,
-                FechaAlta = DateTime.UtcNow
+                FechaAlta = DateTime.UtcNow,
+                Fecha = DateTime.UtcNow
                 
             };
         }
