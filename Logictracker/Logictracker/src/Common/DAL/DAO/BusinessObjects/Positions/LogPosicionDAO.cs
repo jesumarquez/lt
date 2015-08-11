@@ -186,7 +186,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             desde = desde < limite ? limite : desde;
             hasta = hasta < limite ? limite : hasta;
             
-            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetPositionsBetweenDates_2] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta;")
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetPositionsBetweenDates_3] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
                               .SetDateTime("desde", desde)
