@@ -48,14 +48,18 @@ namespace Logictracker.Operacion.Mimico
         public void ShowInfo(DateTime desde, DateTime hasta)
         {
             ClearMimico();
-            var distribuciones = DAOFactory.ViajeDistribucionDAO.GetList(cbEmpresa.SelectedValues, 
+            var estadosRutas = cbEstadoRuta.SelectedValues;
+            if (cbEstadoRuta.SelectedIndex == -1) estadosRutas.Add(-1);
+
+            var distribuciones = DAOFactory.ViajeDistribucionDAO.GetList(cbEmpresa.SelectedValues,
                                                                          cbLinea.SelectedValues,
                                                                          new[] { -1 }, // TRANSPORTISTAS
                                                                          new[] { -1 }, // DEPARTAMENTOS
-                                                                         new[] { -1 }, // CC                                                                          
+                                                                         new[] { -1 }, // CC
                                                                          new[] { -1 }, // SUB CC
                                                                          cbVehiculo.SelectedValues,
-                                                                         desde, 
+                                                                         estadosRutas,
+                                                                         desde,
                                                                          hasta)
                                                                 .Where(v => v.Vehiculo != null);
             var ciclos = new List<Ciclo>();
@@ -151,13 +155,14 @@ namespace Logictracker.Operacion.Mimico
             {
                 Id = entrega.Id;
                 Descripcion = entrega.Orden.ToString();
-                PopupText = string.Format("<div>Cliente: <span>{5}</span></div><div>Estado: <span>{4}</span></div><div>Programado: <span>{0}</span><br/>Entrada: <span>{1}</span><br/>Salida: <span>{2}</span><br/>Manual: <span>{3}</span></div>",
+                PopupText = string.Format("<div>Cód. Cliente: <span>{6}</span></div><div>Cliente: <span>{5}</span></div><div>Estado: <span>{4}</span></div><div>Programado: <span>{0}</span><br/>Entrada: <span>{1}</span><br/>Salida: <span>{2}</span><br/>Manual: <span>{3}</span></div>",
                                   entrega.Programado.ToDisplayDateTime().ToString("HH:mm"),
                                   (entrega.Entrada.HasValue ? entrega.Entrada.Value.ToDisplayDateTime().ToString("HH:mm") : ""),
                                   (entrega.Salida.HasValue ? entrega.Salida.Value.ToDisplayDateTime().ToString("HH:mm") : ""),
                                   (entrega.Manual.HasValue ? entrega.Manual.Value.ToDisplayDateTime().ToString("HH:mm") : ""),
                                   CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado)),
-                                  entrega.PuntoEntrega != null ? entrega.PuntoEntrega.Descripcion : entrega.Linea.Descripcion);
+                                  entrega.PuntoEntrega.Descripcion,
+                                  entrega.PuntoEntrega.Codigo);
 
                 Programado = entrega.Programado;
                 Automatico = entrega.Entrada;

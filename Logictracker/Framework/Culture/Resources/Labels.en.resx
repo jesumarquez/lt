@@ -2677,10 +2677,10 @@
     <value>On Zone</value>
   </data>
   <data name="ENTREGA_STATE_COMPLETADO" xml:space="preserve">
-    <value>Realized</value>
+    <value>Completed</value>
   </data>
   <data name="ENTREGA_STATE_NO_COMPLETADO" xml:space="preserve">
-    <value>Unrealizaed</value>
+    <value>Uncompleted</value>
   </data>
   <data name="ENTREGA_STATE_VISITADO" xml:space="preserve">
     <value>Visited</value>

@@ -2842,10 +2842,10 @@
     <value>En Zona</value>
   </data>
   <data name="ENTREGA_STATE_COMPLETADO" xml:space="preserve">
-    <value>Realizado</value>
+    <value>Completado</value>
   </data>
   <data name="ENTREGA_STATE_NO_COMPLETADO" xml:space="preserve">
-    <value>No Realizado</value>
+    <value>No Completado</value>
   </data>
   <data name="ENTREGA_STATE_VISITADO" xml:space="preserve">
     <value>Visitado</value>
