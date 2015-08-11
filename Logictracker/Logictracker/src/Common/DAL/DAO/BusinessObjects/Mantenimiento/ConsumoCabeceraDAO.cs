@@ -125,8 +125,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Mantenimiento
             var lin = QueryExtensions.GetLineas(Session, empresas, lineas).Select(x=>x.Id);
 
             return result
-                .Where(x => x.Vehiculo.Empresa == null || emp.Contains(x.Vehiculo.Empresa.Id))
-                .Where(x => x.Vehiculo.Linea == null || lin.Contains(x.Vehiculo.Linea.Id))
+                .Where(x => x.Vehiculo.Empresa == null || emp.ToList().Contains(x.Vehiculo.Empresa.Id))
+                .Where(x => x.Vehiculo.Linea == null || lin.ToList().Contains(x.Vehiculo.Linea.Id))
                 .ToList();
         }
 

@@ -116,7 +116,7 @@ namespace Logictracker.Mobile
                 {
                     var selectedProfile = profiles.First().Id;
 
-                    IEnumerable<Logictracker.Types.SecurityObjects.Module> modules;
+                    IEnumerable<MovMenu> modules;
                     IEnumerable<Asegurable> securables;
                     IEnumerable<int> perfiles = DAOFactory.PerfilDAO.GetProfileAccess(_usuario, selectedProfile, out modules, out securables);
 
@@ -184,7 +184,7 @@ namespace Logictracker.Mobile
 
                     var selectedProfile = Convert.ToInt32(cbPerfiles.SelectedValue);
 
-                    IEnumerable<Logictracker.Types.SecurityObjects.Module> modules;
+                    IEnumerable<MovMenu> modules;
                     IEnumerable<Asegurable> securables;
                     IEnumerable<int> perfiles = DAOFactory.PerfilDAO.GetProfileAccess(_usuario, selectedProfile, out modules, out securables);
 

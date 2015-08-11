@@ -56,7 +56,7 @@ namespace Logictracker.Layers.MessageQueue
         /// <summary>
         /// Obtiene o Establece la ruta de la cola asociada.
         /// </summary>
-        [ElementAttribute(XName = "QueueType", IsRequired = false, DefaultValue = "Logictracker.Messaging.MsmqQueue.MessageQueueMsmq,Logictracker.Messaging.MsmqQueue", LoadOrder = 5)]
+        [ElementAttribute(XName = "QueueType", IsRequired = false, DefaultValue = "msmq", LoadOrder = 5)]
         public string QueueType { get; set; }
         #endregion
 
@@ -86,7 +86,7 @@ namespace Logictracker.Layers.MessageQueue
                 switch (QueueType.ToLower())
                 {
                     case "msmq":
-                        QueueType = "Logictracker.Messaging.MsmqQueue.MessageQueueMsmq , Logictracker.Messaging.MsmqQueue, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+                        //QueueType = "Logictracker.Messaging.MsmqQueue.MessageQueueMsmq , Logictracker.Messaging.MsmqQueue, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
                         implementation = new MessageQueueMsmq();
                         break;
                     case "rabbitmq":
@@ -94,9 +94,10 @@ namespace Logictracker.Layers.MessageQueue
                         implementation = Activator.CreateInstance(Type.GetType(QueueType, true)) as IMessageQueueImplementation;
                         break;
                 }
-                if (implementation == null)
-                    throw new ArgumentException("QueueType invalid", "QueueType");
+                if (implementation == null) throw new ArgumentException("QueueType invalid", "QueueType");
+
                 implementation.MessageQueue = this;
+                
                 return implementation.LoadResources();
             }
             catch (Exception e)

@@ -143,15 +143,15 @@ namespace Logictracker.Types.SecurityObjects
         public void SetModules(IEnumerable items)
         {
             _modules.Clear();
-            foreach (Module m in items)
-            {
-                var key = m.RefName.Trim();
-                if (!_modules.ContainsKey(key))
-                {
-                    _modules.Add(key, m);
-                }
-            }
-            //foreach (var mod in items.Cast<MovMenu>().Select(item => new Module(item)).Where(mod => !_modules.ContainsKey(mod.RefName.Trim()))) _modules.Add(mod.RefName.Trim(), mod);
+            //foreach (Module m in items)
+            //{
+            //    var key = m.RefName.Trim();
+            //    if (!_modules.ContainsKey(key))
+            //    {
+            //        _modules.Add(key, m);
+            //    }
+            //}
+            foreach (var mod in items.Cast<MovMenu>().Select(item => new Module(item)).Where(mod => !_modules.ContainsKey(mod.RefName.Trim()))) _modules.Add(mod.RefName.Trim(), mod);
         }
 
         public void SetSecurables(IEnumerable<Asegurable> items)
