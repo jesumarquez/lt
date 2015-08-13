@@ -61,7 +61,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
                                        : centroDeCostoDao.FindAll()
                                   );
             if (empresas != null) centroDeCostosU = centroDeCostosU.FilterEmpresa(empresas);
-            if (lineas != null) centroDeCostosU = centroDeCostosU.FilterLinea(lineas);
+            if (lineas != null) centroDeCostosU = centroDeCostosU.FilterLinea(lineas.ToList());
             if (departamentos != null) centroDeCostosU = centroDeCostosU.FilterDepartamento(departamentos);
             if (!IncludesAll(centrosCosto)) centroDeCostosU = centroDeCostosU.Where(l => centrosCosto.Contains(l.Id));
 

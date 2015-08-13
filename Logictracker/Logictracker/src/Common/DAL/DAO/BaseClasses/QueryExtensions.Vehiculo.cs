@@ -93,7 +93,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
             var empresasU = GetEmpresas(session, empresas);
             var lineasU = GetLineas(session, empresas, lineas);
             var tiposU = GetTipoVehiculo(session, empresas, lineas, tipos);
-            var transportistasU = GetTransportistas(session, empresas, lineas, transportistas);
+            var transportistasU = GetTransportistas(session, empresas, lineas, transportistas).ToList();
             var departamentosU = GetDepartamentos(session, empresas, lineas, departamentos);
             var centrosDeCostosU = GetCentrosDeCosto(session, empresasU, lineasU, departamentosU, centrosDeCostos);
 

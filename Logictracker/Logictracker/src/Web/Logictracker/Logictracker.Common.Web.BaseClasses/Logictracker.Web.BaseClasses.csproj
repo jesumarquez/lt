@@ -69,10 +69,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\FusionCharts.dll</HintPath>
     </Reference>
-    <Reference Include="Geocoder.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Geocoder\bin\Debug\Geocoder.Core.dll</HintPath>
-    </Reference>
     <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\LinqToExcel.dll</HintPath>
@@ -173,6 +169,10 @@
     <Compile Include="Util\RowEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Geocoder\Geocoder.Core.csproj">
+      <Project>{52186fb0-923b-48a5-8411-d60f88cfae1b}</Project>
+      <Name>Geocoder.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Description\Logictracker.Description.csproj">
       <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
       <Name>Logictracker.Description</Name>
