@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Common.Logging;
 using Logictracker.DAL.Factories;
 using Logictracker.Messages.Saver;
@@ -199,7 +200,7 @@ namespace Logictracker.Tracker.Application.Services
 
         }
 
-        public string ReceiveMessageByRouteAndDelivery(int routeId, string messageCode, string text, DateTime dateTime, long deliveryId, float lat, float lon, string deviceId)
+        public string SendMessageByRouteAndDelivery(int routeId, string messageCode, string text, DateTime dateTime, long deliveryId, float lat, float lon, string deviceId)
         {
             var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
 
@@ -220,10 +221,13 @@ namespace Logictracker.Tracker.Application.Services
             if ((lat!=0) &&(lon!=0))
                 point = new GPSPoint(dateTime.ToUniversalTime(), lat, lon);
 
-            
             var msgSaver = new MessageSaver(DaoFactory);
-            msgSaver.Save(null, MessageCode.SubmitTextMessage.GetMessageCode(), device, vehicle, employee, dateTime.ToUniversalTime(), point, text, route, delivery);
-            
+            var description = "Ciclo Logistico ->" + text;
+
+            if ((route != null) && (delivery != null))
+                description = string.Format("Ciclo Logistico {0} - {1} : {2}", route.Codigo, delivery.Descripcion,text);
+
+            msgSaver.Save(null, MessageCode.TextEvent.GetMessageCode(), device, vehicle, employee,dateTime.ToUniversalTime(), point, description, route, delivery);
             return string.Empty;
         }
 

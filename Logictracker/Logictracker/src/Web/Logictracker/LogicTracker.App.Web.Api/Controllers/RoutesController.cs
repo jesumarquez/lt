@@ -176,7 +176,7 @@ namespace LogicTracker.App.Web.Api.Controllers
 
             foreach (var message in messages)
             {
-                msgCodes.Add(RouteService.ReceiveMessageByRouteAndDelivery(routeId, message.MessageType.Code,
+                msgCodes.Add(RouteService.SendMessageByRouteAndDelivery(routeId, message.MessageType.Code,
                     message.MessageType.Description, message.DateTime, message.JobId, message.Latitude,
                     message.Longitude, deviceId) );
             }
