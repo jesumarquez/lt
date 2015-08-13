@@ -31,7 +31,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IQueryable<TQuery> FilterTransportista<TQuery>(this IQueryable<TQuery> q, ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, Usuario user)
             where TQuery : IHasTransportista
         {
-            var transportistasU = GetTransportistas(session, empresas, lineas, transportistas);
+            var transportistasU = GetTransportistas(session, empresas, lineas, transportistas).ToList();
 
             var includesAll = IncludesAll(transportistas);
             var includesNone = IncludesNone(transportistas);
