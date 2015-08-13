@@ -15,7 +15,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
             var sessionUser = WebSecurity.AuthenticatedUser;
             var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
 
-            var lineasU = GetLineas(session, empresas, new[] { -1 }, user);
+            var lineasU = GetLineas(session, empresas, new[] { -1 }, user).ToList();
 
             if (lineasU != null) q = q.Where(t => lineasU.Contains(t));
             return q;
@@ -31,7 +31,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IQueryable<TQuery> FilterLinea<TQuery>(this IQueryable<TQuery> q, ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, Usuario user)
             where TQuery : IHasLinea
         {
-            var lineasU = GetLineas(session, empresas, lineas, user);
+            var lineasU = GetLineas(session, empresas, lineas, user).ToList();
 
             return FilterLinea(q, lineasU);
         }

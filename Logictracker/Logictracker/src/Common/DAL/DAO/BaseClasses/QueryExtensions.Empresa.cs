@@ -15,7 +15,7 @@ namespace Logictracker.DAL.DAO.BaseClasses
             var sessionUser = WebSecurity.AuthenticatedUser;
             var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
 
-            var empresasU = GetEmpresas(session, new[] { -1 }, user);
+            var empresasU = GetEmpresas(session, new[] { -1 }, user).ToList();
 
             if (empresasU != null) q = q.Where(t => empresasU.Contains(t));
             return q;
@@ -38,7 +38,11 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IQueryable<TQuery> FilterEmpresa<TQuery>(this IQueryable<TQuery> q, IQueryable<Empresa> empresas)
             where TQuery : IHasEmpresa
         {
-            if (empresas != null) q = q.Where(t => t.Empresa == null || empresas.Contains(t.Empresa));
+            if (empresas != null)
+            {
+                var empresasList = empresas.ToList();
+                q = q.Where(t => t.Empresa == null || empresasList.Contains(t.Empresa));
+            }
 
             return q;
         }
