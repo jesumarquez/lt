@@ -16,7 +16,7 @@ using Logictracker.Web.BaseClasses.Handlers;
 /// <summary>
 /// Summary description for Tickets
 /// </summary>
-[WebService(Namespace = "http://plataforma.logictracker.com/")]
+[WebService(Namespace = "http://web.logictracker.com/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 // [System.Web.Script.Services.ScriptService]

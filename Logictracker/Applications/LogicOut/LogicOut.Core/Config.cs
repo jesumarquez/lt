@@ -60,7 +60,7 @@ namespace LogicOut.Core
 
             // ServiceUrl
             var service = ConfigurationManager.AppSettings[ServiceUrlKey];
-            ServiceUrl = service ?? "http://plataforma.logictracker.com/App_Services/Export.asmx";
+            ServiceUrl = service ?? "http://web.logictracker.com/App_Services/Export.asmx";
 
             // UserName
             UserName = ConfigurationManager.AppSettings[UserNameKey];

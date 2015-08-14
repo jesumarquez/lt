@@ -77,13 +77,13 @@
                                             <td width="30%">
                                                 <cwc:ResourceLabel ID="lblCompletadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_COMPLETADO" />
                                             </td>
-                                            <td style="background-color: #008000; width: 10%;">
+                                            <td class="verde" width="10%">
                                                 &nbsp;
                                             </td>
                                             <td width="50%">
                                                 <cwc:ResourceLabel ID="lblVisitadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_VISITADO" />
                                             </td>
-                                            <td style="background-color: #FFFF00; width: 10%;">
+                                            <td class="amarillo" width="10%">
                                                 &nbsp;
                                             </td>
                                         </tr>
@@ -91,13 +91,13 @@
                                             <td>
                                                 <cwc:ResourceLabel ID="lblEnSitio" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_ENSITIO" />
                                             </td>
-                                            <td style="background-color: #00A2E8">
+                                            <td class="azul">
                                                 &nbsp;
                                             </td>
                                             <td>
                                                 <cwc:ResourceLabel ID="lblEnZona" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_ENZONA" />
                                             </td>
-                                            <td style="background-color: gray">
+                                            <td class="gris">
                                                 &nbsp;
                                             </td>
                                         </tr>
@@ -105,13 +105,13 @@
                                             <td>
                                                 <cwc:ResourceLabel ID="lblNoCompletadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_NOCOMPLETADO" />
                                             </td>
-                                            <td style="background-color: #FF0000">
+                                            <td class="rojo">
                                                 &nbsp;
                                             </td>             
                                             <td>
                                                 <cwc:ResourceLabel ID="lblNoVisitadas" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_SINVISITAR" /> - <cwc:ResourceLabel ID="lblPendientes" runat="server" ResourceName="Labels" VariableName="ENTREGA_STATE_PENDIENTE" /> 
                                             </td>
-                                            <td style="background-color: #FF4500">
+                                            <td class="naranja">
                                                 &nbsp;
                                             </td>
                                         </tr>
