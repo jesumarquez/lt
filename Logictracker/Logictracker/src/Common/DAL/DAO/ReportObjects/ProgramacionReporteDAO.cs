@@ -30,5 +30,11 @@ namespace Logictracker.DAL.DAO.ReportObjects
         }
 
         #endregion
+
+        public int GetReportIdByReportName(string reportName)
+        {
+            var firstOrDefault = Session.Query<ProgramacionReporte>().FirstOrDefault(programacion => programacion.ReportName == reportName);
+            return firstOrDefault != null ? firstOrDefault.Id : 0;
+        }
     }
 }

@@ -435,12 +435,14 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         private IReportCommand GenerateReportCommand(string reportType)
         {
+            var reportId = DAOFactory.ProgramacionReporteDAO.GetReportIdByReportName("MANUAL");
+
             switch (reportType)
             {
                 case "EventsReport":
                     return new EventReportCommand()
                     {
-                        ReportId = 83, //Id de reporte manual inactivo
+                        ReportId = reportId, //Id de reporte manual inactivo
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         DriversId = GetSelectedListByField("drivers"),
@@ -453,7 +455,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "VehicleActivityReport":
                     return new VehicleActivityReportCommand
                     {
-                        ReportId = 83,
+                        ReportId = reportId,
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
@@ -465,7 +467,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "VehicleInfractionsReport":
                     return new VehicleInfractionsReportCommand
                     {
-                        ReportId = 83,
+                        ReportId = reportId,
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
@@ -477,7 +479,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "DriversInfractionsReport":
                     return new DriversInfractionsReportCommand
                     {
-                        ReportId = 83,
+                        ReportId = reportId,
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
@@ -489,7 +491,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "GeofenceEventsReport":
                     return new GeofenceEventsReportCommand
                     {
-                        ReportId = 83,
+                        ReportId = reportId,
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
@@ -503,7 +505,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "DocumentsExpirationReport":
                     return new DocumentsExpirationReportCommand
                     {
-                        ReportId = 83,
+                        ReportId = reportId,
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
@@ -514,7 +516,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "OdometersReport":
                     return new OdometersReportCommand
                     {
-                        ReportId = 83,
+                        ReportId = reportId,
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),

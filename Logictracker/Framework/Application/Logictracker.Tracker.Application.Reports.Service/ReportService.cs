@@ -84,8 +84,17 @@ namespace Logictracker.Tracker.Application.Reports
             if (reportStatus.ReportProg != null)
                 log.ProgramacionReporte = reportStatus.ReportProg;
 
-
-            DaoFactory.LogProgramacionReporteDAO.SaveOrUpdate(log);
+            try
+            {
+                DaoFactory.LogProgramacionReporteDAO.SaveOrUpdate(log);
+            }
+            catch (Exception ex)
+            {
+                if (reportStatus.ReportProg != null)
+                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0} debido a {1} ", reportStatus.ReportProg.ReportName, ex.Message);
+                else
+                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
+            }
         }
 
         public void SendReport(Stream reportStream, IReportCommand command, string report)
