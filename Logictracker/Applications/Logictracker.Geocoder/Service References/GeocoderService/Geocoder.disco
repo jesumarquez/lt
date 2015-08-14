@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
   <contractRef ref="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx?wsdl" docRef="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
-  <soap address="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx" xmlns:q1="http://plataforma.logictracker.com/" binding="q1:GeocoderWsSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
-  <soap address="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx" xmlns:q2="http://plataforma.logictracker.com/" binding="q2:GeocoderWsSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx" xmlns:q1="http://web.logictracker.com/" binding="q1:GeocoderWsSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://localhost:34034/Logictracker.Web/App_Services/Geocoder.asmx" xmlns:q2="http://web.logictracker.com/" binding="q2:GeocoderWsSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
 </discovery>

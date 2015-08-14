@@ -11,7 +11,7 @@ namespace Logictracker.Process.Import.Client
         public static string Branch {get { return GetValue("branch");  }}
         public static int Interval {get { return Convert.ToInt32(GetValue("interval") ?? "5");  }}
         public static string LogFile { get { return GetValue("logfile") ?? "lLogictracker.sync.log"; } }
-        public static string ServerUrl {get { return GetValue("serverurl") ?? "http://plataforma.logictracker.com/App_Services/Import.asmx";  }}
+        public static string ServerUrl { get { return GetValue("serverurl") ?? "http://web.logictracker.com/App_Services/Import.asmx"; } }
         public static string StrategyName { get { return GetValue("strategy"); } }
         public static string MappingFile { get { return GetValue("mappingfile") ?? "logictracker.mapping.xml"; } }
 

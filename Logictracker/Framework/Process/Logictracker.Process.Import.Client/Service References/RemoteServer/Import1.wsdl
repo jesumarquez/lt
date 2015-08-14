@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://plataforma.logictracker.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://plataforma.logictracker.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://web.logictracker.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://web.logictracker.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://plataforma.logictracker.com/">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://web.logictracker.com/">
       <s:element name="ImportData">
         <s:complexType>
           <s:sequence>
@@ -124,7 +124,7 @@
   <wsdl:binding name="ImportSoap" type="tns:ImportSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ImportData">
-      <soap:operation soapAction="http://plataforma.logictracker.com/ImportData" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/ImportData" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -133,7 +133,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Login">
-      <soap:operation soapAction="http://plataforma.logictracker.com/Login" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/Login" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -142,7 +142,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="IsActive">
-      <soap:operation soapAction="http://plataforma.logictracker.com/IsActive" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/IsActive" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -151,7 +151,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Logout">
-      <soap:operation soapAction="http://plataforma.logictracker.com/Logout" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/Logout" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -163,7 +163,7 @@
   <wsdl:binding name="ImportSoap12" type="tns:ImportSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ImportData">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/ImportData" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/ImportData" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -172,7 +172,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Login">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/Login" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/Login" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -181,7 +181,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="IsActive">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/IsActive" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/IsActive" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -190,7 +190,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Logout">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/Logout" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/Logout" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -201,10 +201,10 @@
   </wsdl:binding>
   <wsdl:service name="Import">
     <wsdl:port name="ImportSoap" binding="tns:ImportSoap">
-      <soap:address location="https://plataforma.logictracker.com/App_Services/Import.asmx" />
+      <soap:address location="https://web.logictracker.com/App_Services/Import.asmx" />
     </wsdl:port>
     <wsdl:port name="ImportSoap12" binding="tns:ImportSoap12">
-      <soap12:address location="https://plataforma.logictracker.com/App_Services/Import.asmx" />
+      <soap12:address location="https://web.logictracker.com/App_Services/Import.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
