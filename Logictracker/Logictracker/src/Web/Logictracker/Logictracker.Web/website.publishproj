@@ -20,8 +20,8 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
     <SourceWebVirtualPath>/Logictracker.Web</SourceWebVirtualPath>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <SourceWebProject>C:\Code\Logitracker\Logictracker\Logictracker\src\Web\Logictracker\Logictracker.Web</SourceWebProject>
-    <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/3/ROOT</SourceWebMetabasePath>
+    <SourceWebProject>C:\source\Logictracker 4.0\Logictracker\Logictracker\src\Web\Logictracker\Logictracker.Web</SourceWebProject>
+    <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/2/ROOT</SourceWebMetabasePath>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -118,10 +118,6 @@ Copyright (C) Microsoft Corporation. All rights reserved.
       <Project>{CC8A4E06-EC41-4705-AA17-0649564F05BA}</Project>
       <Name>Logictracker.Messages.Sender</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messaging.MsmqQueue\Logictracker.Messaging.MsmqQueue.csproj">
-      <Project>{779A3CE1-F018-4A35-8E33-18620B09B0A2}</Project>
-      <Name>Logictracker.Messaging.MsmqQueue</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Model\Logictracker.Model.csproj">
       <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
       <Name>Logictracker.Model</Name>
@@ -165,6 +161,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <ProjectReference Include="..\..\..\..\..\LogicLink2\Logictracker.Scheduler.Tasks.Logiclink2.csproj">
       <Project>{812CCB47-FB25-4DFB-8B20-313C6C3E8E6E}</Project>
       <Name>Logictracker.Scheduler.Tasks.Logiclink2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj">
+      <Project>{C7A9420A-FDB3-4C8D-9783-290A51BAD4FA}</Project>
+      <Name>Logictracker.Reports.Messaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Web\ColorPickerExtender\ColorPickerExtender.csproj">
       <Project>{01DC3C5E-6F1D-48FE-BCAC-B38642A2EC59}</Project>
