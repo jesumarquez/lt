@@ -31,19 +31,19 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico.Distribucion
         [GridMapping(Index = IndexFin, ResourceName = "Labels", VariableName = "HASTA", DataFormatString = "{0:HH:mm}", AllowGroup = false)]
         public DateTime? Fin { get; set; }
 
-        [GridMapping(Index = IndexTraslados, ResourceName = "Labels", VariableName = "TRASLADOS", DataFormatString = "{0:HH:mm}", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = "{0:HH:mm}", AllowGroup = false)]
+        [GridMapping(Index = IndexTraslados, ResourceName = "Labels", VariableName = "TRASLADOS", DataFormatString = @"{0:hh\:mm}", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = @"{0:hh\:mm}", AllowGroup = false)]
         public TimeSpan Traslados { get; set; }
 
         [GridMapping(Index = IndexKm, ResourceName = "Labels", VariableName = "KM", DataFormatString = "{0:0.00}", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = "{0:0.00}", AllowGroup = false)]
         public double Km { get; set; }
 
-        [GridMapping(Index = IndexInactividad, ResourceName = "Labels", VariableName = "INACTIVIDAD", DataFormatString = "{0:HH:mm}", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = "{0:HH:mm}", AllowGroup = false)]
+        [GridMapping(Index = IndexInactividad, ResourceName = "Labels", VariableName = "INACTIVIDAD", DataFormatString = @"{0:hh\:mm}", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = @"{0:hh\:mm}", AllowGroup = false)]
         public TimeSpan Inactividad { get; set; }
 
-        [GridMapping(Index = IndexTarea, ResourceName = "Labels", VariableName = "TAREA", DataFormatString = "{0:HH:mm}", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = "{0:HH:mm}", AllowGroup = false)]
+        [GridMapping(Index = IndexTarea, ResourceName = "Labels", VariableName = "TAREA", DataFormatString = @"{0:hh\:mm}", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = @"{0:hh\:mm}", AllowGroup = false)]
         public TimeSpan Tarea { get; set; }
 
-        [GridMapping(Index = IndexTotal, ResourceName = "Labels", VariableName = "TOTAL", IsAggregate = true, AggregateType = GridAggregateType.Sum, AggregateTextFormat = "{0:HH:mm}", AllowGroup = false)]
+        [GridMapping(Index = IndexTotal, ResourceName = "Labels", VariableName = "TOTAL", IsAggregate = true, AggregateType = GridAggregateType.Sum, DataFormatString = @"{0:hh\:mm}", AggregateTextFormat = @"{0:hh\:mm}", AllowGroup = false)]
         public TimeSpan Total
         {
             get { return Inactividad.Add(Tarea).Add(Traslados); }
