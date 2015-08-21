@@ -1057,7 +1057,7 @@ namespace Logictracker.Trax.v1
             return new[]
                        {
                            GarminFmi.EncodeUserInterfaceText("Despacho Logictracker").ToTraxFM(dev),
-                           GarminFmi.EncodeAutoArrival(null, 0).ToTraxFM(dev),
+                           GarminFmi.EncodeAutoArrival(null, null).ToTraxFM(dev),
                            GarminFmi.EncodeMessageThrottlingControl(FmiPacketId.CsRequestCannedResponseListRefresh, false).ToTraxFM(dev),
                            GarminFmi.EncodeMessageThrottlingControl(FmiPacketId.CsTextMessageStatus, false).ToTraxFM(dev)
                        };

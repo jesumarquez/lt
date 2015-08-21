@@ -25,8 +25,7 @@
                     <ContentTemplate>
                         <cwc:TransportistaDropDownList ID="ddlTransportista" runat="server" AddAllItem="true" Width="200px" ParentControls="ddlLocacion,ddlPlanta" />
                     </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="ddlLocacion" EventName="SelectedIndexChanged" />
+                    <Triggers>                        
                         <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
                     </Triggers>
                 </asp:UpdatePanel>
@@ -37,7 +36,6 @@
                         <cwc:SubCentroDeCostosDropDownList ID="ddlSubCentroDeCostos" runat="server" AddAllItem="true" Width="200px" ParentControls="ddlLocacion,ddlPlanta" />
                     </ContentTemplate>
                     <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="ddlLocacion" EventName="SelectedIndexChanged" />
                         <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
                        </Triggers>
                 </asp:UpdatePanel>
@@ -50,11 +48,8 @@
                         <cwc:MovilListBox ID="lbMobile" runat="server" Width="200px" Height="95px" SelectionMode="Multiple" ParentControls="ddlLocacion,ddlPlanta,ddlTransportista,ddlSubCentroDeCostos" AutoPostBack="false" />
                     </ContentTemplate>
                     <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="ddlLocacion" EventName="SelectedIndexChanged" />
-                        <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
                         <asp:AsyncPostBackTrigger ControlID="ddlTransportista" EventName="SelectedIndexChanged" />
-                        <asp:AsyncPostBackTrigger ControlID="ddlSubCentroDeCostos" EventName="SelectedIndexChanged" />
-        
+                        <asp:AsyncPostBackTrigger ControlID="ddlSubCentroDeCostos" EventName="SelectedIndexChanged" />        
                     </Triggers>
                 </asp:UpdatePanel>
             </td>
