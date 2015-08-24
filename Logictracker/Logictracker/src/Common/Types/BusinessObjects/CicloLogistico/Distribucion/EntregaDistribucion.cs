@@ -13,13 +13,14 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public static class Estados
         {
             public const short Cancelado = -1;
-            public const short Pendiente = 0;
+            public const short Pendiente = 0;//api
             public const short EnSitio = 1;
             public const short Visitado = 2;
             public const short SinVisitar = 3;
             public const short EnZona = 4;
-            public const short NoCompletado = 8;
-            public const short Completado = 9;
+            public const short NoCompletado = 8; //api
+            public const short Completado = 9;//api
+            public const short Restaurado = -19;//api
             // Si se agregan estados aca, hay que agregarlos en BindingManager.EstadosEntregaDistribucion
 
             public static string GetLabelVariableName(short estado)

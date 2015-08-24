@@ -343,6 +343,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
             prog.GeofenceTime = GetInGeofenceTime();
             prog.Documents = GetSelectedDocuments();
             prog.Odometers = GetOdometerType();
+            //prog.DetentionTime = GetHigherDetentionFor();
+            //prog.Distance = GetHigherDistanceOf();
+            //prog.UnreportedTime = GetUnreportedTime();
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
@@ -369,39 +372,19 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return ProgramacionReporte.Reportes.VencimientoDocumentos;
                 case "ASP.reportes_estadistica_reporteodometros_aspx":
                     return ProgramacionReporte.Reportes.ReporteOdometros;
-                //case "ASP.reportes_accidentologia_mensajesvehiculo_aspx":
-                //    reporte = "Mensajes Vehículo";
-                //    break;
-                //case "ASP.reportes_accidentologia_operatorranking_aspx":
-                //    reporte = "Ranking de Choferes";
-                //    break;
-                //case "ASP.reportes_combustibleenpozos_consistenciastockpozo_aspx":
-                //    reporte = "Consistencia de Pozos";
-                //    break;
-                //case "ASP.reportes_combustibleenpozos_eventoscombustible_aspx":
-                //    reporte = "Eventos Combustible";
-                //    break;
-                //case "ASP.reportes_estadistica_mobilepoishistoric_aspx":
-                //    reporte = "Cercanía a Puntos de Interés";
-                //    break;
-                //case "ASP.reportes_datosoperativos_geocercasevents_aspx":
-                //    reporte = "Reporte de Geocercas";
-                //    break;
-                //case "ASP.reportes_estadistica_reporteodometros_aspx":
-                //    reporte = "Reporte de Odometros";
-                //    break;
-                //case "ASP.reporte_estadistica_accidentologiaresumenvehicular_aspx":
-                //    reporte = "Resumen Vehicular";
-                //    break;
-                //case "ASP.reportes_ciclologistico_duracionestadosticket_aspx":
-                //    reporte = "Control de Ciclo";
-                //    break;
+                case "ASP.reportes_ciclologistico_reportetraslado_aspx":
+                    return ProgramacionReporte.Reportes.TrasladosViaje;
+                case "ASP.reportes_estadistica_reportedistribucion_aspx":
+                    return ProgramacionReporte.Reportes.EstadoEntregas;
+                case "ASP.reportes_ciclologistico_resumenderutas_aspx":
+                    return ProgramacionReporte.Reportes.ResumenRutas;
+
                 default:
                     return Page.ToString();
             }
         }
 
-        private void SendConfirmationMail(string reportType, string description)
+        protected void SendConfirmationMail(string reportType, string description)
         {
             var configFile = Config.Mailing.ReportConfirmation;
 
@@ -439,7 +422,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             switch (reportType)
             {
-                case "EventsReport":
+                case ProgramacionReporte.Reportes.ReporteEventos:
                     return new EventReportCommand()
                     {
                         ReportId = reportId, //Id de reporte manual inactivo
@@ -517,7 +500,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return new OdometersReportCommand
                     {
                         ReportId = reportId,
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
@@ -525,6 +508,40 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         VehiclesId = GetSelectedListByField("vehicles"),
                         ReportName = "Reporte de Odometros " + DateTime.Now.ToShortDateString()
                     };
+                case ProgramacionReporte.Reportes.EstadoEntregas:
+                    return new DeliverStatusReportCommand
+                    {
+                        ReportId = reportId,
+                        CustomerId = GetEmpresa().Id,
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        ReportName = "Reporte de Estado de Entregas " + DateTime.Now.ToShortDateString()
+                    };
+                case ProgramacionReporte.Reportes.TrasladosViaje:
+                    return new TransfersPerTripReportCommand
+                    {
+                        ReportId = reportId,
+                        CustomerId = GetEmpresa().Id,
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        ReportName = "Reporte de Traslados por Viaje " + DateTime.Now.ToShortDateString()
+                    };
+                case ProgramacionReporte.Reportes.ResumenRutas:
+                    return new SummaryRoutesReportCommand
+                    {
+                        ReportId = reportId,
+                        CustomerId = GetEmpresa().Id,
+                        Email = SendReportTextBoxEmail.Text,
+                        FinalDate = GetToDateTime(),
+                        InitialDate = GetSinceDateTime(),
+                        VehiclesId = GetSelectedListByField("vehicles"),
+                        ReportName = "Reporte de Resumen de Rutas " + DateTime.Now.ToShortDateString()
+                    };
+
                 default:
                     return null;
             }

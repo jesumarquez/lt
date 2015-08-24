@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DatabaseTracer.Core;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico;
 using Logictracker.Culture;
@@ -18,6 +20,8 @@ namespace Logictracker.Reportes.Estadistica
         protected override string VariableName { get { return "REP_DISTRIBUCION"; } }
         protected override string GetRefference() { return "REP_DISTRIBUCION"; }
         protected override bool ExcelButton { get { return true; } }
+        protected override bool ScheduleButton { get { return true; } }
+        protected override bool SendReportButton { get { return true; } }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -207,6 +211,61 @@ namespace Logictracker.Reportes.Estadistica
                            { CultureManager.GetLabel("DESDE"), dpDesde.SelectedDate.Value.ToString("dd/MM/yyyy HH:mm") }, 
                            { CultureManager.GetLabel("HASTA"), dpHasta.SelectedDate.Value.ToString("dd/MM/yyyy HH:mm") }
                        };
+        }
+
+        protected override Empresa GetEmpresa()
+        {
+            return (ddlLocacion.Selected > 0) ? DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected) : null;
+        }
+        protected override Linea GetLinea()
+        {
+            return (ddlPlanta != null && ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
+        }
+
+        protected override string GetSelectedVehicles()
+        {
+            var sVehiculos = new StringBuilder();
+
+            if (ddlVehiculo.SelectedValues.Contains(0)) ddlVehiculo.ToogleItems();
+
+            foreach (var vehiculo in ddlVehiculo.SelectedValues)
+            {
+                if (!sVehiculos.ToString().Equals(""))
+                    sVehiculos.Append(",");
+
+                sVehiculos.Append(vehiculo.ToString("#0"));
+            }
+
+            return sVehiculos.ToString();
+        }
+
+        protected override string GetDescription(string reporte)
+        {
+            var linea = GetLinea();
+            if (ddlVehiculo.SelectedValues.Contains(0)) ddlVehiculo.ToogleItems();
+
+            var sDescription = new StringBuilder(GetEmpresa().RazonSocial + " - ");
+            if (linea != null) sDescription.AppendFormat("Base {0} - ", linea.Descripcion);
+            sDescription.AppendFormat("Reporte: {0} - ", reporte);
+            sDescription.AppendFormat("Tipo de Vehiculo: {0} - ", ddlVehiculo.SelectedItem.Text);
+
+            return sDescription.ToString();
+        }
+
+        protected override DateTime GetSinceDateTime()
+        {
+            return dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override DateTime GetToDateTime()
+        {
+            return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override List<int> GetSelectedListByField(string field)
+        {
+            if (ddlVehiculo.SelectedValues.Contains(0)) ddlVehiculo.ToogleItems();
+            return ddlVehiculo.SelectedValues;
         }
     }
 }
