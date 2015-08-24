@@ -1104,7 +1104,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             NumeroViaje = 1,
                             Tipo = ViajeDistribucion.Tipos.Desordenado,
                             Alta = DateTime.UtcNow,
-                            RegresoABase = false
+                            RegresoABase = true
                         };
 
                         #endregion
