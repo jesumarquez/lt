@@ -58,7 +58,7 @@ namespace Logictracker.Tracker.Tests.App.Services
             _daoFactoryMock.Setup(x => x.MensajeDAO.GetMensajesDeUsuario(It.IsAny<int[]>(), It.IsAny<int[]>())).Returns(userMessages);
 
             //act
-            var messages = _routeService.GetAllMessages("1234567890A");
+            var messages = _routeService.GetProfileMessages("1234567890A");
 
             //assert
             Assert.AreEqual(acceptanceMessages.Count + rejectMessages.Count + userMessages.Count , messages.Count);
