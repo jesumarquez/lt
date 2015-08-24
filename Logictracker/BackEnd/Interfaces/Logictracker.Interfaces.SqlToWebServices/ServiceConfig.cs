@@ -32,7 +32,7 @@ namespace Logictracker.Interfaces.SqlToWebServices
 		public static EndpointAddress GetEndpointAddress(String asmxFile)
         {
             //return new EndpointAddress("http://localhost/Logictracker/App_Services/" + asmxFile);
-            return new EndpointAddress("http://plataforma.logictracker.com/App_Services/"+asmxFile);
+            return new EndpointAddress("http://web.logictracker.com/App_Services/" + asmxFile);
         }
     }
 }

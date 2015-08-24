@@ -213,7 +213,15 @@ namespace Logictracker.Process.CicloLogistico
                                 {
                                     // Si salió de la base debe haber pasado un tiempo mínimo para registrar el regreso
                                     if (detalle.Salida.HasValue && data.Date < detalle.Salida.Value.AddMinutes(Distribucion.Empresa.MinutosMinimosDeViaje))
+                                    {
+                                        detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                                        detalle.Entrada = null;
+                                        var viaje = detalle.Viaje;                                        
+                                        viaje.Estado = ViajeDistribucion.Estados.Pendiente;                                        
+                                        viaje.InicioReal = null;
+                                        DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
                                         return;
+                                    }
                                     // Si no salió de la base y todas las entregas están pendientes, no registró el regreso
                                     if (!detalle.Salida.HasValue && detalle.Viaje.Detalles.All(d => d.Estado == EntregaDistribucion.Estados.Pendiente))
                                         return;

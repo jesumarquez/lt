@@ -514,6 +514,19 @@ namespace Logictracker.Layers.CommanderReader
                                                                        trackingExtraData, _tree);
                                     commandResolved = true;
                                     break;
+                                case "SubmitLongTextMessage":
+                                    if (iShortMessage == null || testMode)
+                                        return RejectCommand(iPoint, messageId, trackingExtraData, iDispatcher, request);
+
+                                    DevicesCommandStatus.CreateCommand(iPoint, iDispatcher, messageId,
+                                                                       gatewayMessageId,
+                                                                       secondsTimeout,
+                                                                       GetActionDeviceSubmitLongTextMessage(msgText,
+                                                                                                        messageId,
+                                                                                                        iShortMessage),
+                                                                       trackingExtraData, _tree);
+                                    commandResolved = true;
+                                    break;
                                 case "SubmitCannedResponsesTextMessage":
                                     if (iShortMessage == null || testMode)
                                         return RejectCommand(iPoint, messageId, trackingExtraData, iDispatcher, request);
@@ -938,7 +951,10 @@ namespace Logictracker.Layers.CommanderReader
             {
                 return () => iFeature.SubmitTextMessage(MessageId, text, new int[] {});
             }
-
+            private static Action GetActionDeviceSubmitLongTextMessage(string text, ulong MessageId, IShortMessage iFeature)
+            {
+                return () => iFeature.SubmitLongTextMessage(MessageId, text);
+            }
             private static Action GetActionDeviceSubmitCannedResponsesTextMessage(string text, uint entrega, uint[] responses, ulong MessageId, IShortMessage iFeature)
             {
                 return GetActionDeviceSubmitCannedResponsesTextMessage(text, entrega, responses, MessageId, iFeature, -1);

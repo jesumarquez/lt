@@ -42,11 +42,12 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
             public const string RoadshowCsv2 = "RoadshowCsv2";
             public const string Roadnet = "Roadnet";
             public const string ExcelTemplate = "ExcelTemplate";
+            public const string RL = "RL";
         }
 
         protected override string[] ImportModes
         {
-            get { return new[] {Modes.Default, Modes.Axiodis, Modes.AxiodisF, Modes.Roadshow, Modes.RoadshowCsv, Modes.RoadshowCsv2, Modes.Roadnet, Modes.ExcelTemplate }; }
+            get { return new[] { Modes.Default, Modes.Axiodis, Modes.AxiodisF, Modes.Roadshow, Modes.RoadshowCsv, Modes.RoadshowCsv2, Modes.Roadnet, Modes.ExcelTemplate, Modes.RL }; }
         }
         protected override List<FieldValue> GetMappingFields()
         {
@@ -59,6 +60,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 case Modes.RoadshowCsv2: return Fields.RoadshowCsv;
                 case Modes.Roadnet: return Fields.Roadnet;
                 case Modes.ExcelTemplate: return Fields.ExcelTemplate;
+                case Modes.RL: return Fields.ReginaldLee;
                 default: return Fields.Default;
             }
         }
@@ -212,6 +214,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 case Modes.RoadshowCsv2: ImportRoadshowCsv2(rows); break;
                 case Modes.Roadnet: ImportRoadnet(rows); break;
                 case Modes.ExcelTemplate: ImportExcelTemplate(rows); break;
+                case Modes.RL: ImportRL(rows); break;
                 default: ImportDefault(rows); break;
             }
         }
@@ -1013,7 +1016,145 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 }
             }
         }
+        protected void ImportRL(List<ImportRow> rows)
+        {
+            var empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
 
+            using (var transaction = SmartTransaction.BeginTransaction())
+            {
+                try
+                {
+                    var list = new List<ViajeDistribucion>(rows.Count);
+
+                    foreach (var row in rows)
+                    {
+                        #region Properties
+
+                        var codigoBaseOrigen = row[GetColumnByValue(Fields.CodigoBaseOrigen.Value)];
+                        var codigoBaseDestino = row[GetColumnByValue(Fields.CodigoBaseDestino.Value)];
+                        var interno = row[GetColumnByValue(Fields.Vehiculo.Value)];
+                        var ruta = row[GetColumnByValue(Fields.Viaje.Value)];
+                        var stringFechaSalida = row[GetColumnByValue(Fields.FechaSalida.Value)];
+                        var stringFechaLlegada = row[GetColumnByValue(Fields.FechaLlegada.Value)];
+                        var stringHoraSalida = row[GetColumnByValue(Fields.HoraSalida.Value)];
+                        var stringHoraLlegada = row[GetColumnByValue(Fields.HoraLlegada.Value)];
+                        var bultos = row[GetColumnByValue(Fields.Bultos.Value)];
+
+
+                        #endregion
+
+                        #region viaje = new ViajeDistribucion()
+
+                        var vehiculo = DAOFactory.CocheDAO.GetByInterno(new[] { cbEmpresa.Selected }, new[] { cbLinea.Selected }, interno);
+
+                        var baseOrigen = DAOFactory.LineaDAO.FindByCodigo(empresa.Id, codigoBaseOrigen);
+                        var cliente = DAOFactory.ClienteDAO.FindByCode(new[] { cbEmpresa.Selected }, new[] { -1 }, "PP");
+
+                        var destino = DAOFactory.PuntoEntregaDAO.FindByCode(new[] { empresa.Id }, new[] { -1 }, new[] { cliente.Id }, codigoBaseDestino);
+
+                        var anioSalida = 2000 + Convert.ToInt32(stringFechaSalida.Substring(1, 2));
+                        var mesSalida = Convert.ToInt32(stringFechaSalida.Substring(3, 2));
+                        var diaSalida = Convert.ToInt32(stringFechaSalida.Substring(5, 2));
+
+                        var anioLlegada = 2000 + Convert.ToInt32(stringFechaLlegada.Substring(1, 2));
+                        var mesLlegada = Convert.ToInt32(stringFechaLlegada.Substring(3, 2));
+                        var diaLlegada = Convert.ToInt32(stringFechaLlegada.Substring(5, 2));
+
+                        var horaSalida = 0;
+                        var minutosSalida = 0;
+                        var horaLlegada = 0;
+                        var minutosLlegada = 0;
+
+                        if (stringHoraSalida.Length == 3)
+                        {
+                            horaSalida = Convert.ToInt32(stringHoraSalida.Substring(0, 1));
+                            minutosSalida = Convert.ToInt32(stringHoraSalida.Substring(1, 2));
+                        }
+                        if (stringHoraSalida.Length == 4)
+                        {
+                            horaSalida = Convert.ToInt32(stringHoraSalida.Substring(0, 2));
+                            minutosSalida = Convert.ToInt32(stringHoraSalida.Substring(2, 2));
+                        }
+
+                        if (stringHoraLlegada.Length == 3)
+                        {
+                            horaLlegada = Convert.ToInt32(stringHoraLlegada.Substring(0, 1));
+                            minutosLlegada = Convert.ToInt32(stringHoraLlegada.Substring(1, 2));
+                        }
+                        if (stringHoraLlegada.Length == 4)
+                        {
+                            horaLlegada = Convert.ToInt32(stringHoraLlegada.Substring(0, 2));
+                            minutosLlegada = Convert.ToInt32(stringHoraLlegada.Substring(2, 2));
+                        }
+
+                        var bultosPorViaje = Convert.ToInt32(bultos);
+
+                        var salida = new DateTime(anioSalida, mesSalida, diaSalida, horaSalida, minutosSalida, 0);
+                        var llegada = new DateTime(anioLlegada, mesLlegada, diaLlegada, horaLlegada, minutosLlegada, 0);
+
+                        var viaje = new ViajeDistribucion
+                        {
+                            Empresa = empresa,
+                            Linea = baseOrigen,
+                            Vehiculo = vehiculo,
+                            Codigo = ruta,
+                            Estado = ViajeDistribucion.Estados.Pendiente,
+                            Inicio = salida.ToDataBaseDateTime(),
+                            Fin = llegada.ToDataBaseDateTime(),
+                            NumeroViaje = 1,
+                            Tipo = ViajeDistribucion.Tipos.Desordenado,
+                            Alta = DateTime.UtcNow,
+                            RegresoABase = true
+                        };
+
+                        #endregion
+
+                        //el primer elemento es la base
+                        var origen = new EntregaDistribucion
+                        {
+                            Linea = baseOrigen,
+                            Descripcion = baseOrigen.Descripcion,
+                            Estado = EntregaDistribucion.Estados.Pendiente,
+                            Orden = 0,
+                            Programado = salida.ToDataBaseDateTime(),
+                            ProgramadoHasta = salida.ToDataBaseDateTime(),
+                            Viaje = viaje
+                        };
+                        viaje.Detalles.Add(origen);
+
+                        var fin = new EntregaDistribucion
+                        {
+                            PuntoEntrega = destino,
+                            Descripcion = destino.Descripcion,
+                            Estado = EntregaDistribucion.Estados.Pendiente,
+                            Orden = 1,
+                            Programado = llegada.ToDataBaseDateTime(),
+                            ProgramadoHasta = llegada.ToDataBaseDateTime(),
+                            Viaje = viaje,
+                            Bultos = bultosPorViaje
+                        };
+                        viaje.Detalles.Add(fin);
+
+                        list.Add(viaje);
+                    }
+
+                    foreach (var viajeDistribucion in list)
+                    {
+                        DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(viajeDistribucion);
+                    }
+
+                    transaction.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    STrace.Exception("ViajeDistribucionImportReginaldLee", ex, "transaction.Rollback()");
+
+                    throw ex;
+                }
+            }
+        }
         protected void ImportRoadshow(List<ImportRow> rows)
         {
             var empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
@@ -2532,10 +2673,22 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
         {
             public static readonly FieldValue CodigoRuta = new FieldValue("Código de Ruta", Properties.Distribucion.Codigo, Entities.Distribucion);
             public static readonly FieldValue CodigoPedido = new FieldValue("Código Pedido");
+            public static readonly FieldValue CodigoBaseOrigen = new FieldValue("Código Base Origen");
+            public static readonly FieldValue NombreBaseOrigen = new FieldValue("Nombre Base Origen");
+            public static readonly FieldValue NombreBaseDestino = new FieldValue("Nombre Base Destino");
+            public static readonly FieldValue Orden = new FieldValue("Orden");
+            public static readonly FieldValue Transporte = new FieldValue("Transporte");
+            public static readonly FieldValue CodigoBaseDestino = new FieldValue("Código Base Destino");
+            public static readonly FieldValue Bultos = new FieldValue("Bultos");
+            public static readonly FieldValue EstadoEntrega = new FieldValue("Estado de entrega");
             public static readonly FieldValue Vehiculo = new FieldValue("Vehículo", Properties.Distribucion.Vehiculo, Entities.Distribucion);
             public static readonly FieldValue Viaje = new FieldValue("Viaje");
             public static readonly FieldValue Secuencia = new FieldValue("Secuencia");
             public static readonly FieldValue Fecha = new FieldValue("Fecha", Properties.Distribucion.Fecha, Entities.Distribucion);
+            public static readonly FieldValue FechaSalida = new FieldValue("Fecha de salida");
+            public static readonly FieldValue FechaLlegada = new FieldValue("Fecha de llegada");
+            public static readonly FieldValue HoraSalida = new FieldValue("Hora de salida");
+            public static readonly FieldValue HoraLlegada = new FieldValue("Hora de llegada");
             public static readonly FieldValue Km = new FieldValue("Km");
             public static readonly FieldValue Longitud = new FieldValue("Longitud", Properties.ReferenciaGeografica.Longitud, Entities.ReferenciaGeografica);
             public static readonly FieldValue Latitud = new FieldValue("Latitud", Properties.ReferenciaGeografica.Latitud, Entities.ReferenciaGeografica);
@@ -2728,6 +2881,29 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                    Calle,
                                    Altura,
                                    Localidad
+                               };
+                }
+            }
+            public static List<FieldValue> ReginaldLee
+            {
+                get
+                {
+                    return new List<FieldValue>
+                               {
+                                   Viaje,
+                                   CodigoBaseOrigen,
+                                   NombreBaseOrigen,
+                                   CodigoBaseDestino,
+                                   Orden,
+                                   NombreBaseDestino,
+                                   Vehiculo,
+                                   Transporte,
+                                   EstadoEntrega,
+                                   FechaSalida,
+                                   HoraSalida,
+                                   FechaLlegada,
+                                   HoraLlegada,
+                                   Bultos
                                };
                 }
             }

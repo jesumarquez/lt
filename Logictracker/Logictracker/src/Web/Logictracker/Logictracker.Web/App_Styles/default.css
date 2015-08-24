@@ -303,7 +303,7 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
 #monitor .azul { background-color: #00A2E8; }
 #monitor .rojo { background-color: #FF0000; }
 #monitor .amarillo { background-color: #FFFF00; }
-#monitor .naranja { background-color: #FF4500; }
+#monitor .naranja { background-color: #FF7700; }
 #monitor .gris { background-color: gray; }
 #monitor .marker_line {
     position: absolute;

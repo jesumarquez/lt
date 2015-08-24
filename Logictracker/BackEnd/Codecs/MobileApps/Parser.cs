@@ -236,6 +236,11 @@ namespace Logictracker.MobileApps.v1
             throw new NotImplementedException();
         }
 
+        public bool SubmitLongTextMessage(ulong messageId, String textMessage)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool SubmitTextMessage(ulong messageId, String textMessage, int[] replies)
         {
             if (textMessage.StartsWith("8492:"))

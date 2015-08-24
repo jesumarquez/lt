@@ -134,6 +134,35 @@ namespace Logictracker.Trax.v1
                 );
         }
 
+        public static byte[] EncodeOpenLongTextMessage(UInt32 id, String text, bool showImmediately)
+        {
+            if (String.IsNullOrEmpty(text))
+                throw new NullReferenceException(
+                    "Garmin/FMI, el texto de la interface no puede estar vacio ni ser nulo.");
+            if (text.Length > 1999)
+                throw new ApplicationException(
+                    "Garmin/FMI, el texto de la interface no puede tener mas de 1999 caracteres.");
+
+            byte[] _id = BitConverter.GetBytes(id);
+            byte[] pId = RefactorArrayTo(_id, 16);
+            byte[] pPacketId = BitConverter.GetBytes(FmiPacketId.ScLongTextMessageA611LongServer2Client);
+            byte[] pDt = GetDateTimeGarminEncoded();
+            var pIdSize = new[] { (byte)_id.Length };
+            var pMessageType = new[] { (byte)(showImmediately ? 1 : 0) };
+            byte[] pTextMessage = Encoding.ASCII.GetBytes(text);
+
+            return FactoryGarminFmi(
+                pPacketId,
+                pDt,
+                pIdSize,
+                pMessageType,
+                new byte[] { 0, 0 },
+                pId,
+                pTextMessage,
+                new byte[] { 0 }
+                );
+        }
+
         public static byte[] EncodePing()
         {
             byte[] packetId = BitConverter.GetBytes(FmiPacketId.PingCommunicationStatus);

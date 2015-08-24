@@ -17,11 +17,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://plataforma.logictracker.com/App_Services/Import.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://web.logictracker.com/App_Services/Import.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Import1.wsdl" MetadataType="Wsdl" ID="667dc6fe-53ba-422e-83aa-0777dd8fe606" SourceId="1" SourceUrl="https://plataforma.logictracker.com/App_Services/Import.asmx?wsdl" />
-    <MetadataFile FileName="Import1.disco" MetadataType="Disco" ID="42db19d4-f384-47c8-94f2-9758fe189367" SourceId="1" SourceUrl="https://plataforma.logictracker.com/App_Services/Import.asmx?disco" />
+    <MetadataFile FileName="Import1.wsdl" MetadataType="Wsdl" ID="667dc6fe-53ba-422e-83aa-0777dd8fe606" SourceId="1" SourceUrl="https://web.logictracker.com/App_Services/Import.asmx?wsdl" />
+    <MetadataFile FileName="Import1.disco" MetadataType="Disco" ID="42db19d4-f384-47c8-94f2-9758fe189367" SourceId="1" SourceUrl="https://web.logictracker.com/App_Services/Import.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

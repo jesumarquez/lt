@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://plataforma.logictracker.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://plataforma.logictracker.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://web.logictracker.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://web.logictracker.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://plataforma.logictracker.com/">
       <s:element name="GetProvincias">
@@ -219,7 +219,7 @@
   <wsdl:binding name="GeocoderWsSoap" type="tns:GeocoderWsSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetProvincias">
-      <soap:operation soapAction="http://plataforma.logictracker.com/GetProvincias" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/GetProvincias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -228,7 +228,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetDireccion">
-      <soap:operation soapAction="http://plataforma.logictracker.com/GetDireccion" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/GetDireccion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -237,7 +237,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetSmartSearch">
-      <soap:operation soapAction="http://plataforma.logictracker.com/GetSmartSearch" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/GetSmartSearch" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -246,7 +246,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Login">
-      <soap:operation soapAction="http://plataforma.logictracker.com/Login" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/Login" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -255,7 +255,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="IsActive">
-      <soap:operation soapAction="http://plataforma.logictracker.com/IsActive" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/IsActive" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -264,7 +264,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Logout">
-      <soap:operation soapAction="http://plataforma.logictracker.com/Logout" style="document" />
+      <soap:operation soapAction="http://web.logictracker.com/Logout" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -276,7 +276,7 @@
   <wsdl:binding name="GeocoderWsSoap12" type="tns:GeocoderWsSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetProvincias">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/GetProvincias" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/GetProvincias" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -285,7 +285,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetDireccion">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/GetDireccion" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/GetDireccion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -294,7 +294,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetSmartSearch">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/GetSmartSearch" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/GetSmartSearch" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -303,7 +303,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Login">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/Login" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/Login" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -312,7 +312,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="IsActive">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/IsActive" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/IsActive" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -321,7 +321,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Logout">
-      <soap12:operation soapAction="http://plataforma.logictracker.com/Logout" style="document" />
+      <soap12:operation soapAction="http://web.logictracker.com/Logout" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
