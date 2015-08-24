@@ -73,6 +73,9 @@ namespace Logictracker.Messaging
         DesvioRecorrido,
         VueltaAlRecorrido,
 
+        RutaAceptada,
+        RutaRechazada,
+
         PermanenciaEnGeocercaExcedida,
         PermanenciaEnGeocercaExcedidaEnCicloLogistico,
 
@@ -234,7 +237,11 @@ namespace Logictracker.Messaging
 				case MessageCode.CicloLogisticoIniciado: return "1003";
 				case MessageCode.CicloLogisticoCerrado: return "1004";
                 case MessageCode.CicloLogisticoIniciadoDocumentosInvalidos: return "1005";
-                
+
+                // Desvío de Recorrido
+                case MessageCode.RutaAceptada: return "1201";
+                case MessageCode.RutaRechazada: return "1202";
+
                 // Desvío de Recorrido
                 case MessageCode.DesvioRecorrido: return "1006";
                 case MessageCode.VueltaAlRecorrido: return "1007";
