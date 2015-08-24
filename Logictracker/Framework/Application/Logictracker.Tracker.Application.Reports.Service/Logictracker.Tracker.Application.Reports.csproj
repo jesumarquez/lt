@@ -143,20 +143,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AccumulatedKilometersReport.xls" />
+    <EmbeddedResource Include="Templates\AccumulatedKilometersReport.xls" />
     <None Include="app.config" />
-    <EmbeddedResource Include="EventReport.xls" />
-    <EmbeddedResource Include="DriversInfractionsReport.xls" />
-    <EmbeddedResource Include="GeofenceEventsReport.xls" />
-    <EmbeddedResource Include="MobilesTimeReport.xls" />
-    <EmbeddedResource Include="DocumentsExpirationReport.xls" />
-    <EmbeddedResource Include="OdometersReport.xls" />
-    <EmbeddedResource Include="DeliverStatusReport.xls" />
+    <EmbeddedResource Include="Templates\EventReport.xls" />
+    <EmbeddedResource Include="Templates\DriversInfractionsReport.xls" />
+    <EmbeddedResource Include="Templates\GeofenceEventsReport.xls" />
+    <EmbeddedResource Include="Templates\MobilesTimeReport.xls" />
+    <EmbeddedResource Include="Templates\DocumentsExpirationReport.xls" />
+    <EmbeddedResource Include="Templates\OdometersReport.xls" />
+    <EmbeddedResource Include="Templates\DeliverStatusReport.xls" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="VehicleActivityReport.xls" />
-    <EmbeddedResource Include="VehicleInfractionsReport.xls" />
-    <EmbeddedResource Include="TransfersPerTripReport.xls" />
-    <EmbeddedResource Include="SummaryRoutesReport.xls" />
+    <EmbeddedResource Include="Templates\VehicleActivityReport.xls" />
+    <EmbeddedResource Include="Templates\VehicleInfractionsReport.xls" />
+    <EmbeddedResource Include="Templates\TransfersPerTripReport.xls" />
+    <EmbeddedResource Include="Templates\SummaryRoutesReport.xls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
