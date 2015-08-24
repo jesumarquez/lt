@@ -66,6 +66,8 @@
         /// en caso contrario retorna <c>true</c>
 		bool SubmitTextMessage(ulong messageId, string textMessage, int[] replies);
 
+        bool SubmitLongTextMessage(ulong messageId, string textMessage);
+
         /// <summary>
         /// Envia la orden al dispositivo de mostrar en pantalla el mensaje 
         /// dado en <c>textMessage</c>
