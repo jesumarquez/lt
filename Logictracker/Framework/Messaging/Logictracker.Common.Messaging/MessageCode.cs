@@ -168,6 +168,9 @@ namespace Logictracker.Messaging
 			// TO-DO: mergear esta informacion en el enum "MessageIdentifier" e imprimir aqui el valor en lugar del switch
 			switch (messageCode)
 			{
+                case MessageCode.RutaAceptada: return "10";
+                case MessageCode.RutaRechazada: return "11";
+
                 case MessageCode.TareaRealizada: return "21";
                 case MessageCode.TareaNoRealizada: return "22";
 				case MessageCode.SpeedingTicket: return "92";
@@ -238,9 +241,7 @@ namespace Logictracker.Messaging
 				case MessageCode.CicloLogisticoCerrado: return "1004";
                 case MessageCode.CicloLogisticoIniciadoDocumentosInvalidos: return "1005";
 
-                // Desvío de Recorrido
-                case MessageCode.RutaAceptada: return "1201";
-                case MessageCode.RutaRechazada: return "1202";
+                
 
                 // Desvío de Recorrido
                 case MessageCode.DesvioRecorrido: return "1006";

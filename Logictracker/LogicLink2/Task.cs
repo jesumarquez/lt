@@ -120,8 +120,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                                     var desde = viaje.Detalles[1].ReferenciaGeografica;
                                     var hasta = viaje.Detalles[2].ReferenciaGeografica;
                                     msg.Append("Viaje: " + viaje.Codigo);
-                                    //msg.Append("<br>Desde: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(desde.Latitude, desde.Longitude));
-                                    //msg.Append("<br>Hasta: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(hasta.Latitude, hasta.Longitude));
+                                    msg.Append("<br>Desde: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(desde.Latitude, desde.Longitude));
+                                    msg.Append("<br>Hasta: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(hasta.Latitude, hasta.Longitude));
 
                                     var message = MessageSender.CreateSubmitTextMessage(viaje.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
                                     message.AddMessageText(msg.ToString());

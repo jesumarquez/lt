@@ -22,6 +22,11 @@ namespace Logictracker.Messaging
         DeviceOnNetInternal = 6,
         DeviceOnProxyInternal = 7,
         DeviceOffLineInternal = 8,
+
+        // Aceptación de rutas
+        RutaAceptada = 10,
+        RutaRechazada = 11,
+
         TareaRealizada = 21,
         TareaNoRealizada = 22,
         RebootTimeout = 32,
@@ -155,10 +160,6 @@ namespace Logictracker.Messaging
         DigitalInput03Closed = 1113,
         DigitalInput04Closed = 1114,
         DigitalInput05Closed = 1115,
-
-        // Aceptación de rutas
-        RutaAceptada = 1201,
-        RutaRechazada = 1202,
 
         MixerStopped = 2064,
         MixerClockwise = 2065,
