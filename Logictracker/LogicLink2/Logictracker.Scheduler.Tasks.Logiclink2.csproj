@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Properties.cs" />
     <Compile Include="Strategies\DistribucionReginaldLee.cs" />
+    <Compile Include="Strategies\DistribucionCCU.cs" />
     <Compile Include="Strategies\DistribucionSos.cs" />
     <Compile Include="Strategies\DistribucionQuilmes.cs" />
     <Compile Include="Strategies\DistribucionFemsa.cs" />

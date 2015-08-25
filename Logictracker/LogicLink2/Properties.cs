@@ -46,6 +46,10 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             public const int LatitudDestino = 7;
             public const int LongitudDestino = 8;
         }
+        public class DistribucionCCU
+        {
+            public const int Fecha = 0;
+        }
         public class DistribucionReginaldLee
         {
             public const int CodigoCliente = 0;

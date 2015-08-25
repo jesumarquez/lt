@@ -60,6 +60,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     STrace.Trace(Component, "Procesando con Estrategia: " + archivo.Strategy);
                     var rutas = 0;
                     var entregas = 0;
+                    var clientes = 0;
+                    var asignaciones = 0;
+                    var result = string.Empty;
                     var observaciones = string.Empty;
                     ViajeDistribucion viaje = null;
 
@@ -67,9 +70,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     {
                         case LogicLinkFile.Estrategias.DistribucionFemsa:
                             _empresasLineas = DistribucionFemsa.Parse(archivo, out rutas, out entregas);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionQuilmes:
                             _empresasLineas = DistribucionQuilmes.Parse(archivo, out rutas, out entregas, out observaciones);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                            if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
                         case LogicLinkFile.Estrategias.DistribucionMusimundo:
                             //EmpresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas);
@@ -79,16 +85,37 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             break;
                         case LogicLinkFile.Estrategias.DistribucionSos:
                             viaje = DistribucionSos.Parse(archivo, out rutas, out entregas);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionReginaldLee:
                             _empresasLineas = DistribucionReginaldLee.Parse(archivo, out rutas, out entregas);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                            break;
+                        case LogicLinkFile.Estrategias.DistribucionCCU:
+                            var extension = GetExtension(archivo.FilePath);
+                            switch (extension)
+	                        {
+                                case "txt":
+                                    _empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas);
+                                    result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                                    break;
+                                case "csv":
+                                    DistribucionCCU.ParseClientes(archivo, out clientes);
+                                    result = string.Format("Archivo procesado exitosamente. Clientes: {0}", clientes);
+                                    break;
+                                case "doc":
+                                    DistribucionCCU.ParseAsignaciones(archivo, out asignaciones);
+                                    result = string.Format("Archivo procesado exitosamente. Asignaciones: {0}", asignaciones);
+                                    break;
+                                default:
+                                    result = string.Format("Extensión '" + extension + "' no válida.");
+                                    break;
+	                        }
                             break;
                     }
 
                     archivo.Status = LogicLinkFile.Estados.Procesado;
                     archivo.DateProcessed = DateTime.UtcNow;
-                    var result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
-                    if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                     archivo.Result = result;
                     DaoFactory.LogicLinkFileDAO.SaveOrUpdate(archivo);
 
@@ -205,6 +232,16 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     }
                 }
             }
+        }
+
+        private string GetExtension(string filePath)
+        {
+            var extension = string.Empty;
+
+            if (filePath.Contains('.')) 
+                extension = filePath.Split('.').Last();
+
+            return extension;
         }
     }
 }
