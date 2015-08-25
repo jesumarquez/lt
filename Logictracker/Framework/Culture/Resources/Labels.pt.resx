@@ -486,6 +486,9 @@
   <data name="REVISION" xml:space="preserve">
     <value>Revisão</value>
   </data>
+  <data name="TRANSPORTISTA" xml:space="preserve">
+    <value>Transportista</value>
+  </data>
   <data name="VALOR" xml:space="preserve">
     <value>Valor</value>
   </data>
