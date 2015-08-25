@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using LogicTracker.App.Web.Api.Models;
-using Logictracker.Messages.Saver;
-using Logictracker.Messages.Sender;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
-using Logictracker.Types.BusinessObjects.Dispositivos;
 using Logictracker.Types.BusinessObjects.Positions;
 
 namespace LogicTracker.App.Web.Api.Controllers
@@ -181,7 +176,7 @@ namespace LogicTracker.App.Web.Api.Controllers
 
             foreach (var message in messages)
             {
-                msgCodes.Add(RouteService.ReceiveMessageByRouteAndDelivery(routeId, message.MessageType.Code,
+                msgCodes.Add(RouteService.SendMessageByRouteAndDelivery(routeId, message.MessageType.Code,
                     message.MessageType.Description, message.DateTime, message.JobId, message.Latitude,
                     message.Longitude, deviceId) );
             }

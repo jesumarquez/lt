@@ -22,8 +22,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         public List<DatamartViaje> GetList(int[] idsViajes)
         {
-            return Query.Where(dm => idsViajes.Contains(dm.Viaje.Id))
-                        .ToList();
+            return Query.Where(dm => idsViajes.Contains(dm.Viaje.Id)).ToList();
         }
     }
 }
