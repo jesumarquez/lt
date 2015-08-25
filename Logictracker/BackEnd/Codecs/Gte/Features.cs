@@ -141,12 +141,10 @@ namespace Logictracker.Trax.v1
         {
             return SubmitTextMessage(messageId, 0, textMessage, replies.Select(b=> (UInt32) b).ToArray());
         }
-
         public bool SubmitTextMessage(ulong messageId, uint textMessageId, String textMessage, uint[] replies)
         {
             return SubmitTextMessage(messageId, textMessageId, textMessage, replies, -1);
         }
-
 		public bool SubmitTextMessage(ulong messageId, uint textMessageId, String textMessage, uint[] replies, int ackEvent)
 		{
             STrace.Debug(typeof(Parser).FullName, Id, "SubmitTextMessage: messageId=" + messageId.ToString() + ",textMessageId=" + textMessageId.ToString() + ",textMessage=" + textMessage + ",replies=" + (replies==null?"null":String.Join(",",replies.Select(b=>b.ToString()).ToArray())));
@@ -188,6 +186,54 @@ namespace Logictracker.Trax.v1
 			}
 			return true;
 		}
+
+        public bool SubmitLongTextMessage(ulong messageId, String textMessage)
+        {
+            return SubmitLongTextMessage(messageId, 0, textMessage);
+        }
+        public bool SubmitLongTextMessage(ulong messageId, uint textMessageId, String textMessage)
+        {
+            return SubmitLongTextMessage(messageId, textMessageId, textMessage, -1);
+        }
+        public bool SubmitLongTextMessage(ulong messageId, uint textMessageId, String textMessage, int ackEvent)
+        {
+            STrace.Debug(typeof(Parser).FullName, Id, "SubmitLongTextMessage: messageId=" + messageId.ToString() + ",textMessageId=" + textMessageId.ToString() + ",textMessage=" + textMessage);
+            var md = GetMessagingDevice();
+            switch (md)
+            {
+                case MessagingDevice.Garmin:
+                    {
+                        var cnf = new StringBuilder();
+                        
+                        cnf.Append(GarminFmi.EncodeDeleteTextmessage(textMessageId).ToTraxFM(this, false));
+
+                        cnf.Append(GarminFmi.EncodeOpenLongTextMessage(textMessageId, textMessage, true).ToTraxFM(this, false));
+
+                        if (ackEvent != -1)
+                        {
+                            cnf.Append(Fota.VirtualMessageFactory((MessageIdentifier)ackEvent, NextSequence));
+                        }
+
+                        var cmd = cnf.ToString();
+                        SendMessages(cmd, messageId, md);
+                        break;
+                    }
+                case MessagingDevice.Mpx01:
+                    {
+                        var cmd = EncodeMpx01Msg(textMessage, messageId, this);
+                        SendMessages(cmd, messageId, md);
+                        break;
+                    }
+                case MessagingDevice.Sms:
+                    {
+                        var cmd = EncodeSmsMsg(textMessage, messageId, this);
+                        SendMessages(cmd, messageId, md);
+                        break;
+                    }
+            }
+            return true;
+        }
+
 
 		public bool DeleteCannedMessage(ulong messageId, int code, int revision)
 		{

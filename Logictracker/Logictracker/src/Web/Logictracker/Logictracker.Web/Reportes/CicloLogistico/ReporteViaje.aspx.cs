@@ -4,6 +4,7 @@ using System.Linq;
 using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -87,5 +88,7 @@ namespace Logictracker.Reportes.CicloLogistico
                 throw;
             }
         }
+
+
     }
 }

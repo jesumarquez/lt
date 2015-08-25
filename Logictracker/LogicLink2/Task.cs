@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Logictracker.DAL.NHibernate;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Messages.Saver;
+using Logictracker.Messages.Sender;
+using Logictracker.Messaging;
 using Logictracker.Process.CicloLogistico;
 using Logictracker.Process.CicloLogistico.Events;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
@@ -11,6 +13,9 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Utils;
+using System.Linq;
+using System.Text;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.Scheduler.Tasks.Logiclink2
 {
@@ -104,10 +109,37 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                                 var tieneViajeEnCurso = DaoFactory.ViajeDistribucionDAO.FindEnCurso(viaje.Vehiculo) != null;
                                 if (!tieneViajeEnCurso)
                                 {
-                                    var ciclo = new CicloLogisticoDistribucion(viaje, DaoFactory,
-                                        new MessageSaver(DaoFactory));
-                                    var evento = new InitEvent(DateTime.UtcNow);
-                                    ciclo.ProcessEvent(evento);
+                                    //var ciclo = new CicloLogisticoDistribucion(viaje, DaoFactory,
+                                    //    new MessageSaver(DaoFactory));
+                                    //var evento = new InitEvent(DateTime.UtcNow);
+                                    //ciclo.ProcessEvent(evento);
+                                }
+                                if (viaje.Vehiculo.Dispositivo != null)
+                                {   
+                                    var msg = new StringBuilder();
+                                    var desde = viaje.Detalles[1].ReferenciaGeografica;
+                                    var hasta = viaje.Detalles[2].ReferenciaGeografica;
+                                    msg.Append("Viaje: " + viaje.Codigo);
+                                    msg.Append("<br>Desde: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(desde.Latitude, desde.Longitude));
+                                    msg.Append("<br>Hasta: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(hasta.Latitude, hasta.Longitude));
+
+                                    var message = MessageSender.CreateSubmitTextMessage(viaje.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+                                    message.AddMessageText(msg.ToString());
+                                    message.Send();
+
+                                    //STrace.Trace(Component, "Ruta Aceptada: " + MessageCode.RutaAceptada.ToString());
+                                    //STrace.Trace(Component, "Ruta Rechazada: " + MessageCode.RutaRechazada.ToString());
+
+                                    //var msgText = "Acepta la asignacion del servicio <br><b>" + viaje.Codigo + "</b>?";
+                                    //var replies = new[] { Convert.ToUInt32(MessageCode.RutaAceptada.ToString()), 
+                                    //                      Convert.ToUInt32(MessageCode.RutaRechazada.ToString()) };
+                                    //message = MessageSender.CreateSubmitCannedResponsesTextMessage(viaje.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+                                    //message.AddMessageText(msgText)
+                                    //       .AddTextMessageId(Convert.ToUInt32(viaje.Id))
+                                    //       .AddCannedResponses(replies)
+                                    //       .AddAckEvent(MessageCode.GarminCannedMessageReceived.GetMessageCode());
+
+                                    //message.Send();
                                 }
                             }
                         }

@@ -41,6 +41,7 @@ mimico.prototype =
                            .replace(state_bars_template_name, state_bars)
                            .replace('{{{VEHICLE_STATE}}}', this.style)
                            .replace('{{{ICON}}}', this.icon)
+                           .replace('{{{ID_RUTA}}}', this.id)
                            .replace('{{{COMPLETED_BAR}}}', completado + 'px');
 
         this.div.innerHTML = template;

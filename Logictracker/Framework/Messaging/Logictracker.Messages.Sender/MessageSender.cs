@@ -72,6 +72,11 @@ namespace Logictracker.Messages.Sender
             return new MessageSender(dispositivo, saver).AddCommand(Comandos.SubmitTextMessage);
         }
 
+        public static MessageSender CreateSubmitLongTextMessage(Dispositivo dispositivo, IMessageSaver saver)
+        {
+            return new MessageSender(dispositivo, saver).AddCommand(Comandos.SubmitLongTextMessage);
+        }
+
         public static MessageSender CreateDeleteCannedMessage(Dispositivo dispositivo, IMessageSaver saver)
         {
             return new MessageSender(dispositivo, saver).AddCommand(Comandos.DeleteCannedMessage);
@@ -563,6 +568,8 @@ namespace Logictracker.Messages.Sender
             /// msgText=[texto_del_mensaje]
             /// </remarks>
             public const string SubmitTextMessage = "SubmitTextMessage";
+
+            public const string SubmitLongTextMessage = "SubmitLongTextMessage";
 
             /// <summary>
             /// 

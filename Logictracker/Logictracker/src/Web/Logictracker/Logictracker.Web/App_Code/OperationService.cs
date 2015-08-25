@@ -117,7 +117,7 @@ public class OperationService : BaseWebService
             var coches = DAOFactory.CocheDAO.FindList(new[]{emp.Id}, new[]{lin != null? lin.Id : -1})
                 .Where(c => c.Dispositivo != null);
 
-            var posiciones = coches.Select(coche => GetPosicion(coche));
+            var posiciones = coches.ToList().Select(coche => GetPosicion(coche));
             
             return Respuesta<Posicion[]>.Create(posiciones.Where(p=> p != null).ToArray());
         }
