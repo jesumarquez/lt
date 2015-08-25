@@ -483,6 +483,9 @@
   <data name="PARAMETRO" xml:space="preserve">
     <value>Parameter</value>
   </data>
+  <data name="TRANSPORTISTA" xml:space="preserve">
+    <value>Transport</value>
+  </data>
   <data name="REVISION" xml:space="preserve">
     <value>Review</value>
   </data>
