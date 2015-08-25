@@ -149,7 +149,7 @@
                 <table>
                     <tr>
                         <td class="vehiculo">
-                            <div class="vehiculo_info" style="background-image: url({{{ICON}}});" ><span class="{{{VEHICLE_STATE}}}">{{{VEHICLE}}}</span></div>                                                
+                            <div class="vehiculo_info" style="background-image: url({{{ICON}}}); cursor:pointer;" onclick="window.open('../../CicloLogistico/Monitor.aspx?t=D&i={{{ID_RUTA}}}&c=0','Monitor Ciclo');"><span class="{{{VEHICLE_STATE}}}">{{{VEHICLE}}}</span></div>
                         </td>
                         <td>
                             <div class="mimico">
