@@ -168,6 +168,39 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         VehiclesId = CsvToList(prog.Vehicles),
                         ReportName = prog.ReportName
                     };
+                case ProgramacionReporte.Reportes.EstadoEntregas:
+                    return new DeliverStatusReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        VehiclesId = CsvToList(prog.Vehicles),
+                        ReportName = prog.ReportName
+                    };
+                case ProgramacionReporte.Reportes.TrasladosViaje:
+                    return new TransfersPerTripReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        VehiclesId = CsvToList(prog.Vehicles),
+                        ReportName = prog.ReportName
+                    };
+                case ProgramacionReporte.Reportes.ResumenRutas:
+                    return new SummaryRoutesReportCommand
+                    {
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        VehiclesId = CsvToList(prog.Vehicles),
+                        ReportName = prog.ReportName
+                    };
                 default:
                     return new FinalExecutionCommand
                     {

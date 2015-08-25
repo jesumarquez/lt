@@ -124,13 +124,16 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual string GetSelectedGeofences() { return string.Empty; }
         protected virtual string GetSelectedMessageTypes() { return string.Empty; }
         protected virtual string GetSelectedDocuments () { return string.Empty; }
-        protected virtual string GetDescription(string s) { return string.Empty; }
+        protected virtual string GetDescription(string s) { return s; }
         protected virtual bool GetCicleCheck() { return false; }
         protected virtual int GetOvercomeKilometers() { return 0; }
         protected virtual bool GetShowCornersCheck() { return false; }
         protected virtual bool GetCalculateKilometers() { return false; }
         protected virtual string GetOdometerType() { return string.Empty; }
         protected virtual double GetInGeofenceTime() { return 0; }
+        protected virtual TimeSpan GetHigherDetentionFor() { return new TimeSpan(0,0,1,0); }
+        protected virtual double GetHigherDistanceOf() { return 100; }
+        protected virtual TimeSpan GetUnreportedTime() { return new TimeSpan(0, 0, 1, 0); }
 
         //envio manual de reportes
         protected virtual List<int> GetSelectedListByField(string field) { return new List<int>(); }

@@ -269,6 +269,90 @@ namespace Logictracker.Tracker.Application.Reports
             }
         }
 
+        public void HandleMessage(DeliverStatusReportCommand command)
+        {
+            Logger.DebugFormat("Received message command of type {0} ", command.GetType());
+
+            var statusReport = new ReportStatus();
+            try
+            {
+                NHibernateHelper.CreateSession();
+                Logger.Debug("Nhibernate session created");
+
+                ProcessGenerateDeliverStatusReportCommand(command, statusReport);
+
+                NHibernateHelper.CloseSession();
+                Logger.Debug("Nhibernate close session");
+
+            }
+            catch (Exception e)
+            {
+                statusReport.Error = true;
+                Logger.Error(e);
+                throw;
+            }
+            finally
+            {
+                ReportService.LogReportExecution(statusReport);
+            }
+        }
+
+        public void HandleMessage(TransfersPerTripReportCommand command)
+        {
+            Logger.DebugFormat("Received message command of type {0} ", command.GetType());
+
+            var statusReport = new ReportStatus();
+            try
+            {
+                NHibernateHelper.CreateSession();
+                Logger.Debug("Nhibernate session created");
+
+                ProcessGenerateTransfersPerTripReportCommand(command, statusReport);
+
+                NHibernateHelper.CloseSession();
+                Logger.Debug("Nhibernate close session");
+
+            }
+            catch (Exception e)
+            {
+                statusReport.Error = true;
+                Logger.Error(e);
+                throw;
+            }
+            finally
+            {
+                ReportService.LogReportExecution(statusReport);
+            }
+        }
+
+        public void HandleMessage(SummaryRoutesReportCommand command)
+        {
+            Logger.DebugFormat("Received message command of type {0} ", command.GetType());
+
+            var statusReport = new ReportStatus();
+            try
+            {
+                NHibernateHelper.CreateSession();
+                Logger.Debug("Nhibernate session created");
+
+                ProcessGenerateSummaryRoutesReportCommand(command, statusReport);
+
+                NHibernateHelper.CloseSession();
+                Logger.Debug("Nhibernate close session");
+
+            }
+            catch (Exception e)
+            {
+                statusReport.Error = true;
+                Logger.Error(e);
+                throw;
+            }
+            finally
+            {
+                ReportService.LogReportExecution(statusReport);
+            }
+        }
+
         public void HandleMessage(FinalExecutionCommand command)
         {
             Logger.DebugFormat("Received message command of type {0} ", command.GetType());
@@ -383,5 +467,33 @@ namespace Logictracker.Tracker.Application.Reports
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
         }
+
+        private void ProcessGenerateTransfersPerTripReportCommand(TransfersPerTripReportCommand command, ReportStatus statusReport)
+        {
+            using (
+                var reportStream = ReportService.GenerateTransfersPerTripReport(command, statusReport))
+            {
+                ReportService.SendReport(reportStream, command, command.ReportName);
+            }
+        }
+
+        private void ProcessGenerateDeliverStatusReportCommand(DeliverStatusReportCommand command, ReportStatus statusReport)
+        {
+            using (
+                var reportStream = ReportService.GenerateDeliverStatusReport(command, statusReport))
+            {
+                ReportService.SendReport(reportStream, command, command.ReportName);
+            }
+        }
+
+        private void ProcessGenerateSummaryRoutesReportCommand(SummaryRoutesReportCommand command, ReportStatus statusReport)
+        {
+            using (
+                var reportStream = ReportService.GenerateSummaryRoutesReport(command, statusReport))
+            {
+                ReportService.SendReport(reportStream, command, command.ReportName);
+            }
+        }
+
     }
 }

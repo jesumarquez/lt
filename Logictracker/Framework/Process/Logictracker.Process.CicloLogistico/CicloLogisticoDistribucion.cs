@@ -675,14 +675,23 @@ namespace Logictracker.Process.CicloLogistico
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, Distribucion.Vehiculo.Dispositivo.Id, "Error generando pregunta: Ya se ha confirmado la realización de la entrega(" + destDetail + ")");
                         return;
                     }
+                    if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado)
+                    {
+                        STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: El viaje " + detalle.Viaje.Codigo + " se encuentra cerrado.");
+                        return;
+                    }
 
                     detalle.Manual = data.Date;
                     detalle.Estado = EntregaDistribucion.Estados.Completado;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
-                    SaveMessage(MessageCode.GarminStopStatus.GetMessageCode(), ", <b>realizada satisfactoriamente<b>: " + destDetail, data);
+                    var messageDesc = DaoFactory.MensajeDAO.GetByCodigo(data.MessageId.ToString(), detalle.Viaje.Vehiculo.Dispositivo.Id);
 
-                    var descriptiva = "Manual -> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    var text = "***";
+                    if (messageDesc != null) text = messageDesc.Descripcion;
+                    
+                    var descriptiva = "(Manual) <b>realizada satisfactoriamente<b>: " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + text;
+                    
                     SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
                     SaveMessageAtraso(data, detalle);
 
@@ -697,6 +706,28 @@ namespace Logictracker.Process.CicloLogistico
                     var ms = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver)
                                           .AddDestinations(new[] { dest });
                     ms.Send();
+                    break;
+                case EntregaDistribucion.Estados.Restaurado:
+                    detalle.Manual = data.Date;
+                    detalle.Estado = EntregaDistribucion.Estados.Completado;
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
+
+                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), ", <b>reactivada y confirmada<b>: " + destDetail, data);
+
+                    var descripcion = "Manual -> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
+                    SaveMessageAtraso(data, detalle);
+
+                    var destiny = new Destination(detalle.Id,
+                                               new GPSPoint(data.Date,
+                                                           (float)detalle.ReferenciaGeografica.Latitude,
+                                                           (float)detalle.ReferenciaGeografica.Longitude),
+                                               detalle.Descripcion,
+                                               detalle.PuntoEntrega.Descripcion,
+                                               detalle.ReferenciaGeografica.Direccion.Descripcion);
+
+                    var msg = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver).AddDestinations(new[] { destiny });
+                    msg.Send();
                     break;
                 case EntregaDistribucion.Estados.Cancelado:
                 case EntregaDistribucion.Estados.NoCompletado:
@@ -714,8 +745,17 @@ namespace Logictracker.Process.CicloLogistico
                     detalle.Manual = data.Date;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
-                    SaveMessage(MessageCode.GarminStopStatus.GetMessageCode(), ", <b>se ha arribado al destino</b>: " + destDetail, data);
-                    SaveMessage(MessageCode.GarminStopStatusDeleted.GetMessageCode(), ", <b>entrega eliminada del dispositivo remoto</b>: " + destDetail, data);
+                    var textMessage = DaoFactory.MensajeDAO.GetByCodigo(data.MessageId.ToString(), detalle.Viaje.Vehiculo.Dispositivo.Id);
+
+                    var textMessageDesc = "***";
+                    if (textMessage != null) textMessageDesc = textMessage.Descripcion;
+
+                    var descriptiva2 = "(Manual) <b>no realizada<b>: " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + textMessageDesc;
+                    
+                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva2, data, detalle.Viaje, detalle);
+                    
+                    //SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), ", <b>se ha arribado al destino</b>: " + destDetail, data);
+                    //SaveMessage(MessageCode.GarminStopStatusDeleted.GetMessageCode(), ", <b>entrega eliminada del dispositivo remoto</b>: " + destDetail, data);
 
                     var cmt = DaoFactory.MensajeDAO.GetResponsesMessagesTable(Distribucion.Vehiculo.Dispositivo.Id, 0);
                     if ((cmt != null) && (cmt.Count > 0))
