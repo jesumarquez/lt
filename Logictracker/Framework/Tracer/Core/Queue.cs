@@ -29,6 +29,8 @@ namespace Logictracker.DatabaseTracer.Core
         public static void Enqueue(Log log)
         {
             InternalQueue.Enqueue(log);
+
+            Consumer.Start();
         }
 
         /// <summary>
