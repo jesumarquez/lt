@@ -73,6 +73,8 @@ namespace Logictracker.Messaging
         DesvioRecorrido,
         VueltaAlRecorrido,
 
+        TareaRevertida,
+
         RutaAceptada,
         RutaRechazada,
 
@@ -241,11 +243,12 @@ namespace Logictracker.Messaging
 				case MessageCode.CicloLogisticoCerrado: return "1004";
                 case MessageCode.CicloLogisticoIniciadoDocumentosInvalidos: return "1005";
 
-                
-
                 // Desvío de Recorrido
                 case MessageCode.DesvioRecorrido: return "1006";
                 case MessageCode.VueltaAlRecorrido: return "1007";
+
+                // Tarea revertida
+                case MessageCode.TareaRevertida: return "1008";
 
                 // Mensajes Garmin
                 case MessageCode.GarminStopStatus: return "145"; 
