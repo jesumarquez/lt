@@ -1,0 +1,300 @@
+﻿
+<%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.CheckBoxLists" Assembly="Logictracker.Web.CustomWebControls" %>
+<%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownCheckLists" Assembly="Logictracker.Web.CustomWebControls" %>
+<C1:C1GridView     SkinID="ListGrid"
+                   runat="server"
+                   
+                   CssClass="Grid"
+                   VisualStyle="None"
+                   
+                   AutoGenerateColumns="false"
+                   CellPadding="3"
+                   CellSpacing="0"
+                   GridLines="Horizontal"
+                   Width="100%"
+                   
+                   AllowColSizing="true"
+                   
+                   EmptyDataText="No se encontraron datos"
+                   
+                   SelectedIndex="-1"
+                   SelectionMode="None"
+                   
+                   AllowPaging="True"
+                   PageSize="50"
+                   PagerSettings-Mode="NumericFirstLast" 
+                   PagerSettings-Position="TopAndBottom"
+                   
+                   AllowSorting="True"
+                   
+                   AllowGrouping="true"
+                   GroupIndent="50"
+                   AllowColMoving="true"
+                   GroupByCaption="Arrastre una columa aqui para agrupar por esa columna"
+                   >
+        <PagerStyle HorizontalAlign="Right" Wrap="True" CssClass="Grid_Pager" />
+        <HeaderStyle Font-Bold="true" CssClass="Grid_Header" />
+        <RowStyle Wrap="true" CssClass="Grid_Item" />
+        <AlternatingRowStyle Wrap="true" CssClass="Grid_Alternating_Item" />
+        <GroupingStyle CssClass="Grid_Grouping" />
+        <EmptyDataRowStyle CssClass="Grid_Empty" />
+        <FooterStyle CssClass="Grid_Footer" />
+        <SelectedRowStyle CssClass="Grid_Selected_Item" />
+    </C1:C1GridView>
+
+<C1:C1GridView     SkinID="ListGridNoGroup"
+                   runat="server"
+                   
+                   CssClass="Grid"
+                   VisualStyle="None"
+                   
+                   AutoGenerateColumns="false"
+                   CellPadding="3"
+                   CellSpacing="0"
+                   GridLines="Horizontal"
+                   Width="100%"
+                   
+                   AllowColSizing="true"
+                   
+                   EmptyDataText="No se encontraron datos"
+                   
+                   SelectedIndex="-1"
+                   SelectionMode="None"
+                   
+                   AllowPaging="True"
+                   PageSize="50"
+                   PagerSettings-Mode="NumericFirstLast" 
+                   PagerSettings-Position="TopAndBottom"
+                   
+                   AllowSorting="True"
+                   
+                   AllowGrouping="false"
+                   >
+        <PagerStyle HorizontalAlign="Right" Wrap="True" CssClass="Grid_Pager" />
+        <HeaderStyle Font-Bold="true" CssClass="Grid_Header" />
+        <RowStyle Wrap="true" CssClass="Grid_Item" />
+        <AlternatingRowStyle Wrap="true" CssClass="Grid_Alternating_Item" />
+        <GroupingStyle CssClass="Grid_Grouping" />
+        <EmptyDataRowStyle CssClass="Grid_Empty" />
+        <FooterStyle CssClass="Grid_Footer" />
+        <SelectedRowStyle CssClass="Grid_Selected_Item" />
+    </C1:C1GridView>
+    
+    <C1:C1GridView     SkinID="ListGridNoGroupNoPage"
+                   runat="server"
+                   
+                   CssClass="Grid"
+                   VisualStyle="None"
+                   
+                   AutoGenerateColumns="false"
+                   CellPadding="3"
+                   CellSpacing="0"
+                   GridLines="Horizontal"
+                   Width="100%"
+                   
+                   AllowColSizing="true"
+                   
+                   EmptyDataText="No se encontraron datos"
+                   
+                   SelectedIndex="-1"
+                   SelectionMode="None"
+                   
+                   AllowPaging="false"
+                   PageSize="50"
+                   PagerSettings-Mode="NumericFirstLast" 
+                   PagerSettings-Position="TopAndBottom"
+                   
+                   AllowSorting="True"
+                   
+                   AllowGrouping="false"
+                   >
+        <PagerStyle HorizontalAlign="Right" Wrap="True" CssClass="Grid_Pager" />
+        <HeaderStyle Font-Bold="true" CssClass="Grid_Header" />
+        <RowStyle Wrap="true" CssClass="Grid_Item" />
+        <AlternatingRowStyle Wrap="true" CssClass="Grid_Alternating_Item" />
+        <GroupingStyle CssClass="Grid_Grouping" />
+        <EmptyDataRowStyle CssClass="Grid_Empty" />
+        <FooterStyle CssClass="Grid_Footer" />
+        <SelectedRowStyle CssClass="Grid_Selected_Item" />
+    </C1:C1GridView>
+    
+<C1:C1GridView runat="server" CssClass="smallgrid" Width="100%" VisualStyle="None" AutoGenerateColumns="false" SkinID="SmallGrid">
+    <HeaderStyle Font-Bold="true" CssClass="smallgrid_header" />
+    <RowStyle Wrap="true" CssClass="smallgrid_item" />
+    <AlternatingRowStyle Wrap="true" CssClass="smallgrid_altitem" />
+</C1:C1GridView>
+
+
+
+<C1:C1GridView     SkinID="PrintGrid"
+                   runat="server"
+                   
+                   CssClass="Print_Grid"
+                   VisualStyle="None"
+                   UseEmbeddedVisualStyles="false"
+                   
+                   AutoGenerateColumns="false"
+                   CellPadding="3"
+                   CellSpacing="0"
+                   GridLines="Horizontal"
+                   Width="100%"
+                   
+                   AllowColSizing="false"
+                   
+                   EmptyDataText="No se encontraron datos"
+                   
+                   SelectedIndex="-1"
+                   SelectionMode="None"
+                   
+                   AllowPaging="False"                 
+                   AllowSorting="True"
+                   
+                   AllowGrouping="true"
+                   GroupIndent="50"
+                   AllowColMoving="true"
+                   GroupByCaption=""
+                   >
+        <HeaderStyle Font-Bold="true" CssClass="Print_Grid_Header"  />
+        <RowStyle Wrap="true" CssClass="Print_Grid_Item" />
+        <AlternatingRowStyle Wrap="true" CssClass="Print_Grid_Alternating_Item" />
+        <GroupingStyle CssClass="Print_Grid_Grouping" />
+        <EmptyDataRowStyle CssClass="Print_Grid_Empty" />
+    </C1:C1GridView>
+
+<cwc:ToolBar runat="server" CssClass="toolbar" TitleCssClass="toolbar_title" IconCssClass="toolbar_icon" BaseImageUrl="~/{0}.image" />
+
+<cwc:ToolBarButton runat="server" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="New" runat="server" Image="New" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Duplicate" runat="server" Image="Duplicate" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Print" runat="server" Image="Print" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Map" runat="server" Image="Map" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Event" runat="server" Image="Event" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Delete" runat="server" Image="Delete" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="List" runat="server" Image="List" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Save" runat="server" Image="Save" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="CSV" runat="server" Image="Csv" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Excel" runat="server" Image="Excel" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Split" runat="server" Image="Split" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Import" runat="server" Image="Import" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Regenerate" runat="server" Image="Regenerate" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Schedule" runat="server" Image="Schedule" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="SendReport" runat="server" Image="SendReport" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Start" runat="server" Image="Start" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="StartAll" runat="server" Image="Start" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Cancel" runat="server" Image="Anular" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+<cwc:ToolBarButton SkinID="Edit" runat="server" Image="Edit" CssClass="toolbarbutton" BackCssClass="toolbarbutton_back" OverCssClass="toolbarbutton_over" />
+
+<cwc:TitleBar runat="server" CssClass="titlebar" TitleCssClass="titlebar_title" />
+
+<cwc:InfoLabel runat="server" ErrorCssClass="errorlabel" InfoCssClass="infolabel" />
+<cwc:InfoLabel runat="server" SkinID="Blank" />
+
+<cwc:ProgressLabel runat="server" CssClass="progresslabel" />
+
+<asp:Panel runat="server" CssClass="filterpanel" SkinID="FilterPanel" />
+
+<AjaxToolkit:Accordion runat="server" HeaderCssClass="accordionHeader" HeaderSelectedCssClass="accordionHeaderSelected"
+    ContentCssClass="accordionContent" AutoSize="None" FadeTransitions="true" TransitionDuration="250" FramesPerSecond="40"
+    RequireOpenedPane="false" SuppressHeaderPostbacks="true" />
+    
+<AjaxToolkit:AccordionPane runat="server" HeaderCssClass="accordionHeader" ContentCssClass="accordionContent" />
+
+
+<AjaxToolkit:Accordion runat="server" HeaderCssClass="accordionMenuHeader" HeaderSelectedCssClass="accordionMenuHeaderSelected"
+    ContentCssClass="accordionMenuContent" AutoSize="None" FadeTransitions="true" TransitionDuration="250" FramesPerSecond="40"
+    RequireOpenedPane="false" SuppressHeaderPostbacks="true" SkinID="Menu" />
+    
+<AjaxToolkit:AccordionPane runat="server" HeaderCssClass="accordionMenuHeader" ContentCssClass="accordionMenuContent" SkinID="Menu"  />
+
+<AjaxToolkit:Accordion runat="server" SkinID="Blank" />
+    
+<AjaxToolkit:AccordionPane runat="server" SkinID="Blank" />
+
+<AjaxToolkit:TabContainer runat="server"  CssClass="ajax__tab_xp-theme" />
+
+<cwc:TitledPanel runat="server" CssClass="abmpanel" TitleCssClass="panelheader" Width="100%" />
+<cwc:AbmTitledPanel runat="server" CssClass="abmpanel" TitleCssClass="panelheader" Width="100%" />
+
+<cwc:DropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:DropDownCheckList>
+
+<cwc:PerfilDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:PerfilDropDownCheckList>
+<cwc:LocacionDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:LocacionDropDownCheckList>
+<cwc:PlantaDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:PlantaDropDownCheckList>
+<cwc:TransportistaDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:TransportistaDropDownCheckList>
+<cwc:MovilDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:MovilDropDownCheckList>
+<cwc:TipoDeVehiculoDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:TipoDeVehiculoDropDownCheckList>
+<cwc:CentroDeCostosDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:CentroDeCostosDropDownCheckList>
+<cwc:TipoMensajeDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:TipoMensajeDropDownCheckList>
+<cwc:ClienteDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:ClienteDropDownCheckList>
+<cwc:ConfiguracionDispositivoDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:ConfiguracionDispositivoDropDownCheckList>
+<cwc:BocaDeCargaDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:BocaDeCargaDropDownCheckList>
+<cwc:DepartamentoDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:DepartamentoDropDownCheckList>
+<cwc:TipoEmpleadoDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:TipoEmpleadoDropDownCheckList>
+<cwc:EmpleadoDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:EmpleadoDropDownCheckList>
+<cwc:PuertaDropDownCheckList runat="server" >
+    <Style CssClass="dropdowncheck_style" />
+    <PanelStyle CssClass="dropdowncheck_panel" />
+    <SelectAllStyle CssClass="dropdowncheck_all" />
+</cwc:PuertaDropDownCheckList>
+
+<cwc:DynamicHelp runat="server" CssClass="dynhelp" TitleCssClass="dynhelp_title" />
