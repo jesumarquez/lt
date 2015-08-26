@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Resources\LinqToExcel.dll</HintPath>
     </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resources\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -60,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Properties.cs" />
     <Compile Include="Strategies\DistribucionReginaldLee.cs" />
+    <Compile Include="Strategies\DistribucionCCU.cs" />
     <Compile Include="Strategies\DistribucionSos.cs" />
     <Compile Include="Strategies\DistribucionQuilmes.cs" />
     <Compile Include="Strategies\DistribucionFemsa.cs" />
