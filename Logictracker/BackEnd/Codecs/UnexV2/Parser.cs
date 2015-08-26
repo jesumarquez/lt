@@ -380,6 +380,11 @@ namespace Logictracker.Unetel.v2
 			return true;
 		}
 
+        public bool SubmitLongTextMessage(ulong messageId, String textMessage)
+        {
+            throw new NotImplementedException();
+        }
+
 		#endregion
 
 		#region IProvisioned

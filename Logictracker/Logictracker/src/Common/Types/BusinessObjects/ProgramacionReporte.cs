@@ -15,7 +15,6 @@ namespace Logictracker.Types.BusinessObjects
 
         public virtual Empresa Empresa { get; set; }
         public virtual Linea Linea { get; set; }
-
         public virtual string Report { get; set; }
         public virtual string Vehicles { get; set; }
         public virtual char Periodicity { get; set; }
@@ -35,6 +34,10 @@ namespace Logictracker.Types.BusinessObjects
         public virtual double GeofenceTime { get; set; }
         public virtual string Documents { get; set; }
         public virtual string Odometers { get; set; }
+        public virtual bool ShowDetours { get; set; }
+        //public virtual TimeSpan DetentionTime { get; set; }
+        //public virtual double Distance { get; set; }
+        //public virtual TimeSpan UnreportedTime { get; set; }
 
         public static class Reportes
         {
@@ -48,6 +51,9 @@ namespace Logictracker.Types.BusinessObjects
             public const string VencimientoDocumentos = "DocumentsExpirationReport";
             public const string TiempoAcumulado = "MobilesTimeReport";
             public const string ReporteOdometros = "OdometersReport";
+            public const string TrasladosViaje = "TransfersPerTripReport";
+            public const string EstadoEntregas = "DeliverStatusReport";
+            public const string ResumenRutas = "SummaryRoutes";
         }
 
         public static class FormatoReporte

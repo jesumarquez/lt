@@ -481,6 +481,9 @@
   <data name="VENCIMIENTO" xml:space="preserve">
     <value>Vencimiento</value>
   </data>
+  <data name="TRANSPORTISTA" xml:space="preserve">
+    <value>Transportista</value>
+  </data>
   <data name="VENCIMIENTO_POLIZA" xml:space="preserve">
     <value>Vencimiento póliza</value>
   </data>

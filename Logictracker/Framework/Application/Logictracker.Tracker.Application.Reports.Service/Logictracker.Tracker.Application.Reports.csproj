@@ -42,9 +42,17 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\NHibernate.4.0.3.4000\lib\net40\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
@@ -82,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccumulatedKilometersReportGenerator.cs" />
+    <Compile Include="DeliverStatusReportGenerator.cs" />
     <Compile Include="DocumentsExpirationReportGenerator.cs" />
     <Compile Include="DriversInfractionsReportGenerator.cs" />
     <Compile Include="GeofenceEventsReportGenerator.cs" />
@@ -94,6 +103,8 @@
     <Compile Include="ReportService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportStatus.cs" />
+    <Compile Include="SummaryRoutesReportGenerator.cs" />
+    <Compile Include="TransfersPerTripReportGenerator.cs" />
     <Compile Include="VehicleActivityReportGenerator.cs" />
     <Compile Include="VehicleInfractionsReportGenerator.cs" />
   </ItemGroup>
@@ -106,9 +117,17 @@
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Types.ValueObjects\Logictracker.Types.ValueObjects.csproj">
+      <Project>{B4CACBB4-0F42-4C57-813B-BB72C7FC82EF}</Project>
+      <Name>Logictracker.Types.ValueObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
       <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
       <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
+      <Name>Logictracker.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
       <Project>{7f58dcb5-6d76-4882-8610-74929b5df8ed}</Project>
@@ -118,19 +137,26 @@
       <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
       <Name>Logictracker.Cache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Security\Logictracker.Security.csproj">
+      <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AccumulatedKilometersReport.xls" />
+    <EmbeddedResource Include="Templates\AccumulatedKilometersReport.xls" />
     <None Include="app.config" />
-    <EmbeddedResource Include="EventReport.xls" />
-    <EmbeddedResource Include="DriversInfractionsReport.xls" />
-    <EmbeddedResource Include="GeofenceEventsReport.xls" />
-    <EmbeddedResource Include="MobilesTimeReport.xls" />
-    <EmbeddedResource Include="DocumentsExpirationReport.xls" />
-    <EmbeddedResource Include="OdometersReport.xls" />
+    <EmbeddedResource Include="Templates\EventReport.xls" />
+    <EmbeddedResource Include="Templates\DriversInfractionsReport.xls" />
+    <EmbeddedResource Include="Templates\GeofenceEventsReport.xls" />
+    <EmbeddedResource Include="Templates\MobilesTimeReport.xls" />
+    <EmbeddedResource Include="Templates\DocumentsExpirationReport.xls" />
+    <EmbeddedResource Include="Templates\OdometersReport.xls" />
+    <EmbeddedResource Include="Templates\DeliverStatusReport.xls" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="VehicleActivityReport.xls" />
-    <EmbeddedResource Include="VehicleInfractionsReport.xls" />
+    <EmbeddedResource Include="Templates\VehicleActivityReport.xls" />
+    <EmbeddedResource Include="Templates\VehicleInfractionsReport.xls" />
+    <EmbeddedResource Include="Templates\TransfersPerTripReport.xls" />
+    <EmbeddedResource Include="Templates\SummaryRoutesReport.xls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Logictracker.DAL.NHibernate;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Messages.Saver;
+using Logictracker.Messages.Sender;
+using Logictracker.Messaging;
 using Logictracker.Process.CicloLogistico;
 using Logictracker.Process.CicloLogistico.Events;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
@@ -11,6 +13,9 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Utils;
+using System.Linq;
+using System.Text;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.Scheduler.Tasks.Logiclink2
 {
@@ -55,6 +60,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     STrace.Trace(Component, "Procesando con Estrategia: " + archivo.Strategy);
                     var rutas = 0;
                     var entregas = 0;
+                    var clientes = 0;
+                    var asignaciones = 0;
+                    var result = string.Empty;
                     var observaciones = string.Empty;
                     ViajeDistribucion viaje = null;
 
@@ -62,9 +70,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     {
                         case LogicLinkFile.Estrategias.DistribucionFemsa:
                             _empresasLineas = DistribucionFemsa.Parse(archivo, out rutas, out entregas);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionQuilmes:
                             _empresasLineas = DistribucionQuilmes.Parse(archivo, out rutas, out entregas, out observaciones);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                            if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
                         case LogicLinkFile.Estrategias.DistribucionMusimundo:
                             //EmpresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas);
@@ -74,16 +85,37 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             break;
                         case LogicLinkFile.Estrategias.DistribucionSos:
                             viaje = DistribucionSos.Parse(archivo, out rutas, out entregas);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionReginaldLee:
                             _empresasLineas = DistribucionReginaldLee.Parse(archivo, out rutas, out entregas);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                            break;
+                        case LogicLinkFile.Estrategias.DistribucionCCU:
+                            var extension = GetFileName(archivo.FilePath);
+                            switch (extension)
+	                        {
+                                case "Rutas.xlsx":
+                                    _empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas);
+                                    result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                                    break;
+                                case "Clientes.xlsx":
+                                    DistribucionCCU.ParseClientes(archivo, out clientes);
+                                    result = string.Format("Archivo procesado exitosamente. Clientes: {0}", clientes);
+                                    break;
+                                case "Asigno.xlsx":
+                                    DistribucionCCU.ParseAsignaciones(archivo, out asignaciones);
+                                    result = string.Format("Archivo procesado exitosamente. Asignaciones: {0}", asignaciones);
+                                    break;
+                                default:
+                                    result = string.Format("Extensión '" + extension + "' no válida.");
+                                    break;
+	                        }
                             break;
                     }
 
                     archivo.Status = LogicLinkFile.Estados.Procesado;
                     archivo.DateProcessed = DateTime.UtcNow;
-                    var result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
-                    if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                     archivo.Result = result;
                     DaoFactory.LogicLinkFileDAO.SaveOrUpdate(archivo);
 
@@ -104,10 +136,37 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                                 var tieneViajeEnCurso = DaoFactory.ViajeDistribucionDAO.FindEnCurso(viaje.Vehiculo) != null;
                                 if (!tieneViajeEnCurso)
                                 {
-                                    var ciclo = new CicloLogisticoDistribucion(viaje, DaoFactory,
-                                        new MessageSaver(DaoFactory));
-                                    var evento = new InitEvent(DateTime.UtcNow);
-                                    ciclo.ProcessEvent(evento);
+                                    //var ciclo = new CicloLogisticoDistribucion(viaje, DaoFactory,
+                                    //    new MessageSaver(DaoFactory));
+                                    //var evento = new InitEvent(DateTime.UtcNow);
+                                    //ciclo.ProcessEvent(evento);
+                                }
+                                if (viaje.Vehiculo.Dispositivo != null)
+                                {   
+                                    var msg = new StringBuilder();
+                                    var desde = viaje.Detalles[1].ReferenciaGeografica;
+                                    var hasta = viaje.Detalles[2].ReferenciaGeografica;
+                                    msg.Append("Viaje: " + viaje.Codigo);
+                                    msg.Append("<br>Desde: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(desde.Latitude, desde.Longitude));
+                                    msg.Append("<br>Hasta: " + GeocoderHelper.GetDescripcionEsquinaMasCercana(hasta.Latitude, hasta.Longitude));
+
+                                    var message = MessageSender.CreateSubmitTextMessage(viaje.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+                                    message.AddMessageText(msg.ToString());
+                                    message.Send();
+
+                                    //STrace.Trace(Component, "Ruta Aceptada: " + MessageCode.RutaAceptada.ToString());
+                                    //STrace.Trace(Component, "Ruta Rechazada: " + MessageCode.RutaRechazada.ToString());
+
+                                    //var msgText = "Acepta la asignacion del servicio <br><b>" + viaje.Codigo + "</b>?";
+                                    //var replies = new[] { Convert.ToUInt32(MessageCode.RutaAceptada.ToString()), 
+                                    //                      Convert.ToUInt32(MessageCode.RutaRechazada.ToString()) };
+                                    //message = MessageSender.CreateSubmitCannedResponsesTextMessage(viaje.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+                                    //message.AddMessageText(msgText)
+                                    //       .AddTextMessageId(Convert.ToUInt32(viaje.Id))
+                                    //       .AddCannedResponses(replies)
+                                    //       .AddAckEvent(MessageCode.GarminCannedMessageReceived.GetMessageCode());
+
+                                    //message.Send();
                                 }
                             }
                         }
@@ -173,6 +232,16 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     }
                 }
             }
+        }
+
+        private string GetFileName(string filePath)
+        {
+            var filename = string.Empty;
+
+            if (filePath.Contains('@'))
+                filename = filePath.Split('@').Last();
+
+            return filename;
         }
     }
 }

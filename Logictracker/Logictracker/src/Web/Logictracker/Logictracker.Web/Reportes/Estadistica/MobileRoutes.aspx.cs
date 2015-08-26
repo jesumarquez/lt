@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Web.UI.WebControls;
 using C1.Web.UI.Controls.C1GridView;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Culture;
@@ -19,7 +21,7 @@ namespace Logictracker.Reportes.Estadistica
         protected override string VariableName { get { return "STAT_RESUMEN_RUTA"; } }
         protected override string GetRefference() { return "MOBILE_ROUTES"; }
         protected override bool ExcelButton { get { return true; } }
-        
+
         protected void DdlDistritoInitialBinding(object sender, EventArgs e) { if (!IsPostBack && Location > 0) ddlDistrito.EditValue = Location; }
         protected void DdlBaseInitialBinding(object sender, EventArgs e) { if (!IsPostBack && Company > 0) ddlBase.EditValue = Company; }
         protected void DdlTipoVehiculoInitialBinding(object sender, EventArgs e) { if (!IsPostBack && MobileType > 0) ddlTipoVehiculo.EditValue = MobileType; }

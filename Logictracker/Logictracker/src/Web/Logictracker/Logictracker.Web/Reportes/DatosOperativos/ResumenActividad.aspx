@@ -45,7 +45,7 @@
                 <br />
                 <asp:UpdatePanel ID="upMobile" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <cwc:MovilListBox ID="lbMobile" runat="server" Width="200px" Height="95px" SelectionMode="Multiple" ParentControls="ddlLocacion,ddlPlanta,ddlTransportista,ddlSubCentroDeCostos" AutoPostBack="false" />
+                        <cwc:MovilListBox ID="lbMobile" runat="server" Width="200px" Height="95px" SelectionMode="Multiple" ParentControls="ddlLocacion,ddlPlanta,ddlTransportista,ddlSubCentroDeCostos" AutoPostBack="false" HideWithNoDevice="true" />
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="ddlTransportista" EventName="SelectedIndexChanged" />

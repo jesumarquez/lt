@@ -15,7 +15,7 @@
     <AssemblyName>LogicTracker.App.Web.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -260,6 +260,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Models\MessageList.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
@@ -277,9 +278,21 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CustomMessage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\OrderModels.cs" />
-    <Compile Include="Models\RouteModels.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\JobState.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\MessageType.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\RouteEvent.cs" />
+    <Compile Include="Models\RouteItem.cs" />
+    <Compile Include="Models\RouteList.cs" />
+    <Compile Include="Models\Route.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\RouteState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -372,6 +385,10 @@
       <Project>{D74BA63A-1385-489C-9C87-A122856A3AE9}</Project>
       <Name>Logictracker.Tracker.Parser.Caesat</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
+      <Project>{bd82e1cc-3af6-4d02-9425-30edeb3742f2}</Project>
+      <Name>Logictracker.Culture</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
       <Name>Logictracker.Cache</Name>
@@ -383,6 +400,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
       <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
       <Name>Logictracker.Messages.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
+      <Name>Logictracker.Layers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
       <Project>{2d0c837c-8644-4c77-8267-be07cad743bd}</Project>
@@ -415,7 +436,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5796</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2645/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

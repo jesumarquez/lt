@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using LogicTracker.App.Web.Api.Filters;
 using LogicTracker.App.Web.Api.Models;
@@ -30,7 +26,7 @@ namespace LogicTracker.App.Web.Api.Controllers
 
             if (trip == null) return NotFound();
 
-            var order = new Order
+            var order = new Orders
             {
                 Code = trip.Codigo,
                 Id = trip.Id,
@@ -40,12 +36,12 @@ namespace LogicTracker.App.Web.Api.Controllers
                 EndDateTime = trip.Fin
             };
 
-            var orderJobs = new List<OrderJob>();
+            var orderJobs = new List<OrderModel>();
             foreach (var detail in trip.Detalles)
             {
                 if (detail.PuntoEntrega != null)
                 {
-                    var orderJob = new OrderJob();
+                    var orderJob = new OrderModel();
 
                     orderJob.Id = detail.Id;
                     orderJob.Description = detail.Descripcion;
@@ -85,7 +81,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 }
             }
 
-            order.OrderJobs = orderJobs.ToArray();
+            order.OrderModels = orderJobs.ToArray();
             return Ok(order);
         }
 

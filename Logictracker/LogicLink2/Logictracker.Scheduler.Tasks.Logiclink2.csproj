@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Resources\LinqToExcel.dll</HintPath>
     </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resources\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -60,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Properties.cs" />
     <Compile Include="Strategies\DistribucionReginaldLee.cs" />
+    <Compile Include="Strategies\DistribucionCCU.cs" />
     <Compile Include="Strategies\DistribucionSos.cs" />
     <Compile Include="Strategies\DistribucionQuilmes.cs" />
     <Compile Include="Strategies\DistribucionFemsa.cs" />
@@ -83,6 +88,10 @@
     <ProjectReference Include="..\Framework\Messaging\Logictracker.Messages.Saver\Logictracker.Messages.Saver.csproj">
       <Project>{3811E3C9-E240-46FC-A2B2-3FCC0F31F7FA}</Project>
       <Name>Logictracker.Messages.Saver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
+      <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
+      <Name>Logictracker.Messages.Sender</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\Process\Logictracker.Process.CicloLogistico\Logictracker.Process.CicloLogistico.csproj">
       <Project>{C23D6940-C665-4076-96B7-C5B29EE304F0}</Project>

@@ -403,12 +403,14 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         private IReportCommand GenerateReportCommand(string reportType)
         {
+            var reportId = DAOFactory.ProgramacionReporteDAO.GetReportIdByReportName("Manual");
+
             switch (reportType)
             {
                 case "AccumulatedKilometersReport":
                     return new AccumulatedKilometersReportCommand
                     {
-                        ReportId = 83, //Id de reporte manual inactivo
+                        ReportId = reportId, //Id de reporte manual inactivo
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
@@ -419,7 +421,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case "MobilesTimeReport":
                     return new MobilesTimeReportCommand
                     {
-                        ReportId = 83,
+                        ReportId = reportId,
                         CustomerId = GetCompanyId(),
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),

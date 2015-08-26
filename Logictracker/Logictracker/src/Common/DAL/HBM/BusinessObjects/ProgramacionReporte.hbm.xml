@@ -28,6 +28,9 @@
     <property column="parenti56_reportName" type="String" name="ReportName" not-null="true" length="50" />
     <property column="parenti56_description" type="String" name="Description" not-null="true" length="80000"  />
     <property column="parenti56_documents" type="String" name="Documents" not-null="false" length="80000" />
+    <!--<property column="parenti56_detentionTime" type="TimeAsTimeSpan" name="DetentionTime" not-null="false" />
+    <property column="parenti56_distance" type="Double" name="Distance" not-null="false" />
+    <property column="parenti56_unreportedTime" type="TimeAsTimeSpan" name="UnreportedTime" not-null="false"/>-->
 
     <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" not-null="true" />
     <many-to-one column="rela_parenti02_linea" name="Linea" lazy="proxy" not-null="false" />

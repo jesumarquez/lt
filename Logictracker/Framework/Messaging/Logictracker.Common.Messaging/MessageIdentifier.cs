@@ -22,6 +22,11 @@ namespace Logictracker.Messaging
         DeviceOnNetInternal = 6,
         DeviceOnProxyInternal = 7,
         DeviceOffLineInternal = 8,
+
+        // Aceptación de rutas
+        RutaAceptada = 10,
+        RutaRechazada = 11,
+
         TareaRealizada = 21,
         TareaNoRealizada = 22,
         RebootTimeout = 32,
@@ -135,6 +140,11 @@ namespace Logictracker.Messaging
 		LogisticStateFulfilled = 1002,
 		LogisticsCycleInitiated = 1003,
 		LogisticsCycleTerminated = 1004,
+
+        DesvioRecorrido = 1006,
+        VueltaAlRecorrido = 1007,
+
+        TareaRevertida = 1008,
 
 		TraveledLeg = 1010,
 

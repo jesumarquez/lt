@@ -18,7 +18,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             if (deviceId == null) return BadRequest();
 
             var mobileId = RouteService.GetMobileIdByImei(deviceId);
-            var routeMessages = RouteService.GetAllMessages(deviceId);
+            var routeMessages = RouteService.GetProfileMessages(deviceId);
 
             if (routeMessages == null) return Unauthorized();   
 
@@ -26,13 +26,13 @@ namespace LogicTracker.App.Web.Api.Controllers
 
             foreach (var msg in routeMessages)
             {
-                var messageType = new MessageType {type = 1, Code = msg.Codigo, Description = msg.Descripcion};
+                var messageType = new MessageType { Type = 1, Code = msg.Codigo, Description = msg.Descripcion };
 
                 if (msg.TipoMensaje.DeRechazo)
-                    messageType.type = 0;
+                    messageType.Type = 0;
 
                 if (msg.TipoMensaje.DeUsuario)
-                    messageType.type = 2;
+                    messageType.Type = 2;
 
                 messages.Add(messageType);
             }
