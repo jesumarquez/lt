@@ -50,6 +50,17 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
         {
             public const int Fecha = 0;
         }
+        public class ClienteCCU
+        {
+            public const int CodigoCliente = 0;
+            public const int Nombre = 1;
+            public const int Direccion = 2;
+            public const int Latitud = 3;
+            public const int Longitud = 4;
+            public const int Localidad = 5;
+            public const int Barrio = 6;
+        }
+
         public class DistribucionReginaldLee
         {
             public const int CodigoCliente = 0;

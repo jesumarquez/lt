@@ -92,18 +92,18 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionCCU:
-                            var extension = GetExtension(archivo.FilePath);
+                            var extension = GetFileName(archivo.FilePath);
                             switch (extension)
 	                        {
-                                case "txt":
+                                case "Rutas.xlsx":
                                     _empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas);
                                     result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                                     break;
-                                case "csv":
+                                case "Clientes.xlsx":
                                     DistribucionCCU.ParseClientes(archivo, out clientes);
                                     result = string.Format("Archivo procesado exitosamente. Clientes: {0}", clientes);
                                     break;
-                                case "doc":
+                                case "Asigno.xlsx":
                                     DistribucionCCU.ParseAsignaciones(archivo, out asignaciones);
                                     result = string.Format("Archivo procesado exitosamente. Asignaciones: {0}", asignaciones);
                                     break;
@@ -234,14 +234,14 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             }
         }
 
-        private string GetExtension(string filePath)
+        private string GetFileName(string filePath)
         {
-            var extension = string.Empty;
+            var filename = string.Empty;
 
-            if (filePath.Contains('.')) 
-                extension = filePath.Split('.').Last();
+            if (filePath.Contains('@'))
+                filename = filePath.Split('@').Last();
 
-            return extension;
+            return filename;
         }
     }
 }
