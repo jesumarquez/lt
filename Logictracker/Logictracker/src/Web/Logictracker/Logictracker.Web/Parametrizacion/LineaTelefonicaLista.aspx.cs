@@ -16,6 +16,8 @@ namespace Logictracker.Parametrizacion
         protected override string GetRefference() { return "PAR_LINEA_TELEFONICA"; }
         
         protected override bool ExcelButton { get { return true; } }
+
+        protected override bool ImportButton { get { return true; } }
         
         protected override List<LineaTelefonicaVo> GetListData()
         {
