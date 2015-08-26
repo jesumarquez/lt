@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<Configuration xmlns="urn:Logictracker.Metrics.Configuration">
-  <MetricConfiguration Class="/Logictracker/Default.aspx" Name="logins" Interval="00:01:00" PublishCounter="true" />
-</Configuration>

@@ -1,1 +1,0 @@
-{{handler CmapMEP.dll/Imagenes}}{{if HasError}}<EXCEPTION>{{Error}}</EXCEPTION>{{else}}{{Imagen}}{{endif}}
