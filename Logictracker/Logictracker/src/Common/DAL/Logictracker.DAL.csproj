@@ -326,6 +326,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\ParametroEmpresa.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\ParametroReporteProg.hbm.xml" />
     <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\Coche.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -676,7 +678,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Entidades\DetalleValor.hbm.xml" />
-    <EmbeddedResource Include="HBM\BusinessObjects\ProgramacionReporte.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\ProgramacionReporte.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Entidades\LogEvento.hbm.xml" />
@@ -695,9 +699,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Departamento.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="HBM\BusinessObjects\ParametroEmpresa.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\TimeTracking\EventoViaje.hbm.xml" />

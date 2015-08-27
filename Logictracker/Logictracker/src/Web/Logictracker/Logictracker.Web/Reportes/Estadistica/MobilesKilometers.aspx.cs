@@ -149,22 +149,6 @@ namespace Logictracker.Reportes.Estadistica
             return (ddlPlanta != null && ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
         }
 
-        protected override string GetSelectedVehicles()
-        {
-            var sVehiculos = new StringBuilder();
-
-            if (lbMobiles.SelectedValues.Contains(0)) lbMobiles.ToogleItems();
-
-            foreach (var vehiculo in lbMobiles.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
-
-                sVehiculos.Append(vehiculo.ToString());
-            }
-
-            return sVehiculos.ToString();
-        }
 
         protected override string GetDescription(string s)
         {
@@ -179,7 +163,7 @@ namespace Logictracker.Reportes.Estadistica
             return sDescription.ToString();
         }
 
-        protected override List<int> GetSelectedListByField(string field)
+        protected override List<int> GetVehicleList()
         {
             if (lbMobiles.SelectedValues.Contains(0)) lbMobiles.ToogleItems();
             return lbMobiles.SelectedValues;
@@ -193,16 +177,6 @@ namespace Logictracker.Reportes.Estadistica
         protected override DateTime GetToDateTime()
         {
             return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
-        }
-
-        protected override int GetCompanyId()
-        {
-            return GetEmpresa().Id;
-        }
-
-        protected override bool GetCicleCheck()
-        {
-            return chkEnCiclo.Checked;
         }
     }
 }

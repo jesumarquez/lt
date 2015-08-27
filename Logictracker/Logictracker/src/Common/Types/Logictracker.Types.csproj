@@ -76,6 +76,8 @@
     <Compile Include="BusinessObjects\Messages\LogMensajeAdmin.cs" />
     <Compile Include="BusinessObjects\Messages\LastVehicleEvent.cs" />
     <Compile Include="BusinessObjects\Messages\EvenDistri.cs" />
+    <Compile Include="BusinessObjects\ParameterType.cs" />
+    <Compile Include="BusinessObjects\ParametroReportesProg.cs" />
     <Compile Include="BusinessObjects\Positions\Coordinate.cs" />
     <Compile Include="BusinessObjects\SubCentroDeCostos.cs" />
     <Compile Include="BusinessObjects\Messages\Infraccion.cs" />
