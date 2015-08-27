@@ -24,6 +24,7 @@ namespace Logictracker.Documentos
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            if (IsPostBack) return;
 
             dtFecha.SetDate();
         }
@@ -93,23 +94,6 @@ namespace Logictracker.Documentos
             else e.Row.BackColor = Color.Green;
         }
 
-        protected override string GetSelectedDocuments()
-        {
-            var sDocumentos = new StringBuilder();
-
-            if (cbTipoDocumento.SelectedValues.Contains(0)) cbTipoDocumento.ToogleItems();
-
-            foreach (var doc in cbTipoDocumento.SelectedValues)
-            {
-                if (!sDocumentos.ToString().Equals(""))
-                    sDocumentos.Append(",");
-
-                sDocumentos.Append(doc.ToString());
-            }
-
-            return sDocumentos.ToString();
-        }
-
         protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();
@@ -123,21 +107,15 @@ namespace Logictracker.Documentos
             return sDescription.ToString();
         }
 
-        protected override int GetCompanyId()
-        {
-            return GetEmpresa().Id;
-        }
-
-        protected override List<int> GetSelectedListByField(string field)
-        {
-            if (cbTipoDocumento.SelectedValues.Contains(0)) cbTipoDocumento.ToogleItems();
-
-            return cbTipoDocumento.SelectedValues;
-        }
-
         protected override DateTime GetSinceDateTime()
         {
             return dtFecha.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+        }
+
+        protected override List<int> GetDocumentsList()
+        {
+            if (cbTipoDocumento.SelectedValues.Contains(0)) cbTipoDocumento.ToogleItems();
+            return cbTipoDocumento.SelectedValues;
         }
 
         [Serializable]

@@ -16,7 +16,5 @@ namespace Logictracker.Reports.Messaging
         public List<int> VehiclesId { get; set; }
         public string ReportName { get; set; }
         public List<int> Geofences { get; set; }
-        public bool CalculateKm { get; set; }
-        public double InGeofenceTime { get; set; }
     }
 }

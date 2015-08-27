@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
@@ -319,40 +320,36 @@ namespace Logictracker.Web.BaseClasses.BasePages
             var linea = GetLinea();
 
             var prog = new ProgramacionReporte
-                           {
-                               ReportName = SendReportTextBoxReportName.Text,
-                               Report = reporte,
-                               Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
-                               Mail = TxtScheduleMail.Text,
-                               Empresa = empresa ?? linea.Empresa,
-                               Created = DateTime.Now,
-                               Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
-                               Active = false,
-                               Format = RadioButtonHtml.Checked
-                                            ? ProgramacionReporte.FormatoReporte.Html
-                                            : ProgramacionReporte.FormatoReporte.Excel
-                           };
+            {
+                ReportName = SendReportTextBoxReportName.Text,
+                Report = reporte,
+                Periodicity = CbSchedulePeriodicidad.SelectedValue[0],
+                Mail = TxtScheduleMail.Text,
+                Empresa = empresa ?? linea.Empresa,
+                Created = DateTime.Now,
+                Description = GetDescription(reporte + " " + CbSchedulePeriodicidad.SelectedValue),
+                Active = false,
+                Format = RadioButtonHtml.Checked
+                            ? ProgramacionReporte.FormatoReporte.Html
+                            : ProgramacionReporte.FormatoReporte.Excel
+            };
 
-            prog.Vehicles = GetSelectedVehicles();
-            prog.Drivers = GetSelectedDrivers();
-            prog.Geofences = GetSelectedGeofences();
-            prog.MessageTypes = GetSelectedMessageTypes();
-            prog.OvercomeKilometers = GetOvercomeKilometers();
-            prog.ShowCorners = GetShowCornersCheck();
-            prog.CalculateKm = GetCalculateKilometers();
-            prog.GeofenceTime = GetInGeofenceTime();
-            prog.Documents = GetSelectedDocuments();
-            prog.Odometers = GetOdometerType();
-            //prog.DetentionTime = GetHigherDetentionFor();
-            //prog.Distance = GetHigherDistanceOf();
-            //prog.UnreportedTime = GetUnreportedTime();
-
+            prog.AddParameterList(GetVehicleList(), ParameterType.Vehicle);
+            prog.AddParameterList(GetDriverList(), ParameterType.Driver);
+            prog.AddParameterList(GetGeofencesList(), ParameterType.Geofence);
+            prog.AddParameterList(GetMessageTypeList(), ParameterType.Message);
+            prog.AddParameterList(GetDocumentsList(), ParameterType.Document);
+            prog.AddParameterList(GetOdometersList(), ParameterType.Odometer);
+            
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
             ModalSchedule.Hide();
 
             SendConfirmationMail(reporte, prog.Description);
         }
+
+
+
 
         private string GetReportType()
         {
@@ -426,74 +423,69 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return new EventReportCommand()
                     {
                         ReportId = reportId, //Id de reporte manual inactivo
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
-                        DriversId = GetSelectedListByField("drivers"),
+                        DriversId = GetDriverList(),// GetSelectedListByField("drivers"),
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        MessagesId = GetSelectedListByField("messages"),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        MessagesId = GetMessageTypeList(),
+                        VehiclesId = GetVehicleList(),
                         ReportName = "Reporte de Eventos " + DateTime.Now.ToShortDateString()
                     };
                 case "VehicleActivityReport":
                     return new VehicleActivityReportCommand
                     {
                         ReportId = reportId,
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        OvercomeKilometers = GetOvercomeKilometers(),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        VehiclesId = GetVehicleList(),
                         ReportName = "Reporte de Actividad de Vehiculos " + DateTime.Now.ToShortDateString()
                     };
                 case "VehicleInfractionsReport":
                     return new VehicleInfractionsReportCommand
                     {
                         ReportId = reportId,
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        ShowCorners = GetShowCornersCheck(),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        VehiclesId = GetVehicleList(),
                         ReportName = "Reporte de Eventos por Vehiculo " + DateTime.Now.ToShortDateString()
                     };
                 case "DriversInfractionsReport":
                     return new DriversInfractionsReportCommand
                     {
                         ReportId = reportId,
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        ShowCorners = GetShowCornersCheck(),
-                        DriversId = GetSelectedListByField("drivers"),
+                        DriversId = GetDriverList(),
                         ReportName = "Reporte de Infracciones de Conductores " + DateTime.Now.ToShortDateString()
                     };
                 case "GeofenceEventsReport":
                     return new GeofenceEventsReportCommand
                     {
                         ReportId = reportId,
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        CalculateKm = GetCalculateKilometers(),
-                        VehiclesId = GetSelectedListByField("vehicles"),
-                        Geofences = GetSelectedListByField("geofences"),
-                        InGeofenceTime = GetInGeofenceTime(),
+                        VehiclesId = GetVehicleList(),
+                        Geofences = GetGeofencesList(),
                         ReportName = "Reporte de Eventos de Geocercas " + DateTime.Now.ToShortDateString()
                     };
                 case "DocumentsExpirationReport":
                     return new DocumentsExpirationReportCommand
                     {
                         ReportId = reportId,
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        Documents = GetSelectedListByField("documents"),
+                        Documents = GetDocumentsList(),
                         ReportName = "Reporte Vencimiento Documentos " + DateTime.Now.ToShortDateString()
                     };
                 case "OdometersReport":
@@ -504,8 +496,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        Odometers = GetSelectedListByField("odometers"),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        Odometers = GetOdometersList(),
+                        VehiclesId = GetVehicleList(),
                         ReportName = "Reporte de Odometros " + DateTime.Now.ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.EstadoEntregas:
@@ -516,7 +508,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        VehiclesId = GetVehicleList(),
                         ReportName = "Reporte de Estado de Entregas " + DateTime.Now.ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.TrasladosViaje:
@@ -527,7 +519,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        VehiclesId = GetVehicleList(),
                         ReportName = "Reporte de Traslados por Viaje " + DateTime.Now.ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.ResumenRutas:
@@ -538,7 +530,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        VehiclesId = GetVehicleList(),
                         ReportName = "Reporte de Resumen de Rutas " + DateTime.Now.ToShortDateString()
                     };
 
@@ -561,5 +553,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         #endregion
 
+        protected virtual List<int> GetVehicleList() { return new List<int>(); }
+        protected virtual List<int> GetDriverList() { return new List<int>(); }
+        protected virtual List<int> GetGeofencesList() { return new List<int>(); }
+        protected virtual IList<int> GetMessageTypeList() { return new List<int>(); }
+        protected virtual List<int> GetOdometersList() { return new List<int>(); }
+        protected virtual List<int> GetDocumentsList() { return new List<int>(); }
     }
 }
