@@ -42,6 +42,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
             if (IsPostBack) return;
 
             RegisterExtJsStyleSheet();
+            gridTransportistas.Visible = false;
         }
 
         protected void FiltersSelectedIndexChanged(object sender, EventArgs e)

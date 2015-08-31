@@ -86,7 +86,7 @@ namespace Make
 				}
 				else
 				{
-					var args2 = string.Format("a -r {0}.rar Express Tester LogicLink LogicLink.Install LogicOut LogicOut.Install Web", text);
+					var args2 = string.Format("a -r {0}.rar Express Tester LogicLink LogicLink.Install LogicOut LogicOut.Install Web ReportsHost", text);
 					Execute(text2, args2);
 					Directory.SetCurrentDirectory(currentDirectory);
 					Console.WriteLine(stopwatch.Elapsed);
