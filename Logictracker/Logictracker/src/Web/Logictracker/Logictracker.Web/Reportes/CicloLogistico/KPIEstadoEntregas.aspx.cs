@@ -46,7 +46,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
 
         protected void FiltersSelectedIndexChanged(object sender, EventArgs e)
         {
-            pnlUpdate.Visible = false;
+            gridTransportistas.Visible = false;
         }
 
         protected void OnTick(object sender, EventArgs e)
@@ -63,7 +63,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
 
         private void CargarReporte()
         {
-            pnlUpdate.Visible = true;
+            gridTransportistas.Visible = true;
             var desde = DateTime.Today.ToDataBaseDateTime();
             var hasta = desde.AddHours(24);
             CalcularEstadisticas(desde, hasta);
