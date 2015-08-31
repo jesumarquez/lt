@@ -15,6 +15,5 @@ namespace Logictracker.Reports.Messaging
         public int CustomerId { get; set; }
         public List<int> DriversId { get; set; }
         public string ReportName { get; set; }
-        public bool ShowCorners { get; set; }
     }
 }

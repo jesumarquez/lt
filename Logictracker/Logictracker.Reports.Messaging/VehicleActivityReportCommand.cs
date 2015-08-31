@@ -14,7 +14,6 @@ namespace Logictracker.Reports.Messaging
         public string ReportName { get; set; }
         public int ReportId { get; set; }
         public int CustomerId { get; set; }
-        public int OvercomeKilometers { get; set; }
         public List<int> VehiclesId { get; set; }
     }
 }

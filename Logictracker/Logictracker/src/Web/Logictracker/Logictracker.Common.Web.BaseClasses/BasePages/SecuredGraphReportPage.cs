@@ -359,10 +359,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
                             : ProgramacionReporte.FormatoReporte.Excel
             };
 
-            prog.Vehicles = GetSelectedVehicles();
-            prog.Drivers = GetSelectedDrivers();
-            prog.MessageTypes = GetSelectedMessageTypes();
-            prog.InCicle = GetCicleCheck();
+            prog.AddParameterList(GetVehicleList(), ParameterType.Vehicle);
+            prog.AddParameterList(GetDriverList(), ParameterType.Driver);
+            prog.AddParameterList(GetMessageTypeList(), ParameterType.Message);
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
@@ -411,22 +410,21 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     return new AccumulatedKilometersReportCommand
                     {
                         ReportId = reportId, //Id de reporte manual inactivo
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        InCicle = GetCicleCheck(),
-                        VehiclesId = GetSelectedListByField("vehicles")
+                        VehiclesId = GetVehicleList()
                     };
                 case "MobilesTimeReport":
                     return new MobilesTimeReportCommand
                     {
                         ReportId = reportId,
-                        CustomerId = GetCompanyId(),
+                        CustomerId = GetEmpresa().Id,
                         Email = SendReportTextBoxEmail.Text,
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
-                        VehiclesId = GetSelectedListByField("vehicles"),
+                        VehiclesId = GetVehicleList()
                     };
                 default:
                     return null;
@@ -511,6 +509,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
         }
         
         #endregion
+
+        protected virtual List<int> GetVehicleList() { return new List<int>(); }
+        protected virtual IList<int> GetDriverList() { return new List<int>(); }
+        protected virtual IList<int> GetMessageTypeList() { return new List<int>(); }
+
     }
 
     #endregion

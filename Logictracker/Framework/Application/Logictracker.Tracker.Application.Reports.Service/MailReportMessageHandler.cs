@@ -394,6 +394,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateVehicleInfractionsReport(command, statusReport))
                         {
+                            if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                             ReportService.SendReport(reportStream, command, command.ReportName);
                         }
         }
@@ -403,6 +405,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateAccumulatedKilometersReport(command, statusReport))
                 {
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
         }
@@ -412,6 +416,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateVehicleActivityReport(command, statusReport))
                 {
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
         }
@@ -421,6 +427,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateDriversInfractionReport(command, statusReport))
                         {
+                            if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                             ReportService.SendReport(reportStream, command, command.ReportName);
                         }
         }
@@ -429,6 +437,8 @@ namespace Logictracker.Tracker.Application.Reports
         {
             using ( var reportStream = ReportService.GenerateGeofenceEventsReport(command, statusReport))
                 {
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
         }
@@ -437,6 +447,8 @@ namespace Logictracker.Tracker.Application.Reports
         {
             using (var reportStream = ReportService.GenerateMobilesTimeReport(command, statusReport))
             {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
@@ -446,6 +458,7 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateDailyEventReport(command, statusReport))
             {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
@@ -455,6 +468,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateDocumentExpirationReport(command, statusReport))
                         {
+                            if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                             ReportService.SendReport(reportStream, command, command.ReportName);
                         }
         }
@@ -464,6 +479,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateOdometersReport(command, statusReport))
                 {
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
         }
@@ -473,6 +490,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateTransfersPerTripReport(command, statusReport))
             {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
@@ -482,6 +501,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateDeliverStatusReport(command, statusReport))
             {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
@@ -491,6 +512,8 @@ namespace Logictracker.Tracker.Application.Reports
             using (
                 var reportStream = ReportService.GenerateSummaryRoutesReport(command, statusReport))
             {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }

@@ -16,6 +16,7 @@ using Logictracker.Process.CicloLogistico.Exceptions;
 using Logictracker.Process.Geofences.Classes;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
+using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
 
@@ -665,7 +666,10 @@ namespace Logictracker.Process.CicloLogistico
             DaoFactory.Session.Refresh(detalle);
 
             var destDetail = detalle.Descripcion + " (" + detalle.Orden + ")";
-
+            
+            var gpsPoint = new GPSPoint(data.Date,
+                (float)detalle.ReferenciaGeografica.Latitude,
+                (float)detalle.ReferenciaGeografica.Longitude);
 
             switch (data.Estado)
             {
@@ -696,9 +700,7 @@ namespace Logictracker.Process.CicloLogistico
                     SaveMessageAtraso(data, detalle);
 
                     var dest = new Destination(detalle.Id,
-                                               new GPSPoint(data.Date,
-                                                           (float)detalle.ReferenciaGeografica.Latitude,
-                                                           (float)detalle.ReferenciaGeografica.Longitude),
+                                               gpsPoint,
                                                detalle.Descripcion,
                                                detalle.PuntoEntrega.Descripcion,
                                                detalle.ReferenciaGeografica.Direccion.Descripcion);
@@ -719,15 +721,14 @@ namespace Logictracker.Process.CicloLogistico
                     SaveMessageAtraso(data, detalle);
 
                     var destiny = new Destination(detalle.Id,
-                                               new GPSPoint(data.Date,
-                                                           (float)detalle.ReferenciaGeografica.Latitude,
-                                                           (float)detalle.ReferenciaGeografica.Longitude),
+                                               gpsPoint,
                                                detalle.Descripcion,
                                                detalle.PuntoEntrega.Descripcion,
                                                detalle.ReferenciaGeografica.Direccion.Descripcion);
 
                     var msg = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver).AddDestinations(new[] { destiny });
                     msg.Send();
+
                     break;
                 case EntregaDistribucion.Estados.Cancelado:
                 case EntregaDistribucion.Estados.NoCompletado:
@@ -781,6 +782,8 @@ namespace Logictracker.Process.CicloLogistico
 
             DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
+            SaveConfirmationMessage(gpsPoint, detalle, data.MessageId.ToString());
+
             try
             {
                 if (detalle.PuntoEntrega != null && detalle.ReferenciaGeografica != null
@@ -804,6 +807,7 @@ namespace Logictracker.Process.CicloLogistico
                 STrace.Exception(GetType().FullName, ex);
             }
         }
+
 
         #endregion
 
@@ -949,7 +953,7 @@ namespace Logictracker.Process.CicloLogistico
             // Descarto si no hay detalles a procesar
             if (Entregas.Count == 0) return true;
 
-            // Si esta eliminado, no se procesa un carajo
+            // Si esta eliminado, no se procesa 
             if (Distribucion.Estado == ViajeDistribucion.Estados.Eliminado) return true;
 
             bool isInit = data.EventType == EventTypes.Init;
@@ -1004,6 +1008,28 @@ namespace Logictracker.Process.CicloLogistico
                             new GPSPoint(data.Date, (float) data.Latitud, (float) data.Longitud),
                             data.Date);
             }
+        }
+
+        private void SaveConfirmationMessage(GPSPoint gpsPoint, EntregaDistribucion entrega, string codigoMensaje)
+        {
+            //static IEvent GetEvent(DAOFactory daoFactory, GPSPoint inicio, string codigo, Int32? idPuntoDeInteres,
+            //Int64 extraData, Int64 extraData2, Int64 extraData3, Coche vehiculo, Empleado chofer)
+            // extraData = ID Device
+            // extraData2 = ID Entrega
+            // extraData3 = Codigo Mensaje
+            //var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(codigoMensaje.ToString("#0"), veh.Empresa, veh.Linea);
+
+            var descriptiva = " - " + entrega.Viaje.Codigo + " - " + entrega.Descripcion;
+
+            var ms = new MessageSaver(DaoFactory);
+            var log = ms.Save(null, Convert.ToString(codigoMensaje), entrega.Viaje.Vehiculo.Dispositivo, entrega.Viaje.Vehiculo, entrega.Viaje.Empleado, gpsPoint.Date, gpsPoint, descriptiva, entrega.Viaje, entrega);
+
+            try
+            {
+                entrega.MensajeConfirmacion = log as LogMensaje;
+                DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(entrega);
+            }
+            catch (Exception){ }
         }
 
         #endregion

@@ -327,66 +327,22 @@ namespace Logictracker.Reportes.DatosOperativos
             return dic;
         }
 
-        /// <summary>
-        /// Returns vehicles id for a report programming
-        /// </summary>
-        /// <returns>string with csv vehicles id</returns>
-        protected override string GetSelectedMessageTypes()
+        protected override List<int> GetVehicleList()
         {
-            var sMensajes = new StringBuilder();
-
-            if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
-
-            foreach (var mensaje in lbMensajes.SelectedValues)
-            {
-                if (!sMensajes.ToString().Equals(""))
-                    sMensajes.Append(",");
-
-                sMensajes.Append(mensaje.ToString("#0"));
-            }
-
-            return sMensajes.ToString();
-        }
-
-        /// <summary>
-        /// Returns drivers id for a report programming
-        /// </summary>
-        /// <returns>string with csv drivers id</returns>
-        protected override string GetSelectedDrivers()
-        {
-            var sChoferes = new StringBuilder();
-
-            foreach (var chofer in lbChoferes.SelectedValues)
-            {
-                if (!sChoferes.ToString().Equals(""))
-                    sChoferes.Append(",");
-
-                sChoferes.Append(chofer.ToString("#0"));
-            }
-
-            return sChoferes.ToString();
-        }
-
-        /// <summary>
-        /// Returns vehicles id for a report programming
-        /// </summary>
-        /// <returns>string with csv vehicles id</returns>
-        protected override string GetSelectedVehicles()
-        {
-            var sVehiculos = new StringBuilder();
-
             if (lbCamiones.SelectedValues.Contains(0)) lbCamiones.ToogleItems();
+            return lbCamiones.SelectedValues;
+        }
 
-            foreach (var vehiculo in lbCamiones.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
+        protected override IList<int> GetMessageTypeList()
+        {
+            if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
+            return lbMensajes.SelectedValues;
+        }
 
-                sVehiculos.Append(vehiculo.ToString("#0"));
-            }
-
-            return sVehiculos.ToString();
-        }            
+        protected override List<int> GetDriverList()
+        {
+            return lbChoferes.SelectedValues;
+        }
 
         protected override string GetDescription(string reporte)
         {
@@ -406,31 +362,6 @@ namespace Logictracker.Reportes.DatosOperativos
             return sDescription.ToString();
         }
         
-        protected override int GetCompanyId()
-        {
-            return GetEmpresa().Id;
-        }
-
-        protected override List<int> GetSelectedListByField(string field)
-        {
-            switch (field)
-            {
-                case "drivers":
-                    return lbChoferes.SelectedValues;
-
-                case "messages":
-                    if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
-                    return lbMensajes.SelectedValues;
-
-                case "vehicles":
-                    if (lbCamiones.SelectedValues.Contains(0)) lbCamiones.ToogleItems();
-                    return lbCamiones.SelectedValues;
-                
-                default:
-                    return new List<int>();
-            }
-        }
-
         protected override DateTime GetSinceDateTime()
         {
             return dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();

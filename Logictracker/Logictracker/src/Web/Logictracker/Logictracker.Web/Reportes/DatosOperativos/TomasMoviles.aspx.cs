@@ -321,10 +321,9 @@ namespace Logictracker.Reportes.DatosOperativos
                                 : ProgramacionReporte.FormatoReporte.Excel
             };
 
-            prog.Vehicles = GetSelectedVehicles();
-            prog.Drivers = GetSelectedDrivers();
-            prog.MessageTypes = GetSelectedMessageTypes();
-            prog.OvercomeKilometers = GetOvercomeKilometers();
+            prog.AddParameterList(GetVehicleList(), ParameterType.Vehicle);
+            prog.AddParameterList(GetDriverList(), ParameterType.Driver);
+            prog.AddParameterList(GetMessageTypeList(), ParameterType.Message);
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 

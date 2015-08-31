@@ -76,7 +76,10 @@ namespace Logictracker.Tracker.Application.Reports
                 1);
             reportStatus.RowCount = results.Count;
 
-            return DailyEventReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
+            if(results.Count>0)
+                return DailyEventReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
+
+            return null;
         }
 
         public void LogReportExecution(ReportStatus reportStatus)
@@ -187,7 +190,7 @@ namespace Logictracker.Tracker.Application.Reports
             var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
             var baseName = command.BaseId == 0 ? "Todos" : "Ninguno";
 
-            var results = ReportFactory.MobilesKilometersDAO.GetMobilesKilometers(command.InitialDate, command.FinalDate, command.VehiclesId, command.InCicle);
+            var results = ReportFactory.MobilesKilometersDAO.GetMobilesKilometers(command.InitialDate, command.FinalDate, command.VehiclesId, true);
             
             reportStatus.RowCount = results.Count;
 
@@ -204,7 +207,7 @@ namespace Logictracker.Tracker.Application.Reports
             var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
             var baseName = "Ninguno"; 
 
-            var results = ReportFactory.MobileActivityDAO.GetMobileActivitys(cmd.InitialDate, cmd.FinalDate, cmd.CustomerId, -1, cmd.VehiclesId, cmd.OvercomeKilometers);
+            var results = ReportFactory.MobileActivityDAO.GetMobileActivitys(cmd.InitialDate, cmd.FinalDate, cmd.CustomerId, -1, cmd.VehiclesId, 0);
             
             //var results = (from activity in activities select new MobileActivityVo(activity, desde, hasta, chkDetalleInfracciones.Checked)).ToList();
             reportStatus.RowCount = results.Count;
@@ -242,8 +245,15 @@ namespace Logictracker.Tracker.Application.Reports
             var lineas = new[] {cmd.BaseId};
             var transportadores = new int[] {};
 
-            var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(empresas, lineas, transportadores, cmd.DriversId, cmd.InitialDate, cmd.FinalDate).ToList();
-
+            //var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(empresas, lineas, transportadores, 
+            //    cmd.DriversId, cmd.InitialDate, cmd.FinalDate).ToList();
+            //
+            var desde = cmd.InitialDate.ToDataBaseDateTime();
+            var hasta = cmd.FinalDate.ToDataBaseDateTime();
+            
+            var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(empresas,lineas, transportadores,  cmd.DriversId, desde, hasta)
+                        .Select(o => new InfractionDetailVo(o) { HideCornerNearest = false }).ToList();
+            //
             reportStatus.RowCount = results.Count;
 
             return DriversInfractionsReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
@@ -259,7 +269,7 @@ namespace Logictracker.Tracker.Application.Reports
             var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
             var baseName = cmd.BaseId == 0 ? "Todos" : "Ninguno";
 
-            var results = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(cmd.VehiclesId, cmd.Geofences, cmd.InitialDate, cmd.FinalDate, cmd.InGeofenceTime);
+            var results = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(cmd.VehiclesId, cmd.Geofences, cmd.InitialDate, cmd.FinalDate,1);
             //CalculateDurations(geocercas, chkCalcularKmRecorridos.Checked, DAOFactory);
             //FilterGeocercas(geocercas);
 
@@ -501,6 +511,17 @@ namespace Logictracker.Tracker.Application.Reports
 
             return SummaryRoutesReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
        
+        }
+
+        public void SendEmptyReport(IReportCommand command, string report)
+        {
+            var subject = report + " Logictracker";
+            var body = string.Format("Usted ha solicitado un {0} a través de la plataforma Logictracker, pero esta consulta no arrojo resultados, modifique los filtros y vuelva a intentarlo.", report);
+            body += "\n\n Este mensaje se ha generado automaticamente, No responda este correo.";
+
+            var emailList = ValidateAddress(command.Email);
+
+            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd);
         }
     }
 }

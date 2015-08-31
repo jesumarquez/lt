@@ -208,28 +208,6 @@ namespace Logictracker.Reportes.Estadistica
 
         #endregion
 
-
-        /// <summary>
-        /// Returns vehicles id for a report programming
-        /// </summary>
-        /// <returns>string with csv vehicles id</returns>
-        protected override string GetSelectedVehicles()
-        {
-            var sVehiculos = new StringBuilder();
-
-            if (lbVehiculos.SelectedValues.Contains(0)) lbVehiculos.ToogleItems();
-
-            foreach (var vehiculo in lbVehiculos.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
-
-                sVehiculos.Append(vehiculo.ToString());
-            }
-
-            return sVehiculos.ToString();
-        }
-
         protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();
@@ -244,15 +222,9 @@ namespace Logictracker.Reportes.Estadistica
             return sDescription.ToString();
         }
 
-        protected override int GetCompanyId()
+        protected override List<int> GetVehicleList()
         {
-            return GetEmpresa().Id;
-        }
-
-        protected override List<int> GetSelectedListByField(string field)
-        {
-            if (lbVehiculos.SelectedValues.Contains(0)) lbVehiculos.ToogleItems();
-            
+            if (lbVehiculos.SelectedValues.Contains(0)) lbVehiculos.ToogleItems();    
             return lbVehiculos.SelectedValues;
         }
 
@@ -264,11 +236,6 @@ namespace Logictracker.Reportes.Estadistica
         protected override DateTime GetToDateTime()
         {
             return dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
-        }
-
-        protected override int GetOvercomeKilometers()
-        {
-            return Convert.ToInt32((double) npKm.Value);
         }
     }
 }
