@@ -245,8 +245,15 @@ namespace Logictracker.Tracker.Application.Reports
             var lineas = new[] {cmd.BaseId};
             var transportadores = new int[] {};
 
-            var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(empresas, lineas, transportadores, cmd.DriversId, cmd.InitialDate, cmd.FinalDate).ToList();
-
+            //var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(empresas, lineas, transportadores, 
+            //    cmd.DriversId, cmd.InitialDate, cmd.FinalDate).ToList();
+            //
+            var desde = cmd.InitialDate.ToDataBaseDateTime();
+            var hasta = cmd.FinalDate.ToDataBaseDateTime();
+            
+            var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(empresas,lineas, transportadores,  cmd.DriversId, desde, hasta)
+                        .Select(o => new InfractionDetailVo(o) { HideCornerNearest = false }).ToList();
+            //
             reportStatus.RowCount = results.Count;
 
             return DriversInfractionsReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
