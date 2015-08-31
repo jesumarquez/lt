@@ -69,6 +69,8 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string DistribucionEvaluaSoloGeocercasViaje = "distribucion.geocercas.solo.viaje";
             public const string TiposGeocercaViaje = "distribucion.tipos.geocerca.viaje";
+
+            public const string KpiCantidadPagina = "kpi.cantidad.pagina";
         }
         public static class OrdenRuta
         {
@@ -608,6 +610,17 @@ namespace Logictracker.Types.BusinessObjects
                 }
 
                 return lista;
+            }
+        }
+
+        public virtual int KpiCantidadPagina
+        {
+            get
+            {
+                var valor = GetParameter(Params.KpiCantidadPagina);
+                int cant;
+                if (valor == null || !int.TryParse(valor, out cant)) return 10;
+                return cant;
             }
         }
 
