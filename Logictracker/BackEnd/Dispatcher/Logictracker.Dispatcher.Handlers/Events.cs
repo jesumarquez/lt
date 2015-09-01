@@ -52,8 +52,7 @@ namespace Logictracker.Dispatcher.Handlers
 
 		    if (IsGarbageMessage(code))
 		    {
-                STrace.Error(GetType().FullName, Dispositivo.Id, string.Format("Mensaje ignorado. Código {0}", code));
-		        return HandleResults.BreakSuccess;
+                return HandleResults.BreakSuccess;
 		    }
 
 		    if (IsInvalidMessage(code, message))
@@ -388,14 +387,16 @@ namespace Logictracker.Dispatcher.Handlers
                         if (puerta != null)
                         {
                             verif.PuertaAcceso = puerta;
-                            if (code.Equals(MessageCode.RfidEmployeeLogin.GetMessageCode()))
+                            if (code.Equals(MessageCode.RfidEmployeeLogin.GetMessageCode())
+                             || code.Equals(MessageCode.RfidDriverLogin.GetMessageCode()))
                             {
                                 verif.TipoFichada = Empleado.VerificadorEmpleado.TipoDeFichada.Entrada;
                                 if (puerta.ZonaAccesoEntrada != null) verif.ZonaAcceso = puerta.ZonaAccesoEntrada;
                             }
-                            else if (code.Equals(MessageCode.RfidEmployeeLogout.GetMessageCode()))
+                            else if (code.Equals(MessageCode.RfidEmployeeLogout.GetMessageCode())
+                                  || code.Equals(MessageCode.RfidDriverLogout.GetMessageCode()))
                             {
-                                verif.TipoFichada = Empleado.VerificadorEmpleado.TipoDeFichada.Entrada;
+                                verif.TipoFichada = Empleado.VerificadorEmpleado.TipoDeFichada.Salida;
                                 if (puerta.ZonaAccesoSalida != null) verif.ZonaAcceso = puerta.ZonaAccesoSalida;
                             }
                         }
@@ -408,7 +409,9 @@ namespace Logictracker.Dispatcher.Handlers
 		    // Eventos Acceso
             if (driver != null && 
                 (code == MessageCode.RfidEmployeeLogin.GetMessageCode() 
-                || code == MessageCode.RfidEmployeeLogout.GetMessageCode()))
+                || code == MessageCode.RfidEmployeeLogout.GetMessageCode()
+                || code == MessageCode.RfidDriverLogin.GetMessageCode()
+                || code == MessageCode.RfidDriverLogout.GetMessageCode()))
             {
                 var puerta = DaoFactory.PuertaAccesoDAO.FindByVehiculo(Coche.Id);
                 if (puerta != null)
@@ -417,7 +420,8 @@ namespace Logictracker.Dispatcher.Handlers
                                      {
                                          Alta = DateTime.UtcNow,
                                          Empleado = driver,
-                                         Entrada = code == MessageCode.RfidEmployeeLogin.GetMessageCode(),
+                                         Entrada = code == MessageCode.RfidEmployeeLogin.GetMessageCode()
+                                                || code == MessageCode.RfidDriverLogin.GetMessageCode(),
 										 Fecha = generico.GetDateTime(),
                                          Puerta = puerta
                                      };

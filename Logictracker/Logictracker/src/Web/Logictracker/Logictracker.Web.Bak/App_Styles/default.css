@@ -227,18 +227,23 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
 #monitor .data_popup .codigo { color: #808080;}
 #monitor .data_popup .descripcion {font-weight: bold; }
 /* Mimico */
-#monitor .vehiculo_mimico{
+.vehiculo_mimico{
     margin: 20px;
     border: solid 1px #999999;
     margin-top: 40px;
 }
-#monitor .vehiculo_mimico_entregas{
+.vehiculo_mimico_entregas{
     margin: 20px;
     border:  #CCCCCC;
     margin-top: 40px;
 }
-#monitor .mimico{ position: relative; }
-#monitor .vehiculo_mimico table{
+.vehiculo_mimico_kpi{
+    margin: 5px;
+    border:  #CCCCCC;
+    margin-top: 5px;
+}
+.mimico{ position: relative; }
+.vehiculo_mimico table{
     width: 100%;
     height: 32px;
     border: none;
@@ -250,7 +255,17 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     background-image: url(img/mimico/bk_line.png);
     background-repeat: repeat-x;
 }
-#monitor .vehiculo_mimico_entregas table{
+.vehiculo_mimico_entregas table{
+    width: 100%;
+    height: 32px;
+    border: none;
+    border-spacing: 0px;
+    font-size: xx-small;
+    font-family: Verdana, Arial, Sans-Serif;
+    text-transform: uppercase;
+    background-color: #cccccc;
+}
+.vehiculo_mimico_kpi table{
     width: 100%;
     height: 32px;
     border: none;
@@ -261,16 +276,17 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     background-color: #cccccc;
 }
 
-#monitor .vehiculo_mimico td{ vertical-align: top; }
-#monitor .vehiculo_mimico_entregas td{ vertical-align: top; }
-#monitor .mimico table{
+.vehiculo_mimico td{ vertical-align: top; }
+.vehiculo_mimico_entregas td{ vertical-align: top; }
+.vehiculo_mimico_kpi td{ vertical-align: top; }
+.mimico table{
     border-spacing: 1px;
     background-image: url(img/mimico/bk_line.png);
     background-repeat: repeat-x;
     height: 20px;
 }
-#monitor .vehiculo { width: 80px; }
-#monitor .vehiculo_info {
+.vehiculo { width: 80px; }
+.vehiculo_info {
     background-repeat: no-repeat;
     background-position: left center;
     overflow: hidden;
@@ -279,7 +295,7 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     height: 22px;
     font-weight: bold;
 }
-#monitor .tramo{
+.tramo{
     padding-left: 3px;
     background-image: url(img/mimico/bk_line.png);
     background-repeat: repeat-x;
@@ -288,7 +304,7 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     text-align: left;
     cursor: pointer;
 }
-#monitor .tramodiv{
+.tramodiv{
     background-image: url(img/mimico/bk_line.png);
     background-repeat: repeat-x;
     color: White;
@@ -299,13 +315,13 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     height: 16px;
     overflow: hidden;
 }
-#monitor .verde { background-color: #008000; }
-#monitor .azul { background-color: #00A2E8; }
-#monitor .rojo { background-color: #FF0000; }
-#monitor .amarillo { background-color: #FFFF00; }
-#monitor .naranja { background-color: #FF7700; }
-#monitor .gris { background-color: gray; }
-#monitor .marker_line {
+.verde { background-color: #008000; }
+.azul { background-color: #00A2E8; }
+.rojo { background-color: #FF0000; }
+.amarillo { background-color: #FFFF00; }
+.naranja { background-color: #FF7700; }
+.gris { background-color: gray; }
+.marker_line {
     position: absolute;
     width: 0px;
     border-left: dotted 1px #A82525;
@@ -313,12 +329,12 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     height: 16px;
     top: 23px;
 }
-#monitor .marker{
+.marker{
     position: absolute;
     top: -22px;
     left: 50%;
 }
-#monitor .marker_icon{
+.marker_icon{
     background-image: url(img/mimico/triangle.png);
     background-repeat: no-repeat;
     width: 15px;
@@ -330,7 +346,7 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     padding-left: 4px;
     font-size: 9px;
 }
-#monitor .marker_text{
+.marker_text{
     position: absolute;
     left: -12px;
     top: 36px;
@@ -338,18 +354,18 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     padding-left: 4px;
     font-size: 9px;
 }
-#monitor .horario{
+.horario{
     position: absolute;
     font-family: Arial;
     font-size: 9px;
     top: -12px;
     cursor: pointer;
 }
-#monitor .inicio { left: 0px; }
-#monitor .fin { right: 0px; }
-#monitor .programado { color: #666666; }
-#monitor .real { color: #999999; }
-#monitor .detalle{
+.inicio { left: 0px; }
+.fin { right: 0px; }
+.programado { color: #666666; }
+.real { color: #999999; }
+.detalle{
     font-size: xx-small;
     text-transform: uppercase;
     position: absolute;
@@ -358,7 +374,7 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     bottom: -12px;
     color: #666666;
 }
-#monitor .completed_bar{
+.completed_bar{
     background-color: #CA7575;
     position: absolute;
     height: 8px;
@@ -405,8 +421,8 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
 #monitor .zoomx1 { background-image: url(img/mimico/x1.png); }
 #monitor .zoomx2 { background-image: url(img/mimico/x2.png); }
 #monitor .zoomx4 { background-image: url(img/mimico/x4.png); }
-#monitor .popup_title { font-weight: bold; }
-#monitor .popup_detail{
+.popup_title { font-weight: bold; }
+.popup_detail{
     background-color: #f7f7f7;
     border: solid 1px #cccccc;
     color: #000000;
@@ -414,8 +430,8 @@ body, table, form { font-family: Verdana, Arial; font-size: 11px; margin: 0px; }
     margin-top: 10px;
     padding: 5px;
 }
-#monitor .popup_detail div { margin-top: 10px; text-transform: none; }
-#monitor .popup_detail span { font-weight: bold; font-size: 12px; }
+.popup_detail div { margin-top: 10px; text-transform: none; }
+.popup_detail span { font-weight: bold; font-size: 12px; }
 /* Simulador */
 #monitor .simulator_toolbar{
     background-color: #000000;

@@ -116,7 +116,7 @@ namespace Logictracker.Web.Reportes.Accidentologia
             var inicio = DateTime.UtcNow;
             try
             {
-                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(GetVehicles(), desde, hasta)
+                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(GetVehicleList(), desde, hasta)
                                                                .Select(o => new VehicleInfractionDetailVo(o) { HideCornerNearest = !chkVerEsquinas.Checked})
                                                                .ToList();
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
@@ -140,7 +140,7 @@ namespace Logictracker.Web.Reportes.Accidentologia
                                  };
         }
 
-        private List<int> GetVehicles()
+        protected override List<int> GetVehicleList()
         {
             if (lbVehiculo.GetSelectedIndices().Length == 0) lbVehiculo.ToogleItems();
             return lbVehiculo.SelectedValues;
@@ -211,39 +211,6 @@ namespace Logictracker.Web.Reportes.Accidentologia
             else dpHasta.SetDate();
 
             if (Vehicle != 0) Bind();
-        }
-
-        protected override string GetSelectedVehicles()
-        {
-            var sVehiculos = new StringBuilder();
-
-            if (lbVehiculo.SelectedValues.Contains(0)) lbVehiculo.ToogleItems();
-
-            foreach (var vehiculo in lbVehiculo.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
-
-                sVehiculos.Append(vehiculo.ToString());
-            }
-
-            return sVehiculos.ToString();
-        }
-
-        protected override bool GetShowCornersCheck()
-        {
-            return chkVerEsquinas.Checked;
-        }
-
-        protected override int GetCompanyId()
-        {
-            return GetEmpresa().Id;
-        }
-
-        protected override List<int> GetSelectedListByField(string field)
-        {
-            ToogleItems(lbVehiculo);
-            return lbVehiculo.SelectedValues;
         }
         
         protected override DateTime GetToDateTime()

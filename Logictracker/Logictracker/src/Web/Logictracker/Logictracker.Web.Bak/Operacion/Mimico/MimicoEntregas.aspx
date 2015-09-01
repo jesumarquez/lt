@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Mímico Entregas</title>
-    <script type="text/javascript" src="mimicoEntregas.js"></script>
+    <script type="text/javascript" src="mimicoEntregas.js"></script>    
 </head>
 <body id="monitor">
     <form id="form1" runat="server">

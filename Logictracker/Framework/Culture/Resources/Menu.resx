@@ -928,7 +928,7 @@
     <value>Datamart Log</value>
   </data>
   <data name="KPI_ESTADO_ENTREGAS" xml:space="preserve">
-    <value>KPI Estado Entregas</value>
+    <value>Monitor KPI Estado Entregas</value>
   </data>
   <data name="PAR_AGENDA" xml:space="preserve">
     <value>Agenda Vehicular</value>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.ParametroReportesProg, Logictracker.Types" table="[par.par_enti_106_det_paramreportesprog]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti106" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti106_parametro" name="ParameterType" type="NHibernate.Type.EnumStringType`1[[ Logictracker.Types.BusinessObjects.ParameterType,  Logictracker.Types]], NHibernate" not-null="true" />
+    <property column="parenti106_valor" name="EntityId" not-null="true" />
+
+    <many-to-one name="ProgramacionReporte" column="rela_parenti56" lazy="proxy" />
+  </class>
+</hibernate-mapping>

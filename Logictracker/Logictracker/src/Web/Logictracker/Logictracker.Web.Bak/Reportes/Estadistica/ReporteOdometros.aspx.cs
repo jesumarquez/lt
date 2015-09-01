@@ -159,57 +159,16 @@ namespace Logictracker.Reportes.Estadistica
             return sDescription.ToString();
         }
 
-        protected override int GetCompanyId()
+        protected override List<int> GetVehicleList()
         {
-            return GetEmpresa().Id;
-        }
-
-        protected override List<int> GetSelectedListByField(string field)
-        {
-            if ("vehicles".Equals(field))
-            {
-                if (lbMovil.SelectedValues.Contains(0)) lbMovil.ToogleItems();
-                return lbMovil.SelectedValues;                                
-            }
-            else
-            {
-                if (lbOdometro.SelectedValues.Contains(0)) lbOdometro.ToogleItems();
-                return lbOdometro.SelectedValues;
-            }
-        }
-
-        protected override string GetSelectedVehicles()
-        {
-            var sVehiculos = new StringBuilder();
-
             if (lbMovil.SelectedValues.Contains(0)) lbMovil.ToogleItems();
-
-            foreach (var vehiculo in lbMovil.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
-
-                sVehiculos.Append(vehiculo.ToString());
-            }
-
-            return sVehiculos.ToString();
+            return lbMovil.SelectedValues; 
         }
 
-        protected override string GetOdometerType()
+        protected override List<int> GetOdometersList()
         {
-            var sOdometro = new StringBuilder();
-
             if (lbOdometro.SelectedValues.Contains(0)) lbOdometro.ToogleItems();
-
-            foreach (var odom in lbOdometro.SelectedValues)
-            {
-                if (!sOdometro.ToString().Equals(""))
-                    sOdometro.Append(",");
-
-                sOdometro.Append(odom.ToString());
-            }
-
-            return sOdometro.ToString();
+            return lbOdometro.SelectedValues;
         }
     }
 }

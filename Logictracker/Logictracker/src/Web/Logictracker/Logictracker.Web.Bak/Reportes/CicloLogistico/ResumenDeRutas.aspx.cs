@@ -162,23 +162,6 @@ namespace Logictracker.Reportes.CicloLogistico
             return (ddlPlanta != null && ddlPlanta.Selected > 0) ? DAOFactory.LineaDAO.FindById(ddlPlanta.Selected) : null;
         }
 
-        protected override string GetSelectedVehicles()
-        {
-            var sVehiculos = new StringBuilder();
-
-            if (lbVehiculo.SelectedValues.Contains(0)) lbVehiculo.ToogleItems();
-
-            foreach (var vehiculo in  lbVehiculo.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
-
-                sVehiculos.Append(vehiculo.ToString("#0"));
-            }
-
-            return sVehiculos.ToString();
-        }
-
         protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();
@@ -192,7 +175,7 @@ namespace Logictracker.Reportes.CicloLogistico
             return sDescription.ToString();
         }
 
-        protected override List<int> GetSelectedListByField(string field)
+        protected override List<int> GetVehicleList()
         {
             if (lbVehiculo.SelectedValues.Contains(0)) lbVehiculo.ToogleItems();
             return lbVehiculo.SelectedValues;

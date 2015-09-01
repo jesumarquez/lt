@@ -60,7 +60,7 @@ namespace Logictracker.Reportes.DatosOperativos
             var inicio = DateTime.UtcNow;
             try
             {
-                var selectedGeocercas = GetSelectedGeocercas();
+                var selectedGeocercas = GetGeofencesList();
                 if (Logictracker.DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(selectedGeocercas))
                 {
                     if (Logictracker.DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(lbTipoDomicilio.SelectedValues))
@@ -70,7 +70,7 @@ namespace Logictracker.Reportes.DatosOperativos
                     return new List<MobileGeocercaVo>();
                 }
 
-                var geocercas = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(GetSelectedMobiles(), selectedGeocercas, desde, hasta, tpEnGeocerca.SelectedTime.TotalSeconds);
+                var geocercas = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(GetVehicleList(), selectedGeocercas, desde, hasta, tpEnGeocerca.SelectedTime.TotalSeconds);
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 
 				STrace.Trace("Reporte de Geocercas", String.Format("Duración de la consulta: {0} segundos", duracion));
@@ -249,19 +249,12 @@ namespace Logictracker.Reportes.DatosOperativos
             ScriptManager.RegisterStartupScript(this, typeof(string), "ErrorPopup", errorMessage, true);
         }
 
-        private IEnumerable<int> GetSelectedMobiles ()
+        protected override List<int> GetVehicleList()
         {
             if (lbMobile.GetSelectedIndices().Length == 0) lbMobile.ToogleItems();
-
             return lbMobile.SelectedValues;
         }
 
-        private List<Int32> GetSelectedGeocercas()
-        {
-            if (lbGeocerca.GetSelectedIndices().Length == 0) ControlHelper.ToogleItems(lbGeocerca);
-
-            return ControlHelper.GetSelectedValues(lbGeocerca);
-        }
 
         /// <summary>
         /// Calculate time to next geocerca.
@@ -269,8 +262,7 @@ namespace Logictracker.Reportes.DatosOperativos
         /// <param name="geocercas"></param>
         /// <param name="calcularKms"></param>
         /// <param name="daoFactory"></param>
-        private static void 
-            CalculateDurations(IList<MobileGeocerca> geocercas, bool calcularKms, DAOFactory daoFactory)
+        private static void CalculateDurations(IList<MobileGeocerca> geocercas, bool calcularKms, DAOFactory daoFactory)
         {
             for (var i = 0; i < geocercas.Count - 1; i++)
             {
@@ -340,7 +332,7 @@ namespace Logictracker.Reportes.DatosOperativos
 
         protected override void Schedule()
         {
-            var selectedGeocercas = GetSelectedGeocercas();
+            var selectedGeocercas = GetGeofencesList();
             if (DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(selectedGeocercas))
             {
                 if (DAL.DAO.BaseClasses.QueryExtensions.IncludesAll(lbTipoDomicilio.SelectedValues))
@@ -359,47 +351,6 @@ namespace Logictracker.Reportes.DatosOperativos
             }
         }
 
-        protected override string GetSelectedVehicles()
-        {
-            var sVehiculos = new StringBuilder();
-
-            if (lbMobile.SelectedValues.Contains(0)) lbMobile.ToogleItems();
-
-            foreach (var vehiculo in lbMobile.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
-
-                sVehiculos.Append(vehiculo.ToString());
-            }
-
-            return sVehiculos.ToString();
-        }
-
-        protected override string GetSelectedGeofences()
-        {
-            var sGeocercas = new StringBuilder();
-
-            foreach (var geof in ControlHelper.GetSelectedValues(lbGeocerca))
-            {
-                if (!sGeocercas.ToString().Equals(""))
-                    sGeocercas.Append(",");
-
-                sGeocercas.Append(geof.ToString(CultureInfo.InvariantCulture));
-            }
-            return sGeocercas.ToString();
-        }
-
-        protected override bool GetCalculateKilometers()
-        {
-            return chkCalcularKmRecorridos.Checked;    
-        }
-
-        protected override double GetInGeofenceTime()
-        {
-            return tpEnGeocerca.SelectedTime.TotalSeconds;
-        }
-
         protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();
@@ -415,17 +366,10 @@ namespace Logictracker.Reportes.DatosOperativos
             return sDescription.ToString();
         }
 
-        protected override int GetCompanyId()
+        protected override List<int> GetGeofencesList()
         {
-            return GetEmpresa().Id;
-        }
-
-        protected override List<int> GetSelectedListByField(string field)
-        {
-            if ("geofences".Equals(field)) return GetSelectedGeocercas();
-            
-            if (lbMobile.SelectedValues.Contains(0)) lbMobile.ToogleItems();
-            return lbMobile.SelectedValues;
+            if (lbGeocerca.GetSelectedIndices().Length == 0) ControlHelper.ToogleItems(lbGeocerca);
+            return ControlHelper.GetSelectedValues(lbGeocerca);
         }
 
         protected override DateTime GetSinceDateTime()

@@ -889,7 +889,7 @@
     <value>Logiclink Files</value>
   </data>
   <data name="KPI_ESTADO_ENTREGAS" xml:space="preserve">
-    <value>KPI Deliveries Status</value>
+    <value>KPI Monitor Deliveries Status</value>
   </data>
   <data name="PAR_AGENDA" xml:space="preserve">
     <value>Vehicular Schedule</value>

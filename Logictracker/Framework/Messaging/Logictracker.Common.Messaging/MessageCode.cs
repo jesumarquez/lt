@@ -69,7 +69,7 @@ namespace Logictracker.Messaging
         CicloLogisticoIniciado,
         CicloLogisticoCerrado,
         CicloLogisticoIniciadoDocumentosInvalidos,
-
+        
         DesvioRecorrido,
         VueltaAlRecorrido,
 

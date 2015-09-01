@@ -66,11 +66,11 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         ReportName = prog.ReportName,
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
-                        DriversId = CsvToList(prog.Drivers),
+                        DriversId = prog.GetParameters(ParameterType.Driver),
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        MessagesId = CsvToList(prog.MessageTypes),
-                        VehiclesId = CsvToList(prog.Vehicles)
+                        MessagesId = prog.GetParameters(ParameterType.Message),
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
                     };
                 case ProgramacionReporte.Reportes.KilometrosAcumulados:
                     return new AccumulatedKilometersReportCommand
@@ -81,8 +81,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        InCicle = prog.InCicle,
-                        VehiclesId = CsvToList(prog.Vehicles)
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
                     };
                 case ProgramacionReporte.Reportes.ActividadVehicular:
                     return new VehicleActivityReportCommand
@@ -93,8 +92,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        OvercomeKilometers = prog.OvercomeKilometers,
-                        VehiclesId = CsvToList(prog.Vehicles)
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
                     };
                 case ProgramacionReporte.Reportes.InfraccionesVehiculo:
                     return new VehicleInfractionsReportCommand
@@ -105,8 +103,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        ShowCorners = prog.ShowCorners,
-                        VehiclesId = CsvToList(prog.Vehicles)
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
                     };
                 case ProgramacionReporte.Reportes.InfraccionesConductor:
                     return new DriversInfractionsReportCommand
@@ -116,8 +113,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        ShowCorners = prog.ShowCorners,
-                        DriversId = CsvToList(prog.Drivers),
+                        DriversId = prog.GetParameters(ParameterType.Driver),
                         ReportName = prog.ReportName
                     };
                 case ProgramacionReporte.Reportes.EventosGeocercas:
@@ -128,10 +124,8 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        Geofences = CsvToList(prog.Geofences),
-                        VehiclesId = CsvToList(prog.Vehicles),
-                        CalculateKm = prog.CalculateKm,
-                        InGeofenceTime = prog.GeofenceTime, 
+                        Geofences = prog.GetParameters(ParameterType.Geofence),
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
                         ReportName = prog.ReportName
                     };
                 case ProgramacionReporte.Reportes.TiempoAcumulado:
@@ -143,7 +137,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = CsvToList(prog.Vehicles)                        
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)                        
                     };
                 case ProgramacionReporte.Reportes.VencimientoDocumentos:
                     return new DocumentsExpirationReportCommand
@@ -153,7 +147,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        Documents = CsvToList(prog.Documents),
+                        Documents = prog.GetParameters(ParameterType.Document),
                         ReportName = prog.ReportName
                     };
                 case ProgramacionReporte.Reportes.ReporteOdometros:
@@ -164,8 +158,8 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        Odometers = CsvToList(prog.Odometers),
-                        VehiclesId = CsvToList(prog.Vehicles),
+                        Odometers = prog.GetParameters(ParameterType.Odometer),
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
                         ReportName = prog.ReportName
                     };
                 case ProgramacionReporte.Reportes.EstadoEntregas:
@@ -176,7 +170,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = CsvToList(prog.Vehicles),
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
                         ReportName = prog.ReportName
                     };
                 case ProgramacionReporte.Reportes.TrasladosViaje:
@@ -187,7 +181,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = CsvToList(prog.Vehicles),
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
                         ReportName = prog.ReportName
                     };
                 case ProgramacionReporte.Reportes.ResumenRutas:
@@ -198,7 +192,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = CsvToList(prog.Vehicles),
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
                         ReportName = prog.ReportName
                     };
                 default:
@@ -214,9 +208,9 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             switch (prog.Report)
             {
                 case ProgramacionReporte.Reportes.ReporteEventos:
-                    var vehiclesId = prog.Vehicles.Split(',').Select(v => Convert.ToInt32(v)).ToList();
-                    var tiposMensajeId = prog.MessageTypes.Split(',').Select(m => Convert.ToInt32(m));
-                    var driversId = prog.Drivers.Split(',').Select(d => Convert.ToInt32(d)).ToList();
+                    var vehiclesId = prog.GetParameters(ParameterType.Vehicle);//prog.Vehicles.Split(',').Select(v => Convert.ToInt32(v)).ToList();
+                    var tiposMensajeId = prog.GetParameters(ParameterType.Message);//prog.MessageTypes.Split(',').Select(m => Convert.ToInt32(m));
+                    var driversId = prog.GetParameters(ParameterType.Driver);//prog.Drivers.Split(',').Select(d => Convert.ToInt32(d)).ToList();
                     var fin = GetFinalDate();
                     var inicio = GetInitialDate(prog.Periodicity);
 
@@ -289,14 +283,6 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                 default:
                     return new DateTime(initialDate.Year, initialDate.Month, initialDate.Day, 0, 0, 0);
             }
-        }
-
-        private List<int> CsvToList(string csvValues)
-        {
-            if(csvValues == null) return new List<int>();
-
-            var idArray = csvValues.Split(',');
-            return (from v in idArray where !string.IsNullOrEmpty(v) select int.Parse(v)).ToList();
         }
 
         private IMessageQueue GetDispatcherQueue()
