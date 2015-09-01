@@ -1,42 +1,60 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Logictracker.Web._Default" %>
+<%@ Page Language="C#" AutoEventWireup="True" codeBehind="Default.aspx.cs" Inherits="Logictracker.Default" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
+<html xmlns="http://www.w3.org/1999/xhtml" id="login" >
+<head runat="server">
+    <title>Login</title>
+</head>
+<body runat="server" id="loginBody">
+    <form id="form1" runat="server" defaultfocus="txtUsuario" defaultbutton="btLogin"> 
+    <cwc:CustomScriptManager ID="CustomScriptManager1" runat="server" />   
+    
+    <asp:Panel ID="panLogin" runat="server" Height="228px" Width="100%" HorizontalAlign="Center">
+    
+        <div class="loginform">
+            <table align="center" cellspacing="20" style="text-align: right;">
+                <tr>
+                    <td style="height: 24px;" ><cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="User" VariableName="LOGIN_USERNAME"></cwc:ResourceLabel></td>
+                    <td><asp:TextBox ID="txtUsuario" runat="server" MaxLength="255"  TabIndex="1" Width="200px" CssClass="LogicTextbox" /></td>
+                </tr>
+                <tr>
+                    <td style="height: 24px;" ><cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="User" VariableName="LOGIN_PASSWORD"></cwc:ResourceLabel></td>
+                    <td>
+                        <asp:TextBox ID="txtPassword" runat="server" MaxLength="255" TabIndex="3" Width="200px" TextMode="Password" CssClass="LogicTextbox" />
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
+        <div class="loginbutton">
+            <cwc:ResourceButton ID="btLogin" runat="server" OnClick="BtLoginClick" ResourceName="Controls" VariableName="BUTTON_LOGIN" CssClass="LogicButton_Big" />
+            <cwc:InfoLabel ID="infoLabel1" runat="server" SkinID="Blank" />
         </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
+        
+        <div class="flags">
+            <cwc:CultureSelector ID="cultureSelector" runat="server" />
         </div>
-    </div>
-
-</asp:Content>
+        
+    </asp:Panel>
+            
+    <asp:Panel ID="panPerfil" runat="server" Width="100%" Visible="false">
+        
+        <div class="perfilform">
+            <table align="center" cellspacing="20" style="text-align: right;">
+                <tr>
+                <td style="height: 68px;" ><cwc:ResourceLabel ID="ResourceLabel3" runat="server" ResourceName="User" VariableName="LOGIN_SELECTROLE"></cwc:ResourceLabel></td>
+                <td><asp:DropDownList ID="cbPerfiles" runat="server" Visible="true" Width="250px" CssClass="LogicCombo" /></td></tr>
+            </table>
+        </div>
+        
+        <div class="selectbutton">
+            <cwc:ResourceButton ID="btSelPerfil" runat="server" OnClick="BtSelPerfilClick" ResourceName="Controls" VariableName="BUTTON_SELECT" CssClass="LogicButton_Big" />
+        </div>
+        <div class="cancelbutton">
+            <cwc:ResourceButton ID="btCancel" runat="server" OnClick="BtCancelClick" ResourceName="Controls" VariableName="BUTTON_CANCEL" CssClass="LogicButton_Big" />
+        </div>
+    </asp:Panel>
+            
+    </form>
+</body>
+</html>

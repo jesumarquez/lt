@@ -7,153 +7,189 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logictracker {
+namespace Logictracker.App_Controls {
     
     
-    public partial class Default {
+    public partial class App_Controls_SelectGeoRefference {
         
         /// <summary>
-        /// loginBody control.
+        /// panelControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginBody;
+        protected global::System.Web.UI.WebControls.Panel panelControl;
         
         /// <summary>
-        /// form1 control.
+        /// updControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.UpdatePanel updControl;
         
         /// <summary>
-        /// CustomScriptManager1 control.
+        /// tab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Ajax.CustomScriptManager CustomScriptManager1;
+        protected global::AjaxControlToolkit.TabContainer tab;
         
         /// <summary>
-        /// panLogin control.
+        /// tabReferencia control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panLogin;
+        protected global::AjaxControlToolkit.TabPanel tabReferencia;
         
         /// <summary>
-        /// ResourceLabel1 control.
+        /// lblReferencia control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel1;
+        protected global::System.Web.UI.WebControls.Label lblReferencia;
         
         /// <summary>
-        /// txtUsuario control.
+        /// tabSelect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::AjaxControlToolkit.TabPanel tabSelect;
         
         /// <summary>
-        /// ResourceLabel2 control.
+        /// panelSelect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
+        protected global::System.Web.UI.WebControls.Panel panelSelect;
         
         /// <summary>
-        /// txtPassword control.
+        /// cbTipoReferenciaGeografica control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoReferenciaGeograficaDropDownList cbTipoReferenciaGeografica;
         
         /// <summary>
-        /// btLogin control.
+        /// cbReferenciaGeografica control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btLogin;
+        protected global::System.Web.UI.WebControls.ListBox cbReferenciaGeografica;
         
         /// <summary>
-        /// infoLabel1 control.
+        /// btSelect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.InfoLabel infoLabel1;
+        protected global::System.Web.UI.WebControls.Button btSelect;
         
         /// <summary>
-        /// cultureSelector control.
+        /// tabSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Culture.CultureSelector cultureSelector;
+        protected global::AjaxControlToolkit.TabPanel tabSearch;
         
         /// <summary>
-        /// panPerfil control.
+        /// panelSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panPerfil;
+        protected global::System.Web.UI.WebControls.Panel panelSearch;
         
         /// <summary>
-        /// ResourceLabel3 control.
+        /// txtSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel3;
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
         
         /// <summary>
-        /// cbPerfiles control.
+        /// txwSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cbPerfiles;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txwSearch;
         
         /// <summary>
-        /// btSelPerfil control.
+        /// btSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btSelPerfil;
+        protected global::System.Web.UI.WebControls.Button btSearch;
         
         /// <summary>
-        /// btCancel control.
+        /// tabResult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btCancel;
+        protected global::AjaxControlToolkit.TabPanel tabResult;
+        
+        /// <summary>
+        /// panelResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelResult;
+        
+        /// <summary>
+        /// cbResults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox cbResults;
+        
+        /// <summary>
+        /// btAceptar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btAceptar;
+        
+        /// <summary>
+        /// btCancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btCancelar;
     }
 }

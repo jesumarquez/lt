@@ -7,46 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logictracker {
+namespace Logictracker.App_Controls {
     
     
-    public partial class Default {
-        
-        /// <summary>
-        /// loginBody control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginBody;
-        
-        /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
-        /// CustomScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Ajax.CustomScriptManager CustomScriptManager1;
-        
-        /// <summary>
-        /// panLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panLogin;
+    public partial class EditEntityGeoRef {
         
         /// <summary>
         /// ResourceLabel1 control.
@@ -58,102 +22,120 @@ namespace Logictracker {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel1;
         
         /// <summary>
-        /// txtUsuario control.
+        /// updTipoGeoRef control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.UpdatePanel updTipoGeoRef;
         
         /// <summary>
-        /// ResourceLabel2 control.
+        /// cbTipoReferenciaGeografica control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoReferenciaGeograficaDropDownList cbTipoReferenciaGeografica;
         
         /// <summary>
-        /// txtPassword control.
+        /// ResourceLabel6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel6;
         
         /// <summary>
-        /// btLogin control.
+        /// updSelectIcon control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btLogin;
+        protected global::System.Web.UI.UpdatePanel updSelectIcon;
         
         /// <summary>
-        /// infoLabel1 control.
+        /// SelectIcon2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.InfoLabel infoLabel1;
+        protected global::Logictracker.App_Controls.App_Controls_IconPicker SelectIcon2;
         
         /// <summary>
-        /// cultureSelector control.
+        /// lblColor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Culture.CultureSelector cultureSelector;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblColor;
         
         /// <summary>
-        /// panPerfil control.
+        /// updColor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panPerfil;
+        protected global::System.Web.UI.UpdatePanel updColor;
         
         /// <summary>
-        /// ResourceLabel3 control.
+        /// cpColor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel3;
+        protected global::Logictracker.App_Controls.App_Controls_ColorPicker cpColor;
         
         /// <summary>
-        /// cbPerfiles control.
+        /// updHackColor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cbPerfiles;
+        protected global::System.Web.UI.UpdatePanel updHackColor;
         
         /// <summary>
-        /// btSelPerfil control.
+        /// txtVigenciaDesde control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btSelPerfil;
+        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker txtVigenciaDesde;
         
         /// <summary>
-        /// btCancel control.
+        /// btBorrarPunto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btCancel;
+        protected global::System.Web.UI.WebControls.Button btBorrarPunto;
+        
+        /// <summary>
+        /// btBorrarPoly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btBorrarPoly;
+        
+        /// <summary>
+        /// EditGeoRef1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.App_Controls.EditGeoRef EditGeoRef1;
     }
 }

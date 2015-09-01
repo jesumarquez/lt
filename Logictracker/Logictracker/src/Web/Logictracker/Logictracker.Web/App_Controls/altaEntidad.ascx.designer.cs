@@ -7,46 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logictracker {
+namespace Logictracker.App_Controls {
     
     
-    public partial class Default {
+    public partial class AppControlsAltaEntidad {
         
         /// <summary>
-        /// loginBody control.
+        /// ResourceLabel5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginBody;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel5;
         
         /// <summary>
-        /// form1 control.
+        /// txtApellido control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
-        /// CustomScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Ajax.CustomScriptManager CustomScriptManager1;
-        
-        /// <summary>
-        /// panLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panLogin;
+        protected global::System.Web.UI.WebControls.TextBox txtApellido;
         
         /// <summary>
         /// ResourceLabel1 control.
@@ -58,13 +40,13 @@ namespace Logictracker {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel1;
         
         /// <summary>
-        /// txtUsuario control.
+        /// txtNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtNombre;
         
         /// <summary>
         /// ResourceLabel2 control.
@@ -76,49 +58,13 @@ namespace Logictracker {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
         
         /// <summary>
-        /// txtPassword control.
+        /// txtDocumento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
-        /// <summary>
-        /// btLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btLogin;
-        
-        /// <summary>
-        /// infoLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.InfoLabel infoLabel1;
-        
-        /// <summary>
-        /// cultureSelector control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Culture.CultureSelector cultureSelector;
-        
-        /// <summary>
-        /// panPerfil control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panPerfil;
+        protected global::System.Web.UI.WebControls.TextBox txtDocumento;
         
         /// <summary>
         /// ResourceLabel3 control.
@@ -130,30 +76,39 @@ namespace Logictracker {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel3;
         
         /// <summary>
-        /// cbPerfiles control.
+        /// txtTipo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cbPerfiles;
+        protected global::System.Web.UI.WebControls.TextBox txtTipo;
         
         /// <summary>
-        /// btSelPerfil control.
+        /// ResourceLabel4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btSelPerfil;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel4;
         
         /// <summary>
-        /// btCancel control.
+        /// txtCuil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btCancel;
+        protected global::System.Web.UI.WebControls.TextBox txtCuil;
+        
+        /// <summary>
+        /// DireccionSearch1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.App_Controls.DireccionSearch DireccionSearch1;
     }
 }

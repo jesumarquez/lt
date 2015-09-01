@@ -7,46 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logictracker {
+namespace Logictracker.App_Controls {
     
     
-    public partial class Default {
+    public partial class App_Controls_FiltroFlota {
         
         /// <summary>
-        /// loginBody control.
+        /// upFiltroFlota control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginBody;
-        
-        /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
-        /// CustomScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Ajax.CustomScriptManager CustomScriptManager1;
-        
-        /// <summary>
-        /// panLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panLogin;
+        protected global::System.Web.UI.UpdatePanel upFiltroFlota;
         
         /// <summary>
         /// ResourceLabel1 control.
@@ -58,67 +31,13 @@ namespace Logictracker {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel1;
         
         /// <summary>
-        /// txtUsuario control.
+        /// ddclEmpresa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
-        
-        /// <summary>
-        /// ResourceLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
-        
-        /// <summary>
-        /// txtPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
-        /// <summary>
-        /// btLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btLogin;
-        
-        /// <summary>
-        /// infoLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.InfoLabel infoLabel1;
-        
-        /// <summary>
-        /// cultureSelector control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Culture.CultureSelector cultureSelector;
-        
-        /// <summary>
-        /// panPerfil control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panPerfil;
+        protected global::Logictracker.Web.CustomWebControls.DropDownCheckLists.LocacionDropDownCheckList ddclEmpresa;
         
         /// <summary>
         /// ResourceLabel3 control.
@@ -130,30 +49,129 @@ namespace Logictracker {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel3;
         
         /// <summary>
-        /// cbPerfiles control.
+        /// upTipoDeVehiculo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cbPerfiles;
+        protected global::System.Web.UI.UpdatePanel upTipoDeVehiculo;
         
         /// <summary>
-        /// btSelPerfil control.
+        /// ddclTipoDeVehiculo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btSelPerfil;
+        protected global::Logictracker.Web.CustomWebControls.DropDownCheckLists.TipoDeVehiculoDropDownCheckList ddclTipoDeVehiculo;
         
         /// <summary>
-        /// btCancel control.
+        /// ResourceLabel4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btCancel;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel4;
+        
+        /// <summary>
+        /// upTipoDeDispositivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upTipoDeDispositivo;
+        
+        /// <summary>
+        /// ddclTipoDeDispositivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownCheckLists.TipoDispositivoDropDownCheckList ddclTipoDeDispositivo;
+        
+        /// <summary>
+        /// ResourceLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
+        
+        /// <summary>
+        /// upLinea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upLinea;
+        
+        /// <summary>
+        /// ddclLinea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownCheckLists.PlantaDropDownCheckList ddclLinea;
+        
+        /// <summary>
+        /// ResourceLabel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel5;
+        
+        /// <summary>
+        /// upVehiculo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upVehiculo;
+        
+        /// <summary>
+        /// ddclVehiculo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownCheckLists.MovilDropDownCheckList ddclVehiculo;
+        
+        /// <summary>
+        /// ResourceLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel6;
+        
+        /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
+        /// ddclDispositivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownCheckLists.DispositivoDropDownCheckList ddclDispositivo;
     }
 }

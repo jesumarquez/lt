@@ -7,91 +7,118 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logictracker {
+namespace Logictracker.MasterPages {
     
     
-    public partial class Default {
+    public partial class ReportPage {
         
         /// <summary>
-        /// loginBody control.
+        /// ToolBar1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginBody;
+        protected global::Logictracker.Web.CustomWebControls.ToolBar.ToolBar ToolBar1;
         
         /// <summary>
-        /// form1 control.
+        /// btExpandFilters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btExpandFilters;
         
         /// <summary>
-        /// CustomScriptManager1 control.
+        /// updFilters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Ajax.CustomScriptManager CustomScriptManager1;
+        protected global::System.Web.UI.UpdatePanel updFilters;
         
         /// <summary>
-        /// panLogin control.
+        /// ContentFiltros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panLogin;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentFiltros;
         
         /// <summary>
-        /// ResourceLabel1 control.
+        /// buttonSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel1;
+        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton buttonSearch;
         
         /// <summary>
-        /// txtUsuario control.
+        /// updDummy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.UpdatePanel updDummy;
         
         /// <summary>
-        /// ResourceLabel2 control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// txtPassword control.
+        /// ContentFiltrosAvanzados control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentFiltrosAvanzados;
         
         /// <summary>
-        /// btLogin control.
+        /// panelBuscar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btLogin;
+        protected global::System.Web.UI.WebControls.Panel panelBuscar;
+        
+        /// <summary>
+        /// lblBuscar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblBuscar;
+        
+        /// <summary>
+        /// txtBuscar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBuscar;
+        
+        /// <summary>
+        /// ProgressLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ProgressLabel ProgressLabel1;
         
         /// <summary>
         /// infoLabel1 control.
@@ -103,57 +130,48 @@ namespace Logictracker {
         protected global::Logictracker.Web.CustomWebControls.Labels.InfoLabel infoLabel1;
         
         /// <summary>
-        /// cultureSelector control.
+        /// updReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Culture.CultureSelector cultureSelector;
+        protected global::System.Web.UI.UpdatePanel updReport;
         
         /// <summary>
-        /// panPerfil control.
+        /// ContentReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panPerfil;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentReport;
         
         /// <summary>
-        /// ResourceLabel3 control.
+        /// upFiltrosPrinta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel3;
+        protected global::System.Web.UI.UpdatePanel upFiltrosPrinta;
         
         /// <summary>
-        /// cbPerfiles control.
+        /// FiltrosPrint control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cbPerfiles;
+        protected global::System.Web.UI.WebControls.Repeater FiltrosPrint;
         
         /// <summary>
-        /// btSelPerfil control.
+        /// ContentPrint control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btSelPerfil;
-        
-        /// <summary>
-        /// btCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btCancel;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPrint;
     }
 }

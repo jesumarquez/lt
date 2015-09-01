@@ -1,0 +1,93 @@
+
+<%@ Master Language="C#" AutoEventWireup="True" CodeBehind="MasterPage.master.cs" Inherits="Logictracker.MasterPages.MasterPage" %>
+
+<%@ Register Src="~/App_Controls/Menu.ascx" TagName="Menu" TagPrefix="uc1" %>
+<%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %>
+<%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Culture" Assembly="Logictracker.Web.CustomWebControls" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<%--<script type="text/javascript">
+    function confirmOperation() {
+        if (confirm('<%= CultureManager.GetString("SystemMessages", "CONFIRM_OPERATION") %>'))
+            return true
+        else
+            return false;
+    }
+</script>--%>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title />
+    <script type="text/javascript">
+        function menu_collapse() {
+            var menu = $get('menu_cell');
+            var open = menu.style.display != 'none';
+            menu.style.display = open ? 'none' : '';
+            $get('menu_collapse_bar').className = open ? 'menu_collapse_bar menu_closed' : 'menu_collapse_bar menu_open';
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <cwc:CustomScriptManager ID="CustomScriptManager1" runat="server" />
+    <div>
+        <table style="width: 100%">
+            <tr>
+                <td id="menu_cell" valign="top" class="Menu">
+                    <asp:UpdatePanel ID="updMenu" runat="server" UpdateMode="Always" RenderMode="Inline">
+                        <ContentTemplate>
+                            <a href="~/Home.aspx" runat="server">
+                                <div class="Logo"></div>
+                            </a>
+                            <div style="position: relative; text-align: right; bottom: 0px; color: #666666; padding-right: 10px">
+                            <cwc:RevisionLabel ID="lblVersion" runat="server" Font-Size="XX-Small" Text="rev. {0}"></cwc:RevisionLabel>
+                            </div>
+                            <div class="UserPanel">
+                                <div class="UserIcon">
+                                </div>
+                                <div class="UserInfo">
+                                    <div style="width: auto; float: right;">
+                                        <asp:LinkButton ID="btPerfil" runat="server" OnClick="btPerfil_Click">
+                                            <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="User" VariableName="USERBAR_PROFILE"></cwc:ResourceLabel>
+                                        </asp:LinkButton>
+                                        &nbsp;
+                                        <asp:LinkButton ID="btLogout" runat="server" OnClick="btLogout_Click">
+                                            <cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="User" VariableName="USERBAR_LOGOUT"></cwc:ResourceLabel>
+                                        </asp:LinkButton>
+                                    </div>
+                                    <asp:Label ID="lblUserName" runat="server" Text=""></asp:Label>
+                                </div>
+                            </div>
+                            <cwc:RegionalInformationDisplayer ID="regionalInformation" runat="server" CssClass="UserPanel" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <uc1:Menu ID="Menu1" runat="server" />
+                    <div class="LogoBottom">
+                    </div>
+                </td>
+                <td id="menu_collapse_bar" class="menu_collapse_bar menu_open" onclick="menu_collapse();">
+                    <div style="height: 400px;"></div>
+                </td>
+                <td valign="top" class="content_body">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+                </td>
+            </tr>
+        </table>
+        <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+            <ProgressTemplate>
+                <asp:Panel ID="PanelProgress" runat="server" Height="50px" Width="125px">
+                    <cwc:ResourceLabel ID="ResourceLabel3" runat="server" ResourceName="SystemMessages"
+                        VariableName="PLEASE_WAIT"></cwc:ResourceLabel>
+                </asp:Panel>
+                <asp:Panel ID="Panel1" runat="server">
+                </asp:Panel>
+                <AjaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="PanelProgress"
+                    TargetControlID="Panel1" BackgroundCssClass="Disabled_Back" />
+            </ProgressTemplate>
+        </asp:UpdateProgress>
+    </div>
+    </form>
+    
+</body>
+</html>

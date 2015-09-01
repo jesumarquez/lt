@@ -1,0 +1,94 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="True" CodeBehind="ImportPage.master.cs" Inherits="Logictracker.MasterPages.ImportPage" %>
+<%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+    <%--TOOLBAR--%>
+    <cwc:ToolBar ID="ToolBar1" runat="server" ResourceName="Menu" />
+
+    <%--FILTROS--%>
+    <asp:Panel ID="panelUpload" runat="server" DefaultButton="btUpload" CssClass="filterpanel">
+        <table style="width: 100%">
+            <tr>
+                <td>Seleccione el archivo .xls (Excel 97-2003)</td>
+                <td><asp:FileUpload ID="filExcel" runat="server" /></td>
+                <td>                
+                    <cwc:ResourceButton ID="btUpload" runat="server" ResourceName="Controls" VariableName="BUTTON_UPLOAD" CssClass="LogicButton" />               
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    
+    <%--PROGRESSLABEL--%>
+    <cwc:ProgressLabel ID="ProgressLabel1" runat="server" />
+    
+    <%--ERRORLABEL--%>
+    <cwc:InfoLabel ID="infoLabel1" runat="server" />
+    
+    <asp:Panel ID="panelImport" runat="server">
+    
+        <asp:Panel ID="panelMapping" runat="server" CssClass="filterpanel">
+            <table style="width: 100%;">
+                <tr>
+                    <td>Hoja <asp:DropDownList ID="cbWorksheets" runat="server" Width="200px" AutoPostBack="true" CssClass="LogicCombo" /></td>
+                    <td><asp:CheckBox ID="chkHasHeader" runat="server" Checked="true" Text="El archivo tiene cabecera" /></td>
+                    <td></td>
+                    <td><cwc:ResourceLinkButton ID="btLimpiar" runat="server" ResourceName="Controls" VariableName="Limpiar mapeos" /></td>
+                    <td></td>
+                    <td>Modo: <asp:DropDownList runat="server" ID="cbImportMode" Width="200px" AutoPostBack="true" CssClass="LogicCombo" /></td>
+                </tr>
+            </table>
+        </asp:Panel>
+        
+        <asp:UpdatePanel ID="updUpload" runat="server" RenderMode="Inline" UpdateMode="Conditional">
+        <ContentTemplate>
+            <C1:C1GridView ID="grid" runat="server" SkinID="SmallGrid" ShowHeader="false">
+                <Columns>
+                    <c1:C1TemplateField />
+                    
+                    <c1:C1TemplateField>
+                        <ItemStyle Width="200px" />
+                    </c1:C1TemplateField>
+                    
+                    <c1:C1TemplateField>
+                        <ItemStyle Width="300px"/>
+                        <ItemTemplate>
+                            <asp:DropDownList ID="cbMapping" runat="server" Width="300px" CssClass="LogicCombo" />
+                            <asp:HiddenField runat="server" ID="hidValue"/>
+                        </ItemTemplate>
+                    </c1:C1TemplateField>
+                    <c1:C1TemplateField>
+                        <ItemStyle HorizontalAlign="Left"/>
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtDefault" runat="server" Width="300px" CssClass="LogicTextbox"/>
+                            <AjaxToolkit:TextBoxWatermarkExtender runat="server" TargetControlID="txtDefault" WatermarkText="Default" WatermarkCssClass="LogicWatermark"/>
+                        </ItemTemplate>
+                    </c1:C1TemplateField>
+                </Columns>
+            </C1:C1GridView>
+        </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="cbWorksheets" EventName="SelectedIndexChanged" />
+            <asp:AsyncPostBackTrigger ControlID="cbImportMode" EventName="SelectedIndexChanged" />
+            <asp:PostBackTrigger ControlID="btUpload" />
+            <asp:PostBackTrigger ControlID="btLimpiar" />
+        </Triggers>
+        </asp:UpdatePanel>
+        
+        <asp:Panel ID="panelAsignacion" runat="server" CssClass="filterpanel">
+            <table style="width: 100%;">
+                <tr>
+                    <td>
+                        <asp:ContentPlaceHolder ID="ContentImport" runat="server"></asp:ContentPlaceHolder>
+                    </td>
+                    <td style="text-align: right; vertical-align: bottom;padding-right: 50px;">
+                        <cwc:ResourceButton ID="btImport" runat="server" ResourceName="Controls" VariableName="BUTTON_IMPORT" CssClass="LogicButton_Big" />
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+    </asp:Panel>
+    
+    
+</asp:Content>
+

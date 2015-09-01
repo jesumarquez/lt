@@ -39,13 +39,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.20820.16598, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Web.UI.3, Version=3.5.20102.74, Culture=neutral, PublicKeyToken=9b75583953471eea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.UI.3.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Web.UI.Controls.3, Version=3.5.20113.220, Culture=neutral, PublicKeyToken=9b75583953471eea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.UI.Controls.3.dll</HintPath>
+    </Reference>
+    <Reference Include="CDT.ColorPickerExtender, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\CDT.ColorPickerExtender.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\LinqToExcel.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -133,18 +158,58 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="App_Controls\altaEntidad.ascx" />
+    <Content Include="App_Controls\altaMarca.ascx" />
+    <Content Include="App_Controls\ColorPicker.ascx" />
+    <Content Include="App_Controls\Consultas.ascx" />
+    <Content Include="App_Controls\ConsumosList.ascx" />
+    <Content Include="App_Controls\Detalles.ascx" />
+    <Content Include="App_Controls\DireccionImport.ascx" />
+    <Content Include="App_Controls\DireccionSearch.ascx" />
+    <Content Include="App_Controls\DocumentList.ascx" />
+    <Content Include="App_Controls\EditEntityGeoRef.ascx" />
+    <Content Include="App_Controls\EditGeoRef.ascx" />
+    <Content Include="App_Controls\EditLine.ascx" />
+    <Content Include="App_Controls\FiltroDetalles.ascx" />
+    <Content Include="App_Controls\FiltroFlota.ascx" />
+    <Content Include="App_Controls\IconPicker.ascx" />
+    <Content Include="App_Controls\IpRangeEditor.ascx" />
+    <Content Include="App_Controls\Mensajeria.ascx" />
+    <Content Include="App_Controls\Menu.ascx" />
+    <Content Include="App_Controls\Pickers\DateMonthPicker.ascx" />
+    <Content Include="App_Controls\Pickers\DatePicker.ascx" />
+    <Content Include="App_Controls\Pickers\DateTimePicker.ascx" />
+    <Content Include="App_Controls\Pickers\NumberPicker.ascx" />
+    <Content Include="App_Controls\Pickers\TimePicker.ascx" />
+    <Content Include="App_Controls\SelectGeoRefference.ascx" />
+    <Content Include="App_Controls\SoundPicker.ascx" />
+    <Content Include="App_Controls\tab.gif" />
+    <Content Include="App_Controls\tab2.gif" />
+    <Content Include="App_Controls\TicketImport.ascx" />
+    <Content Include="App_Controls\TicketsList.ascx" />
+    <Content Include="App_Controls\TicketsMantenimientoList.ascx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Home.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="MasterPages\AbmPage.master" />
+    <Content Include="MasterPages\ImportPage.master" />
+    <Content Include="MasterPages\ListPage.master" />
+    <Content Include="MasterPages\MasterPage.master" />
+    <Content Include="MasterPages\ReportGraphPage.master" />
+    <Content Include="MasterPages\ReportGridPage.master" />
+    <Content Include="MasterPages\ReportPage.master" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="perfil.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -177,6 +242,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="SinAcceso.aspx" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -196,6 +262,202 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Controls\altaEntidad.ascx.cs">
+      <DependentUpon>altaEntidad.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\altaEntidad.ascx.designer.cs">
+      <DependentUpon>altaEntidad.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\altaMarca.ascx.cs">
+      <DependentUpon>altaMarca.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\altaMarca.ascx.designer.cs">
+      <DependentUpon>altaMarca.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\ColorPicker.ascx.cs">
+      <DependentUpon>ColorPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\ColorPicker.ascx.designer.cs">
+      <DependentUpon>ColorPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Consultas.ascx.cs">
+      <DependentUpon>Consultas.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Consultas.ascx.designer.cs">
+      <DependentUpon>Consultas.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\ConsumosList.ascx.cs">
+      <DependentUpon>ConsumosList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\ConsumosList.ascx.designer.cs">
+      <DependentUpon>ConsumosList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Detalles.ascx.cs">
+      <DependentUpon>Detalles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Detalles.ascx.designer.cs">
+      <DependentUpon>Detalles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\DireccionImport.ascx.cs">
+      <DependentUpon>DireccionImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\DireccionImport.ascx.designer.cs">
+      <DependentUpon>DireccionImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\DireccionSearch.ascx.cs">
+      <DependentUpon>DireccionSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\DireccionSearch.ascx.designer.cs">
+      <DependentUpon>DireccionSearch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\DocumentList.ascx.cs">
+      <DependentUpon>DocumentList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\DocumentList.ascx.designer.cs">
+      <DependentUpon>DocumentList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\EditEntityGeoRef.ascx.cs">
+      <DependentUpon>EditEntityGeoRef.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\EditEntityGeoRef.ascx.designer.cs">
+      <DependentUpon>EditEntityGeoRef.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\EditGeoRef.ascx.cs">
+      <DependentUpon>EditGeoRef.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\EditGeoRef.ascx.designer.cs">
+      <DependentUpon>EditGeoRef.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\EditLine.ascx.cs">
+      <DependentUpon>EditLine.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\EditLine.ascx.designer.cs">
+      <DependentUpon>EditLine.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\FiltroDetalles.ascx.cs">
+      <DependentUpon>FiltroDetalles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\FiltroDetalles.ascx.designer.cs">
+      <DependentUpon>FiltroDetalles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\FiltroFlota.ascx.cs">
+      <DependentUpon>FiltroFlota.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\FiltroFlota.ascx.designer.cs">
+      <DependentUpon>FiltroFlota.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\IconPicker.ascx.cs">
+      <DependentUpon>IconPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\IconPicker.ascx.designer.cs">
+      <DependentUpon>IconPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\IpRangeEditor.ascx.cs">
+      <DependentUpon>IpRangeEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\IpRangeEditor.ascx.designer.cs">
+      <DependentUpon>IpRangeEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Mensajeria.ascx.cs">
+      <DependentUpon>Mensajeria.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Mensajeria.ascx.designer.cs">
+      <DependentUpon>Mensajeria.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Menu.ascx.cs">
+      <DependentUpon>Menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Menu.ascx.designer.cs">
+      <DependentUpon>Menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\DateMonthPicker.ascx.cs">
+      <DependentUpon>DateMonthPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\DateMonthPicker.ascx.designer.cs">
+      <DependentUpon>DateMonthPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\DatePicker.ascx.cs">
+      <DependentUpon>DatePicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\DatePicker.ascx.designer.cs">
+      <DependentUpon>DatePicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\DateTimePicker.ascx.cs">
+      <DependentUpon>DateTimePicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\DateTimePicker.ascx.designer.cs">
+      <DependentUpon>DateTimePicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\NumberPicker.ascx.cs">
+      <DependentUpon>NumberPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\NumberPicker.ascx.designer.cs">
+      <DependentUpon>NumberPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\TimePicker.ascx.cs">
+      <DependentUpon>TimePicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\Pickers\TimePicker.ascx.designer.cs">
+      <DependentUpon>TimePicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\SelectGeoRefference.ascx.cs">
+      <DependentUpon>SelectGeoRefference.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\SelectGeoRefference.ascx.designer.cs">
+      <DependentUpon>SelectGeoRefference.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\SoundPicker.ascx.cs">
+      <DependentUpon>SoundPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\SoundPicker.ascx.designer.cs">
+      <DependentUpon>SoundPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\TicketImport.ascx.cs">
+      <DependentUpon>TicketImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\TicketImport.ascx.designer.cs">
+      <DependentUpon>TicketImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\TicketsList.ascx.cs">
+      <DependentUpon>TicketsList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\TicketsList.ascx.designer.cs">
+      <DependentUpon>TicketsList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Controls\TicketsMantenimientoList.ascx.cs">
+      <DependentUpon>TicketsMantenimientoList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Controls\TicketsMantenimientoList.ascx.designer.cs">
+      <DependentUpon>TicketsMantenimientoList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -221,10 +483,87 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\AbmPage.master.cs">
+      <DependentUpon>AbmPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\AbmPage.master.designer.cs">
+      <DependentUpon>AbmPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\ImportPage.master.cs">
+      <DependentUpon>ImportPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\ImportPage.master.designer.cs">
+      <DependentUpon>ImportPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\ListPage.master.cs">
+      <DependentUpon>ListPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\ListPage.master.designer.cs">
+      <DependentUpon>ListPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\MasterPage.master.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\MasterPage.master.designer.cs">
+      <DependentUpon>MasterPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\ReportGraphPage.master.cs">
+      <DependentUpon>ReportGraphPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\ReportGraphPage.master.designer.cs">
+      <DependentUpon>ReportGraphPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\ReportGridPage.master.cs">
+      <DependentUpon>ReportGridPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\ReportGridPage.master.designer.cs">
+      <DependentUpon>ReportGridPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPages\ReportPage.master.cs">
+      <DependentUpon>ReportPage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPages\ReportPage.master.designer.cs">
+      <DependentUpon>ReportPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="perfil.aspx.cs">
+      <DependentUpon>perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="perfil.aspx.designer.cs">
+      <DependentUpon>perfil.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SinAcceso.aspx.cs">
+      <DependentUpon>SinAcceso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SinAcceso.aspx.designer.cs">
+      <DependentUpon>SinAcceso.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -250,6 +589,84 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Geocoder\Geocoder.Core.csproj">
+      <Project>{52186fb0-923b-48a5-8411-d60f88cfae1b}</Project>
+      <Name>Geocoder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
+      <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
+      <Project>{bd82e1cc-3af6-4d02-9425-30edeb3742f2}</Project>
+      <Name>Logictracker.Culture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{a5c107d7-cc1b-4d48-9275-0c6ee216ba61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messages.Saver\Logictracker.Messages.Saver.csproj">
+      <Project>{3811e3c9-e240-46fc-a2b2-3fcc0f31f7fa}</Project>
+      <Name>Logictracker.Messages.Saver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
+      <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
+      <Name>Logictracker.Messages.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
+      <Name>Logictracker.Layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2d0c837c-8644-4c77-8267-be07cad743bd}</Project>
+      <Name>Logictracker.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4aefc2c1-47ff-444d-96a1-eb57fba1be7f}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Web\Logictracker.Common.Web\Logictracker.Web.csproj">
+      <Project>{327f6143-1118-4881-8c79-5f0913f63f6b}</Project>
+      <Name>Logictracker.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Services.Helpers\Logictracker.Services.Helpers.csproj">
+      <Project>{335550d5-f4a2-4ad0-a22f-c4ab705c6606}</Project>
+      <Name>Logictracker.Services.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web.BaseClasses\Logictracker.Web.BaseClasses.csproj">
+      <Project>{5b5f86dc-6a0b-43d5-b060-a2653fa47ca9}</Project>
+      <Name>Logictracker.Web.BaseClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web.CustomWebControls\Logictracker.Web.CustomWebControls.csproj">
+      <Project>{c846f5c6-a001-45b8-9425-55112b77c89a}</Project>
+      <Name>Logictracker.Web.CustomWebControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web.Documentos\Logictracker.Web.Documentos.csproj">
+      <Project>{8686e7f7-339c-4bef-9888-b0f48650b57d}</Project>
+      <Name>Logictracker.Web.Documentos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web.Helpers\Logictracker.Web.Helpers.csproj">
+      <Project>{f954c2aa-9080-4ea0-b753-3164d2f96787}</Project>
+      <Name>Logictracker.Web.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker.Common.Web.Monitor\Logictracker.Web.Monitor.csproj">
+      <Project>{ea4f2474-e856-4578-a93d-03b35a19c8d9}</Project>
+      <Name>Logictracker.Web.Monitor</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
