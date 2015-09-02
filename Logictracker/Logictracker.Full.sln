@@ -377,7 +377,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicTracker.App.Web.Api", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Tests.Web.Api", "Testing\Web\Logictracker.Tracker.Tests.Web.Api\Logictracker.Tracker.Tests.Web.Api.csproj", "{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Web", "Logictracker\src\Web\Logictracker\Logictracker.Web\Logictracker.Web.csproj", "{F1E9F839-EF6D-429D-B147-261DE35BF2EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Web.Site", "Logictracker\src\Web\Logictracker\Logictracker.Web\Logictracker.Web.Site.csproj", "{F1E9F839-EF6D-429D-B147-261DE35BF2EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
