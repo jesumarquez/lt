@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="C1.Web.C1WebChart.2">
+      <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.C1WebChart.2.dll</HintPath>
+    </Reference>
     <Reference Include="C1.Web.UI.3, Version=3.5.20102.74, Culture=neutral, PublicKeyToken=9b75583953471eea, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.UI.3.dll</HintPath>
@@ -1258,7 +1261,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4386</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51581/</IISUrl>
+          <IISUrl>http://localhost:4386/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -16,6 +16,15 @@ namespace Logictracker.Web
             routes.EnableFriendlyUrls(settings);
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
+            //Para que funcione el handler de image.
+            routes.IgnoreRoute("{resource}.image/{*pathInfo}");
+            
+            //TODO: ignorar los handlers
+            //routes.IgnoreRoute("c1gaugeimage.aspx");
+            //routes.IgnoreRoute("c1chartimage.aspx");
+
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             routes.MapRoute(
                     name: "Default",
