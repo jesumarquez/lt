@@ -291,7 +291,7 @@
                             </cwc:SecuredPanel> 
 
                             <cwc:ResourceCheckBox ID="chkReporte" runat="server" AutoPostBack="true" OnCheckedChanged="ChkComportamientoCheckedChanged" ResourceName="Labels" VariableName="ENVIA_REPORTE"/>
-                            <asp:Panel ID="panel1" runat="server" Visible="false">
+                            <asp:Panel ID="panelReporte" runat="server" Visible="false">
                                 <table style="width: 100%">
                                     <tr>
                                         <td>

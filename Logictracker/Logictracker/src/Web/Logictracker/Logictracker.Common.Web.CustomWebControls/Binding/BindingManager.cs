@@ -1135,7 +1135,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
 
             if (idMensaje == MessageCode.CicloLogisticoCerrado.GetMessageCode())
             {
-                autoBindeable.AddItem(CultureManager.GetMenu("REP_DISTRIBUCION"), 1);
+                autoBindeable.AddItem(CultureManager.GetMenu("REP_DISTRIBUCION"), ProgramacionReporte.Reportes.GetDropDownListIndex(ProgramacionReporte.Reportes.EstadoEntregas));
             }
         }
 
