@@ -26,9 +26,9 @@ namespace Logictracker.Description.Runtime
 			var appFile = String.Format(@"{0}\{1}", Process.GetApplicationFolder(), ((args.Length == 0) ? "AutoRun.xml" : args[0]));
 
 		    STrace.Debug(typeof(ApplicationLoader).FullName, "Creating Backend Category into PerformanceCounterHelper");
-			PerformanceCounterHelper.Create(new BackendCategory());
+            PerformanceCounterHelper.Create(new BackendCategory());
             STrace.Debug(typeof(ApplicationLoader).FullName, "Launching Debugger...");
-			Debugger.LaunchDebugger(1);
+            //Debugger.LaunchDebugger(1);
 
             STrace.Debug(typeof(ApplicationLoader).FullName, "Initiating AppDomain...");
 			Process.InitAppDomain();

@@ -50,10 +50,10 @@ namespace Logictracker.Dispatcher.Handlers
 
             #endregion protect garmin on/off messages from be banned because of invalid date
 
-		    if (IsGarbageMessage(code))
-		    {
-                return HandleResults.BreakSuccess;
-		    }
+            //if (IsGarbageMessage(code))
+            //{
+            //    return HandleResults.BreakSuccess;
+            //}
 
 		    if (IsInvalidMessage(code, message))
 		    {

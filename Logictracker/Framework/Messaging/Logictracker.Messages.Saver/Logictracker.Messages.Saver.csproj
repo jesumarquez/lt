@@ -53,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj">
+      <Project>{c7a9420a-fdb3-4c8d-9783-290a51bad4fa}</Project>
+      <Name>Logictracker.Reports.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
@@ -76,6 +80,10 @@
     <ProjectReference Include="..\..\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Culture\Logictracker.Culture.csproj">
+      <Project>{bd82e1cc-3af6-4d02-9425-30edeb3742f2}</Project>
+      <Name>Logictracker.Culture</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ExpressionEvaluator\Logictracker.ExpressionEvaluator.csproj">
       <Project>{B3300022-30CC-4DDC-B72A-0AA3F90E1F23}</Project>

@@ -24,10 +24,10 @@
                         </asp:UpdatePanel>
                         
                         <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="Labels" VariableName="CODE" />
-                        <asp:TextBox ID="txtCodigo" runat="server" Width="100%" MaxLength="6" />
+                        <asp:TextBox ID="txtCodigo" runat="server" Width="98%" MaxLength="6" />
                         
                         <cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" /> 
-                        <asp:TextBox ID="txtDescripcion" runat="server" Width="100%" MaxLength="32" />
+                        <asp:TextBox ID="txtDescripcion" runat="server" Width="98%" MaxLength="32" />
                         
                     </cwc:AbmTitledPanel>
                 </td>
@@ -95,16 +95,25 @@
                 </td>
                 <td style="width: 50%; vertical-align: top;"> 
                     <cwc:AbmTitledPanel ID="AbmTitledPanel4" runat="server" Height="120px" TitleVariableName="COMPORTAMIENTO" TitleResourceName="Labels">
+                        
+                        <br /><cwc:ResourceCheckBox ID="chkControlaKilometraje" runat="server" ResourceName="Labels" VariableName="CONTROLA_KILOMETRAJE" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkControlaTurno" ResourceName="Labels" VariableName="CONTROLA_TURNO" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkControlaConsumo" ResourceName="Labels" VariableName="CONTROLA_CONSUMOS" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkSeguimientoPersona" ResourceName="Labels" VariableName="SEGUIMIENTO_PERSONA" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkNoEsVehiculo" ResourceName="Labels" VariableName="NO_ES_VEHICULO" />
+
                         <br />
-                        <cwc:ResourceCheckBox ID="chkControlaKilometraje" runat="server" ResourceName="Labels" VariableName="CONTROLA_KILOMETRAJE" />
+                        <asp:UpdatePanel ID="updChkEsControlAcceso" runat="server">
+                            <ContentTemplate>
+                                <cwc:ResourceCheckBox ID="chkEsControlAcceso" runat="server" ResourceName="Labels" VariableName="ES_PUERTA" Width="100%" OnCheckedChanged="ChkEsControlAccesoOnCheckedChanged" AutoPostBack="true" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                         <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkControlaTurno" ResourceName="Labels" VariableName="CONTROLA_TURNO" />
-                        <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkControlaConsumo" ResourceName="Labels" VariableName="CONTROLA_CONSUMOS" />
-                        <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkSeguimientoPersona" ResourceName="Labels" VariableName="SEGUIMIENTO_PERSONA" />
-                        <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkNoEsVehiculo" ResourceName="Labels" VariableName="NO_ES_VEHICULO" />
+                        <asp:UpdatePanel runat="server" ID="pnlControlAcceso">
+                            <ContentTemplate>                                
+                                <cwc:ResourceButton ID="btnGenerar" runat="server" ResourceName="Labels" VariableName="GENERAR_ACCESOS" OnClick="BtnGenerarOnClick" Enabled="false" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </cwc:AbmTitledPanel>
                 </td>
             </tr>

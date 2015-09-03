@@ -3646,6 +3646,9 @@
   <data name="ES_PUERTA" xml:space="preserve">
     <value>Access control</value>
   </data>
+  <data name="GENERAR_ACCESOS" xml:space="preserve">
+    <value>Create Access Controls</value>
+  </data>
   <data name="SOLO_HUERFANOS" xml:space="preserve">
     <value>Orphans Only</value>
   </data>
@@ -4527,5 +4530,8 @@
   </data>
   <data name="FORMATO" xml:space="preserve">
     <value>Format</value>
+  </data>
+  <data name="ENVIA_REPORTE" xml:space="preserve">
+    <value>Send Report</value>
   </data>
 </root>

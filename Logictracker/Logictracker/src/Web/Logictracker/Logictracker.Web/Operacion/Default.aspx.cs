@@ -72,6 +72,8 @@ namespace Logictracker.Operacion
                 RegisterStatusCheck();
                 RegisterEvents();
                 Monitor.AddCallbackScript(string.Format("startClock(new Date({0},{1},{2},{3},{4},{5}));", DateTime.UtcNow.ToDisplayDateTime().Year, DateTime.UtcNow.ToDisplayDateTime().Month, DateTime.UtcNow.ToDisplayDateTime().Day, DateTime.UtcNow.ToDisplayDateTime().Hour, DateTime.UtcNow.ToDisplayDateTime().Minute, DateTime.UtcNow.ToDisplayDateTime().Second));
+                
+
 
                 var autUser = WebSecurity.AuthenticatedUser;
                 if (autUser != null)

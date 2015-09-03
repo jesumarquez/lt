@@ -1,11 +1,12 @@
 ﻿using System;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 
 namespace Logictracker.Types.BusinessObjects
 {
     [Serializable]
-    public class PuertaAcceso : IAuditable, ISecurable,IHasZonaAccesoEntrada, IHasZonaAccesoSalida
+    public class PuertaAcceso : IAuditable, ISecurable, IHasZonaAccesoEntrada, IHasZonaAccesoSalida
     {
         #region IAuditable
 
@@ -25,6 +26,7 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Descripcion { get; set; }
         public virtual bool Baja { get; set; }
         public virtual Coche Vehiculo { get; set; }
+        public virtual ReferenciaGeografica ReferenciaGeografica { get; set; }
         public virtual ZonaAcceso ZonaAccesoEntrada { get; set; }
         public virtual ZonaAcceso ZonaAccesoSalida { get; set; }
     }

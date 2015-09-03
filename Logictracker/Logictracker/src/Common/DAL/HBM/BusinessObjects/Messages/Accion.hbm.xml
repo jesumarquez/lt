@@ -37,7 +37,11 @@
     <property column="pareven02_reporta_rela04" name="ReportaDepartamento" type="Boolean" />
     <property column="pareven02_reporta_rela37" name="ReportaCentroDeCostos" type="Boolean" />
     <property column="pareven02_requiere_atencion" name="RequiereAtencion" type="Boolean" />
-        
+
+    <property column="pareven02_envia_reporte" name="EnviaReporte" />
+    <property column="pareven02_reporte" name="Reporte" />
+    <property column="pareven02_mail_reporte" name="DestinatariosMailReporte" />
+
     <property column="pareven02_pidefoto" name="PideFoto" type="Boolean" />
     <property column="pareven02_cambiamensaje" name="CambiaMensaje" type="Boolean" />
     <property column="pareven02_segundosfoto" name="SegundosFoto" type="Int32" />
