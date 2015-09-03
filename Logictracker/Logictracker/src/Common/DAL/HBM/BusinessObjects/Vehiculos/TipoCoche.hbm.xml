@@ -23,6 +23,7 @@
     <property column="parenti17_seguimiento_persona" type="Boolean" name="SeguimientoPersona" />
     <property column="parenti17_novehiculo" name="NoEsVehiculo" />
     <property column="parenti17_genera_alarma_consumo" type="Boolean" name="AlarmaConsumo" />
+    <property column="parenti17_es_control_acceso" type="Boolean" name="EsControlAcceso" />
 
     <many-to-one name="IconoNormal" column="rela_parenti11_normal" lazy="proxy" />
     <many-to-one name="IconoAtraso" column="rela_parenti11_atraso" lazy="proxy" />

@@ -34,6 +34,8 @@ namespace Logictracker.Parametrizacion
             npDesvioMaximo.Value = EditObject.DesvioMaximo;
             chkNoEsVehiculo.Checked = EditObject.NoEsVehiculo;
             chkControlaConsumo.Checked = EditObject.AlarmaConsumo;
+            chkEsControlAcceso.Checked = EditObject.EsControlAcceso;
+            btnGenerar.Enabled = EditMode && chkEsControlAcceso.Checked;
         }
 
         protected override void OnDelete() { DAOFactory.TipoCocheDAO.Delete(EditObject); }
@@ -60,6 +62,7 @@ namespace Logictracker.Parametrizacion
             EditObject.DesvioMaximo = Convert.ToInt32(npDesvioMaximo.Value);
             EditObject.NoEsVehiculo = chkNoEsVehiculo.Checked;
             EditObject.AlarmaConsumo = chkControlaConsumo.Checked;
+            EditObject.EsControlAcceso = chkEsControlAcceso.Checked;
 
             DAOFactory.TipoCocheDAO.SaveOrUpdate(EditObject);
         }
@@ -84,6 +87,19 @@ namespace Logictracker.Parametrizacion
 
             if (coches != null && coches.Any()) 
                 throw new Exception(CultureManager.GetError("ASSIGNED_VEHICLE_TYPE"));
+        }
+
+        protected void ChkEsControlAccesoOnCheckedChanged(object sender, EventArgs e)
+        {
+            btnGenerar.Enabled = EditMode && chkEsControlAcceso.Checked;
+        }
+
+        protected void BtnGenerarOnClick(object sender, EventArgs e)
+        {
+            var vehiculos = DAOFactory.CocheDAO.FindByTipo(EditObject.Id);
+            DAOFactory.PuertaAccesoDAO.GenerarByVehiculos(vehiculos);
+
+            Response.Redirect("~/Parametrizacion/PuertaAccesoLista.aspx");
         }
     }
 }

@@ -102,6 +102,10 @@ namespace Logictracker.Parametrizacion
             txtCodigoAssistCargo.Text = EditObject.CodigoAssistCargo;
 
             if (EditObject.TipoGeocerca != null) cbTipoGeocerca.SetSelectedValue(EditObject.TipoGeocerca.Id);
+
+            chkReporte.Checked = EditObject.EnviaReporte;
+            //cbReporte.SetSelectedValue(EditObject.Reporte);
+            txtMailReporte.Text = EditObject.DestinatariosMailReporte;
         }
 
         protected override void OnDelete() { DAOFactory.AccionDAO.Delete(EditObject); }
@@ -147,6 +151,8 @@ namespace Logictracker.Parametrizacion
                     SetDisabledUserAttributes();
 
                     SetChangeIconAttributes();
+
+                    SetEnviaReporteAttributes();
 
                     #region SetFotoAttributes
 
@@ -257,6 +263,7 @@ namespace Logictracker.Parametrizacion
             panelPideFoto.Visible = chkPideFoto.Checked;
             panelChangeIcon.Visible = chkChangeIcon.Checked;
             panelAssistCargo.Visible = chkAssistCargo.Checked;
+            panel1.Visible = chkReporte.Checked;
         }
 
         #endregion
@@ -347,6 +354,14 @@ namespace Logictracker.Parametrizacion
             EditObject.PopUpTitle = txtTituloPopUp.Text;
 
             if (selectIcon.Selected > 0) EditObject.PopIcon = selectIcon.Selected;
+        }
+
+        private void SetEnviaReporteAttributes()
+        {
+            EditObject.EnviaReporte = chkReporte.Checked;
+            EditObject.Reporte = chkReporte.Checked && cbReporte.Selected > 0
+                                    ? cbReporte.SelectedItem.Text : null;
+            EditObject.DestinatariosMailReporte = chkReporte.Checked ? txtDestinatariosMails.Text : null;
         }
 
         #endregion

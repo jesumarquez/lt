@@ -3,6 +3,7 @@
 using System;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Web.CustomWebControls.BaseControls;
+using Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces.BussinessObjects;
 
 #endregion
 
@@ -19,7 +20,7 @@ namespace Logictracker.Web.CustomWebControls.ListBoxs
         /// Gets the T associated to the list box.
         /// </summary>
         public override Type Type { get { return typeof(ReferenciaGeografica); } }
-
+        
         #endregion
 
         #region Protected Methods

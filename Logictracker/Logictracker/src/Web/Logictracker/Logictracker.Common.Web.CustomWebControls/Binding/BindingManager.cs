@@ -27,6 +27,7 @@ using Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces.Bussiness
 using Logictracker.Web.CustomWebControls.DropDownLists;
 using Logictracker.Web.CustomWebControls.DropDownLists.ControlDeCombustible;
 using Logictracker.Web.CustomWebControls.ListBoxs;
+using Logictracker.Messaging;
 
 namespace Logictracker.Web.CustomWebControls.Binding
 {
@@ -300,11 +301,11 @@ namespace Logictracker.Web.CustomWebControls.Binding
             AddDefaultItems(autoBindeable);
 
             if (autoBindeable.UseOptionGroup) coches = OrderMobilesByOptionGroupProperty(autoBindeable.OptionGroupProperty, coches);
-            var puertas  = autoBindeable.ShowOnlyAccessControl ? DaoFactory.PuertaAccesoDAO.GetList(idsEmpresa, idsLinea).Select(p=>p.Vehiculo.Id).ToList() : new List<int>(0);
+            var puertas = autoBindeable.ShowOnlyAccessControl ? DaoFactory.PuertaAccesoDAO.GetList(idsEmpresa, idsLinea).Where(p => p.Vehiculo != null).Select(p => p.Vehiculo.Id).ToList() : new List<int>(0);
 
             foreach (var movil in coches)
             {
-                if (autoBindeable.ShowOnlyAccessControl && !movil.EsPuerta) continue;
+                if (autoBindeable.ShowOnlyAccessControl && !movil.EsPuerta && !movil.TipoCoche.EsControlAcceso) continue;
                 if (autoBindeable.HideWithNoDevice && movil.Dispositivo == null) continue;
                 if (autoBindeable.HideWithNoDevice && movil.Dispositivo.Codigo.Contains("No borrar.")) continue;
                 if (autoBindeable.HideInactive && movil.Estado == Coche.Estados.Inactivo) continue;
@@ -794,7 +795,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
 
             foreach (var pair in OrigenesMensaje) autoBindeable.Items.Add(new ListItem(pair.Second.ToString(), pair.First.ToString()));
         }
-        
+
         public void BindReferenciaGeografica(IAutoBindeable autoBindeable)
         {    
             autoBindeable.ClearItems();
@@ -807,6 +808,30 @@ namespace Logictracker.Web.CustomWebControls.Binding
                 .Where(d => d.Vigencia == null || d.Vigencia.Vigente(DateTime.UtcNow))
                 .OrderBy(d => d.Descripcion);
             
+            foreach (var domicilio in domicilios) autoBindeable.AddItem(domicilio.Descripcion, domicilio.Id);            
+        }
+
+        public void BindReferenciaGeografica(ReferenciaGeograficaDropDownList autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            if (autoBindeable.AddNoneItem) autoBindeable.AddItem(autoBindeable.NoneItemsName, autoBindeable.NoneValue.ToString("#0"));
+
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            var idLinea = autoBindeable.ParentSelected<Linea>();
+            var idsTiposGeoRef = autoBindeable.ParentSelectedValues<TipoReferenciaGeografica>();
+
+            if (autoBindeable.ShowOnlyAccessControl)
+            {
+                idsTiposGeoRef = DaoFactory.TipoReferenciaGeograficaDAO.GetList(new[] { idEmpresa }, new[] { idLinea })
+                                                                       .Where(t => t.EsControlAcceso)
+                                                                       .Select(t => t.Id)
+                                                                       .ToList();
+            }
+            
+            var domicilios = DaoFactory.ReferenciaGeograficaDAO.GetList(new[] { idEmpresa }, new[] { idLinea }, idsTiposGeoRef)
+                                                               .Where(d => d.Vigencia == null || d.Vigencia.Vigente(DateTime.UtcNow))
+                                                               .OrderBy(d => d.Descripcion);
+
             foreach (var domicilio in domicilios) autoBindeable.AddItem(domicilio.Descripcion, domicilio.Id);
         }
 
@@ -1099,6 +1124,19 @@ namespace Logictracker.Web.CustomWebControls.Binding
 
             autoBindeable.AddItem("KB", 1);
             autoBindeable.AddItem("MB", 2);
+        }
+
+        public void BindReporte(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idMensaje = autoBindeable.ParentSelected<Mensaje>().ToString();
+
+            if (idMensaje == MessageCode.CicloLogisticoCerrado.GetMessageCode())
+            {
+                autoBindeable.AddItem(CultureManager.GetMenu("REP_DISTRIBUCION"), 1);
+            }
         }
 
         public void BindTiposEntidad(IAutoBindeable autoBindeable)
