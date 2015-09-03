@@ -90,7 +90,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker\src\Web\Logictracker\LogicTracker.App.Web.Api\LogicTracker.App.Web.Api.csproj">
       <Project>{800B8D30-98F8-4C37-A3E4-F2800788E9A6}</Project>
-      <Name>Logictracker.Web.Api</Name>
+      <Name>LogicTracker.App.Web.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

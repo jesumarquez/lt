@@ -251,7 +251,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Models\MessageList.cs" />
+    <Compile Include="Controllers\MessageList.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
@@ -264,6 +264,7 @@
     <Compile Include="Filters\IdentityBasicAuthenticationAttribute.cs" />
     <Compile Include="Filters\HttpAuthenticationChallengeContextExtensions.cs" />
     <Compile Include="Filters\CustomAuthenticationAttribute.cs" />
+    <Compile Include="Controllers\GeocercasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -376,10 +377,6 @@
       <Project>{D74BA63A-1385-489C-9C87-A122856A3AE9}</Project>
       <Name>Logictracker.Tracker.Parser.Caesat</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
-      <Project>{bd82e1cc-3af6-4d02-9425-30edeb3742f2}</Project>
-      <Name>Logictracker.Culture</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
       <Name>Logictracker.Cache</Name>
@@ -391,10 +388,6 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
       <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
       <Name>Logictracker.Messages.Sender</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
-      <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
-      <Name>Logictracker.Layers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Security\Logictracker.Security.csproj">
       <Project>{2d0c837c-8644-4c77-8267-be07cad743bd}</Project>
@@ -428,6 +421,8 @@
           <DevelopmentServerPort>5796</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:2645/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
