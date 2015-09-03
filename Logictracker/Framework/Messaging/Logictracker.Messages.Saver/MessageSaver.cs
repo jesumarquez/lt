@@ -98,34 +98,36 @@ namespace Logictracker.Messages.Saver
 
                 if (mensaje.Acceso >= Usuario.NivelAcceso.SysAdmin)
                 {
-                    var log = new LogMensajeAdmin
-                    {
-                        Chofer = driver,
-                        Coche = coche,
-                        Dispositivo = device,
-                        Estado = 0,
-                        Fecha = fecha,
-                        FechaAlta = DateTime.UtcNow,
-                        Expiracion = DateTime.UtcNow.AddDays(1),
-                        Horario = ticket,
-                        DetalleHorario = detalleTicket,
-                        Usuario = null,
-                        Latitud = inicio != null ? inicio.Lat : 0,
-                        Longitud = inicio != null ? inicio.Lon : 0,
-                        FechaFin = fin != null ? fin.Date : (DateTime?)null,
-                        LatitudFin = fin != null ? new Double?(fin.Lat) : null,
-                        LongitudFin = fin != null ? new Double?(fin.Lon) : null,
-                        VelocidadAlcanzada = velAlcanzada,
-                        VelocidadPermitida = velPermitida,
-                        IdPuntoDeInteres = idReferenciaGeografica,
-                        Mensaje = DaoFactory.MensajeDAO.FindById(mensaje.Id),
-                        Texto = String.Concat(mensaje.Texto, ' ', texto),
-                        TieneFoto = codigo == ((int)MessageIdentifier.Picture).ToString(CultureInfo.InvariantCulture)
-                    };
+                    return null;
 
-                    ProcessActions(log);
+                    //var log = new LogMensajeAdmin
+                    //{
+                    //    Chofer = driver,
+                    //    Coche = coche,
+                    //    Dispositivo = device,
+                    //    Estado = 0,
+                    //    Fecha = fecha,
+                    //    FechaAlta = DateTime.UtcNow,
+                    //    Expiracion = DateTime.UtcNow.AddDays(1),
+                    //    Horario = ticket,
+                    //    DetalleHorario = detalleTicket,
+                    //    Usuario = null,
+                    //    Latitud = inicio != null ? inicio.Lat : 0,
+                    //    Longitud = inicio != null ? inicio.Lon : 0,
+                    //    FechaFin = fin != null ? fin.Date : (DateTime?)null,
+                    //    LatitudFin = fin != null ? new Double?(fin.Lat) : null,
+                    //    LongitudFin = fin != null ? new Double?(fin.Lon) : null,
+                    //    VelocidadAlcanzada = velAlcanzada,
+                    //    VelocidadPermitida = velPermitida,
+                    //    IdPuntoDeInteres = idReferenciaGeografica,
+                    //    Mensaje = DaoFactory.MensajeDAO.FindById(mensaje.Id),
+                    //    Texto = String.Concat(mensaje.Texto, ' ', texto),
+                    //    TieneFoto = codigo == ((int)MessageIdentifier.Picture).ToString(CultureInfo.InvariantCulture)
+                    //};
 
-                    return log;
+                    //ProcessActions(log);
+
+                    //return log;
                 }
                 else
                 {
