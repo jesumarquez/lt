@@ -188,8 +188,8 @@ namespace Logictracker.InetLayer
                     _udp.ReceivedBytes.Inc((ulong)dgram.Size);
 
                     //Update Performance Counters
-                    //var cat = new BackendCategory();
-                    //PerformanceCounterHelper.Increment(cat.CategoryName, cat.GatewayCount, cat.GatewayProm, STrace.Module);
+                    var cat = new BackendCategory();
+                    PerformanceCounterHelper.Increment(cat.CategoryName, cat.GatewayUDP, STrace.Module);
 
                     LogBandwidthUsed(dgram.Size, 0);
 
