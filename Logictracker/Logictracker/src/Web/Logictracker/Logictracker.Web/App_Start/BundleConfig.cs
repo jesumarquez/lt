@@ -48,6 +48,8 @@ namespace Logictracker.Web
                             "~/Scripts/angular-route.js",
                             "~/Scripts/angular-resource.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angularjs-logictracker").Include(
+                            "~/Scripts/app/app.js"));
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",
