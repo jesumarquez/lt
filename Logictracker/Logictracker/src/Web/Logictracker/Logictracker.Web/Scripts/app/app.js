@@ -1,1 +1,4 @@
-﻿angular.module('logictracker', ['logictracker.dummy.controller']);
+﻿angular.module('logictracker', [
+    'ngResource',
+    'logictracker.dummy.service',
+    'logictracker.dummy.controller']);

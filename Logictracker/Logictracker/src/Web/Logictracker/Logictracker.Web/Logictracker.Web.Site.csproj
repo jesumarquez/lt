@@ -800,6 +800,7 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
+    <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
