@@ -234,14 +234,18 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         {
             return Query.FilterEmpresa(Session, empresas, user)
                         .FilterLinea(Session, empresas, lineas, user)
-                        .FilterTipoVehiculo(Session, empresas, lineas, tipoVehiculo, user)
-                        ;
+                        .FilterTipoVehiculo(Session, empresas, lineas, tipoVehiculo, user);
         }
 
         public List<Coche> FindByModelo(int modelo)
         {
             var dc = GetDetachedCriteriaForModelo(0, modelo);
             return GetCriteria(dc, null).List<Coche>().ToList();
+        }
+
+        public List<Coche> FindByTipo(int tipo)
+        {
+            return Query.FilterTipoVehiculo(Session, new[]{-1}, new[]{-1}, new[]{tipo}).ToList();
         }
 
         #endregion

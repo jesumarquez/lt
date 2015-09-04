@@ -28,6 +28,8 @@ using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using Logictracker.Types.ValueObject.Messages;
 using Logictracker.Utils;
+using Logictracker.Culture;
+using Logictracker.Reports.Messaging;
 
 namespace Logictracker.Messages.Saver
 {
@@ -98,34 +100,36 @@ namespace Logictracker.Messages.Saver
 
                 if (mensaje.Acceso >= Usuario.NivelAcceso.SysAdmin)
                 {
-                    var log = new LogMensajeAdmin
-                    {
-                        Chofer = driver,
-                        Coche = coche,
-                        Dispositivo = device,
-                        Estado = 0,
-                        Fecha = fecha,
-                        FechaAlta = DateTime.UtcNow,
-                        Expiracion = DateTime.UtcNow.AddDays(1),
-                        Horario = ticket,
-                        DetalleHorario = detalleTicket,
-                        Usuario = null,
-                        Latitud = inicio != null ? inicio.Lat : 0,
-                        Longitud = inicio != null ? inicio.Lon : 0,
-                        FechaFin = fin != null ? fin.Date : (DateTime?)null,
-                        LatitudFin = fin != null ? new Double?(fin.Lat) : null,
-                        LongitudFin = fin != null ? new Double?(fin.Lon) : null,
-                        VelocidadAlcanzada = velAlcanzada,
-                        VelocidadPermitida = velPermitida,
-                        IdPuntoDeInteres = idReferenciaGeografica,
-                        Mensaje = DaoFactory.MensajeDAO.FindById(mensaje.Id),
-                        Texto = String.Concat(mensaje.Texto, ' ', texto),
-                        TieneFoto = codigo == ((int)MessageIdentifier.Picture).ToString(CultureInfo.InvariantCulture)
-                    };
+                    return null;
 
-                    ProcessActions(log);
+                    //var log = new LogMensajeAdmin
+                    //{
+                    //    Chofer = driver,
+                    //    Coche = coche,
+                    //    Dispositivo = device,
+                    //    Estado = 0,
+                    //    Fecha = fecha,
+                    //    FechaAlta = DateTime.UtcNow,
+                    //    Expiracion = DateTime.UtcNow.AddDays(1),
+                    //    Horario = ticket,
+                    //    DetalleHorario = detalleTicket,
+                    //    Usuario = null,
+                    //    Latitud = inicio != null ? inicio.Lat : 0,
+                    //    Longitud = inicio != null ? inicio.Lon : 0,
+                    //    FechaFin = fin != null ? fin.Date : (DateTime?)null,
+                    //    LatitudFin = fin != null ? new Double?(fin.Lat) : null,
+                    //    LongitudFin = fin != null ? new Double?(fin.Lon) : null,
+                    //    VelocidadAlcanzada = velAlcanzada,
+                    //    VelocidadPermitida = velPermitida,
+                    //    IdPuntoDeInteres = idReferenciaGeografica,
+                    //    Mensaje = DaoFactory.MensajeDAO.FindById(mensaje.Id),
+                    //    Texto = String.Concat(mensaje.Texto, ' ', texto),
+                    //    TieneFoto = codigo == ((int)MessageIdentifier.Picture).ToString(CultureInfo.InvariantCulture)
+                    //};
 
-                    return log;
+                    //ProcessActions(log);
+
+                    //return log;
                 }
                 else
                 {
@@ -295,6 +299,7 @@ namespace Logictracker.Messages.Saver
                 if (accion.Habilita) HabilitarUsuario(log.Accion);
                 if (accion.Inhabilita) InhabilitarUsuario(log.Accion);
                 if (accion.ReportarAssistCargo) ReportarAssistCargo(log, accion.CodigoAssistCargo);
+                if (accion.EnviaReporte) EnviarReporte(log);
             }
             totalSeconds = t.getTimeElapsed().TotalSeconds;
             if (totalSeconds > 1)
@@ -650,6 +655,45 @@ namespace Logictracker.Messages.Saver
 	                         : log.Texto;
 
             SendMailToAllDestinations(destinatarios, log.Chofer, asunto, parameters);
+        }
+
+        private void EnviarReporte(LogMensaje log)
+        {
+            var queue = GetMailReportMsmq();
+            IReportCommand reportCommand = null;
+
+            switch (log.Accion.Reporte)
+            {
+                case ProgramacionReporte.Reportes.EstadoEntregas:
+                    reportCommand = new DeliverStatusReportCommand
+                    {
+                        ReportId = log.Id,
+                        CustomerId = log.Viaje.Empresa.Id,
+                        Email = log.Accion.DestinatariosMailReporte,
+                        FinalDate = log.Fecha,
+                        InitialDate = log.Viaje.InicioReal.Value,
+                        VehiclesId = new List<int>{log.Viaje.Vehiculo.Id},
+                        ReportName = log.Viaje.Codigo                        
+                    };
+                    break;
+                default:
+                    break;
+            }
+
+            if (queue == null) { throw new ApplicationException("No se pudo acceder a la cola"); }
+            if (reportCommand != null) queue.Send(reportCommand);
+        }
+
+        private IMessageQueue GetMailReportMsmq()
+        {
+            var queueName = Config.ReportMsmq.QueueName;
+            var queueType = Config.ReportMsmq.QueueType;
+            if (String.IsNullOrEmpty(queueName)) return null;
+
+            var umq = new IMessageQueue(queueName);
+            if (queueType.ToLower() == "xml") umq.Formatter = "XmlMessageFormatter";
+
+            return !umq.LoadResources() ? null : umq;
         }
 
         protected static void SendMailToAllDestinations(string destinations, Empleado chofer, string asunto, List<string> parameters)

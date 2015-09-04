@@ -43,6 +43,19 @@
                         <br /><cwc:ResourceCheckBox ID="chkEsTaller" runat="server" ResourceName="Labels" VariableName="ES_TALLER" Width="100%"/>
                         
                         <br />
+                        <asp:UpdatePanel ID="updChkEsControlAcceso" runat="server">
+                            <ContentTemplate>
+                                <cwc:ResourceCheckBox ID="chkEsControlAcceso" runat="server" ResourceName="Labels" VariableName="ES_PUERTA" Width="100%" OnCheckedChanged="ChkEsControlAccesoOnCheckedChanged" AutoPostBack="true" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <br />
+                        <asp:UpdatePanel runat="server" ID="pnlControlAcceso">
+                            <ContentTemplate>                                
+                                <cwc:ResourceButton ID="btnGenerar" runat="server" ResourceName="Labels" VariableName="GENERAR_ACCESOS" OnClick="BtnGenerarOnClick" Enabled="false" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        
+                        <br />
                         <asp:UpdatePanel ID="updChkControlaPermanencia" runat="server">
                             <ContentTemplate>
                                 <cwc:ResourceCheckBox ID="chkControlaPermanencia" runat="server" OnCheckedChanged="ChkControlaPermanenciaOnCheckedChanged" AutoPostBack="true" ResourceName="Labels" VariableName="CONTROLA_PERMANENCIA" />    

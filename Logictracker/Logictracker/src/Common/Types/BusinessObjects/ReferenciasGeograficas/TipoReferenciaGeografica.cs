@@ -43,6 +43,8 @@ namespace Logictracker.Types.BusinessObjects.ReferenciasGeograficas
         public virtual bool Baja { get; set; }
         public virtual bool ExcluirMonitor { get; set; }
         public virtual bool EsTaller { get; set; }
+        public virtual bool EsControlAcceso { get; set; }
+
         private ISet<TipoReferenciaVelocidad> _velocidades;
 
         public TipoReferenciaGeografica()

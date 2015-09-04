@@ -3595,6 +3595,9 @@
   <data name="ES_PUERTA" xml:space="preserve">
     <value>Es control de acceso</value>
   </data>
+  <data name="GENERAR_ACCESOS" xml:space="preserve">
+    <value>Generar accesos</value>
+  </data>
   <data name="SOLO_HUERFANOS" xml:space="preserve">
     <value>Sólo huerfanos</value>
   </data>
@@ -4674,5 +4677,8 @@
   </data>
   <data name="FORMATO" xml:space="preserve">
     <value>Formato</value>
+  </data>
+  <data name="ENVIA_REPORTE" xml:space="preserve">
+    <value>Envía Reporte</value>
   </data>
 </root>
