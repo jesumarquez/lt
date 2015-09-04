@@ -54,6 +54,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.UI.Controls.3.dll</HintPath>
     </Reference>
+    <Reference Include="C1.Win.C1Chart.2, Version=2.0.20113.21313, Culture=neutral, PublicKeyToken=a22e16972c085838, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Win.C1Chart.2.dll</HintPath>
+    </Reference>
     <Reference Include="CDT.ColorPickerExtender, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\CDT.ColorPickerExtender.dll</HintPath>
@@ -61,6 +65,10 @@
     <Reference Include="ExtExtenders, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\ExtExtenders.dll</HintPath>
+    </Reference>
+    <Reference Include="FusionCharts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\FusionCharts.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
@@ -502,6 +510,41 @@
     <Content Include="App_Themes\Telefonica\img\titlebar_bg.gif" />
     <Content Include="App_Themes\Telefonica\img\toolbar_button_bg.gif" />
     <Content Include="App_Themes\Telefonica\img\toolbar_button_bg_over.png" />
+    <Content Include="CicloLogistico\accept.png" />
+    <Content Include="CicloLogistico\AgendaAlta.aspx" />
+    <Content Include="CicloLogistico\AgendaLista.aspx" />
+    <Content Include="CicloLogistico\AltaTicket.aspx" />
+    <Content Include="CicloLogistico\BocaDeCargaAlta.aspx" />
+    <Content Include="CicloLogistico\BocaDeCargaLista.aspx" />
+    <Content Include="CicloLogistico\cancel.png" />
+    <Content Include="CicloLogistico\CicloLogisticoAlta.aspx" />
+    <Content Include="CicloLogistico\CicloLogisticoLista.aspx" />
+    <Content Include="CicloLogistico\Controls\CicloDetalle.ascx" />
+    <Content Include="CicloLogistico\Controls\ServicioDetalle.ascx" />
+    <Content Include="CicloLogistico\DistribucionGlobalDespachos.aspx" />
+    <Content Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx" />
+    <Content Include="CicloLogistico\Distribucion\Intercalar.aspx" />
+    <Content Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoAlta.aspx" />
+    <Content Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoLista.aspx" />
+    <Content Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx" />
+    <Content Include="CicloLogistico\Distribucion\ViajeDistribucionImport.aspx" />
+    <Content Include="CicloLogistico\Distribucion\ViajeDistribucionLista.aspx" />
+    <Content Include="CicloLogistico\Hormigon\ConsolaTickets.aspx" />
+    <Content Include="CicloLogistico\InfoCiclo.aspx" />
+    <Content Include="CicloLogistico\InfoDetencion.aspx" />
+    <Content Include="CicloLogistico\InfoEntrega.aspx" />
+    <Content Include="CicloLogistico\ListTicket.aspx" />
+    <Content Include="CicloLogistico\Monitor.aspx" />
+    <Content Include="CicloLogistico\MonitorEstadoEntregas.aspx" />
+    <Content Include="CicloLogistico\PedidoAlta.aspx" />
+    <Content Include="CicloLogistico\PedidoLista.aspx" />
+    <Content Include="CicloLogistico\ProgramacionPedidos.aspx" />
+    <Content Include="CicloLogistico\RecorridoAlta.aspx" />
+    <Content Include="CicloLogistico\RecorridoLista.aspx" />
+    <Content Include="CicloLogistico\ServicioAlta.aspx" />
+    <Content Include="CicloLogistico\ServicioLista.aspx" />
+    <Content Include="CicloLogistico\TipoServicioAlta.aspx" />
+    <Content Include="CicloLogistico\TipoServicioLista.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -765,6 +808,17 @@
     <Content Include="images\vehicle_inactive.png" />
     <Content Include="images\vehicle_in_manteinance.png" />
     <Content Include="images\Yellow-Ball-icon.png" />
+    <Content Include="Monitor\MonitorDeCalidad\Logictracker.Monitor.Calidad.js" />
+    <Content Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx" />
+    <Content Include="Monitor\MonitorDeEntidades\InfoEntidad.aspx" />
+    <Content Include="Monitor\MonitorDeEntidades\InfoEventM2M.aspx" />
+    <Content Include="Monitor\MonitorDeEntidades\MonitorEntidades.aspx" />
+    <Content Include="Monitor\MonitorDeSubEntidades\MonitorSubEntidades.aspx" />
+    <Content Include="Monitor\MonitorHistorico\monitorHistorico.aspx" />
+    <Content Include="Monitor\MonitorRecorrido\monitorRecorrido.aspx" />
+    <Content Include="Monitor\MonitorUltimaPosicion\monitorUltimaPosicion.aspx" />
+    <Content Include="Monitor\popup\MobileEventPopup.aspx" />
+    <Content Include="Monitor\popup\MobileRoutePopup.aspx" />
     <Content Include="Operacion\auto.png" />
     <Content Include="Operacion\btAceptar.gif" />
     <Content Include="Operacion\btAgregar.gif" />
@@ -843,6 +897,117 @@
     <Content Include="App_Themes\Naranja Vehicular\default.skin" />
     <Content Include="App_Themes\Telefonica\default.skin" />
     <Content Include="App_Themes\Telefonica\img\Thumbs.db" />
+    <Content Include="Reportes\Accidentologia\infractionsDetails.aspx" />
+    <Content Include="Reportes\Accidentologia\MensajesVehiculo.aspx" />
+    <Content Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx" />
+    <Content Include="Reportes\Accidentologia\OperatorRanking.aspx" />
+    <Content Include="Reportes\Accidentologia\RankingVehiculos.aspx" />
+    <Content Include="Reportes\Accidentologia\VehicleInfractionsDetails.aspx" />
+    <Content Include="Reportes\Auditoria\LoginsHistory.aspx" />
+    <Content Include="Reportes\Bolland\ActividadDiaria.aspx" />
+    <Content Include="Reportes\Bolland\Performance.aspx" />
+    <Content Include="Reportes\Bolland\Sintetico.aspx" />
+    <Content Include="Reportes\CicloLogistico\ControlDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\DuracionEstadosTicket.aspx" />
+    <Content Include="Reportes\CicloLogistico\FlujoDeTareas.aspx" />
+    <Content Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx" />
+    <Content Include="Reportes\CicloLogistico\KPIDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx" />
+    <Content Include="Reportes\CicloLogistico\mobilesTickets.aspx" />
+    <Content Include="Reportes\CicloLogistico\PedidosProgramados.aspx" />
+    <Content Include="Reportes\CicloLogistico\ReporteTraslado.aspx" />
+    <Content Include="Reportes\CicloLogistico\ReporteViaje.aspx" />
+    <Content Include="Reportes\CicloLogistico\ResumenDeEntregas.aspx" />
+    <Content Include="Reportes\CicloLogistico\ResumenDeRutas.aspx" />
+    <Content Include="Reportes\CicloLogistico\Retrasos.aspx" />
+    <Content Include="Reportes\CicloLogistico\TableroControl.aspx" />
+    <Content Include="Reportes\CicloLogistico\TicketTimeDifferences.aspx" />
+    <Content Include="Reportes\CicloLogistico\TimeTracking\TimeTracking.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\Conciliaciones.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\ConciliacionesLista.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\ConsistenciaStockPozo.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\ConsumoCaudalMotores.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\consumoDiario.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\consumosPozos.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\Consumos\ConsumosPorMotor.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\EventosCombustible.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\IngresosPozo.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\Ingresos\IngresosPorTanque.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\MarchaAcumulada.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\VariacionDeNivel.aspx" />
+    <Content Include="Reportes\CombustibleEnPozos\VolumenTanque.aspx" />
+    <Content Include="Reportes\ControlDeAccesos\AccessControl.aspx" />
+    <Content Include="Reportes\ControlDeAccesos\AcuWorkedHs.aspx" />
+    <Content Include="Reportes\ControlDeAccesos\WorkedHours.aspx" />
+    <Content Include="Reportes\ControlDeCombustible\ConsistenciaStock.aspx" />
+    <Content Include="Reportes\ControlDeCombustible\ConsistenciaStockGrafico.aspx" />
+    <Content Include="Reportes\ControlDeCombustible\Despachos.aspx" />
+    <Content Include="Reportes\ControlDeCombustible\Despachos\DespachosPorMovil.aspx" />
+    <Content Include="Reportes\ControlDeCombustible\Remitos.aspx" />
+    <Content Include="Reportes\ControlDeCombustible\Remitos\RemitosPorTanque.aspx" />
+    <Content Include="Reportes\DatosOperativos\AnalizadorRecorridos.aspx" />
+    <Content Include="Reportes\DatosOperativos\eventos.aspx" />
+    <Content Include="Reportes\DatosOperativos\GeocercaEvents\RouteDetails.aspx" />
+    <Content Include="Reportes\DatosOperativos\GeocercasEvents.aspx" />
+    <Content Include="Reportes\DatosOperativos\MobilePois.aspx" />
+    <Content Include="Reportes\DatosOperativos\recorrido.aspx" />
+    <Content Include="Reportes\DatosOperativos\ResumenActividad.aspx" />
+    <Content Include="Reportes\DatosOperativos\TomasDetalle.aspx" />
+    <Content Include="Reportes\DatosOperativos\TomasDispositivos.aspx" />
+    <Content Include="Reportes\DatosOperativos\TomasMoviles.aspx" />
+    <Content Include="Reportes\DatosOperativos\VerificadorEmpleados.aspx" />
+    <Content Include="Reportes\Estadistica\ActividadCliente.aspx" />
+    <Content Include="Reportes\Estadistica\ActividadOperador.aspx" />
+    <Content Include="Reportes\Estadistica\ActividadVehicular.aspx" />
+    <Content Include="Reportes\Estadistica\Consumos.aspx" />
+    <Content Include="Reportes\Estadistica\DetentionTimes.aspx" />
+    <Content Include="Reportes\Estadistica\HistogramaDetenciones.aspx" />
+    <Content Include="Reportes\Estadistica\HistogramaDetenciones\HistogramaDetencionesDetalle.aspx" />
+    <Content Include="Reportes\Estadistica\IdleTimes.aspx" />
+    <Content Include="Reportes\Estadistica\KilometrosDiarios.aspx" />
+    <Content Include="Reportes\Estadistica\KmHsProductivos.aspx" />
+    <Content Include="Reportes\Estadistica\mobileExtraHoursGraph.aspx" />
+    <Content Include="Reportes\Estadistica\MobileMaintenance.aspx" />
+    <Content Include="Reportes\Estadistica\MobilePoisHistoric.aspx" />
+    <Content Include="Reportes\Estadistica\MobileRoutes.aspx" />
+    <Content Include="Reportes\Estadistica\MobileRoutes\MobileRoutesEvents.aspx" />
+    <Content Include="Reportes\Estadistica\MobilesKilometers.aspx" />
+    <Content Include="Reportes\Estadistica\MobilesTime.aspx" />
+    <Content Include="Reportes\Estadistica\MonthKilometers.aspx" />
+    <Content Include="Reportes\Estadistica\MonthlyTimes.aspx" />
+    <Content Include="Reportes\Estadistica\ReporteConsumos.aspx" />
+    <Content Include="Reportes\Estadistica\ReporteDeViajes.aspx" />
+    <Content Include="Reportes\Estadistica\ReporteDistribucion.aspx" />
+    <Content Include="Reportes\Estadistica\ReporteOdometros.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenOperador.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenOperador\DetalleOperador.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenOperador\ListaMobiles.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenOperador\VehiculosPorDia.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenVehicular.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenVehicular\ConductoresPorDia.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenVehicular\DetalleVehiculo.aspx" />
+    <Content Include="Reportes\Estadistica\ResumenVehicular\ListaConductores.aspx" />
+    <Content Include="Reportes\Estadistica\Soporte\ReporteTickets.aspx" />
+    <Content Include="Reportes\Estadistica\StoppedHours.aspx" />
+    <Content Include="Reportes\Estadistica\TableroDeControl.aspx" />
+    <Content Include="Reportes\Estadistica\UtilizacionFlota.aspx" />
+    <Content Include="Reportes\Estadistica\UtilizacionVehiculos.aspx" />
+    <Content Include="Reportes\M2M\AnalizadorMediciones.aspx" />
+    <Content Include="Reportes\M2M\Eventos.aspx" />
+    <Content Include="Reportes\M2M\ListaRendimiento.aspx" />
+    <Content Include="Reportes\M2M\Mediciones.aspx" />
+    <Content Include="Reportes\M2M\Medidores.aspx" />
+    <Content Include="Reportes\M2M\ReporteComparativo.aspx" />
+    <Content Include="Reportes\M2M\ReporteConsistenciaStock.aspx" />
+    <Content Include="Reportes\M2M\ReporteDeDespachos.aspx" />
+    <Content Include="Reportes\M2M\ReporteDeEventos.aspx" />
+    <Content Include="Reportes\M2M\ReporteDespachoLista.aspx" />
+    <Content Include="Reportes\M2M\ReporteDesvioConsumo.aspx" />
+    <Content Include="Reportes\M2M\ReporteVariacionMediciones.aspx" />
+    <Content Include="Reportes\M2M\ResumenDeEntidades.aspx" />
+    <Content Include="Reportes\Transportistas\ActividadTerceros.aspx" />
+    <Content Include="Reportes\Transportistas\TransportMobileKilometers.aspx" />
+    <Content Include="Reportes\Transportistas\TransportMobileTimes.aspx" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular-route.js" />
@@ -1116,6 +1281,237 @@
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CicloLogistico\AgendaAlta.aspx.cs">
+      <DependentUpon>AgendaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\AgendaAlta.aspx.designer.cs">
+      <DependentUpon>AgendaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\AgendaLista.aspx.cs">
+      <DependentUpon>AgendaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\AgendaLista.aspx.designer.cs">
+      <DependentUpon>AgendaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\AltaTicket.aspx.cs">
+      <DependentUpon>AltaTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\AltaTicket.aspx.designer.cs">
+      <DependentUpon>AltaTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\BocaDeCargaAlta.aspx.cs">
+      <DependentUpon>BocaDeCargaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\BocaDeCargaAlta.aspx.designer.cs">
+      <DependentUpon>BocaDeCargaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\BocaDeCargaLista.aspx.cs">
+      <DependentUpon>BocaDeCargaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\BocaDeCargaLista.aspx.designer.cs">
+      <DependentUpon>BocaDeCargaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\CicloLogisticoAlta.aspx.cs">
+      <DependentUpon>CicloLogisticoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\CicloLogisticoAlta.aspx.designer.cs">
+      <DependentUpon>CicloLogisticoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\CicloLogisticoLista.aspx.cs">
+      <DependentUpon>CicloLogisticoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\CicloLogisticoLista.aspx.designer.cs">
+      <DependentUpon>CicloLogisticoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Controls\CicloDetalle.ascx.cs">
+      <DependentUpon>CicloDetalle.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Controls\CicloDetalle.ascx.designer.cs">
+      <DependentUpon>CicloDetalle.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Controls\ServicioDetalle.ascx.cs">
+      <DependentUpon>ServicioDetalle.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Controls\ServicioDetalle.ascx.designer.cs">
+      <DependentUpon>ServicioDetalle.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\DistribucionGlobalDespachos.aspx.cs">
+      <DependentUpon>DistribucionGlobalDespachos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\DistribucionGlobalDespachos.aspx.designer.cs">
+      <DependentUpon>DistribucionGlobalDespachos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx.cs">
+      <DependentUpon>ControlarDistribucion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx.designer.cs">
+      <DependentUpon>ControlarDistribucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\Intercalar.aspx.cs">
+      <DependentUpon>Intercalar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\Intercalar.aspx.designer.cs">
+      <DependentUpon>Intercalar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoAlta.aspx.cs">
+      <DependentUpon>PreasignacionViajeVehiculoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoAlta.aspx.designer.cs">
+      <DependentUpon>PreasignacionViajeVehiculoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoLista.aspx.cs">
+      <DependentUpon>PreasignacionViajeVehiculoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoLista.aspx.designer.cs">
+      <DependentUpon>PreasignacionViajeVehiculoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx.cs">
+      <DependentUpon>ViajeDistribucionAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx.designer.cs">
+      <DependentUpon>ViajeDistribucionAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionImport.aspx.cs">
+      <DependentUpon>ViajeDistribucionImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionImport.aspx.designer.cs">
+      <DependentUpon>ViajeDistribucionImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionLista.aspx.cs">
+      <DependentUpon>ViajeDistribucionLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionLista.aspx.designer.cs">
+      <DependentUpon>ViajeDistribucionLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Hormigon\ConsolaTickets.aspx.cs">
+      <DependentUpon>ConsolaTickets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Hormigon\ConsolaTickets.aspx.designer.cs">
+      <DependentUpon>ConsolaTickets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\InfoCiclo.aspx.cs">
+      <DependentUpon>InfoCiclo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\InfoCiclo.aspx.designer.cs">
+      <DependentUpon>InfoCiclo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\InfoDetencion.aspx.cs">
+      <DependentUpon>InfoDetencion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\InfoDetencion.aspx.designer.cs">
+      <DependentUpon>InfoDetencion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\InfoEntrega.aspx.cs">
+      <DependentUpon>InfoEntrega.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\InfoEntrega.aspx.designer.cs">
+      <DependentUpon>InfoEntrega.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\ListTicket.aspx.cs">
+      <DependentUpon>ListTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\ListTicket.aspx.designer.cs">
+      <DependentUpon>ListTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Monitor.aspx.cs">
+      <DependentUpon>Monitor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Monitor.aspx.designer.cs">
+      <DependentUpon>Monitor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\MonitorEstadoEntregas.aspx.cs">
+      <DependentUpon>MonitorEstadoEntregas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\MonitorEstadoEntregas.aspx.designer.cs">
+      <DependentUpon>MonitorEstadoEntregas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\PedidoAlta.aspx.cs">
+      <DependentUpon>PedidoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\PedidoAlta.aspx.designer.cs">
+      <DependentUpon>PedidoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\PedidoLista.aspx.cs">
+      <DependentUpon>PedidoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\PedidoLista.aspx.designer.cs">
+      <DependentUpon>PedidoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\ProgramacionPedidos.aspx.cs">
+      <DependentUpon>ProgramacionPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\ProgramacionPedidos.aspx.designer.cs">
+      <DependentUpon>ProgramacionPedidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\RecorridoAlta.aspx.cs">
+      <DependentUpon>RecorridoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\RecorridoAlta.aspx.designer.cs">
+      <DependentUpon>RecorridoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\RecorridoLista.aspx.cs">
+      <DependentUpon>RecorridoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\RecorridoLista.aspx.designer.cs">
+      <DependentUpon>RecorridoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\ServicioAlta.aspx.cs">
+      <DependentUpon>ServicioAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\ServicioAlta.aspx.designer.cs">
+      <DependentUpon>ServicioAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\ServicioLista.aspx.cs">
+      <DependentUpon>ServicioLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\ServicioLista.aspx.designer.cs">
+      <DependentUpon>ServicioLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\TipoServicioAlta.aspx.cs">
+      <DependentUpon>TipoServicioAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\TipoServicioAlta.aspx.designer.cs">
+      <DependentUpon>TipoServicioAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\TipoServicioLista.aspx.cs">
+      <DependentUpon>TipoServicioLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\TipoServicioLista.aspx.designer.cs">
+      <DependentUpon>TipoServicioLista.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1197,6 +1593,76 @@
     </Compile>
     <Compile Include="MasterPages\ReportPage.master.designer.cs">
       <DependentUpon>ReportPage.master</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.cs">
+      <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.designer.cs">
+      <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeEntidades\InfoEntidad.aspx.cs">
+      <DependentUpon>InfoEntidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeEntidades\InfoEntidad.aspx.designer.cs">
+      <DependentUpon>InfoEntidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeEntidades\InfoEventM2M.aspx.cs">
+      <DependentUpon>InfoEventM2M.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeEntidades\InfoEventM2M.aspx.designer.cs">
+      <DependentUpon>InfoEventM2M.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeEntidades\MonitorEntidades.aspx.cs">
+      <DependentUpon>MonitorEntidades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeEntidades\MonitorEntidades.aspx.designer.cs">
+      <DependentUpon>MonitorEntidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeSubEntidades\MonitorSubEntidades.aspx.cs">
+      <DependentUpon>MonitorSubEntidades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorDeSubEntidades\MonitorSubEntidades.aspx.designer.cs">
+      <DependentUpon>MonitorSubEntidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorHistorico\monitorHistorico.aspx.cs">
+      <DependentUpon>monitorHistorico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorHistorico\monitorHistorico.aspx.designer.cs">
+      <DependentUpon>monitorHistorico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorRecorrido\monitorRecorrido.aspx.cs">
+      <DependentUpon>monitorRecorrido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorRecorrido\monitorRecorrido.aspx.designer.cs">
+      <DependentUpon>monitorRecorrido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorUltimaPosicion\monitorUltimaPosicion.aspx.cs">
+      <DependentUpon>monitorUltimaPosicion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\MonitorUltimaPosicion\monitorUltimaPosicion.aspx.designer.cs">
+      <DependentUpon>monitorUltimaPosicion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\popup\MobileEventPopup.aspx.cs">
+      <DependentUpon>MobileEventPopup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\popup\MobileEventPopup.aspx.designer.cs">
+      <DependentUpon>MobileEventPopup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\popup\MobileRoutePopup.aspx.cs">
+      <DependentUpon>MobileRoutePopup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Monitor\popup\MobileRoutePopup.aspx.designer.cs">
+      <DependentUpon>MobileRoutePopup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Old_App_Code\AutoComplete.cs">
       <SubType>Component</SubType>
@@ -1340,6 +1806,783 @@
       <DependentUpon>perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\Accidentologia\infractionsDetails.aspx.cs">
+      <DependentUpon>infractionsDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\infractionsDetails.aspx.designer.cs">
+      <DependentUpon>infractionsDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\MensajesVehiculo.aspx.cs">
+      <DependentUpon>MensajesVehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\MensajesVehiculo.aspx.designer.cs">
+      <DependentUpon>MensajesVehiculo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx.cs">
+      <DependentUpon>MensajesVehiculoGrafico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx.designer.cs">
+      <DependentUpon>MensajesVehiculoGrafico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\OperatorRanking.aspx.cs">
+      <DependentUpon>OperatorRanking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\OperatorRanking.aspx.designer.cs">
+      <DependentUpon>OperatorRanking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\RankingVehiculos.aspx.cs">
+      <DependentUpon>RankingVehiculos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\RankingVehiculos.aspx.designer.cs">
+      <DependentUpon>RankingVehiculos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\VehicleInfractionsDetails.aspx.cs">
+      <DependentUpon>VehicleInfractionsDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\VehicleInfractionsDetails.aspx.designer.cs">
+      <DependentUpon>VehicleInfractionsDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Auditoria\LoginsHistory.aspx.cs">
+      <DependentUpon>LoginsHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Auditoria\LoginsHistory.aspx.designer.cs">
+      <DependentUpon>LoginsHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Bolland\ActividadDiaria.aspx.cs">
+      <DependentUpon>ActividadDiaria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Bolland\ActividadDiaria.aspx.designer.cs">
+      <DependentUpon>ActividadDiaria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Bolland\Performance.aspx.cs">
+      <DependentUpon>Performance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Bolland\Performance.aspx.designer.cs">
+      <DependentUpon>Performance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Bolland\Sintetico.aspx.cs">
+      <DependentUpon>Sintetico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Bolland\Sintetico.aspx.designer.cs">
+      <DependentUpon>Sintetico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ControlDistribucion.aspx.cs">
+      <DependentUpon>ControlDistribucion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ControlDistribucion.aspx.designer.cs">
+      <DependentUpon>ControlDistribucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\DuracionEstadosTicket.aspx.cs">
+      <DependentUpon>DuracionEstadosTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\DuracionEstadosTicket.aspx.designer.cs">
+      <DependentUpon>DuracionEstadosTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\FlujoDeTareas.aspx.cs">
+      <DependentUpon>FlujoDeTareas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\FlujoDeTareas.aspx.designer.cs">
+      <DependentUpon>FlujoDeTareas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx.cs">
+      <DependentUpon>ReporteTolva.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx.designer.cs">
+      <DependentUpon>ReporteTolva.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\KPIDistribucion.aspx.cs">
+      <DependentUpon>KPIDistribucion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\KPIDistribucion.aspx.designer.cs">
+      <DependentUpon>KPIDistribucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx.cs">
+      <DependentUpon>KPIEstadoEntregas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx.designer.cs">
+      <DependentUpon>KPIEstadoEntregas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\mobilesTickets.aspx.cs">
+      <DependentUpon>mobilesTickets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\mobilesTickets.aspx.designer.cs">
+      <DependentUpon>mobilesTickets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\PedidosProgramados.aspx.cs">
+      <DependentUpon>PedidosProgramados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\PedidosProgramados.aspx.designer.cs">
+      <DependentUpon>PedidosProgramados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteTraslado.aspx.cs">
+      <DependentUpon>ReporteTraslado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteTraslado.aspx.designer.cs">
+      <DependentUpon>ReporteTraslado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteViaje.aspx.cs">
+      <DependentUpon>ReporteViaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteViaje.aspx.designer.cs">
+      <DependentUpon>ReporteViaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ResumenDeEntregas.aspx.cs">
+      <DependentUpon>ResumenDeEntregas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ResumenDeEntregas.aspx.designer.cs">
+      <DependentUpon>ResumenDeEntregas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ResumenDeRutas.aspx.cs">
+      <DependentUpon>ResumenDeRutas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ResumenDeRutas.aspx.designer.cs">
+      <DependentUpon>ResumenDeRutas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\Retrasos.aspx.cs">
+      <DependentUpon>Retrasos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\Retrasos.aspx.designer.cs">
+      <DependentUpon>Retrasos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\TableroControl.aspx.cs">
+      <DependentUpon>TableroControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\TableroControl.aspx.designer.cs">
+      <DependentUpon>TableroControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\TicketTimeDifferences.aspx.cs">
+      <DependentUpon>TicketTimeDifferences.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\TicketTimeDifferences.aspx.designer.cs">
+      <DependentUpon>TicketTimeDifferences.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\TimeTracking\TimeTracking.aspx.cs">
+      <DependentUpon>TimeTracking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\TimeTracking\TimeTracking.aspx.designer.cs">
+      <DependentUpon>TimeTracking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\Conciliaciones.aspx.cs">
+      <DependentUpon>Conciliaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\Conciliaciones.aspx.designer.cs">
+      <DependentUpon>Conciliaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\ConciliacionesLista.aspx.cs">
+      <DependentUpon>ConciliacionesLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\ConciliacionesLista.aspx.designer.cs">
+      <DependentUpon>ConciliacionesLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\ConsistenciaStockPozo.aspx.cs">
+      <DependentUpon>ConsistenciaStockPozo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\ConsistenciaStockPozo.aspx.designer.cs">
+      <DependentUpon>ConsistenciaStockPozo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\ConsumoCaudalMotores.aspx.cs">
+      <DependentUpon>ConsumoCaudalMotores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\ConsumoCaudalMotores.aspx.designer.cs">
+      <DependentUpon>ConsumoCaudalMotores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\consumoDiario.aspx.cs">
+      <DependentUpon>consumoDiario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\consumoDiario.aspx.designer.cs">
+      <DependentUpon>consumoDiario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\consumosPozos.aspx.cs">
+      <DependentUpon>consumosPozos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\consumosPozos.aspx.designer.cs">
+      <DependentUpon>consumosPozos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\Consumos\ConsumosPorMotor.aspx.cs">
+      <DependentUpon>ConsumosPorMotor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\Consumos\ConsumosPorMotor.aspx.designer.cs">
+      <DependentUpon>ConsumosPorMotor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\EventosCombustible.aspx.cs">
+      <DependentUpon>EventosCombustible.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\EventosCombustible.aspx.designer.cs">
+      <DependentUpon>EventosCombustible.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\IngresosPozo.aspx.cs">
+      <DependentUpon>IngresosPozo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\IngresosPozo.aspx.designer.cs">
+      <DependentUpon>IngresosPozo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\Ingresos\IngresosPorTanque.aspx.cs">
+      <DependentUpon>IngresosPorTanque.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\Ingresos\IngresosPorTanque.aspx.designer.cs">
+      <DependentUpon>IngresosPorTanque.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\MarchaAcumulada.aspx.cs">
+      <DependentUpon>MarchaAcumulada.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\MarchaAcumulada.aspx.designer.cs">
+      <DependentUpon>MarchaAcumulada.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\VariacionDeNivel.aspx.cs">
+      <DependentUpon>VariacionDeNivel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\VariacionDeNivel.aspx.designer.cs">
+      <DependentUpon>VariacionDeNivel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\VolumenTanque.aspx.cs">
+      <DependentUpon>VolumenTanque.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CombustibleEnPozos\VolumenTanque.aspx.designer.cs">
+      <DependentUpon>VolumenTanque.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeAccesos\AccessControl.aspx.cs">
+      <DependentUpon>AccessControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeAccesos\AccessControl.aspx.designer.cs">
+      <DependentUpon>AccessControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeAccesos\AcuWorkedHs.aspx.cs">
+      <DependentUpon>AcuWorkedHs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeAccesos\AcuWorkedHs.aspx.designer.cs">
+      <DependentUpon>AcuWorkedHs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeAccesos\WorkedHours.aspx.cs">
+      <DependentUpon>WorkedHours.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeAccesos\WorkedHours.aspx.designer.cs">
+      <DependentUpon>WorkedHours.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\ConsistenciaStock.aspx.cs">
+      <DependentUpon>ConsistenciaStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\ConsistenciaStock.aspx.designer.cs">
+      <DependentUpon>ConsistenciaStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\ConsistenciaStockGrafico.aspx.cs">
+      <DependentUpon>ConsistenciaStockGrafico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\ConsistenciaStockGrafico.aspx.designer.cs">
+      <DependentUpon>ConsistenciaStockGrafico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Despachos.aspx.cs">
+      <DependentUpon>Despachos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Despachos.aspx.designer.cs">
+      <DependentUpon>Despachos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Despachos\DespachosPorMovil.aspx.cs">
+      <DependentUpon>DespachosPorMovil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Despachos\DespachosPorMovil.aspx.designer.cs">
+      <DependentUpon>DespachosPorMovil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Remitos.aspx.cs">
+      <DependentUpon>Remitos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Remitos.aspx.designer.cs">
+      <DependentUpon>Remitos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Remitos\RemitosPorTanque.aspx.cs">
+      <DependentUpon>RemitosPorTanque.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ControlDeCombustible\Remitos\RemitosPorTanque.aspx.designer.cs">
+      <DependentUpon>RemitosPorTanque.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\AnalizadorRecorridos.aspx.cs">
+      <DependentUpon>AnalizadorRecorridos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\AnalizadorRecorridos.aspx.designer.cs">
+      <DependentUpon>AnalizadorRecorridos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\eventos.aspx.cs">
+      <DependentUpon>eventos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\eventos.aspx.designer.cs">
+      <DependentUpon>eventos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\GeocercaEvents\RouteDetails.aspx.cs">
+      <DependentUpon>RouteDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\GeocercaEvents\RouteDetails.aspx.designer.cs">
+      <DependentUpon>RouteDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\GeocercasEvents.aspx.cs">
+      <DependentUpon>GeocercasEvents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\GeocercasEvents.aspx.designer.cs">
+      <DependentUpon>GeocercasEvents.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\MobilePois.aspx.cs">
+      <DependentUpon>MobilePois.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\MobilePois.aspx.designer.cs">
+      <DependentUpon>MobilePois.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\recorrido.aspx.cs">
+      <DependentUpon>recorrido.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\recorrido.aspx.designer.cs">
+      <DependentUpon>recorrido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\ResumenActividad.aspx.cs">
+      <DependentUpon>ResumenActividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\ResumenActividad.aspx.designer.cs">
+      <DependentUpon>ResumenActividad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\TomasDetalle.aspx.cs">
+      <DependentUpon>TomasDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\TomasDetalle.aspx.designer.cs">
+      <DependentUpon>TomasDetalle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\TomasDispositivos.aspx.cs">
+      <DependentUpon>TomasDispositivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\TomasDispositivos.aspx.designer.cs">
+      <DependentUpon>TomasDispositivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\TomasMoviles.aspx.cs">
+      <DependentUpon>TomasMoviles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\TomasMoviles.aspx.designer.cs">
+      <DependentUpon>TomasMoviles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\VerificadorEmpleados.aspx.cs">
+      <DependentUpon>VerificadorEmpleados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\VerificadorEmpleados.aspx.designer.cs">
+      <DependentUpon>VerificadorEmpleados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ActividadCliente.aspx.cs">
+      <DependentUpon>ActividadCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ActividadCliente.aspx.designer.cs">
+      <DependentUpon>ActividadCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ActividadOperador.aspx.cs">
+      <DependentUpon>ActividadOperador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ActividadOperador.aspx.designer.cs">
+      <DependentUpon>ActividadOperador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ActividadVehicular.aspx.cs">
+      <DependentUpon>ActividadVehicular.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ActividadVehicular.aspx.designer.cs">
+      <DependentUpon>ActividadVehicular.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\Consumos.aspx.cs">
+      <DependentUpon>Consumos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\Consumos.aspx.designer.cs">
+      <DependentUpon>Consumos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\DetentionTimes.aspx.cs">
+      <DependentUpon>DetentionTimes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\DetentionTimes.aspx.designer.cs">
+      <DependentUpon>DetentionTimes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\HistogramaDetenciones.aspx.cs">
+      <DependentUpon>HistogramaDetenciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\HistogramaDetenciones.aspx.designer.cs">
+      <DependentUpon>HistogramaDetenciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\HistogramaDetenciones\HistogramaDetencionesDetalle.aspx.cs">
+      <DependentUpon>HistogramaDetencionesDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\HistogramaDetenciones\HistogramaDetencionesDetalle.aspx.designer.cs">
+      <DependentUpon>HistogramaDetencionesDetalle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\IdleTimes.aspx.cs">
+      <DependentUpon>IdleTimes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\IdleTimes.aspx.designer.cs">
+      <DependentUpon>IdleTimes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\KilometrosDiarios.aspx.cs">
+      <DependentUpon>KilometrosDiarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\KilometrosDiarios.aspx.designer.cs">
+      <DependentUpon>KilometrosDiarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\KmHsProductivos.aspx.cs">
+      <DependentUpon>KmHsProductivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\KmHsProductivos.aspx.designer.cs">
+      <DependentUpon>KmHsProductivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\mobileExtraHoursGraph.aspx.cs">
+      <DependentUpon>mobileExtraHoursGraph.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\mobileExtraHoursGraph.aspx.designer.cs">
+      <DependentUpon>mobileExtraHoursGraph.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobileMaintenance.aspx.cs">
+      <DependentUpon>MobileMaintenance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobileMaintenance.aspx.designer.cs">
+      <DependentUpon>MobileMaintenance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobilePoisHistoric.aspx.cs">
+      <DependentUpon>MobilePoisHistoric.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobilePoisHistoric.aspx.designer.cs">
+      <DependentUpon>MobilePoisHistoric.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobileRoutes.aspx.cs">
+      <DependentUpon>MobileRoutes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobileRoutes.aspx.designer.cs">
+      <DependentUpon>MobileRoutes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobileRoutes\MobileRoutesEvents.aspx.cs">
+      <DependentUpon>MobileRoutesEvents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobileRoutes\MobileRoutesEvents.aspx.designer.cs">
+      <DependentUpon>MobileRoutesEvents.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobilesKilometers.aspx.cs">
+      <DependentUpon>MobilesKilometers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobilesKilometers.aspx.designer.cs">
+      <DependentUpon>MobilesKilometers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobilesTime.aspx.cs">
+      <DependentUpon>MobilesTime.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MobilesTime.aspx.designer.cs">
+      <DependentUpon>MobilesTime.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MonthKilometers.aspx.cs">
+      <DependentUpon>MonthKilometers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MonthKilometers.aspx.designer.cs">
+      <DependentUpon>MonthKilometers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MonthlyTimes.aspx.cs">
+      <DependentUpon>MonthlyTimes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\MonthlyTimes.aspx.designer.cs">
+      <DependentUpon>MonthlyTimes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteConsumos.aspx.cs">
+      <DependentUpon>ReporteConsumos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteConsumos.aspx.designer.cs">
+      <DependentUpon>ReporteConsumos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteDeViajes.aspx.cs">
+      <DependentUpon>ReporteDeViajes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteDeViajes.aspx.designer.cs">
+      <DependentUpon>ReporteDeViajes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteDistribucion.aspx.cs">
+      <DependentUpon>ReporteDistribucion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteDistribucion.aspx.designer.cs">
+      <DependentUpon>ReporteDistribucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteOdometros.aspx.cs">
+      <DependentUpon>ReporteOdometros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ReporteOdometros.aspx.designer.cs">
+      <DependentUpon>ReporteOdometros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador.aspx.cs">
+      <DependentUpon>ResumenOperador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador.aspx.designer.cs">
+      <DependentUpon>ResumenOperador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador\DetalleOperador.aspx.cs">
+      <DependentUpon>DetalleOperador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador\DetalleOperador.aspx.designer.cs">
+      <DependentUpon>DetalleOperador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador\ListaMobiles.aspx.cs">
+      <DependentUpon>ListaMobiles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador\ListaMobiles.aspx.designer.cs">
+      <DependentUpon>ListaMobiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador\VehiculosPorDia.aspx.cs">
+      <DependentUpon>VehiculosPorDia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenOperador\VehiculosPorDia.aspx.designer.cs">
+      <DependentUpon>VehiculosPorDia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular.aspx.cs">
+      <DependentUpon>ResumenVehicular.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular.aspx.designer.cs">
+      <DependentUpon>ResumenVehicular.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular\ConductoresPorDia.aspx.cs">
+      <DependentUpon>ConductoresPorDia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular\ConductoresPorDia.aspx.designer.cs">
+      <DependentUpon>ConductoresPorDia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular\DetalleVehiculo.aspx.cs">
+      <DependentUpon>DetalleVehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular\DetalleVehiculo.aspx.designer.cs">
+      <DependentUpon>DetalleVehiculo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular\ListaConductores.aspx.cs">
+      <DependentUpon>ListaConductores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\ResumenVehicular\ListaConductores.aspx.designer.cs">
+      <DependentUpon>ListaConductores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\Soporte\ReporteTickets.aspx.cs">
+      <DependentUpon>ReporteTickets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\Soporte\ReporteTickets.aspx.designer.cs">
+      <DependentUpon>ReporteTickets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\StoppedHours.aspx.cs">
+      <DependentUpon>StoppedHours.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\StoppedHours.aspx.designer.cs">
+      <DependentUpon>StoppedHours.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\TableroDeControl.aspx.cs">
+      <DependentUpon>TableroDeControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\TableroDeControl.aspx.designer.cs">
+      <DependentUpon>TableroDeControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\UtilizacionFlota.aspx.cs">
+      <DependentUpon>UtilizacionFlota.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\UtilizacionFlota.aspx.designer.cs">
+      <DependentUpon>UtilizacionFlota.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\UtilizacionVehiculos.aspx.cs">
+      <DependentUpon>UtilizacionVehiculos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Estadistica\UtilizacionVehiculos.aspx.designer.cs">
+      <DependentUpon>UtilizacionVehiculos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\AnalizadorMediciones.aspx.cs">
+      <DependentUpon>AnalizadorMediciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\AnalizadorMediciones.aspx.designer.cs">
+      <DependentUpon>AnalizadorMediciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\Eventos.aspx.cs">
+      <DependentUpon>Eventos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\Eventos.aspx.designer.cs">
+      <DependentUpon>Eventos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ListaRendimiento.aspx.cs">
+      <DependentUpon>ListaRendimiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ListaRendimiento.aspx.designer.cs">
+      <DependentUpon>ListaRendimiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\Mediciones.aspx.cs">
+      <DependentUpon>Mediciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\Mediciones.aspx.designer.cs">
+      <DependentUpon>Mediciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\Medidores.aspx.cs">
+      <DependentUpon>Medidores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\Medidores.aspx.designer.cs">
+      <DependentUpon>Medidores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteComparativo.aspx.cs">
+      <DependentUpon>ReporteComparativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteComparativo.aspx.designer.cs">
+      <DependentUpon>ReporteComparativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteConsistenciaStock.aspx.cs">
+      <DependentUpon>ReporteConsistenciaStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteConsistenciaStock.aspx.designer.cs">
+      <DependentUpon>ReporteConsistenciaStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDeDespachos.aspx.cs">
+      <DependentUpon>ReporteDeDespachos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDeDespachos.aspx.designer.cs">
+      <DependentUpon>ReporteDeDespachos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDeEventos.aspx.cs">
+      <DependentUpon>ReporteDeEventos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDeEventos.aspx.designer.cs">
+      <DependentUpon>ReporteDeEventos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDespachoLista.aspx.cs">
+      <DependentUpon>ReporteDespachoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDespachoLista.aspx.designer.cs">
+      <DependentUpon>ReporteDespachoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDesvioConsumo.aspx.cs">
+      <DependentUpon>ReporteDesvioConsumo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteDesvioConsumo.aspx.designer.cs">
+      <DependentUpon>ReporteDesvioConsumo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteVariacionMediciones.aspx.cs">
+      <DependentUpon>ReporteVariacionMediciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ReporteVariacionMediciones.aspx.designer.cs">
+      <DependentUpon>ReporteVariacionMediciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\M2M\ResumenDeEntidades.aspx.cs">
+      <DependentUpon>ResumenDeEntidades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\M2M\ResumenDeEntidades.aspx.designer.cs">
+      <DependentUpon>ResumenDeEntidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Transportistas\ActividadTerceros.aspx.cs">
+      <DependentUpon>ActividadTerceros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Transportistas\ActividadTerceros.aspx.designer.cs">
+      <DependentUpon>ActividadTerceros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Transportistas\TransportMobileKilometers.aspx.cs">
+      <DependentUpon>TransportMobileKilometers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Transportistas\TransportMobileKilometers.aspx.designer.cs">
+      <DependentUpon>TransportMobileKilometers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Transportistas\TransportMobileTimes.aspx.cs">
+      <DependentUpon>TransportMobileTimes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Transportistas\TransportMobileTimes.aspx.designer.cs">
+      <DependentUpon>TransportMobileTimes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SinAcceso.aspx.cs">
       <DependentUpon>SinAcceso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1406,6 +2649,10 @@
       <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
       <Name>Logictracker.Messages.Sender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Model\Logictracker.Model.csproj">
+      <Project>{9f45020b-8b93-4962-89b6-4591c385e68d}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Process\Logictracker.Process.CicloLogistico\Logictracker.Process.CicloLogistico.csproj">
       <Project>{c23d6940-c665-4076-96b7-c5b29ee304f0}</Project>
       <Name>Logictracker.Process.CicloLogistico</Name>
@@ -1446,6 +2693,10 @@
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Mailing\Logictracker.Mailing.csproj">
+      <Project>{ae61757f-b47c-4eb8-b223-c89c96092133}</Project>
+      <Name>Logictracker.Mailing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\Qtree\Logictracker.Qtree.csproj">
       <Project>{b7059c98-501e-4040-830e-597ddaf1417c}</Project>
       <Name>Logictracker.Qtree</Name>
@@ -1453,6 +2704,10 @@
     <ProjectReference Include="..\..\..\Common\Services.Helpers\Logictracker.Services.Helpers.csproj">
       <Project>{335550d5-f4a2-4ad0-a22f-c4ab705c6606}</Project>
       <Name>Logictracker.Services.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Types.ValueObjects\Logictracker.Types.ValueObjects.csproj">
+      <Project>{b4cacbb4-0f42-4c57-813b-bb72c7fc82ef}</Project>
+      <Name>Logictracker.Types.ValueObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\Types\Logictracker.Types.csproj">
       <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
