@@ -34,13 +34,20 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
 
-            //JQuery
+            // JQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                             "~/Scripts/jquery-{version}.js"));
 
             // Bootstrap
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                             "~/Scripts/bootstrap.js"));
+
+            // Angularjs
+            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
+                            "~/Scripts/angular.js",
+                            "~/Scripts/angular-route.js",
+                            "~/Scripts/angular-resource.js"));
+
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",
