@@ -50,6 +50,8 @@ namespace Logictracker.Parametrizacion
             chkZonaRiesgo.Checked = EditObject.EsZonaDeRiesgo;
             chkExcluyeMonitor.Checked = EditObject.ExcluirMonitor;
             chkEsTaller.Checked = EditObject.EsTaller;
+            chkEsControlAcceso.Checked = EditObject.EsControlAcceso;
+            btnGenerar.Enabled = EditMode && chkEsControlAcceso.Checked;
 
             chkControlaPermanencia.Checked = EditObject.ControlaPermanencia;
             chkControlaPermanenciaEntrega.Checked = EditObject.ControlaPermanenciaEntrega;
@@ -114,6 +116,7 @@ namespace Logictracker.Parametrizacion
             EditObject.EsZonaDeRiesgo = chkZonaRiesgo.Checked;
             EditObject.ExcluirMonitor = chkExcluyeMonitor.Checked;
             EditObject.EsTaller = chkEsTaller.Checked;
+            EditObject.EsControlAcceso = chkEsControlAcceso.Checked;
 
             EditObject.ControlaPermanencia = chkControlaPermanencia.Checked;
             EditObject.ControlaPermanenciaEntrega = chkControlaPermanenciaEntrega.Checked;
@@ -224,6 +227,11 @@ namespace Logictracker.Parametrizacion
             //panelVelocidades.Visible = chkControlaVelocidad.Checked;
         }
 
+        protected void ChkEsControlAccesoOnCheckedChanged(object sender, EventArgs e)
+        {
+            btnGenerar.Enabled = EditMode && chkEsControlAcceso.Checked;
+        }
+
         protected void ChkControlaPermanenciaOnCheckedChanged(object sender, EventArgs e)
         {   
             txtMaximaPermanencia.Enabled = chkControlaPermanencia.Checked;
@@ -235,7 +243,15 @@ namespace Logictracker.Parametrizacion
             txtMaximaPermanenciaEntrega.Enabled = chkControlaPermanenciaEntrega.Checked;
             if (!chkControlaPermanenciaEntrega.Checked) txtMaximaPermanenciaEntrega.Text = "0";
         }
-        
+
+        protected void BtnGenerarOnClick(object sender, EventArgs e)
+        {
+            var referencias = DAOFactory.ReferenciaGeograficaDAO.FindByTipo(EditObject.Id);
+            DAOFactory.PuertaAccesoDAO.GenerarByGeocercas(referencias);
+
+            Response.Redirect("~/Parametrizacion/PuertaAccesoLista.aspx");
+        }
+
         #endregion
 
         #region Velocidades

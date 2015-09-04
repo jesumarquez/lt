@@ -272,8 +272,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
             fileref.setAttribute('type', 'text/css');
             fileref.setAttribute('href', '{0}');
             document.getElementsByTagName('head')[0].appendChild(fileref);",
-            Config.Monitor.GetExtExtendersCss(this)), true);
-        
+            Config.Monitor.GetExtExtendersCss(this)), true);        
         }
 
         #endregion

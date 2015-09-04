@@ -167,12 +167,12 @@ namespace Logictracker.Reportes.Estadistica
         {
             return new Dictionary<string, string>
                        {
-                           {CultureManager.GetEntity("PARENTI01"), ddlDistrito.SelectedItem.Text},
-                           {CultureManager.GetEntity("PARENTI02"), ddlPlanta.SelectedItem.Text},
-                           {CultureManager.GetEntity("PARENTI17"), ddlTipoVehiculo.SelectedItem.Text},
-                           {CultureManager.GetEntity("PARENTI03"), ddlMovil.SelectedItem.Text},
-                           {CultureManager.GetLabel("DESDE"), dpDesde.SelectedDate.GetValueOrDefault().ToShortDateString() + " " + dpDesde.SelectedDate.GetValueOrDefault().ToShortTimeString()},
-                           {CultureManager.GetLabel("HASTA"), dpHasta.SelectedDate.GetValueOrDefault().ToShortDateString() + " " + dpHasta.SelectedDate.GetValueOrDefault().ToShortTimeString()}
+                           {"PARENTI01", ddlDistrito.SelectedItem.Text},
+                           {"PARENTI02", ddlPlanta.SelectedItem.Text},
+                           {"PARENTI17", ddlTipoVehiculo.SelectedItem.Text},
+                           {"PARENTI03", ddlMovil.SelectedItem.Text},
+                           {"DESDE", dpDesde.SelectedDate.GetValueOrDefault().ToShortDateString() + " " + dpDesde.SelectedDate.GetValueOrDefault().ToShortTimeString()},
+                           {"HASTA", dpHasta.SelectedDate.GetValueOrDefault().ToShortDateString() + " " + dpHasta.SelectedDate.GetValueOrDefault().ToShortTimeString()}
                        };
         }
 

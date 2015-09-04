@@ -50,8 +50,8 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
         public virtual bool ControlaKilometraje { get; set; }
         public virtual bool ControlaTurno { get; set; }
         public virtual bool SeguimientoPersona { get; set; }
-
         public virtual bool NoEsVehiculo { get; set; }
+        public virtual bool EsControlAcceso { get; set; }
 
         public virtual int Capacidad { get; set; }
         public virtual int CapacidadCarga { get; set; }

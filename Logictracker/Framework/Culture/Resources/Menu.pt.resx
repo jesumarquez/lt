@@ -889,7 +889,7 @@
     <value>Archivos Logiclink</value>
   </data>
   <data name="KPI_ESTADO_ENTREGAS" xml:space="preserve">
-    <value>KPI Estado do Entregas</value>
+    <value>Monitor KPI Estado do Entregas</value>
   </data>
   <data name="PAR_AGENDA" xml:space="preserve">
     <value>Calendário Veicular</value>

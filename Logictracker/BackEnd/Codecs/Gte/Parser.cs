@@ -331,6 +331,28 @@ namespace Logictracker.Trax.v1
             return Decode(frame, true);
         }
 
+        private static string QueryPartition(Parser dev)
+        {
+            var sb = new StringBuilder();
+            var query = dev.DataProvider.GetDetalleDispositivo(dev.Id, "QuerySdOnHandshake").As("");
+
+            STrace.Trace(typeof(Mensaje).FullName, dev.Id, string.Format("{0}", query));
+
+            switch (query)
+            {
+                case "GeogrillaPartition":
+                    sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDG1,R0000008004"), Environment.NewLine);
+                    sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDG1,R0000000036"), Environment.NewLine);
+                    sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDG1,R21DE09F050"), Environment.NewLine);
+                    break;
+                case "ImagePartition":
+                    sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDI,S"), Environment.NewLine);
+                    //responde: >RSDI,S,imageCount,usedMemory,lastImageOffset
+                    break;
+            }
+            return sb.ToString();
+        }
+
 
         public IMessage Decode(IFrame frame, bool online)
         {
@@ -376,6 +398,8 @@ namespace Logictracker.Trax.v1
                         _askedIMEI = extractIMEIFromRGRI(buffer);
 
                         salida = new ConfigRequest(Id, NextSequence);
+
+                        
                         var idReportado = ParserUtils.GetDeviceIdTaip(buffer);
                         if (idReportado != Id)
                         {
@@ -383,7 +407,12 @@ namespace Logictracker.Trax.v1
                                 String.Format(">{0}<", String.Format(Mensaje.SetId, Id)),
                                 this, null).ToString(true);
                             salida.AddStringToSend(result);
+                        }else
+                        {
+                            // Si el imei es valido para la plataforma le pregunto el Qtree
+                            salida.AddStringToSend(QueryPartition(this));
                         }
+
                         break;
                     case Reporte.Rdu:
                         var port = buffer.Substring(4, 4);
@@ -559,7 +588,7 @@ namespace Logictracker.Trax.v1
                             {
                                 DataProvider.SetDetalleDispositivo(Id, "known_qtree_revision", n, "int");
                                 bool actualizar =
-                                    DataProvider.GetDetalleDispositivo(Id, "QtreeUpdateOnHandshake").AsBoolean(true);
+                                    DataProvider.GetDetalleDispositivo(Id, "QtreeUpdateOnHandshake").AsBoolean(false);
 
                                 if (actualizar) SyncronizeQuadtree(NextSequence, false, nn);
                                 else
@@ -1077,6 +1106,8 @@ namespace Logictracker.Trax.v1
             }
         }
 
+        
+
         private static IMessage ProcessHandshake(Parser dev, int formerDeviceId, String[] data, ulong msgId)
         {
             if (ParserUtils.IsInvalidDeviceId(dev.Id)) return null;
@@ -1087,6 +1118,9 @@ namespace Logictracker.Trax.v1
             sb.AppendFormat("{0}{1}", BaseDeviceCommand.createFrom(String.Format(">{0}<", Mensaje.QueryPort), dev, null).ToString(true), Environment.NewLine);
 
             var msg = (IMessage) new ConfigRequest(dev.Id, msgId);
+
+            STrace.Debug(typeof(Mensaje).FullName, dev.Id, string.Format("formerDeviceId {0}", formerDeviceId));
+
             if (ParserUtils.IsInvalidDeviceId(formerDeviceId))
             {                
                 //check config
@@ -1094,33 +1128,17 @@ namespace Logictracker.Trax.v1
                 bool receivedconfighashValid = receivedconfighashRev.StartsWith("Rev=") &&
                                                 !receivedconfighashRev.Contains("$revision");
                 string receivedconfighash = receivedconfighashRev.Split('=').Last();
-                DetalleDispositivo replaceUnknownConfigurationS = dev.DataProvider.GetDetalleDispositivo(dev.Id,
-                                                                                                          "ReplaceUnknownConfiguration");
+                DetalleDispositivo replaceUnknownConfigurationS = dev.DataProvider.GetDetalleDispositivo(dev.Id,"ReplaceUnknownConfiguration");
                 bool replaceUnknownConfiguration = replaceUnknownConfigurationS.As(false);
- 
+
                 string calculatedconfighash;
                 var conf = dev.GetConfig(out calculatedconfighash);
                 STrace.Debug(typeof(Mensaje).FullName, dev.Id, string.Format("Comparing hashes:{2}received={0}{2}calculated={1}{2}", receivedconfighash, calculatedconfighash, Environment.NewLine));
-             
 
-                if ((receivedconfighashValid || !replaceUnknownConfiguration) &&
-                    (!receivedconfighashValid || receivedconfighash == calculatedconfighash))
-                {
-                    var query = dev.DataProvider.GetDetalleDispositivo(dev.Id, "QuerySdOnHandshake").As("");
-                    switch (query)
-                    {
-                        case "GeogrillaPartition":                            
-                            sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDG1,R0000008004"), Environment.NewLine);
-                            sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDG1,R0000000036"), Environment.NewLine);
-                            sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDG1,R21DE09F050"), Environment.NewLine);
-                            break;
-                        case "ImagePartition":
-                            sb.AppendFormat("{0}{1}", Mensaje.Factory<String>(dev, "QSDI,S"), Environment.NewLine);
-                            //responde: >RSDI,S,imageCount,usedMemory,lastImageOffset
-                            break;
-                    }
-                }
-                else if (dev._lastConfigSentTimestamp.AddMinutes(30) <= DateTime.UtcNow && replaceUnknownConfiguration)
+
+          
+
+                if (dev._lastConfigSentTimestamp.AddMinutes(30) <= DateTime.UtcNow && replaceUnknownConfiguration)
                 {
                     STrace.Trace(typeof(Mensaje).FullName, dev.Id,
                                  string.Format("Updating Config, hashes:{2}received={0}{2}calculated={1}{2}",
