@@ -42,5 +42,8 @@ namespace Logictracker.MasterPages
 
         public override RadioButton RadioButtonExcel { get { return rbutExcel; } }
         public override RadioButton RadioButtonHtml { get { return rbutHtml; } }
+        public override RadioButton RadioBtnExcelSendReport { get { return rbutExcelSend; } }
+        public override RadioButton RadioBtnHtmlSendReport { get { return rbutHtmlSend; } }
+
     }
 }

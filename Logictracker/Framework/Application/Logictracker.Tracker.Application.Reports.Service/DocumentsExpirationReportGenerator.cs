@@ -12,7 +12,7 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public class DocumentsExpirationReportGenerator 
     {
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.DocumentsExpirationReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.DocumentsExpirationReport.xls";
         private const string DataSheet1 = "Informe";
         //private const string DataSheet2 = "Datos";
 

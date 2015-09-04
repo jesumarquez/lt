@@ -18,6 +18,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                 .And(Restrictions.InG(Projections.Property<Infraccion>(p => p.Empleado.Id), empleados))
                 .List<Infraccion>();
         }
+
+
         public IList<Infraccion> GetByVehiculos(IEnumerable<int> vehiculos, DateTime desde, DateTime hasta)
         {
             return Session.QueryOver<Infraccion>()

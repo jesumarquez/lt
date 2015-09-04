@@ -12,7 +12,7 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public class DeliverStatusReportGenerator   
     {
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.DeliverStatusReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.DeliverStatusReport.xls";
         private const string DataSheet1 = "Informe";
         //private const string DataSheet2 = "Datos";
 

@@ -12,7 +12,7 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public class VehicleInfractionsReportGenerator
     {
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.VehicleInfractionsReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.VehicleInfractionsReport.xls";
         private const string DataSheet1 = "Informe";
         //private const string DataSheet2 = "Datos";
 
