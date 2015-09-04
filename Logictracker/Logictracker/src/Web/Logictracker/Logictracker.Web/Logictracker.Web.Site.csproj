@@ -58,6 +58,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\CDT.ColorPickerExtender.dll</HintPath>
     </Reference>
+    <Reference Include="ExtExtenders, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\ExtExtenders.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
@@ -761,6 +765,59 @@
     <Content Include="images\vehicle_inactive.png" />
     <Content Include="images\vehicle_in_manteinance.png" />
     <Content Include="images\Yellow-Ball-icon.png" />
+    <Content Include="Operacion\auto.png" />
+    <Content Include="Operacion\btAceptar.gif" />
+    <Content Include="Operacion\btAgregar.gif" />
+    <Content Include="Operacion\btAtras.gif" />
+    <Content Include="Operacion\btBuscar.gif" />
+    <Content Include="Operacion\btCancelar.gif" />
+    <Content Include="Operacion\btnBack.gif" />
+    <Content Include="Operacion\Camaras\Camara1.htm" />
+    <Content Include="Operacion\Camaras\Camara2.htm" />
+    <Content Include="Operacion\Camaras\Camara3.htm" />
+    <Content Include="Operacion\Camaras\Camara4.htm" />
+    <Content Include="Operacion\Camaras\Default.aspx" />
+    <Content Include="Operacion\caution.png" />
+    <Content Include="Operacion\company.png" />
+    <Content Include="Operacion\connected.png" />
+    <Content Include="Operacion\connectedw.gif" />
+    <Content Include="Operacion\Consola\ConsolaEntregas.aspx" />
+    <Content Include="Operacion\Consola\ConsolaM2M.aspx" />
+    <Content Include="Operacion\Consola\Default.aspx" />
+    <Content Include="Operacion\Default.aspx" />
+    <Content Include="Operacion\disconnected.png" />
+    <Content Include="Operacion\Dispositivo\Consola.aspx" />
+    <Content Include="Operacion\exclamation.png" />
+    <Content Include="Operacion\InfoDir.aspx" />
+    <Content Include="Operacion\InfoEvent.aspx" />
+    <Content Include="Operacion\InfoMovil.aspx" />
+    <Content Include="Operacion\InfoPOI.aspx" />
+    <Content Include="Operacion\LorryGreen.png" />
+    <Content Include="Operacion\Mimico\Default.aspx" />
+    <Content Include="Operacion\Mimico\mimico.js" />
+    <Content Include="Operacion\Mimico\MimicoEntregas.aspx" />
+    <Content Include="Operacion\Mimico\mimicoEntregas.js" />
+    <Content Include="Operacion\office.png" />
+    <Content Include="Operacion\paused.gif" />
+    <Content Include="Operacion\Qtree\AutoGenConfig.ascx" />
+    <Content Include="Operacion\Qtree\colorpicker.png" />
+    <Content Include="Operacion\Qtree\colorpicker_dis.png" />
+    <Content Include="Operacion\Qtree\draw_square.gif" />
+    <Content Include="Operacion\Qtree\information.png" />
+    <Content Include="Operacion\Qtree\information_dis.png" />
+    <Content Include="Operacion\Qtree\LevelSelector.ascx" />
+    <Content Include="Operacion\Qtree\logoqtree.png" />
+    <Content Include="Operacion\Qtree\pencil.png" />
+    <Content Include="Operacion\Qtree\pencil_dis.png" />
+    <Content Include="Operacion\Qtree\QtreeEditor.aspx" />
+    <Content Include="Operacion\salida.gif" />
+    <Content Include="Operacion\Simulador\Default.aspx" />
+    <Content Include="Operacion\Simulador\geplugin-helpers.js" />
+    <Content Include="Operacion\Simulador\SimRecorrido.js" />
+    <Content Include="Operacion\Simulador\Simulator.js" />
+    <Content Include="Operacion\ticket.png" />
+    <Content Include="Operacion\waitingconn.png" />
+    <Content Include="Operacion\waitingconn2.gif" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -1141,6 +1198,140 @@
     <Compile Include="MasterPages\ReportPage.master.designer.cs">
       <DependentUpon>ReportPage.master</DependentUpon>
     </Compile>
+    <Compile Include="Old_App_Code\AutoComplete.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Old_App_Code\Export.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Old_App_Code\Geocoder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Old_App_Code\Import.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Old_App_Code\Operation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Old_App_Code\OperationService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Old_App_Code\SharedPositions.cs" />
+    <Compile Include="Old_App_Code\Tickets.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Operacion\Camaras\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Camaras\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Consola\ConsolaEntregas.aspx.cs">
+      <DependentUpon>ConsolaEntregas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Consola\ConsolaEntregas.aspx.designer.cs">
+      <DependentUpon>ConsolaEntregas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Consola\ConsolaM2M.aspx.cs">
+      <DependentUpon>ConsolaM2M.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Consola\ConsolaM2M.aspx.designer.cs">
+      <DependentUpon>ConsolaM2M.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Consola\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Consola\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Dispositivo\Consola.aspx.cs">
+      <DependentUpon>Consola.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Dispositivo\Consola.aspx.designer.cs">
+      <DependentUpon>Consola.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\InfoDir.aspx.cs">
+      <DependentUpon>InfoDir.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\InfoDir.aspx.designer.cs">
+      <DependentUpon>InfoDir.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\InfoEvent.aspx.cs">
+      <DependentUpon>InfoEvent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\InfoEvent.aspx.designer.cs">
+      <DependentUpon>InfoEvent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\InfoMovil.aspx.cs">
+      <DependentUpon>InfoMovil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\InfoMovil.aspx.designer.cs">
+      <DependentUpon>InfoMovil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\InfoPOI.aspx.cs">
+      <DependentUpon>InfoPOI.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\InfoPOI.aspx.designer.cs">
+      <DependentUpon>InfoPOI.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Mimico\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Mimico\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Mimico\MimicoEntregas.aspx.cs">
+      <DependentUpon>MimicoEntregas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Mimico\MimicoEntregas.aspx.designer.cs">
+      <DependentUpon>MimicoEntregas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Qtree\AutoGenConfig.ascx.cs">
+      <DependentUpon>AutoGenConfig.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Qtree\AutoGenConfig.ascx.designer.cs">
+      <DependentUpon>AutoGenConfig.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Qtree\LevelSelector.ascx.cs">
+      <DependentUpon>LevelSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Qtree\LevelSelector.ascx.designer.cs">
+      <DependentUpon>LevelSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Qtree\QtreeEditor.aspx.cs">
+      <DependentUpon>QtreeEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Qtree\QtreeEditor.aspx.designer.cs">
+      <DependentUpon>QtreeEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Operacion\Simulador\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Operacion\Simulador\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="perfil.aspx.cs">
       <DependentUpon>perfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1187,6 +1378,10 @@
       <Project>{52186fb0-923b-48a5-8411-d60f88cfae1b}</Project>
       <Name>Geocoder.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Applications\LogicOut\LogicOut.Server\LogicOut.Server.csproj">
+      <Project>{db06b613-c477-4ab6-b90f-93a2c50cdf11}</Project>
+      <Name>LogicOut.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
       <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
       <Name>Logictracker.Configuration</Name>
@@ -1211,6 +1406,22 @@
       <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
       <Name>Logictracker.Messages.Sender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Process\Logictracker.Process.CicloLogistico\Logictracker.Process.CicloLogistico.csproj">
+      <Project>{c23d6940-c665-4076-96b7-c5b29ee304f0}</Project>
+      <Name>Logictracker.Process.CicloLogistico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Process\Logictracker.Process.Geofences\Logictracker.Process.Geofences.csproj">
+      <Project>{20a9e6ae-1336-4535-aa2c-a8872dcd007d}</Project>
+      <Name>Logictracker.Process.Geofences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Process\Logictracker.Process.Import.Client\Logictracker.Process.Import.Client.csproj">
+      <Project>{ab0e5e1f-ee7f-4c66-892d-eba6caf3c9e0}</Project>
+      <Name>Logictracker.Process.Import.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Process\Logictracker.Process.Import\Logictracker.Process.Import.csproj">
+      <Project>{4a8b26af-b363-4f81-b701-377532231521}</Project>
+      <Name>Logictracker.Process.Import</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
       <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
       <Name>Logictracker.Layers</Name>
@@ -1227,9 +1438,17 @@
       <Project>{327f6143-1118-4881-8c79-5f0913f63f6b}</Project>
       <Name>Logictracker.Web</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Web\Logictracker.Web.Controls\Logictracker.Web.Controls.csproj">
+      <Project>{27b56ee7-7e2e-4192-a039-dd623a587ad4}</Project>
+      <Name>Logictracker.Web.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Qtree\Logictracker.Qtree.csproj">
+      <Project>{b7059c98-501e-4040-830e-597ddaf1417c}</Project>
+      <Name>Logictracker.Qtree</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\Services.Helpers\Logictracker.Services.Helpers.csproj">
       <Project>{335550d5-f4a2-4ad0-a22f-c4ab705c6606}</Project>
@@ -1238,6 +1457,10 @@
     <ProjectReference Include="..\..\..\Common\Types\Logictracker.Types.csproj">
       <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
       <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-fd4b-460a-931b-6a3b4d4eef5c}</Project>
+      <Name>Logictracker.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logictracker.Common.Web.BaseClasses\Logictracker.Web.BaseClasses.csproj">
       <Project>{5b5f86dc-6a0b-43d5-b060-a2653fa47ca9}</Project>
