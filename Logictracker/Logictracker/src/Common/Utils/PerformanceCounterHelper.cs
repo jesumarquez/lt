@@ -1,6 +1,7 @@
 ﻿#region Usings
 
 using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using Logictracker.DatabaseTracer.Core;
 
@@ -14,34 +15,48 @@ namespace Logictracker.Utils
 		{
 			try
 			{
-				//deshabilitar cuando esten bien definidos los nombres de los Performance Counters
-				if (PerformanceCounterCategory.Exists(cat.CategoryName)) PerformanceCounterCategory.Delete(cat.CategoryName);
+                //deshabilitar cuando esten bien definidos los nombres de los Performance Counters
+                if (PerformanceCounterCategory.Exists(cat.CategoryName)) 
+                    PerformanceCounterCategory.Delete(cat.CategoryName);
 
-				if (!PerformanceCounterCategory.Exists(cat.CategoryName)) PerformanceCounterCategory.Create(cat.CategoryName, String.Empty, PerformanceCounterCategoryType.MultiInstance, cat.Counters);
-				return true;
+                if (!PerformanceCounterCategory.Exists(cat.CategoryName)) 
+                    PerformanceCounterCategory.Create(cat.CategoryName, String.Empty, PerformanceCounterCategoryType.MultiInstance, cat.Counters);
+				
+                return true;
 			}
 			catch (Exception e)
 			{
 				STrace.Exception(typeof(PerformanceCounterHelper).FullName, e);
+			    //Console.ReadLine();
 				return false;
 			}
 		}
 
+        public static ConcurrentDictionary<string,PerformanceCounter> PcCache = new ConcurrentDictionary<string, PerformanceCounter>();  
+
 		public static PerformanceCounter Get(String categoria, String nombre, String instancia)
 		{
-			return PerformanceCounterCategory.Exists(categoria) ? new PerformanceCounter(categoria, nombre, instancia, false) : null;
+		    return PcCache.GetOrAdd(categoria + "|" + nombre + "|" + instancia + "|ron",(s)=>new PerformanceCounter(categoria, nombre, instancia, false));
+            //return PerformanceCounterCategory.Exists(categoria) ?  : null;
 		}
 
-		public static Boolean Increment(String categoria, String nombre1, String nombre2, String instancia)
+		public static Boolean Increment(String categoria, String counterName, String instancia)
 		{
-			var pc1 = Get(categoria, nombre1, instancia);
-			if (pc1 == null) return false;
+            var pc1 = Get(categoria, counterName+"_Total_Count", instancia);
 			pc1.Increment();
-			var pc2 = Get(categoria, nombre2, instancia);
-			if (pc2 == null) return false;
-			pc2.Increment();
+            pc1 = Get(categoria, counterName + "_Per_Sec", instancia);
+            pc1.Increment();
 			return true;
 		}
+
+        public static Boolean IncrementBy(String categoria, String counterName, String instancia , long elapsedTicks) 
+        {
+            var pc1 = Get(categoria, counterName + "_AvgTime", instancia);
+            pc1.IncrementBy(elapsedTicks);
+            pc1 = Get(categoria, counterName + "_AvgTime_Base", instancia);
+            pc1.Increment();
+            return true;
+        }
 	}
 
 	public interface Category
@@ -52,6 +67,8 @@ namespace Logictracker.Utils
 
 	public class BackendCategory : Category
 	{
+        public static BackendCategory Instance = new BackendCategory();
+
 		public String CategoryName { get { return "Backend"; } }
 
 		public CounterCreationDataCollection Counters
@@ -60,21 +77,29 @@ namespace Logictracker.Utils
 			{
 				return new CounterCreationDataCollection
 				       	{
-				       		new CounterCreationData{CounterName = GatewayCount, CounterType = PerformanceCounterType.NumberOfItems32},
-				       		new CounterCreationData{CounterName = GatewayProm, CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
-				       		new CounterCreationData{CounterName = DispatcherCount, CounterType = PerformanceCounterType.NumberOfItems32},
-				       		new CounterCreationData{CounterName = DispatcherProm, CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
-				       		new CounterCreationData{CounterName = MsmqCount, CounterType = PerformanceCounterType.NumberOfItems32},
-				       		new CounterCreationData{CounterName = MsmqProm, CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
-				       	};
+                            new CounterCreationData{CounterName = GatewayUDP + "_Total_Count", CounterType = PerformanceCounterType.NumberOfItems32},
+                            new CounterCreationData{CounterName = GatewayUDP + "_Per_Sec", CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
+                            new CounterCreationData{CounterName = GatewayUDP + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
+                            new CounterCreationData{CounterName = GatewayUDP + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase},
+                            
+
+                            new CounterCreationData{CounterName = DispatcherProcess + "_Total_Count", CounterType = PerformanceCounterType.NumberOfItems32},
+                            new CounterCreationData{CounterName = DispatcherProcess + "_Per_Sec", CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
+                            new CounterCreationData{CounterName = DispatcherProcess + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
+                            new CounterCreationData{CounterName = DispatcherProcess + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase},
+                        
+                              new CounterCreationData{CounterName = HandlerProcess + "_Total_Count", CounterType = PerformanceCounterType.NumberOfItems32},
+                            new CounterCreationData{CounterName = HandlerProcess + "_Per_Sec", CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
+                            new CounterCreationData{CounterName = HandlerProcess + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
+                            new CounterCreationData{CounterName = HandlerProcess + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase},
+                        
+                        };
 			}
 		}
 
-		public String GatewayCount { get { return "GatewayUdpRawCount"; } }
-		public String GatewayProm { get { return "GatewayUdpRawProm"; } }
-		public String DispatcherCount { get { return "DispatcherCount"; } }
-		public String DispatcherProm { get { return "DispatcherProm"; } }
-		public String MsmqCount { get { return "MsmqCount_DispProcesa_GwyEncola"; } }
-		public String MsmqProm { get { return "MsmqProm_DispProcesa_GwyEncola"; } }
-	}
+        public String GatewayUDP { get { return "GatewayUdp"; } }
+        public String DispatcherProcess { get { return "Dispatcher_Process"; } }
+        public String HandlerProcess { get { return "Dispatcher_Handler"; } }
+	
+    }
 }

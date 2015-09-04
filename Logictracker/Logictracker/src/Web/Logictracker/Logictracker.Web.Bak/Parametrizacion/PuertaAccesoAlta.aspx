@@ -20,12 +20,23 @@
                     </asp:UpdatePanel>
                     
                     <cwc:ResourceLabel ID="lblDescripcion" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" />
-                    <asp:TextBox ID="txtDescripcion" runat="server" Width="100%" MaxLength="200" />
+                    <asp:TextBox ID="txtDescripcion" runat="server" Width="98%" MaxLength="200" />
                     
                     <cwc:ResourceLabel ID="lblVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
                     <asp:UpdatePanel ID="updVehiculo" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <cwc:MovilDropDownList ID="cbVehiculo" runat="server"  Width="100%" ParentControls="cbEmpresa,cbLinea" ShowOnlyAccessControl="true" />
+                            <cwc:MovilDropDownList ID="cbVehiculo" runat="server" Width="100%" ParentControls="cbEmpresa,cbLinea" ShowOnlyAccessControl="true" AddNoneItem="true" />
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+
+                    <cwc:ResourceLabel ID="lblGeocerca" runat="server" ResourceName="Entities" VariableName="PARENTI05" />
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <cwc:ReferenciaGeograficaDropDownList ID="cbGeocerca" runat="server" Width="100%" ParentControls="cbEmpresa,cbLinea" ShowOnlyAccessControl="true" AddNoneItem="true" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />

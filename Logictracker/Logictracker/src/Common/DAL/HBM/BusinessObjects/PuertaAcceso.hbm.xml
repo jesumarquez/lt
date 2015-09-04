@@ -15,6 +15,7 @@
     <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" not-null="false" />
     <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" not-null="false" />
     <many-to-one column="rela_parenti03" name="Vehiculo" lazy="proxy" />
+    <many-to-one column="rela_parenti05" name="ReferenciaGeografica" lazy="proxy" />
     <many-to-one column="rela_parenti92_entrada" name="ZonaAccesoEntrada" lazy="proxy" />
     <many-to-one column="rela_parenti92_salida" name="ZonaAccesoSalida" lazy="proxy" />
   </class>

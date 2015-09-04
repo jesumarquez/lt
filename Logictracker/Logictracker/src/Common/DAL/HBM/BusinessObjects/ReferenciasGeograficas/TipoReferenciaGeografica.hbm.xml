@@ -26,6 +26,7 @@
     <property column="parenti10_baja" name="Baja" not-null="true" />
     <property column="parenti10_excluir_monitor" name="ExcluirMonitor" />
     <property column="parenti10_es_taller" name="EsTaller" />
+    <property column="parenti10_es_control_acceso" name="EsControlAcceso" />
 
     <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
     <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" />
