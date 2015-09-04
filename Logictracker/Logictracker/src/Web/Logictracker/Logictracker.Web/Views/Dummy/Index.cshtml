@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<div ng-controller="DummyController">
+<div ng-controller="DummyController as dummy">
     <h2>Index</h2>
-    <h3>Data: {{data}}</h3>
+    <h3>Data: {{dummy.data}}</h3>
 </div>
