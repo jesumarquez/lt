@@ -20,9 +20,9 @@ namespace Logictracker.Web
             //Para que funcione el handler de image.
             routes.IgnoreRoute("{resource}.image/{*pathInfo}");
             
-            //TODO: ignorar los handlers
-            //routes.IgnoreRoute("c1gaugeimage.aspx");
-            //routes.IgnoreRoute("c1chartimage.aspx");
+            //TODO: verificar que ignore los siguientes request ("c1gaugeimage.aspx" y "c1chartimage.aspx")
+            //ya que son manejados por los handlers definidos en el web.config
+            routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
 
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
