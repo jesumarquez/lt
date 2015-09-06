@@ -62,6 +62,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\CDT.ColorPickerExtender.dll</HintPath>
     </Reference>
+    <Reference Include="Commons, Version=0.4.2.8580, Culture=neutral, PublicKeyToken=44382d1b57473eda">
+      <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Commons.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ExtExtenders, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\ExtExtenders.dll</HintPath>
@@ -70,6 +74,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\FusionCharts.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
@@ -77,6 +85,14 @@
     <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Memcached.ClientLibrary.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -872,6 +888,14 @@
     <Content Include="Operacion\ticket.png" />
     <Content Include="Operacion\waitingconn.png" />
     <Content Include="Operacion\waitingconn2.gif" />
+    <Content Include="Organizacion\FuncionAlta.aspx" />
+    <Content Include="Organizacion\FuncionLista.aspx" />
+    <Content Include="Organizacion\PerfilAlta.aspx" />
+    <Content Include="Organizacion\PerfilLista.aspx" />
+    <Content Include="Organizacion\SubSistemaAlta.aspx" />
+    <Content Include="Organizacion\SubSistemaLista.aspx" />
+    <Content Include="Organizacion\UsuarioAlta.aspx" />
+    <Content Include="Organizacion\UsuarioLista.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -1797,6 +1821,62 @@
     </Compile>
     <Compile Include="Operacion\Simulador\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\FuncionAlta.aspx.cs">
+      <DependentUpon>FuncionAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\FuncionAlta.aspx.designer.cs">
+      <DependentUpon>FuncionAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\FuncionLista.aspx.cs">
+      <DependentUpon>FuncionLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\FuncionLista.aspx.designer.cs">
+      <DependentUpon>FuncionLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\PerfilAlta.aspx.cs">
+      <DependentUpon>PerfilAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\PerfilAlta.aspx.designer.cs">
+      <DependentUpon>PerfilAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\PerfilLista.aspx.cs">
+      <DependentUpon>PerfilLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\PerfilLista.aspx.designer.cs">
+      <DependentUpon>PerfilLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\SubSistemaAlta.aspx.cs">
+      <DependentUpon>SubSistemaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\SubSistemaAlta.aspx.designer.cs">
+      <DependentUpon>SubSistemaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\SubSistemaLista.aspx.cs">
+      <DependentUpon>SubSistemaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\SubSistemaLista.aspx.designer.cs">
+      <DependentUpon>SubSistemaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\UsuarioAlta.aspx.cs">
+      <DependentUpon>UsuarioAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\UsuarioAlta.aspx.designer.cs">
+      <DependentUpon>UsuarioAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Organizacion\UsuarioLista.aspx.cs">
+      <DependentUpon>UsuarioLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Organizacion\UsuarioLista.aspx.designer.cs">
+      <DependentUpon>UsuarioLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="perfil.aspx.cs">
       <DependentUpon>perfil.aspx</DependentUpon>
