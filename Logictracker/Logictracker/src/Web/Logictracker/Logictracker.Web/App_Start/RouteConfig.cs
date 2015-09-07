@@ -11,9 +11,9 @@ namespace Logictracker.Web
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            var settings = new FriendlyUrlSettings();
-            settings.AutoRedirectMode = RedirectMode.Permanent;
-            routes.EnableFriendlyUrls(settings);
+            //var settings = new FriendlyUrlSettings();
+            //settings.AutoRedirectMode = RedirectMode.Permanent;
+            //routes.EnableFriendlyUrls(settings);
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             
@@ -22,6 +22,8 @@ namespace Logictracker.Web
             
             //TODO: verificar que ignore los siguientes request ("c1gaugeimage.aspx" y "c1chartimage.aspx")
             //ya que son manejados por los handlers definidos en el web.config
+            //routes.IgnoreRoute("c1gaugeimage.aspx");
+            //routes.IgnoreRoute("{*c1gauge}", new { c1gauge = @"c1gaugeimage\.aspx" });
             routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
 
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
