@@ -27,8 +27,9 @@ namespace Logictracker.Tracker.Services
 
         void LogReportExecution(IReportStatus reportStatus);
         void SendHtmlReport(string report, DriversInfractionsReportCommand command, string reportName);
-        void SendEmptyReport(IReportCommand command, string reportName);
+        void SendEmptyReport(IReportCommand command, string reportName, bool isError);
         void SendReport(string reportExecution, string reporteDeEjecucion);
         void SendReport(Stream reportStream, IReportCommand command, string reportName);
+        void NotifyError(IReportCommand command, string message);
     }
 }

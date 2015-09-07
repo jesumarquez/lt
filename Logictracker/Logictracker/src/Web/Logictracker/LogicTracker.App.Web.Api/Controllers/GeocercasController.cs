@@ -61,14 +61,21 @@ namespace LogicTracker.App.Web.Api.Controllers
                         string radio = "50";
                         if (item.ReferenciaGeografica.Poligono != null)
                             radio = item.ReferenciaGeografica.Poligono.Radio.ToString();
+                        string calle = "";
+                        string altura = "";
+                        if (item.ReferenciaGeografica.Direccion != null)
+                        {
+                            calle = item.ReferenciaGeografica.Direccion.Calle;
+                            altura = item.ReferenciaGeografica.Direccion.Altura.ToString();
+                        }
                         items.Add(new Geocerca()
                         {
                             id = Convert.ToString(item.ReferenciaGeografica.Id),
                             latitude = item.ReferenciaGeografica.Latitude.ToString(),
                             radio = radio,
                             longitude = item.ReferenciaGeografica.Longitude.ToString(),
-                            calle = item.ReferenciaGeografica.Direccion.Calle,
-                            altura = item.ReferenciaGeografica.Direccion.Altura.ToString(),
+                            calle = calle,
+                            altura = altura,
                             idpuerta = item.Id.ToString()
                         });
                     }

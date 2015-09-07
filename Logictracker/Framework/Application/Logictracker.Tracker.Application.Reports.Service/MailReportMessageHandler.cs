@@ -13,7 +13,7 @@ namespace Logictracker.Tracker.Application.Reports
 
         public static IReportService ReportService { get; set; }
 
-        //handlers
+        #region Handlers
         public void HandleMessage(EventReportCommand command)
         {
             Logger.DebugFormat("Received message command of type {0} ", command.GetType());
@@ -34,6 +34,7 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
                 throw;
             }
             finally
@@ -62,6 +63,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -90,6 +93,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -118,6 +123,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -146,6 +153,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -174,6 +183,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -202,6 +213,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -230,6 +243,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -258,6 +273,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -286,6 +303,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -314,6 +333,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -342,6 +363,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
@@ -370,6 +393,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
         }
@@ -379,7 +404,10 @@ namespace Logictracker.Tracker.Application.Reports
             Logger.WarnFormat("Does not exist a report generator implementation for {0}", command.GetType());
         }
 
-        //processors
+        #endregion
+        
+        #region processors
+
         private void ProcessGenerateFinalExceutionReportCommand(FinalExecutionCommand command, ReportStatus statusReport)
         {
             var reportExecution = ReportService.GenerateFinalExcecutionReport(command, statusReport);
@@ -527,5 +555,6 @@ namespace Logictracker.Tracker.Application.Reports
             }
         }
 
+        #endregion
     }
 }

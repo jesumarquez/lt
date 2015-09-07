@@ -24,7 +24,7 @@ namespace Logictracker.Trax.v1
         #region IFoteable
 
         private String _fotaFolder;
-        
+
         private Object fotaFolder = new Object();
 
         public String FotaFolder
@@ -60,13 +60,13 @@ namespace Logictracker.Trax.v1
                             }
                             catch (Exception ex)
                             {
-                                STrace.Exception(typeof(Parser).FullName, ex,Id, String.Format("Error moving FOTA file from '{0}' to '{1}'", fileToMove, moveTo));                       
+                                STrace.Exception(typeof(Parser).FullName, ex, Id, String.Format("Error moving FOTA file from '{0}' to '{1}'", fileToMove, moveTo));
                             }
                         }
-                    }                    
+                    }
                 }
                 return _fotaFolder;
-            }            
+            }
         }
 
         public bool ReloadFirmware(ulong messageId)
@@ -88,7 +88,7 @@ namespace Logictracker.Trax.v1
         public bool ResetFMIOnGarmin(ulong messageId)
         {
             var config = new StringBuilder();
-            config.Append(GarminFmi.EncodeDataDeletionFor(DataDeletionProtocolId.DeleteFleetManagementInterfaceOnTheClient).ToTraxFM(this, false));                        
+            config.Append(GarminFmi.EncodeDataDeletionFor(DataDeletionProtocolId.DeleteFleetManagementInterfaceOnTheClient).ToTraxFM(this, false));
             GarminSetup(ref config, this);
             GetMessages(ref config, false);
             SendMessages(config.ToString(), messageId, MessagingDevice.Garmin);
@@ -101,7 +101,7 @@ namespace Logictracker.Trax.v1
             var config = new StringBuilder();
             config.Append(GetConfig(out dummyhash));
             config.AppendFormat("{0}{1}", ">SSR55AA<", Environment.NewLine); //Reseteo el equipo luego de enviarle la nueva configuracion
-            SendMessages(config.ToString(), messageId, null);            
+            SendMessages(config.ToString(), messageId, null);
             return true;
         }
 
@@ -112,7 +112,7 @@ namespace Logictracker.Trax.v1
             int len = (line.IndexOf('<', ini) - ini) + 1;
             if (len < 3) return false;
             return !line.Contains(Reporte.SetIdPrefix);
-        }        
+        }
 
         public INodeMessage LastSent { get; set; }
 
@@ -140,25 +140,25 @@ namespace Logictracker.Trax.v1
         }
 
         private void SendMessages(String config, ulong messageId, String md)
-		{
+        {
             if (string.IsNullOrEmpty(config))
                 return;
 
-			switch (md)
-			{
-				case MessagingDevice.Garmin:
-					Fota.EnqueueGarmin(this, messageId, config);
-			        break;
-				default:
-					Fota.Enqueue(this, messageId, config);
-			        break;
-			}                    
-/*            IMessage msg = null;
-            SendPendingFota(ref msg);
-            if (msg == null) return;
+            switch (md)
+            {
+                case MessagingDevice.Garmin:
+                    Fota.EnqueueGarmin(this, messageId, config);
+                    break;
+                default:
+                    Fota.Enqueue(this, messageId, config);
+                    break;
+            }
+            /*            IMessage msg = null;
+                        SendPendingFota(ref msg);
+                        if (msg == null) return;
 
-            STrace.Debug(typeof (Parser).FullName, Id, String.Format("Enviando: {0}", msg.GetPendingAsString()));
-            DataLinkLayer.SendMessage(Id, msg); */
+                        STrace.Debug(typeof (Parser).FullName, Id, String.Format("Enviando: {0}", msg.GetPendingAsString()));
+                        DataLinkLayer.SendMessage(Id, msg); */
         }
 
         #endregion
@@ -168,7 +168,7 @@ namespace Logictracker.Trax.v1
         private String GetFirm()
         {
             string[] fw =
-                Encoding.ASCII.GetString(DataProvider.GetFirmware(Id)).Split(new[] {"\r\n", "\n", Environment.NewLine},
+                Encoding.ASCII.GetString(DataProvider.GetFirmware(Id)).Split(new[] { "\r\n", "\n", Environment.NewLine },
                                                                              StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < fw.Length; i++)
@@ -234,7 +234,7 @@ namespace Logictracker.Trax.v1
                 switch (md)
                 {
                     case MessagingDevice.Garmin:
-                        List<Types.BusinessObjects.Messages.Mensaje> resp = DataProvider.GetResponsesMessagesTable(Id, 0);                                                
+                        List<Types.BusinessObjects.Messages.Mensaje> resp = DataProvider.GetResponsesMessagesTable(Id, 0);
                         if (deleteMessagesPreviously)
                             config.Append(GarminFmi.EncodeDataDeletionFor(DataDeletionProtocolId.DeleteAllCannedRepliesOnTheClient).ToTraxFM(this, false));
                         if (resp != null && resp.Any())
@@ -294,7 +294,7 @@ namespace Logictracker.Trax.v1
                 config.Insert(0, Fota.VirtualMessageFactory(MessageIdentifier.MessagesStart, 0));
                 config.Append(Fota.VirtualMessageFactory(MessageIdentifier.MessagesSuccess, 0));
             }
-            else config.AppendLine("No hay mensajes para Enviar");            
+            else config.AppendLine("No hay mensajes para Enviar");
         }
 
         private String GetConfig(out String hash)
@@ -316,7 +316,7 @@ namespace Logictracker.Trax.v1
                 IEnumerable<DetalleDispositivo> configParameters =
                     configParametersTable.Where(detalle => detalle.TipoParametro.Nombre.StartsWith("GTE_PARAM_"));
                 foreach (DetalleDispositivo s in configParameters)
-                {                    
+                {
                     config.Replace("$" + s.TipoParametro.Nombre, s.As("--- PARAMETRO SIN VALOR! ---"));
                 }
                 config.Replace("$known_qtree_revision",
@@ -341,7 +341,7 @@ namespace Logictracker.Trax.v1
             return conf;
         }
 
-        private bool CheckLastSentAndDequeueIt(String buffer, ulong msgId)
+        private bool CheckLastSentAndDequeueIt(String buffer, ulong msgId, ref IMessage salida)
         {
             var result = true;
             string LastCmd = LastSent.GetText(String.Empty);
@@ -350,7 +350,7 @@ namespace Logictracker.Trax.v1
             if (buffer.StartsWith(Reporte.SdLocked))
             {
                 _sdSession = false;
-                STrace.Debug(typeof (Parser).FullName, Id, "Sesion de escritura en sd BORRANDO_POR_LOCKED");
+                STrace.Debug(typeof(Parser).FullName, Id, "Sesion de escritura en sd BORRANDO_POR_LOCKED");
             }
             else if (buffer.StartsWith(Reporte.SdPassword))
             {
@@ -359,78 +359,80 @@ namespace Logictracker.Trax.v1
                 {
                     LastSent = null;
                     _sdSession = true;
-                    STrace.Debug(typeof (Parser).FullName, Id, "Sesion de escritura en sd ABIERTA");
+                    STrace.Debug(typeof(Parser).FullName, Id, "Sesion de escritura en sd ABIERTA");
                 }
                 else if (_sdSession)
                 {
-                    STrace.Debug(typeof (Parser).FullName, Id, "Sesion de escritura en sd NO_MANEJADO");
+                    STrace.Debug(typeof(Parser).FullName, Id, "Sesion de escritura en sd NO_MANEJADO");
                 }
                 else if (LastId == msgId)
                 {
                     ulong mid = NextSequence;
+
+                    
                     LastSent = new INodeMessage(mid,
                                                 Mensaje.Factory(mid, this,
                                                                 String.Format("{0}{1}",
                                                                               Reporte.StartGgWriteSession.TrimStart('>'),
                                                                               buffer.Substring(8, 8))),
-                                                DateTime.MinValue) { IsOnTheFly = true };
-                    STrace.Debug(typeof (Parser).FullName, Id, "Sesion de escritura en sd ABRIENDO");
+            
+                                    DateTime.MinValue) { IsOnTheFly = true };
+
+                    salida.AddStringToSend(LastSent.Text);
+
+                    STrace.Debug(typeof(Parser).FullName, Id, "Sesion de escritura en sd ABRIENDO");
                 }
                 else
                 {
-                    STrace.Debug(typeof (Parser).FullName, Id,
+                    STrace.Debug(typeof(Parser).FullName, Id,
                                  String.Format("Sesion de escritura en sd NADA (LastSent.GetId()={0} msgId={1})",
                                                LastSent.GetId(), msgId));
                 }
+            }else
+
+            if (LastSent != null)
+            {
+                if (LastSent.IsExpired())
+                {
+                    LastSent = null;
+                }
+                else
+                {
+                    var lastDC = BaseDeviceCommand.createFrom(LastCmd, this, null);
+                    var respStatus = lastDC.isExpectedResponse(BaseDeviceCommand.createFrom(buffer, this, null));
+                    switch (respStatus)
+                    {
+                        case DeviceCommandResponseStatus.Valid:
+                            result = true;
+                            Fota.Dequeue(this, lastDC.MessageId ?? null);
+                            break;
+                        case DeviceCommandResponseStatus.Invalid:
+                            result = false;
+                            break;
+                        case DeviceCommandResponseStatus.Exception:
+                            Fota.RollbackLastTransaction(this, lastDC.MessageId ?? null);
+                            result = false;
+                            break;
+                    }
+                }
             }
-            else if (LastSent != null) {
-                    if (LastSent.IsExpired())
-                    {
-                        LastSent = null;
-                    }
-                    else
-                    {
-                        var lastDC = BaseDeviceCommand.createFrom(LastCmd, this, null);
-                        var respStatus = lastDC.isExpectedResponse(BaseDeviceCommand.createFrom(buffer, this, null));
-                        switch (respStatus)
-                        {
-                            case DeviceCommandResponseStatus.Valid:
-                                result = true;
-                                Fota.Dequeue(this, lastDC.MessageId ?? null);
-                                break;
-                            case DeviceCommandResponseStatus.Invalid:
-                                result = false;
-                                break;
-                            case DeviceCommandResponseStatus.Exception:
-                                Fota.RollbackLastTransaction(this, lastDC.MessageId ?? null);
-                                result = false;
-                                break;
-                        }
-                    }
-                } 
             return result;
         }
 
         // TODO: unificar GTEDeviceCommand e INodeMessage si se puede
         private void SendPendingFota(ref IMessage msg)
         {
-            var t = new TimeElapsed();
             string pending = Fota.Peek(this);
-            if (t.getTimeElapsed().TotalSeconds > 1)  STrace.Debug("ParserLock", Id, String.Format("Peek ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
 
             if (String.IsNullOrEmpty(pending)) return;
-            t.Restart();
             if (CheckImageSession(pending)) return;
-            if (t.getTimeElapsed().TotalSeconds > 1)  STrace.Debug("ParserLock", Id, String.Format("CheckImageSession ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
 
             //procesar primero el pendiente
-            t.Restart();
             pending = CheckConditionsBeforeSendPending(pending);
-            if (t.getTimeElapsed().TotalSeconds > 1)  STrace.Debug("ParserLock", Id, String.Format("CheckConditionsBeforeSendPending ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
 
             if (String.IsNullOrEmpty(pending)) return;
 
-            #region SendPending            
+            #region SendPending
 
             var gteDC = BaseDeviceCommand.createFrom(pending, this, null);
             pending = gteDC.ToString(true);
@@ -439,7 +441,7 @@ namespace Logictracker.Trax.v1
             msg.AddStringToPostSend(pending);
 
             if (LastSent == null || LastSent.GetText(null) != pending)
-                LastSent = new INodeMessage((ulong) Id, pending, DateTime.UtcNow);
+                LastSent = new INodeMessage((ulong)Id, pending, DateTime.UtcNow);
 
             #endregion SendPending
         }
@@ -448,9 +450,7 @@ namespace Logictracker.Trax.v1
         {
             if (!LastSent.IsOnTheFly())
             {
-                var t = new TimeElapsed();
                 string md = GetMessagingDevice();
-                if (t.getTimeElapsed().TotalSeconds > 1)  STrace.Debug("ParserLock", Id, String.Format("GetMessagingDevice ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
                 if (md == MessagingDevice.Garmin && BaseDeviceCommand.createFrom(pending, this, null).isGarminMessage())
                 {
                     if (IsGarminConnected == null || !IsGarminConnected.Value)
@@ -471,10 +471,10 @@ namespace Logictracker.Trax.v1
                         !_sdSession)
                     {
                         //si quiero escribir en la sd tengo que abrir sesion antes, y antes tengo que pedir la password para abrir sesion
-                        STrace.Debug(typeof (Parser).FullName, Id, "Sesion de escritura en sd QUERING");
+                        STrace.Debug(typeof(Parser).FullName, Id, "Sesion de escritura en sd QUERING");
                         mid = NextSequence;
                         pending = Mensaje.Factory(mid, this, Reporte.QuerySdSessionPassword.TrimStart('>'));
-                        LastSent = new INodeMessage(mid, pending, DateTime.UtcNow) {IsOnTheFly = true};                        
+                        LastSent = new INodeMessage(mid, pending, DateTime.UtcNow) { IsOnTheFly = true };
                     }
                 }
             }
