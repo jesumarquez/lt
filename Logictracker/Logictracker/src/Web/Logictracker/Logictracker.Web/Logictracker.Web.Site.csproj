@@ -824,6 +824,25 @@
     <Content Include="images\vehicle_inactive.png" />
     <Content Include="images\vehicle_in_manteinance.png" />
     <Content Include="images\Yellow-Ball-icon.png" />
+    <Content Include="Mantenimiento\ConsumoAlta.aspx" />
+    <Content Include="Mantenimiento\ConsumoImport.aspx" />
+    <Content Include="Mantenimiento\ConsumosLista.aspx" />
+    <Content Include="Mantenimiento\DepositoAlta.aspx" />
+    <Content Include="Mantenimiento\DepositoLista.aspx" />
+    <Content Include="Mantenimiento\InsumoAlta.aspx" />
+    <Content Include="Mantenimiento\InsumoLista.aspx" />
+    <Content Include="Mantenimiento\ProveedorAlta.aspx" />
+    <Content Include="Mantenimiento\ProveedorLista.aspx" />
+    <Content Include="Mantenimiento\StockInsumoAlta.aspx" />
+    <Content Include="Mantenimiento\StockInsumoLista.aspx" />
+    <Content Include="Mantenimiento\StockLista.aspx" />
+    <Content Include="Mantenimiento\TicketMantenimientoAlta.aspx" />
+    <Content Include="Mantenimiento\TicketMantenimientoImport.aspx" />
+    <Content Include="Mantenimiento\TicketMantenimientoLista.aspx" />
+    <Content Include="Mantenimiento\TipoInsumoAlta.aspx" />
+    <Content Include="Mantenimiento\TipoInsumoLista.aspx" />
+    <Content Include="Mantenimiento\TipoProveedorAlta.aspx" />
+    <Content Include="Mantenimiento\TipoProveedorLista.aspx" />
     <Content Include="Monitor\MonitorDeCalidad\Logictracker.Monitor.Calidad.js" />
     <Content Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx" />
     <Content Include="Monitor\MonitorDeEntidades\InfoEntidad.aspx" />
@@ -1701,6 +1720,139 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\ConsumoAlta.aspx.cs">
+      <DependentUpon>ConsumoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\ConsumoAlta.aspx.designer.cs">
+      <DependentUpon>ConsumoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\ConsumoImport.aspx.cs">
+      <DependentUpon>ConsumoImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\ConsumoImport.aspx.designer.cs">
+      <DependentUpon>ConsumoImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\ConsumosLista.aspx.cs">
+      <DependentUpon>ConsumosLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\ConsumosLista.aspx.designer.cs">
+      <DependentUpon>ConsumosLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\DepositoAlta.aspx.cs">
+      <DependentUpon>DepositoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\DepositoAlta.aspx.designer.cs">
+      <DependentUpon>DepositoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\DepositoLista.aspx.cs">
+      <DependentUpon>DepositoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\DepositoLista.aspx.designer.cs">
+      <DependentUpon>DepositoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\InsumoAlta.aspx.cs">
+      <DependentUpon>InsumoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\InsumoAlta.aspx.designer.cs">
+      <DependentUpon>InsumoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\InsumoLista.aspx.cs">
+      <DependentUpon>InsumoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\InsumoLista.aspx.designer.cs">
+      <DependentUpon>InsumoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\ProveedorAlta.aspx.cs">
+      <DependentUpon>ProveedorAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\ProveedorAlta.aspx.designer.cs">
+      <DependentUpon>ProveedorAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\ProveedorLista.aspx.cs">
+      <DependentUpon>ProveedorLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\ProveedorLista.aspx.designer.cs">
+      <DependentUpon>ProveedorLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\StockInsumoAlta.aspx.cs">
+      <DependentUpon>StockInsumoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\StockInsumoAlta.aspx.designer.cs">
+      <DependentUpon>StockInsumoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\StockInsumoLista.aspx.cs">
+      <DependentUpon>StockInsumoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\StockInsumoLista.aspx.designer.cs">
+      <DependentUpon>StockInsumoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\StockLista.aspx.cs">
+      <DependentUpon>StockLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\StockLista.aspx.designer.cs">
+      <DependentUpon>StockLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\TicketMantenimientoAlta.aspx.cs">
+      <DependentUpon>TicketMantenimientoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\TicketMantenimientoAlta.aspx.designer.cs">
+      <DependentUpon>TicketMantenimientoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\TicketMantenimientoImport.aspx.cs">
+      <DependentUpon>TicketMantenimientoImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\TicketMantenimientoImport.aspx.designer.cs">
+      <DependentUpon>TicketMantenimientoImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\TicketMantenimientoLista.aspx.cs">
+      <DependentUpon>TicketMantenimientoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\TicketMantenimientoLista.aspx.designer.cs">
+      <DependentUpon>TicketMantenimientoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoInsumoAlta.aspx.cs">
+      <DependentUpon>TipoInsumoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoInsumoAlta.aspx.designer.cs">
+      <DependentUpon>TipoInsumoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoInsumoLista.aspx.cs">
+      <DependentUpon>TipoInsumoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoInsumoLista.aspx.designer.cs">
+      <DependentUpon>TipoInsumoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoProveedorAlta.aspx.cs">
+      <DependentUpon>TipoProveedorAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoProveedorAlta.aspx.designer.cs">
+      <DependentUpon>TipoProveedorAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoProveedorLista.aspx.cs">
+      <DependentUpon>TipoProveedorLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mantenimiento\TipoProveedorLista.aspx.designer.cs">
+      <DependentUpon>TipoProveedorLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPages\AbmPage.master.cs">
       <DependentUpon>AbmPage.master</DependentUpon>
