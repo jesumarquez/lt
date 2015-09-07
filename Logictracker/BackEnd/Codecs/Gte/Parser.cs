@@ -766,27 +766,17 @@ namespace Logictracker.Trax.v1
                         salida.AddStringToSend(replyStr);
                     }
 
-                    if (t.getTimeElapsed().TotalSeconds > 1)
-                        STrace.Debug("ParserLock", Id, String.Format("Ack ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
-
+                    
                     #endregion Ack received GTE message if necessary
                 }
 
                 if (tipoReporte != Reporte.SinIMEI)
                 {
-                    t.Restart();
-
                     var sendPending = true;
                     if (!buffer.Contains(Reporte.Error))
-                        sendPending = CheckLastSentAndDequeueIt(buffer, msgId);
-
-                    if (t.getTimeElapsed().TotalSeconds > 1)
-                        STrace.Debug("ParserLock", Id, String.Format("Dequeue ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
-                    t.Restart();
+                        sendPending = CheckLastSentAndDequeueIt(buffer, msgId , ref salida);
                     if (sendPending && LastSent == null) //&& !(new String[] {Reporte.IdReq}.Any(r=> tipoReporte == r)))
                         SendPendingFota(ref salida);
-                    if (t.getTimeElapsed().TotalSeconds > 1)
-                        STrace.Debug("ParserLock", Id, String.Format("Send Fota ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
                 }
             }
             return salida;
