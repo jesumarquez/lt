@@ -43,6 +43,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual ResourceButton BtScheduleGuardar { get { return MasterPage.btScheduleGuardar; } }
         protected virtual ModalPopupExtender ModalSchedule { get { return MasterPage.modalSchedule; } }
         protected virtual RadioButton RadioButtonExcel { get { return MasterPage.RadioButtonExcel; } }
+        protected virtual RadioButton RadioBtnHtmlSendReport { get { return MasterPage.RadioBtnHtmlSendReport; } }
+        protected virtual RadioButton RadioBtnExcelSendReport { get { return MasterPage.RadioBtnExcelSendReport; } }
         protected virtual RadioButton RadioButtonHtml { get { return MasterPage.RadioButtonHtml; } }
 
         protected virtual TextBox SendReportTextBoxEmail { get { return MasterPage.SendReportTextBoxEmail; } }
@@ -348,9 +350,6 @@ namespace Logictracker.Web.BaseClasses.BasePages
             SendConfirmationMail(reporte, prog.Description);
         }
 
-
-
-
         private string GetReportType()
         {
             switch (Page.ToString())
@@ -396,6 +395,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         protected override void SendReportToMail()
         {
+            if (ProgramacionReporte.Reportes.InfraccionesConductor.Equals(GetReportType()))
+                RadioBtnHtmlSendReport.Visible = true;
+
             SendReportModalPopupExtender.Show();
         }
 
@@ -430,7 +432,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         InitialDate = GetSinceDateTime(),
                         MessagesId = GetMessageTypeList(),
                         VehiclesId = GetVehicleList(),
-                        ReportName = "Reporte de Eventos " + DateTime.Now.ToShortDateString()
+                        ReportName = "Eventos " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case "VehicleActivityReport":
                     return new VehicleActivityReportCommand
@@ -441,7 +443,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         VehiclesId = GetVehicleList(),
-                        ReportName = "Reporte de Actividad de Vehiculos " + DateTime.Now.ToShortDateString()
+                        ReportName = "Actividad de Vehiculos " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case "VehicleInfractionsReport":
                     return new VehicleInfractionsReportCommand
@@ -452,7 +454,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         VehiclesId = GetVehicleList(),
-                        ReportName = "Reporte de Eventos por Vehiculo " + DateTime.Now.ToShortDateString()
+                        ReportName = "Eventos por Vehiculo " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case "DriversInfractionsReport":
                     return new DriversInfractionsReportCommand
@@ -463,7 +465,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         DriversId = GetDriverList(),
-                        ReportName = "Reporte de Infracciones de Conductores " + DateTime.Now.ToShortDateString()
+                        ReportFormat = RadioBtnExcelSendReport.Checked ? ProgramacionReporte.FormatoReporte.Excel : ProgramacionReporte.FormatoReporte.Html,
+                        ReportName = "Infracciones de Conductores " + GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case "GeofenceEventsReport":
                     return new GeofenceEventsReportCommand
@@ -475,7 +478,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         InitialDate = GetSinceDateTime(),
                         VehiclesId = GetVehicleList(),
                         Geofences = GetGeofencesList(),
-                        ReportName = "Reporte de Eventos de Geocercas " + DateTime.Now.ToShortDateString()
+                        ReportName = "Eventos de Geocercas " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case "DocumentsExpirationReport":
                     return new DocumentsExpirationReportCommand
@@ -486,7 +489,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         Documents = GetDocumentsList(),
-                        ReportName = "Reporte Vencimiento Documentos " + DateTime.Now.ToShortDateString()
+                        ReportName = "Vencimiento Documentos " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case "OdometersReport":
                     return new OdometersReportCommand
@@ -498,7 +501,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         InitialDate = GetSinceDateTime(),
                         Odometers = GetOdometersList(),
                         VehiclesId = GetVehicleList(),
-                        ReportName = "Reporte de Odometros " + DateTime.Now.ToShortDateString()
+                        ReportName = "Odometros " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.EstadoEntregas:
                     return new DeliverStatusReportCommand
@@ -509,7 +512,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         VehiclesId = GetVehicleList(),
-                        ReportName = "Reporte de Estado de Entregas " + DateTime.Now.ToShortDateString()
+                        ReportName = "Estado de Entregas " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.TrasladosViaje:
                     return new TransfersPerTripReportCommand
@@ -520,7 +523,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         VehiclesId = GetVehicleList(),
-                        ReportName = "Reporte de Traslados por Viaje " + DateTime.Now.ToShortDateString()
+                        ReportName = "Traslados por Viaje " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.ResumenRutas:
                     return new SummaryRoutesReportCommand
@@ -531,7 +534,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         FinalDate = GetToDateTime(),
                         InitialDate = GetSinceDateTime(),
                         VehiclesId = GetVehicleList(),
-                        ReportName = "Reporte de Resumen de Rutas " + DateTime.Now.ToShortDateString()
+                        ReportName = "Resumen de Rutas " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
 
                 default:
@@ -556,7 +559,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual List<int> GetVehicleList() { return new List<int>(); }
         protected virtual List<int> GetDriverList() { return new List<int>(); }
         protected virtual List<int> GetGeofencesList() { return new List<int>(); }
-        protected virtual IList<int> GetMessageTypeList() { return new List<int>(); }
+        protected virtual List<int> GetMessageTypeList() { return new List<int>(); }
         protected virtual List<int> GetOdometersList() { return new List<int>(); }
         protected virtual List<int> GetDocumentsList() { return new List<int>(); }
     }

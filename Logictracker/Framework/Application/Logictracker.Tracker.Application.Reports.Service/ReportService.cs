@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using log4net;
-using Logictracker.DAL.DAO.BaseClasses;
+using Logictracker.Configuration;
 using Logictracker.DAL.Factories;
+using Logictracker.Mailing;
 using Logictracker.Reports.Messaging;
 using Logictracker.Security;
 using Logictracker.Tracker.Services;
@@ -14,6 +16,7 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ReportObjects;
 using Logictracker.Types.ReportObjects.Datamart;
+using Logictracker.Types.ReportObjects.RankingDeOperadores;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico;
 using Logictracker.Utils;
@@ -76,8 +79,11 @@ namespace Logictracker.Tracker.Application.Reports
                 1);
             reportStatus.RowCount = results.Count;
 
-            if(results.Count>0)
+            if (results.Count > 0)
+            {
                 return DailyEventReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
+                    
+            }
 
             return null;
         }
@@ -108,56 +114,6 @@ namespace Logictracker.Tracker.Application.Reports
             }
         }
 
-        public void SendReport(Stream reportStream, IReportCommand command, string report)
-        {
-            var subject = report + " Logictracker";
-            var body =
-                string.Format("Usted ha solicitado un {0} a través de la plataforma Logictracker. Se ha adjuntado un archivo de Excel.", report);
-            body += "\n\n Este mensaje se ha generado automaticamente, No responda este correo.";
-
-            var filename = "Reporte Logictracker " + DateTime.Now.ToString("G") + ".xls";
-            if (report != null)
-            filename = report.Trim() + " " + command.InitialDate.ToString("yyyy-MM-dd") + " a " + command.FinalDate.ToString("yyyy-MM-dd") + ".xls";
-
-            var emailList = ValidateAddress(command.Email);
-
-            Notifier.SmtpMail(MailFrom, emailList, subject, body, reportStream, filename,SmtpPort, SmtpAddress, Passwd);
-        }
-
-        private static List<string> ValidateAddress(string email)
-        {
-            var emailAddresses = email.Replace(',', ';').Split(';');
-
-            var emails = new List<string>();
-            foreach (string emailAddress in emailAddresses)
-            {
-                if (IsValidEmail(emailAddress.Trim()))
-                    emails.Add(emailAddress.Trim());
-                else
-                    Logger.WarnFormat("Direccion de Correo Invalida: {0}", emailAddress);
-            }
-            return emails;
-        }
-
-        public static bool IsValidEmail(string strIn)
-        {
-            // Return true if strIn is in valid e-mail format.
-            return Regex.IsMatch(strIn,
-                    @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))" +
-                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
-        }
-
-        public void SendReport(string reportExecution, string reporteDeEjecucion)
-        {
-            var subject = "Reporte de ejecucion de Reportes Programados";
-            var body = reportExecution;
-
-            var emailList = ValidateAddress(SupportMail);
-
-            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd);            
-       
-        }
-
         public string GenerateFinalExcecutionReport(FinalExecutionCommand command, ReportStatus statusReport)
         {
             var execReport = new StringBuilder();
@@ -180,20 +136,19 @@ namespace Logictracker.Tracker.Application.Reports
             return execReport.ToString();
         }
 
-        public Stream GenerateAccumulatedKilometersReport(AccumulatedKilometersReportCommand reportGenerationCommand, ReportStatus reportStatus)
+        public Stream GenerateAccumulatedKilometersReport(AccumulatedKilometersReportCommand command, ReportStatus reportStatus)
         {
-            var command = reportGenerationCommand;
-
-            if (reportGenerationCommand.ReportId != 0)
-                reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(reportGenerationCommand.ReportId);
-
+            var results = ReportFactory.MobilesKilometersDAO.GetMobilesKilometers(command.InitialDate, command.FinalDate, command.VehiclesId, true);
+            reportStatus.RowCount = results.Count;
+            
+            if (results.Count < 1) return null;
+            
             var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
             var baseName = command.BaseId == 0 ? "Todos" : "Ninguno";
 
-            var results = ReportFactory.MobilesKilometersDAO.GetMobilesKilometers(command.InitialDate, command.FinalDate, command.VehiclesId, true);
+            if (command.ReportId != 0)
+                reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(command.ReportId);
             
-            reportStatus.RowCount = results.Count;
-
             return AccumulatedKilometersReportGenerator.GenerateReport(results, customer, command.InitialDate.ToLocalTime(), command.FinalDate.ToLocalTime(), baseName);
         }
 
@@ -374,77 +329,42 @@ namespace Logictracker.Tracker.Application.Reports
 
         public Stream GenerateDeliverStatusReport(DeliverStatusReportCommand cmd, ReportStatus reportStatus)
         {
-            if (cmd.ReportId != 0)
-                reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
             if (cmd.CustomerId == 0) return null;
-
-            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
-            var baseName = "Todos";
 
             var results = new List<ReporteDistribucionVo>();
 
-            //if (ddlRuta.Selected > 0)
-            //{
-            //    var dms = DAOFactory.DatamartDistribucionDAO.GetRecords(ddlRuta.Selected);
-            //    foreach (var dm in dms)
-            //    {
-            //        results.Add(new ReporteDistribucionVo(dm, chkVerConfirmacion.Checked));
-            //    }
+            var desde = cmd.InitialDate.ToDataBaseDateTime();
+            var hasta = cmd.FinalDate.ToDataBaseDateTime();
 
-            //    return results;
-            //}
+            var estados = (IEnumerable<int>)EntregaDistribucion.Estados.TodosEstados;
 
-            //if (QueryExtensions.IncludesAll(ddlVehiculo.SelectedValues))
-            //    ddlVehiculo.ToogleItems();
-            //if (ddlEstados.SelectedStringValues.Count == 0)
-            //    ddlEstados.ToogleItems();
+            var sql = DaoFactory.DatamartDistribucionDAO.GetReporteDistribucion(cmd.CustomerId, -1, cmd.VehiclesId,
+                0,  estados, desde, hasta);
 
-            //var desde = dpDesde.SelectedDate.Value.ToDataBaseDateTime();
-            //var hasta = dpHasta.SelectedDate.Value.ToDataBaseDateTime();
-            var sql = DaoFactory.DatamartDistribucionDAO.GetReporteDistribucion(cmd.CustomerId,
-                                                                                   0,
-                                                                                   cmd.VehiclesId,
-                                                                                   0,
-                                                                                   new List<int> { -1 },
-                                                                                   cmd.InitialDate,
-                                                                                   cmd.FinalDate);
+            sql.SetResultTransformer(Transformers.AliasToBean(typeof (ReporteDistribucionVo)));
 
-            sql.SetResultTransformer(Transformers.AliasToBean(typeof(ReporteDistribucionVo)));
             var report = sql.List<ReporteDistribucionVo>();
             results = report.Select(r => new ReporteDistribucionVo(r)).ToList();
 
-            if (cmd.FinalDate > DateTime.Today.ToDataBaseDateTime())
+            if (hasta > DateTime.Today.ToDataBaseDateTime())
             {
-                var viajesDeHoy = DaoFactory.ViajeDistribucionDAO.GetList( new[] { cmd.CustomerId },
-                                                                          new[] { -1 },
-                                                                          new[] { -1 },
-                                                                          new[] { -1 }, // DEPARTAMENTOS
-                                                                          new[] { -1 }, // CENTROS DE COSTO
-                                                                          new[] { -1 }, // SUB CENTROS DE COSTO
-                                                                          cmd.VehiclesId,
-                                                                          new[] { -1 }, // EMPLEADOS
-                                                                          new[] { -1 }, // ESTADOS
-                                                                          DateTime.Today.ToDataBaseDateTime(),
-                                                                          cmd.FinalDate);
+                var viajesDeHoy = DaoFactory.ViajeDistribucionDAO.GetList(new[] {cmd.CustomerId},
+                    new[] {-1},
+                    new[] {-1},
+                    new[] {-1}, // DEPARTAMENTOS
+                    new[] {-1}, // CENTROS DE COSTO
+                    new[] {-1}, // SUB CENTROS DE COSTO
+                    cmd.VehiclesId,
+                    new[] {-1}, // EMPLEADOS
+                    new[] {-1}, // ESTADOS
+                    DateTime.Today.ToDataBaseDateTime(),
+                    cmd.FinalDate);
 
                 foreach (var viaje in viajesDeHoy)
                 {
                     EntregaDistribucion anterior = null;
 
-                    //var estados = ddlEstados.SelectedValues;
-                    var detalles = viaje.Detalles;
-
-                    //if (chkVerOrdenManual.Checked)
-                        //detalles = viaje.GetEntregasPorOrdenManual();
-                    //else 
-                    if (viaje.Tipo == ViajeDistribucion.Tipos.Desordenado)
-                        detalles = viaje.GetEntregasPorOrdenReal();
-
-                    //detalles = detalles.Where(e => ddlPuntoEntrega.Selected == 0 ||
-                    //                               (e.PuntoEntrega != null && e.PuntoEntrega.Id == ddlPuntoEntrega.Selected))
-                    //                   .Where(e => estados.Contains(e.Estado))
-                    //                   .ToList();
+                    var detalles = viaje.GetEntregasPorOrdenManual();
 
                     var orden = 0;
                     foreach (var entrega in detalles)
@@ -452,31 +372,36 @@ namespace Logictracker.Tracker.Application.Reports
                         var kms = 0.0;
 
                         if (anterior != null && !entrega.Estado.Equals(EntregaDistribucion.Estados.Cancelado)
-                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
-                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar)
-                         && entrega.Viaje.Vehiculo != null
-                         && anterior.FechaMin < entrega.FechaMin
-                         && entrega.FechaMin < DateTime.MaxValue)
-                            kms = DaoFactory.CocheDAO.GetDistance(entrega.Viaje.Vehiculo.Id, anterior.FechaMin, entrega.FechaMin);
+                            && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
+                            && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar)
+                            && entrega.Viaje.Vehiculo != null
+                            && anterior.FechaMin < entrega.FechaMin
+                            && entrega.FechaMin < DateTime.MaxValue)
+                            kms = DaoFactory.CocheDAO.GetDistance(entrega.Viaje.Vehiculo.Id, anterior.FechaMin,
+                                entrega.FechaMin);
 
-                        results.Add(new ReporteDistribucionVo(entrega, anterior, orden, kms, false));
+                        results.Add(new ReporteDistribucionVo(entrega, anterior, orden, kms, true));
                         orden++;
                         if (!entrega.Estado.Equals(EntregaDistribucion.Estados.Cancelado)
-                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
-                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar))
+                            && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
+                            && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar))
                             anterior = entrega;
                     }
                 }
             }
 
+            if (cmd.ReportId != 0)
+                reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
 
-            ////
-            //var results = ReportFactory.OdometroStatusDAO.FindByVehiculosAndOdometros(cmd.VehiclesId, cmd.Odometers, false);
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            var baseName = "Todos";
 
-            reportStatus.RowCount = 0;
+            reportStatus.RowCount = results.Count;
 
-            return DeliverStatusReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
-        
+            return reportStatus.RowCount > 0
+                ? DeliverStatusReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(),
+                    cmd.FinalDate.ToLocalTime(), baseName)
+                : null;
         }
 
         public Stream GenerateSummaryRoutesReport(SummaryRoutesReportCommand cmd, ReportStatus reportStatus)
@@ -521,7 +446,118 @@ namespace Logictracker.Tracker.Application.Reports
 
             var emailList = ValidateAddress(command.Email);
 
-            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd);
+            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
+        }
+
+        public string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand cmd, ReportStatus status)
+        {
+            if (cmd.CustomerId == 0) return null;
+            
+            var desde = cmd.InitialDate.ToDataBaseDateTime();
+            var hasta = cmd.FinalDate.ToDataBaseDateTime();
+            var empresas = new[] { cmd.CustomerId };
+            var lineas = new[] { cmd.BaseId };
+            var transportadores = new int[] { };
+
+            var resultsDt = ReportFactory.InfractionDetailDAO.GetInfractionsSummary(empresas, lineas, transportadores, 
+                cmd.DriversId, desde, hasta);
+
+            if (cmd.ReportId != 0)
+                status.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
+            
+            status.RowCount = resultsDt.Rows.Count;
+
+            return status.RowCount > 0 ? ConvertToString(resultsDt) : null;
+        }
+        
+        private string ConvertToString(DataTable dtInfractions)
+        {
+            var report = new StringBuilder(@"
+                <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
+                <tr><td colspan='5' style='background-color:#3A81B1;'><img src='http://web.logictracker.com/App_Themes/Marinero/img/logo-logic-azul.png' /></td>
+                </tr><tr style='background-color:#e7e7e7;'>
+                <td style='padding: 10px;'><b>Conductor</b></td>
+                <td style='padding: 10px;'><b>Vehiculo</b></td>
+                <td style='padding: 10px;'><b>Graves</b></td>
+                <td style='padding: 10px;'><b>Medias</b></td>
+                <td style='padding: 10px;'><b>Leves</b></td>
+                </tr>");
+            
+            var index = 0;
+            foreach (DataRow infractionRow in dtInfractions.Rows)
+            {
+                report.AppendFormat(index%2 == 0 ? "<tr>":"<tr style='background-color:#e7e7e7;'>");
+
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(1));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(2));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(3));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(4));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(5));
+                report.Append("</tr>");
+                index++;
+            }
+            report.Append("</table>");
+            return report.ToString();
+        }    
+
+        public void SendHtmlReport(string reportString, DriversInfractionsReportCommand command, string report)
+        {
+            var subject = report + " Logictracker";
+            var body = reportString;
+
+            var emailList = ValidateAddress(command.Email);
+
+            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, true);
+        }
+
+        public void SendReport(Stream reportStream, IReportCommand command, string report)
+        {
+            var subject = report + " Logictracker";
+            var body =
+                string.Format("Usted ha solicitado un {0} a través de la plataforma Logictracker. Se ha adjuntado un archivo de Excel.", report);
+            body += "\n\n Este mensaje se ha generado automaticamente, No responda este correo.";
+
+            var filename = "Reporte Logictracker " + DateTime.Now.ToString("G") + ".xls";
+            if (report != null)
+                filename = report.Trim() + " " + command.InitialDate.ToString("yyyy-MM-dd") + " a " + command.FinalDate.ToString("yyyy-MM-dd") + ".xls";
+
+            var emailList = ValidateAddress(command.Email);
+
+            Notifier.SmtpMail(MailFrom, emailList, subject, body, reportStream, filename, SmtpPort, SmtpAddress, Passwd, false);
+        }
+
+        public void SendReport(string reportExecution, string reporteDeEjecucion)
+        {
+            var subject = "Reporte de ejecucion de Reportes Programados";
+            var body = reportExecution;
+
+            var emailList = ValidateAddress(SupportMail);
+
+            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
+
+        }
+
+        private static List<string> ValidateAddress(string email)
+        {
+            var emailAddresses = email.Replace(',', ';').Split(';');
+
+            var emails = new List<string>();
+            foreach (string emailAddress in emailAddresses)
+            {
+                if (IsValidEmail(emailAddress.Trim()))
+                    emails.Add(emailAddress.Trim());
+                else
+                    Logger.WarnFormat("Direccion de Correo Invalida: {0}", emailAddress);
+            }
+            return emails;
+        }
+
+        public static bool IsValidEmail(string strIn)
+        {
+            // Return true if strIn is in valid e-mail format.
+            return Regex.IsMatch(strIn,
+                    @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))" +
+                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
         }
     }
 }

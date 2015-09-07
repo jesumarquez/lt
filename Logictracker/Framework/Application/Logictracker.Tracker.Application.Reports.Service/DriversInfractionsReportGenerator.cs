@@ -6,13 +6,14 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ReportObjects.RankingDeOperadores;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
 using NPOI.Util;
 
 namespace Logictracker.Tracker.Application.Reports
 {
     public class DriversInfractionsReportGenerator 
     {
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.DriversInfractionsReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.DriversInfractionsReport.xls";
         private const string DataSheet1 = "Informe";
         //private const string DataSheet2 = "Datos";
 
@@ -69,7 +70,8 @@ namespace Logictracker.Tracker.Application.Reports
                     row.CreateCell(Vehiculo).SetCellValue(inf.Vehiculo);
                     //row.CreateCell(Esquina).SetCellValue(inf.CornerNearest);
                     row.CreateCell(Inicio).SetCellValue(inf.Inicio);
-                    row.CreateCell(Duracion).SetCellValue(inf.Duracion.Seconds);
+                    row.CreateCell(Duracion).SetCellType(CellType.Formula);
+                    row.CreateCell(Duracion).SetCellValue(inf.Duracion.ToString(@"hh\:mm\:ss"));
                     row.CreateCell(Pico).SetCellValue(inf.Pico);
                     row.CreateCell(Exceso).SetCellValue(inf.Exceso);
                     row.CreateCell(Ponderacion).SetCellValue(inf.Ponderacion);

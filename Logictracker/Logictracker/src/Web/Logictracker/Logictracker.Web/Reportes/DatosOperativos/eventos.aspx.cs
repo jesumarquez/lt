@@ -291,41 +291,41 @@ namespace Logictracker.Reportes.DatosOperativos
                        };
         }
 
-        protected override Dictionary<string, string> GetFilterValuesProgramados()
-        {
-            var dic = new Dictionary<string, string>();
-            var sVehiculos = new StringBuilder();
-            var sMensajes = new StringBuilder();
-            var sChoferes = new StringBuilder();
+        //protected override Dictionary<string, string> GetFilterValuesProgramados()
+        //{
+        //    var dic = new Dictionary<string, string>();
+        //    var sVehiculos = new StringBuilder();
+        //    var sMensajes = new StringBuilder();
+        //    var sChoferes = new StringBuilder();
 
-            foreach (var vehiculo in lbCamiones.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
+        //    foreach (var vehiculo in lbCamiones.SelectedValues)
+        //    {
+        //        if (!sVehiculos.ToString().Equals(""))
+        //            sVehiculos.Append(",");
 
-                sVehiculos.Append(vehiculo.ToString("#0"));
-            }
-            foreach (var mensaje in lbMensajes.SelectedValues)
-            {
-                if (!sMensajes.ToString().Equals(""))
-                    sMensajes.Append(",");
+        //        sVehiculos.Append(vehiculo.ToString("#0"));
+        //    }
+        //    foreach (var mensaje in lbMensajes.SelectedValues)
+        //    {
+        //        if (!sMensajes.ToString().Equals(""))
+        //            sMensajes.Append(",");
 
-                sMensajes.Append(mensaje.ToString("#0"));
-            }
-            foreach (var chofer in lbChoferes.SelectedValues)
-            {
-                if (!sChoferes.ToString().Equals(""))
-                    sChoferes.Append(",");
+        //        sMensajes.Append(mensaje.ToString("#0"));
+        //    }
+        //    foreach (var chofer in lbChoferes.SelectedValues)
+        //    {
+        //        if (!sChoferes.ToString().Equals(""))
+        //            sChoferes.Append(",");
 
-                sChoferes.Append(chofer.ToString("#0"));
-            }
+        //        sChoferes.Append(chofer.ToString("#0"));
+        //    }
 
-            dic.Add("VEHICULOS", sVehiculos.ToString());
-            dic.Add("MENSAJES", sMensajes.ToString());
-            dic.Add("CHOFERES", sChoferes.ToString());
+        //    dic.Add("VEHICULOS", sVehiculos.ToString());
+        //    dic.Add("MENSAJES", sMensajes.ToString());
+        //    dic.Add("CHOFERES", sChoferes.ToString());
 
-            return dic;
-        }
+        //    return dic;
+        //}
 
         protected override List<int> GetVehicleList()
         {
@@ -333,7 +333,7 @@ namespace Logictracker.Reportes.DatosOperativos
             return lbCamiones.SelectedValues;
         }
 
-        protected override IList<int> GetMessageTypeList()
+        protected override List<int> GetMessageTypeList()
         {
             if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
             return lbMensajes.SelectedValues;

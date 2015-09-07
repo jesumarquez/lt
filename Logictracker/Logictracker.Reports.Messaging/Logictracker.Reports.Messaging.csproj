@@ -54,6 +54,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Logictracker.Tracker.Services">
+      <HintPath>..\Logictracker\src\Web\Logictracker\LogicTracker.App.Web.Api\Bin\Logictracker.Tracker.Services.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -69,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccumulatedKilometersReportCommand.cs" />
+    <Compile Include="DailyEventReportCommand.cs" />
     <Compile Include="SummaryRoutesReportCommand.cs" />
     <Compile Include="TransfersPerTripReportCommand.cs" />
     <Compile Include="DeliverStatusReportCommand.cs" />
@@ -95,6 +99,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
