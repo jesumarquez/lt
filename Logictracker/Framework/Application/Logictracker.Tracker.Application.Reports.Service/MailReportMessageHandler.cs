@@ -2,8 +2,8 @@
 using log4net;
 using Logictracker.DAL.NHibernate;
 using Logictracker.Reports.Messaging;
+using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects;
-using NPOI.SS.Formula.Functions;
 
 namespace Logictracker.Tracker.Application.Reports
 {
@@ -11,12 +11,7 @@ namespace Logictracker.Tracker.Application.Reports
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof (MailReportMessageHandler));
 
-        public static ReportService ReportService { get; set; }
-
-        //MailReportMessageHandler()
-        //{
-        //    ReportService = new ReportService();
-        //}
+        public static IReportService ReportService { get; set; }
 
         //handlers
         public void HandleMessage(EventReportCommand command)

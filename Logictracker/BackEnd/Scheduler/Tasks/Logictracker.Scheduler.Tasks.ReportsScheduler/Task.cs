@@ -28,12 +28,14 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             }
 
             // BUSCO TODOS LAS PROGRAMACIONES DIARIAS
-            var reportesProgramados = DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('D');
-            
+            var reportesProgramados = new List<ProgramacionReporte>();
+
             // SI ES LUNES AGREGO LAS PROGRAMACIONES SEMANALES
             if (DateTime.UtcNow.ToDisplayDateTime().DayOfWeek == DayOfWeek.Monday)
-                reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('S'));                
-            
+                reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('S'));  
+            else
+                reportesProgramados = DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('D');
+  
             // SI ES 1° AGREGO LAS PROGRAMACIONES MENSUALES
             if (DateTime.UtcNow.ToDisplayDateTime().Day == 1)
                 reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('M'));
@@ -101,6 +103,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
+                        ReportFormat = prog.Format,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         VehiclesId = prog.GetParameters(ParameterType.Vehicle)

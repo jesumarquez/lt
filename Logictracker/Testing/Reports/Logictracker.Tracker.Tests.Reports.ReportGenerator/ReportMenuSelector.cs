@@ -22,6 +22,7 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
         {
             StringBuilder menuBuilder = new StringBuilder();
             menuBuilder.AppendLine("a. Generar un informe de eventos");
+            menuBuilder.AppendLine("b. Generar un reporte de ejecucion finalizada");
             menuBuilder.AppendLine("x. Para salir");
             menuBuilder.AppendLine("\n Seleccione una opcion: ");
             Console.Write(menuBuilder.ToString());
@@ -43,10 +44,19 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
                         new List<int> {8592,8594,8595},
                         new List<int> { 100 }, new List<int> { 0 }, new DateTime(2015, 06, 19, 03, 00, 00), new DateTime(2015, 06, 23, 03, 00, 00));
                     break;
+                case 'b':
+                    GenerateFinalReportExecutionCommand(DateTime.Now, "julian.millan@logictracker.com");
+                    break;
                 default:
                     Console.WriteLine(" <-- Opcion invalida");
                     break;
             }
+        }
+
+        private void GenerateFinalReportExecutionCommand(DateTime dateTime, string mail)
+        {
+            ReportService.GenerateFinalReportAndSendMail(dateTime, mail);
+            Console.WriteLine("MSG Sent");
         }
 
         private void GenerateReportEventCommand(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate)

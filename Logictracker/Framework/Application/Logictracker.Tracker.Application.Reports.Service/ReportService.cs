@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using log4net;
-using Logictracker.Configuration;
 using Logictracker.DAL.Factories;
-using Logictracker.Mailing;
 using Logictracker.Reports.Messaging;
 using Logictracker.Security;
 using Logictracker.Tracker.Services;
@@ -16,7 +13,6 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ReportObjects;
 using Logictracker.Types.ReportObjects.Datamart;
-using Logictracker.Types.ReportObjects.RankingDeOperadores;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico;
 using Logictracker.Utils;
@@ -39,12 +35,6 @@ namespace Logictracker.Tracker.Application.Reports
         public string  SmtpAddress { get; set; }
         public string Passwd { get; set; }
         public string SupportMail { get; set; }
-
-        //public ReportService()
-        //{
-        //    DaoFactory = new DAOFactory();
-        //    ReportFactory = new ReportFactory(DaoFactory);    
-        //}
 
         public void GenerateDailyEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId,
             DateTime initialDate, DateTime finalDate)
@@ -88,7 +78,17 @@ namespace Logictracker.Tracker.Application.Reports
             return null;
         }
 
-        public void LogReportExecution(ReportStatus reportStatus)
+        public void GenerateFinalReportAndSendMail(DateTime dateTime, string mail)
+        {
+            MessageQueueTemplate.ConvertAndSend(new FinalExecutionCommand()
+            {
+                Email = mail,
+                FinalDate = dateTime.Date,
+                InitialDate = dateTime.AddDays(1).Date
+            });
+        }
+
+        public void LogReportExecution(IReportStatus reportStatus)
         {
             var log = new LogProgramacionReporte
             {
@@ -114,13 +114,13 @@ namespace Logictracker.Tracker.Application.Reports
             }
         }
 
-        public string GenerateFinalExcecutionReport(FinalExecutionCommand command, ReportStatus statusReport)
+        public string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus statusReport)
         {
             var execReport = new StringBuilder();
             var reportLogs = DaoFactory.LogProgramacionReporteDAO.FindAll();
             foreach (var reportlog in reportLogs)
             {
-                if (reportlog.Inicio.Date == command.InitialDate)
+                if (reportlog.Inicio.Date == DateTime.Now.Date)
                 {
                     var report = DaoFactory.ProgramacionReporteDAO.FindById(reportlog.ProgramacionReporte.Id);
                     execReport.AppendLine(string.Format("Nombre : {0} ", report.ReportName));
@@ -130,13 +130,13 @@ namespace Logictracker.Tracker.Application.Reports
                     execReport.AppendLine(string.Format("Fin : {0} ", reportlog.Fin));
                     execReport.AppendLine(string.Format("Filas : {0} ", reportlog.Filas));
                     execReport.AppendLine(string.Format("Errores : {0} ", reportlog.Error? "Si" : "No"));
+                    execReport.AppendLine();
                 }
-                execReport.AppendLine();
             }
             return execReport.ToString();
         }
 
-        public Stream GenerateAccumulatedKilometersReport(AccumulatedKilometersReportCommand command, ReportStatus reportStatus)
+        public Stream GenerateAccumulatedKilometersReport(AccumulatedKilometersReportCommand command, IReportStatus reportStatus)
         {
             var results = ReportFactory.MobilesKilometersDAO.GetMobilesKilometers(command.InitialDate, command.FinalDate, command.VehiclesId, true);
             reportStatus.RowCount = results.Count;
@@ -152,7 +152,7 @@ namespace Logictracker.Tracker.Application.Reports
             return AccumulatedKilometersReportGenerator.GenerateReport(results, customer, command.InitialDate.ToLocalTime(), command.FinalDate.ToLocalTime(), baseName);
         }
 
-        public Stream GenerateVehicleActivityReport(VehicleActivityReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateVehicleActivityReport(VehicleActivityReportCommand cmd, IReportStatus reportStatus)
         {
             var command = cmd;
 
@@ -170,7 +170,7 @@ namespace Logictracker.Tracker.Application.Reports
             return VehicleActivityReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
         }
 
-        public Stream GenerateVehicleInfractionsReport(VehicleInfractionsReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateVehicleInfractionsReport(VehicleInfractionsReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.ReportId != 0)
                 reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -186,7 +186,7 @@ namespace Logictracker.Tracker.Application.Reports
 
         }
 
-        public Stream GenerateDriversInfractionReport(DriversInfractionsReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateDriversInfractionReport(DriversInfractionsReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.ReportId != 0)
                 reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -214,7 +214,7 @@ namespace Logictracker.Tracker.Application.Reports
             return DriversInfractionsReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
-        public Stream GenerateGeofenceEventsReport(GeofenceEventsReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateGeofenceEventsReport(GeofenceEventsReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.ReportId != 0)
                 reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -233,7 +233,7 @@ namespace Logictracker.Tracker.Application.Reports
             return GeofenceEventsReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
-        public Stream GenerateMobilesTimeReport(MobilesTimeReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateMobilesTimeReport(MobilesTimeReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.ReportId != 0)
                 reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -250,7 +250,7 @@ namespace Logictracker.Tracker.Application.Reports
             return MobilesTimeReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
-        public Stream GenerateDocumentExpirationReport(DocumentsExpirationReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateDocumentExpirationReport(DocumentsExpirationReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.ReportId != 0)
                 reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -267,7 +267,7 @@ namespace Logictracker.Tracker.Application.Reports
             return DocumentsExpirationReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
-        public Stream GenerateOdometersReport(OdometersReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateOdometersReport(OdometersReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.ReportId != 0)
                 reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -284,7 +284,7 @@ namespace Logictracker.Tracker.Application.Reports
             return OdometersReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
-        public Stream GenerateTransfersPerTripReport(TransfersPerTripReportCommand command, ReportStatus statusReport)
+        public Stream GenerateTransfersPerTripReport(TransfersPerTripReportCommand command, IReportStatus statusReport)
         {
             if (command.ReportId != 0)
                 statusReport.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(command.ReportId);
@@ -327,7 +327,7 @@ namespace Logictracker.Tracker.Application.Reports
             return TransfersPerTripReportGenerator.GenerateReport(results, customer, command.InitialDate.ToLocalTime(), command.FinalDate.ToLocalTime(), baseName);
         }
 
-        public Stream GenerateDeliverStatusReport(DeliverStatusReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateDeliverStatusReport(DeliverStatusReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.CustomerId == 0) return null;
 
@@ -404,7 +404,7 @@ namespace Logictracker.Tracker.Application.Reports
                 : null;
         }
 
-        public Stream GenerateSummaryRoutesReport(SummaryRoutesReportCommand cmd, ReportStatus reportStatus)
+        public Stream GenerateSummaryRoutesReport(SummaryRoutesReportCommand cmd, IReportStatus reportStatus)
         {
             if (cmd.ReportId != 0)
                 reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -449,7 +449,7 @@ namespace Logictracker.Tracker.Application.Reports
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
         }
 
-        public string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand cmd, ReportStatus status)
+        public string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand cmd, IReportStatus status)
         {
             if (cmd.CustomerId == 0) return null;
             
@@ -510,16 +510,16 @@ namespace Logictracker.Tracker.Application.Reports
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, true);
         }
 
-        public void SendReport(Stream reportStream, IReportCommand command, string report)
+        public void SendReport(Stream reportStream, IReportCommand command, string reportName)
         {
-            var subject = report + " Logictracker";
+            var subject = reportName + " Logictracker";
             var body =
-                string.Format("Usted ha solicitado un {0} a través de la plataforma Logictracker. Se ha adjuntado un archivo de Excel.", report);
+                string.Format("Usted ha solicitado un {0} a través de la plataforma Logictracker. Se ha adjuntado un archivo de Excel.", reportName);
             body += "\n\n Este mensaje se ha generado automaticamente, No responda este correo.";
 
             var filename = "Reporte Logictracker " + DateTime.Now.ToString("G") + ".xls";
-            if (report != null)
-                filename = report.Trim() + " " + command.InitialDate.ToString("yyyy-MM-dd") + " a " + command.FinalDate.ToString("yyyy-MM-dd") + ".xls";
+            if (reportName != null)
+                filename = reportName.Trim() + " " + command.InitialDate.ToString("yyyy-MM-dd") + " a " + command.FinalDate.ToString("yyyy-MM-dd") + ".xls";
 
             var emailList = ValidateAddress(command.Email);
 
