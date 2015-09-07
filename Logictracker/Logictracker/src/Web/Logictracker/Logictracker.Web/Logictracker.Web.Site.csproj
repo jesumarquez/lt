@@ -112,8 +112,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -201,6 +203,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Admin\DatamartLog.aspx" />
+    <Content Include="Admin\Log.aspx" />
+    <Content Include="Admin\Logiclink.aspx" />
+    <Content Include="Admin\Log\LogContext.aspx" />
+    <Content Include="Admin\ProgramacionReporteAlta.aspx" />
+    <Content Include="Admin\ProgramacionReporteLista.aspx" />
+    <Content Include="Admin\Queues.aspx" />
+    <Content Include="Admin\ReportLog.aspx" />
+    <Content Include="Admin\Services.aspx" />
     <Content Include="App_Controls\altaEntidad.ascx" />
     <Content Include="App_Controls\altaMarca.ascx" />
     <Content Include="App_Controls\ColorPicker.ascx" />
@@ -1251,6 +1262,69 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\DatamartLog.aspx.cs">
+      <DependentUpon>DatamartLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\DatamartLog.aspx.designer.cs">
+      <DependentUpon>DatamartLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Log.aspx.cs">
+      <DependentUpon>Log.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Log.aspx.designer.cs">
+      <DependentUpon>Log.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Logiclink.aspx.cs">
+      <DependentUpon>Logiclink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Logiclink.aspx.designer.cs">
+      <DependentUpon>Logiclink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Log\LogContext.aspx.cs">
+      <DependentUpon>LogContext.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Log\LogContext.aspx.designer.cs">
+      <DependentUpon>LogContext.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProgramacionReporteAlta.aspx.cs">
+      <DependentUpon>ProgramacionReporteAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProgramacionReporteAlta.aspx.designer.cs">
+      <DependentUpon>ProgramacionReporteAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProgramacionReporteLista.aspx.cs">
+      <DependentUpon>ProgramacionReporteLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProgramacionReporteLista.aspx.designer.cs">
+      <DependentUpon>ProgramacionReporteLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Queues.aspx.cs">
+      <DependentUpon>Queues.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Queues.aspx.designer.cs">
+      <DependentUpon>Queues.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ReportLog.aspx.cs">
+      <DependentUpon>ReportLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ReportLog.aspx.designer.cs">
+      <DependentUpon>ReportLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Services.aspx.cs">
+      <DependentUpon>Services.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Services.aspx.designer.cs">
+      <DependentUpon>Services.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3940,6 +4014,10 @@
     <ProjectReference Include="..\..\..\Common\Qtree\Logictracker.Qtree.csproj">
       <Project>{b7059c98-501e-4040-830e-597ddaf1417c}</Project>
       <Name>Logictracker.Qtree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\QueueStatus\Logictracker.QueueStatus.csproj">
+      <Project>{a91d4be7-5950-41f3-ad7e-289e04e2fcbf}</Project>
+      <Name>Logictracker.QueueStatus</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\Services.Helpers\Logictracker.Services.Helpers.csproj">
       <Project>{335550d5-f4a2-4ad0-a22f-c4ab705c6606}</Project>
