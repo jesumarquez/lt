@@ -921,6 +921,133 @@
     <Content Include="App_Themes\Naranja Vehicular\default.skin" />
     <Content Include="App_Themes\Telefonica\default.skin" />
     <Content Include="App_Themes\Telefonica\img\Thumbs.db" />
+    <Content Include="Parametrizacion\AccionesAlta.aspx" />
+    <Content Include="Parametrizacion\AccionLista.aspx" />
+    <Content Include="Parametrizacion\ActualizacionParametrosDispositivosAlta.aspx" />
+    <Content Include="Parametrizacion\ActualizacionParametrosDispositivosLista.aspx" />
+    <Content Include="Parametrizacion\Attach\Distribuidora.png" />
+    <Content Include="Parametrizacion\Attach\Distribuidora_ALT.JPG" />
+    <Content Include="Parametrizacion\CaudalimetroAlta.aspx" />
+    <Content Include="Parametrizacion\CaudalimetroLista.aspx" />
+    <Content Include="Parametrizacion\CentroCostoAlta.aspx" />
+    <Content Include="Parametrizacion\CentroCostoLista.aspx" />
+    <Content Include="Parametrizacion\ClienteAlta.aspx" />
+    <Content Include="Parametrizacion\ClienteImport.aspx" />
+    <Content Include="Parametrizacion\ClienteLista.aspx" />
+    <Content Include="Parametrizacion\CocheAlta.aspx" />
+    <Content Include="Parametrizacion\CocheLista.aspx" />
+    <Content Include="Parametrizacion\ConfiguracionDispositivoAlta.aspx" />
+    <Content Include="Parametrizacion\ConfiguracionDispositivoLista.aspx" />
+    <Content Include="Parametrizacion\DepartamentoAlta.aspx" />
+    <Content Include="Parametrizacion\DepartamentoLista.aspx" />
+    <Content Include="Parametrizacion\DetalleAlta.aspx" />
+    <Content Include="Parametrizacion\DetalleDispositivosAlta.aspx" />
+    <Content Include="Parametrizacion\DetalleDispositivosLista.aspx" />
+    <Content Include="Parametrizacion\DetalleLista.aspx" />
+    <Content Include="Parametrizacion\DispositivoAlta.aspx" />
+    <Content Include="Parametrizacion\DispositivoLista.aspx" />
+    <Content Include="Parametrizacion\Dispositivos\ParametroDispositivos.aspx" />
+    <Content Include="Parametrizacion\EmpleadoAlta.aspx" />
+    <Content Include="Parametrizacion\EmpleadoImport.aspx" />
+    <Content Include="Parametrizacion\EmpleadoLista.aspx" />
+    <Content Include="Parametrizacion\EntidadAlta.aspx" />
+    <Content Include="Parametrizacion\EntidadLista.aspx" />
+    <Content Include="Parametrizacion\EquipoAlta.aspx" />
+    <Content Include="Parametrizacion\EquipoLista.aspx" />
+    <Content Include="Parametrizacion\EstadoLogAlta.aspx" />
+    <Content Include="Parametrizacion\EstadoLogDuplicar.aspx" />
+    <Content Include="Parametrizacion\EstadoLogLista.aspx" />
+    <Content Include="Parametrizacion\FeriadoAlta.aspx" />
+    <Content Include="Parametrizacion\FeriadoLista.aspx" />
+    <Content Include="Parametrizacion\FirmwareAlta.aspx" />
+    <Content Include="Parametrizacion\FirmwareLista.aspx" />
+    <Content Include="Parametrizacion\GeoRefAlta.aspx" />
+    <Content Include="Parametrizacion\GeoRefImport.aspx" />
+    <Content Include="Parametrizacion\GeoRefLista.aspx" />
+    <Content Include="Parametrizacion\IconoAlta.aspx" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Help\HelpDispositivo.aspx" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Help\HelpDocumento.aspx" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Help\HelpEmpleado.aspx" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Help\HelpTarjeta.aspx" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Help\HelpTicket.aspx" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Help\HelpVehiculo.aspx" />
+    <Content Include="Parametrizacion\ImportData.aspx" />
+    <Content Include="Parametrizacion\LineaTelefonicaAlta.aspx" />
+    <Content Include="Parametrizacion\LineaTelefonicaImport.aspx" />
+    <Content Include="Parametrizacion\LineaTelefonicaLista.aspx" />
+    <Content Include="Parametrizacion\LocacionAlta.aspx" />
+    <Content Include="Parametrizacion\LocacionLista.aspx" />
+    <Content Include="Parametrizacion\MarcaAlta.aspx" />
+    <Content Include="Parametrizacion\MarcaLista.aspx" />
+    <Content Include="Parametrizacion\MensajeAlta.aspx" />
+    <Content Include="Parametrizacion\MensajeDuplicador.aspx" />
+    <Content Include="Parametrizacion\MensajeLista.aspx" />
+    <Content Include="Parametrizacion\ModeloAlta.aspx" />
+    <Content Include="Parametrizacion\ModeloImport.aspx" />
+    <Content Include="Parametrizacion\ModeloLista.aspx" />
+    <Content Include="Parametrizacion\OdometroAlta.aspx" />
+    <Content Include="Parametrizacion\OdometroLista.aspx" />
+    <Content Include="Parametrizacion\ParametrosDispositivoAlta.aspx" />
+    <Content Include="Parametrizacion\ParametrosDispositivoLista.aspx" />
+    <Content Include="Parametrizacion\PlanAlta.aspx" />
+    <Content Include="Parametrizacion\PlanLista.aspx" />
+    <Content Include="Parametrizacion\PlantaAlta.aspx" />
+    <Content Include="Parametrizacion\PlantaLista.aspx" />
+    <Content Include="Parametrizacion\Postal\DistribuidorAlta.aspx" />
+    <Content Include="Parametrizacion\Postal\DistribuidorLista.aspx" />
+    <Content Include="Parametrizacion\Postal\MotivoAlta.aspx" />
+    <Content Include="Parametrizacion\Postal\MotivoLista.aspx" />
+    <Content Include="Parametrizacion\Postal\TipoServicioAlta.aspx" />
+    <Content Include="Parametrizacion\Postal\TipoServicioLista.aspx" />
+    <Content Include="Parametrizacion\PrecintoAlta.aspx" />
+    <Content Include="Parametrizacion\PrecintoLista.aspx" />
+    <Content Include="Parametrizacion\ProductoAlta.aspx" />
+    <Content Include="Parametrizacion\ProductoLista.aspx" />
+    <Content Include="Parametrizacion\PtoEntregaAlta.aspx" />
+    <Content Include="Parametrizacion\PtoEntregaImport.aspx" />
+    <Content Include="Parametrizacion\PtoEntregaLista.aspx" />
+    <Content Include="Parametrizacion\PuertaAccesoAlta.aspx" />
+    <Content Include="Parametrizacion\PuertaAccesoLista.aspx" />
+    <Content Include="Parametrizacion\SensorAlta.aspx" />
+    <Content Include="Parametrizacion\SensorLista.aspx" />
+    <Content Include="Parametrizacion\SubCentroCostoAlta.aspx" />
+    <Content Include="Parametrizacion\SubCentroCostoLista.aspx" />
+    <Content Include="Parametrizacion\SubentidadAlta.aspx" />
+    <Content Include="Parametrizacion\SubentidadLista.aspx" />
+    <Content Include="Parametrizacion\TallerAlta.aspx" />
+    <Content Include="Parametrizacion\TallerLista.aspx" />
+    <Content Include="Parametrizacion\TanqueAlta.aspx" />
+    <Content Include="Parametrizacion\TanqueLista.aspx" />
+    <Content Include="Parametrizacion\TarjetaAlta.aspx" />
+    <Content Include="Parametrizacion\TarjetaLista.aspx" />
+    <Content Include="Parametrizacion\TipoCocheAlta.aspx" />
+    <Content Include="Parametrizacion\TipoCocheLista.aspx" />
+    <Content Include="Parametrizacion\TipoDispositivoAlta.aspx" />
+    <Content Include="Parametrizacion\TipoDispositivoLista.aspx" />
+    <Content Include="Parametrizacion\TipoEmpleadoAlta.aspx" />
+    <Content Include="Parametrizacion\TipoEmpleadoLista.aspx" />
+    <Content Include="Parametrizacion\TipoEntidadAlta.aspx" />
+    <Content Include="Parametrizacion\TipoEntidadLista.aspx" />
+    <Content Include="Parametrizacion\TipoGeoRefAlta.aspx" />
+    <Content Include="Parametrizacion\TipoGeoRefLista.aspx" />
+    <Content Include="Parametrizacion\TipoMedicionAlta.aspx" />
+    <Content Include="Parametrizacion\TipoMedicionLista.aspx" />
+    <Content Include="Parametrizacion\TipoMensajeAlta.aspx" />
+    <Content Include="Parametrizacion\TipoMensajeLista.aspx" />
+    <Content Include="Parametrizacion\TipoZonaAccesoAlta.aspx" />
+    <Content Include="Parametrizacion\TipoZonaAccesoLista.aspx" />
+    <Content Include="Parametrizacion\TipoZonaAlta.aspx" />
+    <Content Include="Parametrizacion\TipoZonaLista.aspx" />
+    <Content Include="Parametrizacion\TransportistaAlta.aspx" />
+    <Content Include="Parametrizacion\TransportistaLista.aspx" />
+    <Content Include="Parametrizacion\TurnosAlta.aspx" />
+    <Content Include="Parametrizacion\TurnosLista.aspx" />
+    <Content Include="Parametrizacion\UnidadMedidaAlta.aspx" />
+    <Content Include="Parametrizacion\UnidadMedidaLista.aspx" />
+    <Content Include="Parametrizacion\ZonaAccesoAlta.aspx" />
+    <Content Include="Parametrizacion\ZonaAccesoLista.aspx" />
+    <Content Include="Parametrizacion\ZonaAlta.aspx" />
+    <Content Include="Parametrizacion\ZonaLista.aspx" />
     <Content Include="Reportes\Accidentologia\infractionsDetails.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculo.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx" />
@@ -1041,6 +1168,12 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-resource.min.js.map" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDispositivos.xls" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDocumentos.xls" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioEmpleados.xls" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioTarjetas.xls" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioTickets.xls" />
+    <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioVehiculos.xls" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1877,6 +2010,881 @@
     </Compile>
     <Compile Include="Organizacion\UsuarioLista.aspx.designer.cs">
       <DependentUpon>UsuarioLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\AccionesAlta.aspx.cs">
+      <DependentUpon>AccionesAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\AccionesAlta.aspx.designer.cs">
+      <DependentUpon>AccionesAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\AccionLista.aspx.cs">
+      <DependentUpon>AccionLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\AccionLista.aspx.designer.cs">
+      <DependentUpon>AccionLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ActualizacionParametrosDispositivosAlta.aspx.cs">
+      <DependentUpon>ActualizacionParametrosDispositivosAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ActualizacionParametrosDispositivosAlta.aspx.designer.cs">
+      <DependentUpon>ActualizacionParametrosDispositivosAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ActualizacionParametrosDispositivosLista.aspx.cs">
+      <DependentUpon>ActualizacionParametrosDispositivosLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ActualizacionParametrosDispositivosLista.aspx.designer.cs">
+      <DependentUpon>ActualizacionParametrosDispositivosLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\CaudalimetroAlta.aspx.cs">
+      <DependentUpon>CaudalimetroAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\CaudalimetroAlta.aspx.designer.cs">
+      <DependentUpon>CaudalimetroAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\CaudalimetroLista.aspx.cs">
+      <DependentUpon>CaudalimetroLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\CaudalimetroLista.aspx.designer.cs">
+      <DependentUpon>CaudalimetroLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\CentroCostoAlta.aspx.cs">
+      <DependentUpon>CentroCostoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\CentroCostoAlta.aspx.designer.cs">
+      <DependentUpon>CentroCostoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\CentroCostoLista.aspx.cs">
+      <DependentUpon>CentroCostoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\CentroCostoLista.aspx.designer.cs">
+      <DependentUpon>CentroCostoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ClienteAlta.aspx.cs">
+      <DependentUpon>ClienteAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ClienteAlta.aspx.designer.cs">
+      <DependentUpon>ClienteAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ClienteImport.aspx.cs">
+      <DependentUpon>ClienteImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ClienteImport.aspx.designer.cs">
+      <DependentUpon>ClienteImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ClienteLista.aspx.cs">
+      <DependentUpon>ClienteLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ClienteLista.aspx.designer.cs">
+      <DependentUpon>ClienteLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\CocheAlta.aspx.cs">
+      <DependentUpon>CocheAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\CocheAlta.aspx.designer.cs">
+      <DependentUpon>CocheAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\CocheLista.aspx.cs">
+      <DependentUpon>CocheLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\CocheLista.aspx.designer.cs">
+      <DependentUpon>CocheLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ConfiguracionDispositivoAlta.aspx.cs">
+      <DependentUpon>ConfiguracionDispositivoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ConfiguracionDispositivoAlta.aspx.designer.cs">
+      <DependentUpon>ConfiguracionDispositivoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ConfiguracionDispositivoLista.aspx.cs">
+      <DependentUpon>ConfiguracionDispositivoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ConfiguracionDispositivoLista.aspx.designer.cs">
+      <DependentUpon>ConfiguracionDispositivoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DepartamentoAlta.aspx.cs">
+      <DependentUpon>DepartamentoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DepartamentoAlta.aspx.designer.cs">
+      <DependentUpon>DepartamentoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DepartamentoLista.aspx.cs">
+      <DependentUpon>DepartamentoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DepartamentoLista.aspx.designer.cs">
+      <DependentUpon>DepartamentoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleAlta.aspx.cs">
+      <DependentUpon>DetalleAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleAlta.aspx.designer.cs">
+      <DependentUpon>DetalleAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleDispositivosAlta.aspx.cs">
+      <DependentUpon>DetalleDispositivosAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleDispositivosAlta.aspx.designer.cs">
+      <DependentUpon>DetalleDispositivosAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleDispositivosLista.aspx.cs">
+      <DependentUpon>DetalleDispositivosLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleDispositivosLista.aspx.designer.cs">
+      <DependentUpon>DetalleDispositivosLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleLista.aspx.cs">
+      <DependentUpon>DetalleLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DetalleLista.aspx.designer.cs">
+      <DependentUpon>DetalleLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DispositivoAlta.aspx.cs">
+      <DependentUpon>DispositivoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DispositivoAlta.aspx.designer.cs">
+      <DependentUpon>DispositivoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\DispositivoLista.aspx.cs">
+      <DependentUpon>DispositivoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\DispositivoLista.aspx.designer.cs">
+      <DependentUpon>DispositivoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\Dispositivos\ParametroDispositivos.aspx.cs">
+      <DependentUpon>ParametroDispositivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\Dispositivos\ParametroDispositivos.aspx.designer.cs">
+      <DependentUpon>ParametroDispositivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EmpleadoAlta.aspx.cs">
+      <DependentUpon>EmpleadoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EmpleadoAlta.aspx.designer.cs">
+      <DependentUpon>EmpleadoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EmpleadoImport.aspx.cs">
+      <DependentUpon>EmpleadoImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EmpleadoImport.aspx.designer.cs">
+      <DependentUpon>EmpleadoImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EmpleadoLista.aspx.cs">
+      <DependentUpon>EmpleadoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EmpleadoLista.aspx.designer.cs">
+      <DependentUpon>EmpleadoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EntidadAlta.aspx.cs">
+      <DependentUpon>EntidadAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EntidadAlta.aspx.designer.cs">
+      <DependentUpon>EntidadAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EntidadLista.aspx.cs">
+      <DependentUpon>EntidadLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EntidadLista.aspx.designer.cs">
+      <DependentUpon>EntidadLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EquipoAlta.aspx.cs">
+      <DependentUpon>EquipoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EquipoAlta.aspx.designer.cs">
+      <DependentUpon>EquipoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EquipoLista.aspx.cs">
+      <DependentUpon>EquipoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EquipoLista.aspx.designer.cs">
+      <DependentUpon>EquipoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EstadoLogAlta.aspx.cs">
+      <DependentUpon>EstadoLogAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EstadoLogAlta.aspx.designer.cs">
+      <DependentUpon>EstadoLogAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EstadoLogDuplicar.aspx.cs">
+      <DependentUpon>EstadoLogDuplicar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EstadoLogDuplicar.aspx.designer.cs">
+      <DependentUpon>EstadoLogDuplicar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\EstadoLogLista.aspx.cs">
+      <DependentUpon>EstadoLogLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\EstadoLogLista.aspx.designer.cs">
+      <DependentUpon>EstadoLogLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\FeriadoAlta.aspx.cs">
+      <DependentUpon>FeriadoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\FeriadoAlta.aspx.designer.cs">
+      <DependentUpon>FeriadoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\FeriadoLista.aspx.cs">
+      <DependentUpon>FeriadoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\FeriadoLista.aspx.designer.cs">
+      <DependentUpon>FeriadoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\FirmwareAlta.aspx.cs">
+      <DependentUpon>FirmwareAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\FirmwareAlta.aspx.designer.cs">
+      <DependentUpon>FirmwareAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\FirmwareLista.aspx.cs">
+      <DependentUpon>FirmwareLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\FirmwareLista.aspx.designer.cs">
+      <DependentUpon>FirmwareLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\GeoRefAlta.aspx.cs">
+      <DependentUpon>GeoRefAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\GeoRefAlta.aspx.designer.cs">
+      <DependentUpon>GeoRefAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\GeoRefImport.aspx.cs">
+      <DependentUpon>GeoRefImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\GeoRefImport.aspx.designer.cs">
+      <DependentUpon>GeoRefImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\GeoRefLista.aspx.cs">
+      <DependentUpon>GeoRefLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\GeoRefLista.aspx.designer.cs">
+      <DependentUpon>GeoRefLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\IconoAlta.aspx.cs">
+      <DependentUpon>IconoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\IconoAlta.aspx.designer.cs">
+      <DependentUpon>IconoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpDispositivo.aspx.cs">
+      <DependentUpon>HelpDispositivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpDispositivo.aspx.designer.cs">
+      <DependentUpon>HelpDispositivo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpDocumento.aspx.cs">
+      <DependentUpon>HelpDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpDocumento.aspx.designer.cs">
+      <DependentUpon>HelpDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpEmpleado.aspx.cs">
+      <DependentUpon>HelpEmpleado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpEmpleado.aspx.designer.cs">
+      <DependentUpon>HelpEmpleado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpTarjeta.aspx.cs">
+      <DependentUpon>HelpTarjeta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpTarjeta.aspx.designer.cs">
+      <DependentUpon>HelpTarjeta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpTicket.aspx.cs">
+      <DependentUpon>HelpTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpTicket.aspx.designer.cs">
+      <DependentUpon>HelpTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpVehiculo.aspx.cs">
+      <DependentUpon>HelpVehiculo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportadorMasivo\Help\HelpVehiculo.aspx.designer.cs">
+      <DependentUpon>HelpVehiculo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportData.aspx.cs">
+      <DependentUpon>ImportData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ImportData.aspx.designer.cs">
+      <DependentUpon>ImportData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\LineaTelefonicaAlta.aspx.cs">
+      <DependentUpon>LineaTelefonicaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\LineaTelefonicaAlta.aspx.designer.cs">
+      <DependentUpon>LineaTelefonicaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\LineaTelefonicaImport.aspx.cs">
+      <DependentUpon>LineaTelefonicaImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\LineaTelefonicaImport.aspx.designer.cs">
+      <DependentUpon>LineaTelefonicaImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\LineaTelefonicaLista.aspx.cs">
+      <DependentUpon>LineaTelefonicaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\LineaTelefonicaLista.aspx.designer.cs">
+      <DependentUpon>LineaTelefonicaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\LocacionAlta.aspx.cs">
+      <DependentUpon>LocacionAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\LocacionAlta.aspx.designer.cs">
+      <DependentUpon>LocacionAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\LocacionLista.aspx.cs">
+      <DependentUpon>LocacionLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\LocacionLista.aspx.designer.cs">
+      <DependentUpon>LocacionLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\MarcaAlta.aspx.cs">
+      <DependentUpon>MarcaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\MarcaAlta.aspx.designer.cs">
+      <DependentUpon>MarcaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\MarcaLista.aspx.cs">
+      <DependentUpon>MarcaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\MarcaLista.aspx.designer.cs">
+      <DependentUpon>MarcaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\MensajeAlta.aspx.cs">
+      <DependentUpon>MensajeAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\MensajeAlta.aspx.designer.cs">
+      <DependentUpon>MensajeAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\MensajeDuplicador.aspx.cs">
+      <DependentUpon>MensajeDuplicador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\MensajeDuplicador.aspx.designer.cs">
+      <DependentUpon>MensajeDuplicador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\MensajeLista.aspx.cs">
+      <DependentUpon>MensajeLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\MensajeLista.aspx.designer.cs">
+      <DependentUpon>MensajeLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ModeloAlta.aspx.cs">
+      <DependentUpon>ModeloAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ModeloAlta.aspx.designer.cs">
+      <DependentUpon>ModeloAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ModeloImport.aspx.cs">
+      <DependentUpon>ModeloImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ModeloImport.aspx.designer.cs">
+      <DependentUpon>ModeloImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ModeloLista.aspx.cs">
+      <DependentUpon>ModeloLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ModeloLista.aspx.designer.cs">
+      <DependentUpon>ModeloLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\OdometroAlta.aspx.cs">
+      <DependentUpon>OdometroAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\OdometroAlta.aspx.designer.cs">
+      <DependentUpon>OdometroAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\OdometroLista.aspx.cs">
+      <DependentUpon>OdometroLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\OdometroLista.aspx.designer.cs">
+      <DependentUpon>OdometroLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ParametrosDispositivoAlta.aspx.cs">
+      <DependentUpon>ParametrosDispositivoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ParametrosDispositivoAlta.aspx.designer.cs">
+      <DependentUpon>ParametrosDispositivoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ParametrosDispositivoLista.aspx.cs">
+      <DependentUpon>ParametrosDispositivoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ParametrosDispositivoLista.aspx.designer.cs">
+      <DependentUpon>ParametrosDispositivoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PlanAlta.aspx.cs">
+      <DependentUpon>PlanAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PlanAlta.aspx.designer.cs">
+      <DependentUpon>PlanAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PlanLista.aspx.cs">
+      <DependentUpon>PlanLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PlanLista.aspx.designer.cs">
+      <DependentUpon>PlanLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PlantaAlta.aspx.cs">
+      <DependentUpon>PlantaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PlantaAlta.aspx.designer.cs">
+      <DependentUpon>PlantaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PlantaLista.aspx.cs">
+      <DependentUpon>PlantaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PlantaLista.aspx.designer.cs">
+      <DependentUpon>PlantaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\DistribuidorAlta.aspx.cs">
+      <DependentUpon>DistribuidorAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\DistribuidorAlta.aspx.designer.cs">
+      <DependentUpon>DistribuidorAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\DistribuidorLista.aspx.cs">
+      <DependentUpon>DistribuidorLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\DistribuidorLista.aspx.designer.cs">
+      <DependentUpon>DistribuidorLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\MotivoAlta.aspx.cs">
+      <DependentUpon>MotivoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\MotivoAlta.aspx.designer.cs">
+      <DependentUpon>MotivoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\MotivoLista.aspx.cs">
+      <DependentUpon>MotivoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\MotivoLista.aspx.designer.cs">
+      <DependentUpon>MotivoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\TipoServicioAlta.aspx.cs">
+      <DependentUpon>TipoServicioAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\TipoServicioAlta.aspx.designer.cs">
+      <DependentUpon>TipoServicioAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\TipoServicioLista.aspx.cs">
+      <DependentUpon>TipoServicioLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\Postal\TipoServicioLista.aspx.designer.cs">
+      <DependentUpon>TipoServicioLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PrecintoAlta.aspx.cs">
+      <DependentUpon>PrecintoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PrecintoAlta.aspx.designer.cs">
+      <DependentUpon>PrecintoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PrecintoLista.aspx.cs">
+      <DependentUpon>PrecintoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PrecintoLista.aspx.designer.cs">
+      <DependentUpon>PrecintoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ProductoAlta.aspx.cs">
+      <DependentUpon>ProductoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ProductoAlta.aspx.designer.cs">
+      <DependentUpon>ProductoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ProductoLista.aspx.cs">
+      <DependentUpon>ProductoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ProductoLista.aspx.designer.cs">
+      <DependentUpon>ProductoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PtoEntregaAlta.aspx.cs">
+      <DependentUpon>PtoEntregaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PtoEntregaAlta.aspx.designer.cs">
+      <DependentUpon>PtoEntregaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PtoEntregaImport.aspx.cs">
+      <DependentUpon>PtoEntregaImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PtoEntregaImport.aspx.designer.cs">
+      <DependentUpon>PtoEntregaImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PtoEntregaLista.aspx.cs">
+      <DependentUpon>PtoEntregaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PtoEntregaLista.aspx.designer.cs">
+      <DependentUpon>PtoEntregaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PuertaAccesoAlta.aspx.cs">
+      <DependentUpon>PuertaAccesoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PuertaAccesoAlta.aspx.designer.cs">
+      <DependentUpon>PuertaAccesoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\PuertaAccesoLista.aspx.cs">
+      <DependentUpon>PuertaAccesoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\PuertaAccesoLista.aspx.designer.cs">
+      <DependentUpon>PuertaAccesoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\SensorAlta.aspx.cs">
+      <DependentUpon>SensorAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\SensorAlta.aspx.designer.cs">
+      <DependentUpon>SensorAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\SensorLista.aspx.cs">
+      <DependentUpon>SensorLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\SensorLista.aspx.designer.cs">
+      <DependentUpon>SensorLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\SubCentroCostoAlta.aspx.cs">
+      <DependentUpon>SubCentroCostoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\SubCentroCostoAlta.aspx.designer.cs">
+      <DependentUpon>SubCentroCostoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\SubCentroCostoLista.aspx.cs">
+      <DependentUpon>SubCentroCostoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\SubCentroCostoLista.aspx.designer.cs">
+      <DependentUpon>SubCentroCostoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\SubentidadAlta.aspx.cs">
+      <DependentUpon>SubentidadAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\SubentidadAlta.aspx.designer.cs">
+      <DependentUpon>SubentidadAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\SubentidadLista.aspx.cs">
+      <DependentUpon>SubentidadLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\SubentidadLista.aspx.designer.cs">
+      <DependentUpon>SubentidadLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TallerAlta.aspx.cs">
+      <DependentUpon>TallerAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TallerAlta.aspx.designer.cs">
+      <DependentUpon>TallerAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TallerLista.aspx.cs">
+      <DependentUpon>TallerLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TallerLista.aspx.designer.cs">
+      <DependentUpon>TallerLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TanqueAlta.aspx.cs">
+      <DependentUpon>TanqueAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TanqueAlta.aspx.designer.cs">
+      <DependentUpon>TanqueAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TanqueLista.aspx.cs">
+      <DependentUpon>TanqueLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TanqueLista.aspx.designer.cs">
+      <DependentUpon>TanqueLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TarjetaAlta.aspx.cs">
+      <DependentUpon>TarjetaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TarjetaAlta.aspx.designer.cs">
+      <DependentUpon>TarjetaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TarjetaLista.aspx.cs">
+      <DependentUpon>TarjetaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TarjetaLista.aspx.designer.cs">
+      <DependentUpon>TarjetaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoCocheAlta.aspx.cs">
+      <DependentUpon>TipoCocheAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoCocheAlta.aspx.designer.cs">
+      <DependentUpon>TipoCocheAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoCocheLista.aspx.cs">
+      <DependentUpon>TipoCocheLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoCocheLista.aspx.designer.cs">
+      <DependentUpon>TipoCocheLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoDispositivoAlta.aspx.cs">
+      <DependentUpon>TipoDispositivoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoDispositivoAlta.aspx.designer.cs">
+      <DependentUpon>TipoDispositivoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoDispositivoLista.aspx.cs">
+      <DependentUpon>TipoDispositivoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoDispositivoLista.aspx.designer.cs">
+      <DependentUpon>TipoDispositivoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEmpleadoAlta.aspx.cs">
+      <DependentUpon>TipoEmpleadoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEmpleadoAlta.aspx.designer.cs">
+      <DependentUpon>TipoEmpleadoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEmpleadoLista.aspx.cs">
+      <DependentUpon>TipoEmpleadoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEmpleadoLista.aspx.designer.cs">
+      <DependentUpon>TipoEmpleadoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEntidadAlta.aspx.cs">
+      <DependentUpon>TipoEntidadAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEntidadAlta.aspx.designer.cs">
+      <DependentUpon>TipoEntidadAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEntidadLista.aspx.cs">
+      <DependentUpon>TipoEntidadLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoEntidadLista.aspx.designer.cs">
+      <DependentUpon>TipoEntidadLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoGeoRefAlta.aspx.cs">
+      <DependentUpon>TipoGeoRefAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoGeoRefAlta.aspx.designer.cs">
+      <DependentUpon>TipoGeoRefAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoGeoRefLista.aspx.cs">
+      <DependentUpon>TipoGeoRefLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoGeoRefLista.aspx.designer.cs">
+      <DependentUpon>TipoGeoRefLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMedicionAlta.aspx.cs">
+      <DependentUpon>TipoMedicionAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMedicionAlta.aspx.designer.cs">
+      <DependentUpon>TipoMedicionAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMedicionLista.aspx.cs">
+      <DependentUpon>TipoMedicionLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMedicionLista.aspx.designer.cs">
+      <DependentUpon>TipoMedicionLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMensajeAlta.aspx.cs">
+      <DependentUpon>TipoMensajeAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMensajeAlta.aspx.designer.cs">
+      <DependentUpon>TipoMensajeAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMensajeLista.aspx.cs">
+      <DependentUpon>TipoMensajeLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoMensajeLista.aspx.designer.cs">
+      <DependentUpon>TipoMensajeLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaAccesoAlta.aspx.cs">
+      <DependentUpon>TipoZonaAccesoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaAccesoAlta.aspx.designer.cs">
+      <DependentUpon>TipoZonaAccesoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaAccesoLista.aspx.cs">
+      <DependentUpon>TipoZonaAccesoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaAccesoLista.aspx.designer.cs">
+      <DependentUpon>TipoZonaAccesoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaAlta.aspx.cs">
+      <DependentUpon>TipoZonaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaAlta.aspx.designer.cs">
+      <DependentUpon>TipoZonaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaLista.aspx.cs">
+      <DependentUpon>TipoZonaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TipoZonaLista.aspx.designer.cs">
+      <DependentUpon>TipoZonaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TransportistaAlta.aspx.cs">
+      <DependentUpon>TransportistaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TransportistaAlta.aspx.designer.cs">
+      <DependentUpon>TransportistaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TransportistaLista.aspx.cs">
+      <DependentUpon>TransportistaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TransportistaLista.aspx.designer.cs">
+      <DependentUpon>TransportistaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TurnosAlta.aspx.cs">
+      <DependentUpon>TurnosAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TurnosAlta.aspx.designer.cs">
+      <DependentUpon>TurnosAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\TurnosLista.aspx.cs">
+      <DependentUpon>TurnosLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\TurnosLista.aspx.designer.cs">
+      <DependentUpon>TurnosLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\UnidadMedidaAlta.aspx.cs">
+      <DependentUpon>UnidadMedidaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\UnidadMedidaAlta.aspx.designer.cs">
+      <DependentUpon>UnidadMedidaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\UnidadMedidaLista.aspx.cs">
+      <DependentUpon>UnidadMedidaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\UnidadMedidaLista.aspx.designer.cs">
+      <DependentUpon>UnidadMedidaLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaAccesoAlta.aspx.cs">
+      <DependentUpon>ZonaAccesoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaAccesoAlta.aspx.designer.cs">
+      <DependentUpon>ZonaAccesoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaAccesoLista.aspx.cs">
+      <DependentUpon>ZonaAccesoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaAccesoLista.aspx.designer.cs">
+      <DependentUpon>ZonaAccesoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaAlta.aspx.cs">
+      <DependentUpon>ZonaAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaAlta.aspx.designer.cs">
+      <DependentUpon>ZonaAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaLista.aspx.cs">
+      <DependentUpon>ZonaLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Parametrizacion\ZonaLista.aspx.designer.cs">
+      <DependentUpon>ZonaLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="perfil.aspx.cs">
       <DependentUpon>perfil.aspx</DependentUpon>
