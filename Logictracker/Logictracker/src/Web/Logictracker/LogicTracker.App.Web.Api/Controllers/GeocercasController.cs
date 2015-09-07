@@ -24,89 +24,111 @@ namespace LogicTracker.App.Web.Api.Controllers
 
         public IHttpActionResult Get()
         {
-            var deviceId = GetDeviceId(Request);
-            if (deviceId == null) return BadRequest();
-
-
-            PuertaAccesoDAO puertas = new PuertaAccesoDAO(); // puerta
-            ReferenciaGeograficaDAO referencias = new ReferenciaGeograficaDAO();
-            EmpleadoDAO empleado = new EmpleadoDAO();// emple //fecha
-            
-            DispositivoDAO dispositivo = new DispositivoDAO();
-            EventoAccesoDAO eventos = new EventoAccesoDAO();
-           // eventos.Save()
-
-              var device = dispositivo.FindByImei(deviceId);
-            var employee = empleado.FindEmpleadoByDevice(device);
-
-            List<int> empresas = new List<int>();
-            empresas.Add(employee.Empresa.Id);
-              var lineas = new int[] {};
-
-             List<PuertaAcceso> lista = puertas.GetList(empresas, lineas);
-             foreach (var item in lista)
-             {
-                // item.ZonaAccesoEntrada.
-             }
-  
-                     
-            var routes = RouteService.GetAvailableRoutes(deviceId);
-
-            if (routes == null) return Unauthorized();
-            if (routes.Count < 1) return Ok(new RouteList());
-
-            var listRoute = new RouteList
-            {
-                CompanyId = routes[0].Empresa.Id,
-                LineId = routes[0].Linea.Id,
-                DateTime = DateTime.UtcNow
-            };
-
-            var items = new List<RouteItem>();
-            foreach (var viajeDistribucion in routes)
-            {
-                if (!viajeDistribucion.Estado.ToString().Equals(ROUTE_STATUS_FINALIZE))
-                {
-                    items.Add(new RouteItem()
-                    {
-                        Code = viajeDistribucion.Codigo,
-                        DeliveriesNumber = viajeDistribucion.Detalles.Count - 1,
-                        Id = viajeDistribucion.Id,
-                        Places = "",
-                        Status = viajeDistribucion.Estado.ToString(),
-                        StartDateTime = viajeDistribucion.Inicio
-                    });
-                }
-            }
-            listRoute.RouteItems = items.ToArray();
-            return Ok(listRoute);
+            return Ok();
         }
 
  
 
         // GET: api/Routes/1234567890A
         public IHttpActionResult Get(int id)
-        {            
-            return Ok();
+        {
+            var deviceId = GetDeviceId(Request);
+            if (deviceId == null) return BadRequest();
+
+            var items = new List<Geocerca>();
+
+
+            PuertaAccesoDAO puertas = new PuertaAccesoDAO(); // puerta
+            ReferenciaGeograficaDAO referencias = new ReferenciaGeograficaDAO();
+            EmpleadoDAO empleado = new EmpleadoDAO();// emple //fecha
+            DispositivoDAO dispositivo = new DispositivoDAO();          
+
+            var device = dispositivo.FindByImei(deviceId);
+            var employee = empleado.FindEmpleadoByDevice(device);
+
+            List<int> empresas = new List<int>();
+            empresas.Add(employee.Empresa.Id);
+            var lineas = new int[] { };
+
+            List<PuertaAcceso> lista = puertas.GetList(empresas, lineas);
+            foreach (var item in lista)
+            {
+                if (item.ReferenciaGeografica != null &&
+                    !items.Exists(x => x.id.Equals(item.Id)))
+                {
+                    if (item.ReferenciaGeografica.Id > id)
+                    {
+                        string radio = "50";
+                        if (item.ReferenciaGeografica.Poligono != null)
+                            radio = item.ReferenciaGeografica.Poligono.Radio.ToString();
+                        items.Add(new Geocerca()
+                        {
+                            id = Convert.ToString(item.ReferenciaGeografica.Id),
+                            latitude = item.ReferenciaGeografica.Latitude.ToString(),
+                            radio = radio,
+                            longitude = item.ReferenciaGeografica.Longitude.ToString(),
+                            calle = item.ReferenciaGeografica.Direccion.Calle,
+                            altura = item.ReferenciaGeografica.Direccion.Altura.ToString(),
+                            idpuerta = item.Id.ToString()
+                        });
+                    }
+                }
+            }
+            return Ok(items.ToArray().OrderBy(item => item.id).ToArray());
         }
 
-        [Route("api/routes/{routeId}/messages")]
+        [Route("api/Geocercas/geocerca")]
         [HttpPost]
-        public IHttpActionResult actualizarGeocerca([FromBody]Message[] messages)
+        public IHttpActionResult actualizarGeocerca([FromBody]Geocerca geocerca)
         {
-            if (messages == null) return BadRequest();
-
+            if (geocerca == null) return BadRequest();
             var msgCodes = new List<string>();
-
             var deviceId = GetDeviceId(Request);
-            if (deviceId == null) return Unauthorized();
+            if (deviceId == null) 
+                return Unauthorized();
 
+            DateTime horaentrada = DateTime.ParseExact(geocerca.horaentrada.ToString(), "yyyy-MM-dd-HH.mm.ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime horasalida = DateTime.ParseExact(geocerca.horariosalida.ToString(), "yyyy-MM-dd-HH.mm.ss.fff", System.Globalization.CultureInfo.InvariantCulture);
 
-            /*
-             ACTUALIZO GEOCERCA
-             */
+            EmpleadoDAO empleado = new EmpleadoDAO();// emple //fecha
+            DispositivoDAO dispositivo = new DispositivoDAO();      
+            PuertaAccesoDAO puertas = new PuertaAccesoDAO(); // puerta
 
+            var device = dispositivo.FindByImei(deviceId);
+            var employee = empleado.FindEmpleadoByDevice(device);
+
+            List<int> empresas = new List<int>();
+            empresas.Add(employee.Empresa.Id);
+            var lineas = new int[] { };
+            PuertaAcceso puerta = puertas.GetList(empresas, lineas).Where(x => x.Id.ToString().Equals(geocerca.idpuerta)).First();
+            if (puerta != null)
+            {
+                EventoAcceso entrada = new EventoAcceso();
+                entrada.Empleado = employee;
+                entrada.Alta = DateTime.UtcNow;
+                entrada.Entrada = true;
+
+                entrada.Fecha = horaentrada.ToUniversalTime();
+                entrada.Puerta = puerta;
+
+                EventoAccesoDAO eventos = new EventoAccesoDAO();
+                eventos.Save(entrada);
+
+                EventoAcceso salida = new EventoAcceso();
+                salida.Empleado = employee;
+                salida.Alta = DateTime.UtcNow;
+                salida.Entrada = false;
+                salida.Fecha = horasalida.ToUniversalTime();
+                salida.Puerta = puerta;
+
+                eventos.Save(salida);
+            }
             return Ok(msgCodes.ToArray());
+
+            
+
+            
+           
         }
 
     }

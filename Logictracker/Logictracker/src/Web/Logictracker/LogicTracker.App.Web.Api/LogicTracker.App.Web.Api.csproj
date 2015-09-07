@@ -278,6 +278,7 @@
     <Compile Include="Models\MessageType.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\Geocerca.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\RouteEvent.cs" />
     <Compile Include="Models\RouteItem.cs" />
