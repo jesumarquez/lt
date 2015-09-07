@@ -7,6 +7,8 @@ echo Copiando Express
 xcopy /E/I/Q Applications\run\bin\Debug Actualizacion\Express
 echo Copiando Report Host
 xcopy /E/I/Q BackEnd\Hosts\Logictracker.Tracker.Application.Reports.Host\bin\Debug Actualizacion\ReportsHost
+echo Copiando LogicTracker.App.Web.Api
+xcopy /E/I/Q Logictracker\Logictracker\src\Web\Logictracker\LogicTracker.App.Web.Api\bin\Debug Actualizacion\LogicTracker.App.Web.Api
 echo Copiando Tester
 xcopy /E/I/Q Testing\HandlerTest\bin\Debug Actualizacion\Tester
 echo Copiando UrbeOut
@@ -54,6 +56,14 @@ echo Borrando Applications
 rd /s/q Applications
 echo Borrando Config
 rd /s/q Config
+cd..
+cd..
+
+cd Actualizacion\LogicTracker.App.Web.Api
+echo Borrando .config
+del *.config
+echo Borrando .xml
+del *.xml
 cd..
 cd..
 
