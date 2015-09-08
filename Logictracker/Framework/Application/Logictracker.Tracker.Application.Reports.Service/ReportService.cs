@@ -25,6 +25,8 @@ namespace Logictracker.Tracker.Application.Reports
     public class ReportService : IReportService
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ReportService));
+
+        #region IoC Objects
         public MessageQueueTemplate MessageQueueTemplate { get; set; }
         public ReportFactory ReportFactory { get; set; }
         public DAOFactory DaoFactory { get; set; }
@@ -36,8 +38,22 @@ namespace Logictracker.Tracker.Application.Reports
         public string Passwd { get; set; }
         public string SupportMail { get; set; }
 
+        #endregion
+
+        #region command generation
+
+        public void GenerateFinalReportAndSendMail(DateTime dateTime, string mail)
+        {
+            MessageQueueTemplate.ConvertAndSend(new FinalExecutionCommand()
+            {
+                Email = mail,
+                FinalDate = dateTime.Date,
+                InitialDate = dateTime.AddDays(1).Date
+            });
+        }
+
         public void GenerateDailyEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId,
-            DateTime initialDate, DateTime finalDate)
+           DateTime initialDate, DateTime finalDate)
         {
             MessageQueueTemplate.ConvertAndSend(new DailyEventReportCommand()
             {
@@ -51,6 +67,10 @@ namespace Logictracker.Tracker.Application.Reports
             });
         }
 
+        #endregion
+
+        #region report generation
+       
         public  Stream GenerateDailyEventReport(EventReportCommand reportGenerationCommand, IReportStatus reportStatus)
         {
             var command = reportGenerationCommand;
@@ -77,43 +97,7 @@ namespace Logictracker.Tracker.Application.Reports
 
             return null;
         }
-
-        public void GenerateFinalReportAndSendMail(DateTime dateTime, string mail)
-        {
-            MessageQueueTemplate.ConvertAndSend(new FinalExecutionCommand()
-            {
-                Email = mail,
-                FinalDate = dateTime.Date,
-                InitialDate = dateTime.AddDays(1).Date
-            });
-        }
-
-        public void LogReportExecution(IReportStatus reportStatus)
-        {
-            var log = new LogProgramacionReporte
-            {
-                Inicio = reportStatus.StartReport,
-                Fin = DateTime.Now,
-                Filas = reportStatus.RowCount,
-                Error = reportStatus.Error
-            };
-
-            if (reportStatus.ReportProg != null)
-                log.ProgramacionReporte = reportStatus.ReportProg;
-
-            try
-            {
-                DaoFactory.LogProgramacionReporteDAO.SaveOrUpdate(log);
-            }
-            catch (Exception ex)
-            {
-                if (reportStatus.ReportProg != null)
-                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0} debido a {1} ", reportStatus.ReportProg.ReportName, ex.Message);
-                else
-                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
-            }
-        }
-
+    
         public string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus statusReport)
         {
             var execReport = new StringBuilder();
@@ -438,17 +422,7 @@ namespace Logictracker.Tracker.Application.Reports
        
         }
 
-        public void SendEmptyReport(IReportCommand command, string report)
-        {
-            var subject = report + " Logictracker";
-            var body = string.Format("Usted ha solicitado un {0} a través de la plataforma Logictracker, pero esta consulta no arrojo resultados, modifique los filtros y vuelva a intentarlo.", report);
-            body += "\n\n Este mensaje se ha generado automaticamente, No responda este correo.";
-
-            var emailList = ValidateAddress(command.Email);
-
-            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
-        }
-
+   
         public string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand cmd, IReportStatus status)
         {
             if (cmd.CustomerId == 0) return null;
@@ -469,37 +443,27 @@ namespace Logictracker.Tracker.Application.Reports
 
             return status.RowCount > 0 ? ConvertToString(resultsDt) : null;
         }
-        
-        private string ConvertToString(DataTable dtInfractions)
+
+        #endregion
+
+        #region Sending and Logging
+
+        public void SendEmptyReport(IReportCommand command, string report, bool isError)
         {
-            var report = new StringBuilder(@"
-                <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
-                <tr><td colspan='5' style='background-color:#3A81B1;'><img src='http://web.logictracker.com/App_Themes/Marinero/img/logo-logic-azul.png' /></td>
-                </tr><tr style='background-color:#e7e7e7;'>
-                <td style='padding: 10px;'><b>Conductor</b></td>
-                <td style='padding: 10px;'><b>Vehiculo</b></td>
-                <td style='padding: 10px;'><b>Graves</b></td>
-                <td style='padding: 10px;'><b>Medias</b></td>
-                <td style='padding: 10px;'><b>Leves</b></td>
-                </tr>");
-            
-            var index = 0;
-            foreach (DataRow infractionRow in dtInfractions.Rows)
-            {
-                report.AppendFormat(index%2 == 0 ? "<tr>":"<tr style='background-color:#e7e7e7;'>");
+            var subject = report;
 
-                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(1));
-                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(2));
-                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(3));
-                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(4));
-                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(5));
-                report.Append("</tr>");
-                index++;
-            }
-            report.Append("</table>");
-            return report.ToString();
-        }    
+            string body;
+            if (isError)
+                body = "Se ha producido un error al generar el reporte solicitado, por favor pongase en contacto con Logictracker";
+            else
+                body = string.Format("Usted ha solicitado un {0} a través de la plataforma Logictracker, pero esta consulta no arrojo resultados, modifique los filtros y vuelva a intentarlo.", report);
 
+            body += "\n\n Este mensaje se ha generado automaticamente, No responda este correo.";
+
+            var emailList = ValidateAddress(command.Email);
+
+            Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
+        }
         public void SendHtmlReport(string reportString, DriversInfractionsReportCommand command, string report)
         {
             var subject = report + " Logictracker";
@@ -509,7 +473,6 @@ namespace Logictracker.Tracker.Application.Reports
 
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, true);
         }
-
         public void SendReport(Stream reportStream, IReportCommand command, string reportName)
         {
             var subject = reportName + " Logictracker";
@@ -525,7 +488,44 @@ namespace Logictracker.Tracker.Application.Reports
 
             Notifier.SmtpMail(MailFrom, emailList, subject, body, reportStream, filename, SmtpPort, SmtpAddress, Passwd, false);
         }
+        public void LogReportExecution(IReportStatus reportStatus)
+        {
+            var log = new LogProgramacionReporte
+            {
+                Inicio = reportStatus.StartReport,
+                Fin = DateTime.Now,
+                Filas = reportStatus.RowCount,
+                Error = reportStatus.Error
+            };
 
+            if (reportStatus.ReportProg != null)
+                log.ProgramacionReporte = reportStatus.ReportProg;
+
+            try
+            {
+                DaoFactory.LogProgramacionReporteDAO.SaveOrUpdate(log);
+            }
+            catch (Exception ex)
+            {
+                if (reportStatus.ReportProg != null)
+                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0} debido a {1} ", reportStatus.ReportProg.ReportName, ex.Message);
+                else
+                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
+            }
+        }
+        public void NotifyError(IReportCommand command, string errorMessage)
+        {
+            try
+            {
+                SendEmptyReport(command, "Reporte Logictracker", true);
+                var emailList = ValidateAddress(SupportMail);
+                Notifier.SmtpMail(MailFrom, emailList, "Error en Reporte", errorMessage, null, null, SmtpPort, SmtpAddress, Passwd, false);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("No se pudo notificar a todos los correos {0} ", ex.Message);
+            }
+        }
         public void SendReport(string reportExecution, string reporteDeEjecucion)
         {
             var subject = "Reporte de ejecucion de Reportes Programados";
@@ -536,7 +536,6 @@ namespace Logictracker.Tracker.Application.Reports
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
 
         }
-
         private static List<string> ValidateAddress(string email)
         {
             var emailAddresses = email.Replace(',', ';').Split(';');
@@ -551,13 +550,44 @@ namespace Logictracker.Tracker.Application.Reports
             }
             return emails;
         }
-
         public static bool IsValidEmail(string strIn)
         {
             // Return true if strIn is in valid e-mail format.
             return Regex.IsMatch(strIn,
                     @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))" +
                     @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
+        }
+
+        #endregion
+
+        private string ConvertToString(DataTable dtInfractions)
+        {
+            var report = new StringBuilder(@"
+                <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
+                <tr><td colspan='5' style='background-color:#3A81B1;'><img src='http://web.logictracker.com/App_Themes/Marinero/img/logo-logic-azul.png' /></td>
+                </tr><tr style='background-color:#e7e7e7;'>
+                <td style='padding: 10px;'><b>Conductor</b></td>
+                <td style='padding: 10px;'><b>Vehiculo</b></td>
+                <td style='padding: 10px;'><b>Graves</b></td>
+                <td style='padding: 10px;'><b>Medias</b></td>
+                <td style='padding: 10px;'><b>Leves</b></td>
+                </tr>");
+
+            var index = 0;
+            foreach (DataRow infractionRow in dtInfractions.Rows)
+            {
+                report.AppendFormat(index % 2 == 0 ? "<tr>" : "<tr style='background-color:#e7e7e7;'>");
+
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(1));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(2));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(3));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(4));
+                report.AppendFormat("<td>{0}</td>", infractionRow.ItemArray.GetValue(5));
+                report.Append("</tr>");
+                index++;
+            }
+            report.Append("</table>");
+            return report.ToString();
         }
     }
 }

@@ -744,6 +744,7 @@ namespace Logictracker.Process.CicloLogistico
                     }
 
                     detalle.Manual = data.Date;
+                    detalle.Estado = EntregaDistribucion.Estados.NoCompletado;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
                     var textMessage = DaoFactory.MensajeDAO.GetByCodigo(data.MessageId.ToString(), detalle.Viaje.Vehiculo.Dispositivo.Id);
@@ -778,9 +779,6 @@ namespace Logictracker.Process.CicloLogistico
                 default:
                     return;
             }
-            detalle.Estado = data.Estado == EntregaDistribucion.Estados.Cancelado ? EntregaDistribucion.Estados.NoCompletado : data.Estado;
-
-            DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
             SaveConfirmationMessage(gpsPoint, detalle, data.MessageId.ToString());
 
