@@ -14,5 +14,6 @@ namespace LogicTracker.App.Web.Api.Models
         public string horariosalida { get; set; }
         public string registrado { get; set; }
         public string idpuerta { get; set; }
+        public string nombre { get; set; }
     }
 }
