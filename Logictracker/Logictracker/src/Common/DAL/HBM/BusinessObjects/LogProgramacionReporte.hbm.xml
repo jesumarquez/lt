@@ -14,6 +14,6 @@
     <property column="parenti62_cantidad_filas" name="Filas" />
     <property column="parenti62_error" name="Error" />
     
-    <many-to-one column="rela_parenti56" name="ProgramacionReporte" lazy="proxy" not-null="true" />
+    <!--<many-to-one column="rela_parenti56" name="ProgramacionReporte" lazy="proxy" not-null="true" />-->
   </class>
 </hibernate-mapping>
