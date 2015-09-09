@@ -756,6 +756,24 @@ namespace Logictracker.Utils
             return value;
         }
 
+        public static int ReverseToNumeral(this BitArray ba)
+        {
+            if (ba == null)
+                throw new ArgumentNullException("binary");
+            if (ba.Length > 32)
+                throw new ArgumentException("must be at most 32 bits long");
+
+            int value = 0;
+
+            for (int i = ba.Count - 1; i > -1; i--)
+            {
+                if (ba[i])
+                    value += Convert.ToInt32(Math.Pow(2, i));
+            }
+
+            return value;
+        }
+
         public static BitArray Trim(this BitArray source, int size)
         {
             var dest = new BitArray(size);
