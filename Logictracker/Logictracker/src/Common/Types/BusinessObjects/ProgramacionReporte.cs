@@ -27,10 +27,12 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Description { get; set; }
 
         public virtual IList<ParametroReportesProg> Parametros { get; set; }
+        public virtual IList<LogProgramacionReporte> ReportLogs { get; set; }
 
         public ProgramacionReporte()
         {
-            Parametros=new List<ParametroReportesProg>();
+            Parametros = new List<ParametroReportesProg>();
+            ReportLogs= new List<LogProgramacionReporte>();
             Format = FormatoReporte.Excel;
         }
 

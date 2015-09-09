@@ -17,20 +17,6 @@ namespace Logictracker.DAL.DAO.ReportObjects
                                  && f.Fin <= hasta)
                         .ToList();
         }
-
-        public void SaveNewLog(DateTime startDate, DateTime endDate, int rows, bool errors, ProgramacionReporte progReport)
-        {
-            var log = new LogProgramacionReporte
-            {
-                Inicio = startDate,
-                Fin = endDate,
-                Filas = rows,
-                Error = errors,
-                ProgramacionReporte = progReport                
-            };
-
-            SaveOrUpdate(log);
-        }
     }
 }
 

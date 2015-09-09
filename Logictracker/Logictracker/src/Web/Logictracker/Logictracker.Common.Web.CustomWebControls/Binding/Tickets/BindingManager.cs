@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
@@ -158,6 +159,18 @@ namespace Logictracker.Web.CustomWebControls.Binding
             }
         }
 
+        private static Dictionary<int, string> ReportStatus
+        {
+            get
+            {
+                return new Dictionary<int, string>
+                           {
+                               {0, "Correctos"},
+                               {1, "Erroneos"}
+                           };
+            }
+        }
+
         private static Dictionary<int, string> EstadosArchivosLogicLink
         {
             get
@@ -299,6 +312,15 @@ namespace Logictracker.Web.CustomWebControls.Binding
             AddDefaultItems(autoBindeable);
 
             foreach (var modulo in ModulosDatamart.OrderBy(e => e.Value)) autoBindeable.AddItem(modulo.Value, modulo.Key);
+        }
+
+        public void BindReportExecution(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+
+            AddDefaultItems(autoBindeable);
+
+            foreach (var exec in ReportStatus.OrderBy(e => e.Value)) autoBindeable.AddItem(exec.Value, exec.Key);
         }
 
         public void BindEstadoArchivo(IAutoBindeable autoBindeable)

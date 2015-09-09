@@ -30,6 +30,6 @@ namespace Logictracker.Types.BusinessObjects
         public virtual DateTime Fin { get; set; }
         public virtual int Filas { get; set; }
         public virtual bool Error { get; set; }
-        public virtual ProgramacionReporte ProgramacionReporte { get; set; }
+        //public virtual ProgramacionReporte ProgramacionReporte { get; set; }
     }
 }

@@ -101,19 +101,22 @@ namespace Logictracker.Tracker.Application.Reports
         public string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus statusReport)
         {
             var execReport = new StringBuilder();
-            var reportLogs = DaoFactory.LogProgramacionReporteDAO.FindAll();
-            foreach (var reportlog in reportLogs)
+            var reports = DaoFactory.ProgramacionReporteDAO.FindAll();        
+            //var reportLogs = DaoFactory.LogProgramacionReporteDAO.FindAll();
+            
+            foreach (var report in reports)
             {
-                if (reportlog.Inicio.Date == DateTime.Now.Date)
+                var logs = report.ReportLogs.Where(l => l.Inicio.Date == DateTime.Now.Date);
+                foreach (var log in logs)
                 {
-                    var report = DaoFactory.ProgramacionReporteDAO.FindById(reportlog.ProgramacionReporte.Id);
+                    //var r = DaoFactory.ProgramacionReporteDAO.FindById(report.Id);
                     execReport.AppendLine(string.Format("Nombre : {0} ", report.ReportName));
-                    execReport.AppendLine(string.Format("Tipo : {0} ", reportlog.ProgramacionReporte.Report));
-                    execReport.AppendLine(string.Format("Empresa : {0} ", reportlog.ProgramacionReporte.Empresa.RazonSocial));
-                    execReport.AppendLine(string.Format("Inicio : {0} ", reportlog.Inicio));
-                    execReport.AppendLine(string.Format("Fin : {0} ", reportlog.Fin));
-                    execReport.AppendLine(string.Format("Filas : {0} ", reportlog.Filas));
-                    execReport.AppendLine(string.Format("Errores : {0} ", reportlog.Error? "Si" : "No"));
+                    execReport.AppendLine(string.Format("Tipo : {0} ", report.ReportName));
+                    execReport.AppendLine(string.Format("Empresa : {0} ", report.Empresa.RazonSocial));
+                    execReport.AppendLine(string.Format("Inicio : {0} ", log.Inicio));
+                    execReport.AppendLine(string.Format("Fin : {0} ", log.Fin));
+                    execReport.AppendLine(string.Format("Filas : {0} ", log.Filas));
+                    execReport.AppendLine(string.Format("Errores : {0} ", log.Error? "Si" : "No"));
                     execReport.AppendLine();
                 }
             }
@@ -499,18 +502,21 @@ namespace Logictracker.Tracker.Application.Reports
             };
 
             if (reportStatus.ReportProg != null)
-                log.ProgramacionReporte = reportStatus.ReportProg;
+            {
+                var report = DaoFactory.ProgramacionReporteDAO.FindById(reportStatus.ReportProg.Id);
+                report.ReportLogs.Add(log);
 
-            try
-            {
-                DaoFactory.LogProgramacionReporteDAO.SaveOrUpdate(log);
-            }
-            catch (Exception ex)
-            {
-                if (reportStatus.ReportProg != null)
-                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0} debido a {1} ", reportStatus.ReportProg.ReportName, ex.Message);
-                else
-                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
+                try
+                {
+                    DaoFactory.ProgramacionReporteDAO.SaveOrUpdate(report);
+                }
+                catch (Exception ex)
+                {
+                    if (reportStatus.ReportProg != null)
+                        Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0} debido a {1} ", reportStatus.ReportProg.ReportName, ex.Message);
+                    else
+                        Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
+                }
             }
         }
         public void NotifyError(IReportCommand command, string errorMessage)

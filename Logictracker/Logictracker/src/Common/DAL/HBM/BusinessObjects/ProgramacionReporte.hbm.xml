@@ -26,7 +26,13 @@
       <key column="rela_parenti56" />
       <one-to-many class="Logictracker.Types.BusinessObjects.ParametroReportesProg, Logictracker.Types" />
     </bag>
-    
+
+    <bag name="ReportLogs" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti56" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.LogProgramacionReporte, Logictracker.Types" />
+    </bag>
+  
   </class>
   
 </hibernate-mapping>
