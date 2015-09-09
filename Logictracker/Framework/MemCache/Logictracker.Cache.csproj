@@ -39,7 +39,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Memcached.ClientLibrary">
+    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\Memcached.ClientLibrary\Memcached.ClientLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System.Core">
