@@ -72,6 +72,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                         {
                             id = Convert.ToString(item.ReferenciaGeografica.Id),
                             latitude = item.ReferenciaGeografica.Latitude.ToString(),
+                            nombre = item.Descripcion,
                             radio = radio,
                             longitude = item.ReferenciaGeografica.Longitude.ToString(),
                             calle = calle,
