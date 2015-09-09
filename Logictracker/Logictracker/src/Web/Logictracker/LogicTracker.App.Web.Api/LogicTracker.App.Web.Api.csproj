@@ -84,8 +84,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\Spring.Data.2.0.1\lib\net45\Spring.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Spring.Messaging">
-      <HintPath>..\..\..\packages\Spring.Messaging.2.0.1\lib\net45\Spring.Messaging.dll</HintPath>
+    <Reference Include="Spring.Messaging, Version=2.0.1.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\Spring.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Web, Version=2.0.0.45000, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
