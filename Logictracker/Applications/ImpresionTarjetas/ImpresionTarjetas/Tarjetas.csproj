@@ -79,13 +79,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Resources\CrystalReports\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Resources\LinqToExcel.dll</HintPath>
+    <Reference Include="Remotion">
+      <HintPath>..\..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Resources\Remotion.Data.Linq.dll</HintPath>
+      <HintPath>..\..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces">
+      <HintPath>..\..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -208,6 +210,7 @@
       <LastGenOutput>TarjetaUnica.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\empleado.datasource" />
     <None Include="Tarjetas.dbml.layout">
       <DependentUpon>Tarjetas.dbml</DependentUpon>
