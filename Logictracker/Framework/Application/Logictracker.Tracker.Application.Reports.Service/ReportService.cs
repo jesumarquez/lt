@@ -622,5 +622,12 @@ namespace Logictracker.Tracker.Application.Reports
             return report.ToString();
         }
 
+        public static IReportCommand CreateNewExecutionReportCommand(DateTime dateTime)
+        {
+            return new FinalExecutionCommand
+            {
+                InitialDate = dateTime
+            };
+        }
     }
 }

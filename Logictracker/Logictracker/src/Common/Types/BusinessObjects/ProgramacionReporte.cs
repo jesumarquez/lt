@@ -51,6 +51,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string TrasladosViaje = "TransfersPerTripReport";
             public const string EstadoEntregas = "DeliverStatusReport";
             public const string ResumenRutas = "SummaryRoutes";
+            public const string EjecucionReportes = "ExecutionReport";
 
             public static int GetDropDownListIndex(string reporte)
             {

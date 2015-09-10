@@ -192,11 +192,21 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         VehiclesId = prog.GetParameters(ParameterType.Vehicle),
                         ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
-                default:
-                    return new FinalExecutionCommand
+                case ProgramacionReporte.Reportes.VerificadorVehiculos:
+                    return new VehicleVerifierCommand
                     {
-                        InitialDate = DateTime.Now
+                        ReportId = prog.Id,
+                        CustomerId = prog.Empresa.Id,
+                        Email = prog.Mail,
+                        FinalDate = GetFinalDate(),
+                        InitialDate = GetInitialDate(prog.Periodicity),
+                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
+                case ProgramacionReporte.Reportes.EjecucionReportes:
+                    return ReportService.CreateNewExecutionReportCommand(DateTime.Now);
+                default:
+                    return null;
             }
         }
 

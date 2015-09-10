@@ -7,6 +7,9 @@
         Message,
         Geofence,
         Document,
-        Odometer
+        Odometer,
+        VehicleType,
+        CostCenter,
+        Carrier
     }
 }

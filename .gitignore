@@ -100,3 +100,5 @@ Logictracker/Framework/Process/Logictracker.Process.Import.Client/Mapping/Logict
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/en
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/es
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/pt
+/Logictracker/Logictracker/src/Web/Logictracker/LogicTracker.App.Web.Api/bin/*.pdb
+/Logictracker/Logictracker/src/Web/Logictracker/LogicTracker.App.Web.Api/bin/*.config
