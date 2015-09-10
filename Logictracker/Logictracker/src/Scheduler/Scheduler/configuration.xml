@@ -64,17 +64,17 @@
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=74;" />
     </Timer-->
 
-    <Timer Enabled="true" Name="LogicLink 2 - CCU" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+    <!--<Timer Enabled="true" Name="LogicLink 2 - CCU" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=81;" />
-    </Timer>
+    </Timer>-->
 
     <!--Timer Enabled="false" Name="Pump" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.PumpControl.Task, Logictracker.Scheduler.Tasks.PumpControl"/>
     </Timer-->
 
-    <!--Timer Enabled="false" Name="OrbComm" StartTime="00:00:00" Periodicity="Minute" Frequency="30" RunAtStart="false">
+    <Timer Enabled="true" Name="OrbComm" StartTime="00:00:00" Periodicity="Minute" Frequency="30" RunAtStart="true">
       <Task Class="Logictracker.Scheduler.Tasks.OrbComm.Task, Logictracker.Scheduler.Tasks.OrbComm" Params="queuename=.\private$\eventos_orbcomm;queuetype=binary" />
-    </Timer-->
+    </Timer>
 
     <!--Timer Enabled="false" Name="ControlAcceso" StartTime="08:15:00" Periodicity="Minute" Frequency="30" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.ControlAcceso.Task, v.Scheduler.Tasks.ControlAcceso" Params="queuename=.\private$\eventos_trax;queuetype=binary" />

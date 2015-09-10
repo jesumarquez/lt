@@ -22,11 +22,12 @@ namespace Logictracker.Tracker.Services
         Stream GenerateTransfersPerTripReport(TransfersPerTripReportCommand command, IReportStatus reportStatus);
         Stream GenerateDeliverStatusReport(DeliverStatusReportCommand command, IReportStatus reportStatus);
         Stream GenerateSummaryRoutesReport(SummaryRoutesReportCommand command, IReportStatus reportStatus);
-        string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand command, IReportStatus reportStatus);       
+        string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand command, IReportStatus reportStatus);
+        string GenerateSummarizedDocumentExpirationReport(DocumentsExpirationReportCommand command, IReportStatus reportStatus);
         string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus reportStatus);       
 
         void LogReportExecution(IReportStatus reportStatus);
-        void SendHtmlReport(string report, DriversInfractionsReportCommand command, string reportName);
+        void SendHtmlReport(string report, string email, string reportName);
         void SendEmptyReport(IReportCommand command, string reportName, bool isError);
         void SendReport(string reportExecution, string reporteDeEjecucion);
         void SendReport(Stream reportStream, IReportCommand command, string reportName);

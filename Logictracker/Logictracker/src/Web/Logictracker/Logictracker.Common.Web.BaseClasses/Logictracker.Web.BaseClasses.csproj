@@ -173,6 +173,14 @@
       <Project>{52186fb0-923b-48a5-8411-d60f88cfae1b}</Project>
       <Name>Geocoder.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Application\Logictracker.Tracker.Application.Reports.Service\Logictracker.Tracker.Application.Reports.csproj">
+      <Project>{49F37EAC-6DC8-4D61-BACF-F76B877ECDD0}</Project>
+      <Name>Logictracker.Tracker.Application.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
+      <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>
+      <Name>Logictracker.Tracker.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Description\Logictracker.Description.csproj">
       <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
       <Name>Logictracker.Description</Name>

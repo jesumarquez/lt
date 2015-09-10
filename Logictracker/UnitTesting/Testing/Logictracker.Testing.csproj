@@ -183,10 +183,6 @@
       <Project>{2D0C837C-8644-4C77-8267-BE07CAD743BD}</Project>
       <Name>Logictracker.Security</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
-      <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
-      <Name>Logictracker.DatabaseTracer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>

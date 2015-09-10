@@ -67,6 +67,22 @@ namespace Logictracker.Tracker.Application.Reports
             });
         }
 
+        public static IReportCommand CreateNewOdometerReportCommand(int reportId, int customerId, int linea, string mail, DateTime finalDate, DateTime initialDate, List<int> odometersId, List<int> vehiclesId, string reportName)
+        {
+            return new OdometersReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = linea,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initialDate,
+                Odometers = odometersId,
+                VehiclesId = vehiclesId,
+                ReportName = reportName + initialDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
         #endregion
 
         #region report generation
@@ -101,19 +117,22 @@ namespace Logictracker.Tracker.Application.Reports
         public string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus statusReport)
         {
             var execReport = new StringBuilder();
-            var reportLogs = DaoFactory.LogProgramacionReporteDAO.FindAll();
-            foreach (var reportlog in reportLogs)
+            var reports = DaoFactory.ProgramacionReporteDAO.FindAll();        
+            //var reportLogs = DaoFactory.LogProgramacionReporteDAO.FindAll();
+            
+            foreach (var report in reports)
             {
-                if (reportlog.Inicio.Date == DateTime.Now.Date)
+                var logs = report.ReportLogs.Where(l => l.Inicio.Date == DateTime.Now.Date);
+                foreach (var log in logs)
                 {
-                    var report = DaoFactory.ProgramacionReporteDAO.FindById(reportlog.ProgramacionReporte.Id);
+                    //var r = DaoFactory.ProgramacionReporteDAO.FindById(report.Id);
                     execReport.AppendLine(string.Format("Nombre : {0} ", report.ReportName));
-                    execReport.AppendLine(string.Format("Tipo : {0} ", reportlog.ProgramacionReporte.Report));
-                    execReport.AppendLine(string.Format("Empresa : {0} ", reportlog.ProgramacionReporte.Empresa.RazonSocial));
-                    execReport.AppendLine(string.Format("Inicio : {0} ", reportlog.Inicio));
-                    execReport.AppendLine(string.Format("Fin : {0} ", reportlog.Fin));
-                    execReport.AppendLine(string.Format("Filas : {0} ", reportlog.Filas));
-                    execReport.AppendLine(string.Format("Errores : {0} ", reportlog.Error? "Si" : "No"));
+                    execReport.AppendLine(string.Format("Tipo : {0} ", report.ReportName));
+                    execReport.AppendLine(string.Format("Empresa : {0} ", report.Empresa.RazonSocial));
+                    execReport.AppendLine(string.Format("Inicio : {0} ", log.Inicio));
+                    execReport.AppendLine(string.Format("Fin : {0} ", log.Fin));
+                    execReport.AppendLine(string.Format("Filas : {0} ", log.Filas));
+                    execReport.AppendLine(string.Format("Errores : {0} ", log.Error? "Si" : "No"));
                     execReport.AppendLine();
                 }
             }
@@ -253,19 +272,32 @@ namespace Logictracker.Tracker.Application.Reports
 
         public Stream GenerateOdometersReport(OdometersReportCommand cmd, IReportStatus reportStatus)
         {
-            if (cmd.ReportId != 0)
-                reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
             if (cmd.CustomerId == 0) return null;
 
             var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            
             var baseName = "Todos";
+            if ((cmd.BaseId != -1) && (cmd.BaseId != 0))
+                baseName = DaoFactory.LineaDAO.FindById(cmd.BaseId).Descripcion;
+
+            var vehiculos = (from v in cmd.VehiclesId
+                             let ve = DaoFactory.CocheDAO.FindById(v)
+                             where ve.Dispositivo != null
+                             select v).ToList();
 
             var results = (IEnumerable<OdometroStatus>) ReportFactory.OdometroStatusDAO.FindByVehiculosAndOdometros(cmd.VehiclesId, cmd.Odometers, false);
+            var ret = (from OdometroStatus m in results select new OdometroStatusVo(m)).ToList();
+            if (cmd.Odometers.Contains(-10))
+            {
+                var coches = DaoFactory.CocheDAO.GetList(new[] { cmd.CustomerId }, new[] { cmd.BaseId})
+                                                .Where(c => vehiculos.Contains(c.Id));
 
-            reportStatus.RowCount = 0;
+                ret.AddRange(coches.Select(coche => new OdometroStatusVo(coche)));
+            }
 
-            return OdometersReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
+            reportStatus.RowCount = ret.Count;
+
+            return reportStatus.RowCount>0 ? OdometersReportGenerator.GenerateReport(ret, customer, cmd.InitialDate.ToDataBaseDateTime(), baseName) : null;
         }
 
         public Stream GenerateTransfersPerTripReport(TransfersPerTripReportCommand command, IReportStatus statusReport)
@@ -402,26 +434,22 @@ namespace Logictracker.Tracker.Application.Reports
             var viajes = new List<ViajeDistribucion>();
             //tbl_totales.Visible = false;
 
-
-
-                viajes = DaoFactory.ViajeDistribucionDAO.GetList(new[] { cmd.CustomerId },
-                                                                 new[] { -1 },
-                                                                 new[] { -1 },//lbTransportista.SelectedValues,}
-                                                                 new[] { -1 },//lbDepartamento.SelectedValues,
-                                                                 new[] { -1 },//lbCentroDeCostos.SelectedValues,
-                                                                 new[] { -1 },//lbSubCentroDeCostos.SelectedValues,
-                                                                 cmd.VehiclesId,
-                                                                 cmd.InitialDate,
-                                                                 cmd.FinalDate);
+            viajes = DaoFactory.ViajeDistribucionDAO.GetList(new[] { cmd.CustomerId },
+                                                                new[] { -1 },
+                                                                new[] { -1 },//lbTransportista.SelectedValues,}
+                                                                new[] { -1 },//lbDepartamento.SelectedValues,
+                                                                new[] { -1 },//lbCentroDeCostos.SelectedValues,
+                                                                new[] { -1 },//lbSubCentroDeCostos.SelectedValues,
+                                                                cmd.VehiclesId,
+                                                                cmd.InitialDate,
+                                                                cmd.FinalDate);
             
-                results = viajes.Select(v => new ResumenDeRutasVo(v, true)).ToList();
+            results = viajes.Select(v => new ResumenDeRutasVo(v, true)).ToList();
 
             reportStatus.RowCount = viajes.Count();
 
             return SummaryRoutesReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
-       
         }
-
    
         public string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand cmd, IReportStatus status)
         {
@@ -441,7 +469,26 @@ namespace Logictracker.Tracker.Application.Reports
             
             status.RowCount = resultsDt.Rows.Count;
 
-            return status.RowCount > 0 ? ConvertToString(resultsDt) : null;
+            return status.RowCount > 0 ? ConvertDtDriverInfractionsToString(resultsDt) : null;
+        }
+
+        public string GenerateSummarizedDocumentExpirationReport(DocumentsExpirationReportCommand cmd, IReportStatus status)
+        {
+            if (cmd.CustomerId == 0) return null;
+
+            var hasta = cmd.FinalDate.ToDataBaseDateTime().AddDays(7);
+            var empresas = new[] { cmd.CustomerId };
+
+            if (cmd.ReportId != 0)
+                status.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
+
+            if (cmd.CustomerId == 0) return null;
+
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);            
+
+            var results = DaoFactory.DocumentoDAO.GetDocumentExpirationSummary(cmd.Documents.ToArray(), new List<int> { cmd.CustomerId }, new List<int> { -1 }, hasta);
+
+            return results != null  ? ConvertDtDocumentExpirationToString(results) : null;
         }
 
         #endregion
@@ -464,12 +511,12 @@ namespace Logictracker.Tracker.Application.Reports
 
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
         }
-        public void SendHtmlReport(string reportString, DriversInfractionsReportCommand command, string report)
+        public void SendHtmlReport(string reportString, string email, string report)
         {
             var subject = report + " Logictracker";
             var body = reportString;
 
-            var emailList = ValidateAddress(command.Email);
+            var emailList = ValidateAddress(email);
 
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, true);
         }
@@ -499,18 +546,18 @@ namespace Logictracker.Tracker.Application.Reports
             };
 
             if (reportStatus.ReportProg != null)
-                log.ProgramacionReporte = reportStatus.ReportProg;
+            {
+                var report = DaoFactory.ProgramacionReporteDAO.FindById(reportStatus.ReportProg.Id);
+                report.ReportLogs.Add(log);
 
-            try
-            {
-                DaoFactory.LogProgramacionReporteDAO.SaveOrUpdate(log);
-            }
-            catch (Exception ex)
-            {
-                if (reportStatus.ReportProg != null)
-                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0} debido a {1} ", reportStatus.ReportProg.ReportName, ex.Message);
-                else
+                try
+                {
+                    DaoFactory.ProgramacionReporteDAO.SaveOrUpdate(report);
+                }
+                catch (Exception ex)
+                {
                     Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
+                }
             }
         }
         public void NotifyError(IReportCommand command, string errorMessage)
@@ -560,7 +607,7 @@ namespace Logictracker.Tracker.Application.Reports
 
         #endregion
 
-        private string ConvertToString(DataTable dtInfractions)
+        private string ConvertDtDriverInfractionsToString(DataTable dtInfractions)
         {
             var report = new StringBuilder(@"
                 <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
@@ -587,6 +634,52 @@ namespace Logictracker.Tracker.Application.Reports
                 index++;
             }
             report.Append("</table>");
+            return report.ToString();
+        }
+
+        private string ConvertDtDocumentExpirationToString(DataRow row)
+        {
+            var report = new StringBuilder(@"
+                <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
+                    <tr>
+                        <td colspan='5' style='background-color:#3A81B1;'>
+                            <img src='http://web.logictracker.com/App_Themes/Marinero/img/logo-logic-azul.png' />
+                        </td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>1er Aviso:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["1er Aviso"].ToString() +
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>2do Aviso:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["2do Aviso"].ToString() +
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>Vencidos:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["Vencidos"].ToString() + 
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>A vencer:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["A vencer"].ToString() + 
+                        @"</td>
+                    </tr>
+                </table>");
+
             return report.ToString();
         }
     }
