@@ -360,7 +360,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
         {
             if (!coche.HasLastMessageDate(codigo))
             {
-                var maxMonths = coche.Empresa != null ? coche.Empresa.MesesConsultaPosiciones : 3;
+                var maxMonths = 2;
 
                 var result = GetUniqueEventDateTime(new[] { coche.Id }, new[] { codigo }, new Byte[] { }, null, null, null, maxMonths, null, Order.Desc("Fecha"));
 
