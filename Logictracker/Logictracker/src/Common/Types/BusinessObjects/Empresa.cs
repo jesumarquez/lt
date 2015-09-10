@@ -41,6 +41,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
             public const string InicioDistribucionSiguienteAlCerrar = "distribucion.inicio.siguiente";
+            public const string DistribucionReportaEmpleado = "distribucion.reporta.empleado";
 
             public const string MesesConsultaPosiciones = "meses.consulta.posiciones";
             public const string EliminaRutas = "elimina.rutas";

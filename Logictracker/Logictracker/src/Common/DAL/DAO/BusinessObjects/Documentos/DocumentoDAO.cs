@@ -8,6 +8,7 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Documentos;
 using NHibernate;
 using NHibernate.Criterion;
+using System.Data;
 
 namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
 {
@@ -515,6 +516,19 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
         {
             obj.Estado = -1;
             SaveOrUpdate(obj);
+        }
+
+        public DataRow GetDocumentExpirationSummary(int[] tipos, List<int> empresas, List<int> lineas, DateTime hasta)
+        {
+            var documents = FindByTipo(tipos, empresas, lineas);
+            
+            var row = new DataTable().NewRow();
+            row["Vencidos"] = documents.Count(d => d.EnviadoAviso3);
+            row["2do Aviso"] = documents.Count(d => !d.EnviadoAviso3 && d.EnviadoAviso2);
+            row["1er Aviso"] = documents.Count(d => !d.EnviadoAviso3 && !d.EnviadoAviso2 && d.EnviadoAviso1);
+            row["A vencer"] = documents.Count(d => !d.EnviadoAviso3 && d.Vencimiento.HasValue && d.Vencimiento.Value < hasta);
+
+            return row;
         }
     }
 }
