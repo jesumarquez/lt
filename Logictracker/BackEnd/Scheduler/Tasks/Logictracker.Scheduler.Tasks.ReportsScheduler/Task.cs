@@ -8,6 +8,7 @@ using Logictracker.Reports.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Layers.MessageQueue;
+using Logictracker.Tracker.Application.Reports;
 using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.ReportsScheduler
@@ -154,17 +155,10 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.ReporteOdometros:
-                    return new OdometersReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        Odometers = prog.GetParameters(ParameterType.Odometer),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateNewOdometerReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,
+                        GetFinalDate(), GetInitialDate(prog.Periodicity), prog.GetParameters(ParameterType.Odometer),
+                        prog.GetParameters(ParameterType.Vehicle), prog.ReportName);
+
                 case ProgramacionReporte.Reportes.EstadoEntregas:
                     return new DeliverStatusReportCommand
                     {

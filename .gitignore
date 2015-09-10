@@ -94,3 +94,9 @@ Logictracker/Framework/Process/Logictracker.Process.Import.Client/Mapping/Logict
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/Logictracker.Culture.pdb
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/Logictracker.DatabaseTracer.dll
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/Logictracker.DatabaseTracer.pdb
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/en/*.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/*.pdb
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/*.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/en
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/es
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/pt

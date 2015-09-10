@@ -67,6 +67,22 @@ namespace Logictracker.Tracker.Application.Reports
             });
         }
 
+        public static IReportCommand CreateNewOdometerReportCommand(int reportId, int customerId, int linea, string mail, DateTime finalDate, DateTime initialDate, List<int> odometersId, List<int> vehiclesId, string reportName)
+        {
+            return new OdometersReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = linea,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initialDate,
+                Odometers = odometersId,
+                VehiclesId = vehiclesId,
+                ReportName = reportName + initialDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
         #endregion
 
         #region report generation
@@ -256,19 +272,32 @@ namespace Logictracker.Tracker.Application.Reports
 
         public Stream GenerateOdometersReport(OdometersReportCommand cmd, IReportStatus reportStatus)
         {
-            if (cmd.ReportId != 0)
-                reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
             if (cmd.CustomerId == 0) return null;
 
             var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            
             var baseName = "Todos";
+            if ((cmd.BaseId != -1) && (cmd.BaseId != 0))
+                baseName = DaoFactory.LineaDAO.FindById(cmd.BaseId).Descripcion;
+
+            var vehiculos = (from v in cmd.VehiclesId
+                             let ve = DaoFactory.CocheDAO.FindById(v)
+                             where ve.Dispositivo != null
+                             select v).ToList();
 
             var results = (IEnumerable<OdometroStatus>) ReportFactory.OdometroStatusDAO.FindByVehiculosAndOdometros(cmd.VehiclesId, cmd.Odometers, false);
+            var ret = (from OdometroStatus m in results select new OdometroStatusVo(m)).ToList();
+            if (cmd.Odometers.Contains(-10))
+            {
+                var coches = DaoFactory.CocheDAO.GetList(new[] { cmd.CustomerId }, new[] { cmd.BaseId})
+                                                .Where(c => vehiculos.Contains(c.Id));
 
-            reportStatus.RowCount = 0;
+                ret.AddRange(coches.Select(coche => new OdometroStatusVo(coche)));
+            }
 
-            return OdometersReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
+            reportStatus.RowCount = ret.Count;
+
+            return reportStatus.RowCount>0 ? OdometersReportGenerator.GenerateReport(ret, customer, cmd.InitialDate.ToDataBaseDateTime(), baseName) : null;
         }
 
         public Stream GenerateTransfersPerTripReport(TransfersPerTripReportCommand command, IReportStatus statusReport)
@@ -512,10 +541,7 @@ namespace Logictracker.Tracker.Application.Reports
                 }
                 catch (Exception ex)
                 {
-                    if (reportStatus.ReportProg != null)
-                        Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0} debido a {1} ", reportStatus.ReportProg.ReportName, ex.Message);
-                    else
-                        Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
+                    Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
                 }
             }
         }
@@ -595,5 +621,6 @@ namespace Logictracker.Tracker.Application.Reports
             report.Append("</table>");
             return report.ToString();
         }
+
     }
 }
