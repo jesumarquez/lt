@@ -58,13 +58,13 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                 var byte2 = b[5];
                 var byte3 = b[6];
                 
-                var bSecs = new BitArray(new[] { byte2.LowBits(4) });
-                bSecs = bSecs.Append(byte1);
-                bSecs = bSecs.Append(byte0);
+                var bSecs = byte2.SubBits(0, 4);
+                bSecs = bSecs.Prepend(new BitArray(new[] { byte1 }));
+                bSecs = bSecs.Prepend(new BitArray(new[] { byte0 }));
                 var secs = bSecs.ReverseToNumeral();
                 
                 var bSemanas = new BitArray(new[] { byte3 });
-                bSemanas = bSemanas.Append(byte2.HighBits(4));
+                bSemanas = bSemanas.Prepend(byte2.SubBits(4, 4));
                 var semanas = bSemanas.ReverseToNumeral();
                 
                 var fecha = new DateTime(1980, 1, 6, 0, 0, 0, 0).AddDays(semanas*7).AddSeconds(secs);

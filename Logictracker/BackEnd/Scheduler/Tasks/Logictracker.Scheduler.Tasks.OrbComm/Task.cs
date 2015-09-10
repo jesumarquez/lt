@@ -92,7 +92,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
                         return;
                     }
                     sessionId = login.SessionId;
-                    messages = service.RetrieveMessages(sessionId, Service.MessageFlags.Unread, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
+                    messages = service.RetrieveMessages(sessionId, Service.MessageFlags.All, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
                 }
                 STrace.Debug(ComponentName, string.Format("Mensajes recibidos: {0}", messages.Messages.Count));
 

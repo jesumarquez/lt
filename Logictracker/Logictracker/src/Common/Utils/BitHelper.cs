@@ -821,6 +821,17 @@ namespace Logictracker.Utils
             return (byte)(((byte)(b << bits2Move)) >> bits2Move);
         }
 
+        public static BitArray SubBits(this byte b, int startIndex, int bits)
+        {
+            var array = new BitArray(new[] { b });
+            var ret = new BitArray(bits);
+            for (int i = startIndex; i < startIndex + bits; i++)
+			{
+			    ret[i-startIndex] = array[i];
+			}
+            return ret;
+        }
+
         public static string ToBitString(this BitArray bits)
         {
             var sb = new StringBuilder();
