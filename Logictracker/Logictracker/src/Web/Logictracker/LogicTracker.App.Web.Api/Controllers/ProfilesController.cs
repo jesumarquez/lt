@@ -48,6 +48,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             profile.modocamion = Convert.ToInt32(true);
             profile.modovendedor = Convert.ToInt32(false);
             profile.trackingudp = Convert.ToInt32(false);
+            profile.modocamionvendedor = Convert.ToInt32(false);
 
             foreach (DetalleDispositivo item in lista)
             {
@@ -80,6 +81,15 @@ namespace LogicTracker.App.Web.Api.Controllers
                                 profile.trackingudp = Convert.ToInt32(false);
                         }
                         break;
+                    case "Modo_CamionVendedor":
+                        {
+                            bool result = false;
+                            if (Boolean.TryParse(item.Valor, out result))
+                                profile.modocamionvendedor = Convert.ToInt32(result);
+                            else
+                                profile.modocamionvendedor = Convert.ToInt32(false);
+                        }
+                        break;                        
                     default:
                         break;
                 }
