@@ -150,6 +150,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
+                        ReportFormat = prog.Format,
                         InitialDate = GetInitialDate(prog.Periodicity),
                         Documents = prog.GetParameters(ParameterType.Document),
                         ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()

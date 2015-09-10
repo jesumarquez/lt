@@ -434,26 +434,22 @@ namespace Logictracker.Tracker.Application.Reports
             var viajes = new List<ViajeDistribucion>();
             //tbl_totales.Visible = false;
 
-
-
-                viajes = DaoFactory.ViajeDistribucionDAO.GetList(new[] { cmd.CustomerId },
-                                                                 new[] { -1 },
-                                                                 new[] { -1 },//lbTransportista.SelectedValues,}
-                                                                 new[] { -1 },//lbDepartamento.SelectedValues,
-                                                                 new[] { -1 },//lbCentroDeCostos.SelectedValues,
-                                                                 new[] { -1 },//lbSubCentroDeCostos.SelectedValues,
-                                                                 cmd.VehiclesId,
-                                                                 cmd.InitialDate,
-                                                                 cmd.FinalDate);
+            viajes = DaoFactory.ViajeDistribucionDAO.GetList(new[] { cmd.CustomerId },
+                                                                new[] { -1 },
+                                                                new[] { -1 },//lbTransportista.SelectedValues,}
+                                                                new[] { -1 },//lbDepartamento.SelectedValues,
+                                                                new[] { -1 },//lbCentroDeCostos.SelectedValues,
+                                                                new[] { -1 },//lbSubCentroDeCostos.SelectedValues,
+                                                                cmd.VehiclesId,
+                                                                cmd.InitialDate,
+                                                                cmd.FinalDate);
             
-                results = viajes.Select(v => new ResumenDeRutasVo(v, true)).ToList();
+            results = viajes.Select(v => new ResumenDeRutasVo(v, true)).ToList();
 
             reportStatus.RowCount = viajes.Count();
 
             return SummaryRoutesReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
-       
         }
-
    
         public string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand cmd, IReportStatus status)
         {
@@ -473,7 +469,26 @@ namespace Logictracker.Tracker.Application.Reports
             
             status.RowCount = resultsDt.Rows.Count;
 
-            return status.RowCount > 0 ? ConvertToString(resultsDt) : null;
+            return status.RowCount > 0 ? ConvertDtDriverInfractionsToString(resultsDt) : null;
+        }
+
+        public string GenerateSummarizedDocumentExpirationReport(DocumentsExpirationReportCommand cmd, IReportStatus status)
+        {
+            if (cmd.CustomerId == 0) return null;
+
+            var hasta = cmd.FinalDate.ToDataBaseDateTime().AddDays(7);
+            var empresas = new[] { cmd.CustomerId };
+
+            if (cmd.ReportId != 0)
+                status.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
+
+            if (cmd.CustomerId == 0) return null;
+
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);            
+
+            var results = DaoFactory.DocumentoDAO.GetDocumentExpirationSummary(cmd.Documents.ToArray(), new List<int> { cmd.CustomerId }, new List<int> { -1 }, hasta);
+
+            return results != null  ? ConvertDtDocumentExpirationToString(results) : null;
         }
 
         #endregion
@@ -496,12 +511,12 @@ namespace Logictracker.Tracker.Application.Reports
 
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, false);
         }
-        public void SendHtmlReport(string reportString, DriversInfractionsReportCommand command, string report)
+        public void SendHtmlReport(string reportString, string email, string report)
         {
             var subject = report + " Logictracker";
             var body = reportString;
 
-            var emailList = ValidateAddress(command.Email);
+            var emailList = ValidateAddress(email);
 
             Notifier.SmtpMail(MailFrom, emailList, subject, body, null, null, SmtpPort, SmtpAddress, Passwd, true);
         }
@@ -592,7 +607,7 @@ namespace Logictracker.Tracker.Application.Reports
 
         #endregion
 
-        private string ConvertToString(DataTable dtInfractions)
+        private string ConvertDtDriverInfractionsToString(DataTable dtInfractions)
         {
             var report = new StringBuilder(@"
                 <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
@@ -622,12 +637,50 @@ namespace Logictracker.Tracker.Application.Reports
             return report.ToString();
         }
 
-        public static IReportCommand CreateNewExecutionReportCommand(DateTime dateTime)
+        private string ConvertDtDocumentExpirationToString(DataRow row)
         {
-            return new FinalExecutionCommand
-            {
-                InitialDate = dateTime
-            };
+            var report = new StringBuilder(@"
+                <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
+                    <tr>
+                        <td colspan='5' style='background-color:#3A81B1;'>
+                            <img src='http://web.logictracker.com/App_Themes/Marinero/img/logo-logic-azul.png' />
+                        </td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>1er Aviso:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["1er Aviso"].ToString() +
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>2do Aviso:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["2do Aviso"].ToString() +
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>Vencidos:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["Vencidos"].ToString() + 
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>A vencer:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["A vencer"].ToString() + 
+                        @"</td>
+                    </tr>
+                </table>");
+
+            return report.ToString();
         }
     }
 }
