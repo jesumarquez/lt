@@ -37,7 +37,7 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         private FullVsProperty<DateTime> FinalDate { get { return this.CreateFullVsProperty("FinalDate", DateTime.UtcNow.Date.ToDataBaseDateTime().AddHours(23).AddMinutes(59)); } }
         private FullVsProperty<bool> LockFilters { get { return this.CreateFullVsProperty<bool>("LockFilters"); } }
 
-        private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0).ToDataBaseDateTime();
+        private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0);
 
         protected void LnkReporteDeEventosClick(object sender, EventArgs e)
         {         
@@ -167,7 +167,7 @@ namespace Logictracker.Monitor.MonitorDeCalidad
                         x.Course.ToString(CultureInfo.InvariantCulture),
                         x.Id,
                         x.Historical ? "true" : "false",
-                        (long)new TimeSpan(x.Recieved.ToUniversalTime().Ticks - Epoch.Ticks).TotalMilliseconds,
+                        SerializeDate(x.Recieved.ToDisplayDateTime()),
                         x.MotivoDescarte
                        );
         }
@@ -240,7 +240,7 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         }
         private long SerializeDate(DateTime date)
         {
-            return (long)new TimeSpan(date.ToUniversalTime().Ticks - Epoch.Ticks).TotalMilliseconds;
+            return (long)new TimeSpan(date.Ticks - Epoch.ToDisplayDateTime().Ticks).TotalMilliseconds;
         } 
         #endregion
 

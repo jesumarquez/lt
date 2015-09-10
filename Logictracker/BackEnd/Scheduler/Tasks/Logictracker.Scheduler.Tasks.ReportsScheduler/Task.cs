@@ -8,6 +8,7 @@ using Logictracker.Reports.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Layers.MessageQueue;
+using Logictracker.Tracker.Application.Reports;
 using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.ReportsScheduler
@@ -149,22 +150,27 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
+                        ReportFormat = prog.Format,
                         InitialDate = GetInitialDate(prog.Periodicity),
                         Documents = prog.GetParameters(ParameterType.Document),
                         ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.ReporteOdometros:
+                    var initialDate = GetInitialDate(prog.Periodicity);
+                    var finalDate = GetFinalDate();
                     return new OdometersReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        Odometers = prog.GetParameters(ParameterType.Odometer),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                     {
+                         ReportId = prog.Id,
+                         CustomerId = prog.Empresa.Id,
+                         BaseId = prog.Linea.Id,
+                         Email = prog.Mail,
+                         FinalDate = finalDate,
+                         InitialDate = initialDate,
+                         ReportFormat = prog.Format,
+                         Odometers = prog.GetParameters(ParameterType.Odometer),
+                         VehiclesId = prog.GetParameters(ParameterType.Vehicle),
+                         ReportName = prog.ReportName + initialDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+                     };
                 case ProgramacionReporte.Reportes.EstadoEntregas:
                     return new DeliverStatusReportCommand
                     {

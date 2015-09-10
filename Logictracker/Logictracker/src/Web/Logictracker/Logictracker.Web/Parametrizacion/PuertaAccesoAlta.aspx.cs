@@ -12,7 +12,7 @@ namespace Logictracker.Parametrizacion
 
         protected override void Bind()
         {
-            cbVehiculo.Coche = EditObject.Vehiculo.Id;
+            cbVehiculo.Coche = EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : 0;
             cbEmpresa.SetSelectedValue(EditObject.Empresa.Id);
             cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.NullValue);
             cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.NoneValue);

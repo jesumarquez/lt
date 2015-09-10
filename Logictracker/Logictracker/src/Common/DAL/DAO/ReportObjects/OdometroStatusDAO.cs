@@ -6,6 +6,7 @@ using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DAL.Factories;
 using Logictracker.Security;
 using Logictracker.Types.ReportObjects;
+using System.Data;
 
 namespace Logictracker.DAL.DAO.ReportObjects
 {
@@ -70,6 +71,20 @@ namespace Logictracker.DAL.DAO.ReportObjects
                .ToList();
 
             return results.OrderBy(o => o.Odometro).ThenByDescending(o => o.Priority).ThenBy(o => o.Tipo).ThenBy(o => o.Interno);
-        }      
+        }
+
+        public DataRow GetOdometersSummary(List<int> vehiculos, List<int> odometros)
+        {
+            var odometers = DAOFactory.MovOdometroVehiculoDAO.GetForVehicles(vehiculos, odometros, false);
+
+            var odometersTable = new DataTable("Odometers");
+
+            var row = new DataTable().NewRow();
+            row["Vencidos"] = odometers.Count(o => o.Vencido());
+            row["2do Aviso"] = odometers.Count(o => !o.Vencido() && o.SuperoSegundoAviso());
+            row["1er Aviso"] = odometers.Count(o => !o.Vencido() && !o.SuperoSegundoAviso() && o.SuperoPrimerAviso());
+            
+            return row;
+        }
     }
 }

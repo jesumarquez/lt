@@ -466,7 +466,7 @@ namespace Logictracker.Tracker.Application.Reports
                 
                 if (report == null) ReportService.SendEmptyReport(command, command.ReportName, false);
                 
-                ReportService.SendHtmlReport(report, command, command.ReportName );
+                ReportService.SendHtmlReport(report, command.Email, command.ReportName );
             }
         }
 
@@ -502,24 +502,44 @@ namespace Logictracker.Tracker.Application.Reports
 
         private void ProcessGenerateDocumentsExpirationReportCommand(DocumentsExpirationReportCommand command, ReportStatus statusReport)
         {
-            using (
-                var reportStream = ReportService.GenerateDocumentExpirationReport(command, statusReport))
-                        {
-                            if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
-
-                            ReportService.SendReport(reportStream, command, command.ReportName);
-                        }
-        }
-
-        private void ProcessGenerateOdometersReportCommand(OdometersReportCommand command, ReportStatus statusReport)
-        {
-            using (
-                var reportStream = ReportService.GenerateOdometersReport(command, statusReport))
+            if (ProgramacionReporte.FormatoReporte.Excel.Equals(command.ReportFormat))
+            {
+                using (var reportStream = ReportService.GenerateDocumentExpirationReport(command, statusReport))
                 {
                     if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
+            }
+            else
+            {
+                var report = ReportService.GenerateSummarizedDocumentExpirationReport(command, statusReport);
+
+                if (report == null) ReportService.SendEmptyReport(command, command.ReportName, false);
+
+                ReportService.SendHtmlReport(report, command.Email, command.ReportName);
+            }
+        }
+
+        private void ProcessGenerateOdometersReportCommand(OdometersReportCommand command, ReportStatus statusReport)
+        {
+            if (ProgramacionReporte.FormatoReporte.Excel.Equals(command.ReportFormat))
+            {
+                using (var reportStream = ReportService.GenerateOdometersReport(command, statusReport))
+                {
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
+
+                    ReportService.SendReport(reportStream, command, command.ReportName);
+                }
+            }
+            else
+            {
+                var report = ReportService.GenerateSummarizedOdometersReport(command, statusReport);
+
+                if (report == null) ReportService.SendEmptyReport(command, command.ReportName, false);
+
+                ReportService.SendHtmlReport(report, command.Email, command.ReportName);
+            }
         }
 
         private void ProcessGenerateTransfersPerTripReportCommand(TransfersPerTripReportCommand command, ReportStatus statusReport )

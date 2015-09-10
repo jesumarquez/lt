@@ -30,7 +30,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
         {
             get
             {
-                //return TaskParser.Virloc;
+                return TaskParser.Virloc;
                 var parser = GetString("parser");
                 switch (parser)
                 {
@@ -43,7 +43,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
         {
             get
             {
-                //return "BRINKS2014"; 
+                return "BRINKS2014"; 
                 return GetString("user");
             }
         }
@@ -51,7 +51,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
         {
             get
             {
-                //return "2014cx234";
+                return "2014cx234";
                 return GetString("password");
             }
         }
@@ -80,7 +80,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
                 }
                 else sessionId = this.Retrieve<string>(OrbcommSessionIdCacheKey);
 
-                var messages = service.RetrieveMessages(sessionId, Service.MessageFlags.Unread, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
+                var messages = service.RetrieveMessages(sessionId, Service.MessageFlags.All, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
                 
                 if (messages.Result == -1)
                 {
@@ -92,7 +92,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
                         return;
                     }
                     sessionId = login.SessionId;
-                    messages = service.RetrieveMessages(sessionId, Service.MessageFlags.Unread, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
+                    messages = service.RetrieveMessages(sessionId, Service.MessageFlags.All, Service.SetMessageFlags.NoAction, Service.MessageStatusFlags.All, -1, true);
                 }
                 STrace.Debug(ComponentName, string.Format("Mensajes recibidos: {0}", messages.Messages.Count));
 
@@ -158,11 +158,11 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
 						if (!_filtro.IsRepetido(msg))
 						{
 							estado = "Encolando mensaje";
-                            queue.Send(msg, string.Empty);
+                            //queue.Send(msg, string.Empty);
 						}
 
                     	estado = "Marcando mensaje como leido";
-                        Service.SetMessageFlag(sessionId, Service.SetMessageSelect.ByMessageId, message.MessageId.ToString(CultureInfo.InvariantCulture), Service.SetMessageFlags.Read);
+                        //Service.SetMessageFlag(sessionId, Service.SetMessageSelect.ByMessageId, message.MessageId.ToString(CultureInfo.InvariantCulture), Service.SetMessageFlags.Read);
                     }
                     catch (Exception e)
                     {

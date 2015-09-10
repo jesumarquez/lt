@@ -12,6 +12,7 @@ using Logictracker.Culture;
 using Logictracker.Layers.MessageQueue;
 using Logictracker.Mailing;
 using Logictracker.Reports.Messaging;
+using Logictracker.Tracker.Application.Reports;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Web.BaseClasses.Util;
@@ -492,17 +493,10 @@ namespace Logictracker.Web.BaseClasses.BasePages
                         ReportName = "Vencimiento Documentos " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
                     };
                 case "OdometersReport":
-                    return new OdometersReportCommand
-                    {
-                        ReportId = reportId,
-                        CustomerId = GetEmpresa().Id,
-                        Email = SendReportTextBoxEmail.Text,
-                        FinalDate = GetToDateTime(),
-                        InitialDate = GetSinceDateTime(),
-                        Odometers = GetOdometersList(),
-                        VehiclesId = GetVehicleList(),
-                        ReportName = "Odometros " +GetSinceDateTime().ToShortDateString() + " - " + GetToDateTime().ToShortDateString()
-                    };
+                    return ReportService.CreateNewOdometerReportCommand(reportId, GetEmpresa().Id, GetLinea().Id,
+                        SendReportTextBoxEmail.Text, GetToDateTime(), GetSinceDateTime(), GetOdometersList(),
+                        GetVehicleList(), "Odometros");
+
                 case ProgramacionReporte.Reportes.EstadoEntregas:
                     return new DeliverStatusReportCommand
                     {
