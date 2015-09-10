@@ -37,7 +37,7 @@ namespace Logictracker.Admin
         protected override void OnDelete()
         {
             EditObject.Active = false;            
-            DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
+            DAOFactory.ProgramacionReporteDAO.Delete(EditObject); // SaveOrUpdate(EditObject);
         }
 
         protected override void OnSave()
