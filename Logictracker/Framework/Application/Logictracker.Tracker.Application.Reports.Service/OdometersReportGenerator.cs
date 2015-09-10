@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ReportObjects;
+using Logictracker.Types.ValueObjects.ReportObjects;
 using NPOI.HSSF.UserModel;
 using NPOI.Util;
 
@@ -34,10 +35,10 @@ namespace Logictracker.Tracker.Application.Reports
         private const int KilometrosFaltantes = 7;
         private const int DiasFaltantes = 8;
         //private const int HorasFaltantes = 8;
-        //private const int KmTotales = 11;
-        private const int UltimaActualizacion = 9;
+        private const int KmTotales = 9;
+        private const int UltimaActualizacion = 10;
 
-        public static Stream GenerateReport(IEnumerable<OdometroStatus> odometers, Empresa customer, DateTime initialDate, DateTime finalDate, string baseName)
+        public static Stream GenerateReport(List<OdometroStatusVo> odometers, Empresa customer, DateTime initialDate, string baseName)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(TemplateName))
             {
@@ -59,9 +60,6 @@ namespace Logictracker.Tracker.Application.Reports
                 //desde
                 row = dataSheetInfo.GetRow(Desde) ?? dataSheetInfo.CreateRow(Desde);
                 row.CreateCell(3).SetCellValue(initialDate);
-                //hasta
-                row = dataSheetInfo.GetRow(Hasta) ?? dataSheetInfo.CreateRow(Hasta);
-                row.CreateCell(3).SetCellValue(finalDate);
 
                 int rowCounter = 5; //fila de inicio de los datos
                 foreach (var odom in odometers)
@@ -85,7 +83,7 @@ namespace Logictracker.Tracker.Application.Reports
                         row.CreateCell(HorasReferencia).SetCellValue(odom.HorasReferencia.Value);
                     if (odom.TiempoFaltante.HasValue)
                         row.CreateCell(DiasFaltantes).SetCellValue(odom.TiempoFaltante.Value);
-                    //row.CreateCell(KmTotales).SetCellValue("0"); 
+                    if (odom.KmTotales != null) row.CreateCell(KmTotales).SetCellValue((double) odom.KmTotales);
                     row.CreateCell(UltimaActualizacion).SetCellValue(odom.UltimoUpdate);
                     
                     rowCounter++;
