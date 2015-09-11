@@ -29,6 +29,12 @@ namespace Logictracker.Web.CustomWebControls.DropDownCheckLists
             set { ViewState["Coche"] = value; }
         }
 
+        public int Empleado
+        {
+            get { return ViewState["Empleado"] != null ? Convert.ToInt32(ViewState["Empleado"]) : 0; }
+            set { ViewState["Empleado"] = value; }
+        }
+
         public string Padre
         {
             get { return (string)ViewState["Padre"]; }
