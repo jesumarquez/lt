@@ -35,7 +35,12 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IQueryable<TQuery> FilterCentroDeCostos<TQuery>(this IQueryable<TQuery> q, IQueryable<CentroDeCostos> centrosDeCostos, bool includesAll, bool includesNone, Usuario user)
             where TQuery : IHasCentroDeCosto
         {
-            if (centrosDeCostos != null) q = q.Where(t => t.CentroDeCostos == null || centrosDeCostos.Contains(t.CentroDeCostos));
+            if (centrosDeCostos != null)
+            {
+                var centrosDeCostosList = centrosDeCostos.ToList();
+
+                q = q.Where(t => t.CentroDeCostos == null || centrosDeCostosList.Contains(t.CentroDeCostos));
+            }
 
             var porCentroDeCostos = user != null && user.PorCentroCostos;
 
