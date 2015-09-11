@@ -32,6 +32,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
                     && d.Vehiculo.Id == vehiculo)
                     .ToList();
         }
+        public IEnumerable<Documento> FindByVehiculo(int vehiculo)
+        {
+            return Query.Where(d => d.Estado != Documento.Estados.Eliminado 
+                                 && d.Vehiculo.Id == vehiculo);
+        }
         public List<Documento> FindForEmpleado(int tipo, int empleado)
         {
             return Query.Where(d =>

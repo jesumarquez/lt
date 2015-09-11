@@ -121,6 +121,10 @@ namespace Logictracker.Process.CicloLogistico
 
             DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
             SaveMessage(MessageCode.CicloLogisticoIniciado.GetMessageCode(), data.Date, Distribucion, null);
+
+            var docs = DaoFactory.DocumentoDAO.FindByVehiculo(Distribucion.Vehiculo.Id);
+            if (docs.Count() > 0 && docs.Any(d => d.EnviadoAviso3))
+                SaveMessage(MessageCode.CicloLogisticoIniciadoDocumentosInvalidos.GetMessageCode(), data.Date, Distribucion, null);
         }
 
         #endregion
