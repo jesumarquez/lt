@@ -8,6 +8,7 @@ using Logictracker.Reports.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Layers.MessageQueue;
+using Logictracker.Tracker.Application.Reports;
 using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.ReportsScheduler
@@ -20,7 +21,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
         protected override void OnExecute(Timer timer)
         {
             //var mail = new MailSender(Config.Mailing.ReportSchedulerMailingConfiguration);
-            var queue = GetDispatcherQueue();
+            var queue = GetMailReportQueue();
             if (queue == null)
             {
                 STrace.Error(ComponentName, "Cola no encontrada: revisar configuracion");
@@ -28,12 +29,14 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             }
 
             // BUSCO TODOS LAS PROGRAMACIONES DIARIAS
-            var reportesProgramados = DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('D');
-            
+            var reportesProgramados = new List<ProgramacionReporte>();
+
             // SI ES LUNES AGREGO LAS PROGRAMACIONES SEMANALES
             if (DateTime.UtcNow.ToDisplayDateTime().DayOfWeek == DayOfWeek.Monday)
-                reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('S'));                
-            
+                reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('S'));  
+            else
+                reportesProgramados = DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('D');
+  
             // SI ES 1° AGREGO LAS PROGRAMACIONES MENSUALES
             if (DateTime.UtcNow.ToDisplayDateTime().Day == 1)
                 reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('M'));
@@ -63,7 +66,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     return new EventReportCommand
                     {
                         ReportId = prog.Id,
-                        ReportName = prog.ReportName,
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         DriversId = prog.GetParameters(ParameterType.Driver),
@@ -76,7 +79,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     return new AccumulatedKilometersReportCommand
                     {
                         ReportId = prog.Id,
-                        ReportName = prog.ReportName,
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
@@ -87,7 +90,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     return new VehicleActivityReportCommand
                     {
                         ReportId = prog.Id,
-                        ReportName = prog.ReportName,
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
@@ -98,9 +101,10 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                     return new VehicleInfractionsReportCommand
                     {
                         ReportId = prog.Id,
-                        ReportName = prog.ReportName,
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
+                        ReportFormat = prog.Format,
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         VehiclesId = prog.GetParameters(ParameterType.Vehicle)
@@ -114,7 +118,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         DriversId = prog.GetParameters(ParameterType.Driver),
-                        ReportName = prog.ReportName
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString() + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.EventosGeocercas:
                     return new GeofenceEventsReportCommand
@@ -126,13 +130,13 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         InitialDate = GetInitialDate(prog.Periodicity),
                         Geofences = prog.GetParameters(ParameterType.Geofence),
                         VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.TiempoAcumulado:
                     return new MobilesTimeReportCommand
                     {
                         ReportId = prog.Id,
-                        ReportName = prog.ReportName,
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
@@ -146,22 +150,27 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         CustomerId = prog.Empresa.Id,
                         Email = prog.Mail,
                         FinalDate = GetFinalDate(),
+                        ReportFormat = prog.Format,
                         InitialDate = GetInitialDate(prog.Periodicity),
                         Documents = prog.GetParameters(ParameterType.Document),
-                        ReportName = prog.ReportName
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.ReporteOdometros:
+                    var initialDate = GetInitialDate(prog.Periodicity);
+                    var finalDate = GetFinalDate();
                     return new OdometersReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        Odometers = prog.GetParameters(ParameterType.Odometer),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName
-                    };
+                     {
+                         ReportId = prog.Id,
+                         CustomerId = prog.Empresa.Id,
+                         BaseId = prog.Linea.Id,
+                         Email = prog.Mail,
+                         FinalDate = finalDate,
+                         InitialDate = initialDate,
+                         ReportFormat = prog.Format,
+                         Odometers = prog.GetParameters(ParameterType.Odometer),
+                         VehiclesId = prog.GetParameters(ParameterType.Vehicle),
+                         ReportName = prog.ReportName + initialDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+                     };
                 case ProgramacionReporte.Reportes.EstadoEntregas:
                     return new DeliverStatusReportCommand
                     {
@@ -171,7 +180,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.TrasladosViaje:
                     return new TransfersPerTripReportCommand
@@ -182,7 +191,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 case ProgramacionReporte.Reportes.ResumenRutas:
                     return new SummaryRoutesReportCommand
@@ -193,7 +202,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                         FinalDate = GetFinalDate(),
                         InitialDate = GetInitialDate(prog.Periodicity),
                         VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName
+                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
                     };
                 default:
                     return new FinalExecutionCommand
@@ -285,7 +294,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             }
         }
 
-        private IMessageQueue GetDispatcherQueue()
+        private IMessageQueue GetMailReportQueue()
         {
             var queueName = GetString("queuename");
             var queueType = GetString("queuetype");

@@ -13,6 +13,11 @@ namespace LogicTracker.App.Web.Api.Controllers
     {
         public IRouteService RouteService { get; set; }
 
+        public static string ROUTE_STATUS_PENDING = "0";
+        public static string ROUTE_STATUS_ACTIVE = "1";
+        public static string ROUTE_STATUS_FINALIZE = "9";
+
+
         // GET: api/Routes/
         public IHttpActionResult Get()
         {
@@ -34,15 +39,18 @@ namespace LogicTracker.App.Web.Api.Controllers
             var items = new List<RouteItem>();
             foreach (var viajeDistribucion in routes)
             {
-                items.Add(new RouteItem()
+                if (!viajeDistribucion.Estado.ToString().Equals(ROUTE_STATUS_FINALIZE))
                 {
-                    Code = viajeDistribucion.Codigo,
-                    DeliveriesNumber = viajeDistribucion.Detalles.Count-1,
-                    Id = viajeDistribucion.Id,
-                    Places = PlacesToDescription(viajeDistribucion),
-                    Status = viajeDistribucion.Estado.ToString(),
-                    StartDateTime = viajeDistribucion.Inicio
-                });
+                    items.Add(new RouteItem()
+                    {
+                        Code = viajeDistribucion.Codigo,
+                        DeliveriesNumber = viajeDistribucion.Detalles.Count - 1,
+                        Id = viajeDistribucion.Id,
+                        Places = PlacesToDescription(viajeDistribucion),
+                        Status = viajeDistribucion.Estado.ToString(),
+                        StartDateTime = viajeDistribucion.Inicio
+                    });
+                }
             }
 
             listRoute.RouteItems = items.ToArray();
@@ -182,6 +190,6 @@ namespace LogicTracker.App.Web.Api.Controllers
             }
 
             return Ok(msgCodes.ToArray());
-        }
+        }            
     }
 }

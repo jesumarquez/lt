@@ -125,6 +125,7 @@
     <Compile Include="DropDownCheckLists\PlantaDropDownCheckList.cs" />
     <Compile Include="DropDownCheckLists\TipoDeVehiculoDropDownCheckList.cs" />
     <Compile Include="DropDownCheckLists\TransportistaDropDownCheckList.cs" />
+    <Compile Include="DropDownLists\ReportTypeDropDownList.cs" />
     <Compile Include="DropDownLists\ReporteDropDownList.cs" />
     <Compile Include="DropDownLists\ControlDeCombustible\MotivoConciliacionDropDownList.cs" />
     <Compile Include="DropDownLists\ControlDeCombustible\TanqueDropDownList.cs" />

@@ -94,6 +94,12 @@
                         </tr>
                         <tr>
                             <td align="center" colspan="2">
+                                <asp:RadioButton ID="rbutExcelSend" runat="server" Font-Bold="true" Text="Excel Completo" GroupName="FormatList" ValidationGroup="FormatList" Checked="true" />
+                                <asp:RadioButton ID="rbutHtmlSend" Visible="False" runat="server" Font-Bold="true" Text="Email Resumido" GroupName="FormatList" ValidationGroup="FormatList" Checked="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
                                 <cwc:ResourceButton ID="ButtonOkSendReport" runat="server" ResourceName="Controls" VariableName="BUTTON_SOLICITAR" />
                                 <cwc:ResourceButton ID="ButtonCancelSendReport" runat="server" ResourceName="Controls" VariableName="BUTTON_CANCEL" />
                             </td>

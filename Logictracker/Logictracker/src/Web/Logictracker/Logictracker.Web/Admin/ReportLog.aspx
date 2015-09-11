@@ -4,9 +4,9 @@
     <table width="100%" cellpadding="5">
         <tr>
             <td align="left">
-                <cwc:ResourceLabel ID="lblDatamart" runat="server" ResourceName="Datamart" VariableName="Datamart" Font-Bold="true" />
+                <cwc:ResourceLabel ID="lblReportExecution" runat="server" ResourceName="ReportExecution" VariableName="ReportExecution" Font-Bold="true" />
                 <br />
-                <cwc:DataMartDropDownList ID="ddlDatamart" runat="server" AddAllItem="true" />
+                <cwc:ReportExecutionDropDownList ID="ddlReportExecution" runat="server" AddAllItem="true" />
             </td>
             <td align="left">
                 <cwc:ResourceLabel ID="lblDesde" runat="server" ResourceName="Labels" VariableName="DESDE" Font-Bold="true" />

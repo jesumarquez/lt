@@ -11,7 +11,7 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public class MobilesTimeReportGenerator
     {
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.MobilesTimeReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.MobilesTimeReport.xls";
         private const string DataSheet1 = "Informe";
         private const string DataSheet2 = "Datos";
 

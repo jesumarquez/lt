@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External.Libs", "External.Libs", "{1C3B03E3-47DF-4499-9666-CC4B72A70C09}"
 EndProject
@@ -63,7 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Geocoder Client", "Geocoder
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LogicLink", "LogicLink", "{1C787735-3FB6-4274-B70A-75E4911C4B16}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Documents\Clientes\Quilmes\testquilmes.csv = ..\..\..\Documents\Clientes\Quilmes\testquilmes.csv
+		..\..\Clientes\Quilmes\testquilmes.csv = ..\..\Clientes\Quilmes\testquilmes.csv
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LogicOut", "LogicOut", "{69BF992F-E900-4A87-B514-CC7A43594DA1}"

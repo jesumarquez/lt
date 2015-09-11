@@ -97,7 +97,6 @@
     <Compile Include="MobilesTimeReportGenerator.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="DailyEventReportGenerator.cs" />
-    <Compile Include="DailyEventReportCommand.cs" />
     <Compile Include="MailReportMessageHandler.cs" />
     <Compile Include="OdometersReportGenerator.cs" />
     <Compile Include="ReportService.cs" />
@@ -117,6 +116,10 @@
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Mailing\Logictracker.Mailing.csproj">
+      <Project>{AE61757F-B47C-4EB8-B223-C89C96092133}</Project>
+      <Name>Logictracker.Mailing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker\src\Common\Types.ValueObjects\Logictracker.Types.ValueObjects.csproj">
       <Project>{B4CACBB4-0F42-4C57-813B-BB72C7FC82EF}</Project>
       <Name>Logictracker.Types.ValueObjects</Name>
@@ -128,6 +131,10 @@
     <ProjectReference Include="..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
       <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
       <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Configuration\Logictracker.Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Logictracker.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
       <Project>{7f58dcb5-6d76-4882-8610-74929b5df8ed}</Project>
@@ -152,6 +159,7 @@
     <EmbeddedResource Include="Templates\DocumentsExpirationReport.xls" />
     <EmbeddedResource Include="Templates\OdometersReport.xls" />
     <EmbeddedResource Include="Templates\DeliverStatusReport.xls" />
+    <None Include="Logictracker.Mailing.VerificadorVehiculos.config" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Templates\VehicleActivityReport.xls" />
     <EmbeddedResource Include="Templates\VehicleInfractionsReport.xls" />

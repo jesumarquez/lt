@@ -12,7 +12,7 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public class TransfersPerTripReportGenerator
     {
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.TransfersPerTripReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.TransfersPerTripReport.xls";
         private const string DataSheet1 = "Informe";
         
         //cabecera

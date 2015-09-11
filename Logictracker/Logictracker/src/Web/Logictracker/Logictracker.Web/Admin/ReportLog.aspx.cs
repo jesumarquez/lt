@@ -18,9 +18,10 @@ namespace Logictracker.Web.Admin
 
         protected override List<ReportLogVo> GetResults()
         {
+            var error = ddlReportExecution.Selected != 0;
             return DAOFactory.LogProgramacionReporteDAO.GetList(dtpDesde.SelectedDate.Value.ToDataBaseDateTime(),
                                                       dtpHasta.SelectedDate.Value.ToDataBaseDateTime())
-                                                          .Where(file => ddlDatamart.Selected == -1 || ddlDatamart.Selected == file.ProgramacionReporte.Id)
+                                                          .Where(file => ddlReportExecution.Selected == -1 || error == file.Error)
                                               .Select(file => new ReportLogVo(file))
                                               .ToList();
         }

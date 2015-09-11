@@ -38,7 +38,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
             End = log.Fin.ToDisplayDateTime();
             Rows = log.Filas;
             Errors = log.Error? "Si" : "No";
-            Report = log.ProgramacionReporte.ReportName;
+            //Report = log.ProgramacionReporte.ReportName;
         }
     }
 }

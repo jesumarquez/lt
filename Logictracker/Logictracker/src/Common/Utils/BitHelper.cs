@@ -756,6 +756,24 @@ namespace Logictracker.Utils
             return value;
         }
 
+        public static int ReverseToNumeral(this BitArray ba)
+        {
+            if (ba == null)
+                throw new ArgumentNullException("binary");
+            if (ba.Length > 32)
+                throw new ArgumentException("must be at most 32 bits long");
+
+            int value = 0;
+
+            for (int i = ba.Count - 1; i > -1; i--)
+            {
+                if (ba[i])
+                    value += Convert.ToInt32(Math.Pow(2, i));
+            }
+
+            return value;
+        }
+
         public static BitArray Trim(this BitArray source, int size)
         {
             var dest = new BitArray(size);
@@ -801,6 +819,17 @@ namespace Logictracker.Utils
         {
             var bits2Move = 8 - bits;
             return (byte)(((byte)(b << bits2Move)) >> bits2Move);
+        }
+
+        public static BitArray SubBits(this byte b, int startIndex, int bits)
+        {
+            var array = new BitArray(new[] { b });
+            var ret = new BitArray(bits);
+            for (int i = startIndex; i < startIndex + bits; i++)
+			{
+			    ret[i-startIndex] = array[i];
+			}
+            return ret;
         }
 
         public static string ToBitString(this BitArray bits)

@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Web.Http;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
+using Logictracker.DAL.DAO.BusinessObjects.Dispositivos;
+using Logictracker.Types.BusinessObjects.Dispositivos;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -15,9 +17,11 @@ namespace LogicTracker.App.Web.Api.Controllers
         public IHttpActionResult Get()
         {
             var deviceId = GetDeviceId(Request);
-            if (deviceId == null) return BadRequest();
+            if (deviceId == null) return BadRequest();          
 
             var mobileId = RouteService.GetMobileIdByImei(deviceId);
+            DetalleDispositivoDAO detalle = new DetalleDispositivoDAO();
+            IList<DetalleDispositivo> lista = detalle.GetDeviceDetails(mobileId);
             var routeMessages = RouteService.GetProfileMessages(deviceId);
 
             if (routeMessages == null) return Unauthorized();   
@@ -39,7 +43,58 @@ namespace LogicTracker.App.Web.Api.Controllers
 
             if (messages.Count <= 0) return NotFound();
 
-            return Ok(new Profile {Messages = messages, MobileId = mobileId});
+            Profile profile = new Profile { Messages = messages, MobileId = mobileId };
+
+            profile.modocamion = Convert.ToInt32(true);
+            profile.modovendedor = Convert.ToInt32(false);
+            profile.trackingudp = Convert.ToInt32(false);
+            profile.modocamionvendedor = Convert.ToInt32(false);
+
+            foreach (DetalleDispositivo item in lista)
+            {
+                switch (item.TipoParametro.Nombre)
+                {
+                    case "Modo_Camion":
+                        {
+                            bool result = true;
+                            if (Boolean.TryParse(item.Valor, out result))
+                                profile.modocamion = Convert.ToInt32(result);
+                            else
+                                profile.modocamion = Convert.ToInt32(true);
+                        }
+                        break;
+                    case "Modo_Vendedor":
+                        {
+                            bool result = false;
+                            if (Boolean.TryParse(item.Valor, out result))
+                                profile.modovendedor = Convert.ToInt32(result);
+                            else
+                                profile.modovendedor = Convert.ToInt32(false);
+                        }
+                        break;
+                    case "Tracking_UDP":
+                        {
+                            bool result = false;
+                            if (Boolean.TryParse(item.Valor, out result))
+                                profile.trackingudp = Convert.ToInt32(result);
+                            else
+                                profile.trackingudp = Convert.ToInt32(false);
+                        }
+                        break;
+                    case "Modo_CamionVendedor":
+                        {
+                            bool result = false;
+                            if (Boolean.TryParse(item.Valor, out result))
+                                profile.modocamionvendedor = Convert.ToInt32(result);
+                            else
+                                profile.modocamionvendedor = Convert.ToInt32(false);
+                        }
+                        break;                        
+                    default:
+                        break;
+                }
+            }
+            return Ok(profile);
         }
     }
 }
