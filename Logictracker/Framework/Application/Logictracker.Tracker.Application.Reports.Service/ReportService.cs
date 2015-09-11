@@ -67,7 +67,7 @@ namespace Logictracker.Tracker.Application.Reports
             });
         }
 
-        public static IReportCommand CreateNewOdometerReportCommand(int reportId, int customerId, int linea, string mail, DateTime finalDate, DateTime initialDate, List<int> odometersId, List<int> vehiclesId, string reportName)
+        public static IReportCommand CreateOdometerReportCommand(int reportId, int customerId, int linea, string mail, DateTime finalDate, DateTime initialDate, List<int> odometersId, List<int> vehiclesId)
         {
             return new OdometersReportCommand
             {
@@ -79,7 +79,210 @@ namespace Logictracker.Tracker.Application.Reports
                 InitialDate = initialDate,
                 Odometers = odometersId,
                 VehiclesId = vehiclesId,
-                ReportName = reportName + initialDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Odometros " + initialDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateExecutionReportCommand()
+        {
+            return new FinalExecutionCommand
+            {
+                InitialDate = DateTime.Now,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Html
+            };
+        }
+
+        public static IReportCommand CreateVehicleVerifierCommand(int reportId, int customerId, int baseId, string mail, List<int> carriers, List<int> costCenters, List<int> vehicleTypes)
+        {
+            return new VehicleVerifierCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                VehicleType = vehicleTypes.FirstOrDefault(),
+                Carrier = carriers.FirstOrDefault(),
+                CostCenter = costCenters.FirstOrDefault(),
+                ReportFormat = ProgramacionReporte.FormatoReporte.Html,
+                ReportName = "Verificador de Vehiculos " + DateTime.Now.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateEventReportCommand(int reportId, int customerId, int baseId, string mail, List<int> drivers, DateTime finalDateTime, DateTime initialDateTime, List<int> messageTypes, List<int> vehicles)
+        {
+            return new EventReportCommand()
+            {
+                ReportId = reportId, //Id de reporte manual inactivo
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                DriversId = drivers,// GetSelectedListByField("drivers"),
+                FinalDate = finalDateTime,
+                InitialDate = initialDateTime,
+                MessagesId = messageTypes,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Reporte de Eventos " + initialDateTime.ToShortDateString() + " - " + finalDateTime.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateVehicleActivityReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDateTime, DateTime initialDateTime, List<int> vehicles)
+        {
+            return new VehicleActivityReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDateTime,
+                InitialDate = initialDateTime,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Actividad Vehicular" + initialDateTime.ToShortDateString() + " - " + finalDateTime.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateVehicleInfractionsReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDateTime, DateTime initialDateTime, List<int> vehicles)
+        {
+            return new VehicleInfractionsReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDateTime,
+                InitialDate = initialDateTime,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Infracciones por Vehiculo " + initialDateTime.ToShortDateString() + " - " + finalDateTime.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateDriversInfractionsReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDateTime, DateTime initialDateTime, List<int> drivers, ProgramacionReporte.FormatoReporte reportFormat)
+        {
+            return new DriversInfractionsReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDateTime,
+                InitialDate = initialDateTime,
+                DriversId = drivers,
+                ReportFormat = reportFormat,
+                ReportName = "Infracciones por Conductor " + initialDateTime.ToShortDateString() + " - " + finalDateTime.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateGeofenceEventsReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDateTime, DateTime initialDateTime, List<int> vehicles, List<int> geofences, ProgramacionReporte.FormatoReporte reportFormat)
+        {
+            return new GeofenceEventsReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDateTime,
+                InitialDate = initialDateTime,
+                VehiclesId = vehicles,
+                Geofences = geofences,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Eventos de Geocercas " + initialDateTime.ToShortDateString() + " - " + finalDateTime.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateDocumentExpirationReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDate, DateTime initDate, List<int> documents, ProgramacionReporte.FormatoReporte reportFormat)
+        {
+            return new DocumentsExpirationReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initDate,
+                Documents = documents,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Vencimiento de Documentos " + initDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateDeliverStatusReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDate, DateTime initDate, List<int> vehicles)
+        {
+            return new DeliverStatusReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initDate,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Estado de Entregas " + initDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateTransfersPerTripReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDate, DateTime initDate, List<int> vehicles)
+        {
+            return new TransfersPerTripReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initDate,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Traslados por Viaje " + initDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateSummaryRoutesReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDate, DateTime initDate, List<int> vehicles)
+        {
+            return new SummaryRoutesReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initDate,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Resumen de Rutas " + initDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateAccumulatedKilometersReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDate, DateTime initDate, List<int> vehicles)
+        {
+            return new AccumulatedKilometersReportCommand
+            {
+                ReportId = reportId, //Id de reporte manual inactivo
+                CustomerId = customerId,
+                BaseId = baseId,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initDate,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Kilometros Acumulados " + initDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
+            };
+        }
+
+        public static IReportCommand CreateMobilesTimeReportCommand(int reportId, int customerId, int baseId, string mail, DateTime finalDate, DateTime initDate, List<int> vehicles)
+        {
+            return new MobilesTimeReportCommand
+            {
+                ReportId = reportId,
+                CustomerId = customerId,
+                Email = mail,
+                FinalDate = finalDate,
+                InitialDate = initDate,
+                VehiclesId = vehicles,
+                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportName = "Tiempo Acumulado " + initDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
             };
         }
 

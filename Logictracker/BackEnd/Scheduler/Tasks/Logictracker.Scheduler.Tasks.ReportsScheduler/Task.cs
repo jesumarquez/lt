@@ -43,15 +43,10 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 
             foreach (var reporte in reportesProgramados)
             {
-                switch (reporte.Format)
-                {
-                    case ProgramacionReporte.FormatoReporte.Excel:
-                        queue.Send(GenerateReportCommand(reporte));
-                        break;
-                    case ProgramacionReporte.FormatoReporte.Html:
-                        GenerateHtmlReport(reporte);
-                        break;
-                }
+                if ("MANUAL".Equals(reporte.ReportName)) continue;
+
+                var cmd = GenerateReportCommand(reporte);
+                if (cmd != null) queue.Send(cmd);
             }
 
             //genera un FinalExecutionCommand
@@ -63,149 +58,70 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             switch (prog.Report)
             {
                 case ProgramacionReporte.Reportes.ReporteEventos:
-                    return new EventReportCommand
-                    {
-                        ReportId = prog.Id,
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        DriversId = prog.GetParameters(ParameterType.Driver),
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        MessagesId = prog.GetParameters(ParameterType.Message),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
-                    };
+                    return ReportService.CreateEventReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id,
+                        prog.Mail, prog.GetParameters(ParameterType.Vehicle), GetFinalDate(), GetInitialDate(prog.Periodicity),
+                        prog.GetParameters(ParameterType.Message), prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.KilometrosAcumulados:
-                    return new AccumulatedKilometersReportCommand
-                    {
-                        ReportId = prog.Id,
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
-                    };
+                    return ReportService.CreateAccumulatedKilometersReportCommand(prog.Id, prog.Empresa.Id,
+                        prog.Linea.Id, prog.Mail, GetFinalDate(), GetInitialDate(prog.Periodicity),
+                        prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.ActividadVehicular:
-                    return new VehicleActivityReportCommand
-                    {
-                        ReportId = prog.Id,
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
-                    };
+                    return ReportService.CreateVehicleActivityReportCommand(prog.Id, prog.Empresa.Id,
+                        prog.Linea.Id, prog.Mail, GetFinalDate(), GetInitialDate(prog.Periodicity),
+                        prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.InfraccionesVehiculo:
-                    return new VehicleInfractionsReportCommand
-                    {
-                        ReportId = prog.Id,
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        ReportFormat = prog.Format,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)
-                    };
+                    return ReportService.CreateVehicleInfractionsReportCommand(prog.Id, prog.Empresa.Id,
+                        prog.Linea.Id, prog.Mail, GetFinalDate(), GetInitialDate(prog.Periodicity),
+                        prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.InfraccionesConductor:
-                    return new DriversInfractionsReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        DriversId = prog.GetParameters(ParameterType.Driver),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString() + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateDriversInfractionsReportCommand(prog.Id, prog.Empresa.Id,
+                        prog.Linea.Id, prog.Mail, GetFinalDate(), GetInitialDate(prog.Periodicity),
+                        prog.GetParameters(ParameterType.Driver), prog.Format);
+
                 case ProgramacionReporte.Reportes.EventosGeocercas:
-                    return new GeofenceEventsReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        Geofences = prog.GetParameters(ParameterType.Geofence),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateGeofenceEventsReportCommand(prog.Id, prog.Empresa.Id,
+                        prog.Linea.Id, prog.Mail, GetFinalDate(), GetInitialDate(prog.Periodicity),
+                        prog.GetParameters(ParameterType.Vehicle), prog.GetParameters(ParameterType.Geofence),prog.Format);
+
                 case ProgramacionReporte.Reportes.TiempoAcumulado:
-                    return new MobilesTimeReportCommand
-                    {
-                        ReportId = prog.Id,
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString(),
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle)                        
-                    };
+                    return ReportService.CreateMobilesTimeReportCommand(prog.Id, prog.Empresa.Id,
+                        prog.Linea.Id, prog.Mail, GetFinalDate(), GetInitialDate(prog.Periodicity),
+                        prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.VencimientoDocumentos:
-                    return new DocumentsExpirationReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        ReportFormat = prog.Format,
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        Documents = prog.GetParameters(ParameterType.Document),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateDocumentExpirationReportCommand(prog.Id, prog.Empresa.Id,
+                       prog.Linea.Id, prog.Mail, GetFinalDate(), GetInitialDate(prog.Periodicity),
+                       prog.GetParameters(ParameterType.Document),prog.Format);
+
                 case ProgramacionReporte.Reportes.ReporteOdometros:
-                    return ReportService.CreateNewOdometerReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,
+                    return ReportService.CreateOdometerReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,
                         GetFinalDate(), GetInitialDate(prog.Periodicity), prog.GetParameters(ParameterType.Odometer),
-                        prog.GetParameters(ParameterType.Vehicle), prog.ReportName);
+                        prog.GetParameters(ParameterType.Vehicle));
 
                 case ProgramacionReporte.Reportes.EstadoEntregas:
-                    return new DeliverStatusReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateDeliverStatusReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,
+                        GetFinalDate(), GetInitialDate(prog.Periodicity), prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.TrasladosViaje:
-                    return new TransfersPerTripReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateTransfersPerTripReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,
+                       GetFinalDate(), GetInitialDate(prog.Periodicity), prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.ResumenRutas:
-                    return new SummaryRoutesReportCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateSummaryRoutesReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,
+                        GetFinalDate(), GetInitialDate(prog.Periodicity), prog.GetParameters(ParameterType.Vehicle));
+
                 case ProgramacionReporte.Reportes.VerificadorVehiculos:
-                    return new VehicleVerifierCommand
-                    {
-                        ReportId = prog.Id,
-                        CustomerId = prog.Empresa.Id,
-                        Email = prog.Mail,
-                        FinalDate = GetFinalDate(),
-                        InitialDate = GetInitialDate(prog.Periodicity),
-                        VehiclesId = prog.GetParameters(ParameterType.Vehicle),
-                        ReportName = prog.ReportName + GetInitialDate(prog.Periodicity).ToShortDateString() + " - " + GetFinalDate().ToShortDateString()
-                    };
+                    return ReportService.CreateVehicleVerifierCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id,prog.Mail,
+                        prog.GetParameters(ParameterType.Carrier), prog.GetParameters(ParameterType.CostCenter),
+                        prog.GetParameters(ParameterType.VehicleType));
+
                 case ProgramacionReporte.Reportes.EjecucionReportes:
-                    return ReportService.CreateNewExecutionReportCommand(DateTime.Now);
+                    return ReportService.CreateExecutionReportCommand();
+
                 default:
                     return null;
             }
