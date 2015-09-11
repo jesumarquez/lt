@@ -321,9 +321,9 @@ namespace Logictracker.Reportes.DatosOperativos
                                 : ProgramacionReporte.FormatoReporte.Excel
             };
 
-            prog.AddParameterList(GetVehicleList(), ParameterType.Vehicle);
-            prog.AddParameterList(GetDriverList(), ParameterType.Driver);
-            prog.AddParameterList(GetMessageTypeList(), ParameterType.Message);
+            prog.AddParameterList(ddlCostCenter.SelectedValues, ParameterType.CostCenter);
+            prog.AddParameterList(ddlTransportista.SelectedValues, ParameterType.Carrier);
+            prog.AddParameterList(ddlTipoVehiculo.SelectedValues, ParameterType.VehicleType);
 
             DAOFactory.ProgramacionReporteDAO.Save(prog);
 
