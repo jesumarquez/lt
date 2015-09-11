@@ -461,7 +461,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 case ProgramacionReporte.Reportes.ReporteOdometros:
                     return ReportService.CreateOdometerReportCommand(reportId, GetEmpresa().Id, GetLinea().Id,
                         SendReportTextBoxEmail.Text, GetToDateTime(), GetSinceDateTime(), GetOdometersList(),
-                        GetVehicleList());
+                        GetVehicleList(), RadioBtnExcelSendReport.Checked ? ProgramacionReporte.FormatoReporte.Excel : ProgramacionReporte.FormatoReporte.Html);
 
                 case ProgramacionReporte.Reportes.EstadoEntregas:
                     return ReportService.CreateDeliverStatusReportCommand(reportId, GetEmpresa().Id, GetLinea().Id,
