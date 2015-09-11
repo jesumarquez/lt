@@ -100,7 +100,7 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
                 case ProgramacionReporte.Reportes.ReporteOdometros:
                     return ReportService.CreateOdometerReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,
                         GetFinalDate(), GetInitialDate(prog.Periodicity), prog.GetParameters(ParameterType.Odometer),
-                        prog.GetParameters(ParameterType.Vehicle));
+                        prog.GetParameters(ParameterType.Vehicle), prog.Format);
 
                 case ProgramacionReporte.Reportes.EstadoEntregas:
                     return ReportService.CreateDeliverStatusReportCommand(prog.Id, prog.Empresa.Id, prog.Linea.Id, prog.Mail,

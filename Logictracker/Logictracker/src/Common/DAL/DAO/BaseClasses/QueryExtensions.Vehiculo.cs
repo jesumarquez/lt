@@ -38,7 +38,12 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IQueryable<TQuery> FilterVehiculo<TQuery>(this IQueryable<TQuery> q, IQueryable<Coche> vehiculos, bool includesAll, Usuario user)
             where TQuery : IHasVehiculo
         {
-            if (vehiculos != null) q = q.Where(m => m.Vehiculo == null || vehiculos.Contains(m.Vehiculo));
+            if (vehiculos != null)
+            {
+                var vehiculosList = vehiculos.ToList();
+
+                q = q.Where(m => m.Vehiculo == null || vehiculosList.Contains(m.Vehiculo));
+            }
 
             if (!includesAll) q = q.Where(m => m.Vehiculo != null);
 
@@ -65,7 +70,12 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IEnumerable<TQuery> FilterVehiculo<TQuery>(this IEnumerable<TQuery> q, IQueryable<Coche> vehiculos, bool includesAll, Usuario user)
             where TQuery : IHasVehiculo
         {
-            if (vehiculos != null) q = q.Where(m => m.Vehiculo == null || vehiculos.Contains(m.Vehiculo));
+            if (vehiculos != null)
+            {
+                var vehiculosList = vehiculos.ToList();
+
+                q = q.Where(m => m.Vehiculo == null || vehiculosList.Contains(m.Vehiculo));
+            }
 
             if (!includesAll) q = q.Where(m => m.Vehiculo != null);
 

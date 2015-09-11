@@ -67,7 +67,7 @@ namespace Logictracker.Tracker.Application.Reports
             });
         }
 
-        public static IReportCommand CreateOdometerReportCommand(int reportId, int customerId, int linea, string mail, DateTime finalDate, DateTime initialDate, List<int> odometersId, List<int> vehiclesId)
+        public static IReportCommand CreateOdometerReportCommand(int reportId, int customerId, int linea, string mail, DateTime finalDate, DateTime initialDate, List<int> odometersId, List<int> vehiclesId, ProgramacionReporte.FormatoReporte format)
         {
             return new OdometersReportCommand
             {
@@ -79,7 +79,7 @@ namespace Logictracker.Tracker.Application.Reports
                 InitialDate = initialDate,
                 Odometers = odometersId,
                 VehiclesId = vehiclesId,
-                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportFormat = format,
                 ReportName = "Odometros " + initialDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
             };
         }
@@ -694,6 +694,23 @@ namespace Logictracker.Tracker.Application.Reports
             return results != null  ? ConvertDtDocumentExpirationToString(results) : null;
         }
 
+        public string GenerateSummarizedOdometersReport(OdometersReportCommand cmd, IReportStatus status)
+        {
+            if (cmd.CustomerId == 0) return null;
+
+            var hasta = cmd.FinalDate.ToDataBaseDateTime().AddDays(7);
+            var empresas = new[] { cmd.CustomerId };
+
+            if (cmd.ReportId != 0)
+                status.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
+
+            if (cmd.CustomerId == 0) return null;
+
+            var results = ReportFactory.OdometroStatusDAO.GetOdometersSummary(cmd.VehiclesId, cmd.Odometers);
+
+            return results != null ? ConvertDtOdometersToString(results) : null;
+        }
+
         #endregion
 
         #region Sending and Logging
@@ -879,6 +896,43 @@ namespace Logictracker.Tracker.Application.Reports
                         </td>
                         <td style='padding: 10px;'>" +
                             row["A vencer"].ToString() + 
+                        @"</td>
+                    </tr>
+                </table>");
+
+            return report.ToString();
+        }
+        private string ConvertDtOdometersToString(DataRow row)
+        {
+            var report = new StringBuilder(@"
+                <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
+                    <tr>
+                        <td colspan='5' style='background-color:#3A81B1;'>
+                            <img src='http://web.logictracker.com/App_Themes/Marinero/img/logo-logic-azul.png' />
+                        </td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>1er Aviso:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["1er Aviso"].ToString() +
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>2do Aviso:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["2do Aviso"].ToString() +
+                        @"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>Vencidos:</b>
+                        </td>
+                        <td style='padding: 10px;'>" +
+                            row["Vencidos"].ToString() +
                         @"</td>
                     </tr>
                 </table>");
