@@ -85,7 +85,7 @@
                         <cwc:ResourceLabel ID="lblDevice" runat="server" ResourceName="Entities" VariableName="PARENTI08" />
                         <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <cwc:DispositivoDropDownList ID="DispositivoDropDownList" runat="server" Width="200px" ParentControls="cbEmpresa, cbLinea" AddNoneItem="true" HideAssigned="True" />
+                                <cwc:DispositivoDropDownList ID="cbDispositivo" runat="server" Width="200px" ParentControls="cbEmpresa, cbLinea" AddNoneItem="true" HideAssigned="True" OnInitialBinding="CbDispositivoPreBind" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />

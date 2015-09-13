@@ -14,6 +14,7 @@ using Logictracker.Culture;
 using Logictracker.Layers.MessageQueue;
 using Logictracker.Mailing;
 using Logictracker.Reports.Messaging;
+using Logictracker.Tracker.Application.Reports;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Web.CustomWebControls.Buttons;
 using Logictracker.Web.CustomWebControls.Helpers;
@@ -406,26 +407,14 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
             switch (reportType)
             {
-                case "AccumulatedKilometersReport":
-                    return new AccumulatedKilometersReportCommand
-                    {
-                        ReportId = reportId, //Id de reporte manual inactivo
-                        CustomerId = GetEmpresa().Id,
-                        Email = SendReportTextBoxEmail.Text,
-                        FinalDate = GetToDateTime(),
-                        InitialDate = GetSinceDateTime(),
-                        VehiclesId = GetVehicleList()
-                    };
-                case "MobilesTimeReport":
-                    return new MobilesTimeReportCommand
-                    {
-                        ReportId = reportId,
-                        CustomerId = GetEmpresa().Id,
-                        Email = SendReportTextBoxEmail.Text,
-                        FinalDate = GetToDateTime(),
-                        InitialDate = GetSinceDateTime(),
-                        VehiclesId = GetVehicleList()
-                    };
+                case ProgramacionReporte.Reportes.KilometrosAcumulados:
+                    return ReportService.CreateAccumulatedKilometersReportCommand(reportId, GetEmpresa().Id, GetLinea().Id,
+                      SendReportTextBoxEmail.Text, GetToDateTime(), GetSinceDateTime(), GetVehicleList());
+
+                case ProgramacionReporte.Reportes.TiempoAcumulado:
+                    return ReportService.CreateMobilesTimeReportCommand(reportId, GetEmpresa().Id, GetLinea().Id,
+                      SendReportTextBoxEmail.Text, GetToDateTime(), GetSinceDateTime(), GetVehicleList());
+
                 default:
                     return null;
             }

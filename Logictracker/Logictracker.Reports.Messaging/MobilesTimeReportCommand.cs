@@ -10,6 +10,7 @@ namespace Logictracker.Reports.Messaging
         public DateTime InitialDate { get; set; }
         public DateTime FinalDate { get; set; }
         public string Email { get; set; }
+        public int BaseId { get; set; }
         public ProgramacionReporte.FormatoReporte ReportFormat { get; set; }
         public string ReportName { get; set; }
         public int ReportId { get; set; }

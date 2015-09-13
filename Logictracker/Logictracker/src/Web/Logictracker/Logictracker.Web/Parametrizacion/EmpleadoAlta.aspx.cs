@@ -43,6 +43,7 @@ namespace Logictracker.Parametrizacion
         protected override void OnDuplicate()
         {
             base.OnDuplicate();
+            cbDispositivo.Empleado = 0;
             DocumentList1.ClearDocumentos();
         }
 
@@ -64,7 +65,7 @@ namespace Logictracker.Parametrizacion
             EditObject.Tarjeta = ddlTarjeta.Selected > 0 ? DAOFactory.TarjetaDAO.FindById(ddlTarjeta.Selected) : null;
             EditObject.Transportista = ddlTransportista.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(ddlTransportista.Selected) : null;
             EditObject.TipoEmpleado = ddlTipoEmpleado.Selected > 0 ? DAOFactory.TipoEmpleadoDAO.FindById(ddlTipoEmpleado.Selected): null;
-            EditObject.Dispositivo = DispositivoDropDownList.Selected > 0 ? DAOFactory.DispositivoDAO.FindById(DispositivoDropDownList.Selected) : null;
+            EditObject.Dispositivo = cbDispositivo.Selected > 0 ? DAOFactory.DispositivoDAO.FindById(cbDispositivo.Selected) : null;
             EditObject.Entidad = AltaEntidad.GetEntidad(EditObject.Id == 0);
 
             EditObject.Reporta1 = ddlReporta1.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(ddlReporta1.Selected) : null;
@@ -93,6 +94,12 @@ namespace Logictracker.Parametrizacion
             DAOFactory.EmpleadoDAO.Delete(EditObject);
         }
 
+        protected void CbDispositivoPreBind(object sender, EventArgs e)
+        {
+            if (EditMode && EditObject.Dispositivo != null)
+                cbDispositivo.Empleado = EditObject.Id;
+        }
+
         protected override void Bind()
         {
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
@@ -105,7 +112,7 @@ namespace Logictracker.Parametrizacion
             ddlReporta2.SetSelectedValue(EditObject.Reporta2 != null ? EditObject.Reporta2.Id : ddlReporta2.AllValue);
             ddlReporta3.SetSelectedValue(EditObject.Reporta3 != null ? EditObject.Reporta3.Id : ddlReporta3.AllValue);
             cbCategoria.SetSelectedValue(EditObject.Categoria != null ? EditObject.Categoria.Id : cbCategoria.NoneValue);
-            DispositivoDropDownList.SetSelectedValue(EditObject.Dispositivo != null ? EditObject.Dispositivo.Id : DispositivoDropDownList.NoneValue);
+            cbDispositivo.SetSelectedValue(EditObject.Dispositivo != null ? EditObject.Dispositivo.Id : cbDispositivo.NoneValue);
 
             if (EditObject.Tarjeta != null)
             {
