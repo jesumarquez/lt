@@ -13,22 +13,22 @@ namespace Logictracker.Web.Admin {
     public partial class ReportLog {
         
         /// <summary>
-        /// lblDatamart control.
+        /// lblReportExecution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDatamart;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblReportExecution;
         
         /// <summary>
-        /// ddlDatamart control.
+        /// ddlReportExecution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.DropDownLists.DataMartDropDownList ddlDatamart;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.ReportExecutionDropDownList ddlReportExecution;
         
         /// <summary>
         /// lblDesde control.

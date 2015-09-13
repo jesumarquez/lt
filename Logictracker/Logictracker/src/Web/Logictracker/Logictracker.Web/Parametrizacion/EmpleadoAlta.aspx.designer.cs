@@ -310,13 +310,13 @@ namespace Logictracker.Parametrizacion {
         protected global::System.Web.UI.UpdatePanel UpdatePanel7;
         
         /// <summary>
-        /// DispositivoDropDownList control.
+        /// cbDispositivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.DropDownLists.DispositivoDropDownList DispositivoDropDownList;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.DispositivoDropDownList cbDispositivo;
         
         /// <summary>
         /// lblDatosDispositivo control.

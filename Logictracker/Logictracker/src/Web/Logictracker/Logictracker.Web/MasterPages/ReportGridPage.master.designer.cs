@@ -238,6 +238,24 @@ namespace Logictracker.MasterPages {
         protected global::System.Web.UI.WebControls.TextBox TextBoxEmailSendReport;
         
         /// <summary>
+        /// rbutExcelSend control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbutExcelSend;
+        
+        /// <summary>
+        /// rbutHtmlSend control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbutHtmlSend;
+        
+        /// <summary>
         /// ButtonOkSendReport control.
         /// </summary>
         /// <remarks>
