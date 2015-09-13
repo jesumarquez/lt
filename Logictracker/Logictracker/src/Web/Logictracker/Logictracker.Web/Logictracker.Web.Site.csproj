@@ -1155,6 +1155,35 @@
     <Content Include="Parametrizacion\ZonaAccesoLista.aspx" />
     <Content Include="Parametrizacion\ZonaAlta.aspx" />
     <Content Include="Parametrizacion\ZonaLista.aspx" />
+    <Content Include="Postal\Default.aspx" />
+    <Content Include="Postal\img\blank.gif" />
+    <Content Include="Postal\img\close.gif" />
+    <Content Include="Postal\img\cloud-popup-relative.png" />
+    <Content Include="Postal\img\drag-rectangle-off.png" />
+    <Content Include="Postal\img\drag-rectangle-on.png" />
+    <Content Include="Postal\img\east-mini.png" />
+    <Content Include="Postal\img\layer-switcher-maximize.png" />
+    <Content Include="Postal\img\layer-switcher-minimize.png" />
+    <Content Include="Postal\img\marker-blue.png" />
+    <Content Include="Postal\img\marker-gold.png" />
+    <Content Include="Postal\img\marker-green.png" />
+    <Content Include="Postal\img\marker.png" />
+    <Content Include="Postal\img\measuring-stick-off.png" />
+    <Content Include="Postal\img\measuring-stick-on.png" />
+    <Content Include="Postal\img\north-mini.png" />
+    <Content Include="Postal\img\panning-hand-off.png" />
+    <Content Include="Postal\img\panning-hand-on.png" />
+    <Content Include="Postal\img\slider.png" />
+    <Content Include="Postal\img\south-mini.png" />
+    <Content Include="Postal\img\west-mini.png" />
+    <Content Include="Postal\img\zoom-minus-mini.png" />
+    <Content Include="Postal\img\zoom-plus-mini.png" />
+    <Content Include="Postal\img\zoom-world-mini.png" />
+    <Content Include="Postal\img\zoombar.png" />
+    <Content Include="Postal\noimage.gif" />
+    <Content Include="Postal\OpenLayers.js" />
+    <Content Include="Postal\pinpoint2.png" />
+    <Content Include="Postal\style.css" />
     <Content Include="Reportes\Accidentologia\infractionsDetails.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculo.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx" />
@@ -1423,6 +1452,7 @@
     <Content Include="ExcelTemplate\Logictracker\WorkedHours.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\ZonaAccesoLista.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\ZonaLista.xlsx" />
+    <Content Include="Postal\Image.ashx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -3494,6 +3524,13 @@
     </Compile>
     <Compile Include="perfil.aspx.designer.cs">
       <DependentUpon>perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Postal\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Postal\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reportes\Accidentologia\infractionsDetails.aspx.cs">
