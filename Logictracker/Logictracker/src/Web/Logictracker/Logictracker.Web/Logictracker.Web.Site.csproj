@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\..\..\..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -242,6 +243,19 @@
     <Content Include="App_Controls\TicketImport.ascx" />
     <Content Include="App_Controls\TicketsList.ascx" />
     <Content Include="App_Controls\TicketsMantenimientoList.ascx" />
+    <Content Include="App_Offline\App_Offline.htm" />
+    <Content Include="App_Offline\Default.aspx" />
+    <Content Include="App_Offline\mant.png" />
+    <Content Include="App_Offline\mantenimiento.gif" />
+    <Content Include="App_Scripts\jquery.min.js" />
+    <Content Include="App_Scripts\Logictracker.Monitor.js" />
+    <Content Include="App_Services\AutoComplete.asmx" />
+    <Content Include="App_Services\Export.asmx" />
+    <Content Include="App_Services\Geocoder.asmx" />
+    <Content Include="App_Services\Import.asmx" />
+    <Content Include="App_Services\Operation.asmx" />
+    <Content Include="App_Services\OperationService.asmx" />
+    <Content Include="App_Services\Tickets.asmx" />
     <Content Include="App_Styles\default.css" />
     <Content Include="App_Styles\extjs.css" />
     <Content Include="App_Styles\img\black\button\btn-arrow.gif" />
@@ -572,6 +586,27 @@
     <Content Include="CicloLogistico\ServicioLista.aspx" />
     <Content Include="CicloLogistico\TipoServicioAlta.aspx" />
     <Content Include="CicloLogistico\TipoServicioLista.aspx" />
+    <Content Include="Common\EditImage.ashx" />
+    <Content Include="Common\exportCSV.aspx" />
+    <Content Include="Common\exportExcel.aspx" />
+    <Content Include="Common\mappsgateway.ashx" />
+    <Content Include="Common\mappsuploader.ashx" />
+    <Content Include="Common\Pictures\Default.aspx" />
+    <Content Include="Common\Pictures\images\bg.gif" />
+    <Content Include="Common\Pictures\images\left.gif" />
+    <Content Include="Common\Pictures\images\loading.gif" />
+    <Content Include="Common\Pictures\images\right.gif" />
+    <Content Include="Common\Pictures\images\Thumbs.db" />
+    <Content Include="Common\Pictures\packed.js" />
+    <Content Include="Common\Pictures\slide.js" />
+    <Content Include="Common\Pictures\style.css" />
+    <Content Include="Common\ShowState.ashx" />
+    <Content Include="Common\ShowState.aspx" />
+    <Content Include="CompumapISAPI\CartografiaInfo.srf" />
+    <Content Include="CompumapISAPI\Imagenes.srf" />
+    <Content Include="CompumapISAPI\layers.xml" />
+    <Content Include="CompumapISAPI\Micros.srf" />
+    <Content Include="CompumapISAPI\recorridos.srf" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -581,8 +616,47 @@
     <Content Include="ControlAcceso\CategoriaAccesoAlta.aspx" />
     <Content Include="ControlAcceso\CategoriaAccesoLista.aspx" />
     <Content Include="ControlAcceso\Fichada.aspx" />
+    <Content Include="Documentos\AltaDocumento.aspx" />
+    <Content Include="Documentos\Comparativo.aspx" />
+    <Content Include="Documentos\Controls\DatosParte.ascx" />
+    <Content Include="Documentos\DocumentoAlta.aspx" />
+    <Content Include="Documentos\DocumentoImport.aspx" />
+    <Content Include="Documentos\DocumentoLista.aspx" />
+    <Content Include="Documentos\ListDocumento.aspx" />
+    <Content Include="Documentos\ParteReport.aspx" />
+    <Content Include="Documentos\PeriodoAlta.aspx" />
+    <Content Include="Documentos\Periodos.aspx" />
+    <Content Include="Documentos\ReporteVencimiento.aspx" />
+    <Content Include="Documentos\tab.gif" />
+    <Content Include="Documentos\tab2.gif" />
+    <Content Include="Documentos\TipoDocumentoAlta.aspx" />
+    <Content Include="Documentos\TipoDocumentoLista.aspx" />
+    <Content Include="Documentos\VerificarPartes.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="FusionCharts\FCF_Area2D.swf" />
+    <Content Include="FusionCharts\FCF_Bar2D.swf" />
+    <Content Include="FusionCharts\FCF_Candlestick.swf" />
+    <Content Include="FusionCharts\FCF_Column2D.swf" />
+    <Content Include="FusionCharts\FCF_Column3D.swf" />
+    <Content Include="FusionCharts\FCF_Doughnut2D.swf" />
+    <Content Include="FusionCharts\FCF_Funnel.swf" />
+    <Content Include="FusionCharts\FCF_Gantt.swf" />
+    <Content Include="FusionCharts\FCF_Line.swf" />
+    <Content Include="FusionCharts\FCF_MSArea2D.swf" />
+    <Content Include="FusionCharts\FCF_MSBar2D.swf" />
+    <Content Include="FusionCharts\FCF_MSColumn2D.swf" />
+    <Content Include="FusionCharts\FCF_MSColumn2DLineDY.swf" />
+    <Content Include="FusionCharts\FCF_MSColumn3D.swf" />
+    <Content Include="FusionCharts\FCF_MSColumn3DLineDY.swf" />
+    <Content Include="FusionCharts\FCF_MSLine.swf" />
+    <Content Include="FusionCharts\FCF_Pie2D.swf" />
+    <Content Include="FusionCharts\FCF_Pie3D.swf" />
+    <Content Include="FusionCharts\FCF_StackedArea2D.swf" />
+    <Content Include="FusionCharts\FCF_StackedBar2D.swf" />
+    <Content Include="FusionCharts\FCF_StackedColumn2D.swf" />
+    <Content Include="FusionCharts\FCF_StackedColumn3D.swf" />
+    <Content Include="FusionCharts\FusionCharts.js" />
     <Content Include="Home.aspx" />
     <Content Include="iconoLogictracker.png" />
     <Content Include="iconos\052dc349-72ba-4184-8150-f09a9e7d48e3.bmp" />
@@ -1081,6 +1155,35 @@
     <Content Include="Parametrizacion\ZonaAccesoLista.aspx" />
     <Content Include="Parametrizacion\ZonaAlta.aspx" />
     <Content Include="Parametrizacion\ZonaLista.aspx" />
+    <Content Include="Postal\Default.aspx" />
+    <Content Include="Postal\img\blank.gif" />
+    <Content Include="Postal\img\close.gif" />
+    <Content Include="Postal\img\cloud-popup-relative.png" />
+    <Content Include="Postal\img\drag-rectangle-off.png" />
+    <Content Include="Postal\img\drag-rectangle-on.png" />
+    <Content Include="Postal\img\east-mini.png" />
+    <Content Include="Postal\img\layer-switcher-maximize.png" />
+    <Content Include="Postal\img\layer-switcher-minimize.png" />
+    <Content Include="Postal\img\marker-blue.png" />
+    <Content Include="Postal\img\marker-gold.png" />
+    <Content Include="Postal\img\marker-green.png" />
+    <Content Include="Postal\img\marker.png" />
+    <Content Include="Postal\img\measuring-stick-off.png" />
+    <Content Include="Postal\img\measuring-stick-on.png" />
+    <Content Include="Postal\img\north-mini.png" />
+    <Content Include="Postal\img\panning-hand-off.png" />
+    <Content Include="Postal\img\panning-hand-on.png" />
+    <Content Include="Postal\img\slider.png" />
+    <Content Include="Postal\img\south-mini.png" />
+    <Content Include="Postal\img\west-mini.png" />
+    <Content Include="Postal\img\zoom-minus-mini.png" />
+    <Content Include="Postal\img\zoom-plus-mini.png" />
+    <Content Include="Postal\img\zoom-world-mini.png" />
+    <Content Include="Postal\img\zoombar.png" />
+    <Content Include="Postal\noimage.gif" />
+    <Content Include="Postal\OpenLayers.js" />
+    <Content Include="Postal\pinpoint2.png" />
+    <Content Include="Postal\style.css" />
     <Content Include="Reportes\Accidentologia\infractionsDetails.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculo.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx" />
@@ -1207,6 +1310,158 @@
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioTarjetas.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioTickets.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioVehiculos.xls" />
+    <Content Include="App_Services\Import.ashx" />
+    <Content Include="CompumapISAPI\COMPUMAP.ini" />
+    <Content Include="Documentos\templates\Comb.tpt" />
+    <Content Include="Documentos\templates\PartePersonal.tpt" />
+    <Content Include="ExcelTemplate\ConsumoMasivo\ActividadTerceros.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\AccessControl.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\AccionLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ActividadCliente.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ActividadDiaria.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ActividadOperador.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ActividadTerceros.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ActividadVehicular.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\AcuWorkedHs.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\AnalizadorMediciones.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\BocaDeCargaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\CentroCostoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\CicloLogisticoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ClienteLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\CocheLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ConfiguracionDispositivoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ConsumosLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ControlarDistribucion.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ControlDistribucion.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\DepartamentoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\DepositoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\DetalleLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\DetentionTimes.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\DispositivoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\DocumentoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\DuracionEstadosTicket.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\EmpleadoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\EntidadLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\EquipoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\EstadoLogLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\eventos.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\FeriadoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Fichada.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\FirmwareLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\FlujoDeTareas.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\FuncionLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\GeocercasEvents.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\GeoRefLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\HistogramaDetenciones.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\infractionsDetails.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\InsumoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\KilometrosDiarios.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\KmHsProductivos.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\LineaTelefonicaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ListaRendimiento.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ListDocumento.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ListTicket.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\LocacionLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Log.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Logiclink.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\LoginsHistory.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MarcaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Mediciones.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MensajeLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MensajesVehiculo.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MensajesVehiculoGrafico.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MobileMaintenance.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MobilePois.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MobilePoisHistoric.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MobileRoutes.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MobilesKilometers.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MobilesTime.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ModeloLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MonthKilometers.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\MonthlyTimes.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\OdometroLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\OperatorRanking.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ParteReport.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PedidoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PerfilLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Performance.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Periodos.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PlanLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PlantaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PreasignacionViajeVehiculoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PrecintoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ProductoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ProgramacionReporteLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ProveedorLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PtoEntregaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\PuertaAccesoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\RankingVehiculos.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\recorrido.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\RecorridoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteDespachoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteDistribucion.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteOdometros.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteTolva.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteTraslado.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteVariacionMediciones.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteVencimiento.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ResumenActividad.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ResumenDeEntregas.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ResumenDeRutas.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ResumenOperador.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ResumenVehicular.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Retrasos.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\SensorLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ServicioLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\Sintetico.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\StockInsumoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\StockLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\StoppedHours.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\SubCentroCostoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\SubEntidadLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\SubSistemaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TallerLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TanqueLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TarjetaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TicketMantenimientoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TicketSoporteLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TimeTracking.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoCocheLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoDispositivoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoDocumentoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoEmpleadoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoEntidadLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoGeoRefLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoInsumoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoMedicionLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoMensajeLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoProveedorLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoServicioLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TipoZonaAccesoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TomasDispositivos.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TomasMoviles.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TransportistaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TransportMobileKilometers.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TransportMobileTimes.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\TurnosLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\UnidadMedidaLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\UsuarioLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\VehicleInfractionsDetails.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\VerificadorEmpleados.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ViajeDistribucionLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\WorkedHours.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ZonaAccesoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ZonaLista.xlsx" />
+    <Content Include="Postal\Image.ashx" />
+    <Content Include="log4net.config" />
+    <Content Include="Logictracker.Audit.config" />
+    <Content Include="Logictracker.Cameras.config" />
+    <Content Include="Logictracker.Controls.AvailableCultures.config" />
+    <Content Include="Logictracker.Mailing.Directions.config" />
+    <Content Include="Logictracker.Mailing.ErrorNotifying.config" />
+    <Content Include="Logictracker.Mailing.LogiclinkError.config" />
+    <Content Include="Logictracker.Mailing.ReportConfirmation.config" />
+    <Content Include="Logictracker.Mailing.SupportTicket.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1247,9 +1502,24 @@
     <Content Include="Global.asax" />
     <Content Include="SinAcceso.aspx" />
     <Content Include="Site.Master" />
+    <Content Include="sonido\beep.mp3" />
+    <Content Include="sonido\FlashSound.swf" />
+    <Content Include="sonido\JamesBond.mid" />
+    <Content Include="sonido\pong.mp3" />
+    <Content Include="sonido\ReversyHollowMetal.mp3" />
+    <Content Include="sonido\ring2.mid" />
+    <Content Include="sonido\sirena3.mp3" />
     <Content Include="Soporte\Attach\Marker_Mon.png" />
     <Content Include="Soporte\TicketSoporteAlta.aspx" />
     <Content Include="Soporte\TicketSoporteLista.aspx" />
+    <Content Include="Telemetria\Configuracion.aspx" />
+    <Content Include="Telemetria\GraficoLlenado.aspx" />
+    <Content Include="Telemetria\Mapa.aspx" />
+    <Content Include="Telemetria\Mediciones.aspx" />
+    <Content Include="Telemetria\Posiciones.aspx" />
+    <Content Include="Telemetria\TableroDeControl.aspx" />
+    <Content Include="Telemetria\Zona0.aspx" />
+    <Content Include="track.ico" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -1527,6 +1797,13 @@
     <Compile Include="App_Controls\TicketsMantenimientoList.ascx.designer.cs">
       <DependentUpon>TicketsMantenimientoList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="App_Offline\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Offline\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -1768,6 +2045,34 @@
     <Compile Include="CicloLogistico\TipoServicioLista.aspx.designer.cs">
       <DependentUpon>TipoServicioLista.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Common\exportCSV.aspx.cs">
+      <DependentUpon>exportCSV.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\exportCSV.aspx.designer.cs">
+      <DependentUpon>exportCSV.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\exportExcel.aspx.cs">
+      <DependentUpon>exportExcel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\exportExcel.aspx.designer.cs">
+      <DependentUpon>exportExcel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Pictures\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\Pictures\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ShowState.aspx.cs">
+      <DependentUpon>ShowState.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\ShowState.aspx.designer.cs">
+      <DependentUpon>ShowState.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1804,6 +2109,104 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\AltaDocumento.aspx.cs">
+      <DependentUpon>AltaDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\AltaDocumento.aspx.designer.cs">
+      <DependentUpon>AltaDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\Comparativo.aspx.cs">
+      <DependentUpon>Comparativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\Comparativo.aspx.designer.cs">
+      <DependentUpon>Comparativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\Controls\DatosParte.ascx.cs">
+      <DependentUpon>DatosParte.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\Controls\DatosParte.ascx.designer.cs">
+      <DependentUpon>DatosParte.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\DocumentoAlta.aspx.cs">
+      <DependentUpon>DocumentoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\DocumentoAlta.aspx.designer.cs">
+      <DependentUpon>DocumentoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\DocumentoImport.aspx.cs">
+      <DependentUpon>DocumentoImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\DocumentoImport.aspx.designer.cs">
+      <DependentUpon>DocumentoImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\DocumentoLista.aspx.cs">
+      <DependentUpon>DocumentoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\DocumentoLista.aspx.designer.cs">
+      <DependentUpon>DocumentoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\ListDocumento.aspx.cs">
+      <DependentUpon>ListDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\ListDocumento.aspx.designer.cs">
+      <DependentUpon>ListDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\ParteReport.aspx.cs">
+      <DependentUpon>ParteReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\ParteReport.aspx.designer.cs">
+      <DependentUpon>ParteReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\PeriodoAlta.aspx.cs">
+      <DependentUpon>PeriodoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\PeriodoAlta.aspx.designer.cs">
+      <DependentUpon>PeriodoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\Periodos.aspx.cs">
+      <DependentUpon>Periodos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\Periodos.aspx.designer.cs">
+      <DependentUpon>Periodos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\ReporteVencimiento.aspx.cs">
+      <DependentUpon>ReporteVencimiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\ReporteVencimiento.aspx.designer.cs">
+      <DependentUpon>ReporteVencimiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoAlta.aspx.cs">
+      <DependentUpon>TipoDocumentoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoAlta.aspx.designer.cs">
+      <DependentUpon>TipoDocumentoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoLista.aspx.cs">
+      <DependentUpon>TipoDocumentoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoLista.aspx.designer.cs">
+      <DependentUpon>TipoDocumentoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\VerificarPartes.aspx.cs">
+      <DependentUpon>VerificarPartes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\VerificarPartes.aspx.designer.cs">
+      <DependentUpon>VerificarPartes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
@@ -3146,6 +3549,13 @@
     <Compile Include="perfil.aspx.designer.cs">
       <DependentUpon>perfil.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Postal\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Postal\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reportes\Accidentologia\infractionsDetails.aspx.cs">
       <DependentUpon>infractionsDetails.aspx</DependentUpon>
@@ -3958,6 +4368,55 @@
     </Compile>
     <Compile Include="Soporte\TicketSoporteLista.aspx.designer.cs">
       <DependentUpon>TicketSoporteLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Configuracion.aspx.cs">
+      <DependentUpon>Configuracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Configuracion.aspx.designer.cs">
+      <DependentUpon>Configuracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\GraficoLlenado.aspx.cs">
+      <DependentUpon>GraficoLlenado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\GraficoLlenado.aspx.designer.cs">
+      <DependentUpon>GraficoLlenado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Mapa.aspx.cs">
+      <DependentUpon>Mapa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Mapa.aspx.designer.cs">
+      <DependentUpon>Mapa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Mediciones.aspx.cs">
+      <DependentUpon>Mediciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Mediciones.aspx.designer.cs">
+      <DependentUpon>Mediciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Posiciones.aspx.cs">
+      <DependentUpon>Posiciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Posiciones.aspx.designer.cs">
+      <DependentUpon>Posiciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\TableroDeControl.aspx.cs">
+      <DependentUpon>TableroDeControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\TableroDeControl.aspx.designer.cs">
+      <DependentUpon>TableroDeControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Zona0.aspx.cs">
+      <DependentUpon>Zona0.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Zona0.aspx.designer.cs">
+      <DependentUpon>Zona0.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

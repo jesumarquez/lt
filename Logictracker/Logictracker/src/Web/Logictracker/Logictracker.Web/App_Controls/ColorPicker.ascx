@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ColorPicker.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_ColorPicker" CodeBehind="ColorPicker.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Logictracker.App_Controls.App_Controls_ColorPicker" CodeBehind="ColorPicker.ascx.cs" %>
 <%@ Register Assembly="CDT.ColorPickerExtender" Namespace="CDT" TagPrefix="cdt" %>
 <script type="text/javascript">
 var <%= JsSelectedColorVariable %> = '';
