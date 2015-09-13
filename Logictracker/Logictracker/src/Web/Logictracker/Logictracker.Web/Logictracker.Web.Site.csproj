@@ -1493,6 +1493,13 @@
     <Content Include="Global.asax" />
     <Content Include="SinAcceso.aspx" />
     <Content Include="Site.Master" />
+    <Content Include="sonido\beep.mp3" />
+    <Content Include="sonido\FlashSound.swf" />
+    <Content Include="sonido\JamesBond.mid" />
+    <Content Include="sonido\pong.mp3" />
+    <Content Include="sonido\ReversyHollowMetal.mp3" />
+    <Content Include="sonido\ring2.mid" />
+    <Content Include="sonido\sirena3.mp3" />
     <Content Include="Soporte\Attach\Marker_Mon.png" />
     <Content Include="Soporte\TicketSoporteAlta.aspx" />
     <Content Include="Soporte\TicketSoporteLista.aspx" />
