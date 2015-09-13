@@ -1453,6 +1453,15 @@
     <Content Include="ExcelTemplate\Logictracker\ZonaAccesoLista.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\ZonaLista.xlsx" />
     <Content Include="Postal\Image.ashx" />
+    <Content Include="log4net.config" />
+    <Content Include="Logictracker.Audit.config" />
+    <Content Include="Logictracker.Cameras.config" />
+    <Content Include="Logictracker.Controls.AvailableCultures.config" />
+    <Content Include="Logictracker.Mailing.Directions.config" />
+    <Content Include="Logictracker.Mailing.ErrorNotifying.config" />
+    <Content Include="Logictracker.Mailing.LogiclinkError.config" />
+    <Content Include="Logictracker.Mailing.ReportConfirmation.config" />
+    <Content Include="Logictracker.Mailing.SupportTicket.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
