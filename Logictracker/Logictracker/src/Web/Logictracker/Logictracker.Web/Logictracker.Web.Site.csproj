@@ -1503,6 +1503,13 @@
     <Content Include="Soporte\Attach\Marker_Mon.png" />
     <Content Include="Soporte\TicketSoporteAlta.aspx" />
     <Content Include="Soporte\TicketSoporteLista.aspx" />
+    <Content Include="Telemetria\Configuracion.aspx" />
+    <Content Include="Telemetria\GraficoLlenado.aspx" />
+    <Content Include="Telemetria\Mapa.aspx" />
+    <Content Include="Telemetria\Mediciones.aspx" />
+    <Content Include="Telemetria\Posiciones.aspx" />
+    <Content Include="Telemetria\TableroDeControl.aspx" />
+    <Content Include="Telemetria\Zona0.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -4351,6 +4358,55 @@
     </Compile>
     <Compile Include="Soporte\TicketSoporteLista.aspx.designer.cs">
       <DependentUpon>TicketSoporteLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Configuracion.aspx.cs">
+      <DependentUpon>Configuracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Configuracion.aspx.designer.cs">
+      <DependentUpon>Configuracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\GraficoLlenado.aspx.cs">
+      <DependentUpon>GraficoLlenado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\GraficoLlenado.aspx.designer.cs">
+      <DependentUpon>GraficoLlenado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Mapa.aspx.cs">
+      <DependentUpon>Mapa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Mapa.aspx.designer.cs">
+      <DependentUpon>Mapa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Mediciones.aspx.cs">
+      <DependentUpon>Mediciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Mediciones.aspx.designer.cs">
+      <DependentUpon>Mediciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Posiciones.aspx.cs">
+      <DependentUpon>Posiciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Posiciones.aspx.designer.cs">
+      <DependentUpon>Posiciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\TableroDeControl.aspx.cs">
+      <DependentUpon>TableroDeControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\TableroDeControl.aspx.designer.cs">
+      <DependentUpon>TableroDeControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Telemetria\Zona0.aspx.cs">
+      <DependentUpon>Zona0.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Telemetria\Zona0.aspx.designer.cs">
+      <DependentUpon>Zona0.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
