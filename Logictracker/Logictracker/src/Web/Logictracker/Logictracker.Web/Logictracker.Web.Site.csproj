@@ -602,6 +602,11 @@
     <Content Include="Common\Pictures\style.css" />
     <Content Include="Common\ShowState.ashx" />
     <Content Include="Common\ShowState.aspx" />
+    <Content Include="CompumapISAPI\CartografiaInfo.srf" />
+    <Content Include="CompumapISAPI\Imagenes.srf" />
+    <Content Include="CompumapISAPI\layers.xml" />
+    <Content Include="CompumapISAPI\Micros.srf" />
+    <Content Include="CompumapISAPI\recorridos.srf" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -1238,6 +1243,7 @@
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioTickets.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioVehiculos.xls" />
     <Content Include="App_Services\Import.ashx" />
+    <Content Include="CompumapISAPI\COMPUMAP.ini" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
