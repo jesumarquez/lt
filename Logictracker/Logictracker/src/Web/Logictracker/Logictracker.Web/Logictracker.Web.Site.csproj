@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\..\..\..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -242,6 +243,10 @@
     <Content Include="App_Controls\TicketImport.ascx" />
     <Content Include="App_Controls\TicketsList.ascx" />
     <Content Include="App_Controls\TicketsMantenimientoList.ascx" />
+    <Content Include="App_Offline\App_Offline.htm" />
+    <Content Include="App_Offline\Default.aspx" />
+    <Content Include="App_Offline\mant.png" />
+    <Content Include="App_Offline\mantenimiento.gif" />
     <Content Include="App_Styles\default.css" />
     <Content Include="App_Styles\extjs.css" />
     <Content Include="App_Styles\img\black\button\btn-arrow.gif" />
@@ -1526,6 +1531,13 @@
     </Compile>
     <Compile Include="App_Controls\TicketsMantenimientoList.ascx.designer.cs">
       <DependentUpon>TicketsMantenimientoList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Offline\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Offline\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
