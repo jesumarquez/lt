@@ -247,6 +247,8 @@
     <Content Include="App_Offline\Default.aspx" />
     <Content Include="App_Offline\mant.png" />
     <Content Include="App_Offline\mantenimiento.gif" />
+    <Content Include="App_Scripts\jquery.min.js" />
+    <Content Include="App_Scripts\Logictracker.Monitor.js" />
     <Content Include="App_Styles\default.css" />
     <Content Include="App_Styles\extjs.css" />
     <Content Include="App_Styles\img\black\button\btn-arrow.gif" />
