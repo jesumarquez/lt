@@ -1,0 +1,135 @@
+﻿<style type="text/css">
+  .parte_personal_title
+  {
+  font-size: 20px;
+  font-weight: bold;
+  border-top: solid 1px Black;
+  border-bottom: solid 1px Black;
+  text-align: center;
+  padding: 10px;
+  }
+  .parte_personal_table_header
+  {
+  font-weight: bold;
+  font-size: 12px;
+  }
+  .parte_personal_table_subheader
+  {
+    font-weight: bold;
+    font-size: 10px;
+  }
+</style>
+<div style="width: 580px; margin: auto;">
+<div class="parte_personal_title">PARTE DE TRANSPORTE DE PERSONAL</div>
+<br />
+<table style="width: 100%">
+  <tr>
+    <td>Distrito<br/>(((__parenti01__)))</td>
+    <td>Parte<br/>
+      (((__codigo__)))
+    </td>
+    <td>Fecha<br/>
+      (((__fecha__)))
+    </td>
+  </tr>
+</table>
+
+
+  <br/>
+<table style="width: 100%">
+<tr>
+    <td>Empresa</td>
+    <td>(((Empresa)))</td>
+    <td>Vehiculo </td>
+    <td>(((Vehiculo))) </td>
+    <td colspan="2">(((Estado Control)))</td>
+</tr>
+<tr>
+    <td>Servicio</td>
+    <td>(((Tipo Servicio)))</td>
+    <td>Equipo </td>
+    <td>(((Equipo)))</td>
+    <td>Sector</td>
+    <td>(((Centro Costos)))</td>
+</tr>
+</table>
+
+<table>
+<tr>
+    <td>Lugar de Partida </td>
+    <td>(((Lugar Partida)))</td>
+    <td>Lugar de Llegada</td>
+    <td>(((Lugar Llegada)))</td>
+</tr>
+</table>
+<table border="1" cellspacing="0" style="width: 100%; text-align: center;">
+<tr>
+<td colspan="2" class="parte_personal_table_header">AL POZO</td>
+<td colspan="2" class="parte_personal_table_header">DEL POZO</td>
+  <td colspan="3" class="parte_personal_table_header">KILOMETRAJE</td>
+<td></td>
+</tr>
+<tr>
+  <td class="parte_personal_table_subheader">Hs Salida</td>
+  <td class="parte_personal_table_subheader">Hs Llegada</td>
+  <td class="parte_personal_table_subheader">Hs Salida</td>
+  <td class="parte_personal_table_subheader">Hs Llegada</td>
+  <td class="parte_personal_table_subheader">Odom. Ini.</td>
+  <td class="parte_personal_table_subheader">Odom. Fin</td>
+  <td class="parte_personal_table_subheader">Total Ida y Vuelta</td>
+  <td class="parte_personal_table_subheader">Responsable</td>
+</tr>
+(((__begin_repeater__)))
+<tr>
+<td>(((Hs Salida Al Pozo)))</td>
+<td>(((Hs Llegada Al Pozo)))</td>
+<td>(((Hs Salida Del Pozo)))</td>
+<td>(((Hs Llegada Del Pozo)))</td>
+<td>(((Odometro Inicial)))</td>
+<td>(((Odometro Final)))</td>
+<td>(((Kilometraje)))</td>
+<td>(((Responsable)))</td>
+</tr>
+(((__end_repeater__)))
+<tr>
+<td colspan="3"></td>
+<td>TOTAL</td>
+<td>(((Kilometraje Total)))</td>
+<td></td>
+</tr>
+</table>
+  <br />
+<div>
+Observaciones<br/>
+(((Observaciones)))
+</div>
+</div>
+(((__begin_styles__)))
+(((__parenti01__)))=width: 200px;
+(((__parenti02__)))=width: 100px;
+(((__codigo__)))=width: 60px;
+(((__fecha__)))=width: 80px;
+(((__nombre__)))=width: 500px;
+
+(((Empresa)))=width: 100px;
+(((Tipo Servicio)))=width: 100px;
+(((Equipo)))=width: 100px;
+(((Vehiculo)))=width: 100px;
+(((Centro Costos)))=width: 100px;
+(((Lugar Partida)))=width: 100px;
+(((Lugar Llegada)))=width: 100px;
+
+(((Turno)))=width: 40px;
+(((Hs Salida Al Pozo)))=width: 40px;
+(((Hs Llegada Al Pozo)))=width: 40px;
+(((Hs Salida Del Pozo)))=width: 40px;
+(((Hs Llegada Del Pozo)))=width: 40px;
+
+(((Odometro Inicial)))=width: 60px;
+(((Odometro Final)))=width: 60px;
+(((Kilometraje)))=width: 60px;
+(((Responsable)))=width: 120px;
+(((Kilometraje Total)))=width: 60px;
+(((Observaciones)))=width: 500px;
+(((Estado Control)))=font-weight: bold; color: #FF0000;
+(((__end_styles__)))

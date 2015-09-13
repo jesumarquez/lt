@@ -616,6 +616,22 @@
     <Content Include="ControlAcceso\CategoriaAccesoAlta.aspx" />
     <Content Include="ControlAcceso\CategoriaAccesoLista.aspx" />
     <Content Include="ControlAcceso\Fichada.aspx" />
+    <Content Include="Documentos\AltaDocumento.aspx" />
+    <Content Include="Documentos\Comparativo.aspx" />
+    <Content Include="Documentos\Controls\DatosParte.ascx" />
+    <Content Include="Documentos\DocumentoAlta.aspx" />
+    <Content Include="Documentos\DocumentoImport.aspx" />
+    <Content Include="Documentos\DocumentoLista.aspx" />
+    <Content Include="Documentos\ListDocumento.aspx" />
+    <Content Include="Documentos\ParteReport.aspx" />
+    <Content Include="Documentos\PeriodoAlta.aspx" />
+    <Content Include="Documentos\Periodos.aspx" />
+    <Content Include="Documentos\ReporteVencimiento.aspx" />
+    <Content Include="Documentos\tab.gif" />
+    <Content Include="Documentos\tab2.gif" />
+    <Content Include="Documentos\TipoDocumentoAlta.aspx" />
+    <Content Include="Documentos\TipoDocumentoLista.aspx" />
+    <Content Include="Documentos\VerificarPartes.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Home.aspx" />
@@ -1244,6 +1260,8 @@
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioVehiculos.xls" />
     <Content Include="App_Services\Import.ashx" />
     <Content Include="CompumapISAPI\COMPUMAP.ini" />
+    <Content Include="Documentos\templates\Comb.tpt" />
+    <Content Include="Documentos\templates\PartePersonal.tpt" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1876,6 +1894,104 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\AltaDocumento.aspx.cs">
+      <DependentUpon>AltaDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\AltaDocumento.aspx.designer.cs">
+      <DependentUpon>AltaDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\Comparativo.aspx.cs">
+      <DependentUpon>Comparativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\Comparativo.aspx.designer.cs">
+      <DependentUpon>Comparativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\Controls\DatosParte.ascx.cs">
+      <DependentUpon>DatosParte.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\Controls\DatosParte.ascx.designer.cs">
+      <DependentUpon>DatosParte.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\DocumentoAlta.aspx.cs">
+      <DependentUpon>DocumentoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\DocumentoAlta.aspx.designer.cs">
+      <DependentUpon>DocumentoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\DocumentoImport.aspx.cs">
+      <DependentUpon>DocumentoImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\DocumentoImport.aspx.designer.cs">
+      <DependentUpon>DocumentoImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\DocumentoLista.aspx.cs">
+      <DependentUpon>DocumentoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\DocumentoLista.aspx.designer.cs">
+      <DependentUpon>DocumentoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\ListDocumento.aspx.cs">
+      <DependentUpon>ListDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\ListDocumento.aspx.designer.cs">
+      <DependentUpon>ListDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\ParteReport.aspx.cs">
+      <DependentUpon>ParteReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\ParteReport.aspx.designer.cs">
+      <DependentUpon>ParteReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\PeriodoAlta.aspx.cs">
+      <DependentUpon>PeriodoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\PeriodoAlta.aspx.designer.cs">
+      <DependentUpon>PeriodoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\Periodos.aspx.cs">
+      <DependentUpon>Periodos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\Periodos.aspx.designer.cs">
+      <DependentUpon>Periodos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\ReporteVencimiento.aspx.cs">
+      <DependentUpon>ReporteVencimiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\ReporteVencimiento.aspx.designer.cs">
+      <DependentUpon>ReporteVencimiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoAlta.aspx.cs">
+      <DependentUpon>TipoDocumentoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoAlta.aspx.designer.cs">
+      <DependentUpon>TipoDocumentoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoLista.aspx.cs">
+      <DependentUpon>TipoDocumentoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\TipoDocumentoLista.aspx.designer.cs">
+      <DependentUpon>TipoDocumentoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documentos\VerificarPartes.aspx.cs">
+      <DependentUpon>VerificarPartes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Documentos\VerificarPartes.aspx.designer.cs">
+      <DependentUpon>VerificarPartes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
