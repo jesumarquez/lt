@@ -249,6 +249,13 @@
     <Content Include="App_Offline\mantenimiento.gif" />
     <Content Include="App_Scripts\jquery.min.js" />
     <Content Include="App_Scripts\Logictracker.Monitor.js" />
+    <Content Include="App_Services\AutoComplete.asmx" />
+    <Content Include="App_Services\Export.asmx" />
+    <Content Include="App_Services\Geocoder.asmx" />
+    <Content Include="App_Services\Import.asmx" />
+    <Content Include="App_Services\Operation.asmx" />
+    <Content Include="App_Services\OperationService.asmx" />
+    <Content Include="App_Services\Tickets.asmx" />
     <Content Include="App_Styles\default.css" />
     <Content Include="App_Styles\extjs.css" />
     <Content Include="App_Styles\img\black\button\btn-arrow.gif" />
@@ -579,6 +586,17 @@
     <Content Include="CicloLogistico\ServicioLista.aspx" />
     <Content Include="CicloLogistico\TipoServicioAlta.aspx" />
     <Content Include="CicloLogistico\TipoServicioLista.aspx" />
+    <Content Include="Common\exportCSV.aspx" />
+    <Content Include="Common\exportExcel.aspx" />
+    <Content Include="Common\Pictures\Default.aspx" />
+    <Content Include="Common\Pictures\images\bg.gif" />
+    <Content Include="Common\Pictures\images\left.gif" />
+    <Content Include="Common\Pictures\images\loading.gif" />
+    <Content Include="Common\Pictures\images\right.gif" />
+    <Content Include="Common\Pictures\packed.js" />
+    <Content Include="Common\Pictures\slide.js" />
+    <Content Include="Common\Pictures\style.css" />
+    <Content Include="Common\ShowState.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -1214,6 +1232,12 @@
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioTarjetas.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioTickets.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioVehiculos.xls" />
+    <Content Include="App_Services\Import.ashx" />
+    <Content Include="Common\EditImage.ashx" />
+    <Content Include="Common\mappsgateway.ashx" />
+    <Content Include="Common\mappsuploader.ashx" />
+    <Content Include="Common\Pictures\images\Thumbs.db" />
+    <Content Include="Common\ShowState.ashx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1781,6 +1805,22 @@
     </Compile>
     <Compile Include="CicloLogistico\TipoServicioLista.aspx.designer.cs">
       <DependentUpon>TipoServicioLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\exportCSV.aspx.cs">
+      <DependentUpon>exportCSV.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\exportExcel.aspx.cs">
+      <DependentUpon>exportExcel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\Pictures\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\ShowState.aspx.cs">
+      <DependentUpon>ShowState.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
