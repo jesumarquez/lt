@@ -767,8 +767,7 @@ namespace Logictracker.Utils
 
             for (int i = ba.Count - 1; i > -1; i--)
             {
-                if (ba[i])
-                    value += Convert.ToInt32(Math.Pow(2, i));
+                if (ba[i]) value += Convert.ToInt32(Math.Pow(2, i));
             }
 
             return value;

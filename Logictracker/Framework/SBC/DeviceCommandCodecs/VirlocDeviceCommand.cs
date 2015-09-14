@@ -49,14 +49,14 @@ namespace Logictracker.Layers.DeviceCommandCodecs
         {
             if (isRGBCommand(b))
             {
-                var secsAnt = new BitArray(new[] {b[4 - 2]}).Append(b[4 - 1]).Append(b[4].LowBits(4)).ToNumeral();
-                var semanasAnt = new BitArray(new[] { b[7 - 1].HighBits(4) }).Trim(4).Append(b[7]).ToNumeral();
-                var fechaAnt = new DateTime(1980, 1, 6, 0, 0, 0, 0).AddDays(semanasAnt * 7).AddSeconds(secsAnt);
+                //var secsAnt = new BitArray(new[] {b[4 - 2]}).Append(b[4 - 1]).Append(b[4].LowBits(4)).ToNumeral();
+                //var semanasAnt = new BitArray(new[] { b[7 - 1].HighBits(4) }).Trim(4).Append(b[7]).ToNumeral();
+                //var fechaAnt = new DateTime(1980, 1, 6, 0, 0, 0, 0).AddDays(semanasAnt * 7).AddSeconds(secsAnt);
 
-                var byte0 = b[3];
-                var byte1 = b[4];
-                var byte2 = b[5];
-                var byte3 = b[6];
+                var byte0 = b[4];
+                var byte1 = b[5];
+                var byte2 = b[6];
+                var byte3 = b[7];
                 
                 var bSecs = byte2.SubBits(0, 4);
                 bSecs = bSecs.Prepend(new BitArray(new[] { byte1 }));
