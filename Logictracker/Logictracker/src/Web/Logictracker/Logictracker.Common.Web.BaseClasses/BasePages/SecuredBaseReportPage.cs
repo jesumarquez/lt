@@ -155,15 +155,27 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual void ToolbarItemCommand(Object sender, CommandEventArgs e)
         {
             try
-            {
-                ReportObjectsList = GetResults();
+            {                
                 switch (e.CommandName)
                 {
-                    case ToolBar.ButtonCommandNamePrint: Print(); break;
-                    case ToolBar.ButtonCommandNameCsv: ExportToCsv(); break;
-                    case ToolBar.ButtonCommandNameSchedule: Schedule(); break;
-                    case ToolBar.ButtonCommandNameSendReport : SendReportToMail(); break;
-                    case ToolBar.ButtonCommandNameExcel: ExportToExcel();break;
+                    case ToolBar.ButtonCommandNamePrint:
+                        ReportObjectsList = GetResults();
+                        Print(); 
+                        break;
+                    case ToolBar.ButtonCommandNameCsv: 
+                        ReportObjectsList = GetResults();
+                        ExportToCsv(); 
+                        break;
+                    case ToolBar.ButtonCommandNameSchedule: 
+                        Schedule(); 
+                        break;
+                    case ToolBar.ButtonCommandNameSendReport : 
+                        SendReportToMail(); 
+                        break;
+                    case ToolBar.ButtonCommandNameExcel:
+                        ReportObjectsList = GetResults();
+                        ExportToExcel();
+                        break;
                 }
             }
             catch (Exception ex) { ShowError(ex); }

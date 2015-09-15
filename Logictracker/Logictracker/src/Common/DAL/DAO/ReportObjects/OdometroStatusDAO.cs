@@ -80,9 +80,9 @@ namespace Logictracker.DAL.DAO.ReportObjects
             var odometersTable = new DataTable("Odometers");
 
             var row = new DataTable().NewRow();
-            row["Vencidos"] = odometers.Count(o => o.Vencido());
-            row["2do Aviso"] = odometers.Count(o => !o.Vencido() && o.SuperoSegundoAviso());
             row["1er Aviso"] = odometers.Count(o => !o.Vencido() && !o.SuperoSegundoAviso() && o.SuperoPrimerAviso());
+            row["2do Aviso"] = odometers.Count(o => !o.Vencido() && o.SuperoSegundoAviso());
+            row["Vencidos"] = odometers.Count(o => o.Vencido());
             
             return row;
         }

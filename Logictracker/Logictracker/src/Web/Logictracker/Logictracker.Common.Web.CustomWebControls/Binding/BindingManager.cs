@@ -28,6 +28,7 @@ using Logictracker.Web.CustomWebControls.DropDownLists;
 using Logictracker.Web.CustomWebControls.DropDownLists.ControlDeCombustible;
 using Logictracker.Web.CustomWebControls.ListBoxs;
 using Logictracker.Messaging;
+using Logictracker.Types.InterfacesAndBaseClasses;
 
 namespace Logictracker.Web.CustomWebControls.Binding
 {
@@ -723,6 +724,13 @@ namespace Logictracker.Web.CustomWebControls.Binding
                 var coche = DaoFactory.CocheDAO.FindById(autoBindeable.Coche);
                 if (coche == null || coche.Dispositivo == null) return;
                 autoBindeable.AddItem(coche.Dispositivo.Codigo, coche.Dispositivo.Id);
+            }
+
+            if (autoBindeable.HideAssigned && autoBindeable.Empleado > 0)
+            {
+                var empleado = DaoFactory.EmpleadoDAO.FindById(autoBindeable.Empleado);
+                if (empleado == null || empleado.Dispositivo == null) return;
+                autoBindeable.AddItem(empleado.Dispositivo.Codigo, empleado.Dispositivo.Id);
             }
 
             foreach (var dispositivo in dispositivos.OrderBy(d => d.Codigo)) autoBindeable.AddItem(dispositivo.Codigo, dispositivo.Id);

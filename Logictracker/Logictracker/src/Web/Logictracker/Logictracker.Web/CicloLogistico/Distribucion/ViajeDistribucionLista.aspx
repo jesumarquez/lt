@@ -81,6 +81,7 @@
                 <cwc:ResourceLabel ID="lblHasta" runat="server" ResourceName="Labels" VariableName="HASTA" Font-Bold="True" />
                 <br />
                 <cwc:DateTimePicker ID="dtpHasta" runat="server" TimeMode="End" Mode="DateTime" IsValidEmpty="false" AutoPostBack="true" OnDateChanged="FilterChanged" />
+                <cwc:DateTimeRangeValidator ID="dtvalidator" runat="server" StartControlID="dtpDesde" EndControlID="dtpHasta" MaxRange="23:59" />
             </td>
         </tr>
     </table>

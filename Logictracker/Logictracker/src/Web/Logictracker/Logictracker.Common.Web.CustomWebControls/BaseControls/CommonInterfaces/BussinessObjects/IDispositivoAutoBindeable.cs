@@ -12,6 +12,8 @@ namespace Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces.Bussi
         /// </summary>
         int Coche { get; }
 
+        int Empleado { get; }
+
         string Padre { get; }
 
         bool HideAssigned { get; }

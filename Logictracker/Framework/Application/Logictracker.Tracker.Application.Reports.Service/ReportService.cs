@@ -200,7 +200,7 @@ namespace Logictracker.Tracker.Application.Reports
                 InitialDate = initialDateTime,
                 VehiclesId = vehicles,
                 Geofences = geofences,
-                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportFormat = reportFormat,
                 ReportName = "Eventos de Geocercas " + initialDateTime.ToShortDateString() + " - " + finalDateTime.ToShortDateString()
             };
         }
@@ -216,7 +216,7 @@ namespace Logictracker.Tracker.Application.Reports
                 FinalDate = finalDate,
                 InitialDate = initDate,
                 Documents = documents,
-                ReportFormat = ProgramacionReporte.FormatoReporte.Excel,
+                ReportFormat = reportFormat,
                 ReportName = "Vencimiento de Documentos " + initDate.ToShortDateString() + " - " + finalDate.ToShortDateString()
             };
         }
@@ -832,7 +832,6 @@ namespace Logictracker.Tracker.Application.Reports
             report.Append("</table>");
             return report.ToString();
         }
-
         private string ConvertDtDocumentExpirationToString(DataRow row)
         {
             var report = new StringBuilder(@"
@@ -847,7 +846,7 @@ namespace Logictracker.Tracker.Application.Reports
                             <b>1er Aviso:</b>
                         </td>
                         <td style='padding: 10px;'>" +
-                            row["1er Aviso"].ToString() +
+                            row.ItemArray.GetValue(0) +
                         @"</td>
                     </tr>
                     <tr style='background-color:#e7e7e7;'>
@@ -855,7 +854,7 @@ namespace Logictracker.Tracker.Application.Reports
                             <b>2do Aviso:</b>
                         </td>
                         <td style='padding: 10px;'>" +
-                            row["2do Aviso"].ToString() +
+                            row.ItemArray.GetValue(1) +
                         @"</td>
                     </tr>
                     <tr style='background-color:#e7e7e7;'>
@@ -863,7 +862,7 @@ namespace Logictracker.Tracker.Application.Reports
                             <b>Vencidos:</b>
                         </td>
                         <td style='padding: 10px;'>" +
-                            row["Vencidos"].ToString() + 
+                            row.ItemArray.GetValue(2) + 
                         @"</td>
                     </tr>
                     <tr style='background-color:#e7e7e7;'>
@@ -871,7 +870,7 @@ namespace Logictracker.Tracker.Application.Reports
                             <b>A vencer:</b>
                         </td>
                         <td style='padding: 10px;'>" +
-                            row["A vencer"].ToString() + 
+                            row.ItemArray.GetValue(3) + 
                         @"</td>
                     </tr>
                 </table>");
@@ -893,7 +892,7 @@ namespace Logictracker.Tracker.Application.Reports
                             <b>1er Aviso:</b>
                         </td>
                         <td style='padding: 10px;'>" +
-                            row["1er Aviso"].ToString() +
+                            row.ItemArray.GetValue(0) +
                         @"</td>
                     </tr>
                     <tr style='background-color:#e7e7e7;'>
@@ -901,7 +900,7 @@ namespace Logictracker.Tracker.Application.Reports
                             <b>2do Aviso:</b>
                         </td>
                         <td style='padding: 10px;'>" +
-                            row["2do Aviso"].ToString() +
+                            row.ItemArray.GetValue(1) +
                         @"</td>
                     </tr>
                     <tr style='background-color:#e7e7e7;'>
@@ -909,7 +908,7 @@ namespace Logictracker.Tracker.Application.Reports
                             <b>Vencidos:</b>
                         </td>
                         <td style='padding: 10px;'>" +
-                            row["Vencidos"].ToString() +
+                            row.ItemArray.GetValue(2) +
                         @"</td>
                     </tr>
                 </table>");
