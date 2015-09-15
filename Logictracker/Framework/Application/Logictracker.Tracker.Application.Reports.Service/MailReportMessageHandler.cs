@@ -39,7 +39,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -129,7 +129,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -159,7 +159,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -189,7 +189,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -219,7 +219,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -249,7 +249,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -279,7 +279,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -309,7 +309,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -339,7 +339,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -369,7 +369,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 

@@ -27,7 +27,7 @@ namespace Logictracker.Tracker.Services
         string GenerateSummarizedOdometersReport(OdometersReportCommand command, IReportStatus reportStatus);
         string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus reportStatus);       
 
-        void LogReportExecution(IReportStatus reportStatus);
+        void LogReportExecution(int reportId, IReportStatus reportStatus);
         void SendHtmlReport(string report, string email, string reportName);
         void SendEmptyReport(IReportCommand command, string reportName, bool isError);
         void SendReport(string reportExecution, string reporteDeEjecucion);
