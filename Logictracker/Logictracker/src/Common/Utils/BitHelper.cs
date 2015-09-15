@@ -763,9 +763,9 @@ namespace Logictracker.Utils
             if (ba.Length > 32)
                 throw new ArgumentException("must be at most 32 bits long");
 
-            int value = 0;
+            var value = 0;
 
-            for (int i = ba.Count - 1; i > -1; i--)
+            for (var i = ba.Count - 1; i > -1; i--)
             {
                 if (ba[i]) value += Convert.ToInt32(Math.Pow(2, i));
             }
@@ -824,7 +824,7 @@ namespace Logictracker.Utils
         {
             var array = new BitArray(new[] { b });
             var ret = new BitArray(bits);
-            for (int i = startIndex; i < startIndex + bits; i++)
+            for (var i = startIndex; i < startIndex + bits; i++)
 			{
 			    ret[i-startIndex] = array[i];
 			}
