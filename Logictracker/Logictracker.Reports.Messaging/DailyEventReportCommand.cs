@@ -9,6 +9,7 @@ namespace Logictracker.Reports.Messaging
     {
         public int BaseId { get; set; }
         public int CustomerId { get; set; }
+        public string ReportName { get; set; }
         public string Email { get; set; }
         public ProgramacionReporte.FormatoReporte ReportFormat { get; set; }
         public List<int> VehiclesId { get; set; }

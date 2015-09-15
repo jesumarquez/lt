@@ -405,14 +405,19 @@ namespace Logictracker.Web.BaseClasses.BasePages
         {
             var reportId = DAOFactory.ProgramacionReporteDAO.GetReportIdByReportName("Manual");
 
+            var linea = GetLinea();
+            var baseId = -1;
+            if (linea != null)
+                baseId = GetLinea().Id;
+
             switch (reportType)
             {
                 case ProgramacionReporte.Reportes.KilometrosAcumulados:
-                    return ReportService.CreateAccumulatedKilometersReportCommand(reportId, GetEmpresa().Id, GetLinea().Id,
+                    return ReportService.CreateAccumulatedKilometersReportCommand(reportId, GetEmpresa().Id, baseId,
                       SendReportTextBoxEmail.Text, GetToDateTime(), GetSinceDateTime(), GetVehicleList());
 
                 case ProgramacionReporte.Reportes.TiempoAcumulado:
-                    return ReportService.CreateMobilesTimeReportCommand(reportId, GetEmpresa().Id, GetLinea().Id,
+                    return ReportService.CreateMobilesTimeReportCommand(reportId, GetEmpresa().Id, baseId,
                       SendReportTextBoxEmail.Text, GetToDateTime(), GetSinceDateTime(), GetVehicleList());
 
                 default:
