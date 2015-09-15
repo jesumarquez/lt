@@ -528,9 +528,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
             var documents = FindByTipo(tipos, empresas, lineas);
             
             var row = new DataTable().NewRow();
-            row["Vencidos"] = documents.Count(d => d.EnviadoAviso3);
-            row["2do Aviso"] = documents.Count(d => !d.EnviadoAviso3 && d.EnviadoAviso2);
             row["1er Aviso"] = documents.Count(d => !d.EnviadoAviso3 && !d.EnviadoAviso2 && d.EnviadoAviso1);
+            row["2do Aviso"] = documents.Count(d => !d.EnviadoAviso3 && d.EnviadoAviso2);
+            row["Vencidos"] = documents.Count(d => d.EnviadoAviso3);
             row["A vencer"] = documents.Count(d => !d.EnviadoAviso3 && d.Vencimiento.HasValue && d.Vencimiento.Value < hasta);
 
             return row;
