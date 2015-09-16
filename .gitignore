@@ -120,3 +120,6 @@ Logictracker/Framework/Process/Logictracker.Process.Import.Client/Mapping/Logict
 /Logictracker/Logictracker/src/Web/Logictracker/LogicTracker.App.Web.Api/bin/LogicTracker.App.Web.Api.dll.config
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/Geocoder.Data.dll
 /Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/Geocoder.Data.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/en/Logictracker.Culture.resources.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/es/Logictracker.Culture.resources.dll
+/Logictracker/Logictracker/src/Web/Logictracker/Logictracker.Web/Bin/pt/Logictracker.Culture.resources.dll
