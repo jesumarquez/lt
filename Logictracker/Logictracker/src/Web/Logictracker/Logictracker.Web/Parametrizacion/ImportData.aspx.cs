@@ -80,11 +80,12 @@ namespace Logictracker.Parametrizacion
                 return false;
             }
             if (fuImportData.PostedFile.ContentType == XlsType || 
-                String.Compare(Path.GetExtension(fuImportData.PostedFile.FileName), ".XLS", StringComparison.OrdinalIgnoreCase) == 0)
+                String.Compare(Path.GetExtension(fuImportData.PostedFile.FileName), ".XLS", StringComparison.OrdinalIgnoreCase) == 0 ||
+                String.Compare(Path.GetExtension(fuImportData.PostedFile.FileName), ".XLSX", StringComparison.OrdinalIgnoreCase) == 0)
             {
                 return true;
             }
-            LblInfo.Text = string.Format(CultureManager.GetError(IncompatibleExtension), "XLS");
+            LblInfo.Text = string.Format(CultureManager.GetError(IncompatibleExtension), "XLS OR XLSX");
             return false;
         }
 
