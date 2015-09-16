@@ -353,6 +353,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                                        MessageCode.CicloLogisticoIniciado.GetMessageCode(),
                                        MessageCode.EstadoLogisticoCumplido.GetMessageCode(),
                                        MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                       MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(),
+                                       MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
                                        MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(),
                                        MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode()
                                    };

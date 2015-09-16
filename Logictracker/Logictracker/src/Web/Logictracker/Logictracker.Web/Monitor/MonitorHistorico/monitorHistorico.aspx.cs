@@ -1020,6 +1020,8 @@ namespace Logictracker.Monitor.MonitorHistorico
             var msj = DAOFactory.MensajeDAO.FindAll().Where(m => m.Codigo == MessageCode.EstadoLogisticoCumplido.GetMessageCode()
                                                               || m.Codigo == MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode()
                                                               || m.Codigo == MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode()
+                                                              || m.Codigo == MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()
+                                                              || m.Codigo == MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode()
                                                               || m.Codigo == MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode()
                                                               || m.Codigo == MessageCode.CicloLogisticoIniciado.GetMessageCode()
                                                               || m.Codigo == MessageCode.CicloLogisticoCerrado.GetMessageCode()).ToList();

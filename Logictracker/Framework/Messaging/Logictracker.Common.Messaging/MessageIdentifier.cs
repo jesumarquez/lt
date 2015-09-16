@@ -153,6 +153,10 @@ namespace Logictracker.Messaging
 
 		JammingOn = 1011,
 		JammingOff = 1012,
+
+        LogisticStateFulfilledManualRealized = 1013,
+        LogisticStateFulfilledManualNotRealized = 1014,
+
 		RfidDetected = 1024,
         NoDriverMovement = 1025,
 

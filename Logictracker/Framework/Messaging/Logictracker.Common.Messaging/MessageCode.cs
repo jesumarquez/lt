@@ -67,6 +67,8 @@ namespace Logictracker.Messaging
         AtrasoTicket,
         EstadoLogisticoCumplido,
         EstadoLogisticoCumplidoManual,
+        EstadoLogisticoCumplidoManualRealizado,
+        EstadoLogisticoCumplidoManualNoRealizado,
         EstadoLogisticoCumplidoEntrada,
         EstadoLogisticoCumplidoSalida,
         CicloLogisticoIniciado,
@@ -248,6 +250,8 @@ namespace Logictracker.Messaging
                 case MessageCode.CicloLogisticoIniciadoDocumentosInvalidos: return "1005";
                 case MessageCode.EstadoLogisticoCumplidoEntrada: return "1009";
                 case MessageCode.EstadoLogisticoCumplidoSalida: return "1010";
+                case MessageCode.EstadoLogisticoCumplidoManualRealizado: return "1013";
+                case MessageCode.EstadoLogisticoCumplidoManualNoRealizado: return "1014";
 
                 // Desvío de Recorrido
                 case MessageCode.DesvioRecorrido: return "1006";

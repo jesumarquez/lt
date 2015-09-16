@@ -533,6 +533,8 @@ namespace Logictracker.CicloLogistico
                                   MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(), 
                                   MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode(),
                                   MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(), 
                                   MessageCode.CicloLogisticoCerrado.GetMessageCode(), 
                                   MessageCode.StoppedEvent.GetMessageCode() };
             var maxMonths = vehiculo.Empresa != null ? vehiculo.Empresa.MesesConsultaPosiciones : 3;
@@ -548,7 +550,9 @@ namespace Logictracker.CicloLogistico
                     messageIconUrl = "flag_1_right_green_32.png";
                 else if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode())
                     messageIconUrl = "flag_2_left_red_32.png";
-                else if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode())
+                else if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode()
+                    || el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()
+                    || el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode())
                     messageIconUrl = "flag_3_right_blue_32.png";
                                 
                 var iconUrl = string.IsNullOrEmpty(messageIconUrl) ? ResolveUrl("~/point.png") : Path.Combine(IconDir, messageIconUrl);

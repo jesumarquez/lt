@@ -159,6 +159,8 @@ namespace Logictracker.Operacion.Consola
             else if (evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplido.GetMessageCode()
                   || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode()
                   || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode()
+                  || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()
+                  || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode()
                   || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode())
             {
                 if (evento.Entrega != null)
