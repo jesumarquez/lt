@@ -156,7 +156,10 @@ namespace Logictracker.Operacion.Consola
                 var primerEntrega = evento.Viaje.Detalles.FirstOrDefault(d => d.Linea == null);
                 if (primerEntrega != null) proxima = primerEntrega.Descripcion;
             }
-            else if (evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplido.GetMessageCode())
+            else if (evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplido.GetMessageCode()
+                  || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode()
+                  || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode()
+                  || evento.LogMensaje.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode())
             {
                 if (evento.Entrega != null)
                 {
