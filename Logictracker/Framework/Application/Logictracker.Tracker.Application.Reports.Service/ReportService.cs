@@ -303,31 +303,23 @@ namespace Logictracker.Tracker.Application.Reports
 
         #region report generation
        
-        public  Stream GenerateDailyEventReport(EventReportCommand reportGenerationCommand, IReportStatus reportStatus)
+        public  Stream GenerateDailyEventReport(EventReportCommand command, IReportStatus reportStatus)
         {
-            var command = reportGenerationCommand;
-
-            //if (reportGenerationCommand.ReportId!=0)
-            //    reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(reportGenerationCommand.ReportId);
-
-            var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
-            var baseName = GetLinea(command.BaseId); 
-
             var results = ReportFactory.MobileEventDAO.GetMobilesEvents(command.VehiclesId,
                 command.MessagesId,
                 command.DriversId,
                 command.InitialDate,
                 command.FinalDate,
                 1);
+
             reportStatus.RowCount = results.Count;
 
-            if (results.Count > 0)
-            {
-                return DailyEventReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
-                    
-            }
+            if (results.Count < 1) return null;
 
-            return null;
+            var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
+            var baseName = GetLinea(command.BaseId); 
+            
+            return DailyEventReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
         }
 
         private string GetLinea(int baseId)
@@ -382,33 +374,31 @@ namespace Logictracker.Tracker.Application.Reports
 
         public Stream GenerateVehicleActivityReport(VehicleActivityReportCommand cmd, IReportStatus reportStatus)
         {
-            var command = cmd;
-
-            //if (cmd.ReportId != 0)
-            //    reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
-            var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
-            var baseName = GetLinea(command.BaseId); 
-
             var results = ReportFactory.MobileActivityDAO.GetMobileActivitys(cmd.InitialDate, cmd.FinalDate, cmd.CustomerId, -1, cmd.VehiclesId, 0);
+
+            reportStatus.RowCount = results.Count;
+
+            if (results.Count < 1) return null;
+
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            var baseName = GetLinea(cmd.BaseId); 
             
             //var results = (from activity in activities select new MobileActivityVo(activity, desde, hasta, chkDetalleInfracciones.Checked)).ToList();
             reportStatus.RowCount = results.Count;
 
-            return VehicleActivityReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
+            return VehicleActivityReportGenerator.GenerateReport(results, customer, cmd.InitialDate, cmd.FinalDate, baseName);
         }
 
         public Stream GenerateVehicleInfractionsReport(VehicleInfractionsReportCommand cmd, IReportStatus reportStatus)
         {
-            //if (cmd.ReportId != 0)
-            //    reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
-            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
-            var baseName = GetLinea(cmd.BaseId); 
-
             var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(cmd.VehiclesId, cmd.InitialDate, cmd.FinalDate).ToList();
 
             reportStatus.RowCount = results.Count;
+
+            if (results.Count < 1) return null;            
+            
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            var baseName = GetLinea(cmd.BaseId); 
 
             return VehicleInfractionsReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
 
@@ -416,13 +406,7 @@ namespace Logictracker.Tracker.Application.Reports
 
         public Stream GenerateDriversInfractionReport(DriversInfractionsReportCommand cmd, IReportStatus reportStatus)
         {
-            //if (cmd.ReportId != 0)
-            //    reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
             if (cmd.CustomerId == 0) return null;
-
-            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
-            var baseName = GetLinea(cmd.BaseId); 
             
             var empresas = new[] {cmd.CustomerId};
             var lineas = new[] {cmd.BaseId};
@@ -438,59 +422,57 @@ namespace Logictracker.Tracker.Application.Reports
                         .Select(o => new InfractionDetailVo(o) { HideCornerNearest = false }).ToList();
             //
             reportStatus.RowCount = results.Count;
+            if (results.Count < 1) return null;
 
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            var baseName = GetLinea(cmd.BaseId); 
+            
             return DriversInfractionsReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
         public Stream GenerateGeofenceEventsReport(GeofenceEventsReportCommand cmd, IReportStatus reportStatus)
         {
-            //if (cmd.ReportId != 0)
-            //    reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
             if (cmd.CustomerId == 0) return null;
+
+            var results = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(cmd.VehiclesId, cmd.Geofences, cmd.InitialDate, cmd.FinalDate, 1);
+            //CalculateDurations(geocercas, chkCalcularKmRecorridos.Checked, DAOFactory);
+            //FilterGeocercas(geocercas);
 
             var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
             var baseName = GetLinea(cmd.BaseId);
 
-            var results = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(cmd.VehiclesId, cmd.Geofences, cmd.InitialDate, cmd.FinalDate,1);
-            //CalculateDurations(geocercas, chkCalcularKmRecorridos.Checked, DAOFactory);
-            //FilterGeocercas(geocercas);
-
             reportStatus.RowCount = results.Count;
+            if (results.Count < 1) return null;
 
             return GeofenceEventsReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
         public Stream GenerateMobilesTimeReport(MobilesTimeReportCommand cmd, IReportStatus reportStatus)
         {
-            //if (cmd.ReportId != 0)
-            //    reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
             if (cmd.CustomerId == 0) return null;
-
-            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
-            var baseName = GetLinea(cmd.BaseId);
 
             var results = ReportFactory.MobilesTimeDAO.GetMobilesTime(cmd.InitialDate, cmd.FinalDate, cmd.VehiclesId);
 
             reportStatus.RowCount = results.Count;
+            if (results.Count < 1) return null;
 
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            var baseName = GetLinea(cmd.BaseId);
+            
             return MobilesTimeReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
 
         public Stream GenerateDocumentExpirationReport(DocumentsExpirationReportCommand cmd, IReportStatus reportStatus)
         {
-            //if (cmd.ReportId != 0)
-            //    reportStatus.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
             if (cmd.CustomerId == 0) return null;
-
-            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
-            var baseName = GetLinea(cmd.BaseId);
 
             var results = DaoFactory.DocumentoDAO.FindByTipo(cmd.Documents.ToArray(), new List<int> { cmd.CustomerId }, new List<int> { -1 });
 
             reportStatus.RowCount = results.Count;
+            if (results.Count < 1) return null;
+
+            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);
+            var baseName = GetLinea(cmd.BaseId);
 
             return DocumentsExpirationReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
@@ -525,9 +507,6 @@ namespace Logictracker.Tracker.Application.Reports
 
         public Stream GenerateTransfersPerTripReport(TransfersPerTripReportCommand command, IReportStatus statusReport)
         {
-            //if (command.ReportId != 0)
-            //    statusReport.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(command.ReportId);
-
             if (command.CustomerId == 0) return null;
 
             var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
@@ -563,7 +542,7 @@ namespace Logictracker.Tracker.Application.Reports
         
             statusReport.RowCount = viajes.Count();
 
-            return TransfersPerTripReportGenerator.GenerateReport(results, customer, command.InitialDate.ToLocalTime(), command.FinalDate.ToLocalTime(), baseName);
+            return statusReport.RowCount>0 ? TransfersPerTripReportGenerator.GenerateReport(results, customer, command.InitialDate.ToLocalTime(), command.FinalDate.ToLocalTime(), baseName) : null;
         }
 
         public Stream GenerateDeliverStatusReport(DeliverStatusReportCommand cmd, IReportStatus reportStatus)
@@ -625,6 +604,7 @@ namespace Logictracker.Tracker.Application.Reports
             results = viajes.Select(v => new ResumenDeRutasVo(v, true)).ToList();
 
             reportStatus.RowCount = viajes.Count();
+            if (reportStatus.RowCount < 1) return null;
 
             return SummaryRoutesReportGenerator.GenerateReport(results, customer, cmd.InitialDate.ToLocalTime(), cmd.FinalDate.ToLocalTime(), baseName);
         }
@@ -662,7 +642,7 @@ namespace Logictracker.Tracker.Application.Reports
 
             if (cmd.CustomerId == 0) return null;
 
-            var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);            
+            //var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);            
 
             var results = DaoFactory.DocumentoDAO.GetDocumentExpirationSummary(cmd.Documents.ToArray(), new List<int> { cmd.CustomerId }, new List<int> { -1 }, hasta);
 
