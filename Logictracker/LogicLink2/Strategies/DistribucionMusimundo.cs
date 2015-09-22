@@ -144,6 +144,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     #endregion
 
                     listViajes.Add(viaje);
+                    rutas++;
                 }
                 
                 viaje.Fin = fecha.ToDataBaseDateTime();
@@ -305,6 +306,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 #endregion
 
                 viaje.Detalles.Add(entrega);
+                entregas++;
             }
 
             foreach (var viajeDistribucion in listViajes)
