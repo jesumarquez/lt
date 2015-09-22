@@ -78,7 +78,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
                         case LogicLinkFile.Estrategias.DistribucionMusimundo:
-                            //EmpresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas);
+                            _empresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas, out observaciones);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionBrinks:
                             //EmpresasLineas = DistribucionBrinks.Parse(archivo, out rutas, out entregas);
