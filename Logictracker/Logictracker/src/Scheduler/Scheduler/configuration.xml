@@ -13,9 +13,9 @@
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.UpdateStadistics, Logictracker.Scheduler.Tasks.Mantenimiento" />
     </Timer-->
 
-  <Timer Enabled="true" Name="Programacion de Reportes" StartTime="00:00:00" Periodicity="Day" RunAtStart="true" Notifiers="julian.millan@logictracker.com" >
+  <!--Timer Enabled="true" Name="Programacion de Reportes" StartTime="00:00:00" Periodicity="Day" RunAtStart="true" Notifiers="julian.millan@logictracker.com" >
       <Task Class="Logictracker.Scheduler.Tasks.ReportsScheduler.Task, Logictracker.Scheduler.Tasks.ReportsScheduler" Params="queuename=.\private$\ltracker.mailreportservice.inputqueue;queuetype=binary" />
-    </Timer>
+    </Timer-->
 
   <!--Timer Enabled="true" Name="Support" StartTime="00:00:00" Periodicity="Minute" Frequency="5" Notifiers="dev@logictracker.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.QueueStatus.Task, Logictracker.Scheduler.Tasks.QueueStatus" Params="MessageCount=5000;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;" />
@@ -67,6 +67,10 @@
     <!--<Timer Enabled="true" Name="LogicLink 2 - CCU" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=81;" />
     </Timer>-->
+
+    <Timer Enabled="true" Name="LogicLink 2 - Musimundo" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+      <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=58;" />
+    </Timer>
 
     <!--Timer Enabled="false" Name="Pump" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.PumpControl.Task, Logictracker.Scheduler.Tasks.PumpControl"/>

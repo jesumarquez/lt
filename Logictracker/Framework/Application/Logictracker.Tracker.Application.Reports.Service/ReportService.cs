@@ -34,10 +34,8 @@ namespace Logictracker.Tracker.Application.Reports
             ReportFactory = reportFactory;
         }
 
-        //public ReportService(DAOFactory daoFactory)
-        //{
-        //    DaoFactory = daoFactory;
-        //}
+        public ReportService()
+        {}
 
         #region IoC Objects
         public MessageQueueTemplate MessageQueueTemplate { get; set; }

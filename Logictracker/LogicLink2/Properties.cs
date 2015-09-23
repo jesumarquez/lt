@@ -46,6 +46,21 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             public const int LatitudDestino = 7;
             public const int LongitudDestino = 8;
         }
+        public class DistribucionMusimundo
+        {
+            public const int Factura = 0;
+            public const int Patente = 1;
+            public const int TM = 2;
+            public const int Prioridad = 3;
+            public const int Fecha = 4;
+            public const int Km = 5;
+            public const int Coord2 = 6;
+            public const int Coord1 = 7;
+            public const int Cliente = 8;
+            public const int Rango = 9;
+            public const int Importe = 10;
+            public const int Direccion = 11;
+        }
         public class DistribucionCCU
         {
             public const int Fecha = 0;
@@ -103,9 +118,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     };
                 }
             }
-        
-            
-
         }
     }
 }

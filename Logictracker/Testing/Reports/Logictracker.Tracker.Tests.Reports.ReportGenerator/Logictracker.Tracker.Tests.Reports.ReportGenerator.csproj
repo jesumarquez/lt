@@ -75,9 +75,17 @@
       <Project>{49f37eac-6dc8-4d61-bacf-f76b877ecdd0}</Project>
       <Name>Logictracker.Tracker.Application.Reports</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.WebServiceConsumer\Logictracker.Tracker.Application.WebServiceConsumer.csproj">
+      <Project>{9fb77d23-8767-4fba-acd5-abfe40025ca2}</Project>
+      <Name>Logictracker.Tracker.Application.WebServiceConsumer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
       <Project>{7f58dcb5-6d76-4882-8610-74929b5df8ed}</Project>
       <Name>Logictracker.Tracker.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Messaging\Logictracker.Messaging.WebConsumer\Logictracker.Messaging.WebConsumer.csproj">
+      <Project>{0F54EA37-0E82-4636-A0D2-94196F927B79}</Project>
+      <Name>Logictracker.Messaging.WebConsumer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

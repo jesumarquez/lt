@@ -39,7 +39,7 @@
         // Code that runs on application startup
         STrace.Module = LogModules.LogictrackerWeb.GetDescription();
 
-        NHibernateProfiler.Initialize();
+      //  NHibernateProfiler.Initialize();
     }
 
     private void Application_End(object sender, EventArgs e)
