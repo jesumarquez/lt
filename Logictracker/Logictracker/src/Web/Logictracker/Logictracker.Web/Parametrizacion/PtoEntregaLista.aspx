@@ -15,6 +15,10 @@
                 <cwc:ResourceLabel ID="lblCliente" runat="server" ResourceName="Entities" VariableName="PARENTI18" /><br />
                 <cwc:ClienteDropDownList ID="ddlCliente" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito,ddlBase" onselectedindexchanged="FilterChangedHandler" AddAllItem="false" />
             </td>
+            <td>
+                <cwc:ResourceLabel ID="lblActivarPaginacion" Text="Paginar Consulta" runat="server" ResourceName="Entities" VariableName="Paginar Consulta" /><br />
+                <cwc:ResourceCheckBox ID="CheckBoxActivarPaginacion" runat="server" Checked="true" AutoPostBack="true" Width="200px"  OnCheckedChanged="CheckBoxActivarPaginacion_CheckedChanged" />
+            </td>
         </tr>
     </table>
 </asp:Content>
