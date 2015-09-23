@@ -708,28 +708,28 @@ namespace Logictracker.Tracker.Application.Reports
         }
         public void LogReportExecution(int reportId, IReportStatus reportStatus)
         {
-            var report = DaoFactory.ProgramacionReporteDAO.FindById(reportId);
-            
-            var log = new LogProgramacionReporte
-            {
-                Inicio = reportStatus.StartReport,
-                Fin = DateTime.Now,
-                Filas = reportStatus.RowCount,
-                Error = reportStatus.Error,
-                ProgramacionReporte = report
-            };          
-
-            report.ReportLogs.Add(log);
-
             try
             {
+                var report = DaoFactory.ProgramacionReporteDAO.FindById(reportId);
+
+                var log = new LogProgramacionReporte
+                {
+                    Inicio = reportStatus.StartReport,
+                    Fin = DateTime.Now,
+                    Filas = reportStatus.RowCount,
+                    Error = reportStatus.Error,
+                    ProgramacionReporte = report
+                };
+
+                report.ReportLogs.Add(log);
+
                 DaoFactory.ProgramacionReporteDAO.SaveOrUpdate(report);
             }
             catch (Exception ex)
             {
                 Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
             }
-            
+
         }
         public void NotifyError(IReportCommand command, string errorMessage)
         {
