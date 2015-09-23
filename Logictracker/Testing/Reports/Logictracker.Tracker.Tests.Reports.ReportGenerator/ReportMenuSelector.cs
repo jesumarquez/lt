@@ -70,7 +70,7 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
 
         private void GenerateReportEventCommand(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate)
         {
-            ReportService.GenerateDailyEventReportAndSendMail(customerId,email,vehiclesId,messagesId,driversId,initialDate,finalDate);
+            ReportService.GenerateEventReportAndSendMail(customerId,email,vehiclesId,messagesId,driversId,initialDate,finalDate);
             Console.WriteLine("MSG Sent");
         }
     }

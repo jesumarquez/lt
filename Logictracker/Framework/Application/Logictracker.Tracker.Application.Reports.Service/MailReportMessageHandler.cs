@@ -493,7 +493,7 @@ namespace Logictracker.Tracker.Application.Reports
         private void ProcessGenerateEventDailyReportCommand(EventReportCommand command, ReportStatus statusReport)
         {
             using (
-                var reportStream = ReportService.GenerateDailyEventReport(command, statusReport))
+                var reportStream = ReportService.GenerateEventReport(command, statusReport))
             {
                 if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
                 ReportService.SendReport(reportStream, command, command.ReportName);
