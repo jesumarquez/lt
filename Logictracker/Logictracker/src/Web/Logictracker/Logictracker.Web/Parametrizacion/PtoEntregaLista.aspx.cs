@@ -34,20 +34,81 @@ namespace Logictracker.Parametrizacion
 
         protected override void OnLoad(System.EventArgs e)
         {
-            if (Session["SelectedClient"] == null)
-                Session["SelectedClient"] = SelectedClient;
-            if (Session["Distrito"] == null)
-                Session["Distrito"] = Distrito;
-            if (Session["Base"] == null)
-                Session["Base"] = Base;
-            if (Session["totalVirtualRows"] == null)
-                Session["totalVirtualRows"] = totalVirtualRows;
-            Grid.AllowPaging = true;
-            Grid.AllowCustomPaging = true;
-            Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
-            Grid.PageIndexChanging += Grid_PageIndexChanging;
-            GridUtils.CustomPagination = true;
+            if (CheckBoxActivarPaginacion.Checked)
+            {
+                if (Session["SelectedClient"] == null)
+                    Session["SelectedClient"] = SelectedClient;
+                if (Session["Distrito"] == null)
+                    Session["Distrito"] = Distrito;
+                if (Session["Base"] == null)
+                    Session["Base"] = Base;
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {
+                if (Session["SelectedClient"] == null)
+                    Session["SelectedClient"] = SelectedClient;
+                if (Session["Distrito"] == null)
+                    Session["Distrito"] = Distrito;
+                if (Session["Base"] == null)
+                    Session["Base"] = Base;
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+               
+                GridUtils.CustomPagination = true;
+            }
+            CheckBoxActivarPaginacion.CheckedChanged += CheckBoxActivarPaginacion_CheckedChanged;
             base.OnLoad(e);
+        }
+
+        public void CheckBoxActivarPaginacion_CheckedChanged(object sender, System.EventArgs e)
+        {
+            Session["SelectedClient"] = null;
+            Session["Distrito"] = null;
+            Session["Base"] = null;
+            if (CheckBoxActivarPaginacion.Checked)
+            {
+                if (Session["SelectedClient"] == null)
+                    Session["SelectedClient"] = SelectedClient;
+                if (Session["Distrito"] == null)
+                    Session["Distrito"] = Distrito;
+                if (Session["Base"] == null)
+                    Session["Base"] = Base;
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {
+                if (Session["SelectedClient"] == null)
+                    Session["SelectedClient"] = SelectedClient;
+                if (Session["Distrito"] == null)
+                    Session["Distrito"] = Distrito;
+                if (Session["Base"] == null)
+                    Session["Base"] = Base;
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
         }
 
         void Grid_PageIndexChanging(object sender, C1GridViewPageEventArgs e)
@@ -61,38 +122,44 @@ namespace Logictracker.Parametrizacion
             var puntos = new List<PuntoEntrega>();
             if (ddlCliente.Selected > 0)
             {
-                SelectedClient = (int)Session["SelectedClient"];
-                Base = (int)Session["Base"];
-                Distrito = (int)Session["Distrito"];
-                totalVirtualRows = (int)Session["totalVirtualRows"];
+                if (CheckBoxActivarPaginacion.Checked)
+                {
+                    SelectedClient = (int)Session["SelectedClient"];
+                    Base = (int)Session["Base"];
+                    Distrito = (int)Session["Distrito"];
+                    totalVirtualRows = (int)Session["totalVirtualRows"];
 
-                bool recount = true;
-                if (SelectedClient.Equals(-1))
-                {
-                    SelectedClient = ddlCliente.Selected;
-                    Session["SelectedClient"] = ddlCliente.Selected;
-                    Session["Distrito"] = ddlDistrito.Selected;
-                    Session["Base"] = ddlBase.Selected;
-                }
-                else
-                {
-                    if (SelectedClient.Equals(ddlCliente.Selected))
+                    bool recount = true;
+                    if (SelectedClient.Equals(-1))
                     {
-                        recount = false;
                         SelectedClient = ddlCliente.Selected;
                         Session["SelectedClient"] = ddlCliente.Selected;
                         Session["Distrito"] = ddlDistrito.Selected;
                         Session["Base"] = ddlBase.Selected;
                     }
-                }
+                    else
+                    {
+                        if (SelectedClient.Equals(ddlCliente.Selected))
+                        {
+                            recount = false;
+                            SelectedClient = ddlCliente.Selected;
+                            Session["SelectedClient"] = ddlCliente.Selected;
+                            Session["Distrito"] = ddlDistrito.Selected;
+                            Session["Base"] = ddlBase.Selected;
+                        }
+                    }
 
-                puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected, Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount);
-            
-                if (recount)
-                {
-                    Session["totalVirtualRows"] = totalVirtualRows;
-                    Grid.VirtualItemCount = totalVirtualRows;
+                    puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected, Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount);
+                    if (recount)
+                    {
+                        Session["totalVirtualRows"] = totalVirtualRows;
+                        Grid.VirtualItemCount = totalVirtualRows;
+                    }
                 }
+                else
+                { 
+                    puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected);                   
+                }               
             }
             
             return puntos.Select(p => new PuntoEntregaVo(p)).ToList();               
