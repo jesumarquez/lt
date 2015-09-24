@@ -26,26 +26,26 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
         
         public virtual bool Vencido()
         {
-            if (!Odometro.EsIterativo && UltimoDisparo.HasValue) return false;
-            return (Odometro.PorKm && Kilometros > Odometro.ReferenciaKm + AjusteKilometros) 
-                || (Odometro.PorTiempo && Dias > Odometro.ReferenciaTiempo + AjusteDias)
-                || (Odometro.PorHoras && Horas > Odometro.ReferenciaHoras + AjusteHoras);
+            if (!Odometro.EsIterativo && UltimoDisparo.HasValue) return true;
+            return (Odometro.PorKm && Kilometros + AjusteKilometros > Odometro.ReferenciaKm)
+                || (Odometro.PorTiempo && Dias + AjusteDias > Odometro.ReferenciaTiempo)
+                || (Odometro.PorHoras && Horas + AjusteHoras > Odometro.ReferenciaHoras);
         }
 
         public virtual bool SuperoPrimerAviso()
         {
-            if (FechaPrimerAviso.HasValue) return false;
-            return (Odometro.PorKm && Kilometros > Odometro.Alarma1Km + AjusteKilometros) 
-                || (Odometro.PorTiempo && Dias > Odometro.Alarma1Tiempo + AjusteDias)
-                || (Odometro.PorHoras && Horas > Odometro.Alarma1Horas + AjusteHoras);
+            if (FechaPrimerAviso.HasValue) return true;
+            return (Odometro.PorKm && Kilometros + AjusteKilometros > Odometro.Alarma1Km)
+                || (Odometro.PorTiempo && Dias + AjusteDias > Odometro.Alarma1Tiempo)
+                || (Odometro.PorHoras && Horas + AjusteHoras > Odometro.Alarma1Horas);
         }
 
         public virtual bool SuperoSegundoAviso()
         {
-            if (FechaSegundoAviso.HasValue) return false;
-            return (Odometro.PorKm && Kilometros > Odometro.Alarma2Km + AjusteKilometros)
-                || (Odometro.PorTiempo && Dias > Odometro.Alarma2Tiempo + AjusteDias)
-                || (Odometro.PorHoras && Horas > Odometro.Alarma2Horas + AjusteHoras);
+            if (FechaSegundoAviso.HasValue) return true;
+            return (Odometro.PorKm && Kilometros + AjusteKilometros > Odometro.Alarma2Km)
+                || (Odometro.PorTiempo && Dias + AjusteDias > Odometro.Alarma2Tiempo)
+                || (Odometro.PorHoras && Horas + AjusteHoras > Odometro.Alarma2Horas);
         }
 
         public virtual void ResetOdometerValues()

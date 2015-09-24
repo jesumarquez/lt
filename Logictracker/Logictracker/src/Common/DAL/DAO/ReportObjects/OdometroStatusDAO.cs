@@ -25,7 +25,7 @@ namespace Logictracker.DAL.DAO.ReportObjects
         public IEnumerable FindByVehiculosAndOdometros(List<int> vehiculos, List<int> odometros, bool porVencer)
         {
             var odometerVehicles = DAOFactory.MovOdometroVehiculoDAO.GetForVehicles(vehiculos, odometros, porVencer);
-
+            
             var results = odometerVehicles
                 .Select(
                 v => new OdometroStatus
@@ -77,12 +77,16 @@ namespace Logictracker.DAL.DAO.ReportObjects
         {
             var odometers = DAOFactory.MovOdometroVehiculoDAO.GetForVehicles(vehiculos, odometros, false);
 
-            var odometersTable = new DataTable("Odometers");
+            var dt = new DataTable("Odometers");
 
-            var row = new DataTable().NewRow();
+            dt.Columns.Add("1er Aviso", typeof(int));
+            dt.Columns.Add("2do Aviso", typeof(int));
+            dt.Columns.Add("Vencidos", typeof(int));
+
+            var row = dt.NewRow();            
             row["1er Aviso"] = odometers.Count(o => !o.Vencido() && !o.SuperoSegundoAviso() && o.SuperoPrimerAviso());
             row["2do Aviso"] = odometers.Count(o => !o.Vencido() && o.SuperoSegundoAviso());
-            row["Vencidos"] = odometers.Count(o => o.Vencido());
+            row["Vencidos"] = odometers.Count(o => o.Vencido());;
             
             return row;
         }
