@@ -81,6 +81,10 @@
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
+      <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>
+      <Name>Logictracker.Tracker.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Culture\Logictracker.Culture.csproj">
       <Project>{bd82e1cc-3af6-4d02-9425-30edeb3742f2}</Project>
       <Name>Logictracker.Culture</Name>

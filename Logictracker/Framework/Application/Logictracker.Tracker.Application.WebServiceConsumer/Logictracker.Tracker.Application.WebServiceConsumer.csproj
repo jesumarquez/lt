@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AB6A4599-455C-455C-8F9D-E960A0B7ED6B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{9FB77D23-8767-4FBA-ACD5-ABFE40025CA2}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Logictracker.Tracker.Tests.Reports.ReportGenerator</RootNamespace>
-    <AssemblyName>Logictracker.Tracker.Tests.Reports.ReportGenerator</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>Logictracker.Tracker.Application.WebServiceConsumer</RootNamespace>
+    <AssemblyName>Logictracker.Tracker.Application.WebServiceConsumer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,10 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>..\..\..\packages\Common.Logging.3.1.0\lib\net40\Common.Logging.dll</HintPath>
+      <HintPath>..\..\..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\..\packages\Common.Logging.Core.3.1.0\lib\net40\Common.Logging.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Aop">
       <HintPath>..\..\..\packages\Spring.Aop.2.0.1\lib\net45\Spring.Aop.dll</HintPath>
@@ -60,30 +60,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="IWebServiceConsumerService.cs" />
+    <Compile Include="WebServiceConsumerMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportMenuSelector.cs" />
+    <Compile Include="WebServiceConsumerService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.Reports.Service\Logictracker.Tracker.Application.Reports.csproj">
-      <Project>{49f37eac-6dc8-4d61-bacf-f76b877ecdd0}</Project>
-      <Name>Logictracker.Tracker.Application.Reports</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.WebServiceConsumer\Logictracker.Tracker.Application.WebServiceConsumer.csproj">
-      <Project>{9fb77d23-8767-4fba-acd5-abfe40025ca2}</Project>
-      <Name>Logictracker.Tracker.Application.WebServiceConsumer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
-      <Project>{7f58dcb5-6d76-4882-8610-74929b5df8ed}</Project>
-      <Name>Logictracker.Tracker.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Framework\Messaging\Logictracker.Messaging.WebConsumer\Logictracker.Messaging.WebConsumer.csproj">
+    <ProjectReference Include="..\..\Messaging\Logictracker.Messaging.WebConsumer\Logictracker.Messaging.WebConsumer.csproj">
       <Project>{0F54EA37-0E82-4636-A0D2-94196F927B79}</Project>
       <Name>Logictracker.Messaging.WebConsumer</Name>
     </ProjectReference>

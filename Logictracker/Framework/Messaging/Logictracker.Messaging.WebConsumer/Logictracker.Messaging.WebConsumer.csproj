@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</ProjectGuid>
+    <ProjectGuid>{0F54EA37-0E82-4636-A0D2-94196F927B79}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Logictracker.Tracker.Services</RootNamespace>
-    <AssemblyName>Logictracker.Tracker.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>Logictracker.Messaging.WebConsumer</RootNamespace>
+    <AssemblyName>Logictracker.Messaging.WebConsumer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,37 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IReportStatus.cs" />
-    <Compile Include="IReportGenerationCommand.cs" />
-    <Compile Include="IReportService.cs" />
-    <Compile Include="IRouteService.cs" />
+    <Compile Include="INoveltyCommand.cs" />
+    <Compile Include="NoveltyCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj">
-      <Project>{c7a9420a-fdb3-4c8d-9783-290a51bad4fa}</Project>
-      <Name>Logictracker.Reports.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
-      <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
-      <Name>Logictracker.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
-      <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
-      <Name>Logictracker.Types</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MemCache\Logictracker.Cache.csproj">
-      <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
-      <Name>Logictracker.Cache</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
-      <Project>{cc8a4e06-ec41-4705-aa17-0649564f05ba}</Project>
-      <Name>Logictracker.Messages.Sender</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Messaging\Logictracker.Messaging.WebConsumer\Logictracker.Messaging.WebConsumer.csproj">
-      <Project>{0F54EA37-0E82-4636-A0D2-94196F927B79}</Project>
-      <Name>Logictracker.Messaging.WebConsumer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

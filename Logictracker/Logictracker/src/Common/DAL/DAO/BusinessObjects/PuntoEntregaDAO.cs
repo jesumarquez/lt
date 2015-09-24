@@ -79,6 +79,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                         .ToList();
         }
 
+        public List<PuntoEntrega> GetByCliente(int idCliente)
+        {
+            return Query.Where(p => p.Cliente.Id == idCliente
+                    && !p.Baja)
+                        .Cacheable()
+                        .ToList();
+        }
+
         public List<PuntoEntrega> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes)
         {
             var q = Query.FilterCliente(Session, empresas, lineas, clientes)

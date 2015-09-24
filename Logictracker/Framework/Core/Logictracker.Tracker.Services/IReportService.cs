@@ -7,10 +7,10 @@ namespace Logictracker.Tracker.Services
 {
     public interface IReportService
     {
-        void GenerateDailyEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate);
+        void GenerateEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate);
         void GenerateFinalReportAndSendMail(DateTime dateTime, string mail);
 
-        Stream GenerateDailyEventReport(EventReportCommand command, IReportStatus statusReport);
+        Stream GenerateEventReport(EventReportCommand command, IReportStatus statusReport);
         Stream GenerateVehicleInfractionsReport(VehicleInfractionsReportCommand command, IReportStatus reportStatus);
         Stream GenerateAccumulatedKilometersReport(AccumulatedKilometersReportCommand command, IReportStatus reportStatus);
         Stream GenerateVehicleActivityReport(VehicleActivityReportCommand command, IReportStatus reportStatus);

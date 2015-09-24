@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Logictracker.Tracker.Application.Reports;
+using Logictracker.Tracker.Application.WebServiceConsumer;
 using Logictracker.Tracker.Services;
-using Spring.Messaging.Core;
 
 namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
 {
     public class ReportMenuSelector
     {
         public IReportService ReportService { get; set; }
+        public IWebServiceConsumerService WebServiceConsumerService { get; set; }
 
         public ReportMenuSelector()
         {
@@ -23,6 +22,7 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
             StringBuilder menuBuilder = new StringBuilder();
             menuBuilder.AppendLine("a. Generar un informe de eventos");
             menuBuilder.AppendLine("b. Generar un reporte de ejecucion finalizada");
+            menuBuilder.AppendLine("c. Comando novedad webservice");
             menuBuilder.AppendLine("x. Para salir");
             menuBuilder.AppendLine("\n Seleccione una opcion: ");
             Console.Write(menuBuilder.ToString());
@@ -47,10 +47,19 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
                 case 'b':
                     GenerateFinalReportExecutionCommand(DateTime.Now, "julian.millan@logictracker.com");
                     break;
+                case 'c':
+                    GenerateNoveltyCommand();
+                    break;
                 default:
                     Console.WriteLine(" <-- Opcion invalida");
                     break;
             }
+        }
+
+        private void GenerateNoveltyCommand()
+        {
+            WebServiceConsumerService.SendCommand(WebServiceConsumerService.GenerateNoveltyCommand());
+            Console.WriteLine("MSG Sent");
         }
 
         private void GenerateFinalReportExecutionCommand(DateTime dateTime, string mail)
@@ -61,7 +70,7 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
 
         private void GenerateReportEventCommand(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate)
         {
-            ReportService.GenerateDailyEventReportAndSendMail(customerId,email,vehiclesId,messagesId,driversId,initialDate,finalDate);
+            ReportService.GenerateEventReportAndSendMail(customerId,email,vehiclesId,messagesId,driversId,initialDate,finalDate);
             Console.WriteLine("MSG Sent");
         }
     }

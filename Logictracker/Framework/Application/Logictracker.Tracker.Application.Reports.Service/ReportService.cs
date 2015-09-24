@@ -34,10 +34,8 @@ namespace Logictracker.Tracker.Application.Reports
             ReportFactory = reportFactory;
         }
 
-        //public ReportService(DAOFactory daoFactory)
-        //{
-        //    DaoFactory = daoFactory;
-        //}
+        public ReportService()
+        {}
 
         #region IoC Objects
         public MessageQueueTemplate MessageQueueTemplate { get; set; }
@@ -65,10 +63,10 @@ namespace Logictracker.Tracker.Application.Reports
             });
         }
 
-        public void GenerateDailyEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId,
+        public void GenerateEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId,
            DateTime initialDate, DateTime finalDate)
         {
-            MessageQueueTemplate.ConvertAndSend(new DailyEventReportCommand()
+            MessageQueueTemplate.ConvertAndSend(new EventReportCommand()
             {
                 CustomerId = customerId,
                 Email = email,
@@ -303,7 +301,7 @@ namespace Logictracker.Tracker.Application.Reports
 
         #region report generation
        
-        public  Stream GenerateDailyEventReport(EventReportCommand command, IReportStatus reportStatus)
+        public  Stream GenerateEventReport(EventReportCommand command, IReportStatus reportStatus)
         {
             var results = ReportFactory.MobileEventDAO.GetMobilesEvents(command.VehiclesId,
                 command.MessagesId,
@@ -319,7 +317,7 @@ namespace Logictracker.Tracker.Application.Reports
             var customer = DaoFactory.EmpresaDAO.FindById(command.CustomerId);
             var baseName = GetLinea(command.BaseId); 
             
-            return DailyEventReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
+            return EventReportGenerator.GenerateReport(results, customer, command.InitialDate, command.FinalDate, baseName);
         }
 
         private string GetLinea(int baseId)
@@ -635,12 +633,10 @@ namespace Logictracker.Tracker.Application.Reports
             if (cmd.CustomerId == 0) return null;
 
             var hasta = cmd.FinalDate.ToDataBaseDateTime().AddDays(7);
-            var empresas = new[] { cmd.CustomerId };
+            //var empresas = new[] { cmd.CustomerId };
 
             //if (cmd.ReportId != 0)
             //    status.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
-
-            if (cmd.CustomerId == 0) return null;
 
             //var customer = DaoFactory.EmpresaDAO.FindById(cmd.CustomerId);            
 
@@ -653,8 +649,8 @@ namespace Logictracker.Tracker.Application.Reports
         {
             if (cmd.CustomerId == 0) return null;
 
-            var hasta = cmd.FinalDate.ToDataBaseDateTime().AddDays(7);
-            var empresas = new[] { cmd.CustomerId };
+            //var hasta = cmd.FinalDate.ToDataBaseDateTime().AddDays(7);
+            //var empresas = new[] { cmd.CustomerId };
 
             //if (cmd.ReportId != 0)
             //    status.ReportProg = DaoFactory.ProgramacionReporteDAO.FindById(cmd.ReportId);
@@ -712,28 +708,28 @@ namespace Logictracker.Tracker.Application.Reports
         }
         public void LogReportExecution(int reportId, IReportStatus reportStatus)
         {
-            var report = DaoFactory.ProgramacionReporteDAO.FindById(reportId);
-            
-            var log = new LogProgramacionReporte
-            {
-                Inicio = reportStatus.StartReport,
-                Fin = DateTime.Now,
-                Filas = reportStatus.RowCount,
-                Error = reportStatus.Error,
-                ProgramacionReporte = report
-            };          
-
-            report.ReportLogs.Add(log);
-
             try
             {
+                var report = DaoFactory.ProgramacionReporteDAO.FindById(reportId);
+
+                var log = new LogProgramacionReporte
+                {
+                    Inicio = reportStatus.StartReport,
+                    Fin = DateTime.Now,
+                    Filas = reportStatus.RowCount,
+                    Error = reportStatus.Error,
+                    ProgramacionReporte = report
+                };
+
+                report.ReportLogs.Add(log);
+
                 DaoFactory.ProgramacionReporteDAO.SaveOrUpdate(report);
             }
             catch (Exception ex)
             {
                 Logger.WarnFormat("No se pudo guardar la informacion de log del reporte {0}  ", ex.Message);
             }
-            
+
         }
         public void NotifyError(IReportCommand command, string errorMessage)
         {
