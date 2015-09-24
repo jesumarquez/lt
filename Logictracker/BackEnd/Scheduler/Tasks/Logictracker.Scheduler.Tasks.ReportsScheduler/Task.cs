@@ -41,11 +41,11 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
             if (DateTime.UtcNow.ToDisplayDateTime().Day == 1)
                 reportesProgramados.AddRange(DaoFactory.ProgramacionReporteDAO.FindByPeriodicidad('M'));
 
-            //var reporte1 = DaoFactory.ProgramacionReporteDAO.FindById(227);
-            //var reporte2 = DaoFactory.ProgramacionReporteDAO.FindById(228);
-            //var reporte3 = DaoFactory.ProgramacionReporteDAO.FindById(229);
-            //var reporte4 = DaoFactory.ProgramacionReporteDAO.FindById(230);
-            //reportesProgramados = new List<ProgramacionReporte> { reporte1, reporte2, reporte3, reporte4 };
+            var reporte1 = DaoFactory.ProgramacionReporteDAO.FindById(227);
+            ////var reporte2 = DaoFactory.ProgramacionReporteDAO.FindById(228);
+            ////var reporte3 = DaoFactory.ProgramacionReporteDAO.FindById(229);
+            ////var reporte4 = DaoFactory.ProgramacionReporteDAO.FindById(230);
+            reportesProgramados = new List<ProgramacionReporte> { reporte1};//, reporte2, reporte3, reporte4 };
 
             foreach (var reporte in reportesProgramados)
             {

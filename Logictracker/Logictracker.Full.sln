@@ -402,6 +402,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Application.WebServiceConsumer.Host", "BackEnd\Hosts\Logictracker.Tracker.Application.WebServiceConsumer.Host\Logictracker.Tracker.Application.WebServiceConsumer.Host.csproj", "{9335ABD5-98B8-46C0-9485-24ED2A58F4E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Application.WebServiceConsumer", "Framework\Application\Logictracker.Tracker.Application.WebServiceConsumer\Logictracker.Tracker.Application.WebServiceConsumer.csproj", "{9FB77D23-8767-4FBA-ACD5-ABFE40025CA2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0} = {5CFB3EA9-5552-4421-9ACE-96F07EA417E0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Messaging.WebConsumer", "Framework\Messaging\Logictracker.Messaging.WebConsumer\Logictracker.Messaging.WebConsumer.csproj", "{0F54EA37-0E82-4636-A0D2-94196F927B79}"
 EndProject
@@ -409,6 +412,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E7BF3F
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Tests.Webservice", "Testing\Web\Logictracker.Tracker.Tests.Webservice\Logictracker.Tracker.Tests.Webservice.csproj", "{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3020,6 +3025,24 @@ Global
 		{0F54EA37-0E82-4636-A0D2-94196F927B79}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0F54EA37-0E82-4636-A0D2-94196F927B79}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0F54EA37-0E82-4636-A0D2-94196F927B79}.Release|Win32.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Release|.NET.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3207,5 +3230,6 @@ Global
 		{9335ABD5-98B8-46C0-9485-24ED2A58F4E3} = {F051022F-0EA3-48EF-B6C6-454D44C2113A}
 		{9FB77D23-8767-4FBA-ACD5-ABFE40025CA2} = {50EFEC20-8C91-4097-B133-4BF41CF2B297}
 		{0F54EA37-0E82-4636-A0D2-94196F927B79} = {2E771EDC-BAB9-44B2-B50F-AE402159A532}
+		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0} = {F113C330-3BE8-4B47-AA50-29094B1EF5FA}
 	EndGlobalSection
 EndGlobal

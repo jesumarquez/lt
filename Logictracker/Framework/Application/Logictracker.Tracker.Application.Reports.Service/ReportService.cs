@@ -354,6 +354,27 @@ namespace Logictracker.Tracker.Application.Reports
             return execReport.ToString();
         }
 
+        public string GenerateVehicleVerifierReport(VehicleVerifierCommand cmd, IReportStatus statusReport)
+        {
+            var mobiles = DaoFactory.CocheDAO.GetList(new[] { cmd.CustomerId },
+                                          new[] { cmd.BaseId != -1 ? cmd.BaseId : 0 },
+                                          new[] { -1 }, // TipoVehiculo
+                                          new[] { -1 }, // Transportista
+                                          new[] { -1 }, // DEPARTAMENTOS
+                                          new[] { -1 }, // CostCenter
+                                          new[] { -1 }, // SUB CENTROS DE COSTO
+                                          true,         // DispositivosAsignados,
+                                          false         // SoloConGarmin
+                                          );
+
+            var lastPositions = ReportFactory.MobilePositionDAO.GetMobilesLastPosition(mobiles);
+
+            var activos = lastPositions.Count(p => p.EstadoReporte <= 2);
+            var inactivos = lastPositions.Count(p => p.EstadoReporte > 2);
+
+            return ConvertReportToHtml(cmd, activos, inactivos);
+        }
+
         public Stream GenerateAccumulatedKilometersReport(AccumulatedKilometersReportCommand command, IReportStatus reportStatus)
         {
             var results = ReportFactory.MobilesKilometersDAO.GetMobilesKilometers(command.InitialDate, command.FinalDate, command.VehiclesId, true);
@@ -852,8 +873,7 @@ namespace Logictracker.Tracker.Application.Reports
                 </table>");
 
             return report.ToString();
-        }
-        
+        } 
         private string ConvertDtOdometersToString(DataRow row)
         {
             var report = new StringBuilder(@"
@@ -891,8 +911,36 @@ namespace Logictracker.Tracker.Application.Reports
 
             return report.ToString();
         }
+        private string ConvertReportToHtml(VehicleVerifierCommand cmd, int activos, int inactivos)
+        {
+            var report = new StringBuilder(@"
+                <table style='border: solid 1px #3A81B1; border-spacing: 0px; width: 90%; margin: auto;'>
+                    <tr>
+                        <td colspan='5' style='background-color:#3A81B1;'>
+                            <img src='http://web.logictracker.com/App_Themes/Marinero/img/logo-logic-azul.png' />
+                        </td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>Activos</b>
+                        </td>
+                        <td style='padding: 10px;'>");
+            report.Append(activos);
+            report.Append(@"</td>
+                    </tr>
+                    <tr style='background-color:#e7e7e7;'>
+                        <td style='padding: 10px;'>
+                            <b>Inactivos:</b>
+                        </td>
+                        <td style='padding: 10px;'>");
+            report.Append(inactivos);
+            report.Append(@"</td>
+                    </tr></table>");
 
-#endregion 
+            return report.ToString();
+        }
+
+        #endregion 
 
         #region reports
         public List<ReporteDistribucionVo> DeliverStatusRepor(int empresa, int linea, List<int> selectedVehicles, int puntoEntrega, List<int> estadosEntrega, List<int> transportista, DateTime desde, DateTime hasta, int ruta, bool confirmation, bool verOrden)

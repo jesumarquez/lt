@@ -25,7 +25,8 @@ namespace Logictracker.Tracker.Services
         string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand command, IReportStatus reportStatus);
         string GenerateSummarizedDocumentExpirationReport(DocumentsExpirationReportCommand command, IReportStatus reportStatus);
         string GenerateSummarizedOdometersReport(OdometersReportCommand command, IReportStatus reportStatus);
-        string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus reportStatus);       
+        string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus reportStatus);
+        string GenerateVehicleVerifierReport(VehicleVerifierCommand command, IReportStatus statusReport);
 
         void LogReportExecution(int reportId, IReportStatus reportStatus);
         void SendHtmlReport(string report, string email, string reportName);
