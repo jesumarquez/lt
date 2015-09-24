@@ -98,7 +98,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             switch (extension)
 	                        {
                                 case "Rutas.xlsx":
-                                    _empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas);
+                                    _empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas, out observaciones);
                                     result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                                     break;
                                 case "Clientes.xlsx":

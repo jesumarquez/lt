@@ -20,6 +20,7 @@ using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Utils;
 using Logictracker.Process.Import.Client.Types;
+using LinqToExcel;
 
 namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 {
@@ -34,10 +35,11 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         private DAOFactory DaoFactory { get; set; }
 
         private readonly List<PuntoEntrega> _clientesBuffer = new List<PuntoEntrega>();
+        private readonly List<ViajeDistribucion> _rutasBuffer = new List<ViajeDistribucion>();
 
-        public static Dictionary<int, List<int>> ParseRutas(LogicLinkFile file, out int rutas, out int entregas)
+        public static Dictionary<int, List<int>> ParseRutas(LogicLinkFile file, out int rutas, out int entregas, out string observaciones)
         {
-            new DistribucionCCU(file).ParseRutas(out rutas, out entregas);
+            new DistribucionCCU(file).ParseRutas(out rutas, out entregas, out observaciones);
             return EmpresasLineas;
         }
 
@@ -54,19 +56,33 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             Cliente = DaoFactory.ClienteDAO.GetList(new[] { Empresa.Id }, new[] { -1 }).FirstOrDefault();
         }
 
-        public void ParseRutas(out int rutas, out int entregas)
+        public void ParseRutas(out int rutas, out int entregas, out string observaciones)
         {
             const int vigencia = 12;
 
             var te = new TimeElapsed();
-            var rows = ParseFile(Llfile.FilePath).Rows;
+            var rows = ParseExcelFile(Llfile.FilePath, true);
             STrace.Trace(Component, string.Format("Archivo parseado en {0} segundos", te.getTimeElapsed().TotalSeconds));
-            
-            var listPuntos = new List<PuntoEntrega>();
-            var listReferencias = new List<ReferenciaGeografica>();
+            te.Restart();
+            PreBufferRutas(rows);
+            STrace.Trace(Component, string.Format("PreBufferRutas en {0} segundos", te.getTimeElapsed().TotalSeconds));
+
+            var listRutas = new List<ViajeDistribucion>();
 
             rutas = 0;
-            entregas = 0;            
+            entregas = 0;
+            observaciones = string.Empty;
+
+            STrace.Trace(Component, "Cantidad de filas: " + rows.Count);
+            var filas = 0;
+
+            foreach (var row in rows)
+            {
+                filas++;
+                STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", filas, rows.Count));
+
+
+            }
         }
 
         public void ParseClientes(out int clientes)
@@ -74,6 +90,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             var te = new TimeElapsed();
             var rows = ParseExcelFile(Llfile.FilePath, true);
             STrace.Trace(Component, string.Format("Archivo parseado en {0} segundos", te.getTimeElapsed().TotalSeconds));
+            te.Restart();
+            PreBufferClientes(rows);
+            STrace.Trace(Component, string.Format("PreBufferClientes en {0} segundos", te.getTimeElapsed().TotalSeconds));
 
             var listClientes = new List<PuntoEntrega>();
             var listReferencias = new List<ReferenciaGeografica>();
@@ -94,10 +113,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 if (string.IsNullOrEmpty(codigoCliente)) continue;
                 
-                latitud = latitud.Replace(',', '.');
-                longitud = longitud.Replace(',', '.');
-                var lat = Convert.ToDouble(latitud, CultureInfo.InvariantCulture);
-                var lon = Convert.ToDouble(longitud, CultureInfo.InvariantCulture);
+                double lat, lon = 0.0;
+                if (!double.TryParse(latitud, out lat) || !double.TryParse(longitud, out lon)) continue;                
                 
                 var puntoEntrega = _clientesBuffer.SingleOrDefault(p => p.Codigo == codigoCliente);
 
@@ -148,6 +165,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         DireccionNomenclada = string.Empty,
                         Nombre = nombre
                     };
+
+                    listClientes.Add(puntoEntrega);
                 }
                 else
                 {
@@ -161,29 +180,34 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         poligono.AddPoints(new[] { new PointF((float)lon, (float)lat) });
 
                         puntoEntrega.ReferenciaGeografica.AddHistoria(posicion, poligono, DateTime.UtcNow);
-                    }                    
-                    
-                    listReferencias.Add(puntoEntrega.ReferenciaGeografica);
+
+                        listReferencias.Add(puntoEntrega.ReferenciaGeografica);
+
+                        listClientes.Add(puntoEntrega);
+                    }
                 }
-
-                listClientes.Add(puntoEntrega);
-
-                clientes++;
             }
 
             STrace.Trace(Component, "Guardando referencias geográficas: " + listReferencias.Count);
             te.Restart();
+            var referencia = 0;
+            var referenciasTotales = listReferencias.Count();
             foreach (var referenciaGeografica in listReferencias)
             {
+                referencia++;
+                STrace.Trace(Component, string.Format("Guardando referencia: {0}/{1}", referencia, referenciasTotales));
                 DaoFactory.ReferenciaGeograficaDAO.Guardar(referenciaGeografica);
             }
             STrace.Trace(Component, string.Format("Referencias guardadas en {0} segundos", te.getTimeElapsed().TotalSeconds));
 
             STrace.Trace(Component, "Guardando clientes: " + listClientes.Count);
             te.Restart();
+            var clientesTotales = listReferencias.Count();
             foreach (var puntoEntrega in listClientes)
             {
-                DaoFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
+                clientes++;
+                STrace.Trace(Component, string.Format("Guardando clientes: {0}/{1}", clientes, clientesTotales));
+                DaoFactory.PuntoEntregaDAO.SaveOrUpdateWithoutTransaction(puntoEntrega);                
             }
             STrace.Trace(Component, string.Format("Clientes guardados en {0} segundos", te.getTimeElapsed().TotalSeconds));
         }
@@ -197,20 +221,45 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             asignaciones = 0;
         }
 
-        private void PreBufferClientes(IEnumerable<Record> rows)
+        private void PreBufferRutas(IEnumerable<Row> rows)
         {
-            var lastCodCliente = string.Empty;            
+            var lastCodRuta = string.Empty;
+            var lastCodCliente = string.Empty;
+            var codRutaStrList = new List<string>();
             var codClienteStrList = new List<string>();
 
             for (int i = 1; i < rows.Count(); i++)
             {
                 var row = rows.ElementAt(i);
-                
+
+                STrace.Trace(Component, string.Format("Prebuffering: {0}/{1}", i, rows.Count()));
+
+                #region Buffer Ruta
+
+                try
+                {
+                    var codigoRuta = row[Properties.DistribucionCCU.Planilla].ToString().Trim();
+
+                    if (lastCodRuta != codigoRuta)
+                    {
+                        if (!codRutaStrList.Contains(codigoRuta))
+                            codRutaStrList.Add(codigoRuta);
+
+                        lastCodRuta = codigoRuta;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    STrace.Exception(Component, ex, String.Format("Error Buffering Ruta ({0})", row[Properties.DistribucionCCU.Planilla]));
+                }
+
+                #endregion
+
                 #region Buffer Cliente
 
                 try
                 {
-                    var codigoCliente = row.Cells[Properties.ClienteCCU.CodigoCliente].ToString().Trim();
+                    var codigoCliente = row[Properties.DistribucionCCU.CodigoCliente].ToString().Trim();
 
                     if (lastCodCliente != codigoCliente)
                     {
@@ -222,7 +271,80 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 }
                 catch (Exception ex)
                 {
-                    STrace.Exception(Component, ex, String.Format("Error Buffering Cliente ({0})", row.Cells[Properties.ClienteCCU.CodigoCliente]));
+                    STrace.Exception(Component, ex, String.Format("Error Buffering Cliente ({0})", row[Properties.DistribucionCCU.CodigoCliente]));
+                }
+
+                #endregion
+            }
+
+            const int batchSize = 1000;
+
+            if (codRutaStrList.Any())
+            {
+                var cant = 0;
+                foreach (var l in codRutaStrList.InSetsOf(batchSize))
+                {
+                    cant += l.Count();
+                    STrace.Trace(Component, string.Format("Buffering: {0}/{1}", cant, codRutaStrList.Count()));
+
+                    var rutas = DaoFactory.ViajeDistribucionDAO.FindByCodigos(new[] { Empresa.Id },
+                                                                              new[] { -1 },
+                                                                              l);
+                    if (rutas != null && rutas.Any())
+                    {
+                        _rutasBuffer.AddRange(rutas);
+                    }
+                }
+            }
+
+            if (codClienteStrList.Any())
+            {
+                var cant = 0;
+                foreach (var l in codClienteStrList.InSetsOf(batchSize))
+                {
+                    cant += l.Count();
+                    STrace.Trace(Component, string.Format("Buffering: {0}/{1}", cant, codClienteStrList.Count()));
+
+                    var puntos = DaoFactory.PuntoEntregaDAO.FindByCodes(new[] { Empresa.Id },
+                                                                        new[] { -1 },
+                                                                        new[] { Cliente.Id },
+                                                                        l);
+                    if (puntos != null && puntos.Any())
+                    {
+                        _clientesBuffer.AddRange(puntos);
+                    }
+                }
+            }
+        }
+
+        private void PreBufferClientes(IEnumerable<Row> rows)
+        {
+            var lastCodCliente = string.Empty;
+            var codClienteStrList = new List<string>();
+
+            for (int i = 1; i < rows.Count(); i++)
+            {
+                var row = rows.ElementAt(i);
+
+                STrace.Trace(Component, string.Format("Prebuffering: {0}/{1}", i, rows.Count()));
+
+                #region Buffer Cliente
+
+                try
+                {
+                    var codigoCliente = row[Properties.ClienteCCU.CodigoCliente].ToString().Trim();
+
+                    if (lastCodCliente != codigoCliente)
+                    {
+                        if (!codClienteStrList.Contains(codigoCliente))
+                            codClienteStrList.Add(codigoCliente);
+
+                        lastCodCliente = codigoCliente;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    STrace.Exception(Component, ex, String.Format("Error Buffering Cliente ({0})", row[Properties.ClienteCCU.CodigoCliente]));
                 }
 
                 #endregion
@@ -232,8 +354,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
             if (codClienteStrList.Any())
             {
+                var cant = 0;
                 foreach (var l in codClienteStrList.InSetsOf(batchSize))
                 {
+                    cant += l.Count();
+                    STrace.Trace(Component, string.Format("Buffering: {0}/{1}", cant, codClienteStrList.Count()));
+
                     var puntos = DaoFactory.PuntoEntregaDAO.FindByCodes(new[] { Empresa.Id },
                                                                         new[] { -1 },
                                                                         new[] { Cliente.Id },

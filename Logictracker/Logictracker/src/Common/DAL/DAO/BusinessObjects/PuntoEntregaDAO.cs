@@ -116,6 +116,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         #region Other Methods
 
+        public void SaveOrUpdateWithoutTransaction(PuntoEntrega obj)
+        {
+            base.SaveOrUpdateWithoutTransaction(obj);
+        }
+
         public void DeleteByCliente(int id)
         {
             foreach (PuntoEntrega punto in FindList(new[]{-1}, new[]{-1}, new[]{id}))
