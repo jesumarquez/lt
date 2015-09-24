@@ -285,7 +285,10 @@ namespace Logictracker.Operacion.Dispositivo
                                         ScrollBars = ScrollBars.Auto
                                     };
 
-                var path = Config.Directory.FotaDirectory;
+                
+                var path = Config.Directory.FotaDirectory + "\\" + dispositivo.Empresa.RazonSocial.ToLower() + "." + dispositivo.Empresa.Id;
+
+
                 if (!Directory.Exists(path))
                 {
                     throw new ApplicationException("No existe el directorio." + path);
