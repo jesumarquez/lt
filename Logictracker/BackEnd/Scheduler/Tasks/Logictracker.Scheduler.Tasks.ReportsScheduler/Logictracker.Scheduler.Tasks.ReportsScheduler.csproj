@@ -118,7 +118,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Logictracker.Common.Mailing.ReportScheduler.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

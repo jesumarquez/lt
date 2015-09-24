@@ -64,13 +64,13 @@
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=74;" />
     </Timer-->
 
-    <!--<Timer Enabled="true" Name="LogicLink 2 - CCU" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+    <Timer Enabled="true" Name="LogicLink 2 - CCU" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=81;" />
-    </Timer>-->
-
-    <Timer Enabled="true" Name="LogicLink 2 - Musimundo" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
-      <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=58;" />
     </Timer>
+
+    <!--<Timer Enabled="true" Name="LogicLink 2 - Musimundo" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+      <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=58;" />
+    </Timer>-->
 
     <!--Timer Enabled="false" Name="Pump" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.PumpControl.Task, Logictracker.Scheduler.Tasks.PumpControl"/>

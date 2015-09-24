@@ -491,7 +491,14 @@ namespace Logictracker.CicloLogistico
 
             var kmReales = 0.0;
             if (ciclo.InicioReal.HasValue)
-                kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
+            {
+                if (ciclo.InicioReal.Value < DateTime.Today)
+                {
+                    var dmViaje = DAOFactory.DatamartViajeDAO.GetRecords(ciclo.Id).FirstOrDefault();
+                    if (dmViaje != null) kmReales = dmViaje.KmTotales;
+                }
+                else kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
+            }
             
             lblKmReales.Text = kmReales.ToString("#0.00") + " Km";
             lblKmProgramados.Text = ciclo.Detalles.Sum(d => d.KmCalculado).Value.ToString("#0.00") + " Km";
