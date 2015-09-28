@@ -81,8 +81,13 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 var stringFecha = row[Properties.DistribucionMusimundo.Fecha].ToString().Trim();
 
-                var fecha = new DateTime(Convert.ToInt32(stringFecha.Substring(0, 4)), Convert.ToInt32(stringFecha.Substring(4, 2)),
-                    Convert.ToInt32(stringFecha.Substring(6, 2)), Convert.ToInt32(stringFecha.Substring(8, 2)), 0, 0);
+                var fecha = new DateTime(Convert.ToInt32(stringFecha.Substring(0, 4)), 
+                                         Convert.ToInt32(stringFecha.Substring(4, 2)),
+                                         Convert.ToInt32(stringFecha.Substring(6, 2)), 
+                                         Convert.ToInt32(stringFecha.Substring(8, 2)), 
+                                         0, 
+                                         0).AddHours(-3);
+                
 
                 var patente = row[Properties.DistribucionMusimundo.Patente].ToString().Trim();
                 var codigoPedido = row[Properties.DistribucionMusimundo.Factura].ToString().Trim();
@@ -133,8 +138,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                                 Empleado = chofer,
                                 Codigo = codigoViaje,
                                 Estado = ViajeDistribucion.Estados.Pendiente,
-                                Inicio = fecha.ToDataBaseDateTime(),
-                                Fin = fecha.ToDataBaseDateTime(),
+                                Inicio = fecha,
+                                Fin = fecha,
                                 NumeroViaje = Convert.ToInt32(numeroViaje),
                                 Tipo = ViajeDistribucion.Tipos.Desordenado,
                                 Alta = DateTime.UtcNow,
@@ -147,7 +152,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     rutas++;
                 }
                 
-                viaje.Fin = fecha.ToDataBaseDateTime();
+                viaje.Fin = fecha;
 
                 if (viaje.Detalles.Count == 0)
                 {
@@ -158,8 +163,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                                         Descripcion = oLinea.Descripcion,
                                         Estado = EntregaDistribucion.Estados.Pendiente,
                                         Orden = 0,
-                                        Programado = fecha.ToDataBaseDateTime(),
-                                        ProgramadoHasta = fecha.ToDataBaseDateTime(),
+                                        Programado = fecha,
+                                        ProgramadoHasta = fecha,
                                         Viaje = viaje
                                      };
                     viaje.Detalles.Add(origen);
@@ -170,8 +175,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         Descripcion = oLinea.Descripcion,
                         Estado = EntregaDistribucion.Estados.Pendiente,
                         Orden = viaje.Detalles.Count,
-                        Programado = fecha.ToDataBaseDateTime(),
-                        ProgramadoHasta = fecha.ToDataBaseDateTime(),
+                        Programado = fecha,
+                        ProgramadoHasta = fecha,
                         Viaje = viaje
                     };
                     viaje.Detalles.Add(llegada);
@@ -202,7 +207,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                                                 Vigencia = new Vigencia
                                                                 {
                                                                     Inicio = DateTime.UtcNow,
-                                                                    Fin = fecha.AddHours(vigencia).ToDataBaseDateTime()
+                                                                    Fin = fecha.AddHours(vigencia)
                                                                 },
                                                 Icono = Cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
                                              };
@@ -271,7 +276,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                     #region puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end
 
-                    var end = fecha.AddHours(vigencia).ToDataBaseDateTime();
+                    var end = fecha.AddHours(vigencia);
                     if (puntoEntrega.ReferenciaGeografica.Vigencia.Fin < end)
                         puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
@@ -297,8 +302,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                                     Estado = EntregaDistribucion.Estados.Pendiente,
                                     //Orden = secuencia,
                                     Orden = viaje.Detalles.Count - 1,
-                                    Programado = fecha.ToDataBaseDateTime(),
-                                    ProgramadoHasta = fecha.ToDataBaseDateTime().AddMinutes(Empresa.MarginMinutes),
+                                    Programado = fecha,
+                                    ProgramadoHasta = fecha.AddMinutes(Empresa.MarginMinutes),
                                     TipoServicio = tipoServicio,
                                     Viaje = viaje
                                 };

@@ -24,6 +24,9 @@
     <property column="opetick04_salida" name="Salida" />
     <property column="opetick04_estado" name="Estado" />
     <property column="opetick04_bultos" name="Bultos" />
+    <property column="opetick04_volumen" name="Volumen" />
+    <property column="opetick04_peso" name="Peso" />
+    <property column="opetick04_valor" name="Valor" />
 
     <property column="opetick04_comentario1" name="Comentario1" />
     <property column="opetick04_comentario2" name="Comentario2" />
