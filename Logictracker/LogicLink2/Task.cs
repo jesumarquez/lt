@@ -106,7 +106,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                                     result = string.Format("Archivo procesado exitosamente. Clientes: {0}", clientes);
                                     break;
                                 case "Asigno.xlsx":
-                                    DistribucionCCU.ParseAsignaciones(archivo, out asignaciones);
+                                    DistribucionCCU.ParseAsignaciones(archivo, out asignaciones, out observaciones);
                                     result = string.Format("Archivo procesado exitosamente. Asignaciones: {0}", asignaciones);
                                     break;
                                 default:
