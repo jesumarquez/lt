@@ -259,6 +259,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ReceptionController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Models\Route.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\RouteState.cs" />
+    <Compile Include="Models\SitrackReceptionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -372,6 +374,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\BackEnd\Codecs\Logitracker.Codecs.Sitrack\Logitracker.Codecs.Sitrack.csproj">
+      <Project>{B4103F7F-7B2E-41AA-AB82-96171076C7C6}</Project>
+      <Name>Logitracker.Codecs.Sitrack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
       <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>
       <Name>Logictracker.Tracker.Services</Name>

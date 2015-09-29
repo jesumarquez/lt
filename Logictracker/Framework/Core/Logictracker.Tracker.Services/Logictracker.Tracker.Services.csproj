@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IReceptionService.cs" />
     <Compile Include="IReportStatus.cs" />
     <Compile Include="IReportGenerationCommand.cs" />
     <Compile Include="IReportService.cs" />
@@ -47,6 +48,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BackEnd\Codecs\Logitracker.Codecs.Sitrack\Logitracker.Codecs.Sitrack.csproj">
+      <Project>{B4103F7F-7B2E-41AA-AB82-96171076C7C6}</Project>
+      <Name>Logitracker.Codecs.Sitrack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker.Reports.Messaging\Logictracker.Reports.Messaging.csproj">
       <Project>{c7a9420a-fdb3-4c8d-9783-290a51bad4fa}</Project>
       <Name>Logictracker.Reports.Messaging</Name>
