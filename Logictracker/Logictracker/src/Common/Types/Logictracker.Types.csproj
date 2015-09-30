@@ -62,6 +62,7 @@
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ViajeDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\EstadoLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Recorrido.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\DetalleRecorrido.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\TimeTracking\EventoViaje.cs" />

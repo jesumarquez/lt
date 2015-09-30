@@ -906,5 +906,8 @@
   <data name="REPORT_LOG" xml:space="preserve">
     <value>Ejecuted Reports Log</value>
   </data>
+  <data name="PAR_ESTADO_LOGISTICO" xml:space="preserve">
+    <value>Logistics States</value>
+  </data>
 </root>
 

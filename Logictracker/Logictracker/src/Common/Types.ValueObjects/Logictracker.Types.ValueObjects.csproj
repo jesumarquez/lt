@@ -51,6 +51,7 @@
     <Compile Include="BaseCSVBuilder.cs" />
     <Compile Include="CicloLogistico\AgendaVehicularVo.cs" />
     <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoVo.cs" />
+    <Compile Include="CicloLogistico\EstadoLogisticoVo.cs" />
     <Compile Include="Mantenimiento\TicketMantenimientoVo.cs" />
     <Compile Include="Parametrizacion\SubCentroDeCostosVo.cs" />
     <Compile Include="ReportObjects\CicloLogistico\ResumenDeRutasVo.cs" />

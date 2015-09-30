@@ -196,6 +196,7 @@
     <Content Include="Resources\MenuImages\CONSOLA_ENTREGAS.png" />
     <Content Include="Resources\MenuImages\ACC_DET_INFRACCIONES_X_VEHICULO.png" />
     <Content Include="Resources\MenuImages\OPE_MIMICO_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\PAR_ESTADO_LOGISTICO.png" />
     <Content Include="Resources\MenuImages\REPORT_LOG.png" />
     <Content Include="Resources\MenuImages\KILOMETROS_DIARIOS.png" />
     <Content Include="Resources\MenuImages\RESUMEN_ACTIVIDAD.png" />
