@@ -753,6 +753,10 @@ namespace Logictracker.Web.BaseClasses.Util
         private void ShowTotalCount(int count)
         {
             var text = string.Format(CultureManager.GetControl("GRID_CANT_RESULTADOS"), count);
+            if (Grid.AllowCustomPaging && Grid.VirtualItemCount > 0)
+            {
+                text = text + " de un total de " + Grid.VirtualItemCount;
+            }
             var litTop = new Label { Text = text };
             litTop.Style.Add("float", "left");
             var litBottom = new Label { Text = text };

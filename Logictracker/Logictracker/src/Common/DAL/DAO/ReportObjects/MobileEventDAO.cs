@@ -70,6 +70,50 @@ namespace Logictracker.DAL.DAO.ReportObjects
                                           AtencionEvento = log.Estado > 0 ? DAOFactory.AtencionEventoDAO.GetByEvento(log.Id) : null
                                       }).ToList();
         }
+
+        /// <summary>
+        /// Gets a list of mobiles events filtered by the givenn search criteria.
+        /// </summary>
+        /// <param name="mobilesIds">A list of mobiles ids.</param>
+        /// <param name="messagesIds">A list of message ids.</param>
+        /// <param name="driversIds">A list of drivers ids.</param>
+        /// <param name="initialDate">The initial date.</param>
+        /// <param name="finalDate">The final date.</param>
+        /// <returns>A list of events.</returns>
+        public List<MobileEvent> GetMobilesEventsLinq(List<int> mobilesIds, IEnumerable<int> messagesIds, List<int> driversIds, DateTime initialDate, DateTime finalDate, int maxMonths, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            var codigos = (from codigo in messagesIds select codigo.ToString()).ToList();
+
+            var results = DAOFactory.LogMensajeDAO.GetByVehiclesAndCodesLinq(mobilesIds, codigos, initialDate, finalDate, maxMonths, page, pageSize, ref totalRows, reCount);
+
+            results = results.Where(log => (driversIds.Contains(0) || (log.Chofer != null && driversIds.Contains(log.Chofer.Id)))).ToList();
+
+            if (!results.Any()) return new List<MobileEvent>();
+
+            return results.Select(log => new MobileEvent
+            {
+                Intern = log.Coche.Interno,
+                MobileType = log.Coche.TipoCoche != null ? log.Coche.TipoCoche.Descripcion : "",
+                Driver = log.Chofer != null ? log.Chofer.Entidad.Descripcion : "",
+                EventTime = log.Fecha.ToDisplayDateTime(),
+                Reception = log.FechaAlta.HasValue ? log.FechaAlta.Value.ToDisplayDateTime() : (DateTime?)null,
+                Message = log.Texto,
+                IdMensaje = log.Mensaje.Id,
+                Latitude = log.Latitud,
+                Longitude = log.Longitud,
+                IconUrl = log.GetIconUrl(),
+                EventEndTime = log.FechaFin != null ? log.FechaFin.Value.ToDisplayDateTime() : log.FechaFin,
+                FinalLatitude = log.LatitudFin,
+                FinalLongitude = log.LongitudFin,
+                Id = log.Id,
+                Responsable = log.Coche.Chofer != null ? log.Coche.Chofer.Entidad.Descripcion : "",
+                TieneFoto = log.TieneFoto,
+                IdPuntoInteres = log.IdPuntoDeInteres,
+                Atendido = log.Estado > 0,
+                Usuario = log.Usuario,
+                AtencionEvento = log.Estado > 0 ? DAOFactory.AtencionEventoDAO.GetByEvento(log.Id) : null
+            }).ToList();
+        }
                
         public List<MobileEvent> GetDetenciones(List<int> mobilesIds, DateTime initialDate, DateTime finalDate, int duracion, double radio, double lat, double lon, int maxMonths)
         {
