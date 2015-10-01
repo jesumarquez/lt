@@ -410,7 +410,8 @@ namespace Logictracker.Tracker.Application.Reports
 
         public Stream GenerateVehicleInfractionsReport(VehicleInfractionsReportCommand cmd, IReportStatus reportStatus)
         {
-            var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(cmd.VehiclesId, cmd.InitialDate, cmd.FinalDate).ToList();
+            //var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(cmd.VehiclesId, cmd.InitialDate, cmd.FinalDate).ToList();
+            var results = VehicleInfractionsReport(cmd.VehiclesId, cmd.InitialDate, cmd.FinalDate, true);
 
             reportStatus.RowCount = results.Count;
 
@@ -1038,6 +1039,29 @@ namespace Logictracker.Tracker.Application.Reports
             catch (Exception e)
             {
                 STrace.Exception("Estado de Entregas", e);
+                throw;
+            }
+        }
+
+        public List<VehicleInfractionDetailVo> VehicleInfractionsReport(List<int> selectedVehicles,DateTime desde, DateTime hasta, bool verEsquinas)
+        {
+            desde = desde.ToDataBaseDateTime();
+            hasta = hasta.ToDataBaseDateTime();
+
+            var inicio = DateTime.UtcNow;
+            try
+            {
+                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(selectedVehicles, desde, hasta)
+                                                               .Select(o => new VehicleInfractionDetailVo(o) { HideCornerNearest = !verEsquinas})
+                                                               .ToList();
+                var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
+
+                STrace.Trace("Detalle de Infracciones por Vehículo", String.Format("Duración de la consulta: {0} segundos", duracion));
+                return results;
+            }
+            catch (Exception e)
+            {
+                STrace.Exception("Detalle de Infracciones por Vehículo", e, String.Format("Reporte: Detalle de Infracciones por Vehículo. Duración de la consulta: {0:##0.00} segundos", (DateTime.UtcNow - inicio).TotalSeconds));
                 throw;
             }
         }
