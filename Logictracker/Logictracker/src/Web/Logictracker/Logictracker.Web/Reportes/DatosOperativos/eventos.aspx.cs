@@ -20,7 +20,10 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
         protected override bool SendReportButton { get { return true; } }
+        public Boolean recount = true;
         private const int Interval = 5;
+
+        protected int totalVirtualRows;
 
         [Serializable]
         public class SearchData
@@ -36,11 +39,11 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             ViewState["SearchData"] = data;
         }
-        
-        private SearchData LoadSearchData() 
+
+        private SearchData LoadSearchData()
         {
             var data = ViewState["SearchData"] as SearchData;
-            if(data != null) return data;
+            if (data != null) return data;
 
             var desde = dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
             var hasta = dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
@@ -56,8 +59,59 @@ namespace Logictracker.Reportes.DatosOperativos
                            InitialDate = desde,
                            FinalDate = hasta
                        };
+
+
+            if (Session["SearchData"] != null &&
+               compare(data,(SearchData)Session["SearchData"]))
+            {
+                recount = false;
+            }
+            else
+            {
+                recount = true;
+                Session["SearchData"] = data;
+            }
+
             SaveSearchData(data);
             return data;
+        }
+
+        public bool compare(SearchData x, SearchData y)
+        {
+            bool equal = true;
+            if (!y.DriverId.Count.Equals(x.DriverId.Count))
+                return false;
+            int index = 0;
+            foreach (var itemy in y.DriverId)
+            {
+                if (!itemy.Equals(x.DriverId[index]))
+                    return false;
+                index++;
+            }
+            if (!x.FinalDate.Equals(y.FinalDate))
+                return false;
+            if (!x.InitialDate.Equals(y.InitialDate))
+                return false;
+            if (!y.MessageId.Count().Equals(x.MessageId.Count()))
+                return false;
+            index = 0;
+            foreach (var itemy in y.MessageId.OrderBy(a => a).ToList())
+            {
+                if (!itemy.Equals(x.MessageId.OrderBy(a => a).ToList()[index]))
+                    return false;
+                index++;
+            }
+            if (!x.VehiclesId.Count().Equals(y.VehiclesId.Count()))
+                return false;
+
+            index = 0;
+            foreach (var itemy in y.VehiclesId.OrderBy(a => a).ToList())
+            {
+                if (!itemy.Equals(x.VehiclesId.OrderBy(a => a).ToList()[index]))
+                    return false;
+                index++;
+            }
+            return equal;
         }
 
         protected override Empresa GetEmpresa()
@@ -213,16 +267,40 @@ namespace Logictracker.Reportes.DatosOperativos
             {
                 var empresa = DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected);
                 var maxMonths = empresa != null && empresa.Id > 0 ? empresa.MesesConsultaPosiciones : 3;
+                var results = new List<MobileEventVo>();
+                if (chkPaginar.Checked)
+                {
+                    totalVirtualRows = (int)Session["totalVirtualRows"];
+                    results = ReportFactory.MobileEventDAO.GetMobilesEventsLinq(data.VehiclesId,
+                                                                                data.MessageId,
+                                                                                data.DriverId,
+                                                                                data.InitialDate,
+                                                                                data.FinalDate,
+                                                                                maxMonths,
+                                                                                Grid.PageIndex,
+                                                                                this.PageSize,
+                                                                                ref totalVirtualRows,
+                                                                                recount)
+                                                              .Select(o => new MobileEventVo(o) { HideCornerNearest = !chkVerEsquinas.Checked })
+                                                              .ToList();
 
-                
-                var results = ReportFactory.MobileEventDAO.GetMobilesEvents(data.VehiclesId, 
-                                                                            data.MessageId,
-                                                                            data.DriverId, 
-                                                                            data.InitialDate, 
-                                                                            data.FinalDate,
-                                                                            maxMonths)
-                                                          .Select(o => new MobileEventVo(o) { HideCornerNearest = !chkVerEsquinas.Checked })
-                                                          .ToList();
+                    if (recount)
+                    {
+                        Session["totalVirtualRows"] = totalVirtualRows;
+                        Grid.VirtualItemCount = totalVirtualRows;
+                    }
+                }
+                else
+                {
+                    results = ReportFactory.MobileEventDAO.GetMobilesEvents(data.VehiclesId,
+                                                                                data.MessageId,
+                                                                                data.DriverId,
+                                                                                data.InitialDate,
+                                                                                data.FinalDate,
+                                                                                maxMonths)
+                                                              .Select(o => new MobileEventVo(o) { HideCornerNearest = !chkVerEsquinas.Checked })
+                                                              .ToList();
+                }
 
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 
@@ -245,6 +323,31 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             base.OnLoad(e);
 
+            if (chkPaginar.Checked)
+            {
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {
+
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+
+            chkPaginar.CheckedChanged += chkPaginar_CheckedChanged;
+
             if (!IsPostBack)
             {
                 dpDesde.SetDate();
@@ -258,6 +361,37 @@ namespace Logictracker.Reportes.DatosOperativos
             SetInitialFilterValues();
 
             Bind();
+        }
+
+        void chkPaginar_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["SelectedClient"] = null;
+            if (chkPaginar.Checked)
+            {               
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {;
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+        }
+
+        void Grid_PageIndexChanging(object sender, C1GridViewPageEventArgs e)
+        {
+            Grid.PageIndex = e.NewPageIndex;
         }
 
         /// <summary>
