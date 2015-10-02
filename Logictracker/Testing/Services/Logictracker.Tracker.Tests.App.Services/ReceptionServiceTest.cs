@@ -10,7 +10,7 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Dispositivos;
 using Moq;
 using NUnit.Framework;
-using Spring.Messaging.Core;
+//using Spring.Messaging.Core;
 
 namespace Logictracker.Tracker.Tests.App.Services
 {
@@ -18,7 +18,7 @@ namespace Logictracker.Tracker.Tests.App.Services
     class ReceptionServiceTest
     {
         private Mock<DAOFactory> _daoFactoryMock;
-        private Mock<MessageQueueTemplate> _msmqTemplateMock;
+        //private Mock<MessageQueueTemplate> _msmqTemplateMock;
         private IReceptionService _receptionService;
 
         private Dispositivo _device;
@@ -33,8 +33,8 @@ namespace Logictracker.Tracker.Tests.App.Services
             _daoFactoryMock.Setup(x => x.DispositivoDAO.FindByImei(It.IsAny<string>())).Returns(_device);
             _daoFactoryMock.Setup(x => x.EmpleadoDAO.FindEmpleadoByDevice(It.IsAny<Dispositivo>())).Returns(employee);
 
-            _msmqTemplateMock = new Mock<MessageQueueTemplate>();
-            _msmqTemplateMock.Setup(x => x.ConvertAndSend(It.IsAny<object>()));
+            //_msmqTemplateMock = new Mock<MessageQueueTemplate>();
+            //_msmqTemplateMock.Setup(x => x.ConvertAndSend(It.IsAny<object>()));
             
             _receptionService = new ReceptionService
             {

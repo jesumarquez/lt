@@ -7,6 +7,7 @@ using C1.Web.UI.Controls.C1GridView;
 using Logictracker.Culture;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Security;
+using Logictracker.Tracker.Application.Reports;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ValueObjects.ReportObjects;
 using Logictracker.Web.BaseClasses.BasePages;
@@ -110,25 +111,28 @@ namespace Logictracker.Web.Reportes.Accidentologia
 
         protected override List<VehicleInfractionDetailVo> GetResults()
         {
-            var desde = dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
-            var hasta = dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
+            var desde = dpDesde.SelectedDate.GetValueOrDefault();
+            var hasta = dpHasta.SelectedDate.GetValueOrDefault();
 
-            var inicio = DateTime.UtcNow;
-            try
-            {
-                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(GetVehicleList(), desde, hasta)
-                                                               .Select(o => new VehicleInfractionDetailVo(o) { HideCornerNearest = !chkVerEsquinas.Checked})
-                                                               .ToList();
-                var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
+            var reportService = new ReportService(DAOFactory, ReportFactory);
+            var results = reportService.VehicleInfractionsReport(GetVehicleList(), desde, hasta, chkVerEsquinas.Checked);
+            //var inicio = DateTime.UtcNow;
+            //try
+            //{
+            //    var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetailsByVehicles(GetVehicleList(), desde, hasta)
+            //                                                   .Select(o => new VehicleInfractionDetailVo(o) { HideCornerNearest = !chkVerEsquinas.Checked})
+            //                                                   .ToList();
+            //    var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 
-				STrace.Trace("Detalle de Infracciones por Vehículo", String.Format("Duración de la consulta: {0} segundos", duracion));
-				return results;
-            }
-            catch (Exception e)
-            {
-                STrace.Exception("Detalle de Infracciones por Vehículo", e, String.Format("Reporte: Detalle de Infracciones por Vehículo. Duración de la consulta: {0:##0.00} segundos", (DateTime.UtcNow - inicio).TotalSeconds));
-                throw;
-            }
+            //    STrace.Trace("Detalle de Infracciones por Vehículo", String.Format("Duración de la consulta: {0} segundos", duracion));
+            //    return results;
+            //}
+            //catch (Exception e)
+            //{
+            //    STrace.Exception("Detalle de Infracciones por Vehículo", e, String.Format("Reporte: Detalle de Infracciones por Vehículo. Duración de la consulta: {0:##0.00} segundos", (DateTime.UtcNow - inicio).TotalSeconds));
+            //    throw;
+            //}
+            return results;
         }
 
         protected override Dictionary<string, string> GetFilterValues()

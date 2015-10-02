@@ -1,6 +1,6 @@
-﻿using Logictracker.AVL.Messages;
+﻿using log4net;
+using Logictracker.AVL.Messages;
 using System.Collections.Generic;
-using Common.Logging;
 using Logictracker.DAL.Factories;
 using Logictracker.Model;
 using Logictracker.Tracker.Services;
@@ -41,13 +41,13 @@ namespace Logictracker.Tracker.Application.Services
                 {
                     Lat = (float) frame.Latitude,
                     Lon = (float) frame.Longitude,
-                    Date = frame.ReportDate,
+                    Date = frame.ReportDate.ToUniversalTime(),
                     Speed = new Speed(frame.Speed),
                     Course = new Course(frame.Course)
                 };
 
                 var message = pos.ToPosition(deviceId, 0);
-                Logger.DebugFormat("ToIMessage success: {0} for {1}", message.DeviceId, frame.HolderDomain);
+                Logger.InfoFormat("ToIMessage success: {0} for {1}", message.DeviceId, frame.HolderDomain);
 
                 return message;
             }
