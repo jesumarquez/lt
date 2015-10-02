@@ -3757,6 +3757,9 @@
   <data name="VER_ESQUINAS" xml:space="preserve">
     <value>View Corners</value>
   </data>
+  <data name="PAGINAR_CONSULTA" xml:space="preserve">
+    <value>Paginated query</value>
+  </data>
   <data name="USA_PREFIJO" xml:space="preserve">
     <value>Use prefix</value>
   </data>

@@ -52,7 +52,8 @@ namespace Logictracker.Web.BaseClasses.BasePages
         protected virtual TextBox SendReportTextBoxReportName { get { return MasterPage.SendReportTextBoxReportName; } }
         protected virtual ModalPopupExtender SendReportModalPopupExtender { get { return MasterPage.SendReportModalPopupExtender; } }
         protected virtual ResourceButton SendReportOkButton { get { return MasterPage.SendReportOkButton; } }
-        
+
+
         #region IGridded
 
         /// <summary>
@@ -233,6 +234,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
         {
             Logger.Debug("ExportToExcel start");
             var path = HttpContext.Current.Request.Url.AbsolutePath;
+
+
+
             path = Path.GetFileNameWithoutExtension(path) + ".xlsx";
 
             var builder = new GridToExcelBuilder(path, Usuario.ExcelFolder);
@@ -245,6 +249,12 @@ namespace Logictracker.Web.BaseClasses.BasePages
                 ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
                 return;
             }
+            if (list.Count == 50)
+            {
+                ShowInfo(CultureManager.GetLabel("EXCEL_DEMASIADOS_MENSAJES"));
+                return;
+            }
+            
 
             builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
             Logger.Debug("ExportToExcel builder.GenerateColumns");

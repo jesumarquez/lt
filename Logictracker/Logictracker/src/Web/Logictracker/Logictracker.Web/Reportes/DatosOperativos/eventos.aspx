@@ -87,8 +87,9 @@
                 <br />
                 <cwc:ResourceCheckBox ID="chkVerAtenciones" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="VER_ATENCIONES" />
                 <br />
-                <cwc:ResourceLabel ID="lblActivarPaginacion" Text="Paginar Consulta" runat="server" ResourceName="Entities" VariableName="Paginar Consulta" /><br />
-                <cwc:ResourceCheckBox ID="chkPaginar" Checked="true" runat="server" Font-Bold="true" Text="Paginar Consulta" />
+                <cwc:ResourceCheckBox ID="chkPaginar" Checked="true" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="PAGINAR_CONSULTA" />
+                <br />
+                
             </td>
         </tr>
     </table>

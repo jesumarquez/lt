@@ -20,6 +20,8 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
         protected override bool SendReportButton { get { return true; } }
+
+        
         public Boolean recount = true;
         private const int Interval = 5;
 
@@ -257,20 +259,24 @@ namespace Logictracker.Reportes.DatosOperativos
             var inicio = DateTime.UtcNow;
             LblInfo.Visible = false;
 
-            if (data.FinalDate.Subtract(data.InitialDate).TotalDays > 31)
+            ClearError();
+
+            if (data.FinalDate.Subtract(data.InitialDate).TotalDays > 31 && chkPaginar.Checked == false)
             {
                 ShowError("No es posible consultar períodos mayores a 31 días.");
                 return new List<MobileEventVo>();
             }
-
             try
             {
                 var empresa = DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected);
                 var maxMonths = empresa != null && empresa.Id > 0 ? empresa.MesesConsultaPosiciones : 3;
                 var results = new List<MobileEventVo>();
+
+                
+
                 if (chkPaginar.Checked)
                 {
-                    totalVirtualRows = (int)Session["totalVirtualRows"];
+                    totalVirtualRows = (int)Session["totalVirtualRows"];                   
                     results = ReportFactory.MobileEventDAO.GetMobilesEventsLinq(data.VehiclesId,
                                                                                 data.MessageId,
                                                                                 data.DriverId,
@@ -288,6 +294,7 @@ namespace Logictracker.Reportes.DatosOperativos
                     {
                         Session["totalVirtualRows"] = totalVirtualRows;
                         Grid.VirtualItemCount = totalVirtualRows;
+                        
                     }
                 }
                 else
