@@ -5,6 +5,7 @@ using System.Reflection;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ReportObjects;
 using Logictracker.Types.ReportObjects.RankingDeOperadores;
+using Logictracker.Types.ValueObjects.ReportObjects;
 using NPOI.HSSF.UserModel;
 using NPOI.Util;
 
@@ -33,7 +34,7 @@ namespace Logictracker.Tracker.Application.Reports
         private const int Exceso	= 7;
         private const int Ponderacion = 8;
 
-        public static Stream GenerateReport(List<InfractionDetail> results, Empresa customer, DateTime initialDate, DateTime finalDate, string baseName)
+        public static Stream GenerateReport(List<VehicleInfractionDetailVo> results, Empresa customer, DateTime initialDate, DateTime finalDate, string baseName)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(TemplateName))
             {
@@ -67,9 +68,9 @@ namespace Logictracker.Tracker.Application.Reports
                     row.CreateCell(Vehiculo).SetCellValue(inf.Vehiculo);
                     row.CreateCell(Calificacion).SetCellValue(inf.Calificacion);
                     row.CreateCell(Chofer).SetCellValue(inf.Operador);
-                    //row.CreateCell(Esquina).SetCellValue(inf.CornerNearest);
+                    row.CreateCell(Esquina).SetCellValue(inf.CornerNearest);
                     row.CreateCell(Inicio).SetCellValue(inf.Inicio);
-                    row.CreateCell(Duracion).SetCellValue(inf.DuracionSegundos); 
+                    row.CreateCell(Duracion).SetCellValue(inf.Duracion.ToString(@"hh\:mm\:ss")); 
                     row.CreateCell(Pico).SetCellValue(inf.Pico);
                     row.CreateCell(Exceso).SetCellValue(inf.Exceso);
                     row.CreateCell(Ponderacion).SetCellValue(inf.Ponderacion);

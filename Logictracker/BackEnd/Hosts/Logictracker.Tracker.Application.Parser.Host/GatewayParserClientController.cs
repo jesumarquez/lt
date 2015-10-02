@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Timers;
 using log4net;
 using Logictracker.Model;
 using Logictracker.Tracker.Parser.Spi;
+using Spring.Aspects;
 using Spring.Messaging.Core;
 
 namespace Logictracker.Tracker.Application.Parser.Host
@@ -13,12 +15,28 @@ namespace Logictracker.Tracker.Application.Parser.Host
 
         public List<IParserServer> ProtocolServers { get; set; }
         public MessageQueueTemplate TrackMessageQueueTemplate { get; set; }
+        public System.Timers.Timer RestarterTimer;
+        public int RestartTime { get; set; }
 
-        private Thread executeThread;
+       // private Thread executeThread;
         private IParserServer parser;
 
         public void Start()
         {
+            StartProtocolServers();
+            RestarterTimer = new System.Timers.Timer(RestartTime*1000);
+            RestarterTimer.Elapsed += OnTimedEvent;
+            RestarterTimer.AutoReset = true;
+            RestarterTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            Stop();
+            Logger.Info("Restarting...");
+            
+            Thread.Sleep(2000);
+
             StartProtocolServers();
         }
 
