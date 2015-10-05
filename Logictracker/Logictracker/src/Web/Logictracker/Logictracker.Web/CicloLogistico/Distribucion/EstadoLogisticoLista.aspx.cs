@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
-using Logictracker.Types.BusinessObjects;
-using Logictracker.Types.ValueObjects.CicloLogistico;
+using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
+using Logictracker.Types.ValueObjects.CicloLogistico.Distribucion;
 using Logictracker.Web.BaseClasses.BasePages;
 
-namespace Logictracker.Parametrizacion
+namespace Logictracker.CicloLogistico.Distribucion
 {
     public partial class EstadoLogisticoLista : SecuredListPage<EstadoLogisticoVo>
     {

@@ -8,9 +8,9 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Utils;
 using NHibernate;
 using NHibernate.Linq;
-using Logictracker.Types.BusinessObjects.CicloLogistico;
+using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 
-namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico
+namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
 {
     public class EstadoLogisticoDAO : GenericDAO<EstadoLogistico>
     {
