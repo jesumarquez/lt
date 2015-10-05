@@ -26,7 +26,7 @@ namespace Logictracker.Tracker.Application.Services
         public DAOFactory DaoFactory { get; set; }
 
        // public MessageQueueTemplate MessageQueueTemplate { get; set; }
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(RouteService));
+        //private static readonly ILog Logger = LogManager.GetLogger(typeof(RouteService));
 
         public IList<Mensaje> GetProfileMessages(string deviceId)
         {
