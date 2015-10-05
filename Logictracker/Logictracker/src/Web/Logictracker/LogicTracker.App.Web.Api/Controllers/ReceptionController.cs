@@ -65,7 +65,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 frameReport.AppendFormat("HolderId : {0}, ", sitrackFrame.HolderId);
                 frameReport.AppendFormat("HolderName: {0}, ", sitrackFrame.HolderName);
                 frameReport.AppendFormat("Id : {0}, ", sitrackFrame.Id);
-                frameReport.AppendFormat("Lat: {0}, ", sitrackFrame.Latitude)
+                frameReport.AppendFormat("Lat: {0}, ", sitrackFrame.Latitude);
                 frameReport.AppendFormat("Lon : {0}, ", sitrackFrame.Longitude);
                 frameReport.AppendFormat("Location : {0}, ", sitrackFrame.Location);
                 frameReport.AppendFormat("ReportDate : {0}, ", sitrackFrame.ReportDate);
