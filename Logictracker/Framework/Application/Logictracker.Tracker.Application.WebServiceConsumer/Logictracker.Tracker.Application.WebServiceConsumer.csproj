@@ -36,8 +36,9 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Aop">
       <HintPath>..\..\..\packages\Spring.Aop.2.0.1\lib\net45\Spring.Aop.dll</HintPath>

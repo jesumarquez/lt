@@ -18,6 +18,10 @@
                 <br />
                 <cwc:TipoReferenciaGeograficaDropDownList ID="cbTipoReferenciaGeografica" runat="server" Width="200px" AutoPostBack="True" OnSelectedIndexChanged="FilterChangedHandler" ParentControls="cbEmpresa, cbLinea" />
             </td>
+             <td>
+                <cwc:ResourceLabel ID="lblActivarPaginacion" Text="Paginar Consulta" runat="server" ResourceName="Entities" VariableName="Paginar Consulta" /><br />
+                <cwc:ResourceCheckBox ID="CheckBoxActivarPaginacion" runat="server" Checked="true" AutoPostBack="true" Width="200px"  OnCheckedChanged="CheckBoxActivarPaginacion_CheckedChanged" />
+            </td>
         </tr>
     </table>
 </asp:Content>

@@ -157,6 +157,33 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
                     .Cacheable()
                     .ToList();
         }
+
+        public List<ReferenciaGeografica> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tiposGeoRef, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            var q = Query.FilterEmpresa(Session, empresas)
+                         .FilterLinea(Session, empresas, lineas);
+
+            if (!QueryExtensions.IncludesAll(tiposGeoRef))
+                q = q.FilterTipoReferenciaGeografica(Session, empresas, lineas, tiposGeoRef);
+            if (reCount)
+            {
+                int count = q.Where(r => !r.Baja)
+                      .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow))
+                      .Count();
+
+                if (!totalRows.Equals(count))
+                {
+                    totalRows = count;
+                }
+            }
+
+            return q.Where(r => !r.Baja)
+                    .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Cacheable()
+                    .ToList();
+        }        
         
         public IEnumerable<ReferenciaGeografica> GetListForVehicle(Coche vehiculo)
         {
