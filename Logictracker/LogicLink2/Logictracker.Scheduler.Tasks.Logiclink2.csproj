@@ -39,10 +39,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Geocoder.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Geocoder\bin\Debug\Geocoder.Core.dll</HintPath>
-    </Reference>
     <Reference Include="LinqToExcel">
       <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
     </Reference>
@@ -87,6 +83,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Geocoder\Geocoder.Core.csproj">
+      <Project>{52186fb0-923b-48a5-8411-d60f88cfae1b}</Project>
+      <Name>Geocoder.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>

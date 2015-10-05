@@ -22,7 +22,8 @@ namespace LogicTracker.App.Web.Api.Controllers
             try
             {
                 var frameList = SitrackModelToFrame(positions);
-                ReceptionService.ParseSitrackPositions(frameList);
+                // Comentado 4/10 por DAD para poder hacer andar el Build del VSO
+                //ReceptionService.ParseSitrackPositions(frameList);
             }
             catch (NullReferenceException ex)
             {
