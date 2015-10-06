@@ -28,7 +28,6 @@ using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using Logictracker.Types.ValueObject.Messages;
 using Logictracker.Utils;
-using Logictracker.Culture;
 using Logictracker.Reports.Messaging;
 
 namespace Logictracker.Messages.Saver
@@ -661,19 +660,24 @@ namespace Logictracker.Messages.Saver
         {
             var queue = GetMailReportMsmq();
             IReportCommand reportCommand = null;
+            var reportId = DaoFactory.ProgramacionReporteDAO.GetReportIdByReportName("MANUAL");
 
             switch (log.Accion.Reporte)
             {
                 case ProgramacionReporte.Reportes.EstadoEntregas:
+                    //var vehicles = new List<int> {log.Viaje.Vehiculo.Id};
+                    //reportCommand = ReportService.CreateDeliverStatusReportCommand(reportId, log.Viaje.Empresa.Id, -1, log.Accion.DestinatariosMailReporte,
+                    //   log.Fecha, log.Viaje.InicioReal.Value, vehicles);
+
                     reportCommand = new DeliverStatusReportCommand
                     {
-                        ReportId = log.Id,
+                        ReportId = reportId,//log.Id,
                         CustomerId = log.Viaje.Empresa.Id,
                         Email = log.Accion.DestinatariosMailReporte,
                         FinalDate = log.Fecha,
                         InitialDate = log.Viaje.InicioReal.Value,
-                        VehiclesId = new List<int>{log.Viaje.Vehiculo.Id},
-                        ReportName = log.Viaje.Codigo                        
+                        VehiclesId = new List<int> { log.Viaje.Vehiculo.Id },
+                        ReportName = log.Viaje.Codigo
                     };
                     break;
                 default:

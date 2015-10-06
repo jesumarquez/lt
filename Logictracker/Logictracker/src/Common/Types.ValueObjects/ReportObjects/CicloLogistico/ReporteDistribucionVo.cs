@@ -59,7 +59,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
         [GridMapping(Index = IndexEmpleado, ResourceName = "Entities", VariableName = "PARENTI09", AllowGroup = true)]
         public string Empleado { get; set; }
 
-        [GridMapping(Index = IndexFecha, ResourceName = "Labels", VariableName = "DATE", AllowGroup = false)]
+        [GridMapping(Index = IndexFecha, ResourceName = "Labels", VariableName = "DATE", AllowGroup = true)]
         public string Fecha { get; set; }
 
         [GridMapping(Index = IndexOrden, ResourceName = "Labels", VariableName = "ORDEN", AllowGroup = false)]

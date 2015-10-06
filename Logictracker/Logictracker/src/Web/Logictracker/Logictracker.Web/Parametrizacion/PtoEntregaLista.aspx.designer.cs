@@ -65,5 +65,23 @@ namespace Logictracker.Parametrizacion {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.ClienteDropDownList ddlCliente;
+        
+        /// <summary>
+        /// lblActivarPaginacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblActivarPaginacion;
+        
+        /// <summary>
+        /// CheckBoxActivarPaginacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.CheckBoxs.ResourceCheckBox CheckBoxActivarPaginacion;
     }
 }

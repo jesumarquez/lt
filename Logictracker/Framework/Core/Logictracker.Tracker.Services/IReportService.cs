@@ -7,10 +7,10 @@ namespace Logictracker.Tracker.Services
 {
     public interface IReportService
     {
-        void GenerateDailyEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate);
+        void GenerateEventReportAndSendMail(int customerId, string email, List<int> vehiclesId, List<int> messagesId, List<int> driversId, DateTime initialDate, DateTime finalDate);
         void GenerateFinalReportAndSendMail(DateTime dateTime, string mail);
 
-        Stream GenerateDailyEventReport(EventReportCommand command, IReportStatus statusReport);
+        Stream GenerateEventReport(EventReportCommand command, IReportStatus statusReport);
         Stream GenerateVehicleInfractionsReport(VehicleInfractionsReportCommand command, IReportStatus reportStatus);
         Stream GenerateAccumulatedKilometersReport(AccumulatedKilometersReportCommand command, IReportStatus reportStatus);
         Stream GenerateVehicleActivityReport(VehicleActivityReportCommand command, IReportStatus reportStatus);
@@ -25,9 +25,10 @@ namespace Logictracker.Tracker.Services
         string GenerateSummarizedDriversInfractionReport(DriversInfractionsReportCommand command, IReportStatus reportStatus);
         string GenerateSummarizedDocumentExpirationReport(DocumentsExpirationReportCommand command, IReportStatus reportStatus);
         string GenerateSummarizedOdometersReport(OdometersReportCommand command, IReportStatus reportStatus);
-        string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus reportStatus);       
+        string GenerateFinalExcecutionReport(FinalExecutionCommand command, IReportStatus reportStatus);
+        string GenerateVehicleVerifierReport(VehicleVerifierCommand command, IReportStatus statusReport);
 
-        void LogReportExecution(IReportStatus reportStatus);
+        void LogReportExecution(int reportId, IReportStatus reportStatus);
         void SendHtmlReport(string report, string email, string reportName);
         void SendEmptyReport(IReportCommand command, string reportName, bool isError);
         void SendReport(string reportExecution, string reporteDeEjecucion);

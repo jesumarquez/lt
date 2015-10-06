@@ -45,19 +45,16 @@ function PrintReport(){
                         ( + )</span> Filtros<br />
                 </td>
                 <td align="left" style="width: 275px">
-                    <cwc:ResourceLabel ID="lblDistrito" runat="server" ResourceName="Entities" VariableName="PARENTI01"
-                        Font-Bold="true" />
-                        <br />
+                    <cwc:ResourceLabel ID="lblDistrito" runat="server" ResourceName="Entities" VariableName="PARENTI01" Font-Bold="true" />
+                    <br />
                     <cwc:LocacionDropDownList ID="ddlDistrito" runat="server" Width="200px" AddAllItem="true" />
                 </td>
                 <td align="left" style="width: 250px">
-                    <cwc:ResourceLabel ID="lblLinea" runat="server" Font-Bold="true" ResourceName="Entities"
-                        VariableName="PARENTI02" />
-                        <br />
+                    <cwc:ResourceLabel ID="lblLinea" runat="server" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI02" />
+                    <br />
                     <asp:UpdatePanel ID="upBase" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                         <ContentTemplate>
-                            <cwc:PlantaDropDownList ID="ddlLinea" runat="server" Width="200px" AddAllItem="true"
-                                ParentControls="ddlDistrito" />
+                            <cwc:PlantaDropDownList ID="ddlLinea" runat="server" Width="200px" AddAllItem="true" ParentControls="ddlDistrito" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlDistrito" EventName="SelectedIndexChanged" />
@@ -65,13 +62,11 @@ function PrintReport(){
                     </asp:UpdatePanel>
                 </td>
                 <td align="left" style="width: 325px">
-                    <cwc:ResourceLabel runat="server" ID="lblTipoCoche" Font-Bold="true" ResourceName="Entities"
-                        VariableName="PARENTI17" />
-                        <br />
+                    <cwc:ResourceLabel runat="server" ID="lblTipoCoche" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI17" />
+                    <br />
                     <asp:UpdatePanel ID="upTipoVehiculo" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                         <ContentTemplate>
-                            <cwc:TipoDeVehiculoDropDownList ID="ddlTipoVehiculo" AddAllItem="true" runat="server"
-                                Width="200px" ParentControls="ddlLinea" />
+                            <cwc:TipoDeVehiculoDropDownList ID="ddlTipoVehiculo" AddAllItem="true" runat="server" Width="200px" ParentControls="ddlDistrito,ddlLinea" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlLinea" EventName="SelectedIndexChanged" />
@@ -79,13 +74,11 @@ function PrintReport(){
                     </asp:UpdatePanel>
                 </td>
                 <td>
-                    <cwc:ResourceLabel runat="server" ID="lblCostCenter" Font-Bold="true" ResourceName="Entities"
-                        VariableName="PARENTI37" />
-                        <br />
+                    <cwc:ResourceLabel runat="server" ID="lblCostCenter" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI37" />
+                    <br />
                     <asp:UpdatePanel ID="upCostCenter" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                         <ContentTemplate>
-                            <cwc:CentroDeCostosDropDownList ID="ddlCostCenter" AddAllItem="true" runat="server"
-                                Width="200px" ParentControls="ddlLinea" />
+                            <cwc:CentroDeCostosDropDownList ID="ddlCostCenter" AddAllItem="true" runat="server" Width="200px" ParentControls="ddlDistrito,ddlLinea" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlLinea" EventName="SelectedIndexChanged" />
@@ -97,7 +90,7 @@ function PrintReport(){
                     <br />
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                         <ContentTemplate>
-                            <cwc:TransportistaDropDownList ID="ddlTransportista" AddAllItem="true" runat="server" Width="200px" ParentControls="ddlLinea" />
+                            <cwc:TransportistaDropDownList ID="ddlTransportista" AddAllItem="true" runat="server" Width="200px" ParentControls="ddlDistrito,ddlLinea" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlLinea" EventName="SelectedIndexChanged" />
@@ -105,14 +98,12 @@ function PrintReport(){
                     </asp:UpdatePanel>
                 </td>
                 <td align="right">
-                    <cwc:ResourceButton ID="btnActualizar" runat="server" ResourceName="Controls" VariableName="BUTTON_REFRESH"
-                        OnClick="BtnSearchClick" />
+                    <cwc:ResourceButton ID="btnActualizar" runat="server" ResourceName="Controls" VariableName="BUTTON_REFRESH" OnClick="BtnSearchClick" />
                 </td>
             </tr>
         </table>
     
-    <div id="trFiltrosAvanzados" style="display: none; border-top: solid 1px #cccccc;
-        padding: 5px; text-align: right;">
+    <div id="trFiltrosAvanzados" style="display: none; border-top: solid 1px #cccccc; padding: 5px; text-align: right;">
         <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="true">
             <ContentTemplate>
                 <table style="width: 100%; color: #999999;">

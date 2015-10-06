@@ -324,11 +324,10 @@ namespace Logictracker.Dispatcher.Handlers
             }
             
             var textoEvento = ExtraText.GetExtraText(generico, code) + extraText;
-            var textoManual = "Manual" + textoEvento;
             var chofer = GetChofer(generico.GetRiderId());
 
             MessageSaver.Save(generico, code, Dispositivo, Coche, chofer, generico.GetDateTime(), generico.GeoPoint, textoEvento, ZonaManejo);
-            MessageSaver.Save(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), Coche, chofer, generico.GetDateTime(), generico.GeoPoint, textoManual);
+            MessageSaver.Save(MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(), Coche, chofer, generico.GetDateTime(), generico.GeoPoint, textoEvento);
         }
 
 		private string ProcessEstadoLogistico(string code, IGeoPoint generico)

@@ -130,6 +130,8 @@ namespace Logictracker.CicloLogistico.Distribucion
 
         protected override void Bind()
         {
+            DAOFactory.Session.Refresh(EditObject);
+
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
             cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
             cbCentroDeCosto.SetSelectedValue(EditObject.CentroDeCostos != null ? EditObject.CentroDeCostos.Id : cbCentroDeCosto.AllValue);

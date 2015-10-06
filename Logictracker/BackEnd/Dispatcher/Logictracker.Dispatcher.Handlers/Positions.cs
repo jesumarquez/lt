@@ -1019,18 +1019,18 @@ namespace Logictracker.Dispatcher.Handlers
             {
                 UpdateOdometerValues(odometro, lastPosition, kilometers, hours);
 
-                if (odometro.Vencido())
+                if (odometro.Vencido() && !odometro.UltimoDisparo.HasValue)
                 {
                     odometro.UltimoDisparo = lastPosition.Date;
                     if (odometro.Odometro.EsIterativo) odometro.ResetOdometerValues();
 					MessageSaver.Save(_posicion, MessageCode.OdometerExpired.GetMessageCode(), Dispositivo, Coche, null, _posicion.GetDateTime(), lastPosition, odometro.Odometro.Descripcion);
                 }
-                else if (odometro.SuperoSegundoAviso())
+                else if (odometro.SuperoSegundoAviso() && !odometro.FechaSegundoAviso.HasValue)
                 {
 					odometro.FechaSegundoAviso = _posicion.GetDateTime();
 					MessageSaver.Save(_posicion, MessageCode.OdometerSecondWarning.GetMessageCode(), Dispositivo, Coche, null, _posicion.GetDateTime(), lastPosition, odometro.Odometro.Descripcion);
                 }
-                else if (odometro.SuperoPrimerAviso())
+                else if (odometro.SuperoPrimerAviso() && !odometro.FechaPrimerAviso.HasValue)
                 {
 					odometro.FechaPrimerAviso = _posicion.GetDateTime();
 					MessageSaver.Save(_posicion, MessageCode.OdometerFirstWarning.GetMessageCode(), Dispositivo, Coche, null, _posicion.GetDateTime(), lastPosition, odometro.Odometro.Descripcion);

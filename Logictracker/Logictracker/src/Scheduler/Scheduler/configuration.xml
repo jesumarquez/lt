@@ -1,48 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration xmlns="urn:Scheduler.Configuration">
-
-    <!--<Timer Enabled="false" Name="Reinicio de Servicios" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
+    <!--
+    <Timer Enabled="false" Name="Reinicio de Servicios" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.ReiniciarServiciosTask, Logictracker.Scheduler.Tasks.Mantenimiento" />
-    </Timer-->
-
-  <!--Timer Enabled="false" Name="Aux" StartTime="00:00:00">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="false" Name="Aux" StartTime="00:00:00">
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DetectNonUsedIndexes, Logictracker.Scheduler.Tasks.Mantenimiento" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.RecommendIndexes, Logictracker.Scheduler.Tasks.Mantenimiento" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.ExpensiveQueries, Logictracker.Scheduler.Tasks.Mantenimiento" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.IndexDefragmentation, Logictracker.Scheduler.Tasks.Mantenimiento" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.UpdateStadistics, Logictracker.Scheduler.Tasks.Mantenimiento" />
-    </Timer-->
-
-  <!--Timer Enabled="false" Name="Programacion de Reportes" StartTime="00:00:00" Periodicity="Day" RunAtStart="false" Notifiers="lucasm@logictracker.com">
-      <Task Class="Logictracker.Scheduler.Tasks.ReportsScheduler.Task, Logictracker.Scheduler.Tasks.ReportsScheduler"/>
-    </Timer-->
-
-  <!--Timer Enabled="true" Name="Support" StartTime="00:00:00" Periodicity="Minute" Frequency="5" Notifiers="dev@logictracker.com" RunAtStart="false">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="Programacion de Reportes" StartTime="00:00:00" Periodicity="Day" RunAtStart="true" Notifiers="julian.millan@logictracker.com" >
+      <Task Class="Logictracker.Scheduler.Tasks.ReportsScheduler.Task, Logictracker.Scheduler.Tasks.ReportsScheduler" Params="queuename=.\private$\ltracker.mailreportservice.inputqueue;queuetype=binary" />
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="Support" StartTime="00:00:00" Periodicity="Minute" Frequency="5" Notifiers="dev@logictracker.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.QueueStatus.Task, Logictracker.Scheduler.Tasks.QueueStatus" Params="MessageCount=5000;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.WatchDogServiceTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Service=LT.Parser.ClientHost;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com,julian.millan@logictracker.com;" />
-    </Timer-->
-
-  <!--Timer Enabled="false" Name="Generacion de Tareas" StartTime="22:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="false" Name="Generacion de Tareas" StartTime="22:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.GeneracionTareas.Task, Logictracker.Scheduler.Tasks.GeneracionTareas" />
-    </Timer-->
-
-  <!--Timer Enabled="false" Name="Inicio Automatico de Tareas" StartTime="00:00:00" Periodicity="Minute" Frequency="1" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="false" Name="Inicio Automatico de Tareas" StartTime="00:00:00" Periodicity="Minute" Frequency="1" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.InicioAutomatico.Task, Logictracker.Scheduler.Tasks.InicioAutomatico" />
-    </Timer-->
-
-  <!--Timer Enabled="false" Name="Cierre Automatico de Tareas" StartTime="20:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="false" Name="Cierre Automatico de Tareas" StartTime="20:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.CierreAutomatico.Task, Logictracker.Scheduler.Tasks.CierreAutomatico" />
-    </Timer-->
-
-    <!--Timer Enabled="false" Name="Control Umbral Salida Distribucion" StartTime="00:00:00" Periodicity="Minute" Frequency="1" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="false" Name="Control Umbral Salida Distribucion" StartTime="00:00:00" Periodicity="Minute" Frequency="1" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.ControlSalida.Task, Logictracker.Scheduler.Tasks.ControlSalida" />
-    </Timer-->
-
-    <!--Timer Enabled="false" Name="Regenera" StartTime="04:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false" >
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="false" Name="Regenera" StartTime="04:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false" >
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Desde=13/09/2014;Hasta=14/09/2014;" />
-    </Timer-->
-
-    <!--Timer Enabled="true" Name="Data Maintenance" StartTime="00:00:01" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="Data Maintenance" StartTime="00:00:01" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="MaxMessageCount=5000;Destinatarios=lucasm@logictracker.com,matiasa@logictracker.com;" />
       <Task Class="Logictracker.Scheduler.Tasks.VencimientoDocumentos.Task, Logictracker.Scheduler.Tasks.VencimientoDocumentos" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartDistribucionTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Regenera=true;Empresas=-1;Destinatarios=lucasm@logictracker.com;Ids=245132;" />
@@ -50,42 +59,56 @@
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartEstadoVehiculoTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=gfernandez@logictracker.com,pablof@logictracker.com;"/>
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.MessageCountServiceTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=flavioa@logictracker.com,soporte@logictracker.com,lucasm@logictracker.com;" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.VehicleData, Logictracker.Scheduler.Tasks.Mantenimiento" />
-    </Timer-->
-
-    <!--<Timer Enabled="true" Name="LogicLink 2 - FEMSA" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false" >
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="LogicLink 2 - FEMSA" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=75;" />
-    </Timer-->
-
-    <!--Timer Enabled="true" Name="LogicLink 2 - SOS" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false" >
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="LogicLink 2 - SOS" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=86;" />
-    </Timer-->
-
-    <!--Timer Enabled="true" Name="LogicLink 2 - QUILMES" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="LogicLink 2 - QUILMES" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=74;" />
-    </Timer-->
-
-    <!--<Timer Enabled="true" Name="LogicLink 2 - CCU" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="LogicLink 2 - CCU" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
       <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=81;" />
-    </Timer>-->
-
-    <!--Timer Enabled="false" Name="Pump" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="LogicLink 2 - Musimundo" StartTime="00:00:00" Periodicity="Minute" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true" >
+      <Task Class="Logictracker.Scheduler.Tasks.Logiclink2.Task, Logictracker.Scheduler.Tasks.Logiclink2" Params="Empresa=58;" />
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="false" Name="Pump" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.PumpControl.Task, Logictracker.Scheduler.Tasks.PumpControl"/>
-    </Timer-->
-
+    </Timer>
+    -->
+    <!--
     <Timer Enabled="true" Name="OrbComm" StartTime="00:00:00" Periodicity="Minute" Frequency="30" RunAtStart="true">
       <Task Class="Logictracker.Scheduler.Tasks.OrbComm.Task, Logictracker.Scheduler.Tasks.OrbComm" Params="queuename=.\private$\eventos_orbcomm;queuetype=binary" />
     </Timer>
-
-    <!--Timer Enabled="false" Name="ControlAcceso" StartTime="08:15:00" Periodicity="Minute" Frequency="30" RunAtStart="false">
+    -->
+    <!--
+    <Timer Enabled="false" Name="ControlAcceso" StartTime="08:15:00" Periodicity="Minute" Frequency="30" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.ControlAcceso.Task, v.Scheduler.Tasks.ControlAcceso" Params="queuename=.\private$\eventos_trax;queuetype=binary" />
-    </Timer-->
-
-    <!--Timer Enabled="true" Name="LoJack" StartTime="00:00:00" Periodicity="Second" Frequency="30" Notifiers="lucasm@logictracker.com" RunAtStart="false" >
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="LoJack" StartTime="00:00:00" Periodicity="Second" Frequency="30" Notifiers="lucasm@logictracker.com" RunAtStart="false" >
       <Task Class="Logictracker.Scheduler.Tasks.LoJack.Task, Logictracker.Scheduler.Tasks.LoJack" Params="queuename=.\private$\eventos_trax"/>
-    </Timer-->
-
-    <!-->Timer Enabled="true" Name="Report Generator" StartTime="00:05:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
+    </Timer>
+    -->
+    <!--
+    <Timer Enabled="true" Name="Report Generator" StartTime="00:05:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
       <Task Class="Logictracker.Scheduler.Tasks.ReportsScheduler.Task, Logictracker.Scheduler.Tasks.ReportsScheduler" Params="queuename=.\private$\ltracker.mailreportservice.inputqueue;queuetype=binary" />
-    </Timer-->
-
+    </Timer>
+    -->
 </Configuration>

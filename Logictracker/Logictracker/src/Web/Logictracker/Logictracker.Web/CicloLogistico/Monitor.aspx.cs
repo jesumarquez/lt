@@ -491,7 +491,14 @@ namespace Logictracker.CicloLogistico
 
             var kmReales = 0.0;
             if (ciclo.InicioReal.HasValue)
-                kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
+            {
+                if (ciclo.InicioReal.Value < DateTime.Today)
+                {
+                    var dmViaje = DAOFactory.DatamartViajeDAO.GetRecords(ciclo.Id).FirstOrDefault();
+                    if (dmViaje != null) kmReales = dmViaje.KmTotales;
+                }
+                else kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
+            }
             
             lblKmReales.Text = kmReales.ToString("#0.00") + " Km";
             lblKmProgramados.Text = ciclo.Detalles.Sum(d => d.KmCalculado).Value.ToString("#0.00") + " Km";
@@ -528,7 +535,15 @@ namespace Logictracker.CicloLogistico
         protected void ShowEventos(Coche vehiculo, DateTime desde, DateTime hasta, int viajeId)
         {
             if (vehiculo == null) return;
-            var codigos = new[] { MessageCode.CicloLogisticoIniciado.GetMessageCode(), MessageCode.EstadoLogisticoCumplido.GetMessageCode(), MessageCode.CicloLogisticoCerrado.GetMessageCode(), MessageCode.StoppedEvent.GetMessageCode() };
+            var codigos = new[] { MessageCode.CicloLogisticoIniciado.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplido.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode(),
+                                  MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(), 
+                                  MessageCode.CicloLogisticoCerrado.GetMessageCode(), 
+                                  MessageCode.StoppedEvent.GetMessageCode() };
             var maxMonths = vehiculo.Empresa != null ? vehiculo.Empresa.MesesConsultaPosiciones : 3;
             var events = DAOFactory.LogMensajeDAO.GetEventos(new[] { vehiculo.Id }, codigos, desde, hasta, maxMonths);
             
@@ -538,16 +553,15 @@ namespace Logictracker.CicloLogistico
                 if (!el.HasValidLatitudes()) continue;
                 
                 var messageIconUrl = el.GetIconUrl();
-                if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplido.GetMessageCode())
-                {
-                    if (el.Texto.Contains("Entrada"))
-                        messageIconUrl = "flag_1_right_green_32.png";
-                    else if (el.Texto.Contains("Salida"))
-                        messageIconUrl = "flag_2_left_red_32.png";
-                    else if (el.Texto.Contains("Manual"))
-                        messageIconUrl = "flag_3_right_blue_32.png";
-                }
-                
+                if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode())
+                    messageIconUrl = "flag_1_right_green_32.png";
+                else if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode())
+                    messageIconUrl = "flag_2_left_red_32.png";
+                else if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode()
+                    || el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()
+                    || el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode())
+                    messageIconUrl = "flag_3_right_blue_32.png";
+                                
                 var iconUrl = string.IsNullOrEmpty(messageIconUrl) ? ResolveUrl("~/point.png") : Path.Combine(IconDir, messageIconUrl);
                 var popupText = string.Format("{0}<br/><b>{1}</b>",el.Fecha.ToDisplayDateTime().ToString("dd-MM-yyyy HH:mm"), el.Texto);
                 

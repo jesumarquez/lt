@@ -66,6 +66,11 @@ namespace Logictracker.Messaging
 
         AtrasoTicket,
         EstadoLogisticoCumplido,
+        EstadoLogisticoCumplidoManual,
+        EstadoLogisticoCumplidoManualRealizado,
+        EstadoLogisticoCumplidoManualNoRealizado,
+        EstadoLogisticoCumplidoEntrada,
+        EstadoLogisticoCumplidoSalida,
         CicloLogisticoIniciado,
         CicloLogisticoCerrado,
         CicloLogisticoIniciadoDocumentosInvalidos,
@@ -237,11 +242,16 @@ namespace Logictracker.Messaging
 				case MessageCode.TolvaActivated: return "2081";
 
 				// CicloLogístico
-				case MessageCode.AtrasoTicket: return "1001";
+                case MessageCode.EstadoLogisticoCumplidoManual: return "1000";
+                case MessageCode.AtrasoTicket: return "1001";
 				case MessageCode.EstadoLogisticoCumplido: return "1002";
 				case MessageCode.CicloLogisticoIniciado: return "1003";
 				case MessageCode.CicloLogisticoCerrado: return "1004";
                 case MessageCode.CicloLogisticoIniciadoDocumentosInvalidos: return "1005";
+                case MessageCode.EstadoLogisticoCumplidoEntrada: return "1009";
+                case MessageCode.EstadoLogisticoCumplidoSalida: return "1010";
+                case MessageCode.EstadoLogisticoCumplidoManualRealizado: return "1013";
+                case MessageCode.EstadoLogisticoCumplidoManualNoRealizado: return "1014";
 
                 // Desvío de Recorrido
                 case MessageCode.DesvioRecorrido: return "1006";

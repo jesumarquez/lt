@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Spring.Web.Mvc;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace LogicTracker.App.Web.Api
 {
     public class WebApiApplication : SpringMvcApplication

@@ -288,7 +288,7 @@ namespace Logictracker.Process.CicloLogistico
                 detalle.Entrada = data.Date;
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
 
-                SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Entrada (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                SaveMessage(MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                 SaveMessageAtraso(data, detalle);
             }
             else if (detalle.Salida.HasValue && !detalle.Viaje.Detalles.Any(entrega => entrega.Id != detalle.Id && entrega.Entrada.HasValue && entrega.Entrada.Value > detalle.Salida.Value))
@@ -303,7 +303,7 @@ namespace Logictracker.Process.CicloLogistico
                 detalle.Entrada = data.Date;
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
 
-                SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Entrada (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                SaveMessage(MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                 SaveMessageAtraso(data, detalle);
             }
         }
@@ -343,7 +343,7 @@ namespace Logictracker.Process.CicloLogistico
                     detalle.Estado = EntregaDistribucion.Estados.Visitado;
 
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
-                SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Salida (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                SaveMessage(MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                 //SaveMessageAtraso(data, detalle);
 
                 //EnviarAvisoSiguienteDestino(detalle);
@@ -361,7 +361,7 @@ namespace Logictracker.Process.CicloLogistico
 
                     DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
                     
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Salida (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                     
                     //EnviarAvisoSiguienteDestino(detalle);
                 }
@@ -561,10 +561,10 @@ namespace Logictracker.Process.CicloLogistico
                     detalle.Estado = EntregaDistribucion.Estados.Completado;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
                     
-                    SaveMessage(MessageCode.GarminStopStatus.GetMessageCode(), ", <b>realizada satisfactoriamente<b>: " + destDetail, data);
+                    SaveMessage(MessageCode.GarminStopStatus.GetMessageCode(), ": " + destDetail, data);
                     
-                    var descriptiva = "Manual -> " + detalle.Viaje.Codigo + " - " + destDetail;
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
+                    var descriptiva = "-> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
                     SaveMessageAtraso(data, detalle);
 
                     var dest = new Destination(detalle.Id, 
@@ -698,9 +698,9 @@ namespace Logictracker.Process.CicloLogistico
                     var text = "***";
                     if (messageDesc != null) text = messageDesc.Descripcion;
                     
-                    var descriptiva = "(Manual) <b>realizada satisfactoriamente<b>: " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + text;
+                    var descriptiva = ": " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + text;
                     
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
                     SaveMessageAtraso(data, detalle);
 
                     var dest = new Destination(detalle.Id,
@@ -718,10 +718,10 @@ namespace Logictracker.Process.CicloLogistico
                     detalle.Estado = EntregaDistribucion.Estados.Completado;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), ", <b>reactivada y confirmada<b>: " + destDetail, data);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), ", <b>reactivada y confirmada<b>: " + destDetail, data);
 
-                    var descripcion = "Manual -> " + detalle.Viaje.Codigo + " - " + destDetail;
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
+                    var descripcion = "-> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
                     SaveMessageAtraso(data, detalle);
 
                     var destiny = new Destination(detalle.Id,
@@ -756,9 +756,9 @@ namespace Logictracker.Process.CicloLogistico
                     var textMessageDesc = "***";
                     if (textMessage != null) textMessageDesc = textMessage.Descripcion;
 
-                    var descriptiva2 = "(Manual) <b>no realizada<b>: " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + textMessageDesc;
+                    var descriptiva2 = ": " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + textMessageDesc;
                     
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva2, data, detalle.Viaje, detalle);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(), descriptiva2, data, detalle.Viaje, detalle);
                     
                     //SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), ", <b>se ha arribado al destino</b>: " + destDetail, data);
                     //SaveMessage(MessageCode.GarminStopStatusDeleted.GetMessageCode(), ", <b>entrega eliminada del dispositivo remoto</b>: " + destDetail, data);
