@@ -1395,6 +1395,9 @@
   <data name="ASIGNADOS" xml:space="preserve">
     <value>Atribuído</value>
   </data>
+  <data name="NO_ASIGNADOS" xml:space="preserve">
+    <value>Não atribuído</value>
+  </data>
   <data name="DISPONIBLES" xml:space="preserve">
     <value>Disponível</value>
   </data>
@@ -4530,5 +4533,14 @@
   </data>
   <data name="ENVIA_REPORTE" xml:space="preserve">
     <value>Envía Relatório</value>
+  </data>
+  <data name="PRODUCTIVO" xml:space="preserve">
+    <value>Produtivo</value>
+  </data>
+  <data name="PARENTI10_INICIO" xml:space="preserve">
+    <value>Tipo Geogerca Inicio</value>
+  </data>
+  <data name="PARENTI10_FIN" xml:space="preserve">
+    <value>Tipo Geocerca Fim</value>
   </data>
 </root>

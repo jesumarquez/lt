@@ -51,6 +51,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual CentroDeCostos CentroDeCostos { get; set; }
         public virtual SubCentroDeCostos SubCentroDeCostos { get; set; }
         public virtual Coche Vehiculo { get; set; }
+        public virtual TipoCicloLogistico TipoCicloLogistico { get; set; }
         public virtual Empleado Empleado { get; set; }
         public virtual string Codigo { get; set; }
         public virtual int NumeroViaje { get; set; }
