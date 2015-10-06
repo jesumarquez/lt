@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionPtoEntregaLista" Title="Untitled Page" Codebehind="PtoEntregaLista.aspx.cs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="True" Inherits="Logictracker.Parametrizacion.ParametrizacionPtoEntregaLista" Title="Untitled Page" Codebehind="PtoEntregaLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>
@@ -14,6 +14,10 @@
             <td>
                 <cwc:ResourceLabel ID="lblCliente" runat="server" ResourceName="Entities" VariableName="PARENTI18" /><br />
                 <cwc:ClienteDropDownList ID="ddlCliente" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito,ddlBase" onselectedindexchanged="FilterChangedHandler" AddAllItem="false" />
+            </td>
+            <td>
+                <cwc:ResourceLabel ID="lblActivarPaginacion" Text="Paginar Consulta" runat="server" ResourceName="Entities" VariableName="Paginar Consulta" /><br />
+                <cwc:ResourceCheckBox ID="CheckBoxActivarPaginacion" runat="server" Checked="true" AutoPostBack="true" Width="200px"  OnCheckedChanged="CheckBoxActivarPaginacion_CheckedChanged" />
             </td>
         </tr>
     </table>

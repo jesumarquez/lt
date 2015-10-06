@@ -78,7 +78,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
                         case LogicLinkFile.Estrategias.DistribucionMusimundo:
-                            //EmpresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas);
+                            _empresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas, out observaciones);
+                            result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
+                            if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
                         case LogicLinkFile.Estrategias.DistribucionBrinks:
                             //EmpresasLineas = DistribucionBrinks.Parse(archivo, out rutas, out entregas);
@@ -96,7 +98,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             switch (extension)
 	                        {
                                 case "Rutas.xlsx":
-                                    _empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas);
+                                    _empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas, out observaciones);
                                     result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                                     break;
                                 case "Clientes.xlsx":
@@ -104,7 +106,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                                     result = string.Format("Archivo procesado exitosamente. Clientes: {0}", clientes);
                                     break;
                                 case "Asigno.xlsx":
-                                    DistribucionCCU.ParseAsignaciones(archivo, out asignaciones);
+                                    DistribucionCCU.ParseAsignaciones(archivo, out asignaciones, out observaciones);
                                     result = string.Format("Archivo procesado exitosamente. Asignaciones: {0}", asignaciones);
                                     break;
                                 default:

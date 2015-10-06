@@ -37,6 +37,10 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\..\packages\Common.Logging.Core.3.1.0\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Spring.Aop">
       <HintPath>..\..\..\packages\Spring.Aop.2.0.1\lib\net45\Spring.Aop.dll</HintPath>
       <Private>True</Private>
@@ -61,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReceptionService.cs" />
     <Compile Include="RouteService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BackEnd\Codecs\Logitracker.Codecs.Sitrack\Logitracker.Codecs.Sitrack.csproj">
+      <Project>{B4103F7F-7B2E-41AA-AB82-96171076C7C6}</Project>
+      <Name>Logitracker.Codecs.Sitrack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
@@ -80,6 +89,10 @@
     <ProjectReference Include="..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
       <Project>{74067696-fd4b-460a-931b-6a3b4d4eef5c}</Project>
       <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AVL\Logictracker.AVL.csproj">
+      <Project>{0FD2623E-2379-410D-81E3-C8749BC014DE}</Project>
+      <Name>Logictracker.AVL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
       <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>

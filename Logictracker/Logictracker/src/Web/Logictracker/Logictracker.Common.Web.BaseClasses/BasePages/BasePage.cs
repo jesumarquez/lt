@@ -258,6 +258,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
             }
         }
 
+        public void ClearError()
+        {
+            if (LblInfo != null) DisplayError("");
+            else
+            {
+                Session["Error"] = new ApplicationException("");
+                Session["LastVisitedPage"] = Request.Url.AbsolutePath;
+
+                Response.Redirect(string.Concat(ApplicationPath, "Error.aspx"));
+            }
+        }
+
         public void ShowResourceError(string variableName, params object[] param)
         {
             ShowError(string.Format(CultureManager.GetError(variableName), param));

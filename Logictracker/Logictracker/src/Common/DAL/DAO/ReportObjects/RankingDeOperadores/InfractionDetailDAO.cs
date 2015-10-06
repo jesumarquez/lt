@@ -99,12 +99,11 @@ namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
 
                     var row = infractionsTable.NewRow();
                     row["DriverId"] = operador;
-                    row["Conductor"] =
-                        infraccionesOperador.FirstOrDefault().Empleado.Entidad.Descripcion;
+                    row["Conductor"] = infraccionesOperador.FirstOrDefault().Empleado.Entidad.Descripcion;
                     row["Vehiculo"] = infraccionesOperador.FirstOrDefault().Vehiculo.Interno;
-                    row["Grave"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 1);
+                    row["Grave"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 3);
                     row["Media"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 2);
-                    row["Leve"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 3);
+                    row["Leve"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 1);
 
                     infractionsTable.Rows.Add(row);
                 }

@@ -136,20 +136,27 @@ namespace Logictracker.Messaging
 		TextEvent = 999,
 
 		// CicloLogístico
-		TicketOverdue = 1001,
+        LogisticStateFulfilledManual = 1000,
+        TicketOverdue = 1001,
 		LogisticStateFulfilled = 1002,
 		LogisticsCycleInitiated = 1003,
 		LogisticsCycleTerminated = 1004,
+        LogisticsCycleInitiatedWithInvalidDocuments = 1005,
 
         DesvioRecorrido = 1006,
         VueltaAlRecorrido = 1007,
 
         TareaRevertida = 1008,
 
-		TraveledLeg = 1010,
+        LogisticStateFulfilledEnter = 1009,
+        LogisticStateFulfilledExit = 1010,
 
 		JammingOn = 1011,
 		JammingOff = 1012,
+
+        LogisticStateFulfilledManualRealized = 1013,
+        LogisticStateFulfilledManualNotRealized = 1014,
+
 		RfidDetected = 1024,
         NoDriverMovement = 1025,
 

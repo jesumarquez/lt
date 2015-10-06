@@ -60,9 +60,29 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .ToList();
         }
 
+        public List<PuntoEntrega> GetByCliente(int idCliente, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            if (reCount)
+            {
+                int count = Query.Where(p => p.Cliente.Id == idCliente 
+                    && !p.Baja).Count();
+                if (!totalRows.Equals(count))
+                {
+                    totalRows = count;
+                }
+            }
+            return Query.Where(p => p.Cliente.Id == idCliente
+                    && !p.Baja)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .Cacheable()
+                        .ToList();
+        }
+
         public List<PuntoEntrega> GetByCliente(int idCliente)
         {
-            return Query.Where(p => p.Cliente.Id == idCliente && !p.Baja)
+            return Query.Where(p => p.Cliente.Id == idCliente
+                    && !p.Baja)
                         .Cacheable()
                         .ToList();
         }
@@ -103,6 +123,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         #endregion
 
         #region Other Methods
+
+        public void SaveOrUpdateWithoutTransaction(PuntoEntrega obj)
+        {
+            base.SaveOrUpdateWithoutTransaction(obj);
+        }
 
         public void DeleteByCliente(int id)
         {

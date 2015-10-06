@@ -39,7 +39,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -129,7 +129,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -159,7 +159,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -189,7 +189,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -219,7 +219,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -249,7 +249,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -279,7 +279,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -309,7 +309,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -339,7 +339,7 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -369,7 +369,37 @@ namespace Logictracker.Tracker.Application.Reports
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
+            }
+        }
+
+        public void HandleMessage(VehicleVerifierCommand command)
+        {
+            Logger.DebugFormat("Received message command of type {0} ", command.GetType());
+
+            var statusReport = new ReportStatus();
+            try
+            {
+                NHibernateHelper.CreateSession();
+                Logger.Debug("Nhibernate session created");
+
+                ProcessVehicleVerifierReportCommand(command, statusReport);
+
+                NHibernateHelper.CloseSession();
+                Logger.Debug("Nhibernate close session");
+
+            }
+            catch (Exception e)
+            {
+                statusReport.Error = true;
+                Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
+                throw;
+            }
+            finally
+            {
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -407,6 +437,11 @@ namespace Logictracker.Tracker.Application.Reports
         #endregion
         
         #region processors
+        private void ProcessVehicleVerifierReportCommand(VehicleVerifierCommand command, ReportStatus statusReport)
+        {
+            var reportExecution = ReportService.GenerateVehicleVerifierReport(command, statusReport);
+            ReportService.SendHtmlReport(reportExecution, command.Email, "Verificador de Vehiculos");
+        }
 
         private void ProcessGenerateFinalExceutionReportCommand(FinalExecutionCommand command, ReportStatus statusReport)
         {
@@ -493,7 +528,7 @@ namespace Logictracker.Tracker.Application.Reports
         private void ProcessGenerateEventDailyReportCommand(EventReportCommand command, ReportStatus statusReport)
         {
             using (
-                var reportStream = ReportService.GenerateDailyEventReport(command, statusReport))
+                var reportStream = ReportService.GenerateEventReport(command, statusReport))
             {
                 if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
                 ReportService.SendReport(reportStream, command, command.ReportName);

@@ -46,9 +46,30 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             public const int LatitudDestino = 7;
             public const int LongitudDestino = 8;
         }
+        public class DistribucionMusimundo
+        {
+            public const int Factura = 0;
+            public const int Patente = 1;
+            public const int TM = 2;
+            public const int Prioridad = 3;
+            public const int Fecha = 4;
+            public const int Km = 5;
+            public const int Coord2 = 6;
+            public const int Coord1 = 7;
+            public const int Cliente = 8;
+            public const int Rango = 9;
+            public const int Importe = 10;
+            public const int Direccion = 11;
+        }
         public class DistribucionCCU
         {
-            public const int Fecha = 0;
+            public const int CD = 0;
+            public const int CodigoCliente = 8;
+            public const int Planilla = 18;
+            public const int Fecha = 23;
+            public const int Factura = 29;
+            public const int Hectolitros = 49;
+            public const int ImporteTotal = 56;
         }
         public class ClienteCCU
         {
@@ -59,6 +80,11 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             public const int Longitud = 4;
             public const int Localidad = 5;
             public const int Barrio = 6;
+        }
+        public class AsignacionCCU
+        {
+            public const int Planilla = 0;
+            public const int Patente = 1;
         }
 
         public class DistribucionReginaldLee
@@ -103,9 +129,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     };
                 }
             }
-        
-            
-
         }
     }
 }

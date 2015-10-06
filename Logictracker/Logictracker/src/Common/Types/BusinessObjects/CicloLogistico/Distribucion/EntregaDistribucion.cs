@@ -64,6 +64,9 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual short Estado { get; set; }
         public virtual TipoServicioCiclo TipoServicio { get; set; }
         public virtual int Bultos { get; set; }
+        public virtual double Volumen { get; set; }
+        public virtual double Peso { get; set; }
+        public virtual double Valor { get; set; }
 
         public virtual string Comentario1 { get; set; }
         public virtual string Comentario2 { get; set; }

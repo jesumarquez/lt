@@ -60,9 +60,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\App_Licenses.dll</HintPath>
     </Reference>
-    <Reference Include="Commons">
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Commons.dll</HintPath>
-    </Reference>
     <Reference Include="Geocoder.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Geocoder\bin\Debug\Geocoder.Core.dll</HintPath>
@@ -83,21 +80,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\LinqToExcel.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Memcached.ClientLibrary.dll</HintPath>
+    <Reference Include="Memcached.ClientLibrary">
+      <HintPath>..\..\Resources\Memcached.ClientLibrary\Memcached.ClientLibrary.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.Caches.MemCache">
       <HintPath>..\..\Resources\nhibernate-cache\4.0.3\NHibernate.Caches.MemCache.dll</HintPath>
@@ -107,15 +91,15 @@
     </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\Remotion.dll</HintPath>
+      <HintPath>..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\Remotion.Data.Linq.dll</HintPath>
+      <HintPath>..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\Remotion.Interfaces.dll</HintPath>
+      <HintPath>..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

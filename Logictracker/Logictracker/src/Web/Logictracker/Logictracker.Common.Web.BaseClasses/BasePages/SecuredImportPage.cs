@@ -215,8 +215,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             try
             {
                 if (!FileUpload.HasFile) ThrowError("FILE_EXPECTED");
-                if (FileUpload.PostedFile.ContentType != "application/vnd.ms-excel") ThrowError("FILE_BAD_EXTENSION");
-
+                if (FileUpload.PostedFile.ContentType != "application/vnd.ms-excel" &&
+                    FileUpload.PostedFile.ContentType != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                {
+                    ThrowError("FILE_BAD_EXTENSION");
+                }
                 var path = Server.MapPath(Config.Directory.TmpDir);
                 var filename = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMdd_HHmmss"), FileUpload.FileName);
 

@@ -3322,6 +3322,9 @@
   <data name="VER_MONITOR_SUBENTIDADES" xml:space="preserve">
     <value>Ver en Monitor do Medidores</value>
   </data>
+  <data name="PAGINAR_CONSULTA" xml:space="preserve">
+    <value>Consulta paginado</value>
+  </data>
   <data name="PLANO" xml:space="preserve">
     <value>Mapa</value>
   </data>

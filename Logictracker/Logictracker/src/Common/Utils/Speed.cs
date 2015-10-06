@@ -23,9 +23,9 @@ namespace Logictracker.Utils
         }
 
 		//debe ser public para la serializacion
-		public Speed()
+		public Speed(double speed)
         {
-            Pack(0);
+            Pack((float) speed);
         }
 
 	    private void Pack(float data)
