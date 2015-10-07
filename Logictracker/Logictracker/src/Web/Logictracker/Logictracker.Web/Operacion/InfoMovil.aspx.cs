@@ -100,11 +100,14 @@ namespace Logictracker.Operacion
 
             imgDirection.ImageUrl = "~/Common/EditImage.ashx?file=~/images/arrow_green.png&angle=" + Convert.ToInt32(pos.Curso);
 
+            var desde = pageCoche.Empresa.MonitorHistoricoDiaEntero ? pos.FechaMensaje.Date.ToDataBaseDateTime().ToString(CultureInfo.InvariantCulture) : pos.FechaMensaje.Subtract(TimeSpan.FromMinutes(15)).ToString(CultureInfo.InvariantCulture);
+
+            
             var link = string.Format("../Monitor/MonitorHistorico/monitorHistorico.aspx?Planta={0}&TypeMobile={1}&Movil={2}&InitialDate={3}&FinalDate={4}&ShowMessages=0&ShowPOIS=0&Empresa={5}&Chofer={6}",
                                     pageCoche.Linea != null ? pageCoche.Linea.Id : -1,
                                     pageCoche.TipoCoche.Id,
-                                    pageCoche.Id, 
-                                    pos.FechaMensaje.Subtract(TimeSpan.FromMinutes(15)).ToString(CultureInfo.InvariantCulture),
+                                    pageCoche.Id,
+                                    desde,
                                     pos.FechaMensaje.Add(TimeSpan.FromMinutes(1)).ToString(CultureInfo.InvariantCulture),
                                     pageCoche.Empresa != null ? pageCoche.Empresa.Id : pageCoche.Linea != null ? pageCoche.Linea.Empresa.Id : -1,
                                     pageCoche.Chofer != null ? pageCoche.Chofer.Id : -1);
