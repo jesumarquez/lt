@@ -322,7 +322,7 @@
 		<value>Teams</value>
 	</data>
 	<data name="PAR_ESTADOLOG" xml:space="preserve">
-		<value>Logistics States</value>
+		<value>Logistics States (Concrete)</value>
 	</data>
 	<data name="PAR_FIRMUPLOAD" xml:space="preserve">
 		<value>Upload Firmware</value>
@@ -908,6 +908,9 @@
   </data>
   <data name="PAR_ESTADO_LOGISTICO" xml:space="preserve">
     <value>Logistics States</value>
+  </data>
+  <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
+    <value>Logistic Cycle Type</value>
   </data>
 </root>
 

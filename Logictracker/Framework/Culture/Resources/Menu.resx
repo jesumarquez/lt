@@ -322,7 +322,7 @@
     <value>Equipos</value>
   </data>
   <data name="PAR_ESTADOLOG" xml:space="preserve">
-    <value>Estados Logísticos</value>
+    <value>Estados Logísticos (Hormigón)</value>
   </data>
   <data name="PAR_FIRMUPLOAD" xml:space="preserve">
     <value>Firmware Upload</value>
@@ -947,5 +947,8 @@
   </data>
   <data name="PAR_ESTADO_LOGISTICO" xml:space="preserve">
     <value>Estados Logísticos</value>
+  </data>
+  <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
+    <value>Tipo de Ciclo Logístico</value>
   </data>
 </root>

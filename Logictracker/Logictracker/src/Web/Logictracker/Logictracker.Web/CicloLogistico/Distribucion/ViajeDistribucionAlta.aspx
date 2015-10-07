@@ -108,6 +108,16 @@
                                 <asp:AsyncPostBackTrigger ControlID="cbVehiculo" EventName="SelectedIndexChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
+
+                        <cwc:ResourceLabel ID="lblTipoCiclo" runat="server" ResourceName="Entities" VariableName="PARTICK09" />
+                        <asp:UpdatePanel ID="updTipoCiclo" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:TipoCicloLogisticoDropDownList ID="cbTipoCicloLogistico" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa" TabIndex="26" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
                         
                         <cwc:ResourceLabel ID="lblCodigo" runat="server" ResourceName="Labels" VariableName="CODE_DISTRIBUCION" />
                         <asp:TextBox ID="txtCodigo" runat="server" Width="98%" MaxLength="32" />

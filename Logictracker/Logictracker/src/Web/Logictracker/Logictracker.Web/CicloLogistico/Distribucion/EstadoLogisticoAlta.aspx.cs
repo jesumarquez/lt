@@ -48,11 +48,36 @@ namespace Logictracker.CicloLogistico.Distribucion
             var descripcion = ValidateEmpty(txtDescripcion.Text, "DESCRIPCION");
 
             if (cbIcono.Selected <= 0) ThrowMustEnter("ICON");
-
-            if (cbMensajeInicio.Selected.Equals(0)) ThrowMustEnter("INICIO");
+            ValidateEntity(cbMensajeInicio.Selected, "INICIO");
 
             var byDescripcion = DAOFactory.EstadoLogisticoDAO.FindByDescripcion(cbEmpresa.Selected, txtDescripcion.Text);
             ValidateDuplicated(byDescripcion, "DESCRIPCION");
+        }
+
+        protected void cbMensajeInicioOnSelectedIndexChanged(object sender, EventArgs e)
+        { 
+            if (cbMensajeInicio.Selected > 0)
+            {
+                cbTipoGeocercaInicio.Enabled = true;
+            }
+            else
+            {
+                cbTipoGeocercaInicio.SetSelectedValue(cbTipoGeocercaInicio.NoneValue);
+                cbTipoGeocercaInicio.Enabled = false;
+            }
+        }
+
+        protected void cbMensajeFinOnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbMensajeFin.Selected > 0)
+            {
+                cbTipoGeocercaFin.Enabled = true;
+            }
+            else
+            {
+                cbTipoGeocercaFin.SetSelectedValue(cbTipoGeocercaInicio.NoneValue);
+                cbTipoGeocercaFin.Enabled = false;
+            }
         }
 
         protected void cbEmpresa_PreBind(Object sender, EventArgs e) { if (EditMode) cbEmpresa.EditValue = EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.NullValue; }

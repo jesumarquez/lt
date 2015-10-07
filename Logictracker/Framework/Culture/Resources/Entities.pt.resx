@@ -336,4 +336,7 @@
   <data name="SOCUSUA02" xml:space="preserve">
     <value>Perfil</value>
   </data>
+  <data name="PARTICK09" xml:space="preserve">
+    <value>Tipo do Ciclo Logistico</value>
+  </data>
 </root>

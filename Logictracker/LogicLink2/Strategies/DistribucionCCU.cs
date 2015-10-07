@@ -141,7 +141,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 filas++;
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", filas, rows.Count));
 
-                var codigoLinea = row[Properties.DistribucionCCU.CD].ToString().Trim();
+                var codigoLinea = "4"; // POR DEFAULT ES MUNRO
                 var linea = _lineasBuffer.SingleOrDefault(l => l.DescripcionCorta == codigoLinea);
                 if (linea == null)
                 {
@@ -402,6 +402,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         DireccionNomenclada = string.Empty,
                         Nombre = nombre
                     };
+
+                    listClientes.Add(puntoEntrega);
                 }
                 else
                 {
@@ -416,14 +418,14 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                         puntoEntrega.ReferenciaGeografica.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
-                        listReferencias.Add(puntoEntrega.ReferenciaGeografica);                        
-                    }
+                        listReferencias.Add(puntoEntrega.ReferenciaGeografica);
 
-                    puntoEntrega.Descripcion = direccion;
-                    puntoEntrega.Nombre = nombre;
-                }
+                        puntoEntrega.Descripcion = direccion;
+                        puntoEntrega.Nombre = nombre;
 
-                listClientes.Add(puntoEntrega);
+                        listClientes.Add(puntoEntrega);
+                    }                    
+                }                
             }
 
             STrace.Trace(Component, "Guardando referencias geográficas: " + listReferencias.Count);
@@ -440,7 +442,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
             STrace.Trace(Component, "Guardando clientes: " + listClientes.Count);
             te.Restart();
-            var clientesTotales = listReferencias.Count();
+            var clientesTotales = listClientes.Count();
             foreach (var puntoEntrega in listClientes)
             {
                 clientes++;
@@ -563,7 +565,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 try
                 {
-                    var codigoLinea = row[Properties.DistribucionCCU.CD].ToString().Trim();
+                    var codigoLinea = "4";
 
                     if (lastCodLinea != codigoLinea)
                     {
@@ -575,7 +577,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 }
                 catch (Exception ex)
                 {
-                    STrace.Exception(Component, ex, String.Format("Error Buffering Linea ({0})", row[Properties.DistribucionCCU.CD]));
+                    STrace.Exception(Component, ex, String.Format("Error Buffering Linea ({0})", "4"));
                 }
 
                 #endregion
