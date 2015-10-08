@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using Logictracker.DAL.DAO.BaseClasses;
+using Logictracker.DAL.DAO.BusinessObjects;
 using Logictracker.DAL.Factories;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Messages;

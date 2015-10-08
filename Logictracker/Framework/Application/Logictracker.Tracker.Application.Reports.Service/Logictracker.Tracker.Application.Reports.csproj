@@ -163,7 +163,6 @@
     <EmbeddedResource Include="Templates\DocumentsExpirationReport.xls" />
     <EmbeddedResource Include="Templates\OdometersReport.xls" />
     <EmbeddedResource Include="Templates\DeliverStatusReport.xls" />
-    <None Include="Logictracker.Mailing.VerificadorVehiculos.config" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Templates\VehicleActivityReport.xls" />
     <EmbeddedResource Include="Templates\VehicleInfractionsReport.xls" />
