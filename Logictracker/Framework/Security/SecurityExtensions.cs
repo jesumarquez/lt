@@ -18,8 +18,9 @@ namespace Logictracker.Security
         public static DateTime ToDisplayDateTime(this DateTime date)
         {
             var user = WebSecurity.AuthenticatedUser;
-            return user == null ? date : date.AddHours(user.GmtModifier);
+            return user == null ? date.ToLocalTime() : date.AddHours(user.GmtModifier);
         }
+
 
         /// <summary>
         /// Converts the givenn DateTime to an UTC DateTime based on user configuration.

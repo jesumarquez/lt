@@ -22,8 +22,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             try
             {
                 var frameList = SitrackModelToFrame(positions);
-                // Comentado 4/10 por DAD para poder hacer andar el Build del VSO
-                //ReceptionService.ParseSitrackPositions(frameList);
+                ReceptionService.ParseSitrackPositions(frameList);
             }
             catch (NullReferenceException ex)
             {
@@ -48,7 +47,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 sitrackFrame.DeviceId = position.device_id;              
                 sitrackFrame.EventDesc = position.event_desc;
                 sitrackFrame.EventId = position.event_id;
-                sitrackFrame.HolderDomain = position.holder_domain;
+                sitrackFrame.HolderDomain = position.holder_domain.Replace("*","");
                 sitrackFrame.HolderId = position.holder_id;
                 sitrackFrame.HolderName = position.holder_name;
                 sitrackFrame.Id = position.id;
