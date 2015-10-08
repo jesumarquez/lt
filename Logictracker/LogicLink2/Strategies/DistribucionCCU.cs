@@ -224,9 +224,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     viaje.Detalles.Add(llegada);
                 }
 
-                if (viaje.Detalles.Any(d => d.Descripcion == factura))
+                if (viaje.Detalles.Where(d => d.PuntoEntrega != null).Any(d => d.PuntoEntrega.Codigo == codCliente))
                 {
-                    var detalle = viaje.Detalles.SingleOrDefault(d => d.Descripcion == factura);
+                    var detalle = viaje.Detalles.Where(d => d.PuntoEntrega != null).SingleOrDefault(d => d.PuntoEntrega.Codigo == codCliente);
                     detalle.Volumen += hectolitros;
                     detalle.Valor = importeTotal;
                     continue;
@@ -267,16 +267,21 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 entregas++;
             }
 
+            var nroViaje = 0;            
             foreach (var viajeDistribucion in listViajes)
             {
+                nroViaje++;                
                 if (viajeDistribucion.Detalles.Count > 0)
                 {
                     var dirBase = viajeDistribucion.Detalles.First().ReferenciaGeografica;
                     var velocidadPromedio = 20;
 
                     var hora = viajeDistribucion.Inicio;
+                    var nroEntrega = 0;
                     foreach (var detalle in viajeDistribucion.Detalles)
                     {
+                        nroEntrega++;
+                        STrace.Trace(Component, string.Format("Calculando horarios, viaje {0}/{1}, entrega {2}/{3}", nroViaje, listViajes.Count, nroEntrega, viajeDistribucion.Detalles.Count()));
                         var distancia = GeocoderHelper.CalcularDistacia(dirBase.Latitude, dirBase.Longitude, detalle.ReferenciaGeografica.Latitude, detalle.ReferenciaGeografica.Longitude);
                         var horas = distancia / velocidadPromedio;
                         var demora = detalle.TipoServicio != null ? detalle.TipoServicio.Demora : 0;
