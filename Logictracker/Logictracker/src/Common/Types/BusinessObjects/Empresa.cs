@@ -72,6 +72,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string TiposGeocercaViaje = "distribucion.tipos.geocerca.viaje";
 
             public const string KpiCantidadPagina = "kpi.cantidad.pagina";
+            public const string MonitorHistoricoDiaEntero = "monitor.historico.dia.entero";
         }
         public static class OrdenRuta
         {
@@ -622,6 +623,17 @@ namespace Logictracker.Types.BusinessObjects
                 int cant;
                 if (valor == null || !int.TryParse(valor, out cant)) return 10;
                 return cant;
+            }
+        }
+
+        public virtual bool MonitorHistoricoDiaEntero
+        {
+            get
+            {
+                var valor = GetParameter(Params.MonitorHistoricoDiaEntero);
+                bool v;
+                if (valor == null || !bool.TryParse(valor, out v)) return false;
+                return v;
             }
         }
 
