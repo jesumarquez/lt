@@ -84,7 +84,7 @@ namespace Logictracker.Tracker.Application.Reports
                     row.CreateCell(Fecha).SetCellValue(data.Fecha);
                     row.CreateCell(Orden).SetCellValue(data.Orden);
                     row.CreateCell(OrdenReal).SetCellValue(data.OrdenReal);
-                    row.CreateCell(Cliente).SetCellValue("");
+                    row.CreateCell(Cliente).SetCellValue(data.PuntoEntrega);
                     row.CreateCell(Descripcion).SetCellValue(data.Descripcion);
                     row.CreateCell(Manual).SetCellValue(data.Manual);
                     row.CreateCell(Entrada).SetCellValue(data.Entrada);
