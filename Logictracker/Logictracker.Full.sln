@@ -378,6 +378,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Tests.Web.Api", "Testing\Web\Logictracker.Tracker.Tests.Web.Api\Logictracker.Tracker.Tests.Web.Api.csproj", "{5CFFC7C8-B154-416F-B3E1-C405029A0D0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Web.Site", "Logictracker\src\Web\Logictracker\Logictracker.Web\Logictracker.Web.Site.csproj", "{F1E9F839-EF6D-429D-B147-261DE35BF2EF}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Application.WebServiceConsumer.Host", "BackEnd\Hosts\Logictracker.Tracker.Application.WebServiceConsumer.Host\Logictracker.Tracker.Application.WebServiceConsumer.Host.csproj", "{9335ABD5-98B8-46C0-9485-24ED2A58F4E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Application.WebServiceConsumer", "Framework\Application\Logictracker.Tracker.Application.WebServiceConsumer\Logictracker.Tracker.Application.WebServiceConsumer.csproj", "{9FB77D23-8767-4FBA-ACD5-ABFE40025CA2}"
