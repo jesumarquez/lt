@@ -154,8 +154,6 @@ namespace Logictracker.Monitor.MonitorDeCalidad
             }
         }
 
-
-
         #region Serialization
         private string SerializePosition(RoutePosition x)
         {
@@ -464,6 +462,33 @@ namespace Logictracker.Monitor.MonitorDeCalidad
                 }
             }
             return toAdd;
+        }
+
+        protected void btnGenerarOnClick(object sender, EventArgs e)
+        {
+            var vehicle = DAOFactory.CocheDAO.FindById(ddlMovil.Selected);
+            if (vehicle.Dispositivo == null) return;
+
+            var qtreeDir = DAOFactory.DetalleDispositivoDAO.GetQtreeFileNameValue(vehicle.Dispositivo.Id);
+            var qtreeType = DAOFactory.DetalleDispositivoDAO.GetQtreeTypeValue(vehicle.Dispositivo.Id);
+
+            if (string.IsNullOrEmpty(qtreeType) || !Enum.IsDefined(typeof(QtreeFormats), qtreeType))
+                return;
+
+            var qtreeFormat = (QtreeFormats)Enum.Parse(typeof(QtreeFormats), qtreeType);
+            qtreeDir = Path.Combine(qtreeFormat.Equals(QtreeFormats.Gte)
+                                        ? Config.Qtree.QtreeGteDirectory
+                                        : Config.Qtree.QtreeTorinoDirectory, qtreeDir);
+
+            using (var qtree = BaseQtree.Open(qtreeDir, qtreeFormat))
+            {
+                var maxMonths = vehicle.Empresa.MesesConsultaPosiciones;
+                var positions = DAOFactory.RoutePositionsDAO.GetPositions(vehicle.Id, dtDesde.SelectedDate.Value.ToDataBaseDateTime(), dtHasta.SelectedDate.Value.ToDataBaseDateTime(), maxMonths);
+                foreach (var position in positions)
+                {
+                    qtree.SetValue(position.Latitude, position.Longitude, lvlSel.SelectedLevel);
+                }  
+            }
         }
 
         protected void GenerateScriptBase()
