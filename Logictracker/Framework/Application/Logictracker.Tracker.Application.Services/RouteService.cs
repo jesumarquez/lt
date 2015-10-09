@@ -26,7 +26,7 @@ namespace Logictracker.Tracker.Application.Services
         public DAOFactory DaoFactory { get; set; }
 
        // public MessageQueueTemplate MessageQueueTemplate { get; set; }
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(RouteService));
+        //private static readonly ILog Logger = LogManager.GetLogger(typeof(RouteService));
 
         public IList<Mensaje> GetProfileMessages(string deviceId)
         {
@@ -106,7 +106,7 @@ namespace Logictracker.Tracker.Application.Services
             
             if (opened == null) return "ROUTE_CLOSED";
 
-            var ciclo = new CicloLogisticoDistribucion(opened, DaoFactory, new MessageSaver(DaoFactory));
+            var ciclo = new CicloLogisticoDistribucion(opened, DaoFactory,new MessageSaver(DaoFactory));
             var evento = new CloseEvent(DateTime.UtcNow);
             ciclo.ProcessEvent(evento);
             return "CLOG_FINALIZE_SENT";

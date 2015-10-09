@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" Codebehind="ViajeDistribucionAlta.aspx.cs" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="True" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" Codebehind="ViajeDistribucionAlta.aspx.cs" %>
 <%@ Import Namespace="System.IO" %>
 
 <%@ Import Namespace="Logictracker.CicloLogistico.Distribucion" %>
@@ -106,6 +106,16 @@
                                 <asp:AsyncPostBackTrigger ControlID="cbCentroDeCosto" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbTransportista" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbVehiculo" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+
+                        <cwc:ResourceLabel ID="lblTipoCiclo" runat="server" ResourceName="Entities" VariableName="PARTICK09" />
+                        <asp:UpdatePanel ID="updTipoCiclo" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:TipoCicloLogisticoDropDownList ID="cbTipoCicloLogistico" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa" TabIndex="26" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
                         

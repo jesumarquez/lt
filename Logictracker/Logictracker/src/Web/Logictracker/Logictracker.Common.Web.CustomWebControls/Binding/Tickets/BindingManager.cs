@@ -359,6 +359,18 @@ namespace Logictracker.Web.CustomWebControls.Binding
             foreach (var zonaAcceso in zonasAcceso) autoBindeable.AddItem(zonaAcceso.Descripcion, zonaAcceso.Id);
         }
 
+        public void BindTipoCicloLogistico(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            
+            var tipos = DaoFactory.TipoCicloLogisticoDAO.GetByEmpresa(idEmpresa).OrderBy(z => z.Descripcion);
+
+            foreach (var tipo in tipos) autoBindeable.AddItem(tipo.Descripcion, tipo.Id);
+        }
+
         #endregion
     }
 }

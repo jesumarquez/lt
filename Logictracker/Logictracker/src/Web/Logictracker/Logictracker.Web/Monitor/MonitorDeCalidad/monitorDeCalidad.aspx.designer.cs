@@ -364,6 +364,42 @@ namespace Logictracker.Monitor.MonitorDeCalidad {
         protected global::System.Web.UI.WebControls.CheckBox chkQtree;
         
         /// <summary>
+        /// updEditarQtree control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updEditarQtree;
+        
+        /// <summary>
+        /// lblEditarTramo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblEditarTramo;
+        
+        /// <summary>
+        /// lvlSel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Operacion.Qtree.Operacion_Qtree_LevelSelector lvlSel;
+        
+        /// <summary>
+        /// btnGenerar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGenerar;
+        
+        /// <summary>
         /// pnlLnk control.
         /// </summary>
         /// <remarks>

@@ -17,6 +17,8 @@ namespace Logictracker.Parametrizacion
     {
         #region Protected Properties
 
+        protected int totalVirtualRows;
+
         protected override string RedirectUrl { get { return "GeoRefAlta.aspx"; } }
         protected override string ImportUrl { get { return "GeoRefImport.aspx"; } }
         protected override string VariableName { get { return "PAR_POI"; } }
@@ -38,11 +40,114 @@ namespace Logictracker.Parametrizacion
 
         protected override List<ReferenciaGeograficaVo> GetListData()
         {
-            return
-                DAOFactory.ReferenciaGeograficaDAO.GetList(new[] {cbEmpresa.Selected}, new[] {cbLinea.Selected},
-                                                           new[] {cbTipoReferenciaGeografica.Selected})
-                    .Select(r => new ReferenciaGeograficaVo(r))
-                    .ToList();
+
+            if (CheckBoxActivarPaginacion.Checked)
+            {
+               bool recount = true;
+
+               if (Session["cbLinea"] == null)
+               { 
+               Session["cbLinea"] = cbLinea.Selected;
+               Session["cbTipoReferenciaGeografica"] = cbTipoReferenciaGeografica.Selected;
+               Session["cbEmpresa"] = cbEmpresa.Selected;
+               }
+               else
+               {
+                   if (cbLinea.Selected != (int)Session["cbLinea"] ||
+                       cbTipoReferenciaGeografica.Selected != (int)Session["cbTipoReferenciaGeografica"] ||
+                       cbEmpresa.Selected != (int)Session["cbEmpresa"])
+                   {
+                       Session["cbLinea"] = cbLinea.Selected;
+                       Session["cbTipoReferenciaGeografica"] = cbTipoReferenciaGeografica.Selected;
+                       Session["cbEmpresa"] = cbEmpresa.Selected;
+                   }
+                   else
+                   {
+                       recount = false;
+                   }
+               }
+               var result = DAOFactory.ReferenciaGeograficaDAO.GetList(new[] { cbEmpresa.Selected }, new[] { cbLinea.Selected },
+                                                              new[] { cbTipoReferenciaGeografica.Selected },
+                                                              Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount)
+                       .Select(r => new ReferenciaGeograficaVo(r))
+                       .ToList();
+                if (recount)
+                {
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                    Grid.VirtualItemCount = totalVirtualRows;
+                }
+                return result;
+            }
+            else
+            {
+
+                return
+                    DAOFactory.ReferenciaGeograficaDAO.GetList(new[] { cbEmpresa.Selected }, new[] { cbLinea.Selected },
+                                                               new[] { cbTipoReferenciaGeografica.Selected })
+                        .Select(r => new ReferenciaGeograficaVo(r))
+                        .ToList();
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            if (CheckBoxActivarPaginacion.Checked)
+            {
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging; 
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {               
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+            CheckBoxActivarPaginacion.CheckedChanged += CheckBoxActivarPaginacion_CheckedChanged;
+
+            base.OnLoad(e);
+        }
+
+        public void CheckBoxActivarPaginacion_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["SelectedClient"] = null;
+            Session["Distrito"] = null;
+            Session["Base"] = null;
+            if (CheckBoxActivarPaginacion.Checked)
+            {               
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {               
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+        }
+
+        public void Grid_PageIndexChanging(object sender, C1GridViewPageEventArgs e)
+        {
+            Grid.PageIndex = e.NewPageIndex;
         }
 
         protected override void OnRowDataBound(C1GridView grid, C1GridViewRowEventArgs e, ReferenciaGeograficaVo dataItem)

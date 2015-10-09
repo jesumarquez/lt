@@ -32,6 +32,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,10 +60,12 @@
     <Compile Include="BusinessObjects\Auditoria\XmlType.cs" />
     <Compile Include="BusinessObjects\BaseObjects\LogEventoBase.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\AgendaVehicular.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculo.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ViajeDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EstadoLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Recorrido.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\DetalleRecorrido.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\TimeTracking\EventoViaje.cs" />
@@ -451,4 +455,11 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

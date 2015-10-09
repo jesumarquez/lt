@@ -1,4 +1,4 @@
- <%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" Codebehind="monitorDeCalidad.aspx.cs" %>
+ <%@ Page Language="C#" AutoEventWireup="True" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" Codebehind="monitorDeCalidad.aspx.cs" %>
 
 <%@ Import Namespace="Logictracker.Culture"%>
 
@@ -6,6 +6,8 @@
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register TagPrefix="mon" Namespace="Logictracker.Web.Monitor" Assembly="Logictracker.Web.Monitor" %>
+<%@ Register src="../../Operacion/Qtree/AutoGenConfig.ascx" tagname="AutoGenConfig" tagprefix="uc" %>
+<%@ Register src="../../Operacion/Qtree/LevelSelector.ascx" tagname="LevelSelector" tagprefix="uc" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -220,36 +222,50 @@
                         </asp:UpdatePanel>
                     </td>
                 </tr>
-                
-                                    
             </table>
-            <tr>
+            
             </div>
             
             <div class="x-panel-body" style="text-align: center; padding-top: 10px;">
+            
                 <div style="text-align: left; padding: 10px;">
                     <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />    
                 </div>
                 
-                <td align="center" colspan="2">
-                    <br/>
-                    <asp:UpdatePanel runat="server" ID="pnlLnk">
-                        <ContentTemplate>
-                            <cwc:ResourceLinkButton ID="lnkReporteDeEventos" runat="server" VariableName="IR_REPORTE_DE_EVENTOS" ResourceName="Labels" OnClick="LnkReporteDeEventosClick" />      
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                <br/>
+                <!--
+                <asp:UpdatePanel runat="server" ID="updEditarQtree" >
+                    <ContentTemplate>
+                        <table width="100%">
+                            <tr>
+                                <td align="center">
+                                    <cwc:ResourceLabel ID="lblEditarTramo" runat="server" VariableName="EDITAR_TRAMO" ResourceName="Labels" />
+                                </td>
+                                <td align="left">
+                                    <uc:LevelSelector ID="lvlSel" runat="server" />
+                                </td>
+                                <td align="right">
+                                    <asp:Button ID="btnGenerar" runat="server" OnClick="btnGenerarOnClick" Text="Generar Qtree" Width="100%" style="padding: 5px;" />
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                -->
+                <br />
+
+                <asp:UpdatePanel runat="server" ID="pnlLnk">
+                    <ContentTemplate>
+                        <cwc:ResourceLinkButton ID="lnkReporteDeEventos" runat="server" VariableName="IR_REPORTE_DE_EVENTOS" ResourceName="Labels" OnClick="LnkReporteDeEventosClick" />      
+                    </ContentTemplate>
+                </asp:UpdatePanel>
                       
-                </td>
+                <br/>
+                <br/>
                 
-                <td align="center" colspan="2">
-                    <br/>
-                    <br/>
-                    <cwc:ResourceButton ID="btnSearch" runat="server" CssClass="LogicButton_Big" ToolTip="Buscar" Width="75px" OnClick="btnSearch_Click" ResourceName="Controls" VariableName="BUTTON_SEARCH" />
-            
-                    </td>
+                <cwc:ResourceButton ID="btnSearch" runat="server" CssClass="LogicButton_Big" ToolTip="Buscar" Width="75px" OnClick="btnSearch_Click" ResourceName="Controls" VariableName="BUTTON_SEARCH" />
                 
-                
-                </div>
+            </div>
             
             <a href="../../Home.aspx">
                 <div class="Logo"></div>
@@ -263,7 +279,6 @@
                 <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="botonEliminar" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="botonEliminarEvento" EventName="Click" />
-                
             </Triggers>
         </asp:UpdatePanel>
                     

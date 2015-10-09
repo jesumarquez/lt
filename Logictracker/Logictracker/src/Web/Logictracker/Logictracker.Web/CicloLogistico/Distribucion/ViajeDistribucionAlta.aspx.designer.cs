@@ -247,6 +247,33 @@ namespace Logictracker.CicloLogistico.Distribucion {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.EmpleadoDropDownList cbChofer;
         
         /// <summary>
+        /// lblTipoCiclo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblTipoCiclo;
+        
+        /// <summary>
+        /// updTipoCiclo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updTipoCiclo;
+        
+        /// <summary>
+        /// cbTipoCicloLogistico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoCicloLogisticoDropDownList cbTipoCicloLogistico;
+        
+        /// <summary>
         /// lblCodigo control.
         /// </summary>
         /// <remarks>
