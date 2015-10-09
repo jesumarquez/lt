@@ -4549,4 +4549,7 @@
   <data name="PARENTI10_FIN" xml:space="preserve">
     <value>Ending Geofence Type</value>
   </data>
+  <data name="EDITAR_TRAMO" xml:space="preserve">
+    <value>Edit segment</value>
+  </data>
 </root>

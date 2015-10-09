@@ -233,7 +233,7 @@
                 </div>
                 
                 <br/>
-                <!--
+                
                 <asp:UpdatePanel runat="server" ID="updEditarQtree" >
                     <ContentTemplate>
                         <table width="100%">
@@ -245,13 +245,12 @@
                                     <uc:LevelSelector ID="lvlSel" runat="server" />
                                 </td>
                                 <td align="right">
-                                    <asp:Button ID="btnGenerar" runat="server" OnClick="btnGenerarOnClick" Text="Generar Qtree" Width="100%" style="padding: 5px;" />
+                                    <asp:Button ID="btnGenerar" runat="server" OnClick="btnGenerarOnClick" Text="Editar Qtree" Width="100%" style="padding: 5px;" />
                                 </td>
                             </tr>
                         </table>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                -->
                 <br />
 
                 <asp:UpdatePanel runat="server" ID="pnlLnk">

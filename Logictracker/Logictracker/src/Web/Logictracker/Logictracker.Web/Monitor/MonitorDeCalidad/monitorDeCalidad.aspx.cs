@@ -123,6 +123,7 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         {
             Monitor.ContextMenuPostback += Monitor_ContextMenuPostback;
             chkQtree.Visible = WebSecurity.IsSecuredAllowed(Securables.ViewQtree);
+            updEditarQtree.Visible = WebSecurity.IsSecuredAllowed(Securables.EditQtree);
 
             base.OnLoad(e);
 
@@ -480,15 +481,18 @@ namespace Logictracker.Monitor.MonitorDeCalidad
                                         ? Config.Qtree.QtreeGteDirectory
                                         : Config.Qtree.QtreeTorinoDirectory, qtreeDir);
 
-            using (var qtree = BaseQtree.Open(qtreeDir, qtreeFormat))
+            var maxMonths = vehicle.Empresa.MesesConsultaPosiciones;
+            var positions = DAOFactory.RoutePositionsDAO.GetPositions(vehicle.Id, dtDesde.SelectedDate.Value.ToDataBaseDateTime(), dtHasta.SelectedDate.Value.ToDataBaseDateTime(), maxMonths);
+            foreach (var position in positions)
             {
-                var maxMonths = vehicle.Empresa.MesesConsultaPosiciones;
-                var positions = DAOFactory.RoutePositionsDAO.GetPositions(vehicle.Id, dtDesde.SelectedDate.Value.ToDataBaseDateTime(), dtHasta.SelectedDate.Value.ToDataBaseDateTime(), maxMonths);
-                foreach (var position in positions)
+                using (var qtree = BaseQtree.Open(qtreeDir, qtreeFormat))
                 {
                     qtree.SetValue(position.Latitude, position.Longitude, lvlSel.SelectedLevel);
-                }  
+                    qtree.Close();
+                }                
             }
+
+            btnSearch_Click(sender, e);
         }
 
         protected void GenerateScriptBase()

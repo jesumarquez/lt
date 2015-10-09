@@ -4543,4 +4543,7 @@
   <data name="PARENTI10_FIN" xml:space="preserve">
     <value>Tipo Geocerca Fim</value>
   </data>
+  <data name="EDITAR_TRAMO" xml:space="preserve">
+    <value>Editar tramo</value>
+  </data>
 </root>

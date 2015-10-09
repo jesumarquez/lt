@@ -138,6 +138,9 @@
   <data name="VIEWQTREE" xml:space="preserve">
     <value>Ver Qtree</value>
   </data>
+  <data name="EDITQTREE" xml:space="preserve">
+    <value>Editar Qtree</value>
+  </data>
   <data name="WS_IMPORT" xml:space="preserve">
     <value>Web Service: Importación de Datos</value>
   </data>
