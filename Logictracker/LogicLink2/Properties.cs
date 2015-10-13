@@ -63,23 +63,24 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
         }
         public class DistribucionCCU
         {
-            public const int CD = 0;
-            public const int CodigoCliente = 8;
-            public const int Planilla = 18;
-            public const int Fecha = 23;
-            public const int Factura = 29;
-            public const int Hectolitros = 49;
-            public const int ImporteTotal = 56;
+            public const int CodigoCliente = 0;
+            public const int Planilla = 1;
+            public const int Fecha = 2;
+            public const int Factura = 3;
+            public const int Hectolitros = 4;
+            public const int ImporteTotal = 5;
         }
         public class ClienteCCU
         {
             public const int CodigoCliente = 0;
             public const int Nombre = 1;
             public const int Direccion = 2;
-            public const int Latitud = 3;
-            public const int Longitud = 4;
-            public const int Localidad = 5;
-            public const int Barrio = 6;
+            public const int Provincia = 3;
+            public const int Localidad = 4;
+            public const int Territorio = 5;
+            public const int Ramo = 6;
+            public const int Latitud = 7;
+            public const int Longitud = 8;
         }
         public class AsignacionCCU
         {

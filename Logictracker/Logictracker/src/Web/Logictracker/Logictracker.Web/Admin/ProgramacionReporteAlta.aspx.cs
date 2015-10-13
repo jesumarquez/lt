@@ -49,6 +49,7 @@ namespace Logictracker.Admin
                 EditObject.Periodicity = cbPeriodicidad.SelectedValue[0];
                 EditObject.Mail = txtMail.Text;
                 EditObject.Active = chkActivo.Checked;
+                EditObject.Format = rbutExcel.Checked ? ProgramacionReporte.FormatoReporte.Excel : ProgramacionReporte.FormatoReporte.Html;
 
                 DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
 

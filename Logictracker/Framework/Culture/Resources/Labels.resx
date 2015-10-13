@@ -1410,6 +1410,9 @@
   <data name="ASIGNADOS" xml:space="preserve">
     <value>Asignados</value>
   </data>
+  <data name="NO_ASIGNADOS" xml:space="preserve">
+    <value>No asignados</value>
+  </data>
   <data name="DISPONIBLES" xml:space="preserve">
     <value>Disponibles</value>
   </data>
@@ -4683,5 +4686,14 @@
   </data>
   <data name="ENVIA_REPORTE" xml:space="preserve">
     <value>Envía Reporte</value>
+  </data>
+  <data name="PRODUCTIVO" xml:space="preserve">
+    <value>Productivo</value>
+  </data>
+  <data name="PARENTI10_INICIO" xml:space="preserve">
+    <value>Tipo Referencia Geográfica de Inicio</value>
+  </data>
+  <data name="PARENTI10_FIN" xml:space="preserve">
+    <value>Tipo Referencia Geográfica de Fin</value>
   </data>
 </root>

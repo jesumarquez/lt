@@ -278,6 +278,16 @@ namespace Logictracker.DAL.Factories
 
         #endregion
 
+        #region Ciclo Logístico
+
+        private EstadoLogisticoDAO _estadoLogisticoDao;
+        public EstadoLogisticoDAO EstadoLogisticoDAO { get { return _estadoLogisticoDao ?? (_estadoLogisticoDao = GetDao<EstadoLogisticoDAO>()); } }
+
+        private TipoCicloLogisticoDAO _tipoCicloLogisticoDao;
+        public TipoCicloLogisticoDAO TipoCicloLogisticoDAO { get { return _tipoCicloLogisticoDao ?? (_tipoCicloLogisticoDao = GetDao<TipoCicloLogisticoDAO>()); } }
+
+        #endregion
+
         #region Combustible SAI
 
         private MovimientoDAO _movimientoDao;

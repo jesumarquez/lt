@@ -127,7 +127,6 @@ namespace Logictracker.CicloLogistico.Distribucion
             base.OnDuplicate();
         }
 
-
         protected override void Bind()
         {
             DAOFactory.Session.Refresh(EditObject);
@@ -138,6 +137,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbSubCentroDeCosto.SetSelectedValue(EditObject.SubCentroDeCostos != null ? EditObject.SubCentroDeCostos.Id : cbSubCentroDeCosto.AllValue);
             cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.AllValue);
             cbChofer.SetSelectedValue(EditObject.Empleado != null ? EditObject.Empleado.Id : cbChofer.AllValue);
+            cbTipoCicloLogistico.SetSelectedValue(EditObject.TipoCicloLogistico != null ? EditObject.TipoCicloLogistico.Id : cbTipoCicloLogistico.AllValue);
 
             txtCodigo.Text = EditObject.Codigo.ToUpperInvariant();
             dtFecha.SelectedDate = EditObject.Inicio.ToDisplayDateTime();
@@ -261,6 +261,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                         : null;
                     EditObject.Vehiculo = cbVehiculo.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculo.Selected) : null;
                     EditObject.Empleado = cbChofer.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbChofer.Selected) : null;
+                    EditObject.TipoCicloLogistico = cbTipoCicloLogistico.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloLogistico.Selected) : null;
 
                     EditObject.Codigo = txtCodigo.Text.ToUpperInvariant();
                     EditObject.NumeroViaje = 0;

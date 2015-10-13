@@ -342,4 +342,7 @@
   <data name="BUTTON_SENDREPORT" xml:space="preserve">
     <value>Send Report to e-mail</value>
   </data>
+  <data name="PARTICK09" xml:space="preserve">
+    <value>Logistic Cycle Type</value>
+  </data>
 </root>
