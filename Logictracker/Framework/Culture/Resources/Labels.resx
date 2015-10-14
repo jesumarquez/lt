@@ -4699,4 +4699,10 @@
   <data name="EDITAR_TRAMO" xml:space="preserve">
     <value>Editar tramo</value>
   </data>
+  <data name="VERSION_SERVER" xml:space="preserve">
+    <value>Versión server</value>
+  </data>
+  <data name="VERSION_EQUIPO" xml:space="preserve">
+    <value>Versión equipo</value>
+  </data>
 </root>
