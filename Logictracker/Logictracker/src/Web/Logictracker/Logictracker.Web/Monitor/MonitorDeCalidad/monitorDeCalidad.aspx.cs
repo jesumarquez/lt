@@ -483,15 +483,25 @@ namespace Logictracker.Monitor.MonitorDeCalidad
 
             var maxMonths = vehicle.Empresa.MesesConsultaPosiciones;
             var positions = DAOFactory.RoutePositionsDAO.GetPositions(vehicle.Id, dtDesde.SelectedDate.Value.ToDataBaseDateTime(), dtHasta.SelectedDate.Value.ToDataBaseDateTime(), maxMonths);
-            foreach (var position in positions)
-            {
-                using (var qtree = BaseQtree.Open(qtreeDir, qtreeFormat))
-                {
-                    qtree.SetValue(position.Latitude, position.Longitude, lvlSel.SelectedLevel);
-                    qtree.Close();
-                }                
-            }
 
+            using (var qtree = BaseQtree.Open(qtreeDir, qtreeFormat))
+            {
+                for (var i = 1; i < positions.Count; i++)
+                {
+                    var ini = positions[i - 1];
+                    var fin = positions[i];
+
+                    var qs = qtree.MakeLeafLine(ini.Longitude, ini.Latitude, fin.Longitude, fin.Latitude, 2);
+                    foreach (var item in qs)
+                    {
+                        var latlon = qtree.GetCenterLatLon(item.Posicion);
+                        qtree.SetValue(latlon.Latitud, latlon.Longitud, lvlSel.SelectedLevel);
+                        qtree.Commit();
+                    }
+                }
+                qtree.Close();
+            }
+            
             btnSearch_Click(sender, e);
         }
 
