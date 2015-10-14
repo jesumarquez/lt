@@ -37,18 +37,6 @@ function RemoveItem($item)
     }
 }
 
-RemoveItem("$source\web\*.config")
-RemoveItem("$source\web\*.xml")
-RemoveItem("$source\web\bin\licence.spk")
-RemoveItem("$source\web\bin\App_Licenses.dll")
-RemoveItem("$source\web\sonido")
-RemoveItem("$source\web\iconos")
-RemoveItem("$source\web\Qtree")
-RemoveItem("$source\web\Pictures")
-RemoveItem("$source\web\FusionCharts")
-RemoveItem("$source\web\CompumapISAPI")
-
-
 function Stop-Services($aliasServiceName, $processName)
 {
     write-output "Servicios que seran detenidos: `n`r"
@@ -60,7 +48,7 @@ function Stop-Services($aliasServiceName, $processName)
 
     start-sleep 4
 
-    if(!$processName){
+    if($processName){
         kill -Force -processname $processName -ErrorAction SilentlyContinue}
 
     write-output "Estado de los servicios luego de detenidos: `n`r"
@@ -79,24 +67,40 @@ function Start-Services($aliasServiceName)
     get-service *$aliasServiceName*
 }
 
-write-output "Borrando archivos de configuracion en directorio Express `r`n"
-RemoveItem("$source\Express\*.config")
-RemoveItem("$source\Express\*.xml")
-RemoveItem("$source\Express\licence.spk")
-RemoveItem("$source\Express\Applications")
-RemoveItem("$source\Express\Config")
+function Clean-SourceDirectory()
+{
+    RemoveItem("$source\web\*.config")
+    RemoveItem("$source\web\*.xml")
+    RemoveItem("$source\web\bin\licence.spk")
+    RemoveItem("$source\web\bin\App_Licenses.dll")
+    RemoveItem("$source\web\sonido")
+    RemoveItem("$source\web\iconos")
+    RemoveItem("$source\web\Qtree")
+    RemoveItem("$source\web\Pictures")
+    RemoveItem("$source\web\FusionCharts")
+    RemoveItem("$source\web\CompumapISAPI")
 
-write-output "Borrando archivos de configuracion en directorio WebApi `r`n"
-RemoveItem("$source\WebApi\*.config")
-RemoveItem("$source\WebApi\*.xml")
+    write-output "Borrando archivos de configuracion en directorio Express `r`n"
+    RemoveItem("$source\Express\*.config")
+    RemoveItem("$source\Express\*.xml")
+    RemoveItem("$source\Express\licence.spk")
+    RemoveItem("$source\Express\Applications")
+    RemoveItem("$source\Express\Config")
 
-write-output "Borrando archivos de configuracion en directorio ReportsHost `r`n"
-RemoveItem("$source\ReportsHost\*.config")
-RemoveItem("$source\ReportsHost\*.xml")
+    write-output "Borrando archivos de configuracion en directorio WebApi `r`n"
+    RemoveItem("$source\WebApi\*.config")
+    RemoveItem("$source\WebApi\*.xml")
 
-write-output "Borrando archivos de configuracion en directorio ParserHost `r`n"
-RemoveItem("$source\ParserHost\*.config")
-RemoveItem("$source\ParserHost\*.xml")
+    write-output "Borrando archivos de configuracion en directorio ReportsHost `r`n"
+    RemoveItem("$source\ReportsHost\*.config")
+    RemoveItem("$source\ReportsHost\*.xml")
+
+    write-output "Borrando archivos de configuracion en directorio ParserHost `r`n"
+    RemoveItem("$source\ParserHost\*.config")
+    RemoveItem("$source\ParserHost\*.xml")
+}
+
+Clean-SourceDirectory
 
 Write-Output "Copiando sitio web. `n`r"
 #%windir%\system32\inetsrv\appcmd.exe stop site /site.name:lgtkr45
@@ -109,8 +113,8 @@ xcopy $source\webapi $targetWebApiPath /S /R /Y
 Write-Output "Finalizado.`r"
 
 write-output "Deployando servicios de LT. `r`n"
-Stop-Services "GatewayTrax"
-Stop-Services "DispatcherTrax" "run.exe"
+#Stop-Services "GatewayTrax"
+Stop-Services "Logictracker.Express" "run.exe"
 Stop-Services "Caesat.Gateway"
 Stop-Services "LogicTracker.Reports"
 
@@ -119,7 +123,7 @@ xcopy $source\express $targetRunServicePath /S /R /Y
 xcopy $source\reportshost $targetReportsServicePath /S /R /Y
 xcopy $source\parserhost $targetParserServicePath /S /R /Y
 
-Start-Services "GatewayTrax"
-Start-Services "DispatcherTrax" "run.exe"
+#Start-Services "GatewayTrax"
+Start-Services "Logictracker.Express" "run.exe"
 Start-Services "Caesat.Gateway"
 Start-Services "LogicTracker.Reports"
