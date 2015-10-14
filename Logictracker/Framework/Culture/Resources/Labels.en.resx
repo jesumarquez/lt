@@ -4552,4 +4552,10 @@
   <data name="EDITAR_TRAMO" xml:space="preserve">
     <value>Edit segment</value>
   </data>
+  <data name="VERSION_SERVER" xml:space="preserve">
+    <value>Server version</value>
+  </data>
+  <data name="VERSION_EQUIPO" xml:space="preserve">
+    <value>Device version</value>
+  </data>
 </root>
