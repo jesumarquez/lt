@@ -1,7 +1,8 @@
 ﻿Param (
-	[parameter(Mandatory=$True)] [bool]$compress = $True, [string]$source = "", [string]$destination = ""
+	[parameter(Mandatory=$True)] [string]$compress = "", [string]$source = "", [string]$destination = ""
     )
 
+	[boolean]$toCompress = ([System.Convert]::ToBoolean($compress))
 #If (-not (Test-Path $source -PathType container)) {
  #   Write-Output "No se encuentra la carpeta source $source"
   #  Write-Output "Uso: $($MyInvocation.MyCommand.Name) <sourceFolder>"
@@ -29,7 +30,7 @@ function Unzip-Files($source, $destination)
     [System.IO.Compression.ZipFile]::ExtractToDirectory("$Source", "$destination")
 }
 
-if($compress)
+if($toCompress)
 {
     Zip-Files $source $destination
 }
