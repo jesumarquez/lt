@@ -62,6 +62,16 @@
       <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EntregaDistribucion, Logictracker.Types" />
     </bag>
 
+    <bag name="EstadosCumplidos"
+          table="[ope.ope_tick_09_estado_x_viaje]"
+          order-by="opetick09_inicio ASC"
+          inverse="true"
+          cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_opetick03" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EstadoDistribucion, Logictracker.Types" />
+    </bag>
+
     <bag name="Recorrido"
           table="[ope.ope_tick_05_det_recorrido]"
           order-by="opetick05_orden ASC"

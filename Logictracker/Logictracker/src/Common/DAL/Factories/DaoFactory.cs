@@ -264,6 +264,9 @@ namespace Logictracker.DAL.Factories
         private EntregaDistribucionDAO _entregaDistribucionDao;
         public EntregaDistribucionDAO EntregaDistribucionDAO { get { return _entregaDistribucionDao ?? (_entregaDistribucionDao = GetDao<EntregaDistribucionDAO>()); } }
 
+        private EstadoDistribucionDAO _estadoDistribucionDao;
+        public EstadoDistribucionDAO EstadoDistribucionDAO { get { return _estadoDistribucionDao ?? (_estadoDistribucionDao = GetDao<EstadoDistribucionDAO>()); } }
+
         private RecorridoDistribucionDAO _recorridoDistribucionDao;
         public RecorridoDistribucionDAO RecorridoDistribucionDAO { get { return _recorridoDistribucionDao ?? (_recorridoDistribucionDao = GetDao<RecorridoDistribucionDAO>()); } }
 

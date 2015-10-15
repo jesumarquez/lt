@@ -58,6 +58,7 @@
     <Compile Include="BusinessObjects\Auditoria\XmlType.cs" />
     <Compile Include="BusinessObjects\BaseObjects\LogEventoBase.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\AgendaVehicular.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculo.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.cs" />

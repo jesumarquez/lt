@@ -146,12 +146,13 @@ namespace Logictracker.Web.CicloLogistico
                     Vigencia = new Vigencia { Inicio = utcNow },
                     Color = primerEntrega.ReferenciaGeografica.Color
                 };
-
+                
                 var direccion = GetNewDireccion(Evento.Latitud, Evento.Longitud);
                 var poligono = new Poligono { Radio = radio, Vigencia = new Vigencia { Inicio = utcNow } };
                 poligono.AddPoints(new[] {new PointF((float) Evento.Longitud, (float) Evento.Latitud)});
-
+                
                 nuevaReferencia.AddHistoria(direccion, poligono, utcNow);
+
                 DAOFactory.ReferenciaGeograficaDAO.SingleSaveOrUpdate(nuevaReferencia);
                 STrace.Trace("QtreeReset", "InfoDetencion 1");
 
