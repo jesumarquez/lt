@@ -27,6 +27,10 @@ namespace Logictracker.Utils
         {
             Pack((float) speed);
         }
+        public Speed()
+        {
+            Pack(0);
+        }
 
 	    private void Pack(float data)
         {

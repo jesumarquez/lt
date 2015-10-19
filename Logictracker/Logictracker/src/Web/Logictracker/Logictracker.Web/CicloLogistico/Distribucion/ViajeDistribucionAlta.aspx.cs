@@ -439,13 +439,24 @@ namespace Logictracker.CicloLogistico.Distribucion
             var cerrar = !chkNoCerrar.Checked;
 
             var ruta = DAOFactory.ViajeDistribucionDAO.FindById(EditObject.Id);
+
+            foreach (var detalle in ruta.Detalles)
+            {
+                detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                detalle.Entrada = null;
+                detalle.Manual = null;
+                detalle.Salida = null;
+
+                DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
+            }
+            
             ruta.InicioReal = desde;
             if (cerrar) ruta.Fin = hasta;
             ruta.Estado = ViajeDistribucion.Estados.EnCurso;
             DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
 
             var ciclo = new CicloLogisticoDistribucion(ruta, DAOFactory, null);
-            ciclo.Regenerate(desde, hasta);
+            ciclo.Regenerar(desde, hasta);
 
             if (cerrar)
             {
