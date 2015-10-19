@@ -112,8 +112,21 @@ namespace Logictracker.Web.Reportes.DatosOperativos
                     else
                     {
                         // Sin información
-                        var result = new ResumenActividadVo(DAOFactory.CocheDAO.FindById(vehicle).Patente, hasta.Subtract(desde));
-                        results.Add(result);
+                        var vehiculo = DAOFactory.CocheDAO.FindById(vehicle);
+                        var lastPosition = DAOFactory.LogPosicionDAO.GetLastVehiclePosition(vehiculo);
+
+                        if (lastPosition != null && lastPosition.FechaMensaje > DateTime.UtcNow.AddMonths(-3))
+                        {
+                            // Está encendido
+                            var result = new ResumenActividadVo(vehiculo.Patente, hasta.Subtract(desde), new TimeSpan());                            
+                            results.Add(result);
+                        }
+                        else
+                        {
+                            // Está apagado
+                            var result = new ResumenActividadVo(vehiculo.Patente,new TimeSpan(), hasta.Subtract(desde));                          
+                            results.Add(result);
+                        }                        
                     }
                 }
             }
