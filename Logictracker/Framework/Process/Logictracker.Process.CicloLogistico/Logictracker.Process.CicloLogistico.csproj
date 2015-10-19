@@ -105,6 +105,10 @@
       <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
       <Name>Logictracker.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\AVL\Logictracker.AVL.csproj">
+      <Project>{0fd2623e-2379-410d-81e3-c8749bc014de}</Project>
+      <Name>Logictracker.AVL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
