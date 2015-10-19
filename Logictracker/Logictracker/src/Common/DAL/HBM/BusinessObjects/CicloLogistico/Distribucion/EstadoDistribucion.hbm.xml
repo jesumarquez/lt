@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EstadoDistribucion,Logictracker.Types" table="[ope.ope_tick_09_estado_x_viaje]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick09" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_opetick03" name="Viaje" lazy="proxy" />
+    <many-to-one column="rela_partick08" name="EstadoLogistico" lazy="proxy" />
+    
+    <property column="opetick09_inicio" name="Inicio" />
+    <property column="opetick09_fin" name="Fin" />
+
+  </class>
+</hibernate-mapping>
