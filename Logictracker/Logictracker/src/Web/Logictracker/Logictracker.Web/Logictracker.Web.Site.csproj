@@ -4502,6 +4502,10 @@
       <Project>{4a8b26af-b363-4f81-b701-377532231521}</Project>
       <Name>Logictracker.Process.Import</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\QuadTree\QuadTreeSharp\Logictracker.QuadTree.csproj">
+      <Project>{d1b8eaf1-02f3-40fc-9fa1-209cc1b9f96d}</Project>
+      <Name>Logictracker.QuadTree</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\SBC\Logictracker.Layers.csproj">
       <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
       <Name>Logictracker.Layers</Name>
