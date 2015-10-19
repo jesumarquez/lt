@@ -228,15 +228,34 @@
             
             <div class="x-panel-body" style="text-align: center; padding-top: 10px;">
             
-                <div style="text-align: left; padding: 10px;">
-                    <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />    
-                </div>
+                <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />
                 
-                <br/>
-                <!--
-                <asp:UpdatePanel runat="server" ID="updEditarQtree" >
+                <br />
+                <br />
+
+                <asp:UpdatePanel ID="pnlQtree" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Inline">
                     <ContentTemplate>
-                        <table width="100%">
+                        <table width="100%" id="tblVersion" runat="server">
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl1" runat="server" VariableName="ARCHIVO" ResourceName="Labels" />: <asp:Label ID="lblArchivo" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl2" runat="server" VariableName="VERSION_SERVER" ResourceName="Labels" />: <asp:Label ID="lblVersionServer" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl3" runat="server" VariableName="VERSION_EQUIPO" ResourceName="Labels" />: <asp:Label ID="lblVersionEquipo" runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br />
+
+                        <table width="100%" id="tblEditar" runat="server">
                             <tr>
                                 <td align="center">
                                     <cwc:ResourceLabel ID="lblEditarTramo" runat="server" VariableName="EDITAR_TRAMO" ResourceName="Labels" />
@@ -244,14 +263,15 @@
                                 <td align="left">
                                     <uc:LevelSelector ID="lvlSel" runat="server" />
                                 </td>
-                                <td align="right">
-                                    <asp:Button ID="btnGenerar" runat="server" OnClick="btnGenerarOnClick" Text="Generar Qtree" Width="100%" style="padding: 5px;" />
+                                <td align="left">
+                                    <asp:Button ID="btnGenerar" runat="server" OnClick="btnGenerarOnClick" CssClass="LogicButton_Big" Text="Editar Qtree" Width="100%" style="padding: 5px;" />
                                 </td>
                             </tr>
                         </table>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                -->
+
+                <br />
                 <br />
 
                 <asp:UpdatePanel runat="server" ID="pnlLnk">

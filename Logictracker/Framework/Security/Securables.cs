@@ -10,6 +10,7 @@ namespace Logictracker.Security
         public const string WebServiceTickets = "WS_TICKETS";
         public const string WebServiceOperation = "WS_OPERATION";
         public const string ViewQtree = "VIEWQTREE";
+        public const string EditQtree = "EDITQTREE";
         public const string WebServiceImport = "WS_IMPORT";
         public const string WebServiceExport = "WS_EXPORT";
         public const string WebServiceGeocoder = "WS_GEOCODER";
