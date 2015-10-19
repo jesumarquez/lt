@@ -150,7 +150,11 @@ namespace Logictracker.Dispatcher.Handlers
                 if (point != null)
                 {
                     if (esConfirmacionUbox) ProcessConfirmacionUbox(code, generico, point);
-                    else CicloLogisticoFactory.Process(DaoFactory, applicationCode, Coche, point, generico, false, GetChofer(generico.GetRiderId()));
+                    else
+                    {
+                        CicloLogisticoFactory.Process(DaoFactory, applicationCode, Coche, point, generico, false, GetChofer(generico.GetRiderId()));
+                        CicloLogisticoFactory.ProcessEstadoLogistico(Coche, generico);
+                    }
                 }
                 else if (esConfirmacionUbox) ProcessGenericEvent(generico, code);
 			}

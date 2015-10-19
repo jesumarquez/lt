@@ -176,7 +176,7 @@
                         </tr>
                         <tr>
                             <td align="center" valign="top">
-                                <asp:Panel ID="SouthPanel" runat="server" ScrollBars="Vertical" Height="100%" style="background-color: #CCCCCC;">
+                                <asp:Panel ID="SouthPanel" runat="server" ScrollBars="Vertical" Height="600px" style="background-color: #CCCCCC;">
                                     <div id="content"></div>
                                 </asp:Panel>
                             </td>
