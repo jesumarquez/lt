@@ -46,6 +46,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="App_Licenses">
+      <HintPath>..\..\..\..\..\Resources\App_Licenses.dll</HintPath>
+    </Reference>
     <Reference Include="C1.Web.C1WebChart.2">
       <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.C1WebChart.2.dll</HintPath>
     </Reference>
