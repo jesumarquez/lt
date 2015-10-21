@@ -7,6 +7,9 @@ namespace LogicTracker.App.Web.Api.Controllers
     {
         IRoutingService RoutingService { get; set; }
 
-
+        public IHttpActionResult Get(int id)
+        {
+            return Ok();
+        }
     }
 }
