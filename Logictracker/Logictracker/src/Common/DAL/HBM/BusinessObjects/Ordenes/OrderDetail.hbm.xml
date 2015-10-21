@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Ordenes.OrderDetail, Logictracker.Types" table="[par.par_enti_105_det_orden]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti105" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti105_precio_unitario" name="PrecioUnitario" type="decimal" not-null="true" />
+    <property column="parenti105_cantidad" name="Cantidad" type="Int32" not-null="true" />
+    <property column="parenti105_descuento" name="Descuento" type="decimal" not-null="true" />
+
+    <many-to-one column="rela_parenti58" name="Insumo" lazy="proxy" not-null="true" />
+    <many-to-one column="rela_parenti104" name="Order"  lazy="proxy" not-null="true" />
+
+  </class>
+</hibernate-mapping>
