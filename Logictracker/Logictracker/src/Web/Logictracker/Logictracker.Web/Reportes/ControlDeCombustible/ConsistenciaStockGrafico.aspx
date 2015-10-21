@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="ConsistenciaStockGrafico.aspx.cs" Inherits="Logictracker.Reportes.ControlDeCombustible.Reportes_ControlDeCombustible_ConsistenciaStockGrafico" Title="Consistencia de Stock"%>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.ControlDeCombustible.Reportes_ControlDeCombustible_ConsistenciaStockGrafico" Title="Consistencia de Stock" Codebehind="ConsistenciaStockGrafico.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.CheckBoxs" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists.ControlDeCombustible" Assembly="Logictracker.Web.CustomWebControls" %>
 

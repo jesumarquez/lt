@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="TipoDocumentoLista.aspx.cs" Inherits="Logictracker.Documentos.Documentos_TipoDocumentoLista" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Documentos.Documentos_TipoDocumentoLista" Title="Untitled Page" Codebehind="TipoDocumentoLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table><tr><td>

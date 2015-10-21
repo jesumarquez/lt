@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ViajeDistribucionAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="True" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" Codebehind="ViajeDistribucionAlta.aspx.cs" %>
 <%@ Import Namespace="System.IO" %>
 
 <%@ Import Namespace="Logictracker.CicloLogistico.Distribucion" %>

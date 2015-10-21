@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ConsumosPorMotor.aspx.cs" Inherits="Logictracker.Reportes.CombustibleEnPozos.Consumos.Reportes_ControlDeCombustible_Pozos_Consumos_ConsumosPorMotor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Reportes.CombustibleEnPozos.Consumos.Reportes_ControlDeCombustible_Pozos_Consumos_ConsumosPorMotor" Codebehind="ConsumosPorMotor.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

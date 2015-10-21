@@ -19,7 +19,7 @@ namespace Logictracker.App_Controls
         protected const int MinZoomLevel = 4;
         protected const string LayerRecorrido = "Recorrido";
         protected const string LayerMarkers = "Puntos";
-        public Monitor Mapa { get { return Monitor; } }
+        public Logictracker.Web.Monitor.Monitor Mapa { get { return Monitor; } }
 
         public event EventHandler MapLoad;
 

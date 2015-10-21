@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="Error.aspx.cs" Inherits="Logictracker.Error" Title="Error" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="True" CodeBehind="Error.aspx.cs" Inherits="Logictracker.Error" Title="Error" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <div style="text-align: center">

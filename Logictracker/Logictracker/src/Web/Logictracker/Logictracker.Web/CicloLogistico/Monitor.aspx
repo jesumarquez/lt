@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Monitor.aspx.cs" Inherits="Logictracker.CicloLogistico.Monitor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Monitor" Codebehind="Monitor.aspx.cs" %>
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register TagPrefix="mon" Namespace="Logictracker.Web.Monitor" Assembly="Logictracker.Web.Monitor" %>
 

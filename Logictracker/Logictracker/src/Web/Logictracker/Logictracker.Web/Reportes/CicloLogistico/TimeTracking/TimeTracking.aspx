@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="TimeTracking.aspx.cs" Inherits="Logictracker.Reportes.CicloLogistico.TimeTracking.TimeTracking" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CicloLogistico.TimeTracking.TimeTracking" Codebehind="TimeTracking.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">
     <style type="text/css">

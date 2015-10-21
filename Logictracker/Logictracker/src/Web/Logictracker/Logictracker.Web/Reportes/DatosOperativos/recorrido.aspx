@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="recorrido.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.ReportesRecorrido" Title="Reporte de recorrido" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" Inherits="Logictracker.Reportes.DatosOperativos.ReportesRecorrido" Title="Reporte de recorrido" Codebehind="recorrido.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/Pickers/NumberPicker.ascx" TagName="NumberPicker" TagPrefix="uc3" %>
 

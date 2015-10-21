@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ServicioDetalle.ascx.cs" Inherits="Logictracker.CicloLogistico.Controls.ControlDetalleServicio" ClassName="ControlDetalleServicio" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Controls.ControlDetalleServicio" ClassName="ControlDetalleServicio" Codebehind="ServicioDetalle.ascx.cs" %>
 
 <asp:UpdatePanel ID="updControl" runat="server" ChildrenAsTriggers="true">
 <ContentTemplate>

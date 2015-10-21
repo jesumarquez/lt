@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteVariacionMediciones.aspx.cs" Inherits="Logictracker.Reportes.M2M.ReporteVariacionMediciones" MasterPageFile="~/MasterPages/ReportGraphPage.master" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Reportes.M2M.ReporteVariacionMediciones" MasterPageFile="~/MasterPages/ReportGraphPage.master" Codebehind="ReporteVariacionMediciones.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server"> 
         <table width="100%">

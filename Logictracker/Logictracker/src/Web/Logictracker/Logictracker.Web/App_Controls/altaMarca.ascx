@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="altaMarca.ascx.cs" Inherits="Logictracker.App_Controls.AppControlsAltaMarca" %>
+<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="altaMarca.ascx.cs" Inherits="Logictracker.App_Controls.AppControlsAltaMarca" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists" Assembly="Logictracker.Web.CustomWebControls" %>  
 
 <asp:Panel ID="panelMarcas" runat="server">

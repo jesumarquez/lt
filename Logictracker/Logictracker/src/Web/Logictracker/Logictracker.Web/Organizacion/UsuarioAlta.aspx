@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="UsuarioAlta.aspx.cs"
-    Inherits="Logictracker.Organizacion.AltaUsuario" Title="Usuarios" MaintainScrollPositionOnPostback="true" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Organizacion.AltaUsuario" Title="Usuarios" MaintainScrollPositionOnPostback="true" Codebehind="UsuarioAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/IpRangeEditor.ascx" TagName="IpRangeEditor" TagPrefix="uc2" %>
 <%@ Register Src="../App_Controls/altaEntidad.ascx" TagName="altaEntidad" TagPrefix="uc1" %>

@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true"
-    CodeFile="StoppedHours.aspx.cs" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaStoppedHours" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaStoppedHours" Codebehind="StoppedHours.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
     <asp:Panel ID="panel1" runat="server" SkinID="FilterPanel">

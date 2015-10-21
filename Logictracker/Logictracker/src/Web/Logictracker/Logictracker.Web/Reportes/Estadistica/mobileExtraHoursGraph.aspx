@@ -1,4 +1,4 @@
-﻿<%@Page Language="C#"   MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="mobileExtraHoursGraph.aspx.cs" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaMobileExtraHoursGraph" %>
+﻿<%@Page Language="C#"   MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaMobileExtraHoursGraph" Codebehind="mobileExtraHoursGraph.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">

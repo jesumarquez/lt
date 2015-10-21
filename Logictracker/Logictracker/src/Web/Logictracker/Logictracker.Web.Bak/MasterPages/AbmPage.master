@@ -1,0 +1,126 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="false" CodeFile="AbmPage.master.cs" Inherits="Logictracker.MasterPages.AbmPage" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <%--TOOLBAR--%> 
+    <cwc:ToolBar ID="ToolBar1" runat="server" />
+    
+    <%--PROGRESSLABEL--%>
+    <cwc:ProgressLabel ID="ProgressLabel1" runat="server" />
+    
+    <%--ERRORLABEL--%>
+    <cwc:InfoLabel ID="infoLabel1" runat="server" />
+    
+    <br />
+    <cwc:SecuredPanel Id="panelId" runat="server" VariableName="VIEWIDS" style="text-align: right; margin-right: 15px">
+        <label ID="lblId" runat="server"/>        
+    </cwc:SecuredPanel>    
+    
+    <div id="tabContainer" style="margin: 20px; margin-bottom: 0px;">
+    
+    </div>
+    <div id="mainAbmContent" style="margin: 20px; margin-top: 0px; padding: 10px;">            
+            <asp:ContentPlaceHolder ID="AbmContent" runat="server">
+        
+            </asp:ContentPlaceHolder>
+    </div>
+    <style type="text/css">
+        #mainAbmContent
+        {
+            border: solid 1px #CCCCCC;
+            background-color: #e7e7e7;
+        }
+        #tabContainer input
+        {
+            border: none;
+            outline: none; 
+            background-color: #CCCCCC;
+            padding: 0px 5px 0px 5px;
+            height: 26px;
+            margin: 0px;
+            margin-right: 1px;
+        }
+        #tabContainer .active
+        {
+            background-color: #e7e7e7;
+            border: solid 1px #CCCCCC;
+            border-bottom: solid 1px #e7e7e7;
+            padding: 0px 5px 0px 5px;
+            height: 28px;
+            position: relative;
+            top: 1px;
+        }
+    </style>
+    <script type="text/javascript">
+        var mainDiv = $get('mainAbmContent');
+        var tabs = [];
+        var buttons = [];
+        for(var i = 0; i < mainDiv.childNodes.length; i++)
+            if(mainDiv.childNodes[i].nodeName == 'DIV') tabs.push(mainDiv.childNodes[i]);
+        
+        var tabContainer = $get('tabContainer');
+
+        if(tabs.length > 1)
+        {        
+            
+            for(var i = 0; i < tabs.length; i++)
+            {
+                if(tabs[i].className == 'notab') continue; 
+                var div = document.createElement('input');
+                div.type = 'button';
+                div.value = tabs[i].title;
+                div.command = tabs[i].command;
+                div.style.cursor = 'pointer';
+                tabContainer.appendChild(div);
+                $addHandler(div, 'click', changeTab);
+                if(i > 0) tabs[i].style.display = 'none';
+                else div.className = 'active';
+                buttons.push(div);
+            }
+        }
+        
+        function changeTab(evt)
+        {
+            if(tabs.length <= 1) return;
+            for(var i = 0; i < tabs.length; i++)
+            {
+                buttons[i].className = evt.target == buttons[i] ? 'active' : ' ';
+                tabs[i].style.display = evt.target == buttons[i] ? '' : 'none';
+
+                if (evt.target == buttons[i]) {
+                    var dopb = tabs[i].getAttribute('dopb');
+                    var command = tabs[i].getAttribute('command');
+                    if(dopb && command){                    
+                        <asp:Literal ID="litPostback" runat="server" />;
+                    }
+                }
+            }
+            
+        }
+        
+        function setTabIndex(index) {
+            if(index > tabs.length) return;
+            var evt = { target: buttons[index] };
+            changeTab(evt);
+        }
+        
+        function tabvisible(clientId, visible)
+        {
+            if(tabs.length <= 1) return;
+            for(var i = 0; i < tabs.length; i++)
+            {
+                var command = tabs[i].getAttribute('command');
+                if(command != clientId) continue;
+                buttons[i].style.display = visible ? '' : 'none';
+                break;
+            }
+        }
+    </script>
+    <asp:UpdatePanel ID="tabChange" runat="server" UpdateMode="Conditional">
+    <ContentTemplate>
+    <asp:Button ID="btChangeTab" runat="server" style="display: none;" OnCommand="btChangeTab_Command" />
+    <asp:HiddenField ID="hidTabCommand" runat="server" />
+    </ContentTemplate>
+    <Triggers><asp:AsyncPostBackTrigger ControlID="btChangeTab" /></Triggers>
+    </asp:UpdatePanel>
+</asp:Content>
+

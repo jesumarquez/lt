@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" CodeFile="ProgramacionPedidos.aspx.cs" Inherits="Logictracker.CicloLogistico.ProgramacionPedidos" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.ProgramacionPedidos" Title="Untitled Page" Codebehind="ProgramacionPedidos.aspx.cs" %>
         
 <%--FILTROS--%>
     <asp:Content ID="ContentFilters" runat="server" ContentPlaceHolderID="ContentFiltros">

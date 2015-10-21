@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ConsolaEntregas.aspx.cs" Inherits="Logictracker.Operacion.Consola.ConsolaEntregas" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Consola.ConsolaEntregas" Codebehind="ConsolaEntregas.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 

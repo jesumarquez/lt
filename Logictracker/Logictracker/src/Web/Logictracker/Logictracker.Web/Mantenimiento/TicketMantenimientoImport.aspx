@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" CodeFile="TicketMantenimientoImport.aspx.cs" Inherits="Logictracker.Mantenimiento.TicketMantenimientoImport"  %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" Inherits="Logictracker.Mantenimiento.TicketMantenimientoImport"  Codebehind="TicketMantenimientoImport.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentImport" runat="Server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">

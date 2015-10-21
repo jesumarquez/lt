@@ -1,4 +1,4 @@
- <%@ Page Language="C#" AutoEventWireup="true" CodeFile="monitorDeCalidad.aspx.cs" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" %>
+ <%@ Page Language="C#" AutoEventWireup="True" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" Codebehind="monitorDeCalidad.aspx.cs" %>
 
 <%@ Import Namespace="Logictracker.Culture"%>
 

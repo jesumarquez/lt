@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="RecorridoAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.CicloLogistico_RecorridoAlta" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.CicloLogistico_RecorridoAlta" Codebehind="RecorridoAlta.aspx.cs" %>
 <%@ Register Src="~/App_Controls/EditLine.ascx" TagName="EditLine" TagPrefix="uc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" Runat="Server">

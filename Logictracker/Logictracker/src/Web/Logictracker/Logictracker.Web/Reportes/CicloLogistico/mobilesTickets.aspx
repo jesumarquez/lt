@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" 
-    CodeFile="mobilesTickets.aspx.cs" Inherits="Logictracker.Reportes.CicloLogistico.Documentos_mobilesTickets" Title="Reporte de Tickets por Movil" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CicloLogistico.Documentos_mobilesTickets" Title="Reporte de Tickets por Movil" ValidateRequest="false" Codebehind="mobilesTickets.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.CheckBoxs" Assembly="Logictracker.Web.CustomWebControls" %>
 

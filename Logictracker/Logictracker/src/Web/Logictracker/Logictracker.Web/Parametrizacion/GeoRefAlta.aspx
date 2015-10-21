@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="GeoRefAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionGeoRefAlta" Title="" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionGeoRefAlta" Title="" Codebehind="GeoRefAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/IconPicker.ascx" TagName="IconPicker" TagPrefix="uc1" %>
 <%@ Register Src="../App_Controls/EditGeoRef.ascx" TagName="EditGeoRef" TagPrefix="uc1" %>

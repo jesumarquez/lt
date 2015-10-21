@@ -1,5 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FirmwareAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.Parametrizacion_FirmwareAlta"
-    MasterPageFile="~/MasterPages/AbmPage.master" Title="Firmware Alta - Modificación" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.Parametrizacion_FirmwareAlta"
+    MasterPageFile="~/MasterPages/AbmPage.master" Title="Firmware Alta - Modificación" Codebehind="FirmwareAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">
     <table style="width: 50%; border-spacing: 10px;">

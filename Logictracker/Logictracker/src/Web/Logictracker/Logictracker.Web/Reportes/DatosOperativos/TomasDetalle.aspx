@@ -1,5 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TomasDetalle.aspx.cs" EnableEventValidation="false"
-    Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaTomasDetalle" %>
+<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false"
+    Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaTomasDetalle" Codebehind="TomasDetalle.aspx.cs" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register Src="~/App_Controls/Pickers/NumberPicker.ascx" TagPrefix="uc" TagName="NumberPicker" %>
