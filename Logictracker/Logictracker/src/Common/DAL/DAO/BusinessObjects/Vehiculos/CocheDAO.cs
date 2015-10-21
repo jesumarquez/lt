@@ -301,7 +301,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
                 coche.NroChasis = generico;
                 coche.NroMotor = generico;
                 coche.Patente = generico;
-                coche.Poliza = generico;
+                coche.Poliza = generico.Length > 16 ? generico.Substring(0, 16) : generico;
                 coche.TipoCoche = tipoCocheDAO.FindByEmpresasAndLineas(new List<int> {idEmpresa}, new List<int> {-1}, null)
                                               .Cast<TipoCoche>().First();
             }

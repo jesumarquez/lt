@@ -28,6 +28,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                         .FirstOrDefault();
         }
 
+        public List<Transportista> FindByCodigos(int empresa, int linea, IEnumerable<string> codigos)
+        {
+            return Query.FilterEmpresa(Session, new[] { empresa }, null)
+                        .FilterLinea(Session, new[] { empresa }, new[] { linea }, null)
+                        .Where(p => !p.Baja && codigos.Contains(p.Descripcion))
+                        .Cacheable()
+                        .ToList();
+        }
+
         #region Get Methods
 
         public List<Transportista> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas)
