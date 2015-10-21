@@ -129,6 +129,7 @@
     <Compile Include="DAO\BusinessObjects\Auditoria\EntityAuditDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Auditoria\LoginAuditDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\AgendaVehicularDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogisticoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EstadoLogisticoDAO.cs" />
@@ -809,6 +810,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogistico.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucion.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

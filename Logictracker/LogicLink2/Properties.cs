@@ -131,5 +131,30 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                 }
             }
         }
+
+        public class PedidosPetrobras
+        {
+            public const int Cero = 0;
+            public const int CodigoCliente = 1;
+            public const int CodigoPlanta = 2;
+            public const int NombreCliente = 3;
+            public const int NombrePlanta = 4;
+            public const int CodigoTransportista = 5;
+            public const int DescripcionTransportista = 6;
+            public const int FechaSolicitud = 7;
+            public const int FechaLiberacion = 8;
+            public const int CodigoEntrega = 9;
+            public const int CodigoPedido = 10;
+            public const int Condicion = 11;
+            public const int PL = 12;
+            public const int LugarConsumo = 13;
+            public const int NaftaSuper = 14;
+            public const int NaftaPremium = 15;
+            public const int GasoilMenor500 = 16;
+            public const int GasoilPremium = 17;
+            public const int GasoilMayor500 = 18;
+            public const int Observaciones = 19;
+
+        }
     }
 }

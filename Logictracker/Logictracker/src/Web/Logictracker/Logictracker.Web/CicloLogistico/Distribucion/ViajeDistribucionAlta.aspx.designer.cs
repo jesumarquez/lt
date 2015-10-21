@@ -1154,5 +1154,32 @@ namespace Logictracker.CicloLogistico.Distribucion {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ReorderList ReorderList1;
+        
+        /// <summary>
+        /// AbmTabPanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Panels.AbmTabPanel AbmTabPanel2;
+        
+        /// <summary>
+        /// pnlUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel pnlUpdate;
+        
+        /// <summary>
+        /// gridEstadosCumplidos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::C1.Web.UI.Controls.C1GridView.C1GridView gridEstadosCumplidos;
     }
 }

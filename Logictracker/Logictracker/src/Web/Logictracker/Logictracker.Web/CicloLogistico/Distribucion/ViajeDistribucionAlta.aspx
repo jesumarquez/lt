@@ -540,4 +540,64 @@
             </asp:UpdatePanel>
         </div>
     </cwc:AbmTabPanel>
+
+    <cwc:AbmTabPanel ID="AbmTabPanel2" runat="server" ResourceName="Menu" VariableName="PAR_ESTADO_LOGISTICO">        
+        <asp:UpdatePanel ID="pnlUpdate" runat="server">
+                <ContentTemplate>
+                    <table width="100%" border="0">
+                        <tr>
+                            <td align="center" valign="top"> 
+                                <c1:C1GridView ID="gridEstadosCumplidos" runat="server" OnRowDataBound="GridEstadosCumplidosOnRowDataBound" AutoGenerateColumns="false" Width="100%" Visible="true" SkinID="ListGridNoGroupNoPage" >
+                                    <Columns>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgIcono" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblEstadoLogistico" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDesde" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblHasta" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblTotal" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDemora" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDesvio" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                    </Columns>
+                                </c1:C1GridView>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+    </cwc:AbmTabPanel>
+
 </asp:Content>

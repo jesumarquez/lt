@@ -19,6 +19,7 @@ using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
+using Logictracker.AVL.Messages;
 
 namespace Logictracker.Process.CicloLogistico
 {
@@ -856,6 +857,76 @@ namespace Logictracker.Process.CicloLogistico
                                 new GPSPoint(data.Date, (float) data.Latitud, (float) data.Longitud), data.Date);
                 }
                 EstadoDesvio = nuevoEstadoDesvio;
+            }
+        }
+
+        #endregion
+
+        #region EstadoLogistico
+
+        public void ProcessEstadoLogistico(Event evento)
+        {
+            if (Distribucion.TipoCicloLogistico != null)
+            {
+                var codigo = evento.Code.ToString();
+                var estados = Distribucion.TipoCicloLogistico.Estados;
+                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == codigo);
+                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == codigo);
+
+                foreach (var item in aCerrar)
+                {
+                    var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                    foreach (var abierto in abiertos)
+                    {
+                        abierto.Fin = evento.GeoPoint.Date;
+                    }
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+
+                foreach (var item in aIniciar)
+                {
+                    var estadoCumplido = new EstadoDistribucion();
+                    estadoCumplido.EstadoLogistico = item;
+                    estadoCumplido.Inicio = evento.GeoPoint.Date;
+                    estadoCumplido.Viaje = Distribucion;
+                    Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+            }
+        }
+
+        public void ProcessEstadoLogistico(string codigo, DateTime fecha, int idGeocerca)
+        {
+            if (Distribucion.TipoCicloLogistico != null)
+            {
+                var estados = Distribucion.TipoCicloLogistico.Estados;
+                var tipoGeocerca = DaoFactory.ReferenciaGeograficaDAO.FindById(idGeocerca).TipoReferenciaGeografica;
+                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == codigo);
+                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == codigo);
+
+                foreach (var item in aCerrar)
+                {
+                    if (item.TipoGeocercaFin != null && item.TipoGeocercaFin.Id != tipoGeocerca.Id) continue;
+
+                    var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                    foreach (var abierto in abiertos)
+                    {
+                        abierto.Fin = fecha;
+                    }
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+
+                foreach (var item in aIniciar)
+                {
+                    if (item.TipoGeocercaInicio != null && item.TipoGeocercaInicio.Id != tipoGeocerca.Id) continue;
+
+                    var estadoCumplido = new EstadoDistribucion();
+                    estadoCumplido.EstadoLogistico = item;
+                    estadoCumplido.Inicio = fecha;
+                    estadoCumplido.Viaje = Distribucion;
+                    Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
             }
         }
 
