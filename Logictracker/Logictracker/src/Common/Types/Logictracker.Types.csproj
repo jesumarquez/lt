@@ -81,6 +81,8 @@
     <Compile Include="BusinessObjects\Messages\LogMensajeAdmin.cs" />
     <Compile Include="BusinessObjects\Messages\LastVehicleEvent.cs" />
     <Compile Include="BusinessObjects\Messages\EvenDistri.cs" />
+    <Compile Include="BusinessObjects\Ordenes\Order.cs" />
+    <Compile Include="BusinessObjects\Ordenes\OrderDetail.cs" />
     <Compile Include="BusinessObjects\ParameterType.cs" />
     <Compile Include="BusinessObjects\ParametroReportesProg.cs" />
     <Compile Include="BusinessObjects\Positions\Coordinate.cs" />
@@ -444,6 +446,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -13,6 +13,7 @@ using Logictracker.DAL.DAO.BusinessObjects.Documentos;
 using Logictracker.DAL.DAO.BusinessObjects.Entidades;
 using Logictracker.DAL.DAO.BusinessObjects.Mantenimiento;
 using Logictracker.DAL.DAO.BusinessObjects.Messages;
+using Logictracker.DAL.DAO.BusinessObjects.Ordenes;
 using Logictracker.DAL.DAO.BusinessObjects.Organizacion;
 using Logictracker.DAL.DAO.BusinessObjects.Positions;
 using Logictracker.DAL.DAO.BusinessObjects.Postal;
@@ -184,6 +185,13 @@ namespace Logictracker.DAL.Factories
 
         private MensajeIgnoradoDAO _mensajeIgnoradoDAO;
         public MensajeIgnoradoDAO MensajeIgnoradoDAO { get { return _mensajeIgnoradoDAO ?? (_mensajeIgnoradoDAO = GetDao<MensajeIgnoradoDAO>()); } }
+
+        #endregion
+
+        #region Ordenes
+
+        private OrderDAO _orderDao;
+        public OrderDAO OrderDAO { get { return _orderDao ?? (_orderDao = GetDao<OrderDAO>()); } }
 
         #endregion
 
