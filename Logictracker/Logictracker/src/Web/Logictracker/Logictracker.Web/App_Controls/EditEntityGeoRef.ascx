@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditEntityGeoRef.ascx.cs" Inherits="Logictracker.App_Controls.EditEntityGeoRef" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="EditEntityGeoRef.ascx.cs" Inherits="Logictracker.App_Controls.EditEntityGeoRef" %>
 
 <%@ Register Src="../App_Controls/EditGeoRef.ascx" TagName="EditGeoRef" TagPrefix="uc1" %>
 <%@ Register Src="../App_Controls/IconPicker.ascx" TagName="IconPicker" TagPrefix="uc" %>

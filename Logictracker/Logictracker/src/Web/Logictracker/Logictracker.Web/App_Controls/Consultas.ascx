@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Consultas.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_Consultas" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="Consultas.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_Consultas" %>
 <div id="consultas">
 <asp:UpdatePanel ID="updConsultas" runat="server" UpdateMode="Conditional">
     <ContentTemplate>

@@ -286,7 +286,7 @@ namespace Logictracker.Reportes.Estadistica
             return color;
         }
 
-        private IEnumerable<MobileRoutes> MergeResults(ICollection<MobileRoutes> routes)
+        private IEnumerable<Logictracker.Types.ReportObjects.MobileRoutes> MergeResults(ICollection<Logictracker.Types.ReportObjects.MobileRoutes> routes)
         {
             var filteredRoutes = FilterResults(routes);
 
@@ -303,7 +303,7 @@ namespace Logictracker.Reportes.Estadistica
             return filteredRoutes;
         }
 
-        private static void MergeRouteFragments(MobileRoutes pastFragment, MobileRoutes currentFragment)
+        private static void MergeRouteFragments(Logictracker.Types.ReportObjects.MobileRoutes pastFragment, Logictracker.Types.ReportObjects.MobileRoutes currentFragment)
         {
             pastFragment.AverageSpeed = pastFragment.AverageSpeed >= currentFragment.AverageSpeed ? pastFragment.AverageSpeed : currentFragment.AverageSpeed;
             pastFragment.Duration += currentFragment.Duration;
@@ -317,10 +317,10 @@ namespace Logictracker.Reportes.Estadistica
             pastFragment.HsMarcha += currentFragment.HsMarcha;
         }
 
-        private List<MobileRoutes> FilterResults(ICollection<MobileRoutes> routes)
+        private List<Logictracker.Types.ReportObjects.MobileRoutes> FilterResults(ICollection<Logictracker.Types.ReportObjects.MobileRoutes> routes)
         {
-            if (routes == null || routes.Count.Equals(0)) 
-                return new List<MobileRoutes>();
+            if (routes == null || routes.Count.Equals(0))
+                return new List<Logictracker.Types.ReportObjects.MobileRoutes>();
 
             var distance = npDistancia.Number / 1000.0;
 
@@ -331,7 +331,7 @@ namespace Logictracker.Reportes.Estadistica
                     select route).ToList();
         }
 
-        private void DisplayTotalizers(IList<MobileRoutes> routes)
+        private void DisplayTotalizers(IList<Logictracker.Types.ReportObjects.MobileRoutes> routes)
         {
             var totalMovementTime = 0.0;
             var totalMovementEvents = 0;

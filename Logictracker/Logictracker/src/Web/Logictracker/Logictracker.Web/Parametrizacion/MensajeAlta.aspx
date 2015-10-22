@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="MensajeAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionMensajeAlta" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionMensajeAlta" Title="Untitled Page" Codebehind="MensajeAlta.aspx.cs" %>
 
 <%@ Register TagPrefix="uc" TagName="IconPicker" Src="~/App_Controls/IconPicker.ascx" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="AbmContent" runat="Server">

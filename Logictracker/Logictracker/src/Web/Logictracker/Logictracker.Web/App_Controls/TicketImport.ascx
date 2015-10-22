@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="TicketImport.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_TicketImport" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="TicketImport.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_TicketImport" %>
 
 <asp:Panel ID="panelUpload" runat="server" DefaultButton="btUpload" CssClass="filterpanel">
     <table style="width: 100%">

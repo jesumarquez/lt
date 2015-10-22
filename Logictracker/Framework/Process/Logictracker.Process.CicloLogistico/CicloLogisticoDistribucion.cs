@@ -875,7 +875,7 @@ namespace Logictracker.Process.CicloLogistico
 
                 foreach (var item in aCerrar)
                 {
-                    var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico == item && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                    var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
                     foreach (var abierto in abiertos)
                     {
                         abierto.Fin = evento.GeoPoint.Date;
@@ -908,7 +908,7 @@ namespace Logictracker.Process.CicloLogistico
                 {
                     if (item.TipoGeocercaFin != null && item.TipoGeocercaFin.Id != tipoGeocerca.Id) continue;
 
-                    var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico == item && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                    var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
                     foreach (var abierto in abiertos)
                     {
                         abierto.Fin = fecha;

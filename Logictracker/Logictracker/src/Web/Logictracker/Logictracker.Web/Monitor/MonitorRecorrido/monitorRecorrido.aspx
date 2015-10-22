@@ -1,4 +1,4 @@
- <%@ Page Language="C#" AutoEventWireup="true" CodeFile="monitorRecorrido.aspx.cs" Inherits="Logictracker.Monitor.MonitorRecorrido.MonitorRecorrido" %>
+ <%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Monitor.MonitorRecorrido.MonitorRecorrido" Codebehind="monitorRecorrido.aspx.cs" %>
 
 <%@ Import Namespace="Logictracker.Culture"%>
 

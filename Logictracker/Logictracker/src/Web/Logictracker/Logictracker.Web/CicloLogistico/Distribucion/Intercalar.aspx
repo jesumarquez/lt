@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Intercalar.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.Intercalar" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Distribucion.Intercalar" Codebehind="Intercalar.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register TagPrefix="mon" Namespace="Logictracker.Web.Monitor" Assembly="Logictracker.Web.Monitor" %>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FirmwareLista.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionFirmwareLista" MasterPageFile="~/MasterPages/ListPage.master" Title="Firmwares" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionFirmwareLista" MasterPageFile="~/MasterPages/ListPage.master" Title="Firmwares" Codebehind="FirmwareLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
 </asp:Content>

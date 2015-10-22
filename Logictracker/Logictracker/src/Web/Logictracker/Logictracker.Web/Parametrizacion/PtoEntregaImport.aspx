@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" CodeFile="PtoEntregaImport.aspx.cs" Inherits="Logictracker.Parametrizacion.PtoEntregaImport" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.PtoEntregaImport" Title="Untitled Page" Codebehind="PtoEntregaImport.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentImport" Runat="Server">
 <table style="width: 100%">                

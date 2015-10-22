@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DireccionSearch.ascx.cs" Inherits="Logictracker.App_Controls.DireccionSearch" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="DireccionSearch.ascx.cs" Inherits="Logictracker.App_Controls.DireccionSearch" %>
 
 <asp:Panel ID="panelControl" runat="server">
     <asp:UpdatePanel ID="updControl" runat="server" RenderMode="Inline" ChildrenAsTriggers="true" UpdateMode="Conditional">

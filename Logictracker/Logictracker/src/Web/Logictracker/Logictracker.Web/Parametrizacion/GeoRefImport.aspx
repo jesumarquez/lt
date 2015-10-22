@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" CodeFile="GeoRefImport.aspx.cs" Inherits="Logictracker.Parametrizacion.GeoRefImport" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.GeoRefImport" Title="Untitled Page" Codebehind="GeoRefImport.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentImport" Runat="Server">
     <table style="width: 100%">                

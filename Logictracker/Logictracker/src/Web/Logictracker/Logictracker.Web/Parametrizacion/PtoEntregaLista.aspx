@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="PtoEntregaLista.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionPtoEntregaLista" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="True" Inherits="Logictracker.Parametrizacion.ParametrizacionPtoEntregaLista" Title="Untitled Page" Codebehind="PtoEntregaLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>

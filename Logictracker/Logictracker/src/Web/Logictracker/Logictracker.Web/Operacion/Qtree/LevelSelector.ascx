@@ -1,4 +1,4 @@
-﻿ <%@ Control Language="C#" AutoEventWireup="true" CodeFile="LevelSelector.ascx.cs" Inherits="Logictracker.Operacion.Qtree.Operacion_Qtree_LevelSelector" %>
+﻿ <%@ Control Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Qtree.Operacion_Qtree_LevelSelector" Codebehind="LevelSelector.ascx.cs" %>
 
 <asp:UpdatePanel ID="updLevelSelector" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true" RenderMode="Inline">
 <ContentTemplate>

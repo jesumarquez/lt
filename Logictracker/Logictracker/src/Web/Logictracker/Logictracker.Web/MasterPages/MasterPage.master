@@ -1,5 +1,5 @@
 
-<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Logictracker.MasterPages.MasterPage" %>
+<%@ Master Language="C#" AutoEventWireup="True" CodeBehind="MasterPage.master.cs" Inherits="Logictracker.MasterPages.MasterPage" %>
 
 <%@ Register Src="~/App_Controls/Menu.ascx" TagName="Menu" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %>

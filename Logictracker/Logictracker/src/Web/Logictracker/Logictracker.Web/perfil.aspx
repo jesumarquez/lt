@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true"
-    CodeFile="perfil.aspx.cs" Inherits="Logictracker._perfil" Title="" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="True"
+    codeBehind="perfil.aspx.cs" Inherits="Logictracker._perfil" Title="" %>
 
 <%@ Register Src="App_Controls/altaEntidad.ascx" TagName="altaEntidad" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>

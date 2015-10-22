@@ -114,6 +114,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                                     break;
 	                        }
                             break;
+                        case LogicLinkFile.Estrategias.PedidosPetrobras:
+                            var pedidos = 0;
+                            PedidosPetrobras.Parse(archivo, out pedidos, out observaciones);
+                            result = string.Format("Archivo procesado exitosamente. Pedidos: {0}", pedidos);
+                            if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
+                            break;
                     }
 
                     archivo.Status = LogicLinkFile.Estados.Procesado;

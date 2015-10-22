@@ -156,17 +156,16 @@ namespace Logictracker.Process.CicloLogistico
                 if (vehiculo.Dispositivo == null) return;
 
                 var daoFactory = new DAOFactory();
-                var messageSaver = new MessageSaver(daoFactory);
-                CicloLogisticoDistribucion ciclo = null;
-                
                 var distribucion = daoFactory.ViajeDistribucionDAO.FindEnCurso(vehiculo);
-                if (distribucion != null) ciclo = new CicloLogisticoDistribucion(distribucion, daoFactory, messageSaver);
-                
-                if (ciclo == null)
+
+                if (distribucion != null)
                 {
-                    return;
+                    var messageSaver = new MessageSaver(daoFactory);
+                    CicloLogisticoDistribucion ciclo = null;
+                    ciclo = new CicloLogisticoDistribucion(distribucion, daoFactory, messageSaver);
+
+                    if (ciclo != null) ciclo.ProcessEstadoLogistico(evento);
                 }
-                ciclo.ProcessEstadoLogistico(evento);
             }
             catch (Exception ex)
             {

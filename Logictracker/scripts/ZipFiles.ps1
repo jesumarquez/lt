@@ -1,4 +1,4 @@
-﻿Param (
+Param (
 	[parameter(Mandatory=$True)] [string]$compress = "", [string]$source = "", [string]$destination = ""
     )
 
@@ -20,7 +20,7 @@ function Zip-Files($source, $destination)
 
 function Unzip-Files($source, $destination)
 {
-    If(!Test-path $source) { Write-Output "No se encuentra el archivo a descomprimir: $source"}
+    If(!(Test-path $source)) { Write-Output "No se encuentra el archivo a descomprimir: $source"}
 
     #Add-Type -assembly "system.io.compression.filesystem"
 

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ActividadTerceros.aspx.cs" Inherits="Logictracker.Reportes.Transportistas.EstadisticaActividadTerceros" MasterPageFile="~/MasterPages/ReportGridPage.master" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Reportes.Transportistas.EstadisticaActividadTerceros" MasterPageFile="~/MasterPages/ReportGridPage.master" Codebehind="ActividadTerceros.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
     
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">   

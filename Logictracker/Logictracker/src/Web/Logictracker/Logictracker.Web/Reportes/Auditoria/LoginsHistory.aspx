@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="LoginsHistory.aspx.cs" Inherits="Logictracker.Reportes.Auditoria.Reportes_Auditoria_LoginsHistory" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.Auditoria.Reportes_Auditoria_LoginsHistory" Codebehind="LoginsHistory.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
 <table width="100%">

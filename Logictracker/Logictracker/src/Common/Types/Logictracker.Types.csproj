@@ -81,6 +81,8 @@
     <Compile Include="BusinessObjects\Messages\LogMensajeAdmin.cs" />
     <Compile Include="BusinessObjects\Messages\LastVehicleEvent.cs" />
     <Compile Include="BusinessObjects\Messages\EvenDistri.cs" />
+    <Compile Include="BusinessObjects\Ordenes\Order.cs" />
+    <Compile Include="BusinessObjects\Ordenes\OrderDetail.cs" />
     <Compile Include="BusinessObjects\ParameterType.cs" />
     <Compile Include="BusinessObjects\ParametroReportesProg.cs" />
     <Compile Include="BusinessObjects\Positions\Coordinate.cs" />
@@ -444,6 +446,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -457,4 +460,10 @@
     </PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

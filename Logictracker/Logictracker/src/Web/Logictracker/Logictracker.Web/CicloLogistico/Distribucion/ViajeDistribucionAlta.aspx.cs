@@ -555,10 +555,10 @@ namespace Logictracker.CicloLogistico.Distribucion
                     if (lbl != null) lbl.Text = result.EstadoLogistico.Descripcion;
 
                     lbl = e.Row.FindControl("lblDesde") as Label;
-                    if (lbl != null) lbl.Text = result.Inicio.HasValue ? result.Inicio.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty;
+                    if (lbl != null) lbl.Text = result.Inicio.HasValue ? result.Inicio.Value.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm") : string.Empty;
 
                     lbl = e.Row.FindControl("lblHasta") as Label;
-                    if (lbl != null) lbl.Text = result.Fin.HasValue ? result.Fin.Value.ToString("dd/MM/yyyy HH:mm") : string.Empty;
+                    if (lbl != null) lbl.Text = result.Fin.HasValue ? result.Fin.Value.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm") : string.Empty;
 
                     var total = result.Inicio.HasValue && result.Fin.HasValue ? result.Fin.Value.Subtract(result.Inicio.Value) : new TimeSpan();
                     lbl = e.Row.FindControl("lblTotal") as Label;

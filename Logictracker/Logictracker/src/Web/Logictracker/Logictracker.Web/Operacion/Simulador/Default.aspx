@@ -1,4 +1,4 @@
-﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Logictracker.Operacion.Simulador.OperacionSimuladorDefault" %>
+﻿ <%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Simulador.OperacionSimuladorDefault" Codebehind="Default.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register Src="~/App_Controls/Pickers/DateTimePicker.ascx" TagName="DateTimePicker" TagPrefix="uc1" %>

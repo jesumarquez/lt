@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ImportData.aspx.cs" MasterPageFile="~/MasterPages/MasterPage.master" Inherits="Logictracker.Parametrizacion.ParametrizacionImportData" Title="Importador Masivo" %>
+<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPages/MasterPage.master" Inherits="Logictracker.Parametrizacion.ParametrizacionImportData" Title="Importador Masivo" Codebehind="ImportData.aspx.cs" %>
 
 <%@ Register src="~/App_Controls/Pickers/NumberPicker.ascx" tagname="NumberPicker" tagprefix="uc1" %> 
 <%@ Register src="~/App_Controls/DireccionImport.ascx" tagname="DireccionImport" tagprefix="uc1" %>
