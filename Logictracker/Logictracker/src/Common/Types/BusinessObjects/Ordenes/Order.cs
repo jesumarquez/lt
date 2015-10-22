@@ -15,7 +15,7 @@ namespace Logictracker.Types.BusinessObjects.Ordenes
         public virtual string CodigoPedido { get; set; }
         public virtual DateTime FechaAlta { get; set; }
         public virtual DateTime FechaPedido { get; set; }
-        public virtual DateTime FechaEntrega { get; set; }
+        public virtual DateTime? FechaEntrega { get; set; }
         public virtual string InicioVentana { get; set; }
         public virtual string FinVentana { get; set; }
         public virtual Linea Linea { get; set; }

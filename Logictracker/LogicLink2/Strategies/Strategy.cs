@@ -54,19 +54,29 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         }
 
         protected static List<Row> ParseExcelFile(string file, bool hasHeader)
+        {   
+            return ParseExcelFile(file, hasHeader, 1);
+        }
+
+        protected static List<Row> ParseExcelFile(string file, bool hasHeader, int breakAfter)
         {
             var table = new Table();
             var excel = new ExcelQueryFactory(file);
 
-            var rows = CreateRows(excel, hasHeader);
+            var rows = CreateRows(excel, hasHeader, breakAfter);
 
             return rows;
         }
 
         protected static List<Row> CreateRows(ExcelQueryFactory excel, bool hasHeader)
         {
+            return CreateRows(excel, hasHeader, 1);
+        }
+
+        protected static List<Row> CreateRows(ExcelQueryFactory excel, bool hasHeader, int breakAfter)
+        {
             var currentWorkSheet = excel.GetWorksheetNames().First();
-                        
+
             var sheet = hasHeader
                             ? excel.Worksheet(currentWorkSheet).Select(t => t as List<Cell>)
                             : excel.WorksheetNoHeader(currentWorkSheet).Select(t => t as List<Cell>);
@@ -85,7 +95,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             {
                 var importRow = new Row();
                 for (var i = 0; i < columns.Count(); i++)
-                {                    
+                {
                     importRow.Insert(i, row[i]);
                 }
 
@@ -93,7 +103,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 if (empty) emptyCount++;
                 else emptyCount = 0;
 
-                if (emptyCount > 1) break;
+                if (emptyCount > breakAfter) break;
 
                 if (!empty) list.Add(importRow);
             }
