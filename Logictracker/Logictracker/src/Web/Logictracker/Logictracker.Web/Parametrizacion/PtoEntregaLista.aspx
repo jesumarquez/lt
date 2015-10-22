@@ -9,11 +9,11 @@
             </td>
             <td>
                 <cwc:ResourceLabel ID="lblBase" runat="server" ResourceName="Entities" VariableName="PARENTI02" /><br />
-                <cwc:PlantaDropDownList ID="ddlBase" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito" AddAllItem="true" onselectedindexchanged="FilterChangedHandler" />
+                <cwc:PlantaDropDownList ID="ddlBase" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito" AddAllItem="true" onselectedindexchanged="FilterChangedHandler"  />
             </td>
             <td>
                 <cwc:ResourceLabel ID="lblCliente" runat="server" ResourceName="Entities" VariableName="PARENTI18" /><br />
-                <cwc:ClienteDropDownList ID="ddlCliente" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito,ddlBase" onselectedindexchanged="FilterChangedHandler" AddAllItem="false" />
+                <cwc:ClienteDropDownList ID="ddlCliente" runat="server" AutoPostBack="true" Width="200px" ParentControls="ddlDistrito,ddlBase" onselectedindexchanged="FilterChangedHandler" />
             </td>
             <td>
                 <cwc:ResourceLabel ID="lblActivarPaginacion" Text="Paginar Consulta" runat="server" ResourceName="Entities" VariableName="Paginar Consulta" /><br />
