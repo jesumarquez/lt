@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External.Libs", "External.Libs", "{1C3B03E3-47DF-4499-9666-CC4B72A70C09}"
 EndProject
@@ -396,6 +396,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Tests.Webservice", "Testing\Web\Logictracker.Tracker.Tests.Webservice\Logictracker.Tracker.Tests.Webservice.csproj", "{5CFB3EA9-5552-4421-9ACE-96F07EA417E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logitracker.Codecs.Sitrack", "BackEnd\Codecs\Logitracker.Codecs.Sitrack\Logitracker.Codecs.Sitrack.csproj", "{B4103F7F-7B2E-41AA-AB82-96171076C7C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Routing", "Routing", "{5E554198-173A-402D-9B5B-45B6A13EE119}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Routing.Client", "Routing\logictracker.routing.client\logictracker.routing.client\Logictracker.Routing.Client.csproj", "{4046E8B4-9317-48F6-85D8-B123EC3655F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3043,6 +3047,24 @@ Global
 		{B4103F7F-7B2E-41AA-AB82-96171076C7C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B4103F7F-7B2E-41AA-AB82-96171076C7C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B4103F7F-7B2E-41AA-AB82-96171076C7C6}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|.NET.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3232,5 +3254,6 @@ Global
 		{0F54EA37-0E82-4636-A0D2-94196F927B79} = {2E771EDC-BAB9-44B2-B50F-AE402159A532}
 		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0} = {F113C330-3BE8-4B47-AA50-29094B1EF5FA}
 		{B4103F7F-7B2E-41AA-AB82-96171076C7C6} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
+		{4046E8B4-9317-48F6-85D8-B123EC3655F9} = {5E554198-173A-402D-9B5B-45B6A13EE119}
 	EndGlobalSection
 EndGlobal
