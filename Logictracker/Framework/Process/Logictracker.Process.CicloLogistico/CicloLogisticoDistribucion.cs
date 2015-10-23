@@ -864,14 +864,13 @@ namespace Logictracker.Process.CicloLogistico
 
         #region EstadoLogistico
 
-        public void ProcessEstadoLogistico(Event evento)
+        public void ProcessEstadoLogistico(Event evento, string code)
         {
             if (Distribucion.TipoCicloLogistico != null)
             {
-                var codigo = evento.Code.ToString();
                 var estados = Distribucion.TipoCicloLogistico.Estados;
-                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == codigo);
-                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == codigo);
+                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == code);
+                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == code);
 
                 foreach (var item in aCerrar)
                 {
