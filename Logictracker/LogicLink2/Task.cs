@@ -56,9 +56,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             //}
 
             var archivosPendientes = DaoFactory.LogicLinkFileDAO.GetPendientes(IdEmpresa).ToList();
-            archivosPendientes.Add(DaoFactory.LogicLinkFileDAO.FindById(33949));
-            archivosPendientes.Add(DaoFactory.LogicLinkFileDAO.FindById(33950));
-
             STrace.Trace(Component, "Archivos pendientes: " + archivosPendientes.Count());
 
             foreach (var archivoPendiente in archivosPendientes)
