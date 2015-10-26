@@ -4,6 +4,10 @@ using Logictracker.DAL.NHibernate;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.Services.Helpers;
+using System.Globalization;
+using Logictracker.Types.BusinessObjects.Components;
+using System.Drawing;
 
 namespace Logictracker.Parametrizacion
 {
@@ -29,24 +33,14 @@ namespace Logictracker.Parametrizacion
            if (!IsMapped(Fields.Codigo.Value)) 
                throw new ApplicationException("Falta mapear " + Fields.Codigo.Name);
 
-           // Una de las 3 variantes de direccion tiene que estar mapeada
-           if (!IsMapped(Fields.Direccion.Value) 
-              && (!IsMapped(Fields.Latitud.Value) || !IsMapped(Fields.Longitud.Value))
-              && (!IsMapped(Fields.Calle.Value) || (!IsMapped(Fields.Altura.Value) || !IsMapped(Fields.Esquina.Value)) || (!IsMapped(Fields.Partido.Value) || !IsMapped(Fields.Provincia.Value))))
-           {
-              throw new ApplicationException("Falta mapear " + Fields.Direccion.Name);
-           }
-
+           
            // La Empresa es obligatoria
            ValidateEntity(cbEmpresa.Selected, "PARENTI01");
 
-           // El tipo de referencia geografica es obligatorio (por mapeo o seleccion)
-           if(!IsMapped(Fields.TipoGeoRef.Value)) 
-               ValidateEntity(cbTipoGeoRef.Selected, "PARENTI10");
 
            // El Cliente es obligatorio
-           if(!IsMapped(Fields.Cliente.Value))
-               throw new ApplicationException("Falta mapear " + Fields.Cliente.Name);
+           if(!IsMapped(Fields.TipoCliente.Value))
+               throw new ApplicationException("Falta mapear " + Fields.TipoCliente.Name);
         }
 
         protected override bool ValidateRow(ImportRow row)
@@ -82,68 +76,93 @@ namespace Logictracker.Parametrizacion
                 {
                     foreach (var row in rows)
                     {
-                        var cliente = DAOFactory.ClienteDAO.GetByCode(empresas, lineas, row.GetString(GetColumnByValue(Fields.Cliente.Value)));
+                        var tipoCliente = row.GetString(GetColumnByValue(Fields.TipoCliente.Value));
+                        var cliente = DAOFactory.ClienteDAO.FindByDescripcion(new[] { empresa.Id }, new[] { -1 }, tipoCliente);
                         var codigo = row.GetString(GetColumnByValue(Fields.Codigo.Value));
-                        var descripcion = IsMapped(Fields.Descripcion.Value) ? row.GetString(GetColumnByValue(Fields.Descripcion.Value)) : codigo;
-                        var direccion = row.GetString(GetColumnByValue(Fields.Direccion.Value));
-                        var calle = row.GetString(GetColumnByValue(Fields.Calle.Value));
-                        var altura = row.GetInt32(GetColumnByValue(Fields.Altura.Value));
-                        var esquina = row.GetString(GetColumnByValue(Fields.Esquina.Value));
-                        var partido = row.GetString(GetColumnByValue(Fields.Partido.Value));
-                        var provincia = row.GetString(GetColumnByValue(Fields.Provincia.Value));
-                        var vigenciaDesde = row.GetDateTime(GetColumnByValue(Fields.VigenciaDesde.Value));
-                        var vigenciaHasta = row.GetDateTime(GetColumnByValue(Fields.VigenciaHasta.Value));
-                        var longitud = row.GetDouble(GetColumnByValue(Fields.Longitud.Value));
-                        var latitud = row.GetDouble(GetColumnByValue(Fields.Latitud.Value));
-                        var tipoGeoref = row.GetString(GetColumnByValue(Fields.TipoGeoRef.Value));
-                        var telefono = row.GetString(GetColumnByValue(Fields.Telefono.Value));
-                        var comentario1 = row.GetString(GetColumnByValue(Fields.Comentario1.Value));
-                        var comentario2 = row.GetString(GetColumnByValue(Fields.Comentario2.Value));
-                        var comentario3 = row.GetString(GetColumnByValue(Fields.Comentario3.Value));
-                        var direccionNomenclada = string.Empty;
-                        ReferenciaGeografica geoRef;
 
-                        tipoGeoref = ValidateEmpty(tipoGeoref, "Entities", "PARENTI10");
-                        var tipoReferencia = DAOFactory.TipoReferenciaGeograficaDAO.GetByCodigo(empresas, lineas, tipoGeoref) ?? tipoReferenciaDefault;
-                        if (tipoReferencia == null) throw new ApplicationException("Tipo de Referencia Geográfica inválido");
+                        var pto = DAOFactory.PuntoEntregaDAO.FindByCode(new[] { cliente.Empresa.Id }, new[] { cliente.Linea != null ? cliente.Linea.Id : -1 }, new[] { cliente.Id }, codigo);
 
-
-                        if (latitud.HasValue &&
-                            longitud.HasValue)
+                        if (pto == null)
                         {
-                            geoRef = GetReferenciaGeografica(tipoReferencia, null, empresa, linea, codigo, descripcion, vigenciaDesde, vigenciaHasta,
-                                latitud.Value, longitud.Value);
-                            direccionNomenclada = string.Format("({0}, {1})", latitud.Value, longitud.Value);
+                            var descripcion = IsMapped(Fields.Descripcion.Value) ? row.GetString(GetColumnByValue(Fields.Descripcion.Value)) : codigo;
+                            var longitud = row.GetDouble(GetColumnByValue(Fields.Longitud.Value));
+                            var latitud = row.GetDouble(GetColumnByValue(Fields.Latitud.Value));
+                            var vigenciaDesde = DateTime.Now;
+                            var direccionNomenclada = string.Empty;
+                            var geoRef = new ReferenciaGeografica();
+                            var telefono = "";
+
+                            var tipoReferencia = tipoReferenciaDefault;
+                            if (tipoReferencia == null) throw new ApplicationException("Tipo de Referencia Geográfica inválido");
+
+
+                            if (latitud.HasValue &&
+                                longitud.HasValue)
+                            {
+                                geoRef = GetReferenciaGeografica(tipoReferencia, null, empresa, linea, codigo, descripcion, vigenciaDesde, null,
+                                    latitud.Value, longitud.Value);
+                                direccionNomenclada = string.Format("({0}, {1})", latitud.Value, longitud.Value);
+                            }
+
+                            pto = CreatePuntoEntrega(cliente, codigo, descripcion, telefono, geoRef);
+
                         }
                         else
                         {
-                            if (!string.IsNullOrEmpty(calle) &&
-                                (!string.IsNullOrEmpty(esquina) || altura.HasValue) &&
-                                (!string.IsNullOrEmpty(partido) || !string.IsNullOrEmpty(provincia)))
+                            var descripcion = IsMapped(Fields.Descripcion.Value) ? row.GetString(GetColumnByValue(Fields.Descripcion.Value)) : codigo;
+                            var longitud = row.GetDouble(GetColumnByValue(Fields.Longitud.Value));
+                            var latitud = row.GetDouble(GetColumnByValue(Fields.Latitud.Value));
+
+                            pto.Descripcion = descripcion;
+                            pto.Nombre = descripcion;
+
+                            if (pto.ReferenciaGeografica.Latitude != latitud ||
+                                pto.ReferenciaGeografica.Longitude != longitud)
                             {
-                                geoRef = GetReferenciaGeografica(tipoReferencia, null, empresa, linea, codigo, descripcion, vigenciaDesde, vigenciaHasta, calle,
-                                    altura.HasValue ? altura.Value : -1, esquina, partido, provincia);
-                                direccionNomenclada = string.Format("({0} {1}, {2})", calle, altura.HasValue ? altura.Value.ToString("#0") : " y " + esquina,
-                                    string.IsNullOrEmpty(partido) ? provincia : partido);
-                            }
-                            else
-                            {
-                                if (!string.IsNullOrEmpty(direccion))
+                                pto.ReferenciaGeografica.Direccion.Vigencia.Fin = DateTime.UtcNow;
+                                pto.ReferenciaGeografica.Poligono.Vigencia.Fin = DateTime.UtcNow;
+
+                                #region var posicion = new Direccion()
+
+                                var direccion = GeocoderHelper.GetEsquinaMasCercana(latitud.Value, longitud.Value);
+
+                                var posicion = new Direccion
                                 {
-                                    geoRef = GetReferenciaGeografica(tipoReferencia, null, empresa, linea, codigo, descripcion, vigenciaDesde, vigenciaHasta,
-                                        direccion);
-                                    direccionNomenclada = direccion;
-                                }
-                                else
-                                {
-                                    geoRef = GetReferenciaGeografica(tipoReferencia, null, empresa, linea, codigo, descripcion, vigenciaDesde, vigenciaHasta);
-                                }
+                                    Altura = direccion != null ? direccion.Altura : -1,
+                                    IdMapa = (short)(direccion != null ? direccion.IdMapaUrbano : -1),
+                                    Provincia = direccion != null ? direccion.Provincia : string.Empty,
+                                    IdCalle = direccion != null ? direccion.IdPoligonal : -1,
+                                    IdEsquina = direccion != null ? direccion.IdEsquina : -1,
+                                    IdEntrecalle = -1,
+                                    Latitud = latitud.Value,
+                                    Longitud = longitud.Value,
+                                    Partido = direccion != null ? direccion.Partido : string.Empty,
+                                    Pais = string.Empty,
+                                    Calle = direccion != null ? direccion.Calle : string.Empty,
+                                    Descripcion =
+                                        direccion != null
+                                            ? direccion.Direccion
+                                            : string.Format("({0}, {1})", latitud.Value.ToString(CultureInfo.InvariantCulture),
+                                                longitud.Value.ToString(CultureInfo.InvariantCulture)),
+                                    Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+                                };
+
+                                #endregion
+
+                                #region var poligono = new Poligono()
+
+                                var poligono = new Poligono { Radio = 100, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                                poligono.AddPoints(new[] { new PointF((float)longitud, (float)latitud) });
+
+                                #endregion
+
+                                pto.ReferenciaGeografica.AddHistoria(posicion, poligono, DateTime.UtcNow);
+
+                                DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(pto.ReferenciaGeografica);
                             }
+
                         }
-
-                        var pto = CreatePuntoEntrega(cliente, codigo, descripcion, telefono, geoRef, direccionNomenclada.Truncate(255), comentario1, comentario2,
-                            comentario3);
-
+                                                                                              
                         DAOFactory.PuntoEntregaDAO.SaveOrUpdate(pto);
                     }
                     transaction.Commit();
@@ -156,73 +175,41 @@ namespace Logictracker.Parametrizacion
             }
         }
 
-        private static PuntoEntrega CreatePuntoEntrega(Cliente cliente, string codigo, string descripcion, string telefono, ReferenciaGeografica rg, 
-                                                       string direccion, string comentario1, string comentario2, string comentario3)
+        private PuntoEntrega CreatePuntoEntrega(Cliente cliente, string codigo, string descripcion, string telefono, ReferenciaGeografica rg)
         {
-            var punto = new PuntoEntrega
-            {
-                Cliente = cliente,
-                Codigo = codigo.Truncate(32),
-                Descripcion = descripcion.Truncate(40),
-                Telefono = telefono,
-                Baja = false,
-                ReferenciaGeografica = rg,
-                Nomenclado = true,
-                DireccionNomenclada = direccion,
-                Comentario1 = comentario1,
-                Comentario2 = comentario2,
-                Comentario3 = comentario3
-            };
+            var pto = new PuntoEntrega();
 
-            return punto;
+            pto.Cliente = cliente;
+            pto.Codigo = codigo;
+            pto.Descripcion = descripcion;
+            pto.Baja = false;
+            pto.ReferenciaGeografica = rg;
+            pto.Nomenclado = true;
+            pto.Nombre = descripcion;
+
+            return pto;
         }
 
         #region SubClasses
         
         private static class Fields
         {
-            public static readonly FieldValue Cliente = new FieldValue("Cliente");
-            public static readonly FieldValue Descripcion = new FieldValue("Descripcion");
-            public static readonly FieldValue Codigo = new FieldValue("Codigo");
-            public static readonly FieldValue Calle = new FieldValue("Calle");
-            public static readonly FieldValue Direccion = new FieldValue("Direccion");
-            public static readonly FieldValue Altura = new FieldValue("Altura");
-            public static readonly FieldValue Esquina = new FieldValue("Esquina");
-            public static readonly FieldValue Partido = new FieldValue("Partido");
-            public static readonly FieldValue Provincia = new FieldValue("Provincia");
-            public static readonly FieldValue VigenciaDesde = new FieldValue("Vigencia Desde");
-            public static readonly FieldValue VigenciaHasta = new FieldValue("Vigencia Hasta");
+            public static readonly FieldValue Codigo = new FieldValue("Nro SAP Nvo");
             public static readonly FieldValue Latitud = new FieldValue("Latitud");
             public static readonly FieldValue Longitud = new FieldValue("Longitud");
-            public static readonly FieldValue TipoGeoRef = new FieldValue("Tipo Referencia Geográfica");
-            public static readonly FieldValue Telefono = new FieldValue("Telefono");
-            public static readonly FieldValue Comentario1 = new FieldValue("Comentario 1");
-            public static readonly FieldValue Comentario2 = new FieldValue("Comentario 2");
-            public static readonly FieldValue Comentario3 = new FieldValue("Comentario 3");
-
+            public static readonly FieldValue Descripcion = new FieldValue("Razón Social");
+            public static readonly FieldValue TipoCliente = new FieldValue("Activadad   ");
+            
             public static List<FieldValue> List
             {
                 get
                 {
                     return new List<FieldValue> {
-                                                    Cliente,
-                                                    Descripcion,
                                                     Codigo,
-                                                    Direccion,
-                                                    Calle,
-                                                    Altura,
-                                                    Esquina,
-                                                    Partido,
-                                                    Provincia,
-                                                    VigenciaDesde,
-                                                    VigenciaHasta,
-                                                    Longitud,
                                                     Latitud,
-                                                    TipoGeoRef,
-                                                    Telefono,
-                                                    Comentario1,
-                                                    Comentario2,
-                                                    Comentario3
+                                                    Longitud,
+                                                    Descripcion,
+                                                    TipoCliente
                                                 };
                 }
             }
