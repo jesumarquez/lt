@@ -72,7 +72,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             var lastUpdateMinutes = now.Subtract(_lastUpdate).TotalMinutes;
 
             STrace.Trace(Component, string.Format("Last Update: {0} - {1} minutos", _lastUpdate.ToString("dd/MM/yyyy HH:mm:ss"), lastUpdateMinutes));
-            STrace.Trace(Component, string.Format("Items to update: {0}", _empresasLineas.Count));
+            if (_empresasLineas != null) STrace.Trace(Component, string.Format("Items to update: {0}", _empresasLineas.Count));
 
             if (lastUpdateMinutes > empresa.LogiclinkMinutosUpdate && _empresasLineas != null && _empresasLineas.Count > 0)
             {
