@@ -68,12 +68,17 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             }
 
             var empresa = DaoFactory.EmpresaDAO.FindById(IdEmpresa);
+            var now = DateTime.UtcNow;
+            var lastUpdateMinutes = now.Subtract(_lastUpdate).TotalMinutes;
 
-            if (DateTime.UtcNow.Subtract(_lastUpdate).TotalMinutes > empresa.LogiclinkMinutosUpdate && _empresasLineas != null && _empresasLineas.Count > 0)
+            STrace.Trace(Component, string.Format("Last Update: {0} - {1} minutos", _lastUpdate.ToString("dd/MM/yyyy HH:mm:ss"), lastUpdateMinutes));
+            STrace.Trace(Component, string.Format("Items to update: {0}", _empresasLineas.Count));
+
+            if (lastUpdateMinutes > empresa.LogiclinkMinutosUpdate && _empresasLineas != null && _empresasLineas.Count > 0)
             {
                 DaoFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
                 _empresasLineas.Clear();
-                _lastUpdate = DateTime.UtcNow;
+                _lastUpdate = now;
             }
 
             if (_empresasLineas == null) _empresasLineas = new Dictionary<int, List<int>>();
