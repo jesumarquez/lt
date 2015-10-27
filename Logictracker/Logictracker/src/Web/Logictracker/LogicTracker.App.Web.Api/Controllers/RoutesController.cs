@@ -145,8 +145,8 @@ namespace LogicTracker.App.Web.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = routeState.RouteId }, content: routeState);
         }
 
-        // PUT: api/Routes/5
-        public IHttpActionResult Put(int id, [FromBody]RouteEvent routeEvent)
+        // POST: api/Routes
+        public IHttpActionResult Post(int id, [FromBody]RouteEvent routeEvent)
         {
             if (routeEvent == null) return BadRequest();
 
@@ -155,10 +155,13 @@ namespace LogicTracker.App.Web.Api.Controllers
             switch (routeEvent.RouteCommand.ToUpper())
             {
                 case "START":
-                    commandStatus = RouteService.StartRoute(id);             
+                    {
+                        RouteService.StartRoute(id);
+                        commandStatus = "CLOG_START_SENT";
+                    }
                     break;
                 case "FINALIZE":
-                    commandStatus = RouteService.FinalizeRoute(id);                    
+                    commandStatus = RouteService.FinalizeRoute(id);
                     break;
                 default:
                     return Unauthorized();
