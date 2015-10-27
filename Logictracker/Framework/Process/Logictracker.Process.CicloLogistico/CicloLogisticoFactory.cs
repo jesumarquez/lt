@@ -149,7 +149,7 @@ namespace Logictracker.Process.CicloLogistico
             }
         }
 
-        public static void ProcessEstadoLogistico(Coche vehiculo, Event evento)
+        public static void ProcessEstadoLogistico(Coche vehiculo, Event evento, string code)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace Logictracker.Process.CicloLogistico
                     CicloLogisticoDistribucion ciclo = null;
                     ciclo = new CicloLogisticoDistribucion(distribucion, daoFactory, messageSaver);
 
-                    if (ciclo != null) ciclo.ProcessEstadoLogistico(evento);
+                    if (ciclo != null) ciclo.ProcessEstadoLogistico(evento, code);
                 }
             }
             catch (Exception ex)
