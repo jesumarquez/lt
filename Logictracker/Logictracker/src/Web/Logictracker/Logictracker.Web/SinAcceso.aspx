@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="SinAcceso.aspx.cs" Inherits="Logictracker.SinAcceso" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="True" codeBehind="SinAcceso.aspx.cs" Inherits="Logictracker.SinAcceso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div style="text-align: center; width: 400px; margin: auto; margin-top: 100px;">

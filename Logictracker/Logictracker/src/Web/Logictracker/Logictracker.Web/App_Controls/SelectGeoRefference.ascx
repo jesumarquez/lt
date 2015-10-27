@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="SelectGeoRefference.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_SelectGeoRefference" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="SelectGeoRefference.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_SelectGeoRefference" %>
 <asp:Panel ID="panelControl" runat="server" CssClass="direccionsearch">
     <asp:UpdatePanel ID="updControl" runat="server" RenderMode="Inline" ChildrenAsTriggers="true" UpdateMode="Conditional">
         <ContentTemplate>

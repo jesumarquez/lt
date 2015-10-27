@@ -73,6 +73,8 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string KpiCantidadPagina = "kpi.cantidad.pagina";
             public const string MonitorHistoricoDiaEntero = "monitor.historico.dia.entero";
+
+            public const string LogiclinkMinutosUpdate = "logiclink.minutos.update";
         }
         public static class OrdenRuta
         {
@@ -633,6 +635,17 @@ namespace Logictracker.Types.BusinessObjects
                 var valor = GetParameter(Params.MonitorHistoricoDiaEntero);
                 bool v;
                 if (valor == null || !bool.TryParse(valor, out v)) return false;
+                return v;
+            }
+        }
+
+        public virtual int LogiclinkMinutosUpdate
+        {
+            get
+            {
+                var valor = GetParameter(Params.LogiclinkMinutosUpdate);
+                int v;
+                if (valor == null || !int.TryParse(valor, out v)) return 0;
                 return v;
             }
         }

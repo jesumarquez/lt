@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="CocheAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.CocheAlta" Title="Coches" enableEventValidation="false" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.CocheAlta" Title="Coches" enableEventValidation="false" Codebehind="CocheAlta.aspx.cs" %>
  
 <%@ Register src="~/App_Controls/DocumentList.ascx" tagname="DocumentList" tagprefix="uc1" %>
 <%@ Register src="~/App_Controls/TicketsList.ascx" tagname="TicketsList" tagprefix="uc2" %>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="ClienteLista.aspx.cs" Inherits="Logictracker.Parametrizacion.ClienteLista" Title="Clientes" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ClienteLista" Title="Clientes" Codebehind="ClienteLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" runat="server">
     <table>

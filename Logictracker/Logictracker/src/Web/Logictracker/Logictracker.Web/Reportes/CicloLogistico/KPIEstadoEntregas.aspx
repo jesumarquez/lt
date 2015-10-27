@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" CodeFile="KPIEstadoEntregas.aspx.cs" Inherits="Logictracker.Web.Reportes.CicloLogistico.KPIEstadoEntregas" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" Inherits="Logictracker.Web.Reportes.CicloLogistico.KPIEstadoEntregas" Codebehind="KPIEstadoEntregas.aspx.cs" %>
 
 <%@ Register Assembly="C1.Web.UI.Controls.3" Namespace="C1.Web.UI.Controls.C1Gauge" TagPrefix="c1" %>
 
@@ -176,7 +176,7 @@
                         </tr>
                         <tr>
                             <td align="center" valign="top">
-                                <asp:Panel ID="SouthPanel" runat="server" ScrollBars="Vertical" Height="100%" style="background-color: #CCCCCC;">
+                                <asp:Panel ID="SouthPanel" runat="server" ScrollBars="Vertical" Height="600px" style="background-color: #CCCCCC;">
                                     <div id="content"></div>
                                 </asp:Panel>
                             </td>

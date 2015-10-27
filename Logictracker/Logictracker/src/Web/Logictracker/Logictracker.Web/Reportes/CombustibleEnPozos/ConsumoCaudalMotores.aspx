@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="ConsumoCaudalMotores.aspx.cs" Inherits="Logictracker.Reportes.CombustibleEnPozos.Reportes_CombustibleEnPozos_ConsumoCaudalMotores" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CombustibleEnPozos.Reportes_CombustibleEnPozos_ConsumoCaudalMotores" Codebehind="ConsumoCaudalMotores.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.CheckBoxs" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists" Assembly="Logictracker.Web.CustomWebControls" %>

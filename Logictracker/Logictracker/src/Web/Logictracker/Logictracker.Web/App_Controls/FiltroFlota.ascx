@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="FiltroFlota.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_FiltroFlota" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="FiltroFlota.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_FiltroFlota" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownCheckLists" Assembly="Logictracker.Web.CustomWebControls" %>
 <asp:UpdatePanel ID="upFiltroFlota" runat="server" UpdateMode="Conditional">
     <ContentTemplate>

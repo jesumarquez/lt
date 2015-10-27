@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ZonaAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ZonaAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ZonaAlta" Codebehind="ZonaAlta.aspx.cs" %>
 
 <%@ Register TagPrefix="mon" Namespace="Logictracker.Web.Monitor" Assembly="Logictracker.Web.Monitor" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists.ReferenciasGeograficas" Assembly="Logictracker.Web.CustomWebControls" %>

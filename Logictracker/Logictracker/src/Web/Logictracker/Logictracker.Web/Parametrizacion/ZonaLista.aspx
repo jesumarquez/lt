@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="ZonaLista.aspx.cs" Inherits="Logictracker.Parametrizacion.ZonaLista" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ZonaLista" Codebehind="ZonaLista.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists.ReferenciasGeograficas" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">

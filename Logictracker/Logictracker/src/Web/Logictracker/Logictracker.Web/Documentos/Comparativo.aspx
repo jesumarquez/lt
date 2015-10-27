@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="Comparativo.aspx.cs" Inherits="Logictracker.Documentos.Comparativo" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" Inherits="Logictracker.Documentos.Comparativo" Title="Untitled Page" Codebehind="Comparativo.aspx.cs" %>
 
 <%@ Register src="../App_Controls/Pickers/DatePicker.ascx" tagname="DatePicker" tagprefix="uc1" %>
 

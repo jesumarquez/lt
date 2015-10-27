@@ -31,6 +31,18 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 				.SafeFirstOrDefault();
         }
 
+
+
+        public Cliente FindByDescripcion(IEnumerable<int> empresas, IEnumerable<int> lineas, string descripcion)
+        {
+            return Query.FilterEmpresa(Session, empresas, null)
+                .FilterLinea(Session, empresas, lineas, null)
+                .Where(c => !c.Baja)
+                .Where(c => c.Descripcion == descripcion)
+                .Cacheable()
+                .SafeFirstOrDefault();
+        }
+
         #endregion
 
         #region Get Methods

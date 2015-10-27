@@ -1,6 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true"
-    CodeFile="GeocercasEvents.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaGeocercasEvents"
-    Title="Reporte de Geocercas" %> 
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaGeocercasEvents"
+    Title="Reporte de Geocercas" Codebehind="GeocercasEvents.aspx.cs" %> 
 
 <%@ Register Src="~/App_Controls/Pickers/TimePicker.ascx" TagName="TimePicker" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>

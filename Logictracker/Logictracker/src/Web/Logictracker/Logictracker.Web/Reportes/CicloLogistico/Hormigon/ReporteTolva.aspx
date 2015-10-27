@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="ReporteTolva.aspx.cs" Inherits="Logictracker.Reportes.CicloLogistico.Hormigon.ReporteTolva" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CicloLogistico.Hormigon.ReporteTolva" Title="Untitled Page" Codebehind="ReporteTolva.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="Filtros" runat="server" ID="cph">
         <table>

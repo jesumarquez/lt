@@ -1,0 +1,116 @@
+<LAYERS>
+  <LAYER name="Partido" nivel="5000" npintado="0" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="44435" ubtext="177777">
+    <BRUSH type="NULL" />
+  </LAYER>
+  <LAYER name="Localidad" nivel="5200" npintado="1" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="NULL" />
+  </LAYER>
+  <LAYER name="Barrio" nivel="5100" npintado="2" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="NULL" />
+  </LAYER>
+  <LAYER name="Unidad Habitacional" nivel="6500" npintado="2" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="NULL" />
+  </LAYER>
+  <LAYER name="Campo" nivel="5300" npintado="3" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="42400" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="a5cf94" bw_hatch="CROSS" hatch="CROSS" hatch_color="ff80" />
+  </LAYER>
+  <LAYER name="Parque" nivel="5400" npintado="3" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="42400" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="a5cf94" bw_hatch="CROSS" hatch="CROSS" hatch_color="ff80" />
+  </LAYER>
+  <LAYER name="Plaza" nivel="5500" npintado="3" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="42400" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="a5cf94" bw_hatch="CROSS" hatch="CROSS" hatch_color="ff80" />
+  </LAYER>
+  <LAYER name="Panteón" nivel="6300" npintado="3" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="42400" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="9c9694" bw_hatch="ZIG_ZAG" hatch="ZIG_ZAG" hatch_color="808080" />
+  </LAYER>
+  <LAYER name="Campo Deportivo" nivel="6400" npintado="3" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="69500" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="a5cf94" bw_hatch="DIAGONAL_CROSS" hatch="DIAGONAL_CROSS" hatch_color="ff80" />
+  </LAYER>
+  <LAYER name="Puerto" nivel="5900" npintado="4" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="9c9694" bw_hatch="WAVE" hatch="WAVE" hatch_color="80ff" />
+  </LAYER>
+  <LAYER name="Lago" nivel="6000" npintado="4" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="9cb2ce" bw_hatch="WAVE" hatch="WAVE" hatch_color="ff" />
+  </LAYER>
+  <LAYER name="Río Superficial" nivel="6100" npintado="4" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="9cb2ce" bw_hatch="WAVE" hatch="WAVE" hatch_color="ff" />
+  </LAYER>
+  <LAYER name="Río" nivel="1700" npintado="4" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="9cb2ce" width="12" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Canal" nivel="1800" npintado="4" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="9cb2ce" width="6" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Costa" nivel="1900" npintado="4" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="9cb2ce" width="12" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Arroyo" nivel="2000" npintado="4" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="9cb2ce" width="3" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Hospital" nivel="5600" npintado="5" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="e7c7c6" bw_hatch="ZIG_ZAG" hatch="ZIG_ZAG" hatch_color="808080" />
+  </LAYER>
+  <LAYER name="Aeropuerto" nivel="5700" npintado="5" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="9c9694" bw_hatch="ZIG_ZAG" hatch="ZIG_ZAG" hatch_color="808080" />
+  </LAYER>
+  <LAYER name="Estación" nivel="5800" npintado="5" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="SOLID" color="9c9694" bw_hatch="WAVE" hatch="WAVE" hatch_color="ff8040" />
+  </LAYER>
+  <LAYER name="Comentario" nivel="6200" npintado="5" type="Poligono" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <BRUSH type="NULL" />
+  </LAYER>
+  <LAYER name="Callejón" nivel="1250" npintado="6" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="1030" lbtext="0" ubtext="1389">
+    <PEN style="SOLID" color="ffffff" width="3" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Calle" nivel="1200" npintado="7" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="8700" lbtext="0" ubtext="1389">
+    <PEN style="SOLID" color="ffffff" width="6" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Avenida 2do. Orden" nivel="1150" npintado="8" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="34700" ubvisible="1080" lbtext="0" ubtext="2777">
+    <PEN style="SOLID" color="fffb73" width="9" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Avenida" nivel="1100" npintado="9" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="34700" lbtext="0" ubtext="11109">
+    <PEN style="SOLID" color="fffb73" width="12" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Boulevard" nivel="2400" npintado="10" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="8700" lbtext="0" ubtext="2777">
+    <PEN style="SOLID" color="ffffff" width="6" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Autopista" nivel="1000" npintado="15" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="69500" lbtext="0" ubtext="55556">
+    <PEN style="SOLID" color="f7be21" width="18" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Acceso" nivel="1300" npintado="13" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="34700" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="ffffff" width="6" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Puente" nivel="1400" npintado="18" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="69500" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="ffffff" width="9" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Puente Ancho" nivel="1410" npintado="18" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="69500" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="ffffff" width="18" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Túnel" nivel="1450" npintado="3" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="69500" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="ffffff" width="9" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Tren" nivel="1500" npintado="19" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="42400" lbtext="0" ubtext="55556">
+    <PEN style="SOLID" color="0" width="15" bw_hatch="VERTICAL" hatch="WAVE" hatch_color="0" />
+  </LAYER>
+  <LAYER name="Subte" nivel="1600" npintado="20" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="42400" lbtext="0" ubtext="55556">
+    <PEN style="SOLID" color="7700bd" width="15" bw_hatch="VERTICAL" hatch="WAVE" hatch_color="7700bd" />
+  </LAYER>
+  <LAYER name="Combinación Subte" nivel="1620" npintado="20" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="NULL" />
+  </LAYER>
+  <LAYER name="Ruta Nacional" nivel="2200" npintado="11" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="42400" lbtext="0" ubtext="55556">
+    <PEN style="SOLID" color="f7be21" width="18" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Ruta Provincial" nivel="2300" npintado="12" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="69500" lbtext="0" ubtext="55556">
+    <PEN style="SOLID" color="fffb73" width="15" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Externa" nivel="2500" npintado="14" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="SOLID" color="ffffff" width="9" bw_hatch="NULL" hatch="NULL" hatch_color="ffffff" />
+  </LAYER>
+  <LAYER name="Límite" nivel="2100" npintado="21" type="Poligonal" lbsvisible="0" ubsvisible="0" lbvisible="0" ubvisible="0" lbtext="0" ubtext="0">
+    <PEN style="NULL" />
+  </LAYER>
+  <LAYER type="Mapa" index="0" npintado="0">
+    <BRUSH type="SOLID" color="f7efef" bw_hatch="HORIZONTAL" hatch="HORIZONTAL" hatch_color="f7efef" />
+  </LAYER>
+</LAYERS>

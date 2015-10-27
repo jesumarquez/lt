@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="TimePicker.ascx.cs" Inherits="Logictracker.App_Controls.Pickers.App_Controls_TimePicker" %>
+<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="TimePicker.ascx.cs" Inherits="Logictracker.App_Controls.Pickers.App_Controls_TimePicker" %>
 
 <asp:TextBox ID="txtTime" runat="server" />
 <AjaxToolkit:MaskedEditExtender ID="meeTime" runat="server" MaskType="Time" UserTimeFormat="TwentyFourHour"

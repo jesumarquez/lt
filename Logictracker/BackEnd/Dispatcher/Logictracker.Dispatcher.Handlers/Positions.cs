@@ -583,6 +583,9 @@ namespace Logictracker.Dispatcher.Handlers
                                 {
                                     var e = new GeofenceEvent(position.Date, evento.Estado.Geocerca.Id, GeofenceEvent.EventoGeofence.Entrada, position.Lat, position.Lon, chofer);
                                     enCurso.ProcessEvent(e);
+
+                                    var ciclo = enCurso as CicloLogisticoDistribucion;
+                                    if (ciclo != null) ciclo.ProcessEstadoLogistico(MessageCode.InsideGeoRefference.GetMessageCode(), position.Date, evento.Estado.Geocerca.Id);
                                 }
                             }
                             if (evento.Estado.Geocerca.EsTaller)

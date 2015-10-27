@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="KmHsProductivos.aspx.cs" Inherits="Logictracker.Reportes.Estadistica.KmHsProductivos" Title="Km y Horas Productivas" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" Inherits="Logictracker.Reportes.Estadistica.KmHsProductivos" Title="Km y Horas Productivas" Codebehind="KmHsProductivos.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
     <%--FILTROS--%>

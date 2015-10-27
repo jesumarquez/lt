@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="false" CodeFile="ReportGraphPage.master.cs" Inherits="Logictracker.MasterPages.ReportGraphPage" %>
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="True" CodeBehind="ReportGraphPage.master.cs" Inherits="Logictracker.MasterPages.ReportGraphPage" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 
 

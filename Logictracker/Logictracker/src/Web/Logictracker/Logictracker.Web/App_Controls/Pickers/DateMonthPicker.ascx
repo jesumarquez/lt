@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DateMonthPicker.ascx.cs" Inherits="Logictracker.App_Controls.Pickers.App_Controls_DateMonthPicker" %>
+<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="DateMonthPicker.ascx.cs" Inherits="Logictracker.App_Controls.Pickers.App_Controls_DateMonthPicker" %>
 
 <asp:TextBox ID="txtFecha" runat="server" />
 <asp:Image runat="server" ID="imgFecha" ImageUrl="../images/calend.png" style="margin-bottom: -6px;" />

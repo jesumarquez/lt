@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="Mediciones.aspx.cs" Inherits="Logictracker.Reportes.M2M.ReporteMediciones" Title="Reporte de Mediciones" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" Inherits="Logictracker.Reportes.M2M.ReporteMediciones" Title="Reporte de Mediciones" Codebehind="Mediciones.aspx.cs" %>
 
 <%@ Register TagPrefix="uc1" TagName="Filtros" Src="../../App_Controls/FiltroDetalles.ascx" %>
 

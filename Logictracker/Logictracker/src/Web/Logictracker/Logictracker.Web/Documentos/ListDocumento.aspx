@@ -1,5 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true"
-    CodeFile="ListDocumento.aspx.cs" Inherits="Logictracker.Documentos.Documentos_ListDocumento" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Documentos.Documentos_ListDocumento" Title="Untitled Page" Codebehind="ListDocumento.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/Pickers/DatePicker.ascx" TagName="DatePicker" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>

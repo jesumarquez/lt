@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="FuncionAlta.aspx.cs"
-    Inherits="Logictracker.Organizacion.AltaFuncion" Title="Funciones" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Organizacion.AltaFuncion" Title="Funciones" Codebehind="FuncionAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">
     <table id="tbTipoPunto" style="width: 90%; margin: auto;" cellpadding="5">

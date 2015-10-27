@@ -333,12 +333,19 @@ namespace Logictracker.Web.Reportes.CicloLogistico
             {
                 Id = entrega.Id;
                 Descripcion = entrega.Orden.ToString();
+                var evento = string.Empty;
+                if (entrega.Estado == EntregaDistribucion.Estados.NoCompletado && entrega.EventosDistri.Any())
+                {
+                    var msj = entrega.EventosDistri.FirstOrDefault(d => d.LogMensaje.Mensaje.TipoMensaje.DeRechazo);
+                    if (msj != null) evento = " - " + msj.LogMensaje.Mensaje.Descripcion;
+                }
+
                 PopupText = string.Format("<div>Cód. Cliente: <span>{6}</span></div><div>Cliente: <span>{5}</span></div><div>Estado: <span>{4}</span></div><div>Programado: <span>{0}</span><br/>Entrada: <span>{1}</span><br/>Salida: <span>{2}</span><br/>Manual: <span>{3}</span></div>",
                                   entrega.Programado.ToDisplayDateTime().ToString("HH:mm"),
                                   (entrega.Entrada.HasValue ? entrega.Entrada.Value.ToDisplayDateTime().ToString("HH:mm") : ""),
                                   (entrega.Salida.HasValue ? entrega.Salida.Value.ToDisplayDateTime().ToString("HH:mm") : ""),
                                   (entrega.Manual.HasValue ? entrega.Manual.Value.ToDisplayDateTime().ToString("HH:mm") : ""),
-                                  CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado)),
+                                  CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado)) + evento,
                                   entrega.PuntoEntrega.Descripcion,
                                   entrega.PuntoEntrega.Codigo);
 

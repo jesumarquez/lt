@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"
-CodeFile="TipoEmpleadoAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.Parametrizacion_TipoEmpleadoAlta" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.Parametrizacion_TipoEmpleadoAlta" Codebehind="TipoEmpleadoAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" Runat="Server">
 

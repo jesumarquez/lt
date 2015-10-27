@@ -1,5 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="HistogramaDetenciones.aspx.cs" 
-        Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaHistogramaDetenciones" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" 
+        Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaHistogramaDetenciones" Codebehind="HistogramaDetenciones.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %> 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">     

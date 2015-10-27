@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ProgramacionReporteAlta.aspx.cs" Inherits="Logictracker.Admin.ProgramacionReporteAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Admin.ProgramacionReporteAlta" Codebehind="ProgramacionReporteAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">
     <cwc:AbmTabPanel ID="abmTabGeneral" runat="server" ResourceName="Labels" VariableName="DATOS_GENERALES">

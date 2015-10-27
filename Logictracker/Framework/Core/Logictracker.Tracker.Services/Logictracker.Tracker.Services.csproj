@@ -45,6 +45,7 @@
     <Compile Include="IReportGenerationCommand.cs" />
     <Compile Include="IReportService.cs" />
     <Compile Include="IRouteService.cs" />
+    <Compile Include="IRoutingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

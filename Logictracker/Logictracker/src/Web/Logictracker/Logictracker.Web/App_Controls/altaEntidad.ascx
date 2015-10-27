@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="altaEntidad.ascx.cs" Inherits="Logictracker.App_Controls.AppControlsAltaEntidad" %>
+<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="altaEntidad.ascx.cs" Inherits="Logictracker.App_Controls.AppControlsAltaEntidad" %>
 
 <%@ Register Src="DireccionSearch.ascx" TagName="DireccionSearch" TagPrefix="uc1" %>
 

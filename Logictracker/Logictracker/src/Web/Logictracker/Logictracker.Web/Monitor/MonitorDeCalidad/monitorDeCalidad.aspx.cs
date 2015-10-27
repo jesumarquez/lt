@@ -19,6 +19,7 @@ using Logictracker.Web.Monitor.ContextMenu;
 using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects;
 using NHibernate.Util;
+using Logictracker.QuadTree.Data;
 
 namespace Logictracker.Monitor.MonitorDeCalidad
 {
@@ -52,11 +53,8 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         }
 
 
-
-
         protected override void OnInit(EventArgs e)
         {
-
             base.OnInit(e);
             if (Request.QueryString["qs"] != null)
             {
@@ -122,8 +120,8 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         protected override void OnLoad(EventArgs e)
         {
             Monitor.ContextMenuPostback += Monitor_ContextMenuPostback;
-            chkQtree.Visible = WebSecurity.IsSecuredAllowed(Securables.ViewQtree);
-            updEditarQtree.Visible = WebSecurity.IsSecuredAllowed(Securables.EditQtree);
+            
+            LoadQtreeInfo();
 
             base.OnLoad(e);
 
@@ -463,6 +461,30 @@ namespace Logictracker.Monitor.MonitorDeCalidad
                 }
             }
             return toAdd;
+        }
+
+        private void LoadQtreeInfo()
+        {
+            chkQtree.Visible = WebSecurity.IsSecuredAllowed(Securables.ViewQtree);
+            tblVersion.Visible = chkQtree.Checked;
+            tblEditar.Visible = chkQtree.Checked && WebSecurity.IsSecuredAllowed(Securables.EditQtree);
+
+            if (chkQtree.Checked)
+            {
+                var vehicle = DAOFactory.CocheDAO.FindById(ddlMovil.Selected);
+                if (vehicle.Dispositivo == null) return;
+                var qtreeDir = DAOFactory.DetalleDispositivoDAO.GetQtreeFileNameValue(vehicle.Dispositivo.Id);
+                var qtreeVersion = DAOFactory.DetalleDispositivoDAO.GetQtreeRevisionNumberValue(vehicle.Dispositivo.Id);
+                lblArchivo.Text = qtreeDir;
+                lblVersionEquipo.Text = qtreeVersion;
+
+                var gg = new GeoGrillas { Repository = new Repository { BaseFolderPath = Path.Combine(Config.Qtree.QtreeGteDirectory, qtreeDir) } };
+                var revision = 0;
+                var changedSectorsList = new TransactionLog(gg.Repository, vehicle.Dispositivo.Id).GetChangedSectorsAndRevision(int.Parse(qtreeVersion), out revision);
+
+                lblVersionServer.Text = revision.ToString();
+                pnlQtree.Update();
+            }
         }
 
         protected void btnGenerarOnClick(object sender, EventArgs e)

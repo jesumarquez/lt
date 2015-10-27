@@ -1,4 +1,4 @@
- <%@ Page Language="C#" AutoEventWireup="true" CodeFile="monitorHistorico.aspx.cs" Inherits="Logictracker.Monitor.MonitorHistorico.MonitorHistorico" %>
+ <%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Monitor.MonitorHistorico.MonitorHistorico" Codebehind="monitorHistorico.aspx.cs" %>
 
 <%@ Import Namespace="Logictracker.Culture"%>
 

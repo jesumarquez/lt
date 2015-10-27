@@ -1,4 +1,4 @@
-﻿ <%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="ReporteVencimiento.aspx.cs" Inherits="Logictracker.Documentos.ReporteVencimiento" Title="Untitled Page" %>
+﻿ <%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Documentos.ReporteVencimiento" Title="Untitled Page" Codebehind="ReporteVencimiento.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">
     <table style="width: 100%; padding: 3px;"> 

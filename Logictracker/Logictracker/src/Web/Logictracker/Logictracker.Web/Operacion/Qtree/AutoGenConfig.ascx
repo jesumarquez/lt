@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AutoGenConfig.ascx.cs" Inherits="Logictracker.Operacion.Qtree.Operacion_Qtree_AutoGenConfig" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Qtree.Operacion_Qtree_AutoGenConfig" Codebehind="AutoGenConfig.ascx.cs" %>
 <%@ Register src="LevelSelector.ascx" tagname="LevelSelector" tagprefix="uc" %>
 
 

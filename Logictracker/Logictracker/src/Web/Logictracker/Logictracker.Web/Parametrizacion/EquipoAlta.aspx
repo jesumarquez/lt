@@ -1,5 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"
-    CodeFile="EquipoAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.Parametrizacion_EquipoAlta" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.Parametrizacion_EquipoAlta" Title="Untitled Page" Codebehind="EquipoAlta.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/SelectGeoRefference.ascx" TagName="SelectGeoRefference"
     TagPrefix="uc1" %>

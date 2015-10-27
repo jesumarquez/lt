@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="RouteDetails.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.GeocercaEvents.EstadisticaGeocercaEventsRouteDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Reportes.DatosOperativos.GeocercaEvents.EstadisticaGeocercaEventsRouteDetails" Codebehind="RouteDetails.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 

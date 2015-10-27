@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DocumentList.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_DocumentList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="DocumentList.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_DocumentList" %>
 
 <style type="text/css">
     .button,

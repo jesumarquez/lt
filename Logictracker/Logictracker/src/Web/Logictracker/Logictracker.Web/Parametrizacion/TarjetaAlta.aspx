@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TarjetaAlta.aspx.cs" Inherits="Logictracker.Web.Parametrizacion.ParametrizacionTarjetaAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Web.Parametrizacion.ParametrizacionTarjetaAlta" Codebehind="TarjetaAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">
     <table style="width: 100%; border-spacing: 10px;">

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="SoundPicker.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_SoundPicker" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="SoundPicker.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_SoundPicker" %>
 
 <asp:Panel ID="panelSonido" runat="server">
 <table style="width: 100%; border-spacing: 0px; padding: 0px;">

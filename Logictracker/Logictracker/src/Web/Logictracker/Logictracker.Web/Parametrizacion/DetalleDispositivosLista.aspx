@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="DetalleDispositivosLista.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionDetalleDispositivosLista"
-    Title="Dispositivos" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionDetalleDispositivosLista"
+    Title="Dispositivos" Codebehind="DetalleDispositivosLista.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %>
     
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">

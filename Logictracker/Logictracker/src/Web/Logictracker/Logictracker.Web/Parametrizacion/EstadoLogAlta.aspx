@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="EstadoLogAlta.aspx.cs"  
-    Inherits="Logictracker.Parametrizacion.ParametrizacionEstadoLogAlta" %>  
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"  
+    Inherits="Logictracker.Parametrizacion.ParametrizacionEstadoLogAlta" Codebehind="EstadoLogAlta.aspx.cs" %>  
 
 <%@ Register Src="../App_Controls/IconPicker.ascx" TagName="SelectIcon" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>  

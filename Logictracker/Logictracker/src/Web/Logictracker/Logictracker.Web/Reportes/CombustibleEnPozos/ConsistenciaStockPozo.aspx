@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="ConsistenciaStockPozo.aspx.cs" 
-         Inherits="Logictracker.Reportes.CombustibleEnPozos.ReportesCombustibleEnPozosConsistenciaStockPozo" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" 
+         Inherits="Logictracker.Reportes.CombustibleEnPozos.ReportesCombustibleEnPozosConsistenciaStockPozo" Codebehind="ConsistenciaStockPozo.aspx.cs" %>
 <%@ Register TagPrefix="c1h" Namespace="Logictracker.Web.Helpers.C1Helpers" Assembly="Logictracker.Web.Helpers" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists.ControlDeCombustible" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists" Assembly="Logictracker.Web.CustomWebControls" %> 
