@@ -45,7 +45,7 @@ namespace Logictracker.Layers
 
                 var pcInstanceName = STrace.Module + "_" + msg.GetType().Name;
                 //Update Performance Counters
-                PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess, pcInstanceName);
+             //   PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess, pcInstanceName);
                 PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess, STrace.Module);
 
                 var sw = Stopwatch.StartNew();
@@ -82,8 +82,8 @@ namespace Logictracker.Layers
                         }
                         NHibernateHelper.CloseSession();
                     }
-                    PerformanceCounterHelper.IncrementBy(BackendCategory.Instance.CategoryName,
-                        BackendCategory.Instance.DispatcherProcess, pcInstanceName, sw.ElapsedTicks);
+               //     PerformanceCounterHelper.IncrementBy(BackendCategory.Instance.CategoryName,
+                 //       BackendCategory.Instance.DispatcherProcess, pcInstanceName, sw.ElapsedTicks);
                     PerformanceCounterHelper.IncrementBy(BackendCategory.Instance.CategoryName,
                           BackendCategory.Instance.DispatcherProcess, STrace.Module, sw.ElapsedTicks);
                 

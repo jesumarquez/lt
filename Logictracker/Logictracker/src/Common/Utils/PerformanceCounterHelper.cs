@@ -20,7 +20,7 @@ namespace Logictracker.Utils
                     PerformanceCounterCategory.Delete(cat.CategoryName);
 
                 if (!PerformanceCounterCategory.Exists(cat.CategoryName)) 
-                    PerformanceCounterCategory.Create(cat.CategoryName, String.Empty, PerformanceCounterCategoryType.MultiInstance, cat.Counters);
+                    PerformanceCounterCategory.Create(cat.CategoryName, String.Empty, PerformanceCounterCategoryType.SingleInstance, cat.Counters);
 				
                 return true;
 			}
@@ -36,8 +36,10 @@ namespace Logictracker.Utils
 
 		public static PerformanceCounter Get(String categoria, String nombre, String instancia)
 		{
-		    return PcCache.GetOrAdd(categoria + "|" + nombre + "|" + instancia + "|ron",(s)=>new PerformanceCounter(categoria, nombre, instancia, false));
-            //return PerformanceCounterCategory.Exists(categoria) ?  : null;
+		    return PcCache.GetOrAdd(categoria + "|" + nombre + "|ron",
+		        (s) => new PerformanceCounter(categoria, nombre, false));
+		    //return PcCache.GetOrAdd(categoria + "|" + nombre + "|" + instancia + "|ron",(s)=>new PerformanceCounter(categoria, nombre, instancia, false));
+		    //return PerformanceCounterCategory.Exists(categoria) ?  : null;
 		}
 
 		public static Boolean Increment(String categoria, String counterName, String instancia)
@@ -88,7 +90,7 @@ namespace Logictracker.Utils
                             new CounterCreationData{CounterName = DispatcherProcess + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
                             new CounterCreationData{CounterName = DispatcherProcess + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase},
                         
-                              new CounterCreationData{CounterName = HandlerProcess + "_Total_Count", CounterType = PerformanceCounterType.NumberOfItems32},
+                            new CounterCreationData{CounterName = HandlerProcess + "_Total_Count", CounterType = PerformanceCounterType.NumberOfItems32},
                             new CounterCreationData{CounterName = HandlerProcess + "_Per_Sec", CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
                             new CounterCreationData{CounterName = HandlerProcess + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
                             new CounterCreationData{CounterName = HandlerProcess + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase},
