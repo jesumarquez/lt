@@ -46,7 +46,7 @@ namespace Logictracker.Layers
                 var pcInstanceName = STrace.Module + "_" + msg.GetType().Name;
                 //Update Performance Counters
              //   PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess, pcInstanceName);
-                PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess, STrace.Module);
+                PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess);
 
                 var sw = Stopwatch.StartNew();
 
