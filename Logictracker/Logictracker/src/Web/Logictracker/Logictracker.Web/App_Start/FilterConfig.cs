@@ -12,8 +12,8 @@ namespace Logictracker.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            //filters.Add(new MVCAuthenticationFilter());
-            //filters.Add(new MVCAuthorizeFilter());
+            filters.Add(new MVCAuthenticationFilter());
+            filters.Add(new MVCAuthorizeFilter());
         }
     }
 }
