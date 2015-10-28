@@ -1473,12 +1473,15 @@
     <Content Include="Logictracker.Mailing.SupportTicket.config" />
     <Content Include="Areas\Rechazos\Views\web.config" />
     <Content Include="Areas\Rechazos\Views\Rechazo\Index.cshtml" />
+    <Content Include="Areas\Rechazos\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
+    <Content Include="Scripts\app\rechazo\rechazo-service.js" />
+    <Content Include="Scripts\app\rechazo\rechazo-controller.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2118,6 +2121,7 @@
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\api\DummyController.cs" />
+    <Compile Include="Controllers\api\RechazoController.cs" />
     <Compile Include="Controllers\BaseFunctionController.cs" />
     <Compile Include="Controllers\DummyController.cs" />
     <Compile Include="Controllers\IFunctionController.cs" />

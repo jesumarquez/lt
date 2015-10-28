@@ -2,11 +2,11 @@
 @{
     ViewBag.Title = "Index";
 }
-<div ng-controller="DummyController as dummy">
+<div ng-controller="RechazoController as rechazo">
     <h2>Index</h2>
-    <h3>Data: {{dummy.data}}</h3>
+    <h3>Data: {{rechazo.data}}</h3>
     <h3>List:</h3>
     <ul>
-        <li ng-repeat="dummyItem in dummy.list" >{{dummyItem}}</li>
+        <li ng-repeat="rechazoItem in rechazo.list" >{{rechazoItem}}</li>
     </ul>
 </div>
