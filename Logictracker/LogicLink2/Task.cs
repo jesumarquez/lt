@@ -39,11 +39,14 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
         {
             if (IdEmpresa <= 0) return;
 
-            if (LogicCache.KeyExists(typeof(object), Component + "_empresasLineas"))
-                _empresasLineas = LogicCache.Retrieve<Dictionary<int, List<int>>>(typeof(object), Component + "_empresasLineas");
+            var keyEmpresasLineas = Component + "_empresasLineas_" + IdEmpresa;
+            var keyLastUpdate = Component + "_lastUpdate_" + IdEmpresa;
 
-            if (LogicCache.KeyExists(typeof(DateTime), Component + "_lastUpdate"))
-                _lastUpdate = (DateTime) LogicCache.Retrieve<object>(typeof(DateTime), Component + "_lastUpdate");
+            if (LogicCache.KeyExists(typeof(object), keyEmpresasLineas))
+                _empresasLineas = LogicCache.Retrieve<Dictionary<int, List<int>>>(typeof(object), keyEmpresasLineas);
+
+            if (LogicCache.KeyExists(typeof(DateTime), keyLastUpdate))
+                _lastUpdate = (DateTime) LogicCache.Retrieve<object>(typeof(DateTime), keyLastUpdate);
 
             //var archivoPendiente = DaoFactory.LogicLinkFileDAO.GetNextPendiente(IdEmpresa);
             //if (archivoPendiente != null)
@@ -83,8 +86,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
 
             if (_empresasLineas == null) _empresasLineas = new Dictionary<int, List<int>>();
 
-            LogicCache.Store(typeof(object), Component + "_empresasLineas", _empresasLineas);
-            LogicCache.Store(typeof(DateTime), Component + "_lastUpdate", _lastUpdate);
+            LogicCache.Store(typeof(object), keyEmpresasLineas, _empresasLineas);
+            LogicCache.Store(typeof(DateTime), keyLastUpdate, _lastUpdate);
         }
 
         public void ProcessArchivo(LogicLinkFile archivo)

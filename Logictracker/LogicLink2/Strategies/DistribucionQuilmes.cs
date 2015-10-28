@@ -34,6 +34,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         private readonly List<ViajeDistribucion> _viajesBuffer = new List<ViajeDistribucion>();
         private readonly List<Coche> _cochesBuffer = new List<Coche>();
         private readonly List<TipoServicioCiclo> _tiposServicioBuffer = new List<TipoServicioCiclo>();
+        private const double _latitudDefault = -34.5411981040848;
+        private const double _longitudDefault = -57.9051147460951;
 
         public static Dictionary<int, List<int>> Parse(LogicLinkFile file, out int rutas, out int entregas, out string observaciones)
         {
@@ -102,10 +104,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 var sOrden = row.Cells[Properties.DistribucionQuilmes.Orden].ToString().Trim();
                 var orden = Convert.ToInt32(sOrden);
 
+                var nroViaje = row.Cells[Properties.DistribucionQuilmes.Viaje].ToString().Trim();
                 var latitud = row.Cells[Properties.DistribucionQuilmes.Latitud].ToString().Trim();
                 var longitud = row.Cells[Properties.DistribucionQuilmes.Longitud].ToString().Trim();
-                var esBase = latitud.Trim().Equals(string.Empty) && longitud.Trim().Equals(string.Empty);
-
+                var esBase = latitud.Equals(string.Empty) && longitud.Equals(string.Empty) && nroViaje.Equals(string.Empty);
+                var incompleto = !esBase && (latitud.Trim().Equals(string.Empty) || longitud.Trim().Equals(string.Empty));
+                
                 var dia = Convert.ToInt32(sFecha.Substring(0, 2));
                 var mes = Convert.ToInt32(sFecha.Substring(2, 2));
                 var anio = Convert.ToInt32(sFecha.Substring(4, 2)) + 2000;
@@ -143,7 +147,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     item.Alta = DateTime.UtcNow;
                     item.ProgramacionDinamica = codigo.Contains("TR");
 
-                    var nroViaje = row.Cells[Properties.DistribucionQuilmes.Viaje].ToString().Trim();
+                    
                     item.NumeroViaje = Convert.ToInt32(nroViaje);
 
                     if (vehiculo != null)
@@ -238,11 +242,21 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     if (tipoServ != null && tipoServ.Id > 0) tipoServicio = tipoServ;
                 }
 
-                latitud = latitud.Replace(',', '.');
-                longitud = longitud.Replace(',', '.');
-                var lat = Convert.ToDouble(latitud, CultureInfo.InvariantCulture);
-                var lon = Convert.ToDouble(longitud, CultureInfo.InvariantCulture);
-                ValidateGpsPoint(codigo, codigoPuntoEntrega, (float)lat, (float)lon);
+                double lat, lon;
+
+                if (incompleto)
+                {
+                    lat = _latitudDefault;
+                    lon = _longitudDefault;
+                }
+                else
+                {
+                    latitud = latitud.Replace(',', '.');
+                    longitud = longitud.Replace(',', '.');
+                    lat = Convert.ToDouble(latitud, CultureInfo.InvariantCulture);
+                    lon = Convert.ToDouble(longitud, CultureInfo.InvariantCulture);
+                    ValidateGpsPoint(codigo, codigoPuntoEntrega, (float)lat, (float)lon);
+                }                
 
                 var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoPuntoEntrega);
 
@@ -317,7 +331,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 listPuntos.Add(puntoEntrega);
 
-                if (codigo.Contains("TR"))
+                if (codigo.Contains("TR") && puntoEntrega.ReferenciaGeografica.Latitude != _latitudDefault && puntoEntrega.ReferenciaGeografica.Longitude != _longitudDefault)
                 {
                     var ultimo = item.Detalles.Last().ReferenciaGeografica;
                     var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
