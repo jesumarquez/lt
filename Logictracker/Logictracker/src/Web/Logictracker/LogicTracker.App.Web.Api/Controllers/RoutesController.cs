@@ -155,10 +155,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             switch (routeEvent.RouteCommand.ToUpper())
             {
                 case "START":
-                    {
-                        RouteService.StartRoute(id);
-                        commandStatus = "CLOG_START_SENT";
-                    }
+                    commandStatus = RouteService.StartRoute(id);
                     break;
                 case "FINALIZE":
                     commandStatus = RouteService.FinalizeRoute(id);
