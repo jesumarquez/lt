@@ -14,6 +14,8 @@ namespace Logictracker.Web.Filters
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
+            base.OnAuthorization(filterContext);
+
             var funcController = filterContext.Controller as IFunctionController;
             var controller = filterContext.Controller as BaseFunctionController;
 
@@ -24,7 +26,6 @@ namespace Logictracker.Web.Filters
             {
                 filterContext.Result = new RedirectResult("~/SinAcceso.aspx");
             }
-            base.OnAuthorization(filterContext);
         }
     }
 }

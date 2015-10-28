@@ -1471,6 +1471,8 @@
     <Content Include="Logictracker.Mailing.LogiclinkError.config" />
     <Content Include="Logictracker.Mailing.ReportConfirmation.config" />
     <Content Include="Logictracker.Mailing.SupportTicket.config" />
+    <Content Include="Areas\Rechazos\Views\web.config" />
+    <Content Include="Areas\Rechazos\Views\Rechazo\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1826,6 +1828,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Rechazos\Controllers\RechazoController.cs" />
+    <Compile Include="Areas\Rechazos\RechazosAreaRegistration.cs" />
     <Compile Include="CicloLogistico\AgendaAlta.aspx.cs">
       <DependentUpon>AgendaAlta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4444,6 +4448,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Rechazos\Models\" />
+    <Folder Include="Areas\Rechazos\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

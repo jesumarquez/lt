@@ -14,7 +14,7 @@ namespace Logictracker.Web.Filters
         {
             if (!WebSecurity.Authenticated)
             {
-                filterContext.Result = new RedirectResult("Default.aspx?RedirectUrl=" + filterContext.HttpContext.Request.RawUrl);
+                filterContext.Result = new RedirectResult("~/Default.aspx?RedirectUrl=" + filterContext.HttpContext.Request.RawUrl);
             }
         }
 
