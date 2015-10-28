@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace Logictracker.Web.Controllers
 {
-    public class DummyController : Controller
+    [Route()]
+    public class DummyController : BaseFunctionController, IFunctionController
     {
         // GET: Dummy
         public ActionResult Index()
@@ -83,6 +84,14 @@ namespace Logictracker.Web.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        public string ReferenceName
+        {
+            get
+            {
+                return "Dummy";
             }
         }
     }

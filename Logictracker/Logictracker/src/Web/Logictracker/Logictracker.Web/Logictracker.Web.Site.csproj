@@ -1823,6 +1823,7 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="CicloLogistico\AgendaAlta.aspx.cs">
@@ -2113,7 +2114,9 @@
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\api\DummyController.cs" />
+    <Compile Include="Controllers\BaseFunctionController.cs" />
     <Compile Include="Controllers\DummyController.cs" />
+    <Compile Include="Controllers\IFunctionController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2226,6 +2229,8 @@
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Filters\MVCAuthenticationFilter.cs" />
+    <Compile Include="Filters\MVCAuthorizeFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
