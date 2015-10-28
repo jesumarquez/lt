@@ -1,11 +1,5 @@
-﻿using Logictracker.Security;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Filters;
+﻿using System.Web.Mvc;
+using Logictracker.Security;
 using Logictracker.Web.Controllers;
 
 namespace Logictracker.Web.Filters
@@ -14,7 +8,7 @@ namespace Logictracker.Web.Filters
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            base.OnAuthorization(filterContext);
+            //base.OnAuthorization(filterContext);
 
             var funcController = filterContext.Controller as IFunctionController;
             var controller = filterContext.Controller as BaseFunctionController;
