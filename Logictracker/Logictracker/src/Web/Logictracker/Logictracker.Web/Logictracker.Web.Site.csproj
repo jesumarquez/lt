@@ -134,6 +134,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -837,6 +838,7 @@
     <Content Include="Content\kendo\2014.2.1008\Uniform\slider-v.gif" />
     <Content Include="Content\kendo\2014.2.1008\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.2.1008\Uniform\sprite_2x.png" />
+    <Content Include="Content\kendo\kendo.custom.css" />
     <Content Include="Content\Site.css" />
     <Content Include="ControlAcceso\CategoriaAccesoAlta.aspx" />
     <Content Include="ControlAcceso\CategoriaAccesoLista.aspx" />
@@ -1701,12 +1703,15 @@
     <Content Include="Content\font-awesome\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\font-awesome\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\font-awesome\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\Rechazos\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
+    <Content Include="Scripts\app\rechazo\rechazo-controller.js" />
+    <Content Include="Scripts\app\rechazo\rechazo-service.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1854,6 +1859,7 @@
     <Content Include="Scripts\kendo\2014.2.1008\messages\kendo.messages.zh-CN.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\messages\kendo.messages.zh-HK.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\messages\kendo.messages.zh-TW.min.js" />
+    <Content Include="Scripts\kendo\kendo.custom.js" />
     <Content Include="Scripts\kendo\kendo.modernizr.custom.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -2600,7 +2606,14 @@
     <Compile Include="ControlAcceso\Fichada.aspx.designer.cs">
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\api\BaseController.cs" />
+    <Compile Include="Controllers\api\DistritoController.cs" />
     <Compile Include="Controllers\api\DummyController.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\DistritoModel.cs" />
+    <Compile Include="Controllers\api\EntityController.cs" />
+    <Compile Include="Models\EntityModelMapper.cs" />
     <Compile Include="Controllers\BaseFunctionController.cs" />
     <Compile Include="Controllers\DummyController.cs" />
     <Compile Include="Controllers\IFunctionController.cs" />
@@ -2718,6 +2731,7 @@
     </Compile>
     <Compile Include="Filters\MVCAuthenticationFilter.cs" />
     <Compile Include="Filters\MVCAuthorizeFilter.cs" />
+    <Compile Include="Filters\MVCNhibernateFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4933,7 +4947,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Rechazos\Models\" />
     <Folder Include="Areas\Rechazos\Views\Shared\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Geocoder\Geocoder.Core.csproj">

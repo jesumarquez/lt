@@ -33,6 +33,7 @@ namespace Logictracker.Web
                     url: "{controller}/{action}/{id}",
                     defaults: new { action = "Index", id = UrlParameter.Optional }
                 );  
+
         }
     }
 }

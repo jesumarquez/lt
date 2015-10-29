@@ -540,7 +540,7 @@ namespace Logictracker.DAL.Factories
         /// Gets an instance of the dao associated to the givenn type.
         /// </summary>
         /// <returns></returns>
-        private T GetDao<T>() where T : IGenericDAO
+        public static T GetDao<T>() where T : IGenericDAO
         {
             var type = typeof(T);
 

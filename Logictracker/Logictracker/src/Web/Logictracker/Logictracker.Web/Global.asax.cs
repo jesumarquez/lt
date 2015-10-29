@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.SessionState;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.DatabaseTracer.Enums;
 using Logictracker.DAL.DAO.BusinessObjects.Auditoria;
@@ -122,5 +123,9 @@ namespace Logictracker.Web
                 auditDao.CloseUserSession(userSessionData.Id);
             }
         }
+        protected void Application_PostAuthorizeRequest()  
+        {  
+            //HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);  
+        }  
     }
 }

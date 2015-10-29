@@ -1,12 +1,28 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-<div ng-controller="RechazoController as rechazo">
-    <h2>Index</h2>
-    <h3>Data: {{rechazo.data}}</h3>
-    <h3>List:</h3>
-    <ul>
-        <li ng-repeat="rechazoItem in rechazo.list" >{{rechazoItem}}</li>
-    </ul>
+
+<div ng-app="logictracker" class="container" ng-controller="RechazoController">
+    <div class="row ">
+        <div class="col-md-4">
+            <div>Distrito:<input kendo-drop-down-list
+       k-data-source="distritoDS" k-data-text-field="'Value'"
+       k-data-value-field="'Key'"
+       k-ng-model="distritoselected" /></div>
+        </div>
+        <div class="col-md-4">
+            <div>Base:
+                <input kendo-drop-down-list k-data-source="baseDS" 
+                       k-data-text-field="'Value'" k-data-value-field="'Key'"/></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"> </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            GRILLA
+        </div>
+    </div>
+    <span kendo-notification="notify"></span>
 </div>
