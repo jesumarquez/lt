@@ -331,19 +331,25 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 listPuntos.Add(puntoEntrega);
 
-                if (codigo.Contains("TR") 
-                 && puntoEntrega.ReferenciaGeografica.Latitude != _latitudDefault && puntoEntrega.ReferenciaGeografica.Longitude != _longitudDefault)
+                if (codigo.Contains("TR"))                 
                 {
-                    var ultimo = item.Detalles.Last(d => d.ReferenciaGeografica.Latitude != _latitudDefault && d.ReferenciaGeografica.Longitude != _longitudDefault).ReferenciaGeografica;
-                    var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
-                    var destino = new LatLon(puntoEntrega.ReferenciaGeografica.Latitude, puntoEntrega.ReferenciaGeografica.Longitude);
-                    var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
-
-                    if (directions != null)
+                    if (puntoEntrega.ReferenciaGeografica.Latitude == _latitudDefault && puntoEntrega.ReferenciaGeografica.Longitude == _longitudDefault)
                     {
-                        distance = directions.Distance / 1000.0;
-                        var duracion = directions.Duration;
-                        fecha = item.Detalles.Last().Programado.Add(duracion);
+                        distance = 0.0;
+                    }
+                    else
+                    {
+                        var ultimo = item.Detalles.Last(d => d.ReferenciaGeografica.Latitude != _latitudDefault && d.ReferenciaGeografica.Longitude != _longitudDefault).ReferenciaGeografica;
+                        var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
+                        var destino = new LatLon(puntoEntrega.ReferenciaGeografica.Latitude, puntoEntrega.ReferenciaGeografica.Longitude);
+                        var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
+
+                        if (directions != null)
+                        {
+                            distance = directions.Distance / 1000.0;
+                            var duracion = directions.Duration;
+                            fecha = item.Detalles.Last().Programado.Add(duracion);
+                        }
                     }
                 }
 
