@@ -189,7 +189,7 @@ namespace Logictracker.InetLayer
 
                     //Update Performance Counters
                     var cat = new BackendCategory();
-                    PerformanceCounterHelper.Increment(cat.CategoryName, cat.GatewayUDP, STrace.Module);
+                    PerformanceCounterHelper.Increment(cat.CategoryName, cat.GatewayUDP);
 
                     LogBandwidthUsed(dgram.Size, 0);
 

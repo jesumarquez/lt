@@ -20,7 +20,7 @@ namespace Logictracker.Utils
                     PerformanceCounterCategory.Delete(cat.CategoryName);
 
                 if (!PerformanceCounterCategory.Exists(cat.CategoryName)) 
-                    PerformanceCounterCategory.Create(cat.CategoryName, String.Empty, PerformanceCounterCategoryType.MultiInstance, cat.Counters);
+                    PerformanceCounterCategory.Create(cat.CategoryName, String.Empty, PerformanceCounterCategoryType.SingleInstance, cat.Counters);
 				
                 return true;
 			}
@@ -34,26 +34,28 @@ namespace Logictracker.Utils
 
         public static ConcurrentDictionary<string,PerformanceCounter> PcCache = new ConcurrentDictionary<string, PerformanceCounter>();  
 
-		public static PerformanceCounter Get(String categoria, String nombre, String instancia)
+		public static PerformanceCounter Get(String categoria, String nombre)
 		{
-		    return PcCache.GetOrAdd(categoria + "|" + nombre + "|" + instancia + "|ron",(s)=>new PerformanceCounter(categoria, nombre, instancia, false));
-            //return PerformanceCounterCategory.Exists(categoria) ?  : null;
+		    return PcCache.GetOrAdd(categoria + "|" + nombre + "|ron",
+		        (s) => new PerformanceCounter(categoria, nombre, false));
+		    //return PcCache.GetOrAdd(categoria + "|" + nombre + "|" + instancia + "|ron",(s)=>new PerformanceCounter(categoria, nombre, instancia, false));
+		    //return PerformanceCounterCategory.Exists(categoria) ?  : null;
 		}
 
-		public static Boolean Increment(String categoria, String counterName, String instancia)
+		public static Boolean Increment(String categoria, String counterName)
 		{
-            var pc1 = Get(categoria, counterName+"_Total_Count", instancia);
+            var pc1 = Get(categoria, counterName+"_Total_Count");
 			pc1.Increment();
-            pc1 = Get(categoria, counterName + "_Per_Sec", instancia);
+            pc1 = Get(categoria, counterName + "_Per_Sec");
             pc1.Increment();
 			return true;
 		}
 
         public static Boolean IncrementBy(String categoria, String counterName, String instancia , long elapsedTicks) 
         {
-            var pc1 = Get(categoria, counterName + "_AvgTime", instancia);
+            var pc1 = Get(categoria, counterName + "_AvgTime");
             pc1.IncrementBy(elapsedTicks);
-            pc1 = Get(categoria, counterName + "_AvgTime_Base", instancia);
+            pc1 = Get(categoria, counterName + "_AvgTime_Base");
             pc1.Increment();
             return true;
         }
@@ -88,18 +90,18 @@ namespace Logictracker.Utils
                             new CounterCreationData{CounterName = DispatcherProcess + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
                             new CounterCreationData{CounterName = DispatcherProcess + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase},
                         
-                              new CounterCreationData{CounterName = HandlerProcess + "_Total_Count", CounterType = PerformanceCounterType.NumberOfItems32},
-                            new CounterCreationData{CounterName = HandlerProcess + "_Per_Sec", CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
-                            new CounterCreationData{CounterName = HandlerProcess + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
-                            new CounterCreationData{CounterName = HandlerProcess + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase},
+                            new CounterCreationData{CounterName = HandleEvent + "_Total_Count", CounterType = PerformanceCounterType.NumberOfItems32},
+                            new CounterCreationData{CounterName = HandleEvent + "_Per_Sec", CounterType = PerformanceCounterType.RateOfCountsPerSecond32},
+                            new CounterCreationData{CounterName = HandleEvent + "_AvgTime", CounterType = PerformanceCounterType.AverageTimer32},
+                            new CounterCreationData{CounterName = HandleEvent + "_AvgTime_Base", CounterType = PerformanceCounterType.AverageBase },
                         
                         };
 			}
 		}
-
+        
         public String GatewayUDP { get { return "GatewayUdp"; } }
         public String DispatcherProcess { get { return "Dispatcher_Process"; } }
-        public String HandlerProcess { get { return "Dispatcher_Handler"; } }
+        public String HandleEvent  { get { return "Dispatcher_Event"; } }
 	
     }
 }
