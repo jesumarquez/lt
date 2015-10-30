@@ -331,9 +331,10 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 listPuntos.Add(puntoEntrega);
 
-                if (codigo.Contains("TR") && puntoEntrega.ReferenciaGeografica.Latitude != _latitudDefault && puntoEntrega.ReferenciaGeografica.Longitude != _longitudDefault)
+                if (codigo.Contains("TR") 
+                 && puntoEntrega.ReferenciaGeografica.Latitude != _latitudDefault && puntoEntrega.ReferenciaGeografica.Longitude != _longitudDefault)
                 {
-                    var ultimo = item.Detalles.Last().ReferenciaGeografica;
+                    var ultimo = item.Detalles.Last(d => d.ReferenciaGeografica.Latitude != _latitudDefault && d.ReferenciaGeografica.Longitude != _longitudDefault).ReferenciaGeografica;
                     var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
                     var destino = new LatLon(puntoEntrega.ReferenciaGeografica.Latitude, puntoEntrega.ReferenciaGeografica.Longitude);
                     var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
