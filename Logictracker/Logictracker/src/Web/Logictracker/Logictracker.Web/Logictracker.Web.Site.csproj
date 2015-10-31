@@ -2607,9 +2607,13 @@
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\api\BaseController.cs" />
+    <Compile Include="Controllers\api\CentroCostosController.cs" />
+    <Compile Include="Models\CentroDeCostosModel.cs" />
+    <Compile Include="Controllers\api\DepartamentoController.cs" />
     <Compile Include="Controllers\api\DistritoController.cs" />
     <Compile Include="Controllers\api\DummyController.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\DepartamentoModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\DistritoModel.cs" />
     <Compile Include="Controllers\api\EntityController.cs" />

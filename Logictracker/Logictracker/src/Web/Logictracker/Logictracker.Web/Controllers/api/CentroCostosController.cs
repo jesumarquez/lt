@@ -7,16 +7,13 @@ using Logictracker.Web.Models;
 
 namespace Logictracker.Web.Controllers.api
 {
-    public class DistritoController :EntityController<Empresa,EmpresaDAO,DistritoModel,EmpresaMapper>
+    public class CentroCostosController : EntityController<CentroDeCostos, CentroDeCostosDAO, CentroDeCostosModel, CentroDeCostosMapper>
     {
-        [Route("api/distrito/items")]
+
+        [Route("api/centrodecostos/items")]
         public override IEnumerable<ItemModel> GetComboItem()
         {
-            var mapper = new EmpresaMapper();
-            return EntityDao.GetEmpresasPermitidas().Select(e=>mapper.ToItem(e));
+            return EntityDao.GetList(new int[] {}, new int[] {}, new int[] {}).Select(c => Mapper.ToItem(c));
         }
-
-      
     }
-
 }

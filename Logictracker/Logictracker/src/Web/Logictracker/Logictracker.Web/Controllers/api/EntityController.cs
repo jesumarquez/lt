@@ -18,8 +18,10 @@ namespace Logictracker.Web.Controllers.api
         public abstract IEnumerable<ItemModel> GetComboItem();
 
         private TDao _dao;
+        private TEntityMapper _mapper;
         protected TDao EntityDao { get { return _dao ?? (_dao = DAOFactory.GetDao<TDao>()); } }
 
+        protected TEntityMapper Mapper { get { return _mapper ?? (_mapper = new TEntityMapper()); } }
 
         [HttpGet]
         public virtual TModel Get(int id)
