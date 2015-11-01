@@ -123,9 +123,22 @@ namespace Logictracker.Web
                 auditDao.CloseUserSession(userSessionData.Id);
             }
         }
+
+        /// Workaround para que funcione la Session de asp.net con Web.api y que no se rompa para todo el resto que no sea
+        /// Wep.api
+        private const string _WebApiPrefix = "api";
+        private static string _WebApiExecutionPath = String.Format("~/{0}", _WebApiPrefix);
+
         protected void Application_PostAuthorizeRequest()  
-        {  
-            //HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);  
-        }  
+        {
+            if (IsWebApiRequest())
+            {
+                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            }
+        }
+        private static bool IsWebApiRequest()
+        {
+            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_WebApiExecutionPath);
+        }
     }
 }
