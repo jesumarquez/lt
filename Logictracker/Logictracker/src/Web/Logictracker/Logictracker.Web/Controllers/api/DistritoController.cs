@@ -9,8 +9,8 @@ namespace Logictracker.Web.Controllers.api
 {
     public class DistritoController :EntityController<Empresa,EmpresaDAO,DistritoModel,EmpresaMapper>
     {
-        [Route("api/distrito/items")]
-        public override IEnumerable<ItemModel> GetComboItem()
+        [Route("api/Distrito/items")]
+        public  IEnumerable<ItemModel> GetComboItem()
         {
             var mapper = new EmpresaMapper();
             return EntityDao.GetEmpresasPermitidas().Select(e=>mapper.ToItem(e));

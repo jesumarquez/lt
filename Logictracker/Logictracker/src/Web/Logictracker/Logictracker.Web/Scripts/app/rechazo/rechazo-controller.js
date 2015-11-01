@@ -3,7 +3,9 @@
     .controller('RechazoController', ['$scope', 'RechazoService', RechazoController]);
 
 function RechazoController($scope, RechazoService) {
-    $scope.distritoselected = {};
+    $scope.distritoSelected = {};
+    $scope.baseSelected = {};
+    $scope.departamentoSelected = {};
 
     $scope.distritoDS = new kendo.data.DataSource({
         transport: {
@@ -22,7 +24,7 @@ function RechazoController($scope, RechazoService) {
             read: {
                 dataType: "json",
                 url: function() {
-                    return _baseUrl + "api/Distrito/" + $scope.distritoselected.Key + "/Base/Items";
+                    return _baseUrl + "api/Distrito/" + $scope.distritoSelected.Key + "/Base/Items";
                 }
             }
         },
@@ -32,7 +34,38 @@ function RechazoController($scope, RechazoService) {
 
     });
 
-    $scope.$watch("distritoselected", function(newValue, oldValue) {
+    $scope.departamentoDS = new kendo.data.DataSource({
+        transport: {
+            read: {
+                dataType: "json",
+                url: function () {
+                    return _baseUrl + "api/Distrito/" + $scope.distritoSelected.Key + "/Base/" + $scope.baseSelected.Key + "/Departamento/Items";
+                }
+            }
+        },
+        error: function (e) {
+            $scope.notify.show(e.errorThrown, "error");
+        }
+
+    });
+
+    $scope.$watch("distritoSelected", function(newValue, oldValue) {
         $scope.baseDS.read();
     });
+    
+    $scope.$watch("baseSelected", function (newValue, oldValue) {
+        $scope.departamentoDS.read();
+        $scope.departamentoSelected = {};
+    });
+
+    $scope.distritoDefault = function(e) {
+        var s = e.sender;
+        s.select(0);
+        $scope.distritoSelected = s.dataSource.at(0);
+    }
+    $scope.baseDefault = function (e) {
+        var s = e.sender;
+        s.select(0);
+        $scope.baseSelected = s.dataSource.at(0);
+    }
 }

@@ -1,27 +1,70 @@
-﻿@{
+﻿@using Logictracker.Web.App_Code
+@{
     ViewBag.Title = "Index";
 }
 
 <div ng-app="logictracker" class="container" ng-controller="RechazoController">
     <div class="row ">
-        <div class="col-md-4">
-            <div>Distrito:<input kendo-drop-down-list
-       k-data-source="distritoDS" k-data-text-field="'Value'"
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Entities", "PARENTI01"):<input kendo-drop-down-list k-on-data-bound="distritoDefault(kendoEvent)"
+                                                                        k-data-source="distritoDS"
+                                                                        k-data-text-field="'Value'"
+                                                                        k-data-value-field="'Key'"
+                                                                        k-ng-model="distritoSelected" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Entities", "PARENTI02"):<input kendo-drop-down-list
+       k-data-source="baseDS"
+       k-data-text-field="'Value'"
        k-data-value-field="'Key'"
-       k-ng-model="distritoselected" /></div>
+       k-ng-model="baseSelected"
+       k-on-data-bound="baseDefault(kendoEvent)"
+       ng-disabled="!distritoSelected.Key" />
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <div>Base:
-                <input kendo-drop-down-list k-data-source="baseDS" 
-                       k-data-text-field="'Value'" k-data-value-field="'Key'"/></div>
+        <div class="col-md-2">
+            @Html.ResourceLabel("Entities", "PARENTI04"): <input kendo-multi-select
+       k-data-source="departamentoDS"
+       k-data-text-field="'Value'"
+       k-data-value-field="'Key'"
+       k-ng-model="departamentoSelected"
+       ng-disabled="!(distritoSelected.Key) || !(baseSelected.Key)"
+       />
         </div>
+
+        <div class="col-md-2">
+            @Html.ResourceLabel("Entities", "PARENTI37"): <input kendo-multi-select />
+        </div>
+
+        <div class="col-md-2">
+            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select />
+        </div>
+
+        <div class="col-md-2">
+            @Html.ResourceLabel("Entities", "PARENTI03"): <input kendo-multi-select />
+        </div>
+
+        <div class="col-md-2">
+            <div class="row">
+                @Html.ResourceLabel("Labels", "Desde"):  <input kendo-date-picker />
+            </div>
+            <div class="row">
+                @Html.ResourceLabel("Labels", "Hasta"):  <input kendo-date-picker />
+            </div>
+        </div>
+
     </div>
     <div class="row">
-        <div class="col-md-1"> </div>
+        <div class="col-md-12" style="min-height: 1em"> </div>
     </div>
-    <div class="row">
-        <div class="col-md-1">
-            GRILLA
+    <div cass="row">
+        <div class="col-md-12">
+            <div kendo-grid></div>
         </div>
     </div>
     <span kendo-notification="notify"></span>

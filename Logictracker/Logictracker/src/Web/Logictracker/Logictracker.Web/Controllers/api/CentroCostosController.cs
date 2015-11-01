@@ -10,10 +10,11 @@ namespace Logictracker.Web.Controllers.api
     public class CentroCostosController : EntityController<CentroDeCostos, CentroDeCostosDAO, CentroDeCostosModel, CentroDeCostosMapper>
     {
 
-        [Route("api/centrodecostos/items")]
-        public override IEnumerable<ItemModel> GetComboItem()
+        [Route("api/distrito/{distritoId}/base/{baseId}/centrodecostos/items")]
+        public IEnumerable<ItemModel> GetComboItem(int distritoId,int baseId,[FromUri]int[] deptoId)
         {
-            return EntityDao.GetList(new int[] {}, new int[] {}, new int[] {}).Select(c => Mapper.ToItem(c));
+            return EntityDao.GetList(new[] { distritoId }, new[] { baseId }, deptoId).Select(c => Mapper.ToItem(c)).ToList();
         }
+
     }
 }

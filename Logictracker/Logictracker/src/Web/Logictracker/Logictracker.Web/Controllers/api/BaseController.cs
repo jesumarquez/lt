@@ -18,10 +18,6 @@ namespace Logictracker.Web.Controllers.api
             return EntityDao.GetLineasPermitidasPorUsuario(new []{distritoId}).Select(l=>mapper.ToItem(l));
         }
 
-        public override IEnumerable<ItemModel> GetComboItem()
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

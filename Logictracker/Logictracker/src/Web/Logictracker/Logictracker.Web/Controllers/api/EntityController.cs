@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Web.Http;
 using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DAL.Factories;
@@ -15,8 +14,6 @@ namespace Logictracker.Web.Controllers.api
         where TEntityMapper : EntityModelMapper<TEntity, TModel>, new()
         where TModel : new()
     {
-        public abstract IEnumerable<ItemModel> GetComboItem();
-
         private TDao _dao;
         private TEntityMapper _mapper;
         protected TDao EntityDao { get { return _dao ?? (_dao = DAOFactory.GetDao<TDao>()); } }
