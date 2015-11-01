@@ -16,6 +16,12 @@ function RechazoController($scope, EntitiesService) {
 
     $scope.departamentoDS = {}
 
+    $scope.$watch("baseDS", function(newValue, oldValue) {
+        if(newValue)
+            $scope.departamentoSelected = {};
+
+    });
+
     $scope.$watch("distritoSelected", function (newValue, oldValue) {
         if (newValue) $scope.baseDS = EntitiesService.distrito.bases.query(
             { distritoId: $scope.distritoSelected.Key }
