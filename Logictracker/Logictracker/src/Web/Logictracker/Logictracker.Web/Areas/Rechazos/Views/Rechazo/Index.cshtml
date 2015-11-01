@@ -8,33 +8,32 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
-                    @Html.ResourceLabel("Entities", "PARENTI01"):<input kendo-drop-down-list k-on-data-bound="distritoDefault(kendoEvent)"
+
+                    @Html.ResourceLabel("Entities", "PARENTI01"):<input kendo-drop-down-list="ddlDistrito" 
                                                                         k-data-source="distritoDS"
                                                                         k-data-text-field="'Value'"
                                                                         k-data-value-field="'Key'"
-                                                                        k-ng-model="distritoSelected" />
+                                                                        k-ng-model="distritoSelected"  />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    @Html.ResourceLabel("Entities", "PARENTI02"):<input kendo-drop-down-list
-       k-data-source="baseDS"
-       k-data-text-field="'Value'"
-       k-data-value-field="'Key'"
-       k-ng-model="baseSelected"
-       k-on-data-bound="baseDefault(kendoEvent)"
-       ng-disabled="!distritoSelected.Key" />
+                    @Html.ResourceLabel("Entities", "PARENTI02"):<input kendo-drop-down-list="ddlBase"
+                                                                        k-data-source="baseDS"
+                                                                        k-data-text-field="'Value'"
+                                                                        k-data-value-field="'Key'"
+                                                                        k-ng-model="baseSelected"
+                                                                        k-on-data-bound="baseDefault(kendoEvent)" />
                 </div>
             </div>
         </div>
         <div class="col-md-2">
             @Html.ResourceLabel("Entities", "PARENTI04"): <input kendo-multi-select
-       k-data-source="departamentoDS"
-       k-data-text-field="'Value'"
-       k-data-value-field="'Key'"
-       k-ng-model="departamentoSelected"
-       ng-disabled="!(distritoSelected.Key) || !(baseSelected.Key)"
-       />
+                                                                 k-data-source="departamentoDS"
+                                                                 k-data-text-field="'Value'"
+                                                                 k-data-value-field="'Key'"
+                                                                 k-ng-model="departamentoSelected"
+                                                                 k-ng-disabled="!(distritoSelected.Key) || !(baseSelected.Key)" />
         </div>
 
         <div class="col-md-2">

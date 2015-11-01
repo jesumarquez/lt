@@ -5,3 +5,5 @@
 function RechazoService($resource) {
     return $resource('/api/rechazo/:rechazoId');
 }
+
+

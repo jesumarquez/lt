@@ -1,71 +1,39 @@
 ﻿angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
-    .controller('RechazoController', ['$scope', 'RechazoService', RechazoController]);
+    .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController]);
 
-function RechazoController($scope, RechazoService) {
+function RechazoController($scope, EntitiesService) {
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.departamentoSelected = {};
 
-    $scope.distritoDS = new kendo.data.DataSource({
-        transport: {
-            read: {
-                dataType: "json",
-                url: _baseUrl + "api/Distrito/Items"
-            },
-            error: function(e) {
-                $scope.notify.show(e.status, "error");
-            }
-        }
+    $scope.distritoDS = EntitiesService.distrito.items.query({}, function () {
+        $scope.distritoSelected = $scope.distritoDS[0];
+        $scope.ddlDistrito.select(0);
     });
 
-    $scope.baseDS = new kendo.data.DataSource({
-        transport: {
-            read: {
-                dataType: "json",
-                url: function() {
-                    return _baseUrl + "api/Distrito/" + $scope.distritoSelected.Key + "/Base/Items";
-                }
-            }
-        },
-        error: function(e) {
-            $scope.notify.show(e.errorThrown, "error");
-        }
+    $scope.baseDS = {}
 
+    $scope.departamentoDS = {}
+
+    $scope.$watch("distritoSelected", function (newValue, oldValue) {
+        if (newValue) $scope.baseDS = EntitiesService.distrito.bases.query(
+            { distritoId: $scope.distritoSelected.Key }
+            , function () {
+                $scope.baseSelected = $scope.baseDS[0];
+                $scope.ddlBase.select(0);
+            });
     });
 
-    $scope.departamentoDS = new kendo.data.DataSource({
-        transport: {
-            read: {
-                dataType: "json",
-                url: function () {
-                    return _baseUrl + "api/Distrito/" + $scope.distritoSelected.Key + "/Base/" + $scope.baseSelected.Key + "/Departamento/Items";
-                }
-            }
-        },
-        error: function (e) {
-            $scope.notify.show(e.errorThrown, "error");
-        }
-
-    });
-
-    $scope.$watch("distritoSelected", function(newValue, oldValue) {
-        $scope.baseDS.read();
-    });
-    
     $scope.$watch("baseSelected", function (newValue, oldValue) {
-        $scope.departamentoDS.read();
-        $scope.departamentoSelected = {};
+        if (newValue)
+            $scope.departamentoDS = EntitiesService.distrito.departamento.query(
+                {
+                    distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key
+                }, function () {
+                    $scope.departamentoSelected = {}
+                }
+                );
     });
 
-    $scope.distritoDefault = function(e) {
-        var s = e.sender;
-        s.select(0);
-        $scope.distritoSelected = s.dataSource.at(0);
-    }
-    $scope.baseDefault = function (e) {
-        var s = e.sender;
-        s.select(0);
-        $scope.baseSelected = s.dataSource.at(0);
-    }
 }

@@ -1710,6 +1710,7 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
+    <Content Include="Scripts\app\EntitiesService.js" />
     <Content Include="Scripts\app\rechazo\rechazo-controller.js" />
     <Content Include="Scripts\app\rechazo\rechazo-service.js" />
     <Content Include="Scripts\bootstrap.js" />
