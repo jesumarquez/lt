@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Logictracker.DAL.DAO.BusinessObjects;
@@ -15,7 +14,7 @@ namespace Logictracker.Web.Controllers.api
         public IEnumerable<ItemModel> GetBases(int distritoId)
         {
             var mapper = new LineaMapper();
-            return EntityDao.GetLineasPermitidasPorUsuario(new []{distritoId}).Select(l=>mapper.ToItem(l));
+            return ItemModel.All.Union(EntityDao.GetLineasPermitidasPorUsuario(new []{distritoId}).Select(l=>mapper.ToItem(l)));
         }
 
     }

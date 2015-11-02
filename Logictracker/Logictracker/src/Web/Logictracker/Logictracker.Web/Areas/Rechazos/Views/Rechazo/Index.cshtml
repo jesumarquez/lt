@@ -9,11 +9,11 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    @Html.ResourceLabel("Entities", "PARENTI01"):<input kendo-drop-down-list="ddlDistrito" 
+                    @Html.ResourceLabel("Entities", "PARENTI01"):<input kendo-drop-down-list="ddlDistrito"
                                                                         k-data-source="distritoDS"
                                                                         k-data-text-field="'Value'"
                                                                         k-data-value-field="'Key'"
-                                                                        k-ng-model="distritoSelected"  />
+                                                                        k-ng-model="distritoSelected" />
                 </div>
             </div>
             <div class="row">
@@ -32,12 +32,15 @@
                                                                  k-data-source="departamentoDS"
                                                                  k-data-text-field="'Value'"
                                                                  k-data-value-field="'Key'"
-                                                                 k-ng-model="departamentoSelected"
-                                                                 k-ng-disabled="!(distritoSelected.Key) || !(baseSelected.Key)" />
+                                                                 k-ng-model="departamentoSelected" />
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI37"): <input kendo-multi-select />
+            @Html.ResourceLabel("Entities", "PARENTI37"): <input kendo-multi-select
+                                                                 k-data-source="centroDeCostosDS"
+                                                                 k-data-text-field="'Value'"
+                                                                 k-data-value-field="'Key'"
+                                                                 k-ng-model="centroDeCostosSelected" />
         </div>
 
         <div class="col-md-2">
