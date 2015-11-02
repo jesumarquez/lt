@@ -345,13 +345,11 @@ namespace Logictracker.Process.Geofences
             }
             else
             {
-                STrace.Trace("DispatcherLock", string.Format("root INVALID ---> {0} | {1}", empresa, linea));
-                
                 var entered = false;
                 Monitor.TryEnter(_qtrees, 10, ref entered);
                 if (entered)
                 {
-                    STrace.Trace("DispatcherLock", string.Format("qtree ENTER ---> {0} | {1}", empresa, linea));
+                    STrace.Trace("DispatcherLock", string.Format("qtree UPDATE ---> {0} | {1}", empresa, linea));
                         
                     using (var transaction = SmartTransaction.BeginTransaction())
                     {
@@ -373,11 +371,11 @@ namespace Logictracker.Process.Geofences
                     }
 
                     Monitor.Exit(_qtrees);
-                    STrace.Trace("DispatcherLock", string.Format("qtree EXIT ---> {0} | {1}", empresa, linea));
+                    STrace.Trace("DispatcherLock", string.Format("qtree NEW ---> {0} | {1}", empresa, linea));
                 }
                 else
                 {
-                    STrace.Trace("DispatcherLock", string.Format("qtree ENTER FAILED ---> {0} | {1}", empresa, linea));
+                    STrace.Trace("DispatcherLock", string.Format("qtree OLD ---> {0} | {1}", empresa, linea));
                 }
 
                 return root;
