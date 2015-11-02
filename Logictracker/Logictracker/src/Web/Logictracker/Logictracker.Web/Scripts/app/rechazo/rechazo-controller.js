@@ -18,15 +18,30 @@ function RechazoController($scope, EntitiesService) {
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
 
-    $scope.distritoDS = EntitiesService.distrito.items.query({}, function () {
+    $scope.distritoDS = EntitiesService.distrito.items.query(
+            {},
+            onDistritoDSLoad,
+            function () { },
+            onFail);
+
+
+    $scope.$watch("distritoSelected", onDistritoSelected);
+
+    $scope.$watch("basesDS", onBasesDSChange);
+
+    $scope.$watch("baseSelected", onBaseSelected);
+
+    $scope.$watchGroup(["departamentoSelected", "baseSelected"], onDepartamentoAndBaseChange);
+
+    function onDistritoDSLoad() {
         $scope.distritoSelected = $scope.distritoDS[0];
-    }, function () { }
-        , function (error) {
-            $scope.notify.show(error.statusText, "error");
-        });
+    };
 
+    function onFail(error) {
+        $scope.notify.show(error.statusText, "error");
+    };
 
-    $scope.$watch("distritoSelected", function (newValue, oldValue) {
+    function onDistritoSelected(newValue, oldValue) {
         if (newValue !== oldValue)
             $scope.baseDS = EntitiesService.distrito.bases.query(
          { distritoId: $scope.distritoSelected.Key }
@@ -35,16 +50,16 @@ function RechazoController($scope, EntitiesService) {
          }, function (error) {
              $scope.notify.show(error.statusText, "error");
          });
-    });
+    };
 
-    $scope.$watch("basesDS", function (newValue, oldValue) {
+    function onBasesDSChange(newValue, oldValue) {
         if (newValue !== oldValue) {
             $scope.departamentoSelected = [];
             $scope.centroDeCostosSelected = [];
         }
-    });
+    };
 
-    $scope.$watch("baseSelected", function (newValue, oldValue) {
+    function onBaseSelected(newValue, oldValue) {
         if (newValue !== oldValue) {
             $scope.departamentoDS = EntitiesService.distrito.departamento.query(
                 {
@@ -71,9 +86,9 @@ function RechazoController($scope, EntitiesService) {
                 }
             );
         }
-    });
+    };
 
-    $scope.$watchGroup(["departamentoSelected", "baseSelected"], function (newValue, oldValue) {
+    function onDepartamentoAndBaseChange(newValue, oldValue) {
         if (newValue !== oldValue)
             $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos.query(
             {
@@ -87,5 +102,5 @@ function RechazoController($scope, EntitiesService) {
             }, function (error) {
                 $scope.notify.show(error.statusText, "error");
             });
-    });
+    };
 }
