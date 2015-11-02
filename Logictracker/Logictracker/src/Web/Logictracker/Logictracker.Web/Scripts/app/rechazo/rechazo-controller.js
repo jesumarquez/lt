@@ -9,12 +9,14 @@ function RechazoController($scope, EntitiesService) {
     $scope.baseDS = [];
     $scope.baseSelected = {};
 
-
+    $scope.departamentoDS = [];
     $scope.departamentoSelected = [];
+
+    $scope.centroDeCostosDS = [];
     $scope.centroDeCostosSelected = [];
 
-    $scope.departamentoDS = [];
-    $scope.centroDeCostosDS = [];
+    $scope.transportistaSelected = [];
+    $scope.transportistaDS = [];
 
     $scope.distritoDS = EntitiesService.distrito.items.query({}, function () {
         $scope.distritoSelected = $scope.distritoDS[0];
@@ -41,19 +43,34 @@ function RechazoController($scope, EntitiesService) {
             $scope.centroDeCostosSelected = [];
         }
     });
-    
+
     $scope.$watch("baseSelected", function (newValue, oldValue) {
-        if (newValue !== oldValue)
+        if (newValue !== oldValue) {
             $scope.departamentoDS = EntitiesService.distrito.departamento.query(
                 {
-                    distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key
+                    distritoId: $scope.distritoSelected.Key,
+                    baseId: $scope.baseSelected.Key
                 }, function () {
                     $scope.departamentoSelected = [];
+
                 }, function (error) {
                     $scope.notify.show(error.statusText, "error");
 
                 }
-                );
+            );
+            $scope.transportistaDS = EntitiesService.distrito.transportista.query(
+                {
+                    distritoId: $scope.distritoSelected.Key,
+                    baseId: $scope.baseSelected.Key
+                }, function () {
+                    $scope.transportistaSelected = [];
+
+                }, function (error) {
+                    $scope.notify.show(error.statusText, "error");
+
+                }
+            );
+        }
     });
 
     $scope.$watchGroup(["departamentoSelected", "baseSelected"], function (newValue, oldValue) {

@@ -44,7 +44,11 @@
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select />
+            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select
+                                                                 k-data-source="transportistaDS"
+                                                                 k-data-text-field="'Value'"
+                                                                 k-data-value-field="'Key'"
+                                                                 k-ng-model="transportistaSelected" />
         </div>
 
         <div class="col-md-2">
