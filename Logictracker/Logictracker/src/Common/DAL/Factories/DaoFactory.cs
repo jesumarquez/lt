@@ -358,9 +358,7 @@ namespace Logictracker.DAL.Factories
 
         #endregion
 
-        private SindicaturaDAO _sindicaturaDao;
-        public SindicaturaDAO SindicaturaDAO { get { return _sindicaturaDao ?? (_sindicaturaDao = GetDao<SindicaturaDAO>()); } }
-
+     
         private EstadoDAO _estadoDao;
         public EstadoDAO EstadoDAO { get { return _estadoDao ?? (_estadoDao = GetDao<EstadoDAO>()); } }
 
