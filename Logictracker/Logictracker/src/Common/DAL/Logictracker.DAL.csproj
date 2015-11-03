@@ -624,9 +624,6 @@
     <EmbeddedResource Include="HBM\BusinessObjects\Organizacion\AseguradoEnPerfil.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HBM\BusinessObjects\sindicatura.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\ConsumoCabecera.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
