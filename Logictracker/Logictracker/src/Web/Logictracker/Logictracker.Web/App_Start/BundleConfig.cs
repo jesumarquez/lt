@@ -46,6 +46,7 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                             "~/Scripts/angular.js",
                             "~/Scripts/angular-route.js",
+                            "~/Scripts/angular-ui-bootstrap-modal.js",
                             "~/Scripts/angular-resource.js"));
             
             // Logictracker Angular app

@@ -14,7 +14,7 @@
     <RootNamespace>Logictracker.Web</RootNamespace>
     <AssemblyName>Logictracker.Web.Site</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -619,6 +619,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datetimepicker.css" />
     <Content Include="Content\Site.css" />
     <Content Include="ControlAcceso\CategoriaAccesoAlta.aspx" />
     <Content Include="ControlAcceso\CategoriaAccesoLista.aspx" />
@@ -1471,12 +1472,16 @@
     <Content Include="Logictracker.Mailing.LogiclinkError.config" />
     <Content Include="Logictracker.Mailing.ReportConfirmation.config" />
     <Content Include="Logictracker.Mailing.SupportTicket.config" />
+    <Content Include="Scripts\app\components\datetimepicker.js" />
+    <Content Include="Scripts\app\components\demo-controller.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
+    <Content Include="Scripts\app\orders\orders-controller.js" />
+    <Content Include="Scripts\app\orders\orders-service.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1541,6 +1546,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Dummy\Index.cshtml" />
+    <Content Include="Views\Orders\OrdersList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2113,7 +2119,9 @@
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\api\DummyController.cs" />
+    <Compile Include="Controllers\api\OrdersController.cs" />
     <Compile Include="Controllers\DummyController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2418,6 +2426,9 @@
     <Compile Include="MasterPages\ReportPage.master.designer.cs">
       <DependentUpon>ReportPage.master</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderDetailModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\SelectionOrderModel.cs" />
     <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.cs">
       <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4439,7 +4450,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Geocoder\Geocoder.Core.csproj">
@@ -4453,6 +4463,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Application\Logictracker.Tracker.Application.Reports.Service\Logictracker.Tracker.Application.Reports.csproj">
       <Project>{49f37eac-6dc8-4d61-bacf-f76b877ecdd0}</Project>
       <Name>Logictracker.Tracker.Application.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Application\Logictracker.Tracker.Application.Services\Logictracker.Tracker.Application.Services.csproj">
+      <Project>{AC30A8F9-E1B3-4B49-A63F-488538F2A2BF}</Project>
+      <Name>Logictracker.Tracker.Application.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
       <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
@@ -4594,7 +4608,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4386</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4386/</IISUrl>
+          <IISUrl>http://localhost/Logictracker.Web.Site</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
