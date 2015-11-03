@@ -106,7 +106,7 @@ namespace Logictracker.Security
 
             if (usuario.PorEmpresa && usuario.Empresas.Count == 1)
             {
-                var empresa = usuario.Empresas.Cast<Empresa>().First();
+                var empresa = usuario.Empresas.First();
                 var pk = empresa.ProductKey;
                 if (pk != string.Empty)
                 {

@@ -1,9 +1,8 @@
 ﻿angular.module('logictracker', [
-    'ngResource',
-    'logictracker.dummy.service',
-    'logictracker.dummy.controller',
-    'logictracker.orders.controller',
-    'logictracker.orders.service',
-    'demo.demoController',
-    'ui.bootstrap.datetimepicker'
-]);
+    "kendo.directives", 
+    "ngResource",
+    "logictracker.entities.service",
+    "logictracker.dummy.service",
+    "logictracker.dummy.controller",
+    "logictracker.rechazo.service",
+    "logictracker.rechazo.controller"]);

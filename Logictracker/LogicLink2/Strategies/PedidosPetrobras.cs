@@ -19,6 +19,8 @@ using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
 using LinqToExcel;
 using Geocoder.Core.VO;
+using Logictracker.Types.BusinessObjects.Ordenes;
+using Logictracker.Types.BusinessObjects.Mantenimiento;
 
 namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 {
@@ -33,6 +35,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         private DAOFactory DaoFactory { get; set; }
         private readonly List<PuntoEntrega> _puntosBuffer = new List<PuntoEntrega>();
         private readonly List<Transportista> _transportistasBuffer = new List<Transportista>();
+        private readonly List<Insumo> _insumosBuffer = new List<Insumo>();
 
         public static void Parse(LogicLinkFile file, out int pedidos, out string observaciones)
         {
@@ -50,22 +53,21 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         public void Parse(out int pedidos, out string observaciones)
         {
             var te = new TimeElapsed();
-            var rows = ParseExcelFile(Llfile.FilePath, true);
+            var rows = ParseExcelFile(Llfile.FilePath, false, 3);
             STrace.Trace(Component, string.Format("Archivo parseado en {0} segundos", te.getTimeElapsed().TotalSeconds));
             te.Restart();
-            PreBufferRows(rows);
+            PreBufferRows(rows);            
             STrace.Trace(Component, string.Format("PreBufferRows en {0} segundos", te.getTimeElapsed().TotalSeconds));
+            PreBufferInsumos();
 
-            //var listPedidos = new List<Pedido>(rows.Count);
-            
+            var listOrdenes = new List<Order>(rows.Count);
             pedidos = 0;
             observaciones = string.Empty;
 
             STrace.Trace(Component, "Cantidad de filas: " + rows.Count);
-            var filas = 0;
 
-            // ARRANCO EN LA FILA 8
-            for (var i = 7; i < rows.Count; i++)
+            // ARRANCO EN LA FILA 5
+            for (var i = 4; i < rows.Count; i++)
             {
                 var row = rows[i];
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
@@ -73,20 +75,14 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 var descripcionTransportista = row[Properties.PedidosPetrobras.DescripcionTransportista].ToString().Trim();
                 var transportista = descripcionTransportista != string.Empty ? _transportistasBuffer.SingleOrDefault(t => t.Descripcion.Equals(descripcionTransportista)) : null;
 
-                // BAJO 2 FILAS
-                i++;
-                STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
+                // BAJO UNA FILA
                 i++;
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
                 row = rows[i];
                 var codigoPlanta = row[Properties.PedidosPetrobras.CodigoPlanta].ToString().Trim();
                 var planta = DaoFactory.LineaDAO.FindByCodigo(Empresa.Id, codigoPlanta);
 
-                // BAJO 4 FILAS
-                i++;
-                STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
-                i++;
-                STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
+                // BAJO 2 FILAS
                 i++;
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
                 i++;
@@ -95,49 +91,126 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 while (row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim() != string.Empty)
                 {
-                    var condicion = row[Properties.PedidosPetrobras.Condicion].ToString().Trim();
-                    var codigoCliente = row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim();
-                    //var codigoEntrega = row[Properties.PedidosPetrobras.CodigoEntrega].ToString().Trim();
-                    var codigoPedido = row[Properties.PedidosPetrobras.CodigoPedido].ToString().Trim();
-                    var fechaSolicitud = row[Properties.PedidosPetrobras.FechaSolicitud].ToString().Trim();
-                    //var fechaLiberacion = row[Properties.PedidosPetrobras.FechaLiberacion].ToString().Trim();
-                    var naftaSuper = row[Properties.PedidosPetrobras.NaftaSuper].ToString().Trim();
-                    var naftaPremium = row[Properties.PedidosPetrobras.NaftaPremium].ToString().Trim();
-                    var gasoilMenos500 = row[Properties.PedidosPetrobras.GasoilMenor500].ToString().Trim();
-                    var gasoilMayor500 = row[Properties.PedidosPetrobras.GasoilMayor500].ToString().Trim();
-                    var gasoilPremium = row[Properties.PedidosPetrobras.GasoilPremium].ToString().Trim();
-
-                    var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoCliente);
+                    var condicion = row[Properties.PedidosPetrobras.Condicion].ToString().Trim();                   
 
                     if (condicion == "YIF")
                     {
+                        var codigoCliente = row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim();
+                        var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoCliente);
+                        //var codigoEntrega = row[Properties.PedidosPetrobras.CodigoEntrega].ToString().Trim();
+                        var codigoPedido = row[Properties.PedidosPetrobras.CodigoPedido].ToString().Trim();
+                        
+                        var fechaSolicitud = row[Properties.PedidosPetrobras.FechaSolicitud].ToString().Trim();
+                        var arrayFechaSolicitud = fechaSolicitud.Split('.');
+                        var diaSolicitud = Convert.ToInt32(arrayFechaSolicitud[0]);
+                        var mesSolicitud = Convert.ToInt32(arrayFechaSolicitud[1]);
+                        var anioSolicitud = Convert.ToInt32(arrayFechaSolicitud[2]);
+                        var dtFechaSolicitud = new DateTime(anioSolicitud, mesSolicitud, diaSolicitud).AddHours(-3);
+                        //var fechaLiberacion = row[Properties.PedidosPetrobras.FechaLiberacion].ToString().Trim();
+
                         // ARMAR NUEVO PEDIDO
+                        var orden = new Order();
+                        orden.CodigoPedido = codigoPedido;
+                        orden.Empresa = Empresa;
+                        orden.FechaPedido = dtFechaSolicitud;
+                        orden.FechaAlta = DateTime.UtcNow;
+                        orden.Linea = planta;
+                        orden.PuntoEntrega = puntoEntrega;
+                        orden.Transportista = transportista;
+
+                        var naftaSuper = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaSuper].ToString().Trim());
+                        var naftaPremium = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaPremium].ToString().Trim());
+                        var gasoilMenos500 = Convert.ToDouble(row[Properties.PedidosPetrobras.GasoilMenor500].ToString().Trim());
+                        var gasoilMayor500 = Convert.ToDouble(row[Properties.PedidosPetrobras.GasoilMayor500].ToString().Trim());
+                        var gasoilPremium = Convert.ToDouble(row[Properties.PedidosPetrobras.GasoilPremium].ToString().Trim());
+
+                        Insumo insumo = null;
+                        if (naftaSuper > 0)
+                        {
+                            var detalle = new OrderDetail();
+                            detalle.Cantidad = (int)naftaSuper;
+                            insumo = _insumosBuffer.FirstOrDefault(a => a.Codigo == "NS");
+                            detalle.Insumo = insumo;
+                            detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
+                            detalle.Order = orden;
+
+                            orden.OrderDetails.Add(detalle);
+                        }
+                        if (naftaPremium > 0)
+                        {
+                            var detalle = new OrderDetail();
+                            detalle.Cantidad = (int)naftaPremium;
+                            insumo = _insumosBuffer.FirstOrDefault(b => b.Codigo == "NP");
+                            detalle.Insumo = insumo;
+                            detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
+                            detalle.Order = orden;
+
+                            orden.OrderDetails.Add(detalle);
+                        }
+                        if (gasoilMenos500 > 0)
+                        {
+                            var detalle = new OrderDetail();
+                            detalle.Cantidad = (int)gasoilMenos500;
+                            insumo = _insumosBuffer.FirstOrDefault(b => b.Codigo == "GI500");
+                            detalle.Insumo = insumo;
+                            detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
+                            detalle.Order = orden;
+
+                            orden.OrderDetails.Add(detalle);
+                        }
+                        if (gasoilMayor500 > 0)
+                        {
+                            var detalle = new OrderDetail();
+                            detalle.Cantidad = (int)gasoilMayor500;
+                            insumo = _insumosBuffer.FirstOrDefault(b => b.Codigo == "GS500");
+                            detalle.Insumo = insumo;
+                            detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
+                            detalle.Order = orden;
+
+                            orden.OrderDetails.Add(detalle);
+                        }
+                        if (gasoilPremium > 0)
+                        {
+                            var detalle = new OrderDetail();
+                            detalle.Cantidad = (int)gasoilPremium;
+                            insumo = _insumosBuffer.FirstOrDefault(b => b.Codigo == "GP");
+                            detalle.Insumo = insumo;
+                            detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
+                            detalle.Order = orden;
+
+                            orden.OrderDetails.Add(detalle);
+                        }
+                        
+                        listOrdenes.Add(orden);
                         pedidos++;
                     }
 
                     i++;
-                    STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
-                    row = rows[i];
+                    if (i < rows.Count)
+                    {
+                        STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
+                        row = rows[i];
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-
-                // TERMINA EL LISTADO DE PEDIDOS PARA UN TRANSPORTISTA
-                // BAJO 3 FILAS
-                i++;
-                STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
-                i++;
-                STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
-                i++;
-                STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
-                // EL i++ DEL FOR BAJA LA 4TA FILA AUTOMATICAMENTE
             }
 
-            //STrace.Trace(Component, "Guardando pedidos: " + listPedidos.Count);
+            STrace.Trace(Component, "Guardando pedidos: " + listOrdenes.Count);
             te.Restart();
-            //foreach (var pedido in pedidos)
+            foreach (var orden in listOrdenes)
             {
-                // GUARDAR PEDIDOS                
+                DaoFactory.OrderDAO.SaveOrUpdate(orden);
             }
             STrace.Trace(Component, string.Format("Pedidos guardadas en {0} segundos", te.getTimeElapsed().TotalSeconds));
+        }
+
+        private void PreBufferInsumos()
+        {
+            var insumos = DaoFactory.InsumoDAO.GetList(new[] { Empresa.Id }, new[] { -1 }, new[] { -1 });
+            _insumosBuffer.AddRange(insumos);
         }
 
         private void PreBufferRows(IEnumerable<Row> rows)
@@ -156,7 +229,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 {
                     var codigoPuntoEntrega = row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim();
 
-                    if (lastCodPunto != codigoPuntoEntrega)
+                    if (lastCodPunto != codigoPuntoEntrega && codigoPuntoEntrega != string.Empty)
                     {
                         if (!codPuntoStrList.Contains(codigoPuntoEntrega))
                             codPuntoStrList.Add(codigoPuntoEntrega);
@@ -202,10 +275,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             {
                 foreach (var l in codPuntoStrList.InSetsOf(batchSize))
                 {
-                    var puntos = DaoFactory.PuntoEntregaDAO.FindByCodes(new[] { Empresa.Id },
-                                                                        new[] { -1 },
-                                                                        new[] { -1 },
-                                                                        l);
+                    var puntos = DaoFactory.PuntoEntregaDAO.FindByEmpresaAndCodes(Empresa.Id, l);
                     if (puntos != null && puntos.Any())
                     {
                         _puntosBuffer.AddRange(puntos);

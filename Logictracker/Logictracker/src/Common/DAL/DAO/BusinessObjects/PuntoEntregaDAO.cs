@@ -60,6 +60,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .ToList();
         }
 
+        public List<PuntoEntrega> FindByEmpresaAndCodes(int empresa, IEnumerable<string> codes)
+        {
+            return Query.Where(p => p.Cliente.Empresa.Id == empresa 
+                                 && codes.Contains(p.Codigo)
+                                 && !p.Baja)
+                        .Cacheable()
+                        .ToList();
+        }
+
         public List<PuntoEntrega> GetByCliente(int idCliente, int page, int pageSize, ref int totalRows, bool reCount)
         {
             if (reCount)

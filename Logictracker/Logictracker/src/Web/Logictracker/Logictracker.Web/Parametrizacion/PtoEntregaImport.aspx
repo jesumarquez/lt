@@ -11,7 +11,7 @@
             <td>
                 <asp:UpdatePanel runat="server" ID="upLinea" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <cwc:PlantaDropDownList ID="cbLinea" runat="server" Width="175px" ParentControls="cbEmpresa" />
+                        <cwc:PlantaDropDownList ID="cbLinea" runat="server" Width="175px" ParentControls="cbEmpresa" AddAllItem="true" />
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
