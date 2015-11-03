@@ -51,19 +51,37 @@
                                                                  k-ng-model="transportistaSelected" />
         </div>
 
+      
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI03"): <input kendo-multi-select />
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Labels", "Desde"): <input kendo-date-picker
+                                                                   k-ng-model="desde" />
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    @Html.ResourceLabel("Labels", "Hasta"): <input kendo-date-picker
+                                                                   k-ng-model="hasta" />
+                </div>
+            </div>
         </div>
+
 
         <div class="col-md-2">
             <div class="row">
-                @Html.ResourceLabel("Labels", "Desde"):  <input kendo-date-picker />
+                <div class="col-md-12">
+                    <button type="button" kendo-button  style="margin-top: 1.5em;min-width: 10em">@Html.ResourceLabel("Labels", "Buscar")</button>
+                </div>
             </div>
             <div class="row">
-                @Html.ResourceLabel("Labels", "Hasta"):  <input kendo-date-picker />
+                <div class="col-md-12">
+                    <button type="button" kendo-button style="margin-top: 1.5em; min-width: 10em">@Html.ResourceLabel("Labels", "Nuevo")</button>
+                </div>
             </div>
         </div>
-
     </div>
     <div class="row">
         <div class="col-md-12" style="min-height: 1em"> </div>
