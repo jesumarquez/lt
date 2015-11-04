@@ -4,35 +4,53 @@
 }
 
 <div ng-app="logictracker" class="container" ng-controller="RechazoController">
-    <div class="row ">
+    <div class="row nl-filterpanel">
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
 
-                    @Html.ResourceLabel("Entities", "PARENTI01"):<input kendo-drop-down-list="ddlDistrito"
-                                                                        k-data-source="distritoDS"
-                                                                        k-data-text-field="'Value'"
-                                                                        k-data-value-field="'Key'"
-                                                                        k-ng-model="distritoSelected" />
+                    @Html.ResourceLabel("Entities", "PARENTI01"):
+                    <input kendo-drop-down-list="ddlDistrito"
+                           k-data-source="distritoDS"
+                           k-data-text-field="'Value'"
+                           k-data-value-field="'Key'"
+                           k-ng-model="distritoSelected"
+                           />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    @Html.ResourceLabel("Entities", "PARENTI02"):<input kendo-drop-down-list="ddlBase"
-                                                                        k-data-source="baseDS"
-                                                                        k-data-text-field="'Value'"
-                                                                        k-data-value-field="'Key'"
-                                                                        k-ng-model="baseSelected"
-                                                                        k-on-data-bound="baseDefault(kendoEvent)" />
+                    @Html.ResourceLabel("Entities", "PARENTI02"):
+                    <input kendo-drop-down-list="ddlBase"
+                           k-data-source="baseDS"
+                           k-data-text-field="'Value'"
+                           k-data-value-field="'Key'"
+                           k-ng-model="baseSelected"
+                           k-on-data-bound="baseDefault(kendoEvent)" />
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI04"): <input kendo-multi-select
-                                                                 k-data-source="departamentoDS"
-                                                                 k-data-text-field="'Value'"
-                                                                 k-data-value-field="'Key'"
-                                                                 k-ng-model="departamentoSelected" />
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Entities", "PARENTI04"):
+                    <input kendo-multi-select
+                           k-data-source="departamentoDS"
+                           k-data-text-field="'Value'"
+                           k-data-value-field="'Key'"
+                           k-ng-model="departamentoSelected" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Labels", "Estado"):
+                    <input kendo-drop-down-list
+                           k-data-source="estadoDS"
+                           k-data-text-field="'Value'"
+                           k-data-value-field="'Key'"
+                           k-ng-model="estadoSelected" />
+                </div>
+            </div>
         </div>
 
         <div class="col-md-2">
@@ -51,7 +69,7 @@
                                                                  k-ng-model="transportistaSelected" />
         </div>
 
-      
+
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
@@ -74,7 +92,7 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" kendo-button  style="margin-top: 1.5em;min-width: 10em">@Html.ResourceLabel("Labels", "Buscar")</button>
+                    <button type="button" kendo-button style="margin-top: 1.5em;min-width: 10em">@Html.ResourceLabel("Labels", "Buscar")</button>
                 </div>
             </div>
             <div class="row">

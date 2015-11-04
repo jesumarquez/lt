@@ -2611,6 +2611,7 @@
     </Compile>
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
+    <Compile Include="Controllers\api\TicketRechazoController.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />
     <Compile Include="Models\CentroDeCostosModel.cs" />
     <Compile Include="Controllers\api\DepartamentoController.cs" />

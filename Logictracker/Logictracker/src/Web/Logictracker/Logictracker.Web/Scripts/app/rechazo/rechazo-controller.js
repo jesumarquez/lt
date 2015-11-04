@@ -18,12 +18,19 @@ function RechazoController($scope, EntitiesService) {
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
 
+    $scope.estadoSelected = {};
+
+    $scope.desde = new Date();
+    $scope.hasta = new Date();
+
+
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados.query(null,
+        function() { $scope.estadoSelected = $scope.estadoDS[0]; },
+        $scope.onerror);
+    
     $scope.distritoDS = EntitiesService.distrito.items.query({}, function () {
         $scope.distritoSelected = $scope.distritoDS[0];
-    }, function () { }
-        , function (error) {
-            $scope.notify.show(error.statusText, "error");
-        });
+    }, $scope.onerror);
 
 
     $scope.$watch("distritoSelected", function (newValue, oldValue) {
@@ -32,9 +39,7 @@ function RechazoController($scope, EntitiesService) {
          { distritoId: $scope.distritoSelected.Key }
          , function () {
              $scope.baseSelected = $scope.baseDS[0];
-         }, function (error) {
-             $scope.notify.show(error.statusText, "error");
-         });
+         },$scope.onerror);
     });
 
     $scope.$watch("basesDS", function (newValue, oldValue) {
@@ -53,10 +58,7 @@ function RechazoController($scope, EntitiesService) {
                 }, function () {
                     $scope.departamentoSelected = [];
 
-                }, function (error) {
-                    $scope.notify.show(error.statusText, "error");
-
-                }
+                },$scope.onerror
             );
             $scope.transportistaDS = EntitiesService.distrito.transportista.query(
                 {
@@ -65,10 +67,7 @@ function RechazoController($scope, EntitiesService) {
                 }, function () {
                     $scope.transportistaSelected = [];
 
-                }, function (error) {
-                    $scope.notify.show(error.statusText, "error");
-
-                }
+                }, $scope.onerror
             );
         }
     });
@@ -84,8 +83,11 @@ function RechazoController($scope, EntitiesService) {
                 })
             }, function () {
                 $scope.centroDeCostosSelected = [];
-            }, function (error) {
-                $scope.notify.show(error.statusText, "error");
-            });
+            }, $scope.onerror);
     });
+
+    $scope.onerror = function(error) {
+        $scope.notify.show(error.statusText, "error");
+    }
+
 }

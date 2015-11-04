@@ -2,6 +2,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #F7FDFF;
 }
 
 /* Wrapping element */
@@ -28,4 +29,14 @@ textarea {
     .body-content {
         padding: 0;
     }
+}
+
+/*  Site */
+.nl-filterpanel {
+    background-color: #e7e7e7;
+    border: solid 1px #cccccc;
+    padding-top: 1em;
+    padding-bottom: 1.5em;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
 }

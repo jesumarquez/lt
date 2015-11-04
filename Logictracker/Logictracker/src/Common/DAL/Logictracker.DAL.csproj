@@ -152,7 +152,7 @@
     <Compile Include="DAO\BusinessObjects\Messages\LastVehicleEventDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\EvenDistriDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Ordenes\OrderDAO.cs" />
-    <Compile Include="DAO\BusinessObjects\Rechazos\RechazosDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Rechazos\TicketRechazoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\SubCentroDeCostosDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\InfraccionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\ReferenciasGeograficas\TipoZonaDAO.cs" />
