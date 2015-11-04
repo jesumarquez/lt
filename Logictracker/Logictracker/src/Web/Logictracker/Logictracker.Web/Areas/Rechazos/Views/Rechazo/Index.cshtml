@@ -64,6 +64,7 @@
                 <div class="col-md-12">
 
                     @Html.ResourceLabel("Labels", "Hasta"): <input kendo-date-picker
+                                                                   k-format="dd/MM/YY"
                                                                    k-ng-model="hasta" />
                 </div>
             </div>
@@ -88,7 +89,7 @@
     </div>
     <div cass="row">
         <div class="col-md-12">
-            <div kendo-grid></div>
+            <div kendo-grid k-data-source="rechazosDS"></div>
         </div>
     </div>
     <span kendo-notification="notify"></span>

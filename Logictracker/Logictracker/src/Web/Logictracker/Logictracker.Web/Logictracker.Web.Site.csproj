@@ -1718,6 +1718,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\angular.min.js" />
+    <Content Include="Scripts\kendo\2014.2.1008\cultures\kendo.culture.es-AR.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\jquery-2.1.1.js" />
     <Content Include="Scripts\kendo\2014.2.1008\jquery-2.1.1.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\jquery.min.js" />
