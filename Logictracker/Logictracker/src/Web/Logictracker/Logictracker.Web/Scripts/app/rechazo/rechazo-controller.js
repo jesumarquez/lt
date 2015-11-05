@@ -25,9 +25,9 @@ function RechazoController($scope, EntitiesService) {
 
 
     $scope.estadoDS = EntitiesService.ticketrechazo.estados.query(null,
-        function() { $scope.estadoSelected = $scope.estadoDS[0]; },
+        function () { $scope.estadoSelected = $scope.estadoDS[0]; },
         $scope.onerror);
-    
+
     $scope.distritoDS = EntitiesService.distrito.items.query({}, function () {
         $scope.distritoSelected = $scope.distritoDS[0];
     }, $scope.onerror);
@@ -39,7 +39,7 @@ function RechazoController($scope, EntitiesService) {
          { distritoId: $scope.distritoSelected.Key }
          , function () {
              $scope.baseSelected = $scope.baseDS[0];
-         },$scope.onerror);
+         }, $scope.onerror);
     });
 
     $scope.$watch("basesDS", function (newValue, oldValue) {
@@ -58,7 +58,7 @@ function RechazoController($scope, EntitiesService) {
                 }, function () {
                     $scope.departamentoSelected = [];
 
-                },$scope.onerror
+                }, $scope.onerror
             );
             $scope.transportistaDS = EntitiesService.distrito.transportista.query(
                 {
@@ -86,8 +86,24 @@ function RechazoController($scope, EntitiesService) {
             }, $scope.onerror);
     });
 
-    $scope.onerror = function(error) {
+    $scope.onerror = function (error) {
         $scope.notify.show(error.statusText, "error");
     }
 
+    $scope.gridOptions = {
+        columns:
+        [
+        { field: "Id", title: "Ticket" },
+        { field: "FechaHora", title: "Fecha Hora" },
+        { field: "ClienteCod", title: "Cod. Cliente" },
+        { field: "ClienteDesc", title: "Cliente" },
+        { field: "SupVenDesc", title: "Sup. Venta" },
+        { field: "SupRutDesc", title: "Sup. Ruta" },
+        { field: "UltEstado", title: "Estado" },
+        { field: "Territorio", title: "Territorio" },
+        { field: "Motivo", title: "Motivo" },
+        { field: "Bultos", title: "Bultos" },
+        ]
+    }
 }
+
