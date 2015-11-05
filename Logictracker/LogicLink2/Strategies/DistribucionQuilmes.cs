@@ -22,7 +22,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 {
     public class DistribucionQuilmes : Strategy
     {
-        private static Dictionary<int, List<int>> EmpresasLineas = new Dictionary<int, List<int>>();
         private const string Component = "Logiclink2";
 
         private Empresa Empresa { get; set; }
@@ -37,10 +36,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         private const double _latitudDefault = -34.5411981040848;
         private const double _longitudDefault = -57.9051147460951;
 
-        public static Dictionary<int, List<int>> Parse(LogicLinkFile file, out int rutas, out int entregas, out string observaciones)
+        public static void Parse(LogicLinkFile file, out int rutas, out int entregas, out string observaciones)
         {
             new DistribucionQuilmes(file).Parse(out rutas, out entregas, out observaciones);
-            return EmpresasLineas;
         }
 
         public DistribucionQuilmes(LogicLinkFile file)
@@ -382,7 +380,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             foreach (var referenciaGeografica in listReferencias)
             {
                 DaoFactory.ReferenciaGeograficaDAO.Guardar(referenciaGeografica);
-                AddReferenciasGeograficas(referenciaGeografica);
             }
             STrace.Trace(Component, string.Format("Referencias guardadas en {0} segundos", te.getTimeElapsed().TotalSeconds));
 
@@ -594,34 +591,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 sender.Config.ToAddress = destinatario;
                 sender.SendMail(parametros);
                 STrace.Trace(Component, "Email sent to: " + destinatario);
-            }
-        }
-
-        private static void AddReferenciasGeograficas(ReferenciaGeografica rg)
-        {
-            if (rg == null)
-                STrace.Error(Component, "AddReferenciasGeograficas: rg is null");
-            else if (rg.Empresa == null)
-                STrace.Error(Component, "AddReferenciasGeograficas: rg.Empresa is null");
-            else
-            {
-                if (!EmpresasLineas.ContainsKey(rg.Empresa.Id))
-                    EmpresasLineas.Add(rg.Empresa.Id, new List<int> { -1 });
-
-                if (rg.Linea != null)
-                {
-                    if (!EmpresasLineas[rg.Empresa.Id].Contains(rg.Linea.Id))
-                        EmpresasLineas[rg.Empresa.Id].Add(rg.Linea.Id);
-                }
-                else
-                {
-                    var todaslaslineas = new DAOFactory().LineaDAO.GetList(new[] { rg.Empresa.Id });
-                    foreach (var linea in todaslaslineas)
-                    {
-                        if (!EmpresasLineas.ContainsKey(linea.Id))
-                            EmpresasLineas[rg.Empresa.Id].Add(linea.Id);
-                    }
-                }
             }
         }
     }

@@ -6,11 +6,13 @@ using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Positions;
+using log4net;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
     public class RoutesController : BaseController
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(RoutesController));
         public IRouteService RouteService { get; set; }
 
         public static string ROUTE_STATUS_PENDING = "0";
@@ -54,6 +56,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             }
 
             listRoute.RouteItems = items.ToArray();
+            Logger.Info(listRoute);
             return Ok(listRoute);
         }
 
@@ -125,6 +128,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             }
 
             route.Jobs = jobs.ToArray();
+            Logger.Info(route);
             return Ok(route);
         }
         

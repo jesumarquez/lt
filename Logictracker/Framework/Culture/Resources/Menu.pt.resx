@@ -912,4 +912,7 @@
   <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
     <value>Tipo do Ciclo Logistico</value>
   </data>
+  <data name="REP_ESTADOS_LOGISTICOS" xml:space="preserve">
+    <value>Relatorio do Estados Logisticos</value>
+  </data>
 </root>

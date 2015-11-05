@@ -1208,6 +1208,7 @@
     <Content Include="Reportes\CicloLogistico\FlujoDeTareas.aspx" />
     <Content Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx" />
     <Content Include="Reportes\CicloLogistico\mobilesTickets.aspx" />
     <Content Include="Reportes\CicloLogistico\PedidosProgramados.aspx" />
@@ -3672,6 +3673,13 @@
     </Compile>
     <Compile Include="Reportes\CicloLogistico\KPIDistribucion.aspx.designer.cs">
       <DependentUpon>KPIDistribucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx.cs">
+      <DependentUpon>ReporteEstadosLogisticos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx.designer.cs">
+      <DependentUpon>ReporteEstadosLogisticos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx.cs">
       <DependentUpon>KPIEstadoEntregas.aspx</DependentUpon>

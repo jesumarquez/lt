@@ -346,7 +346,18 @@ namespace Logictracker.Process.Geofences
             else
             {
                 var entered = false;
-                Monitor.TryEnter(_qtrees, 10, ref entered);
+
+                if (Monitor.IsEntered(_qtrees))
+                {
+                    STrace.Trace("DispatcherLock", string.Format("root IS ENTERED ---> {0} | {1}", empresa, linea));
+                    entered = true;
+                }
+                else
+                {
+                    STrace.Trace("DispatcherLock", string.Format("root TRY ENTER ---> {0} | {1}", empresa, linea));
+                    Monitor.TryEnter(_qtrees, 10, ref entered);
+                }
+                
                 if (entered)
                 {
                     STrace.Trace("DispatcherLock", string.Format("qtree UPDATE ---> {0} | {1}", empresa, linea));

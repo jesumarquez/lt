@@ -221,6 +221,7 @@
     <Content Include="Resources\MenuImages\REP_CONFIGURACION.png" />
     <Content Include="Resources\MenuImages\REP_POSICIONES.png" />
     <Content Include="Resources\MenuImages\TEL3.png" />
+    <Content Include="Resources\MenuImages\REP_ESTADOS_LOGISTICOS.png" />
     <Content Include="Resources\SystemImages\SYS_DISTRIBUCION.png" />
     <Content Include="Resources\SystemImages\SYS_TELEMETRIA.png" />
     <Content Include="Resources\MenuImages\DISTRIBUCION_GLOBAL_ENTREGAS.png" />

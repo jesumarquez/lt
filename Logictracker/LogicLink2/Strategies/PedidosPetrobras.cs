@@ -26,7 +26,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 {
     public class PedidosPetrobras : Strategy
     {
-        private static Dictionary<int, List<int>> EmpresasLineas = new Dictionary<int, List<int>>();
         private const string Component = "Logiclink2";
 
         private Empresa Empresa { get; set; }

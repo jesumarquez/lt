@@ -93,7 +93,7 @@ namespace Logictracker.Web.Reportes.DatosOperativos
             {
                 foreach (var vehicle in vehiculosSinInfo)
                 {
-                    var lastEvent = DAOFactory.LogMensajeDAO.GetLastByVehicleAndCodes(vehicle, new[] { MessageCode.PrivacyOn.GetMessageCode(), MessageCode.PrivacyOff.GetMessageCode() }, desde.AddMonths(-3), desde, 3);
+                    var lastEvent = DAOFactory.LogMensajeDAO.GetLastByVehicleAndCodes(vehicle, MessageCode.PrivacyOn.GetMessageCode(), MessageCode.PrivacyOff.GetMessageCode(), desde.AddMonths(-3), desde);
                     if (lastEvent != null)
                     {
                         if (lastEvent.Mensaje.Codigo == MessageCode.PrivacyOn.GetMessageCode())
