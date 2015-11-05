@@ -1,6 +1,9 @@
 ﻿angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
-    .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController]);
+    .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController])
+    .controller('RechazoItemController',['$scope', 'EntitiesService', RechazoItemController]);
+
+
 
 function RechazoController($scope, EntitiesService) {
 
@@ -90,6 +93,8 @@ function RechazoController($scope, EntitiesService) {
         $scope.notify.show(error.statusText, "error");
     }
 
+    $scope.rechazosDS = []; 
+
     $scope.gridOptions = {
         columns:
         [
@@ -105,5 +110,25 @@ function RechazoController($scope, EntitiesService) {
         { field: "Bultos", title: "Bultos" },
         ]
     }
+
+    $scope.onNuevo = function () {
+        $scope.rechazoWin.refresh({ url: "Item?op=A" });
+        $scope.rechazoWin.center();
+        $scope.rechazoWin.open();
+    };
+
+    $scope.onEdit = function(id) {
+        $scope.rechazoWin.refresh({ url: "Item?op=E&id=" + id });   
+        $scope.rechazoWin.center();
+        $scope.rechazoWin.open();
+    }
+
+    $scope.onBuscar = function() {
+
+    };
+
 }
 
+function RechazoItemController($scope, EntitiesService) {
+    $scope.mensaje = "Soy en numero 4";
+}
