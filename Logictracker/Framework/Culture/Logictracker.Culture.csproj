@@ -196,6 +196,7 @@
     <Content Include="Resources\MenuImages\CONSOLA_ENTREGAS.png" />
     <Content Include="Resources\MenuImages\ACC_DET_INFRACCIONES_X_VEHICULO.png" />
     <Content Include="Resources\MenuImages\OPE_MIMICO_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\REP_ESTADOS_LOGISTICOS.png" />
     <Content Include="Resources\MenuImages\PAR_TIPO_CICLO_LOGISTICO.png" />
     <Content Include="Resources\MenuImages\PAR_ESTADO_LOGISTICO.png" />
     <Content Include="Resources\MenuImages\REPORT_LOG.png" />
@@ -221,7 +222,6 @@
     <Content Include="Resources\MenuImages\REP_CONFIGURACION.png" />
     <Content Include="Resources\MenuImages\REP_POSICIONES.png" />
     <Content Include="Resources\MenuImages\TEL3.png" />
-    <Content Include="Resources\MenuImages\REP_ESTADOS_LOGISTICOS.png" />
     <Content Include="Resources\SystemImages\SYS_DISTRIBUCION.png" />
     <Content Include="Resources\SystemImages\SYS_TELEMETRIA.png" />
     <Content Include="Resources\MenuImages\DISTRIBUCION_GLOBAL_ENTREGAS.png" />
