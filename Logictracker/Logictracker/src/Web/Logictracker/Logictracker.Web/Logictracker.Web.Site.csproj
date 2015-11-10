@@ -2046,6 +2046,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\DatamartLog.aspx.cs">
       <DependentUpon>DatamartLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2317,9 +2320,6 @@
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

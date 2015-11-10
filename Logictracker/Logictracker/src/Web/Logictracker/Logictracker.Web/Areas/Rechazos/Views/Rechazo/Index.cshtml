@@ -10,7 +10,7 @@
                 <div class="col-md-12">
 
                     @Html.ResourceLabel("Entities", "PARENTI01"):
-                    <input kendo-drop-down-list="ddlDistrito"
+                    <input class="form-control" kendo-drop-down-list="ddlDistrito"
                            k-data-source="distritoDS"
                            k-data-text-field="'Value'"
                            k-data-value-field="'Key'"
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI02"):
-                    <input kendo-drop-down-list="ddlBase"
+                    <input class="form-control"  kendo-drop-down-list="ddlBase"
                            k-data-source="baseDS"
                            k-data-text-field="'Value'"
                            k-data-value-field="'Key'"
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI04"):
-                    <input kendo-multi-select
+                    <input class="form-control" kendo-multi-select
                            k-data-source="departamentoDS"
                            k-data-text-field="'Value'"
                            k-data-value-field="'Key'"
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Labels", "Estado"):
-                    <input kendo-drop-down-list
+                    <input class="form-control" kendo-drop-down-list
                            k-data-source="estadoDS"
                            k-data-text-field="'Value'"
                            k-data-value-field="'Key'"
@@ -54,7 +54,7 @@
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI37"): <input kendo-multi-select
+            @Html.ResourceLabel("Entities", "PARENTI37"): <input class="form-control" kendo-multi-select
                                                                  k-data-source="centroDeCostosDS"
                                                                  k-data-text-field="'Value'"
                                                                  k-data-value-field="'Key'"
@@ -62,7 +62,7 @@
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select
+            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select class="form-control"
                                                                  k-data-source="transportistaDS"
                                                                  k-data-text-field="'Value'"
                                                                  k-data-value-field="'Key'"
@@ -73,7 +73,7 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
-                    @Html.ResourceLabel("Labels", "Desde"): <input kendo-date-picker
+                    @Html.ResourceLabel("Labels", "Desde"): <input class="form-control" kendo-date-picker
                                                                    k-ng-model="desde" />
 
                 </div>
@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    @Html.ResourceLabel("Labels", "Hasta"): <input kendo-date-picker
+                    @Html.ResourceLabel("Labels", "Hasta"): <input class="form-control" kendo-date-picker
                                                                    k-ng-model="hasta" />
                 </div>
             </div>
@@ -91,12 +91,12 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" kendo-button style="margin-top: 1.5em;min-width: 10em" ng-click="onBuscar()">@Html.ResourceLabel("Labels", "Buscar")</button>
+                    <button type="button" class="form-control" kendo-button style="margin-top: 1.5em;min-width: 10em" ng-click="onBuscar()">@Html.ResourceLabel("Labels", "Buscar")</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" kendo-button style="margin-top: 1.5em; min-width: 10em" ng-click="onNuevo()">@Html.ResourceLabel("Labels", "Nuevo")</button>
+                    <button type="button" class="form-control" kendo-button style="margin-top: 1.5em; min-width: 10em" ng-click="onNuevo()">@Html.ResourceLabel("Labels", "Nuevo")</button>
                 </div>
             </div>
         </div>
@@ -108,5 +108,5 @@
         </div>
     </div>
     <span kendo-notification="notify"></span>
-    <div kendo-window="rechazoWin" k-min-width="600" k-min-height="200" k-visible="false" k-modal="true"></div>
+    <div kendo-window="rechazoWin" k-width="1100" k-min-height="600" k-visible="false" k-modal="true"></div>
 </div>

@@ -31,5 +31,4 @@ namespace Logictracker.Web.Controllers.api
         }
     }
 
-   
 }

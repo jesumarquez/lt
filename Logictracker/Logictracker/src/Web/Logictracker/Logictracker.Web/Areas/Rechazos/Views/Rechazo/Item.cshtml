@@ -1,10 +1,87 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
-<div ng-controller="RechazoItemController">
-   
-    {{desde}} -> 
-    {{mensaje}}
+<div ng-controller="RechazoItemController" class="container border-box-sizing">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-1">
+                Motivo:
+            </div>
+            <div class="col-xs-5">
+                <input style="width: 100%" kendo-combo-box>
+            </div>
+            <div class="col-xs-1">
+                Supervisor Ruta:
+            </div>
+            <div class="col-xs-5">
+                <input style="width: 100%" kendo-combo-box/>
+            </div>
+        </div>
+        <div class="spacer10"></div>
+        <div class="row">
+            <div class="col-xs-1">
+                Estado:
+            </div>
+            <div class="col-xs-5">
+                <input kendo-combo-box style="width: 100%"/>
+            </div>
+            <div class="col-xs-1">
+                Supervisor Ventas:
+            </div>
+            <div class="col-xs-5">
+                <input kendo-combo-box style="width: 100%"/>
+            </div>
+        </div>
+        <div class="spacer10"></div>
+        <div class="row">
+            <div class="col-xs-1">
+                Ruta:
+            </div>
+            <div class="col-xs-5">
+                <input style="width: 100%" kendo-combo-box/>
+            </div>
+            <div class="col-xs-1">
+                Territorio:
+            </div>
+            <div class="col-xs-5">
+                <input style="width: 100%" class="k-" type="text"/>
+            </div>
+        </div>
+        <div class="spacer10"></div>
+        <div class="row">
+            <div class="col-xs-1">
+                Entrega:
+            </div>
+            <div class="col-xs-5">
+                <input style="width: 100%" kendo-combo-box/>
+            </div>
+            <div class="col-xs-1">
+                En horario:
+            </div>
+            <div class="col-xs-5">
+                <input style="width: 100%" kendo-combo-box/>
+            </div>
+        </div>
+        <div class="spacer10"></div>
+        <div class="row">
+            <div class="col-xs-1">
+                Código Cliente:
+            </div>
+            <div class="col-xs-5">
+                <input style="width: 100%" kendo-auto-complete/>
+            </div>
+            <div class="col-xs-6"></div>
+        </div>
+        <div class="spacer10"></div>
+        <div class="row">
+            <div class="col-xs-1">Observaciones:</div>
+            <div class="col-xs-11"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <input style="width: 100%; min-height: 5em" kendo-editor />
+            </div>
+        </div>
+    </div>
 </div>
