@@ -39,7 +39,7 @@ function EntitiesService($resource, $http) {
                         getData(_service.resources.bases, op, { distritoId: op.data.distritoId });
                     }
                     else {
-                        op.error();
+                        op.success([]);
                     }
                 }
             }
@@ -52,17 +52,18 @@ function EntitiesService($resource, $http) {
         var ds = new kendo.data.DataSource({
             transport: {
                 dataType: "jsonp",
+                type: "GET",
                 read: function (op) {
                     if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
                         op.data.baseId !== undefined && op.data.baseId !== "") {
                         
                         getData(_service.resources.departamentos,
                             op,
-                            { distritoId: op.data.distritoId, baseId : op.data.baseId });
+                            { distritoId: op.data.distritoId, baseId: op.data.baseId });
+
                     }
                     else {
-                        //op.success([{Key: -1, Value: 'Todos'}]);
-                        op.error();
+                        op.success([]);
                     }
                 }
             }
@@ -74,15 +75,16 @@ function EntitiesService($resource, $http) {
 
     function getData(res, option, params) {
         res.query(params,
-        function (data) {
-            //if (data.lenght == 0)
-            //    option.error();
-            //else
-                option.success(data);
-        },
-        function (error) {
-            option.error(error);
-        });
+            function (data) {
+                if (data === undefined || data == null)
+                    option.error();
+                else
+                    option.success(data);
+            },
+            function (error) {
+                option.error(error);
+            }
+        );
     };
 
     return _service;

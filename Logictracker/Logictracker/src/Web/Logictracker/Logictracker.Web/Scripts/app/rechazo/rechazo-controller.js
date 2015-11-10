@@ -27,6 +27,9 @@ function RechazoController($scope, EntitiesService) {
     $scope.baseDS.bind("error", onFail);
 
     $scope.departamentoDS = EntitiesService.distrito.departamento();
+    $scope.departamentoDS.bind("requestStart", function (e) {
+        console.log("request started");
+    });
     $scope.departamentoDS.bind("requestEnd", onDepartamentoDSLoad);
     $scope.departamentoDS.bind("error", onFail);
 
@@ -74,7 +77,7 @@ function RechazoController($scope, EntitiesService) {
     }
 
     function onBaseSelected(newValue, oldValue) {
-        if (newValue !== oldValue) {
+        if (newValue != null && newValue !== oldValue) {
             $scope.departamentoDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key
@@ -96,7 +99,7 @@ function RechazoController($scope, EntitiesService) {
     };
 
     function onDepartamentoAndBaseChange(newValue, oldValue) {
-        if (newValue !== oldValue)
+        if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
             $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos.query(
             {
                     distritoId: $scope.distritoSelected.Key,
