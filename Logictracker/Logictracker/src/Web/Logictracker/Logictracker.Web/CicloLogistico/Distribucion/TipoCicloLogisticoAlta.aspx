@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TipoCicloLogisticoAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.TipoCicloLogisticoAlta" %>  
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Distribucion.TipoCicloLogisticoAlta" Codebehind="TipoCicloLogisticoAlta.aspx.cs" %>  
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">   
     <table style="width: 100%; border-spacing: 10px;">

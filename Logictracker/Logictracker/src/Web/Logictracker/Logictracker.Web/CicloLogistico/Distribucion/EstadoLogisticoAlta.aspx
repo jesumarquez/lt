@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="EstadoLogisticoAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.EstadoLogisticoAlta" %>  
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Distribucion.EstadoLogisticoAlta" Codebehind="EstadoLogisticoAlta.aspx.cs" %>  
 
 <%@ Register Src="../../App_Controls/IconPicker.ascx" TagName="SelectIcon" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>  

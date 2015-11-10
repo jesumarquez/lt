@@ -571,9 +571,13 @@
     <Content Include="CicloLogistico\Controls\ServicioDetalle.ascx" />
     <Content Include="CicloLogistico\DistribucionGlobalDespachos.aspx" />
     <Content Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx" />
+    <Content Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx" />
+    <Content Include="CicloLogistico\Distribucion\EstadoLogisticoLista.aspx" />
     <Content Include="CicloLogistico\Distribucion\Intercalar.aspx" />
     <Content Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoAlta.aspx" />
     <Content Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoLista.aspx" />
+    <Content Include="CicloLogistico\Distribucion\TipoCicloLogisticoAlta.aspx" />
+    <Content Include="CicloLogistico\Distribucion\TipoCicloLogisticoLista.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionImport.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionLista.aspx" />
@@ -1903,6 +1907,20 @@
     <Compile Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx.designer.cs">
       <DependentUpon>ControlarDistribucion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx.cs">
+      <DependentUpon>EstadoLogisticoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx.designer.cs">
+      <DependentUpon>EstadoLogisticoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoLista.aspx.cs">
+      <DependentUpon>EstadoLogisticoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoLista.aspx.designer.cs">
+      <DependentUpon>EstadoLogisticoLista.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CicloLogistico\Distribucion\Intercalar.aspx.cs">
       <DependentUpon>Intercalar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1923,6 +1941,20 @@
     </Compile>
     <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoLista.aspx.designer.cs">
       <DependentUpon>PreasignacionViajeVehiculoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoAlta.aspx.cs">
+      <DependentUpon>TipoCicloLogisticoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoAlta.aspx.designer.cs">
+      <DependentUpon>TipoCicloLogisticoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoLista.aspx.cs">
+      <DependentUpon>TipoCicloLogisticoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoLista.aspx.designer.cs">
+      <DependentUpon>TipoCicloLogisticoLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx.cs">
       <DependentUpon>ViajeDistribucionAlta.aspx</DependentUpon>
