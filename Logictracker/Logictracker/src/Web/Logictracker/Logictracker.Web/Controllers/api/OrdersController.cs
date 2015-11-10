@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Mvc;
-using Logictracker.DAL.Factories;
 using Logictracker.Tracker.Application.Services;
 using Logictracker.Tracker.Services;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Web.Models;
-using Newtonsoft.Json.Linq;
-using NHibernate.Mapping;
 
 namespace Logictracker.Web.Controllers.api
 {
     public class OrdersController : ApiController
     {
         IRoutingService RoutingService { get; set; }
+        public int IdEmpresa = 91;
 
         public OrdersController()
         {
@@ -23,7 +22,7 @@ namespace Logictracker.Web.Controllers.api
          //GET: api/Orders
         public IHttpActionResult Get()
         {
-            var orders = RoutingService.GetOrders();
+            var orders = RoutingService.GetOrders(IdEmpresa);
 
             var orderList = new List<OrderModel>();
             foreach (var order in orders)
@@ -35,7 +34,10 @@ namespace Logictracker.Web.Controllers.api
                 if (order.Empresa != null) orderModel.Empresa = order.Empresa.RazonSocial;
                 if (order.Empresa != null) orderModel.IdEmpresa = order.Empresa.Id;
                 orderModel.FechaAlta = order.FechaAlta;
-                orderModel.FechaEntrega = order.FechaEntrega;
+                if (order.FechaEntrega != null)
+                    orderModel.FechaEntrega = order.FechaEntrega.Value;
+                else
+                    orderModel.FechaEntrega = null;
                 orderModel.FechaPedido = order.FechaPedido;
                 orderModel.FinVentana = order.FinVentana;
                 orderModel.InicioVentana = order.InicioVentana;
@@ -77,24 +79,23 @@ namespace Logictracker.Web.Controllers.api
         {
             foreach (var orderModel in orderSelectionModel.OrderList)
             {
-                if (orderModel.Selected)
-                {
-                    RoutingService.Programming(orderModel.CodigoPedido, 
-                        orderModel.IdEmpleado, 
-                        orderModel.IdEmpresa, 
-                        orderModel.FechaAlta,
-                        orderModel.FechaEntrega,
-                        orderModel.FechaPedido,
-                        orderModel.FinVentana,
-                        orderModel.InicioVentana,
-                        orderModel.Id,
-                        orderModel.IdPuntoEntrega,
-                        orderModel.IdTransportista,
-                        orderSelectionModel.RouteCode,
-                        orderSelectionModel.IdVehicle,
-                        orderSelectionModel.StartDateTime,
-                        orderSelectionModel.LogisticsCycleType);
-                }
+                if (!orderModel.Selected) continue;
+
+                var order = new Order();
+                order.CodigoPedido = orderModel.CodigoPedido;
+                order.Empleado = new Empleado {Id = orderModel.IdEmpleado};
+                order.Empresa = new Empresa {Id = orderModel.IdEmpresa};
+                order.FechaAlta = orderModel.FechaAlta;
+                order.FechaEntrega = orderModel.FechaEntrega;
+                order.FechaPedido = orderModel.FechaPedido;
+                order.FinVentana = orderModel.FinVentana;
+                order.InicioVentana = orderModel.InicioVentana;
+                order.Id = orderModel.Id;
+                order.PuntoEntrega = new PuntoEntrega { Id = orderModel.IdPuntoEntrega};
+                order.Transportista = new Transportista {Id = orderModel.IdTransportista};
+                    
+                RoutingService.Programming(order,orderSelectionModel.RouteCode,orderSelectionModel.IdVehicle,
+                    orderSelectionModel.StartDateTime,orderSelectionModel.LogisticsCycleType);
             }
             
             return Ok();

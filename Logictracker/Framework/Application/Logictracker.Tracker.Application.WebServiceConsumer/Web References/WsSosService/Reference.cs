@@ -39,8 +39,6 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
         
         private System.Threading.SendOrPostCallback informarResultadosOperationCompleted;
         
-        private System.Threading.SendOrPostCallback DatosDeServicioOperationCompleted;
-        
         private System.Threading.SendOrPostCallback ObtenerFormularioOperationCompleted;
         
         private System.Threading.SendOrPostCallback ValidarAccesoOperationCompleted;
@@ -99,9 +97,6 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
         
         /// <remarks/>
         public event informarResultadosCompletedEventHandler informarResultadosCompleted;
-        
-        /// <remarks/>
-        public event DatosDeServicioCompletedEventHandler DatosDeServicioCompleted;
         
         /// <remarks/>
         public event ObtenerFormularioCompletedEventHandler ObtenerFormularioCompleted;
@@ -260,34 +255,6 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
             if ((this.informarResultadosCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.informarResultadosCompleted(this, new informarResultadosCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ws_derivacion_ivr.redsos.com.ar/DatosDeServicio", RequestNamespace="http://ws_derivacion_ivr.redsos.com.ar/", ResponseNamespace="http://ws_derivacion_ivr.redsos.com.ar/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void DatosDeServicio(string _strIdMovil) {
-            this.Invoke("DatosDeServicio", new object[] {
-                        _strIdMovil});
-        }
-        
-        /// <remarks/>
-        public void DatosDeServicioAsync(string _strIdMovil) {
-            this.DatosDeServicioAsync(_strIdMovil, null);
-        }
-        
-        /// <remarks/>
-        public void DatosDeServicioAsync(string _strIdMovil, object userState) {
-            if ((this.DatosDeServicioOperationCompleted == null)) {
-                this.DatosDeServicioOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDatosDeServicioOperationCompleted);
-            }
-            this.InvokeAsync("DatosDeServicio", new object[] {
-                        _strIdMovil}, this.DatosDeServicioOperationCompleted, userState);
-        }
-        
-        private void OnDatosDeServicioOperationCompleted(object arg) {
-            if ((this.DatosDeServicioCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.DatosDeServicioCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -528,10 +495,6 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
             }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
-    public delegate void DatosDeServicioCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]

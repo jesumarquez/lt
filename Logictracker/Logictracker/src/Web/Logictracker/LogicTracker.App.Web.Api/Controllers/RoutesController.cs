@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Http;
+using log4net;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Positions;
+using Newtonsoft.Json;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
     public class RoutesController : BaseController
     {
         public IRouteService RouteService { get; set; }
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(RoutesController));
 
         public static string ROUTE_STATUS_PENDING = "0";
         public static string ROUTE_STATUS_ACTIVE = "1";
@@ -54,6 +57,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             }
 
             listRoute.RouteItems = items.ToArray();
+            Logger.Info(JsonConvert.SerializeObject(listRoute));
             return Ok(listRoute);
         }
 
@@ -118,6 +122,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             }
 
             route.Jobs = jobs.ToArray();
+            Logger.Info(JsonConvert.SerializeObject(route));
             return Ok(route);
         }
         

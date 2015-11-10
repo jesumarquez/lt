@@ -9,8 +9,8 @@ namespace Logictracker.Tracker.Services
     {
         void BuildProblem();
         void FillTable();
-        IList<Order> GetOrders();
+        IList<Order> GetOrders(int empresaId);
         IList<OrderDetail> GetOrderDetails(int orderId);
-        void Programming(string codigoPedido, int idEmpleado, int idEmpresa, DateTime horaInicio, DateTime fechaEntrega, DateTime fechaPedido, string finVentana, string inicioVentana, int id, int idPuntoEntrega, int idTransportista, string routeCode, int idVehicle, DateTime startDateTime, int logisticsCycleType);
+        void Programming(Order order, string routeCode, int idVehicle, DateTime startDateTime, int logisticsCycleType);
     }
 }

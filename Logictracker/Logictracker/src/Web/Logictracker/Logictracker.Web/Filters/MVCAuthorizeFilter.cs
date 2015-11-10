@@ -13,7 +13,7 @@ namespace Logictracker.Web.Filters
             var funcController = filterContext.Controller as IFunctionController;
             var controller = filterContext.Controller as BaseFunctionController;
 
-            var module = WebSecurity.GetUserModuleByRef(funcController.ReferenceName);
+            var module = WebSecurity.GetUserModuleByRef(funcController.ReferenceName.ToUpper());
             controller.Module = module;
 
             if (module == null)

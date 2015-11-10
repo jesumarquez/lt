@@ -63,16 +63,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="DatosDeServicio">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="_strIdMovil" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="DatosDeServicioResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="ObtenerFormulario">
         <s:complexType>
           <s:sequence>
@@ -147,12 +137,6 @@
   <wsdl:message name="informarResultadosSoapOut">
     <wsdl:part name="parameters" element="tns:informarResultadosResponse" />
   </wsdl:message>
-  <wsdl:message name="DatosDeServicioSoapIn">
-    <wsdl:part name="parameters" element="tns:DatosDeServicio" />
-  </wsdl:message>
-  <wsdl:message name="DatosDeServicioSoapOut">
-    <wsdl:part name="parameters" element="tns:DatosDeServicioResponse" />
-  </wsdl:message>
   <wsdl:message name="ObtenerFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerFormulario" />
   </wsdl:message>
@@ -200,10 +184,6 @@
   <wsdl:message name="informarResultadosHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
-  <wsdl:message name="DatosDeServicioHttpGetIn">
-    <wsdl:part name="_strIdMovil" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="DatosDeServicioHttpGetOut" />
   <wsdl:message name="ObtenerFormularioHttpGetIn">
     <wsdl:part name="_idMovil" type="s:string" />
     <wsdl:part name="_pass" type="s:string" />
@@ -251,10 +231,6 @@
   <wsdl:message name="informarResultadosHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
-  <wsdl:message name="DatosDeServicioHttpPostIn">
-    <wsdl:part name="_strIdMovil" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="DatosDeServicioHttpPostOut" />
   <wsdl:message name="ObtenerFormularioHttpPostIn">
     <wsdl:part name="_idMovil" type="s:string" />
     <wsdl:part name="_pass" type="s:string" />
@@ -294,10 +270,6 @@
       <wsdl:input message="tns:informarResultadosSoapIn" />
       <wsdl:output message="tns:informarResultadosSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="DatosDeServicio">
-      <wsdl:input message="tns:DatosDeServicioSoapIn" />
-      <wsdl:output message="tns:DatosDeServicioSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <wsdl:input message="tns:ObtenerFormularioSoapIn" />
       <wsdl:output message="tns:ObtenerFormularioSoapOut" />
@@ -332,10 +304,6 @@
       <wsdl:input message="tns:informarResultadosHttpGetIn" />
       <wsdl:output message="tns:informarResultadosHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="DatosDeServicio">
-      <wsdl:input message="tns:DatosDeServicioHttpGetIn" />
-      <wsdl:output message="tns:DatosDeServicioHttpGetOut" />
-    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <wsdl:input message="tns:ObtenerFormularioHttpGetIn" />
       <wsdl:output message="tns:ObtenerFormularioHttpGetOut" />
@@ -369,10 +337,6 @@
     <wsdl:operation name="informarResultados">
       <wsdl:input message="tns:informarResultadosHttpPostIn" />
       <wsdl:output message="tns:informarResultadosHttpPostOut" />
-    </wsdl:operation>
-    <wsdl:operation name="DatosDeServicio">
-      <wsdl:input message="tns:DatosDeServicioHttpPostIn" />
-      <wsdl:output message="tns:DatosDeServicioHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <wsdl:input message="tns:ObtenerFormularioHttpPostIn" />
@@ -427,15 +391,6 @@
     </wsdl:operation>
     <wsdl:operation name="informarResultados">
       <soap:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/informarResultados" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DatosDeServicio">
-      <soap:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/DatosDeServicio" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -518,15 +473,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DatosDeServicio">
-      <soap12:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/DatosDeServicio" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <soap12:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/ObtenerFormulario" style="document" />
       <wsdl:input>
@@ -602,13 +548,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DatosDeServicio">
-      <http:operation location="/DatosDeServicio" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output />
-    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <http:operation location="/ObtenerFormulario" />
       <wsdl:input>
@@ -683,13 +622,6 @@
       <wsdl:output>
         <mime:mimeXml part="Body" />
       </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DatosDeServicio">
-      <http:operation location="/DatosDeServicio" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output />
     </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <http:operation location="/ObtenerFormulario" />

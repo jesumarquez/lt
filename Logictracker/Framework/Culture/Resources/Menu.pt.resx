@@ -912,4 +912,7 @@
   <data name="CLOG_RECHAZO" xml:space="preserve">
     <value>Rejeição</value>
   </data>
+  <data name="ORDERS" xml:space="preserve">
+    <value>Ordenes</value>
+  </data>
 </root>

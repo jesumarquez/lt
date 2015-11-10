@@ -21,7 +21,7 @@ namespace Logictracker.Web.Models
         public string CodigoPedido { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime FechaPedido { get; set; }
-        public DateTime FechaEntrega { get; set; }
+        public DateTime? FechaEntrega { get; set; }
         public string InicioVentana { get; set; }
         public string FinVentana { get; set; }
         public bool Selected { get; set; }
