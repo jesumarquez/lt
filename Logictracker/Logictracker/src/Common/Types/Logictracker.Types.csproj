@@ -61,6 +61,7 @@
     <Compile Include="BusinessObjects\BaseObjects\LogEventoBase.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\AgendaVehicular.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ParametroDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculo.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.cs" />
@@ -86,9 +87,11 @@
     <Compile Include="BusinessObjects\ParameterType.cs" />
     <Compile Include="BusinessObjects\ParametroReportesProg.cs" />
     <Compile Include="BusinessObjects\Positions\Coordinate.cs" />
+    <Compile Include="BusinessObjects\Rechazos\DetalleTicketRechazo.cs" />
     <Compile Include="BusinessObjects\SubCentroDeCostos.cs" />
     <Compile Include="BusinessObjects\Messages\Infraccion.cs" />
     <Compile Include="BusinessObjects\ReferenciasGeograficas\TipoZona.cs" />
+    <Compile Include="BusinessObjects\Rechazos\TicketRechazo.cs" />
     <Compile Include="BusinessObjects\ZonaAcceso.cs" />
     <Compile Include="BusinessObjects\TipoZonaAcceso.cs" />
     <Compile Include="BusinessObjects\ReferenciaZona.cs" />
@@ -161,7 +164,6 @@
     <Compile Include="BusinessObjects\Components\Owner.cs" />
     <Compile Include="BusinessObjects\Components\RGBColor.cs" />
     <Compile Include="BusinessObjects\Components\Vigencia.cs" />
-    <Compile Include="BusinessObjects\Sindicatura.cs" />
     <Compile Include="BusinessObjects\Support\SupportTicket.cs" />
     <Compile Include="BusinessObjects\Support\SupportTicketDetail.cs" />
     <Compile Include="BusinessObjects\Tickets\BocaDeCarga.cs" />

@@ -26,11 +26,10 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:2510/Calculator.asmx")]
-        public string Logictracker_Tracker_Application_WebServiceConsumer_calculator_CalculatorWebService {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://wsderivacionservicios.redsos.com.ar/Service.asmx")]
+        public string Logictracker_Tracker_Application_WebServiceConsumer_WsSosService_Service {
             get {
-                return ((string)(this["Logictracker_Tracker_Application_WebServiceConsumer_calculator_CalculatorWebServi" +
-                    "ce"]));
+                return ((string)(this["Logictracker_Tracker_Application_WebServiceConsumer_WsSosService_Service"]));
             }
         }
     }

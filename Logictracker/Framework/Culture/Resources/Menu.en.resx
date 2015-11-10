@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,556 +59,556 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="ACC_DET_INFRACCIONES_X_CHOFER" xml:space="preserve">
-		<value>Infractions Detail per Driver</value>
-	</data>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ACC_DET_INFRACCIONES_X_CHOFER" xml:space="preserve">
+    <value>Infractions Detail per Driver</value>
+  </data>
   <data name="ACC_DET_INFRACCIONES_X_VEHICULO" xml:space="preserve">
-		<value>Infractions Detail per Vehicle</value>
-	</data>
-	<data name="ACC_RANKING_CHOFERES" xml:space="preserve">
-		<value>Driver Rankings</value>
-	</data>
-	<data name="ACC_REP_DETALLE_RECORRIDO" xml:space="preserve">
-		<value>Tour Detail Report</value>
-	</data>
-	<data name="ACC_REP_VARIACION_VELOCIDAD" xml:space="preserve">
-		<value>Speed Change Report</value>
-	</data>
-	<data name="ANALIZADOR_RECORRIDOS" xml:space="preserve">
-		<value>Tours Analyzer</value>
-	</data>
-	<data name="CENTROS_COSTOS" xml:space="preserve">
-		<value>Cost Centers</value>
-	</data>
-	<data name="CLOG_CICLOS_LOGISTICOS" xml:space="preserve">
-		<value>Cycle Logistics</value>
-	</data>
-	<data name="CLOG_HISTORICO_SERVICIOS" xml:space="preserve">
-		<value>Historical Services</value>
-	</data>
-	<data name="CLOG_REP_TICKET_MOVIL" xml:space="preserve">
-		<value>Tickets for Mobile Report</value>
-	</data>
-	<data name="CLOG_REP_TICKET_TIEMPO" xml:space="preserve">
-		<value>Tickets for Weather Report</value>
-	</data>
-	<data name="CLOG_SERVICIOS" xml:space="preserve">
-		<value>Services</value>
-	</data>
-	<data name="CLOG_TICKETS" xml:space="preserve">
-		<value>Tickets</value>
-	</data>
-	<data name="COMB_CONSISTENCIA_STOCK" xml:space="preserve">
-		<value>Principal Tank Stock Consistency</value>
-	</data>
-	<data name="COMB_CONSIST_STOCK_GRAFICO" xml:space="preserve">
-		<value>Principal Stock Tank</value>
-	</data>
-	<data name="COMB_CONSUMOS" xml:space="preserve">
-		<value>Consumption</value>
-	</data>
-	<data name="COMB_DESPACHOS" xml:space="preserve">
-		<value>Offices</value>
-	</data>
-	<data name="COMB_EVENTOS" xml:space="preserve">
-		<value>Event Reporting</value>
-	</data>
-	<data name="COMB_INGRESOS_POZO" xml:space="preserve">
-		<value>Income Pozo</value>
-	</data>
-	<data name="COMB_REMITOS" xml:space="preserve">
-		<value>Income</value>
-	</data>
-	<data name="COMB_VARIACION_TANQUE" xml:space="preserve">
-		<value>Tank Level Variation</value>
-	</data>
-	<data name="COMB_VOLUMEN_TANQUE" xml:space="preserve">
-		<value>Main Tank Volume</value>
-	</data>
-	<data name="CONCILIACIONES_LIST" xml:space="preserve">
-		<value>Reconciliations</value>
-	</data>
-	<data name="CONSUMO_CAUDAL_MOTORES" xml:space="preserve">
-		<value>Consumption and Flow Engine</value>
-	</data>
-	<data name="CONSUMO_DIARIO" xml:space="preserve">
-		<value>Daily Intake</value>
-	</data>
-	<data name="COST_CERTIFICACION" xml:space="preserve">
-		<value>Certification</value>
-	</data>
-	<data name="COST_CONTROL_PARTES" xml:space="preserve">
-		<value>Control Parts</value>
-	</data>
-	<data name="COST_PARTES" xml:space="preserve">
-		<value>Party Personnel Carrier</value>
-	</data>
-	<data name="COST_PERIODOS" xml:space="preserve">
-		<value>Periods</value>
-	</data>
-	<data name="COST_VERIFICAR_PARTES" xml:space="preserve">
-		<value>Check Parties</value>
-	</data>
-	<data name="DETALLE_CHOFERES_DIA" xml:space="preserve">
-		<value>Driver Details</value>
-	</data>
-	<data name="DETALLE_VEHICULO_DIA" xml:space="preserve">
-		<value>Vehicle detail</value>
-	</data>
-	<data name="DETENCIONES_DETALLE" xml:space="preserve">
-		<value>Arrests Detail</value>
-	</data>
-	<data name="DOCUMENTOS_MOBILE" xml:space="preserve">
-		<value>Mobile Documents</value>
-	</data>
-	<data name="DOC_DOCUMENTOS" xml:space="preserve">
-		<value>Documents</value>
-	</data>
-	<data name="DOC_REP_VENCIMIENTO" xml:space="preserve">
-		<value>Documentation Maturity</value>
-	</data>
-	<data name="DOC_TIPO_DOCUMENTO" xml:space="preserve">
-		<value>Document Types</value>
-	</data>
-	<data name="DOP_CERCANIA_POI" xml:space="preserve">
-		<value>Proximity to Points of Interest</value>
-	</data>
-	<data name="DOP_REP_EVENTOS" xml:space="preserve">
-		<value>Event Reporting</value>
-	</data>
-	<data name="DOP_REP_GEOCERCAS" xml:space="preserve">
-		<value>Geofence Report</value>
-	</data>
-	<data name="DOP_REP_RECORRIDO" xml:space="preserve">
-		<value>Tours Report</value>
-	</data>
-	<data name="DOP_VERI_DETAILS" xml:space="preserve">
-		<value>Details Positions Checker</value>
-	</data>
-	<data name="DOP_VERI_DISPOSITIVO" xml:space="preserve">
-		<value>Device Controller</value>
-	</data>
-	<data name="DOP_VERI_VEHICULO" xml:space="preserve">
-		<value>Vehicle Checker</value>
-	</data>
-	<data name="DUPLICAR_MENSAJES" xml:space="preserve">
-		<value>Duplicate messages</value>
-	</data>
-	<data name="EST_REP_HISTOGRAMA_DETENCIONES" xml:space="preserve">
-		<value>Arrests histogram</value>
-	</data>
-	<data name="EST_REP_HORAS_EXTRA_MOVIL_GRAPH" xml:space="preserve">
-		<value>Overtime Report</value>
-	</data>
-	<data name="FERIADOS" xml:space="preserve">
-		<value>Holidays</value>
-	</data>
-	<data name="INGRESO_CONCILIACIONES" xml:space="preserve">
-		<value>Reconciliations Income</value>
-	</data>
-	<data name="MARCHA_ACUMULADA" xml:space="preserve">
-		<value>Cumulative up</value>
-	</data>
-	<data name="MOBILE_UTILIZATION" xml:space="preserve">
-		<value>Vehicle Use</value>
-	</data>
-	<data name="OPE_CONSOLA" xml:space="preserve">
-		<value>Event Console</value>
-	</data>
-	<data name="OPE_MON_CALIDAD" xml:space="preserve">
-		<value>Quality Monitor</value>
-	</data>
-	<data name="OPE_MON_HISTORICO" xml:space="preserve">
-		<value>History Monitor</value>
-	</data>
+    <value>Infractions Detail per Vehicle</value>
+  </data>
+  <data name="ACC_RANKING_CHOFERES" xml:space="preserve">
+    <value>Driver Rankings</value>
+  </data>
+  <data name="ACC_REP_DETALLE_RECORRIDO" xml:space="preserve">
+    <value>Tour Detail Report</value>
+  </data>
+  <data name="ACC_REP_VARIACION_VELOCIDAD" xml:space="preserve">
+    <value>Speed Change Report</value>
+  </data>
+  <data name="ANALIZADOR_RECORRIDOS" xml:space="preserve">
+    <value>Tours Analyzer</value>
+  </data>
+  <data name="CENTROS_COSTOS" xml:space="preserve">
+    <value>Cost Centers</value>
+  </data>
+  <data name="CLOG_CICLOS_LOGISTICOS" xml:space="preserve">
+    <value>Cycle Logistics</value>
+  </data>
+  <data name="CLOG_HISTORICO_SERVICIOS" xml:space="preserve">
+    <value>Historical Services</value>
+  </data>
+  <data name="CLOG_REP_TICKET_MOVIL" xml:space="preserve">
+    <value>Tickets for Mobile Report</value>
+  </data>
+  <data name="CLOG_REP_TICKET_TIEMPO" xml:space="preserve">
+    <value>Tickets for Weather Report</value>
+  </data>
+  <data name="CLOG_SERVICIOS" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="CLOG_TICKETS" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="COMB_CONSISTENCIA_STOCK" xml:space="preserve">
+    <value>Principal Tank Stock Consistency</value>
+  </data>
+  <data name="COMB_CONSIST_STOCK_GRAFICO" xml:space="preserve">
+    <value>Principal Stock Tank</value>
+  </data>
+  <data name="COMB_CONSUMOS" xml:space="preserve">
+    <value>Consumption</value>
+  </data>
+  <data name="COMB_DESPACHOS" xml:space="preserve">
+    <value>Offices</value>
+  </data>
+  <data name="COMB_EVENTOS" xml:space="preserve">
+    <value>Event Reporting</value>
+  </data>
+  <data name="COMB_INGRESOS_POZO" xml:space="preserve">
+    <value>Income Pozo</value>
+  </data>
+  <data name="COMB_REMITOS" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="COMB_VARIACION_TANQUE" xml:space="preserve">
+    <value>Tank Level Variation</value>
+  </data>
+  <data name="COMB_VOLUMEN_TANQUE" xml:space="preserve">
+    <value>Main Tank Volume</value>
+  </data>
+  <data name="CONCILIACIONES_LIST" xml:space="preserve">
+    <value>Reconciliations</value>
+  </data>
+  <data name="CONSUMO_CAUDAL_MOTORES" xml:space="preserve">
+    <value>Consumption and Flow Engine</value>
+  </data>
+  <data name="CONSUMO_DIARIO" xml:space="preserve">
+    <value>Daily Intake</value>
+  </data>
+  <data name="COST_CERTIFICACION" xml:space="preserve">
+    <value>Certification</value>
+  </data>
+  <data name="COST_CONTROL_PARTES" xml:space="preserve">
+    <value>Control Parts</value>
+  </data>
+  <data name="COST_PARTES" xml:space="preserve">
+    <value>Party Personnel Carrier</value>
+  </data>
+  <data name="COST_PERIODOS" xml:space="preserve">
+    <value>Periods</value>
+  </data>
+  <data name="COST_VERIFICAR_PARTES" xml:space="preserve">
+    <value>Check Parties</value>
+  </data>
+  <data name="DETALLE_CHOFERES_DIA" xml:space="preserve">
+    <value>Driver Details</value>
+  </data>
+  <data name="DETALLE_VEHICULO_DIA" xml:space="preserve">
+    <value>Vehicle detail</value>
+  </data>
+  <data name="DETENCIONES_DETALLE" xml:space="preserve">
+    <value>Arrests Detail</value>
+  </data>
+  <data name="DOCUMENTOS_MOBILE" xml:space="preserve">
+    <value>Mobile Documents</value>
+  </data>
+  <data name="DOC_DOCUMENTOS" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="DOC_REP_VENCIMIENTO" xml:space="preserve">
+    <value>Documentation Maturity</value>
+  </data>
+  <data name="DOC_TIPO_DOCUMENTO" xml:space="preserve">
+    <value>Document Types</value>
+  </data>
+  <data name="DOP_CERCANIA_POI" xml:space="preserve">
+    <value>Proximity to Points of Interest</value>
+  </data>
+  <data name="DOP_REP_EVENTOS" xml:space="preserve">
+    <value>Event Reporting</value>
+  </data>
+  <data name="DOP_REP_GEOCERCAS" xml:space="preserve">
+    <value>Geofence Report</value>
+  </data>
+  <data name="DOP_REP_RECORRIDO" xml:space="preserve">
+    <value>Tours Report</value>
+  </data>
+  <data name="DOP_VERI_DETAILS" xml:space="preserve">
+    <value>Details Positions Checker</value>
+  </data>
+  <data name="DOP_VERI_DISPOSITIVO" xml:space="preserve">
+    <value>Device Controller</value>
+  </data>
+  <data name="DOP_VERI_VEHICULO" xml:space="preserve">
+    <value>Vehicle Checker</value>
+  </data>
+  <data name="DUPLICAR_MENSAJES" xml:space="preserve">
+    <value>Duplicate messages</value>
+  </data>
+  <data name="EST_REP_HISTOGRAMA_DETENCIONES" xml:space="preserve">
+    <value>Arrests histogram</value>
+  </data>
+  <data name="EST_REP_HORAS_EXTRA_MOVIL_GRAPH" xml:space="preserve">
+    <value>Overtime Report</value>
+  </data>
+  <data name="FERIADOS" xml:space="preserve">
+    <value>Holidays</value>
+  </data>
+  <data name="INGRESO_CONCILIACIONES" xml:space="preserve">
+    <value>Reconciliations Income</value>
+  </data>
+  <data name="MARCHA_ACUMULADA" xml:space="preserve">
+    <value>Cumulative up</value>
+  </data>
+  <data name="MOBILE_UTILIZATION" xml:space="preserve">
+    <value>Vehicle Use</value>
+  </data>
+  <data name="OPE_CONSOLA" xml:space="preserve">
+    <value>Event Console</value>
+  </data>
+  <data name="OPE_MON_CALIDAD" xml:space="preserve">
+    <value>Quality Monitor</value>
+  </data>
+  <data name="OPE_MON_HISTORICO" xml:space="preserve">
+    <value>History Monitor</value>
+  </data>
   <data name="OPE_MON_RECORRIDO" xml:space="preserve">
     <value>Routes Monitor</value>
   </data>
-	<data name="OPE_MON_ONLINE" xml:space="preserve">
-		<value>Online Monitor</value>
-	</data>
+  <data name="OPE_MON_ONLINE" xml:space="preserve">
+    <value>Online Monitor</value>
+  </data>
   <data name="OPE_MON_ENTIDAD" xml:space="preserve">
     <value>Geographic Location</value>
   </data>
-	<data name="OPE_SIMULADOR" xml:space="preserve">
-		<value>Tours Simulator</value>
-	</data>
-	<data name="PAGE_ERROR" xml:space="preserve">
-		<value>Application Error</value>
-	</data>
-	<data name="PAR_ACCIONES" xml:space="preserve">
-		<value>Actions</value>
-	</data>
-	<data name="PAR_ACTUALIZACION_PARAMETROS" xml:space="preserve">
-		<value>Update Parameters</value>
-	</data>
-	<data name="PAR_BASE" xml:space="preserve">
-		<value>Base</value>
-	</data>
-	<data name="PAR_CAUDALIMETRO" xml:space="preserve">
-		<value>Flowmeters</value>
-	</data>
-	<data name="PAR_CLIENTES" xml:space="preserve">
-		<value>Customers Type / Chain</value>
-	</data>
-	<data name="PAR_DET_DISPOSITIVOS" xml:space="preserve">
-		<value>Device Details</value>
-	</data>
-	<data name="PAR_DISPOSITIVOS" xml:space="preserve">
-		<value>Devices</value>
-	</data>
-	<data name="PAR_EMPLEADOS" xml:space="preserve">
-		<value>Employees</value>
-	</data>
-	<data name="PAR_EQUIPOS" xml:space="preserve">
-		<value>Teams</value>
-	</data>
-	<data name="PAR_ESTADOLOG" xml:space="preserve">
-		<value>Logistics States (Concrete)</value>
-	</data>
-	<data name="PAR_FIRMUPLOAD" xml:space="preserve">
-		<value>Upload Firmware</value>
-	</data>
-	<data name="PAR_FIRMWARE" xml:space="preserve">
-		<value>Firmware</value>
-	</data>
-	<data name="PAR_CONFIG_DISPOSITIVO" xml:space="preserve">
-		<value>Device Setup</value>
-	</data>
-	<data name="PAR_GEOCERCAS" xml:space="preserve">
-		<value>Speed ​​Zones</value>
-	</data>
-	<data name="PAR_ICONOS" xml:space="preserve">
-		<value>Icons</value>
-	</data>
-	<data name="PAR_IMPORTADOR" xml:space="preserve">
-		<value>Bulk Import</value>
-	</data>
-	<data name="PAR_MENSAJES" xml:space="preserve">
-		<value>Posts</value>
-	</data>
-	<data name="PAR_ODOMETROS" xml:space="preserve">
-		<value>Odometers</value>
-	</data>
-	<data name="PAR_PARAM_DISPOSITIVOS" xml:space="preserve">
-		<value>Device Type Parameters</value>
-	</data>
-	<data name="PAR_POI" xml:space="preserve">
-		<value>Geographical references</value>
-	</data>
-	<data name="PAR_REGION" xml:space="preserve">
-		<value>District</value>
-	</data>
-	<data name="PAR_TALLERES" xml:space="preserve">
-		<value>Workshops</value>
-	</data>
-	<data name="PAR_TANQUE" xml:space="preserve">
-		<value>Tank</value>
-	</data>
-	<data name="PAR_TARJETAS" xml:space="preserve">
-		<value>Cards</value>
-	</data>
-	<data name="PAR_TIPOGEOCERCA" xml:space="preserve">
-		<value>Speed ​​Zone Types</value>
-	</data>
-	<data name="PAR_TIPO_DISPOSITIVO" xml:space="preserve">
-		<value>Device Types</value>
-	</data>
-	<data name="PAR_TIPO_EMPLEADO" xml:space="preserve">
-		<value>Employee Type</value>
-	</data>
-	<data name="PAR_TIPO_MENSAJE" xml:space="preserve">
-		<value>Message Types</value>
-	</data>
-	<data name="PAR_TIPO_POI" xml:space="preserve">
-		<value>Geographic Reference Types</value>
-	</data>
-	<data name="PAR_TIPO_VEHICULO" xml:space="preserve">
-		<value>Vehicle Types</value>
-	</data>
-	<data name="PAR_TRANSPORTISTAS" xml:space="preserve">
-		<value>Carriers</value>
-	</data>
-	<data name="PAR_TURNOS" xml:space="preserve">
-		<value>Shifts</value>
-	</data>
-	<data name="PAR_VEHICULOS" xml:space="preserve">
-		<value>Vehicles</value>
-	</data>
+  <data name="OPE_SIMULADOR" xml:space="preserve">
+    <value>Tours Simulator</value>
+  </data>
+  <data name="PAGE_ERROR" xml:space="preserve">
+    <value>Application Error</value>
+  </data>
+  <data name="PAR_ACCIONES" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="PAR_ACTUALIZACION_PARAMETROS" xml:space="preserve">
+    <value>Update Parameters</value>
+  </data>
+  <data name="PAR_BASE" xml:space="preserve">
+    <value>Base</value>
+  </data>
+  <data name="PAR_CAUDALIMETRO" xml:space="preserve">
+    <value>Flowmeters</value>
+  </data>
+  <data name="PAR_CLIENTES" xml:space="preserve">
+    <value>Customers Type / Chain</value>
+  </data>
+  <data name="PAR_DET_DISPOSITIVOS" xml:space="preserve">
+    <value>Device Details</value>
+  </data>
+  <data name="PAR_DISPOSITIVOS" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="PAR_EMPLEADOS" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="PAR_EQUIPOS" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="PAR_ESTADOLOG" xml:space="preserve">
+    <value>Logistics States (Concrete)</value>
+  </data>
+  <data name="PAR_FIRMUPLOAD" xml:space="preserve">
+    <value>Upload Firmware</value>
+  </data>
+  <data name="PAR_FIRMWARE" xml:space="preserve">
+    <value>Firmware</value>
+  </data>
+  <data name="PAR_CONFIG_DISPOSITIVO" xml:space="preserve">
+    <value>Device Setup</value>
+  </data>
+  <data name="PAR_GEOCERCAS" xml:space="preserve">
+    <value>Speed ​​Zones</value>
+  </data>
+  <data name="PAR_ICONOS" xml:space="preserve">
+    <value>Icons</value>
+  </data>
+  <data name="PAR_IMPORTADOR" xml:space="preserve">
+    <value>Bulk Import</value>
+  </data>
+  <data name="PAR_MENSAJES" xml:space="preserve">
+    <value>Posts</value>
+  </data>
+  <data name="PAR_ODOMETROS" xml:space="preserve">
+    <value>Odometers</value>
+  </data>
+  <data name="PAR_PARAM_DISPOSITIVOS" xml:space="preserve">
+    <value>Device Type Parameters</value>
+  </data>
+  <data name="PAR_POI" xml:space="preserve">
+    <value>Geographical references</value>
+  </data>
+  <data name="PAR_REGION" xml:space="preserve">
+    <value>District</value>
+  </data>
+  <data name="PAR_TALLERES" xml:space="preserve">
+    <value>Workshops</value>
+  </data>
+  <data name="PAR_TANQUE" xml:space="preserve">
+    <value>Tank</value>
+  </data>
+  <data name="PAR_TARJETAS" xml:space="preserve">
+    <value>Cards</value>
+  </data>
+  <data name="PAR_TIPOGEOCERCA" xml:space="preserve">
+    <value>Speed ​​Zone Types</value>
+  </data>
+  <data name="PAR_TIPO_DISPOSITIVO" xml:space="preserve">
+    <value>Device Types</value>
+  </data>
+  <data name="PAR_TIPO_EMPLEADO" xml:space="preserve">
+    <value>Employee Type</value>
+  </data>
+  <data name="PAR_TIPO_MENSAJE" xml:space="preserve">
+    <value>Message Types</value>
+  </data>
+  <data name="PAR_TIPO_POI" xml:space="preserve">
+    <value>Geographic Reference Types</value>
+  </data>
+  <data name="PAR_TIPO_VEHICULO" xml:space="preserve">
+    <value>Vehicle Types</value>
+  </data>
+  <data name="PAR_TRANSPORTISTAS" xml:space="preserve">
+    <value>Carriers</value>
+  </data>
+  <data name="PAR_TURNOS" xml:space="preserve">
+    <value>Shifts</value>
+  </data>
+  <data name="PAR_VEHICULOS" xml:space="preserve">
+    <value>Vehicles</value>
+  </data>
   <data name="PAR_MARCAS" xml:space="preserve">
     <value>Trademarks</value>
   </data>
-	<data name="PTOS_ENTREGA" xml:space="preserve">
-		<value>Customers / Delivery Points</value>
-	</data>
-	<data name="REPORTE_ODOMETROS" xml:space="preserve">
-		<value>Odometer Report</value>
-	</data>
-	<data name="SERVICES_ADMIN" xml:space="preserve">
-		<value>Management Services</value>
-	</data>
-	<data name="SOC_AREAOPERACION" xml:space="preserve">
-		<value>Operating Area</value>
-	</data>
-	<data name="SOC_FUNCIONES" xml:space="preserve">
-		<value>Features</value>
-	</data>
-	<data name="SOC_PERFILES" xml:space="preserve">
-		<value>Profiles</value>
-	</data>
-	<data name="SOC_SISTEMAS" xml:space="preserve">
-		<value>Systems</value>
-	</data>
-	<data name="SOC_USUARIOS" xml:space="preserve">
-		<value>Users</value>
-	</data>
-	<data name="STAT_ACTI_CLIENTE" xml:space="preserve">
-		<value>Activity by Customer Report</value>
-	</data>
-	<data name="STAT_ACTI_OPERADOR" xml:space="preserve">
-		<value>Activity Report by Operator</value>
-	</data>
-	<data name="STAT_ACTI_VEHICULAR" xml:space="preserve">
-		<value>Vehicular Activity Report</value>
-	</data>
-	<data name="STAT_REP_HORAS" xml:space="preserve">
-		<value>Hours Report</value>
-	</data>
-	<data name="STAT_REP_HORAS_ACUM" xml:space="preserve">
-		<value>Accumulated Hours Report</value>
-	</data>
-	<data name="STAT_REP_KM" xml:space="preserve">
-		<value>Report Kilometers</value>
-	</data>
-	<data name="STAT_REP_KM_ACUM" xml:space="preserve">
-		<value>Kilometers Report Earnings</value>
-	</data>
-	<data name="STAT_REP_MANTENIMIENTO" xml:space="preserve">
-		<value>Maintenance Reporting</value>
-	</data>
-	<data name="STAT_RESUMEN_OPERADOR" xml:space="preserve">
-		<value>Operator summary</value>
-	</data>
-	<data name="STAT_RESUMEN_RUTA" xml:space="preserve">
-		<value>Route Summary</value>
-	</data>
-	<data name="STAT_RESUMEN_VEHICULAR" xml:space="preserve">
-		<value>Vehicle Summary</value>
-	</data>
-	<data name="SYS_ACC" xml:space="preserve">
-		<value>Accidentology</value>
-	</data>
-	<data name="SYS_ADMIN" xml:space="preserve">
-		<value>Administration</value>
-	</data>
-	<data name="SYS_CICLO_LOGISTICO" xml:space="preserve">
-		<value>Cycle Logistics</value>
-	</data>
-	<data name="SYS_COMBUSTIBLE_EN_POZOS" xml:space="preserve">
-		<value>Fuel Control</value>
-	</data>
-	<data name="SYS_CONTROL_COMBUSTIBLE" xml:space="preserve">
-		<value>Fuel Office</value>
-	</data>
-	<data name="SYS_COSTOS" xml:space="preserve">
-		<value>Availability</value>
-	</data>
-	<data name="SYS_DATOSOPE" xml:space="preserve">
-		<value>Operational Data</value>
-	</data>
-	<data name="SYS_DISPOSITIVOS" xml:space="preserve">
-		<value>Devices</value>
-	</data>
-	<data name="SYS_DOCUMENTOS" xml:space="preserve">
-		<value>Document Control</value>
-	</data>
-	<data name="SYS_EMPLEADOS" xml:space="preserve">
-		<value>Employees</value>
-	</data>
-	<data name="SYS_ENTIDADES" xml:space="preserve">
-		<value>Remote Points</value>
-	</data>
-	<data name="SYS_MENSAJERIA" xml:space="preserve">
-		<value>Messaging</value>
-	</data>
-	<data name="SYS_OPE" xml:space="preserve">
-		<value>Operation</value>
-	</data>
-	<data name="SYS_PAR" xml:space="preserve">
-		<value>Parameterization</value>
-	</data>
-	<data name="SYS_SOC" xml:space="preserve">
-		<value>Organization and Control</value>
-	</data>
-	<data name="SYS_STAT" xml:space="preserve">
-		<value>Statistics</value>
-	</data>
-	<data name="SYS_AUD" xml:space="preserve">
-		<value>Audit</value>
-	</data>
-	<data name="SYS_TRANSPORTISTAS" xml:space="preserve">
-		<value>Carriers</value>
-	</data>
-	<data name="SYS_VEHICULOS" xml:space="preserve">
-		<value>Vehicles</value>
-	</data>
-	<data name="TRAN_ACTI_TRANSPORTISTAS" xml:space="preserve">
-		<value>3rd party transport activity</value>
-	</data>
-	<data name="TRAN_HORAS_ACUMULADAS" xml:space="preserve">
-		<value>Carrier Reporting Hours</value>
-	</data>
-	<data name="TRAN_KILOMETROS_ACUMULADOS" xml:space="preserve">
-		<value>Report of kilometers by Carrier</value>
-	</data>
-	<data name="UTILIZACION_FLOTA" xml:space="preserve">
-		<value>Fleet Utilization</value>
-	</data>
-	<data name="HORAS_DENTENCION" xml:space="preserve">
-		<value>Arrest Report Hours</value>
-	</data>
-	<data name="EST_STOPPED_HS" xml:space="preserve">
-		<value>Report Hours Arrested For Turns</value>
-	</data>
-	<data name="EST_IDLE_TIME" xml:space="preserve">
-		<value>Report idle hours</value>
-	</data>
-	<data name="OPE_QTREE_EDITOR" xml:space="preserve">
-		<value>Qtrees Editor</value>
-	</data>
-	<data name="SUP_TICKETSOPORTE" xml:space="preserve">
-		<value>Support Ticket</value>
-	</data>
-	<data name="SYS_SOPORTE" xml:space="preserve">
-		<value>Support</value>
-	</data>
-	<data name="PAR_FERIADOS" xml:space="preserve">
-		<value>Holidays</value>
-	</data>
-	<data name="LOGS_ADMIN" xml:space="preserve">
-		<value>Log</value>
-	</data>
-	<data name="LOG_CONTEXT_ADMIN" xml:space="preserve">
-		<value>Log Context</value>
-	</data>
-	<data name="AUD_LOGIN_HISTORY" xml:space="preserve">
-		<value>Access Report</value>
-	</data>
-	<data name="QUEUES_ADMIN" xml:space="preserve">
-		<value>Queues status</value>
-	</data>
-	<data name="REP_EVENTOS_ACCESO" xml:space="preserve">
-		<value>Access Control</value>
-	</data>
-	<data name="SYS_ACCESS_CONTROL" xml:space="preserve">
-		<value>Access Control</value>
-	</data>
-	<data name="PAR_TIPO_SERVICIO" xml:space="preserve">
-		<value>Service Types</value>
-	</data>
-	<data name="PAR_DISTRIBUIDOR" xml:space="preserve">
-		<value>Distributors</value>
-	</data>
-	<data name="SYS_POSTAL" xml:space="preserve">
-		<value>Postal</value>
-	</data>
-	<data name="PAR_MOTIVOS" xml:space="preserve">
-		<value>Pleas</value>
-	</data>
-	<data name="PAR_PUERTAS" xml:space="preserve">
-		<value>Doors</value>
-	</data>
-	<data name="AC_REP_HORAS" xml:space="preserve">
-		<value>Report of Hours Worked</value>
-	</data>
-	<data name="STAT_REP_AC_HORAS_ACUM" xml:space="preserve">
-		<value>Cumulative Hours Worked Report</value>
-	</data>
-	<data name="SYS_REPORTES" xml:space="preserve">
-		<value>Reports</value>
-	</data>
-	<data name="CLOG_REP_DURATION_TICKETS" xml:space="preserve">
-		<value>Cycle Control</value>
-	</data>
-	<data name="CLOG_BOCADECARGA" xml:space="preserve">
-		<value>Mouth Load</value>
-	</data>
-	<data name="CLOG_PEDIDO" xml:space="preserve">
-		<value>Order</value>
-	</data>
-	<data name="CLOG_PROGRAMACION" xml:space="preserve">
-		<value>Scheduling Order</value>
-	</data>
+  <data name="PTOS_ENTREGA" xml:space="preserve">
+    <value>Customers / Delivery Points</value>
+  </data>
+  <data name="REPORTE_ODOMETROS" xml:space="preserve">
+    <value>Odometer Report</value>
+  </data>
+  <data name="SERVICES_ADMIN" xml:space="preserve">
+    <value>Management Services</value>
+  </data>
+  <data name="SOC_AREAOPERACION" xml:space="preserve">
+    <value>Operating Area</value>
+  </data>
+  <data name="SOC_FUNCIONES" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="SOC_PERFILES" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
+  <data name="SOC_SISTEMAS" xml:space="preserve">
+    <value>Systems</value>
+  </data>
+  <data name="SOC_USUARIOS" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="STAT_ACTI_CLIENTE" xml:space="preserve">
+    <value>Activity by Customer Report</value>
+  </data>
+  <data name="STAT_ACTI_OPERADOR" xml:space="preserve">
+    <value>Activity Report by Operator</value>
+  </data>
+  <data name="STAT_ACTI_VEHICULAR" xml:space="preserve">
+    <value>Vehicular Activity Report</value>
+  </data>
+  <data name="STAT_REP_HORAS" xml:space="preserve">
+    <value>Hours Report</value>
+  </data>
+  <data name="STAT_REP_HORAS_ACUM" xml:space="preserve">
+    <value>Accumulated Hours Report</value>
+  </data>
+  <data name="STAT_REP_KM" xml:space="preserve">
+    <value>Report Kilometers</value>
+  </data>
+  <data name="STAT_REP_KM_ACUM" xml:space="preserve">
+    <value>Kilometers Report Earnings</value>
+  </data>
+  <data name="STAT_REP_MANTENIMIENTO" xml:space="preserve">
+    <value>Maintenance Reporting</value>
+  </data>
+  <data name="STAT_RESUMEN_OPERADOR" xml:space="preserve">
+    <value>Operator summary</value>
+  </data>
+  <data name="STAT_RESUMEN_RUTA" xml:space="preserve">
+    <value>Route Summary</value>
+  </data>
+  <data name="STAT_RESUMEN_VEHICULAR" xml:space="preserve">
+    <value>Vehicle Summary</value>
+  </data>
+  <data name="SYS_ACC" xml:space="preserve">
+    <value>Accidentology</value>
+  </data>
+  <data name="SYS_ADMIN" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="SYS_CICLO_LOGISTICO" xml:space="preserve">
+    <value>Cycle Logistics</value>
+  </data>
+  <data name="SYS_COMBUSTIBLE_EN_POZOS" xml:space="preserve">
+    <value>Fuel Control</value>
+  </data>
+  <data name="SYS_CONTROL_COMBUSTIBLE" xml:space="preserve">
+    <value>Fuel Office</value>
+  </data>
+  <data name="SYS_COSTOS" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="SYS_DATOSOPE" xml:space="preserve">
+    <value>Operational Data</value>
+  </data>
+  <data name="SYS_DISPOSITIVOS" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="SYS_DOCUMENTOS" xml:space="preserve">
+    <value>Document Control</value>
+  </data>
+  <data name="SYS_EMPLEADOS" xml:space="preserve">
+    <value>Employees</value>
+  </data>
+  <data name="SYS_ENTIDADES" xml:space="preserve">
+    <value>Remote Points</value>
+  </data>
+  <data name="SYS_MENSAJERIA" xml:space="preserve">
+    <value>Messaging</value>
+  </data>
+  <data name="SYS_OPE" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="SYS_PAR" xml:space="preserve">
+    <value>Parameterization</value>
+  </data>
+  <data name="SYS_SOC" xml:space="preserve">
+    <value>Organization and Control</value>
+  </data>
+  <data name="SYS_STAT" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="SYS_AUD" xml:space="preserve">
+    <value>Audit</value>
+  </data>
+  <data name="SYS_TRANSPORTISTAS" xml:space="preserve">
+    <value>Carriers</value>
+  </data>
+  <data name="SYS_VEHICULOS" xml:space="preserve">
+    <value>Vehicles</value>
+  </data>
+  <data name="TRAN_ACTI_TRANSPORTISTAS" xml:space="preserve">
+    <value>3rd party transport activity</value>
+  </data>
+  <data name="TRAN_HORAS_ACUMULADAS" xml:space="preserve">
+    <value>Carrier Reporting Hours</value>
+  </data>
+  <data name="TRAN_KILOMETROS_ACUMULADOS" xml:space="preserve">
+    <value>Report of kilometers by Carrier</value>
+  </data>
+  <data name="UTILIZACION_FLOTA" xml:space="preserve">
+    <value>Fleet Utilization</value>
+  </data>
+  <data name="HORAS_DENTENCION" xml:space="preserve">
+    <value>Arrest Report Hours</value>
+  </data>
+  <data name="EST_STOPPED_HS" xml:space="preserve">
+    <value>Report Hours Arrested For Turns</value>
+  </data>
+  <data name="EST_IDLE_TIME" xml:space="preserve">
+    <value>Report idle hours</value>
+  </data>
+  <data name="OPE_QTREE_EDITOR" xml:space="preserve">
+    <value>Qtrees Editor</value>
+  </data>
+  <data name="SUP_TICKETSOPORTE" xml:space="preserve">
+    <value>Support Ticket</value>
+  </data>
+  <data name="SYS_SOPORTE" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="PAR_FERIADOS" xml:space="preserve">
+    <value>Holidays</value>
+  </data>
+  <data name="LOGS_ADMIN" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="LOG_CONTEXT_ADMIN" xml:space="preserve">
+    <value>Log Context</value>
+  </data>
+  <data name="AUD_LOGIN_HISTORY" xml:space="preserve">
+    <value>Access Report</value>
+  </data>
+  <data name="QUEUES_ADMIN" xml:space="preserve">
+    <value>Queues status</value>
+  </data>
+  <data name="REP_EVENTOS_ACCESO" xml:space="preserve">
+    <value>Access Control</value>
+  </data>
+  <data name="SYS_ACCESS_CONTROL" xml:space="preserve">
+    <value>Access Control</value>
+  </data>
+  <data name="PAR_TIPO_SERVICIO" xml:space="preserve">
+    <value>Service Types</value>
+  </data>
+  <data name="PAR_DISTRIBUIDOR" xml:space="preserve">
+    <value>Distributors</value>
+  </data>
+  <data name="SYS_POSTAL" xml:space="preserve">
+    <value>Postal</value>
+  </data>
+  <data name="PAR_MOTIVOS" xml:space="preserve">
+    <value>Pleas</value>
+  </data>
+  <data name="PAR_PUERTAS" xml:space="preserve">
+    <value>Doors</value>
+  </data>
+  <data name="AC_REP_HORAS" xml:space="preserve">
+    <value>Report of Hours Worked</value>
+  </data>
+  <data name="STAT_REP_AC_HORAS_ACUM" xml:space="preserve">
+    <value>Cumulative Hours Worked Report</value>
+  </data>
+  <data name="SYS_REPORTES" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="CLOG_REP_DURATION_TICKETS" xml:space="preserve">
+    <value>Cycle Control</value>
+  </data>
+  <data name="CLOG_BOCADECARGA" xml:space="preserve">
+    <value>Mouth Load</value>
+  </data>
+  <data name="CLOG_PEDIDO" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="CLOG_PROGRAMACION" xml:space="preserve">
+    <value>Scheduling Order</value>
+  </data>
   <data name="EST_PEDIDOS_PROGRAMADOS" xml:space="preserve">
-		<value>Scheduling Order Report</value>
-	</data>
-	<data name="CLOG_DISTRIBUCION" xml:space="preserve">
-		<value>Distribution</value>
-	</data>
-	<data name="SYS_DISTRIBUCION" xml:space="preserve">
-		<value>Distribution</value>
-	</data>
-	<data name="SYS_HORMIGON" xml:space="preserve">
-		<value>Concrete</value>
-	</data>
+    <value>Scheduling Order Report</value>
+  </data>
+  <data name="CLOG_DISTRIBUCION" xml:space="preserve">
+    <value>Distribution</value>
+  </data>
+  <data name="SYS_DISTRIBUCION" xml:space="preserve">
+    <value>Distribution</value>
+  </data>
+  <data name="SYS_HORMIGON" xml:space="preserve">
+    <value>Concrete</value>
+  </data>
   <data name="MAN_CONSUMOS" xml:space="preserve">
     <value>Expenditures</value>
   </data>
@@ -915,5 +915,10 @@
   <data name="REP_ESTADOS_LOGISTICOS" xml:space="preserve">
     <value>Logistics States Report</value>
   </data>
+  <data name="CLOG_RECHAZO" xml:space="preserve">
+    <value>Rejection</value>
+  </data>
+  <data name="ORDERS" xml:space="preserve">
+    <value>Orders</value>
+  </data>
 </root>
-

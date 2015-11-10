@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.SessionState;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.DatabaseTracer.Enums;
 using Logictracker.DAL.DAO.BusinessObjects.Auditoria;
@@ -22,6 +23,7 @@ namespace Logictracker.Web
             // Code that runs on application startup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
@@ -120,6 +122,23 @@ namespace Logictracker.Web
 
                 auditDao.CloseUserSession(userSessionData.Id);
             }
+        }
+
+        /// Workaround para que funcione la Session de asp.net con Web.api y que no se rompa para todo el resto que no sea
+        /// Wep.api
+        private const string _WebApiPrefix = "api";
+        private static string _WebApiExecutionPath = String.Format("~/{0}", _WebApiPrefix);
+
+        protected void Application_PostAuthorizeRequest()  
+        {
+            if (IsWebApiRequest())
+            {
+                HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            }
+        }
+        private static bool IsWebApiRequest()
+        {
+            return HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath.StartsWith(_WebApiExecutionPath);
         }
     }
 }

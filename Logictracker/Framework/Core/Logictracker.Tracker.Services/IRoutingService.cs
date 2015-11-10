@@ -1,9 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Types.BusinessObjects.Ordenes;
 
 namespace Logictracker.Tracker.Services
 {
@@ -11,5 +9,8 @@ namespace Logictracker.Tracker.Services
     {
         void BuildProblem();
         void FillTable();
+        IList<Order> GetOrders(int empresaId);
+        IList<OrderDetail> GetOrderDetails(int orderId);
+        void Programming(Order order, string routeCode, int idVehicle, DateTime startDateTime, int logisticsCycleType);
     }
 }

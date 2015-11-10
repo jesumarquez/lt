@@ -19,6 +19,7 @@ namespace Logictracker.Types.BusinessObjects.Ordenes
         public virtual string InicioVentana { get; set; }
         public virtual string FinVentana { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual bool Programado { get; set; }
 
         public virtual IList<OrderDetail> OrderDetails { get; set; }
 

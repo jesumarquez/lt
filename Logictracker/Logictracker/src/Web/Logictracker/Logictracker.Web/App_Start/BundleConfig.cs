@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 using System.Web.UI;
 
 namespace Logictracker.Web
@@ -34,6 +30,7 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
 
+           
             // JQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                             "~/Scripts/jquery-{version}.js"));
@@ -46,8 +43,30 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                             "~/Scripts/angular.js",
                             "~/Scripts/angular-route.js",
+                            "~/Scripts/angular-ui-bootstrap-modal.js",
                             "~/Scripts/angular-resource.js"));
-            
+           
+            // Kendo
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                 //  "~/Scripts/kendo/2014.2.1008/jquery-2.1.1.js",
+                "~/Scripts/kendo/2014.2.1008/kendo.all.min.js",
+                "~/Scripts/kendo/2014.2.1008/kendo.aspnetmvc.min.js",
+                "~/Scripts/kendo/kendo.custom.js"));
+                    //"~/Scripts/kendo/kendo.modernizr.custom.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/global").Include(
+                "~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.es-AR.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/css-kendo-ui").Include(
+                "~/Content/kendo/2014.2.1008/kendo.common.min.css",
+                "~/Content/kendo/2014.2.1008/kendo.bootstrap.min.css",
+                "~/Content/kendo/2014.2.1008/kendo.dataviz.min.css",
+                "~/Content/kendo/2014.2.1008/kendo.dataviz.bootstrap.min.css",
+                "~/Content/kendo/kendo.custom.css",
+                "~/Content/kendo/"
+                ));
+
+ 
             // Logictracker Angular app
             bundles.Add(new ScriptBundle("~/bundles/angularjs-logictracker").Include(
                             "~/Scripts/app/app.js")
