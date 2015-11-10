@@ -8,25 +8,14 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
-
                     @Html.ResourceLabel("Entities", "PARENTI01"):
-                    <input class="form-control" kendo-drop-down-list="ddlDistrito"
-                           k-data-source="distritoDS"
-                           k-data-text-field="'Value'"
-                           k-data-value-field="'Key'"
-                           k-ng-model="distritoSelected"
-                           />
+                    <lt-rechazo-distrito/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI02"):
-                    <input class="form-control"  kendo-drop-down-list="ddlBase"
-                           k-data-source="baseDS"
-                           k-data-text-field="'Value'"
-                           k-data-value-field="'Key'"
-                           k-ng-model="baseSelected"
-                           k-on-data-bound="baseDefault(kendoEvent)" />
+                    <lt-rechazo-base/>
                 </div>
             </div>
         </div>
@@ -34,21 +23,13 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI04"):
-                    <input class="form-control" kendo-multi-select
-                           k-data-source="departamentoDS"
-                           k-data-text-field="'Value'"
-                           k-data-value-field="'Key'"
-                           k-ng-model="departamentoSelected" />
+                    <lt-rechazo-departamento/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Labels", "Estado"):
-                    <input class="form-control" kendo-drop-down-list
-                           k-data-source="estadoDS"
-                           k-data-text-field="'Value'"
-                           k-data-value-field="'Key'"
-                           k-ng-model="estadoSelected" />
+                    <lt-rechazo-estado/>
                 </div>
             </div>
         </div>
