@@ -1,6 +1,9 @@
 ﻿angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
-    .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController]);
+    .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController])
+    .controller('RechazoItemController',['$scope', 'EntitiesService', RechazoItemController]);
+
+
 
 function RechazoController($scope, EntitiesService) {
 
@@ -21,6 +24,16 @@ function RechazoController($scope, EntitiesService) {
     $scope.distritoDS = EntitiesService.distrito.items();
     $scope.distritoDS.bind("requestEnd", onDistritoDSLoad);
     $scope.distritoDS.bind("error", onFail);
+    $scope.estadoSelected = {};
+
+    $scope.desde = new Date();
+    $scope.hasta = new Date();
+
+
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados.query(null,
+        function () { $scope.estadoSelected = $scope.estadoDS[0]; },
+        $scope.onerror);
+
 
     $scope.baseDS = EntitiesService.distrito.bases();
     $scope.baseDS.bind("requestEnd", onBaseDSLoad);
@@ -112,5 +125,47 @@ function RechazoController($scope, EntitiesService) {
             }, function (error) {
                 $scope.notify.show(error.statusText, "error");
     });
+
+    $scope.onerror = function (error) {
+        $scope.notify.show(error.statusText, "error");
+    }
+
+    $scope.rechazosDS = []; 
+
+    $scope.gridOptions = {
+        columns:
+        [
+        { field: "Id", title: "Ticket" },
+        { field: "FechaHora", title: "Fecha Hora" },
+        { field: "ClienteCod", title: "Cod. Cliente" },
+        { field: "ClienteDesc", title: "Cliente" },
+        { field: "SupVenDesc", title: "Sup. Venta" },
+        { field: "SupRutDesc", title: "Sup. Ruta" },
+        { field: "UltEstado", title: "Estado" },
+        { field: "Territorio", title: "Territorio" },
+        { field: "Motivo", title: "Motivo" },
+        { field: "Bultos", title: "Bultos" },
+        ]
+    }
+
+    $scope.onNuevo = function () {
+        $scope.rechazoWin.refresh({ url: "Item?op=A" });
+        $scope.rechazoWin.center();
+        $scope.rechazoWin.open();
     };
+
+    $scope.onEdit = function(id) {
+        $scope.rechazoWin.refresh({ url: "Item?op=E&id=" + id });   
+        $scope.rechazoWin.center();
+        $scope.rechazoWin.open();
+    }
+
+    $scope.onBuscar = function() {
+
+    };
+
+}
+
+function RechazoItemController($scope, EntitiesService) {
+    $scope.mensaje = "Soy en numero 4";
 }

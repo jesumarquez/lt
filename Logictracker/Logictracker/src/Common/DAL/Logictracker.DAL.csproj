@@ -152,6 +152,7 @@
     <Compile Include="DAO\BusinessObjects\Messages\LastVehicleEventDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\EvenDistriDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Ordenes\OrderDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Rechazos\TicketRechazoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\SubCentroDeCostosDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\InfraccionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\ReferenciasGeograficas\TipoZonaDAO.cs" />
@@ -296,7 +297,6 @@
     <Compile Include="DAO\ReportObjects\TransportActivityDAO.cs" />
     <Compile Include="DAO\ReportObjects\VehicleUtilizationDAO.cs" />
     <Compile Include="DAO\ReportObjects\WorkedHoursDAO.cs" />
-    <Compile Include="DAO\SindicaturaDAO.cs" />
     <Compile Include="Factories\DaoFactory.cs" />
     <Compile Include="DAO\BusinessObjects\Tickets\DetalleTicketDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Dispositivos\DispositivoDAO.cs" />
@@ -624,9 +624,6 @@
     <EmbeddedResource Include="HBM\BusinessObjects\Organizacion\AseguradoEnPerfil.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HBM\BusinessObjects\sindicatura.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\ConsumoCabecera.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -822,6 +819,11 @@
     <EmbeddedResource Include="HBM\BusinessObjects\Ordenes\OrderDetail.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="HBM\BusinessObjects\Rechazos\DetalleTicketRechazo.xml" />
+    <Content Include="HBM\BusinessObjects\Rechazos\TicketRechazo.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

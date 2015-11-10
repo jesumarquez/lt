@@ -88,6 +88,9 @@
       <HintPath>..\..\..\..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\..\..\..\Resources\KendoMVC\2014.2.1008.545\Kendo.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToExcel, Version=1.10.1.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
       <Private>True</Private>
@@ -1704,6 +1707,7 @@
     <Content Include="Content\font-awesome\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\font-awesome\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\Rechazos\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Rechazos\Views\Rechazo\Item.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1718,6 +1722,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\angular.min.js" />
+    <Content Include="Scripts\kendo\2014.2.1008\cultures\kendo.culture.es-AR.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\jquery-2.1.1.js" />
     <Content Include="Scripts\kendo\2014.2.1008\jquery-2.1.1.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\jquery.min.js" />
@@ -2041,6 +2046,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\DatamartLog.aspx.cs">
       <DependentUpon>DatamartLog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2312,9 +2320,6 @@
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -2610,6 +2615,8 @@
     </Compile>
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
+    <Compile Include="Controllers\api\TicketRechazoController.cs" />
+    <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />
     <Compile Include="Models\CentroDeCostosModel.cs" />
     <Compile Include="Controllers\api\DepartamentoController.cs" />

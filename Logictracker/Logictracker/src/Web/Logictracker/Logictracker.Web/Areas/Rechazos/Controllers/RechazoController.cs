@@ -1,9 +1,5 @@
-﻿using Logictracker.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Logictracker.Web.Controllers;
 
 namespace Logictracker.Web.Areas.Rechazos.Controllers
 {
@@ -13,6 +9,12 @@ namespace Logictracker.Web.Areas.Rechazos.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Item(string operation,int? id)
+        {
+            
+            return View("Item");
         }
 
         public string ReferenceName
