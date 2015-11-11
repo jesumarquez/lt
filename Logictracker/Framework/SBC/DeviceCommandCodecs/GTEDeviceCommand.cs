@@ -234,20 +234,23 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                 var cond1 = validPacketIds.Any(l => l == PacketId);
                 var cond2 = validPacketIds.Any(l => l == garminCommandResponse.PacketId);
                 var result = cond1 && (cond2 || garminCommandResponse.isAcknowledge);
-                                
+
+                if (result == false) STrace.Error("GARMIN RESPONSE", "Invalid Packet Ids");
+
                 if (result)
                 {
                     if (!garminCommandResponse.isAcknowledge)
                     {
                         if (PacketId == 0xA1 && garminCommandResponse.PacketId == 0xA1)
                         {
-                            result =
-                                validA1Combinations.Any(
-                                    kv => CommandId == kv.Key && garminCommandResponse.CommandId == kv.Value);
+                            result = validA1Combinations.Any(kv => CommandId == kv.Key && garminCommandResponse.CommandId == kv.Value);
+                            if (result == false) STrace.Error("GARMIN RESPONSE", "Invalid A1 Combinations");
                         }
-                    } else
+                    } 
+                    else
                     {
                         result = (MessageId == garminCommandResponse.MessageId && ((PacketId == 0xA1 && validA1NonReturn.Any(v => v == CommandId)) || PacketId == 0x06));
+                        if (result == false) STrace.Error("GARMIN RESPONSE", "Invalid MessageId");
                     }
                 }
 
@@ -275,7 +278,9 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                                 break;
 
                             var UId = BitConverter.ToUInt32(pArr, 2);
-                        
+
+                            if (UId != rUId) STrace.Error("GARMIN RESPONSE", "UId != rUId");
+
                             return (UId == rUId ? DeviceCommandResponseStatus.Valid : DeviceCommandResponseStatus.Invalid);
                         case FmiPacketId.CsTextMessageReceiptA604OpenServer2Client:
                             /*
