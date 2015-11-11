@@ -1,7 +1,7 @@
 ﻿using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using System;
 
-namespace Logictracker.Types.BusinessObjects
+namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 {
     [Serializable]
     public class ParametroDistribucion

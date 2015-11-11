@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.ParametroEmpresa,Logictracker.Types" table="[opetick12]" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.ParametroDistribucion,Logictracker.Types" table="[opetick12]" lazy="true">
     <cache usage="read-write" />
 
     <id name="Id" column="id_opetick12" type="Int32" unsaved-value="0">
