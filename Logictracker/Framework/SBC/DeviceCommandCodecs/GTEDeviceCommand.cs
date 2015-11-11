@@ -558,7 +558,10 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                         if (!String.IsNullOrEmpty(error))
                             STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GARMIN LEVEL:" + error);
                         else
+                        {
                             STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GARMIN LEVEL: + EXPECTED RESPONSE");
+                            result = DeviceCommandResponseStatus.Valid;
+                        }
                     }
                     else
                     {
@@ -566,7 +569,7 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                     }
                 }
             }
-            STrace.Debug(typeof (GTEDeviceCommand).FullName, IdNum??response.IdNum??0, String.Format("- GET GRAMIN RESPONSE {0} -", result);
+            STrace.Debug(typeof (GTEDeviceCommand).FullName, IdNum??response.IdNum??0, String.Format("- GET GARMIN RESPONSE {0} -", result));
             return result;
         }
 
