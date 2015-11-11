@@ -566,6 +566,7 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                     }
                 }
             }
+            STrace.Debug(typeof (GTEDeviceCommand).FullName, IdNum??response.IdNum??0, String.Format("- GET GRAMIN RESPONSE {0} -", result));
             return result;
         }
 
