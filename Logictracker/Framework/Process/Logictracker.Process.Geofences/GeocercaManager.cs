@@ -340,7 +340,6 @@ namespace Logictracker.Process.Geofences
 
             if (root != null && lastMod < root.LastUpdate)
             {
-                STrace.Trace("DispatcherLock", string.Format("root OK ---> {0} | {1}", empresa, linea));
                 return root;
             }
             else
@@ -349,12 +348,10 @@ namespace Logictracker.Process.Geofences
 
                 if (Monitor.IsEntered(_qtrees))
                 {
-                    STrace.Trace("DispatcherLock", string.Format("root IS ENTERED ---> {0} | {1}", empresa, linea));
                     entered = true;
                 }
                 else
                 {
-                    STrace.Trace("DispatcherLock", string.Format("root TRY ENTER ---> {0} | {1}", empresa, linea));
                     Monitor.TryEnter(_qtrees, 10, ref entered);
                 }
                 

@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.ParametroEmpresa,Logictracker.Types" table="[opetick10]" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.ParametroEmpresa,Logictracker.Types" table="[opetick12]" lazy="true">
     <cache usage="read-write" />
 
-    <id name="Id" column="id_opetick10" type="Int32" unsaved-value="0">
+    <id name="Id" column="id_opetick12" type="Int32" unsaved-value="0">
       <generator class="native" />
     </id>
 
-    <property column="opetick10_parametro" name="Nombre" not-null="true" />
-    <property column="opetick10_valor" name="Valor" not-null="true" />
+    <property column="opetick12_parametro" name="Nombre" not-null="true" />
+    <property column="opetick12_valor" name="Valor" not-null="true" />
 
     <many-to-one name="ViajeDistribucion" column="rela_opetick03" lazy="proxy" />
   </class>
