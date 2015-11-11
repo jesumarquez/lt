@@ -435,7 +435,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     sheets = excel.GetWorksheetNames().ToList();
                     break;
                 case FileTypes.Csv:
-                    sheets.Add(excel.GetWorksheetNames().LastOrDefault());
+                    var last = excel.GetWorksheetNames().LastOrDefault();
+                    if (last == null) last = "0";                    
+                    sheets.Add(last);                    
                     break;
                 default:
                     break;

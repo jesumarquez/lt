@@ -103,6 +103,13 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
             set { _estadosCumplidos = value; }
         }
 
+        private IList<ParametroDistribucion> _parametros;
+        public virtual IList<ParametroDistribucion> Parametros
+        {
+            get { return _parametros ?? (_parametros = new List<ParametroDistribucion>()); }
+            set { _parametros = value; }
+        }
+
         private IList<RecorridoDistribucion> _recorrido;
         public virtual IList<RecorridoDistribucion> Recorrido
         {

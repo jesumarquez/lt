@@ -116,6 +116,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         orden.Linea = planta;
                         orden.PuntoEntrega = puntoEntrega;
                         orden.Transportista = transportista;
+                        orden.Programado = false;
 
                         var naftaSuper = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaSuper].ToString().Trim());
                         var naftaPremium = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaPremium].ToString().Trim());
