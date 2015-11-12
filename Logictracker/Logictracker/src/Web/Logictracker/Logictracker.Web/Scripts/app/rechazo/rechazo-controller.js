@@ -39,6 +39,14 @@ function RechazoController($scope, EntitiesService) {
     $scope.departamentoDS.bind("requestEnd", onDepartamentoDSLoad);
     $scope.departamentoDS.bind("error", onFail);
 
+    $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos();
+    $scope.centroDeCostosDS.bind("requestEnd", onCentroDeCostosDSLoad);
+    $scope.centroDeCostosDS.bind("error", onFail);
+
+    $scope.transportistaDS = EntitiesService.distrito.transportista();
+    $scope.transportistaDS.bind("requestEnd", ontransportistaDSLoad);
+    $scope.transportistaDS.bind("error", onFail);
+
     $scope.$watch("distritoSelected", onDistritoSelected);
 
     $scope.$watch("basesDS", onBasesDSChange);
@@ -83,6 +91,18 @@ function RechazoController($scope, EntitiesService) {
         }
     }
 
+    function onCentroDeCostosDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.centroDeCostosSelected = [];
+        }
+    }
+
+    function ontransportistaDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.transportistaSelected = [];
+        }
+    }
+    
     function onBaseSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
             $scope.departamentoDS.read({
@@ -90,35 +110,20 @@ function RechazoController($scope, EntitiesService) {
                 baseId: $scope.baseSelected.Key
             });
 
-            $scope.transportistaDS = EntitiesService.distrito.transportista.query(
-                {
-                    distritoId: $scope.distritoSelected.Key,
-                    baseId: $scope.baseSelected.Key
-                }, function () {
-                    $scope.transportistaSelected = [];
-
-                }, function (error) {
-                    $scope.notify.show(error.statusText, "error");
-
-                }
-            );
+            $scope.transportistaDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key
+            });
         }
     };
 
     function onDepartamentoAndBaseChange(newValue, oldValue) {
         if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
-            $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos.query(
-            {
+            $scope.centroDeCostosDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                deptoId: $scope.departamentoSelected.map(function (o) {
-                    return o.Key;
-                })
-            }, function () {
-                $scope.centroDeCostosSelected = [];
-            }, function (error) {
-                $scope.notify.show(error.statusText, "error");
-            });
+                departamentoId: $scope.departamentoSelected.map(function (o) {return o.Key;})
+            });            
 
         $scope.onerror = function (error) {
             $scope.notify.show(error.statusText, "error");

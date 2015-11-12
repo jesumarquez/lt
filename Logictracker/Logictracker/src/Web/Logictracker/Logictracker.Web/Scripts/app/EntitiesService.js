@@ -8,8 +8,8 @@ function EntitiesService($resource, $http) {
             items: getDistritosDS,
             bases: getBasesDS,
             departamento: getDepartamentosDS,
-            centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId", deptoId: "@deptoId" }),
-            transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            centroDeCostos: getCentroDeCostosDS,
+            transportista: getTransportistaDS
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -78,6 +78,50 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
+    function getCentroDeCostosDS() {
+        var ds = new kendo.data.DataSource({
+            transport: {
+               read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "" &&
+                        op.data.departamentoId !== undefined && op.data.departamentoId !== "") {
+                        
+                        getData(_service.resources.centroDeCostos,
+                            op,
+                            { distritoId: op.data.distritoId, baseId: op.data.baseId, departamentoId: op.data.departamentoId });
+
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        return ds;
+    };
+
+    function getTransportistaDS() {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+
+                        getData(_service.resources.transportista,
+                            op,
+                            { distritoId: op.data.distritoId, baseId: op.data.baseId });
+
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        return ds;
+    };
 
     function getData(res, option, params) {
         res.query(params,

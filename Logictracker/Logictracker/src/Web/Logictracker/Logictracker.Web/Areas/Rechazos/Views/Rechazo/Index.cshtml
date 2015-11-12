@@ -35,21 +35,14 @@
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI37"): <input class="form-control" kendo-multi-select
-                                                                 k-data-source="centroDeCostosDS"
-                                                                 k-data-text-field="'Value'"
-                                                                 k-data-value-field="'Key'"
-                                                                 k-ng-model="centroDeCostosSelected" />
+            @Html.ResourceLabel("Entities", "PARENTI37"):
+            <lt-rechazo-centro-de-costos/>
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select class="form-control"
-                                                                 k-data-source="transportistaDS"
-                                                                 k-data-text-field="'Value'"
-                                                                 k-data-value-field="'Key'"
-                                                                 k-ng-model="transportistaSelected" />
+            @Html.ResourceLabel("Entities", "PARENTI07"):
+            <lt-rechazo-transportista />
         </div>
-
 
         <div class="col-md-2">
             <div class="row">

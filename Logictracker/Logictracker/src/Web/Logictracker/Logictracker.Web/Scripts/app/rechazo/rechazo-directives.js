@@ -38,4 +38,23 @@
                     'k-data-value-field="\'Key\'" ' +
                     'k-ng-model="estadoSelected" />' 
     };
+})
+.directive('ltRechazoCentroDeCostos', function () {
+    return {
+        restrict: 'E',
+        template: '<input class="form-control" kendo-multi-select ' +
+                    'k-data-source="centroDeCostosDS" ' +
+                    'k-data-text-field="\'Value\'" ' +
+                    'k-data-value-field="\'Key\'" ' +
+                    'k-ng-model="centroDeCostosSelected" />'
+    };
+}).directive('ltRechazoTransportista', function () {
+    return {
+        restrict: 'E',
+        template: '<input class="form-control" kendo-multi-select ' +
+                    'k-data-source="transportistaDS" ' +
+                    'k-data-text-field="\'Value\'" ' +
+                    'k-data-value-field="\'Key\'" ' +
+                    'k-ng-model="transportistaSelected" />'
+    };
 });
