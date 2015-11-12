@@ -7,4 +7,5 @@
     "logictracker.orders.service",
     "logictracker.orders.controller",
     "logictracker.rechazo.service",
-    "logictracker.rechazo.controller"]);
+    "logictracker.rechazo.controller",
+    "logictracker.rechazo.directives"]);
