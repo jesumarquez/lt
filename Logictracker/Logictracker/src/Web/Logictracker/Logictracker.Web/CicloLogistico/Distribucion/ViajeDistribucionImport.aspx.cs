@@ -2370,7 +2370,12 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                         var nombre = campos[8].Trim() != string.Empty ? campos[8].Trim() : "SIN NOMBRE";
                         var latitud = esBase ? 0.0 : ValidateDouble(campos[9], "LATITUD");
                         var longitud = esBase ? 0.0 : ValidateDouble(campos[10], "LONGITUD");
-                        var km = campos.Length == 12 ? ValidateDouble(campos[11], "KM") : 0.0;
+                        var km = ValidateDouble(campos[11], "KM");
+                        var direccion = campos[12].Trim();
+                        var localidad = campos[13].Trim();
+                        var bultos = esBase ? 0 : ValidateDouble(campos[14], "BULTOS");
+                        var peso = esBase ? 0.0 : ValidateDouble(campos[15], "PESO");
+                        var volumen = esBase ? 0.0 : ValidateDouble(campos[16], "VOLUMEN");
 
                         var fecha = new DateTime(anio, mes, dia, hora, min, 0);
                         codigoRuta = fecha.ToString("ddMMyy") + codigoRuta;
@@ -2462,8 +2467,13 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
 
                         //var direccion = GeocoderHelper.GetEsquinaMasCercana(latitud, longitud);
                         if (viaje.Detalles.Any(d => d.PuntoEntrega != null && d.PuntoEntrega.Codigo == codigoPuntoEntrega))
+                        {
+                            var detalle = viaje.Detalles.FirstOrDefault(d => d.PuntoEntrega != null && d.PuntoEntrega.Codigo == codigoPuntoEntrega);
+                            detalle.Bultos += (int) bultos;
+                            detalle.Volumen += volumen;
+                            detalle.Peso += peso;
                             continue;
-
+                        }
                         #region var puntoEntrega = [Find By Empresa, Linea, Codigo, Cliente].FirstOrDefault()
 
                         var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoPuntoEntrega);
@@ -2511,12 +2521,10 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 IdEntrecalle = -1,
                                 Latitud = latitud,
                                 Longitud = longitud,
-                                Partido = string.Empty,
+                                Partido = localidad,
                                 Pais = string.Empty,
                                 Calle = string.Empty,
-                                Descripcion =
-                                    string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture),
-                                        longitud.ToString(CultureInfo.InvariantCulture)),
+                                Descripcion = direccion != string.Empty ? direccion : string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
                                 Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
                             };
 
@@ -2545,7 +2553,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 Baja = false,
                                 ReferenciaGeografica = puntoDeInteres,
                                 Nomenclado = true,
-                                DireccionNomenclada = string.Empty,
+                                DireccionNomenclada = direccion + ", " + localidad,
                                 Nombre = nombre
                             };
 
@@ -2574,12 +2582,10 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                     IdEntrecalle = -1,
                                     Latitud = latitud,
                                     Longitud = longitud,
-                                    Partido = string.Empty,
+                                    Partido = localidad,
                                     Pais = string.Empty,
                                     Calle = string.Empty,
-                                    Descripcion =
-                                        string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture),
-                                            longitud.ToString(CultureInfo.InvariantCulture)),
+                                    Descripcion = direccion != string.Empty ? direccion : string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
                                     Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
                                 };
 
@@ -2608,6 +2614,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
                             AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
 
+                            puntoEntrega.DireccionNomenclada = direccion + ", " + localidad;
+
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -2624,7 +2632,10 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             ProgramadoHasta = fecha.ToDataBaseDateTime(),
                             TipoServicio = tipoServicio,
                             Viaje = viaje,
-                            KmCalculado = km
+                            KmCalculado = km,
+                            Bultos = (int) bultos,
+                            Peso = peso,
+                            Volumen = volumen
                         };
 
                         #endregion

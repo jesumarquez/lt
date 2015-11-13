@@ -37,6 +37,12 @@
 
                     <cwc:ResourceLabel ID="lblProductivo" runat="server" ResourceName="Labels" VariableName="PRODUCTIVO" />
                     <asp:CheckBox ID="chkProductivo" runat="server" />
+
+                    <cwc:ResourceLabel ID="lblIterativo" runat="server" ResourceName="Labels" VariableName="ITERATIVO" />
+                    <asp:CheckBox ID="chkIterativo" runat="server" />
+
+                    <cwc:ResourceLabel ID="lblControlInverso" runat="server" ResourceName="Labels" VariableName="CONTROL_INVERSO" />
+                    <asp:CheckBox ID="chkControlInverso" runat="server" />
                                            
                     <cwc:ResourceLabel ID="lblDemora" runat="server" ResourceName="Labels" VariableName="DEMORA" />
                     <c1:C1NumericInput ID="npDemora" runat="server" MaxValue="999" MinValue="0" Value="0" Width="80px" Height="15px" DecimalPlaces="0" />

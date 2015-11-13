@@ -4558,4 +4558,10 @@
   <data name="VERSION_EQUIPO" xml:space="preserve">
     <value>Device version</value>
   </data>
+  <data name="ITERATIVO" xml:space="preserve">
+    <value>Itarative</value>
+  </data>
+  <data name="CONTROL_INVERSO" xml:space="preserve">
+    <value>Inverse Control</value>
+  </data>
 </root>
