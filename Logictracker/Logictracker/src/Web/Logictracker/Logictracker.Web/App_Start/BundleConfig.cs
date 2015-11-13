@@ -44,6 +44,9 @@ namespace Logictracker.Web
                             "~/Scripts/angular.js",
                             "~/Scripts/angular-route.js",
                             "~/Scripts/angular-resource.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angularjs-mocks").Include(
+                          "~/Scripts/angular-mocks.js"));
            
             // Kendo
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
