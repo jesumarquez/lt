@@ -1,7 +1,7 @@
 ﻿angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
     .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController])
-    .controller('RechazoItemController',['$scope', 'EntitiesService', RechazoItemController]);
+    .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController]);
 
 function RechazoController($scope, EntitiesService) {
 
@@ -19,33 +19,26 @@ function RechazoController($scope, EntitiesService) {
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
 
-    $scope.distritoDS = EntitiesService.distrito.items();
-    $scope.distritoDS.bind("requestEnd", onDistritoDSLoad);
-    $scope.distritoDS.bind("error", onFail);
-    $scope.estadoSelected = {};
+    $scope.distritoDS = EntitiesService.distrito.items(onDistritoDSLoad, onFail);
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
 
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados.query(null,
-        function () { $scope.estadoSelected = $scope.estadoDS[0]; },
-        $scope.onerror);
+    $scope.estadoSelected = {};
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; },
+        onFail);
 
-    $scope.baseDS = EntitiesService.distrito.bases();
-    $scope.baseDS.bind("requestEnd", onBaseDSLoad);
-    $scope.baseDS.bind("error", onFail);
+    $scope.motivoSelected = {};
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; },
+        onFail);
 
-    $scope.departamentoDS = EntitiesService.distrito.departamento();
-    $scope.departamentoDS.bind("requestEnd", onDepartamentoDSLoad);
-    $scope.departamentoDS.bind("error", onFail);
+    $scope.baseDS = EntitiesService.distrito.bases(onBaseDSLoad, onFail);
 
-    $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos();
-    $scope.centroDeCostosDS.bind("requestEnd", onCentroDeCostosDSLoad);
-    $scope.centroDeCostosDS.bind("error", onFail);
+    $scope.departamentoDS = EntitiesService.distrito.departamento(onDepartamentoDSLoad, onFail);
 
-    $scope.transportistaDS = EntitiesService.distrito.transportista();
-    $scope.transportistaDS.bind("requestEnd", ontransportistaDSLoad);
-    $scope.transportistaDS.bind("error", onFail);
+    $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad,onFail);
+    
+    $scope.transportistaDS = EntitiesService.distrito.transportista(ontransportistaDSLoad,onFail);
 
     $scope.$watch("distritoSelected", onDistritoSelected);
 
@@ -74,7 +67,7 @@ function RechazoController($scope, EntitiesService) {
 
     function onDistritoSelected(newValue, oldValue) {
         if (newValue !== oldValue) {
-            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key })
+            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key });
         }
     };
 
@@ -102,7 +95,7 @@ function RechazoController($scope, EntitiesService) {
             $scope.transportistaSelected = [];
         }
     }
-    
+
     function onBaseSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
             $scope.departamentoDS.read({
@@ -122,50 +115,84 @@ function RechazoController($scope, EntitiesService) {
             $scope.centroDeCostosDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                departamentoId: $scope.departamentoSelected.map(function (o) {return o.Key;})
-            });            
-
-        $scope.onerror = function (error) {
-            $scope.notify.show(error.statusText, "error");
-        }
-
-        $scope.rechazosDS = [];
-
-        $scope.gridOptions = {
-            columns:
-            [
-            { field: "Id", title: "Ticket" },
-            { field: "FechaHora", title: "Fecha Hora" },
-            { field: "ClienteCod", title: "Cod. Cliente" },
-            { field: "ClienteDesc", title: "Cliente" },
-            { field: "SupVenDesc", title: "Sup. Venta" },
-            { field: "SupRutDesc", title: "Sup. Ruta" },
-            { field: "UltEstado", title: "Estado" },
-            { field: "Territorio", title: "Territorio" },
-            { field: "Motivo", title: "Motivo" },
-            { field: "Bultos", title: "Bultos" },
-            ]
-        }
-
-        $scope.onNuevo = function () {
-            $scope.rechazoWin.refresh({ url: "Item?op=A" });
-            $scope.rechazoWin.center();
-            $scope.rechazoWin.open();
-        };
-
-        $scope.onEdit = function (id) {
-            $scope.rechazoWin.refresh({ url: "Item?op=E&id=" + id });
-            $scope.rechazoWin.center();
-            $scope.rechazoWin.open();
-        }
-
-        $scope.onBuscar = function () {
-
-        };
-
+                departamentoId: $scope.departamentoSelected.map(function (o) { return o.Key; })
+            });
     }
+
+    $scope.rechazosDS = [];
+
+    $scope.gridOptions = {
+        columns:
+        [
+        { field: "Id", title: "Ticket" },
+        { field: "FechaHora", title: "Fecha Hora" },
+        { field: "ClienteCod", title: "Cod. Cliente" },
+        { field: "ClienteDesc", title: "Cliente" },
+        { field: "SupVenDesc", title: "Sup. Venta" },
+        { field: "SupRutDesc", title: "Sup. Ruta" },
+        { field: "UltEstado", title: "Estado" },
+        { field: "Territorio", title: "Territorio" },
+        { field: "Motivo", title: "Motivo" },
+        { field: "Bultos", title: "Bultos" },
+        ]
+    }
+
+    $scope.onNuevo = function () {
+        $scope.operacion = "A";
+        $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
+    };
+
+    $scope.onEdit = function (id) {
+        $scope.operacion = "E";
+        $scope.rechazoWin.refresh({ url: "Item?op=E&id=" + id }).open().center();
+    }
+
+    $scope.onBuscar = function () {
+    };
+
 }
+
 function RechazoItemController($scope, EntitiesService) {
-    $scope.mensaje = "Soy en numero 4";
+
+    // A = alta , M = modification
+    //$scope.operation = "A";
+
+
+    $scope.motivoSelected = {};
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; }, $scope.onerror);
+    // El motivo es editable solo si es un alta
+    $scope.motivoRO = function () { return !isNew(); };
+
+
+    $scope.estadoSelected = {};
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onerror);
+    $scope.estadoRO = true;
+
+    $scope.distribucionCodigo = {};
+    $scope.distribucionCodigoRO = true;
+
+    $scope.entregaSelected = {};
+    $scope.entregaRO = true;
+
+    $scope.clienteSelected = {};
+    $scope.clienteRO = true;
+    $scope.clienteDS = [];
+
+    $scope.supervisorRutaSelected = {};
+    $scope.supervisorRutaRO = true;
+
+    $scope.supervisorVentasSelected = {};
+    $scope.supervisorVentas = true;
+
+    $scope.territorio = "";
+    $scope.territorioRO = true;
+
+    $scope.enHorarioSelected = {};
+    $scope.enHorarioRO = true;
+
+    $scope.movimientosDS = {};
+
+    function isNew() { return $scope.operation === "A"; }
+
 }
 

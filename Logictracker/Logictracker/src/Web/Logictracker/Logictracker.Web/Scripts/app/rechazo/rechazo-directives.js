@@ -36,7 +36,7 @@
                     'k-data-source="estadoDS" ' +
                     'k-data-text-field="\'Value\'" ' +
                     'k-data-value-field="\'Key\'" ' +
-                    'k-ng-model="estadoSelected" />' 
+                    'k-ng-model="estadoSelected" />'
     };
 })
 .directive('ltRechazoCentroDeCostos', function () {
@@ -48,7 +48,8 @@
                     'k-data-value-field="\'Key\'" ' +
                     'k-ng-model="centroDeCostosSelected" />'
     };
-}).directive('ltRechazoTransportista', function () {
+})
+.directive('ltRechazoTransportista', function () {
     return {
         restrict: 'E',
         template: '<input class="form-control" kendo-multi-select ' +
@@ -57,4 +58,16 @@
                     'k-data-value-field="\'Key\'" ' +
                     'k-ng-model="transportistaSelected" />'
     };
-});
+})
+.directive("ltRechazoMotivo", function () {
+    return {
+        restrict: "E",
+        template: "<input class=\"form-control\" kendo-drop-down-list " +
+                    "k-data-source=\"motivoDS\" " +
+                    "k-data-text-field=\"'Value'\" " +
+                    "k-data-value-field=\"'Key'\" " +
+                    "k-ng-model=\"motivoSelected\" " +
+                   "/>"
+
+    };
+})

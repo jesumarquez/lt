@@ -35,8 +35,18 @@
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI37"):
-            <lt-rechazo-centro-de-costos/>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Entities", "PARENTI37"):
+                    <lt-rechazo-centro-de-costos />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Labels", "Motivo"):
+                    <lt-rechazo-motivo/>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-2">
@@ -75,7 +85,7 @@
             </div>
         </div>
     </div>
-  
+
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
             <div kendo-grid k-options="gridOptions" k-data-source="rechazosDS"></div>
