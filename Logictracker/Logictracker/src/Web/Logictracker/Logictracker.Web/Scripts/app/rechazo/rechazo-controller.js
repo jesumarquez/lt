@@ -159,13 +159,13 @@ function RechazoItemController($scope, EntitiesService) {
 
 
     $scope.motivoSelected = {};
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; }, $scope.onerror);
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; }, $scope.onFail);
     // El motivo es editable solo si es un alta
     $scope.motivoRO = function () { return !isNew(); };
 
 
     $scope.estadoSelected = {};
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onerror);
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onFail);
     $scope.estadoRO = true;
 
     $scope.distribucionCodigo = {};
@@ -176,7 +176,7 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.clienteSelected = {};
     $scope.clienteRO = true;
-    $scope.clienteDS = [];
+    $scope.clienteDS = EntitiesService.distrito.clientes({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail); // [{codigo:"12"},{codigo:"33"}];
 
     $scope.supervisorRutaSelected = {};
     $scope.supervisorRutaRO = true;

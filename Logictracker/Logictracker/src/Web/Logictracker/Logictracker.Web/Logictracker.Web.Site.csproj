@@ -2114,6 +2114,7 @@
       <DependentUpon>Services.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\ViewExtensions.cs" />
+    <Content Include="App_Code\WebApiKendoBinder.cs" />
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2616,6 +2617,7 @@
     </Compile>
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
+    <Compile Include="Controllers\api\ClienteController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />

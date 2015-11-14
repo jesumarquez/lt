@@ -3,6 +3,10 @@
     Layout = null;
 }
 
+<script id="templateCliente" type="text/x-kendo-template">
+
+</script>
+
 <div ng-controller="RechazoItemController" class="container border-box-sizing">
     <div class="col-md-12">
         <div class="row">
@@ -13,75 +17,81 @@
                 <lt-rechazo-motivo />
             </div>
             <div class="col-md-1">
-               @Html.ResourceLabel("Labels", "Supervisor Ruta"):
+                @Html.ResourceLabel("Labels", "Supervisor Ruta"):
             </div>
             <div class="col-md-5">
-                <input class="form-control" kendo-combo-box/>
+                <input class="form-control" kendo-combo-box />
             </div>
         </div>
         <div class="spacer10"></div>
         <div class="row">
             <div class="col-md-1">
-               @Html.ResourceLabel("Labels", "Estado"):
+                @Html.ResourceLabel("Labels", "Estado"):
             </div>
             <div class="col-md-5">
                 <lt-rechazo-estado />
             </div>
             <div class="col-md-1">
-                @Html.ResourceLabel("Labels","Supervisor Ventas"):
+                @Html.ResourceLabel("Labels", "Supervisor Ventas"):
             </div>
             <div class="col-md-5">
-                <input kendo-combo-box class="form-control"/>
+                <input kendo-combo-box class="form-control" />
             </div>
         </div>
         <div class="spacer10"></div>
         <div class="row">
             <div class="col-md-1">
-                @Html.ResourceLabel("Labels","Ruta"):
+                @Html.ResourceLabel("Labels", "Ruta"):
             </div>
             <div class="col-md-5">
-                <input class="form-control" kendo-combo-box/>
+                <input class="form-control" kendo-combo-box />
             </div>
             <div class="col-md-1">
-                @Html.ResourceLabel("Labels","Territorio"):
+                @Html.ResourceLabel("Labels", "Territorio"):
             </div>
             <div class="col-md-5">
-                <input class="form-control" class="k-" type="text"/>
+                <input class="form-control" class="k-" type="text" />
             </div>
         </div>
         <div class="spacer10"></div>
         <div class="row">
             <div class="col-md-1">
-                @Html.ResourceLabel("Labels","Entrega"):
+                @Html.ResourceLabel("Labels", "Entrega"):
             </div>
             <div class="col-md-5">
-                <input class="form-control" kendo-combo-box/>
+                <input class="form-control" kendo-combo-box />
             </div>
             <div class="col-md-1">
-                @Html.ResourceLabel("Labels","En horario"):
+                @Html.ResourceLabel("Labels", "En horario"):
             </div>
             <div class="col-md-5">
-                <input class="form-control" kendo-combo-box/>
+                <input class="form-control" kendo-combo-box />
             </div>
         </div>
         <div class="spacer10"></div>
         <div class="row">
             <div class="col-md-1">
-                @Html.ResourceLabel("Labels","Código Cliente"):
+                @Html.ResourceLabel("Labels", "Código Cliente"):
             </div>
             <div class="col-md-5">
-                <input class="form-control" kendo-auto-complete/>
+                <input class="form-control"
+                       kendo-auto-complete
+                       k-ng-model="clienteSelected"
+                       k-data-source="clienteDS"
+                       k-readonly="clienteRO"
+                       k-data-text-field="'Codigo'"
+                       k-filter="'contains'" />
             </div>
             <div class="col-md-6"></div>
         </div>
         <div class="spacer10"></div>
         <div class="row">
-            <div class="col-md-1">@Html.ResourceLabel("Labels","Observaciones"):</div>
+            <div class="col-md-1">@Html.ResourceLabel("Labels", "Observaciones"):</div>
             <div class="col-md-11"></div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <input style="min-height: 5em" kendo-editor/>
+                <input style="min-height: 5em" kendo-editor />
             </div>
         </div>
 

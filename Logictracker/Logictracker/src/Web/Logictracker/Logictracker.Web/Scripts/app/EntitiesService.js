@@ -9,7 +9,8 @@ function EntitiesService($resource, $http) {
             bases: getBasesDS,
             departamento: getDepartamentosDS,
             centroDeCostos: getCentroDeCostosDS,
-            transportista: getTransportistaDS
+            transportista: getTransportistaDS,
+            clientes: getCliente
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -192,6 +193,34 @@ function EntitiesService($resource, $http) {
             ds.bind("error", onFail);
         return ds;
     };
+
+    function getCliente(data_,onEnd, onFail) {
+
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    dataType: "json",
+                    url: function(op) {
+                        return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/cliente/models";
+                    },
+                    
+                },
+                //parameterMap: function(data, operation) {
+                //    return JSON.stringify(data);
+                //}
+            },
+            schema: {
+                data: "Data"
+            },
+            serverFiltering: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+    }
 
     return _service;
 }
