@@ -62,12 +62,12 @@
 .directive("ltRechazoMotivo", function () {
     return {
         restrict: "E",
-        template: "<input class=\"form-control\" kendo-drop-down-list " +
-                    "k-data-source=\"motivoDS\" " +
-                    "k-data-text-field=\"'Value'\" " +
-                    "k-data-value-field=\"'Key'\" " +
-                    "k-ng-model=\"motivoSelected\" " +
-                   "/>"
+        template: '<input class="form-control" kendo-drop-down-list ' +
+                    'k-data-source="motivoDS" ' +
+                    'k-data-text-field="\'Value\'" ' +
+                    'k-data-value-field="\'Key\'" ' +
+                    'k-ng-model=\"motivoSelected\" ' +
+                   '/>'
 
     };
 })
