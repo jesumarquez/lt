@@ -155,7 +155,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                         {
                             var estadosDistribucion = viaje.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == estado.Id);
                             var cantidad = estadosDistribucion.Count();
-                            var tTotal = (int)estadosDistribucion.Sum(ed => ed.Fin.Value.Subtract(ed.Inicio.Value).TotalSeconds);
+                            var tTotal = (int)estadosDistribucion.Where(ed => ed.Inicio.HasValue && ed.Fin.HasValue).Sum(ed => ed.Fin.Value.Subtract(ed.Inicio.Value).TotalSeconds);
                             var tiempoTotal = new TimeSpan(0, 0, tTotal);
                             var prom = tTotal > 0 && cantidad > 0 ? tTotal / cantidad : 0;
                             var promedio = new TimeSpan(0, 0, prom);
