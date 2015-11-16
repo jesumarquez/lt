@@ -405,7 +405,6 @@ namespace Logictracker.Trax.v1
                         case DeviceCommandResponseStatus.Valid:
                             result = true;
                             Fota.Dequeue(this, lastDC.MessageId ?? null);
-                            LastSent = null;
                             break;
                         case DeviceCommandResponseStatus.Invalid:
                             result = false;
