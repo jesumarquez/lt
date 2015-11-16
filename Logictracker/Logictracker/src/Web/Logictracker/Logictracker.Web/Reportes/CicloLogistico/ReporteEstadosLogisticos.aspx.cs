@@ -14,6 +14,8 @@ using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects.Entidades;
 using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Web.Helpers.ExportHelpers;
+using Logictracker.Web.BaseClasses.Util;
 
 namespace Logictracker.Web.Reportes.CicloLogistico
 {
@@ -22,11 +24,30 @@ namespace Logictracker.Web.Reportes.CicloLogistico
         protected override string GetRefference() { return "REP_ESTADOS_LOGISTICOS"; }
         protected override string VariableName { get { return "REP_ESTADOS_LOGISTICOS"; } }
         protected override InfoLabel LblInfo { get { return null; } }
-        protected override bool CsvButton { get { return false; } }
+        protected override bool CsvButton { get { return true; } }
         protected override bool ExcelButton { get { return false; } }
         protected override bool PrintButton { get { return false; } }
         protected override bool HideSearch { get { return true; } }
-        protected override void ExportToCsv() { }
+        public GridUtils<EstadoLogistico> GridUtils { get; set; }
+        protected override void ExportToCsv() 
+        {
+            var builder = new GridToCSVBuilder(Usuario.CsvSeparator);
+
+            BtnSearchClick(null, null);
+
+            builder.GenerateHeader(CultureManager.GetMenu(VariableName), GetFilterValues());
+            builder.GenerateColumns(gridViajes);
+            builder.GenerateFields(gridViajes);
+
+            SetCsvSessionVars(builder.Build());
+
+            OpenWin(String.Concat(ApplicationPath, "Common/exportCSV.aspx"), CultureManager.GetSystemMessage("EXPORT_CSV_DATA"));
+        }
+        protected void SetCsvSessionVars(string csv)
+        {
+            Session["CSV_EXPORT"] = csv;
+            Session["CSV_FILE_NAME"] = CultureManager.GetMenu(Module.Name);
+        }
         protected override void ExportToExcel() { }
         protected override List<EstadoLogistico> GetResults() { return new List<EstadoLogistico>(); }
 
@@ -64,23 +85,32 @@ namespace Logictracker.Web.Reportes.CicloLogistico
             
             var tipoCiclo = DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCiclo.Selected);
 
-            gridViajes.Columns[0].HeaderText = CultureManager.GetEntity("PARENTI02");
-            gridViajes.Columns[1].HeaderText = CultureManager.GetLabel("FECHA");
-            gridViajes.Columns[2].HeaderText = CultureManager.GetEntity("OPETICK03");
-            gridViajes.Columns[3].HeaderText = CultureManager.GetEntity("PARENTI03");
-            gridViajes.Columns[4].HeaderText = CultureManager.GetEntity("PARENTI07");
+            gridViajes.Columns.Clear();
 
-            while (gridViajes.Columns.Count > 5)
-                gridViajes.Columns.RemoveAt(5);
+            var templateField = new C1TemplateField();
+            templateField.HeaderText = CultureManager.GetEntity("PARENTI02");
+            gridViajes.Columns.Add(templateField);
+            templateField = new C1TemplateField();
+            templateField.HeaderText = CultureManager.GetLabel("FECHA");
+            gridViajes.Columns.Add(templateField);
+            templateField = new C1TemplateField();
+            templateField.HeaderText = CultureManager.GetEntity("OPETICK03");
+            gridViajes.Columns.Add(templateField);
+            templateField = new C1TemplateField();
+            templateField.HeaderText = CultureManager.GetEntity("PARENTI03");
+            gridViajes.Columns.Add(templateField);
+            templateField = new C1TemplateField();
+            templateField.HeaderText = CultureManager.GetEntity("PARENTI07");
+            gridViajes.Columns.Add(templateField);            
 
             foreach(var estado in tipoCiclo.Estados)
             {
-                var templateField = new C1TemplateField();
-                templateField.HeaderText = CultureManager.GetLabel("INICIO") + " " + estado.Descripcion;
+                templateField = new C1TemplateField();
+                templateField.HeaderText = (estado.Iterativo ? CultureManager.GetLabel("CANTIDAD") : CultureManager.GetLabel("INICIO")) + " " + estado.Descripcion;
                 gridViajes.Columns.Add(templateField);
 
                 templateField = new C1TemplateField();
-                templateField.HeaderText = CultureManager.GetLabel("FIN") + " " + estado.Descripcion;
+                templateField.HeaderText = (estado.Iterativo ? CultureManager.GetLabel("PROMEDIO") : CultureManager.GetLabel("FIN")) + " " + estado.Descripcion;
                 gridViajes.Columns.Add(templateField);
 
                 templateField = new C1TemplateField();
@@ -104,43 +134,62 @@ namespace Logictracker.Web.Reportes.CicloLogistico
         {
             if (e.Row.RowType == C1GridViewRowType.DataRow)
             {
+                var index = 0;
                 var viaje = e.Row.DataItem as ViajeDistribucion;
                 if (viaje != null)
                 {
-                    var lbl = e.Row.FindControl("lblBase") as Label;
-                    if (lbl != null) lbl.Text = viaje.Linea.Descripcion;
+                    e.Row.Cells[index].Text = viaje.Linea.Descripcion;
+                    index++;
+                    e.Row.Cells[index].Text = viaje.Inicio.ToString("dd/MM/yyyy");
+                    index++;
+                    e.Row.Cells[index].Text = viaje.Codigo;
+                    index++;
+                    e.Row.Cells[index].Text = viaje.Vehiculo != null ? viaje.Vehiculo.Interno : string.Empty;
+                    index++;
+                    e.Row.Cells[index].Text = viaje.Vehiculo != null && viaje.Vehiculo.Transportista != null ? viaje.Vehiculo.Transportista.Descripcion : string.Empty;
+                    index++;
 
-                    lbl = e.Row.FindControl("lblFecha") as Label;
-                    if (lbl != null) lbl.Text = viaje.Inicio.ToString("dd/MM/yyyy");
-
-                    lbl = e.Row.FindControl("lblViaje") as Label;
-                    if (lbl != null) lbl.Text = viaje.Codigo;
-
-                    lbl = e.Row.FindControl("lblVehiculo") as Label;
-                    if (lbl != null) lbl.Text = viaje.Vehiculo != null ? viaje.Vehiculo.Interno : string.Empty;
-
-                    lbl = e.Row.FindControl("lblTransportista") as Label;
-                    if (lbl != null) lbl.Text = viaje.Vehiculo != null && viaje.Vehiculo.Transportista != null ? viaje.Vehiculo.Transportista.Descripcion : string.Empty;
-
-                    var index = 5;
                     foreach (var estado in viaje.TipoCicloLogistico.Estados)
                     {
-                        var estadoDistribucion = viaje.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == estado.Id).FirstOrDefault();
-                        e.Row.Cells[index].Text = estadoDistribucion != null && estadoDistribucion.Inicio.HasValue 
-                                                    ? estadoDistribucion.Inicio.Value.ToDisplayDateTime().ToString("HH:mm")
-                                                    : "-";
-                        index++;
-                        e.Row.Cells[index].Text = estadoDistribucion != null && estadoDistribucion.Fin.HasValue 
-                                                    ? estadoDistribucion.Fin.Value.ToDisplayDateTime().ToString("HH:mm")
-                                                    : "-";
-                        index++;
-                        var duracion = estadoDistribucion != null && estadoDistribucion.Inicio.HasValue && estadoDistribucion.Fin.HasValue
-                                                    ? estadoDistribucion.Fin.Value.Subtract(estadoDistribucion.Inicio.Value)
-                                                    : new TimeSpan();
-                        e.Row.Cells[index].Text = duracion.TotalSeconds > 0
-                                                    ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
-                                                    : "-";
-                        index++;
+                        if (estado.Iterativo)
+                        {
+                            var estadosDistribucion = viaje.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == estado.Id);
+                            var cantidad = estadosDistribucion.Count();
+                            var tTotal = (int)estadosDistribucion.Sum(ed => ed.Fin.Value.Subtract(ed.Inicio.Value).TotalSeconds);
+                            var tiempoTotal = new TimeSpan(0, 0, tTotal);
+                            var prom = tTotal > 0 && cantidad > 0 ? tTotal / cantidad : 0;
+                            var promedio = new TimeSpan(0, 0, prom);
+
+                            e.Row.Cells[index].Text = cantidad.ToString("#0");
+                            index++; 
+                            e.Row.Cells[index].Text = promedio.TotalSeconds > 0
+                                                        ? promedio.Hours.ToString("00") + ":" + promedio.Minutes.ToString("00") + ":" + promedio.Seconds.ToString("00")
+                                                        : "00:00:00";
+                            index++;                            
+                            e.Row.Cells[index].Text = tiempoTotal.TotalSeconds > 0
+                                                        ? tiempoTotal.Hours.ToString("00") + ":" + tiempoTotal.Minutes.ToString("00") + ":" + tiempoTotal.Seconds.ToString("00")
+                                                        : "00:00:00";
+                            index++;
+                        }
+                        else
+                        {
+                            var estadoDistribucion = viaje.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == estado.Id).FirstOrDefault();
+                            e.Row.Cells[index].Text = estadoDistribucion != null && estadoDistribucion.Inicio.HasValue
+                                                        ? estadoDistribucion.Inicio.Value.ToDisplayDateTime().ToString("HH:mm")
+                                                        : "-";
+                            index++;
+                            e.Row.Cells[index].Text = estadoDistribucion != null && estadoDistribucion.Fin.HasValue
+                                                        ? estadoDistribucion.Fin.Value.ToDisplayDateTime().ToString("HH:mm")
+                                                        : "-";
+                            index++;
+                            var duracion = estadoDistribucion != null && estadoDistribucion.Inicio.HasValue && estadoDistribucion.Fin.HasValue
+                                                        ? estadoDistribucion.Fin.Value.Subtract(estadoDistribucion.Inicio.Value)
+                                                        : new TimeSpan();
+                            e.Row.Cells[index].Text = duracion.TotalSeconds > 0
+                                                        ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
+                                                        : "-";
+                            index++;
+                        }
                     }
 
                     var min = viaje.EstadosCumplidos.Where(ec => ec.Inicio.HasValue).Min(ec => ec.Inicio);
