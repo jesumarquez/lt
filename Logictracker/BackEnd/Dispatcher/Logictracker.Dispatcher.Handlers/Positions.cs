@@ -542,6 +542,10 @@ namespace Logictracker.Dispatcher.Handlers
                                 if (enCurso != null)
                                 {
                                     var e = new GeofenceEvent(position.Date, evento.Estado.Geocerca.Id, GeofenceEvent.EventoGeofence.Salida, position.Lat, position.Lon, chofer);
+                                    
+                                    var ciclo = enCurso as CicloLogisticoDistribucion;
+                                    if (ciclo != null) ciclo.ProcessEstadoLogistico(MessageCode.OutsideGeoRefference.GetMessageCode(), position.Date, evento.Estado.Geocerca.Id);
+
                                     enCurso.ProcessEvent(e);
                                 }
                             }
@@ -582,10 +586,11 @@ namespace Logictracker.Dispatcher.Handlers
                                 if (enCurso != null)
                                 {
                                     var e = new GeofenceEvent(position.Date, evento.Estado.Geocerca.Id, GeofenceEvent.EventoGeofence.Entrada, position.Lat, position.Lon, chofer);
-                                    enCurso.ProcessEvent(e);
-
+                                    
                                     var ciclo = enCurso as CicloLogisticoDistribucion;
                                     if (ciclo != null) ciclo.ProcessEstadoLogistico(MessageCode.InsideGeoRefference.GetMessageCode(), position.Date, evento.Estado.Geocerca.Id);
+
+                                    enCurso.ProcessEvent(e);
                                 }
                             }
                             if (evento.Estado.Geocerca.EsTaller)

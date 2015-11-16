@@ -515,6 +515,18 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
             return eventos.LastOrDefault();
         }
+        public LogMensaje GetLastBySPVehicleAndCode(int vehiculo, string codigo,DateTime desde, DateTime hasta)
+        {
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetLastByVehicleAndCode] :id, :codigo, :dateFrom, :dateTo;");
+            sqlQ.AddEntity(typeof(LogMensaje));
+            sqlQ.SetInt32("id", vehiculo);
+            sqlQ.SetString("codigo", codigo);
+            sqlQ.SetDateTime("dateFrom", desde);
+            sqlQ.SetDateTime("dateTo", hasta);
+
+            var results = sqlQ.List<LogMensaje>();
+            return results.FirstOrDefault();
+        }
         public LogMensaje GetLastByVehicleAndCodes(int vehicleId, string[] codes, DateTime desde, DateTime hasta, int maxMonths)
         {
             var eventos = GetEvents(1, new[] { vehicleId }, codes, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Desc("Fecha"));
