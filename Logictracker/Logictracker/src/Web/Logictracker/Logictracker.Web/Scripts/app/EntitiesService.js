@@ -36,7 +36,6 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-
     function getBasesDS() {
         var ds = new kendo.data.DataSource({
             transport: {
@@ -77,8 +76,7 @@ function EntitiesService($resource, $http) {
 
         return ds;
     };
-
-
+    
     function getData(res, option, params) {
         res.query(params,
             function (data) {
