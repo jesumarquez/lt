@@ -560,26 +560,25 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                         if (grDC.Success)
                         {
                             result = gDC.IsValidResponse(grDC);
-                            /*
-                            if (!result)
+                            
+                            if (result == DeviceCommandResponseStatus.Invalid && !grDC.isAcknowledge)
                                 error += " + '" + response + "' WAS NOT AN EXPECTING RESPONSE";
-                             */
-                        }
+                                                    }
                         if (!String.IsNullOrEmpty(error))
                             STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GARMIN LEVEL:" + error);
                         else
                         {
-                            STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GARMIN LEVEL: + EXPECTED RESPONSE");
-                            result = DeviceCommandResponseStatus.Valid;
+              //              STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GARMIN LEVEL: + EXPECTED RESPONSE");
+                            //result = DeviceCommandResponseStatus.Valid;
                         }
                     }
                     else
                     {
-                        STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GTE LEVEL   : + EXPECTED RESPONSE");
+      //                  STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GTE LEVEL   : + EXPECTED RESPONSE");
                     }
                 }
             }
-            STrace.Debug(typeof (GTEDeviceCommand).FullName, IdNum??response.IdNum??0, String.Format("- GET GARMIN RESPONSE {0} -", result));
+         //   STrace.Debug(typeof (GTEDeviceCommand).FullName, IdNum??response.IdNum??0, String.Format("- GET GARMIN RESPONSE {0} -", result));
             return result;
         }
 
