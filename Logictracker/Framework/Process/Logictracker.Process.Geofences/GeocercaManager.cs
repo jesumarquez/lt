@@ -344,21 +344,20 @@ namespace Logictracker.Process.Geofences
             }
             else
             {
-                var entered = false;
-
                 if (Monitor.IsEntered(_qtrees))
                 {
-                    entered = true;
-                }
-                else
-                {
-                    Monitor.TryEnter(_qtrees, 10, ref entered);
+                    // ESTA TOMADO => SE ESTA REGENERANDO
+                    STrace.Trace("DispatcherLock", string.Format("qtree OLD ---> {0} | {1}", empresa, linea));
+                    return root;
                 }
                 
-                if (entered)
+                var tryEnter = false;
+                Monitor.TryEnter(_qtrees, 10, ref tryEnter);
+                if (tryEnter)
                 {
+                    // NO ESTA TOMADO => LO TOMO PARA REGENERAR
                     STrace.Trace("DispatcherLock", string.Format("qtree UPDATE ---> {0} | {1}", empresa, linea));
-                        
+
                     using (var transaction = SmartTransaction.BeginTransaction())
                     {
                         var daoFactory = new DAOFactory();
@@ -383,7 +382,7 @@ namespace Logictracker.Process.Geofences
                 }
                 else
                 {
-                    STrace.Trace("DispatcherLock", string.Format("qtree OLD ---> {0} | {1}", empresa, linea));
+                    STrace.Trace("DispatcherLock", string.Format("qtree OLD ---> {0} | {1}", empresa, linea));                    
                 }
 
                 return root;
