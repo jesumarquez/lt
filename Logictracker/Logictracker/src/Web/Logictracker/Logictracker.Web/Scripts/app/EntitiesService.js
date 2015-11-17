@@ -197,16 +197,21 @@ function EntitiesService($resource, $http) {
     function getCliente(data_,onEnd, onFail) {
 
         var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
             transport: {
                 read: {
+                    type:"GET",
                     dataType: "json",
                     url: function(op) {
                         return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/cliente/models";
                     },
                     
                 },
-                //parameterMap: function(data, operation) {
-                //    return JSON.stringify(data);
+                //parameterMap: function (options, type) {
+                //    options.prefix = "";
+
+                //    var paramMap = kendo.data.transports["aspnetmvc-ajax"].fn.options.parameterMap(options,type);
+                //    return paramMap;
                 //}
             },
             schema: {

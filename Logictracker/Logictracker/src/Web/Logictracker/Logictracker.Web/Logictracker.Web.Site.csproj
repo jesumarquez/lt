@@ -2114,7 +2114,6 @@
       <DependentUpon>Services.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\ViewExtensions.cs" />
-    <Content Include="App_Code\WebApiKendoBinder.cs" />
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
