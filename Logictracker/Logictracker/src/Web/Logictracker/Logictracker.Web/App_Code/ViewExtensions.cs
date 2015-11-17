@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Logictracker.Culture;
 using Logictracker.Security;
 
-namespace Logictracker.Web.App_Code
+namespace Logictracker.Web
 {
     public static class HtmlExtensions
     {
@@ -13,5 +13,6 @@ namespace Logictracker.Web.App_Code
             var visible = WebSecurity.IsSecuredAllowed(secureRefference);
             return !visible ? new HtmlString(String.Empty) : new HtmlString(CultureManager.GetString(resourceName, variableName).Trim(' '));
         }
+
     }
 }

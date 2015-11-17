@@ -7,7 +7,6 @@ using Logictracker.Types.BusinessObjects.Entidades;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using NHibernate;
 using NHibernate.Linq;
-
 namespace Logictracker.DAL.DAO.BaseClasses
 {
     public static partial class QueryExtensions
