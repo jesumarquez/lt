@@ -13,11 +13,11 @@ body {
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
+
+/*select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 
 /* Responsive: Portrait tablets and up */
@@ -60,3 +60,38 @@ textarea {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+
+/*
+    InputContainer
+*/
+ 
+.InputContainer{
+	display: flex;
+	justify-content: space-between;
+}
+
+	.InputGroup{
+		display: flex;
+		justify-content: space-between;
+        flex-grow:1;
+        padding:4px;
+	}
+
+        .InputGroup__label {
+	        width: 150px;
+        }
+
+        .InputGroup__control{
+            display:flex;
+            flex-grow:1;
+        }
+
+.InputGroup__control > .form-control {
+	flex-grow:1;
+}
+
+.InputContainer--50{
+    width:50%;
+}
+

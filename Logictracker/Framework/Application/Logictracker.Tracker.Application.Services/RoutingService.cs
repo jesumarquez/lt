@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Logictracker.DAL.Factories;
 using Logictracker.Routing.Client;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects;
+using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Types.BusinessObjects.Tickets;
@@ -50,10 +52,17 @@ namespace Logictracker.Tracker.Application.Services
             DaoFactory.OrderDAO.SaveOrUpdate(order);
         }
 
-        public IList<Order> GetOrders(int empresaId)
+        public IList<Order> GetOrders(int distritoId, int baseId, int[] transportistaId)
         {
-            var company = DaoFactory.EmpresaDAO.FindById(empresaId);
-            return DaoFactory.OrderDAO.FindByCustomer(company);
+            var company = DaoFactory.EmpresaDAO.FindById(distritoId);
+            var ordenes = DaoFactory.OrderDAO.FindByCustomer(company);
+
+            if (baseId > 0)
+                ordenes = ordenes.Where(o => o.Linea.Id == baseId).ToList();
+            //if(transportistaId>0)
+                //ordenes = ordenes.Where(o => o.Transportista.Id == transportistaId).ToList();
+
+            return ordenes;
         }
 
         public IList<OrderDetail> GetOrderDetails(int orderId)
@@ -104,40 +113,65 @@ namespace Logictracker.Tracker.Application.Services
             //var order = DaoFactory.OrderDAO.FindById(orderId);
         }
 
-        public void Programming(Order order, string routeCode, int idVehicle, DateTime startDateTime, int logisticsCycleType)
+        public void Programming(Order order, string routeCode, int idVehicle, DateTime startDateTime, int cycleType)
         {
             var viaje = DaoFactory.ViajeDistribucionDAO.FindByCodigo(order.Empresa.Id, -1, routeCode);
+            
+            Linea linea = null;
+            if(order.Linea.Id>1)
+                linea = DaoFactory.LineaDAO.FindById(order.Linea.Id);
+
             if (viaje == null)
             {
                 viaje = new ViajeDistribucion();
                 viaje.Empresa = DaoFactory.EmpresaDAO.FindById(order.Empresa.Id);
                 viaje.Estado = 0;
-                viaje.Tipo = 0;
-                //viaje.Linea = DaoFactory.LineaDAO.FindById(idEmpresa,);
+                viaje.Tipo = 1;
+                viaje.Linea = order.Linea;
                 //viaje.CentroDeCostos = DaoFactory.CentroDeCostosDAO.FindById();
                 viaje.Vehiculo = null;//DaoFactory.CocheDAO.FindById(idVehicle);
-                viaje.TipoCicloLogistico = DaoFactory.TipoCicloLogisticoDAO.FindById(logisticsCycleType);
+                viaje.TipoCicloLogistico = DaoFactory.TipoCicloLogisticoDAO.FindById(cycleType);
                 viaje.Empleado = null;//DaoFactory.EmpleadoDAO.FindById(idEmpleado);
                 viaje.Codigo = routeCode;
                 viaje.Inicio = startDateTime;
+                viaje.RegresoABase = true;
                 viaje.Fin = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 18, 0, 0);
+
+                var origen = new EntregaDistribucion
+                {
+                    Linea = linea,
+                    Descripcion = linea.Descripcion,
+                    Estado = EntregaDistribucion.Estados.Pendiente,
+                    Orden = viaje.Detalles.Count,
+                    Programado = startDateTime,
+                    ProgramadoHasta = startDateTime,
+                    Viaje = viaje,
+                    KmCalculado = 0
+                };
+                viaje.Detalles.Add(origen);
             }
 
             //transportista?
             var entrega = new EntregaDistribucion();
             entrega.Viaje = viaje;
             entrega.Estado = 0;
-            //entrega.Id =
+            entrega.Linea = linea;
+            entrega.Orden = viaje.Detalles.Count;
             entrega.Descripcion = order.CodigoPedido;
             entrega.PuntoEntrega = DaoFactory.PuntoEntregaDAO.FindById(order.PuntoEntrega.Id);
             entrega.Programado = startDateTime;
+
+            var tipoCiclo = DaoFactory.TipoCicloLogisticoDAO.FindByCodigo(order.Empresa.Id, "01");
+            viaje.TipoCicloLogistico = tipoCiclo;
+
             if (order.FechaEntrega!= null)
                 entrega.ProgramadoHasta = (DateTime)order.FechaEntrega;
             else
             {
-                entrega.ProgramadoHasta = DateTime.Now.AddDays(1);
+                entrega.ProgramadoHasta = new DateTime(startDateTime.Year, startDateTime.Month, startDateTime.Day, 19, 0,
+                    0);
             }
-            //entrega.FechaMin = fechaEntrega;
+
             viaje.Detalles.Add(entrega);
 
             DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
