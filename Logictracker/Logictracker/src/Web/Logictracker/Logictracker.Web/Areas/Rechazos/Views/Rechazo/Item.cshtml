@@ -7,8 +7,97 @@
 
 </script>
 
-<div ng-controller="RechazoItemController" class="container border-box-sizing">
-    <div class="col-md-12">
+<div ng-controller="RechazoItemController">
+    <div class="InputContainer">
+        
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Motivo"):</span>
+            <lt-rechazo-motivo class="InputGroup__control" />
+        </div>        
+        
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control" kendo-combo-box/>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="InputContainer">
+
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Estado"):</span>
+            <lt-rechazo-estado class="InputGroup__control" />
+        </div>
+
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control" kendo-combo-box />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="InputContainer">
+
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Ruta"):</span>
+            <div class="InputGroup__control">
+
+                <input class="form-control" kendo-combo-box />
+            </div>
+        </div>
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control input-sm" type="text" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="InputContainer">
+
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control" kendo-combo-box />
+            </div>
+        </div>
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control" kendo-combo-box />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="InputContainer--50">
+
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control"
+                       kendo-auto-complete
+                       k-ng-model="clienteSelected"
+                       k-data-source="clienteDS"
+                       k-readonly="clienteRO"
+                       k-data-text-field="'Codigo'"
+                       k-filter="'contains'" />
+            </div>
+        </div>
+    </div>
+
+
+        <div class="form-group">
+            <span>@Html.ResourceLabel("Labels", "Observaciones"):</span>
+            <textarea class="form-control" kendo-editor></textarea>
+        </div>
+
+    @*<div class="col-md-12">
         <div class="row">
             <div class="col-md-1">
                 @Html.ResourceLabel("Labels", "Motivo"):
@@ -96,5 +185,5 @@
             </div>
         </div>
 
-    </div>
+    </div>*@
 </div>
