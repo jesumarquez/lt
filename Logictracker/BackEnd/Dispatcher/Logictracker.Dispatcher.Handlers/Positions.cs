@@ -525,6 +525,24 @@ namespace Logictracker.Dispatcher.Handlers
                                     }
                                 }
                             }
+                            else 
+                            {
+                                var isInicioDistribucionPorSalidaDeGeocerca = Coche.Empresa.InicioDistribucionPorSalidaDeGeocerca;
+                                if (isInicioDistribucionPorSalidaDeGeocerca)
+                                {
+                                    var idTipoGeocerca = Coche.Empresa.InicioDistribucionIdTipoGeocerca;
+                                    if (evento.Estado.Geocerca.TipoReferenciaGeograficaId == idTipoGeocerca)
+                                    {
+                                        var distribucion = DaoFactory.ViajeDistribucionDAO.FindPendiente(new[] { Coche.Empresa.Id }, new[] { -1 }, new[] { Coche.Id }, DateTime.Today, DateTime.Today.AddDays(1));
+                                        if (distribucion != null)
+                                        {
+                                            var ev = new InitEvent(_posicion.GetDateTime());
+                                            var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
+                                            ciclo.ProcessEvent(ev);
+                                        }
+                                    }
+                                }
+                            }
 
                             MessageSaver.Save(_posicion,
                                               MessageCode.OutsideGeoRefference.GetMessageCode(),
