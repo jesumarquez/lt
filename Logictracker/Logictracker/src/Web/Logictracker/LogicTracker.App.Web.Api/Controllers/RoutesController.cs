@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Http;
+using log4net;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Positions;
+using Newtonsoft.Json;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
     public class RoutesController : BaseController
     {
         public IRouteService RouteService { get; set; }
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(RoutesController));
 
         public static string ROUTE_STATUS_PENDING = "0";
         public static string ROUTE_STATUS_ACTIVE = "1";
         public static string ROUTE_STATUS_FINALIZE = "9";
-
 
         // GET: api/Routes/
         public IHttpActionResult Get()
@@ -54,6 +56,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             }
 
             listRoute.RouteItems = items.ToArray();
+            Logger.Info(JsonConvert.SerializeObject(listRoute));
             return Ok(listRoute);
         }
 
@@ -86,38 +89,46 @@ namespace LogicTracker.App.Web.Api.Controllers
             foreach (var detail in trip.Detalles)
             {
                 var job = new Job();
-
                 job.Id = detail.Id;
-                job.Code = detail.Id.ToString();
                 job.StartDate = detail.Programado.ToString("yyyy-MM-ddTHH:mm:ss");
                 job.EndDate = detail.ProgramadoHasta.ToString("yyyy-MM-ddTHH:mm:ss");
-                job.State = detail.Estado==3 ? 0 : detail.Estado;
-                if (detail.PuntoEntrega != null && detail.PuntoEntrega.Descripcion != null) 
+                job.State = detail.Estado == 3 ? 0 : detail.Estado;
+                if (detail.PuntoEntrega != null && detail.PuntoEntrega.Descripcion != null)
+                {
+                    job.Code = detail.PuntoEntrega.Codigo;
                     job.Name = detail.PuntoEntrega.Descripcion;
+                    job.clienttype = detail.PuntoEntrega.Cliente.Descripcion;
+                }
                 else
                 {
-                    if (detail.Cliente != null) job.ClientName = detail.Cliente.Descripcion;
+                    if (detail.Cliente != null)
+                    {
+                        job.ClientName = detail.Cliente.Descripcion;
+                        job.Code = detail.Cliente.Codigo;
+                    }
                 }
                 job.Description = detail.Descripcion;
+
                 job.Order = detail.Orden;
                 job.Location = new Location();
 
                 if (detail.PuntoEntrega != null)
                 {
-                    job.Location.Latitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Latitude;
-                    job.Location.Longitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Longitude;
+                    job.Location.Latitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Latitude;
+                    job.Location.Longitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Longitude;
                 }
                 else
                 {
-                    job.Location.Latitude = (float) detail.Linea.ReferenciaGeografica.Latitude;
-                    job.Location.Longitude = (float) detail.Linea.ReferenciaGeografica.Longitude;
+                    job.Location.Latitude = (float)detail.Linea.ReferenciaGeografica.Latitude;
+                    job.Location.Longitude = (float)detail.Linea.ReferenciaGeografica.Longitude;
                 }
 
-                if (detail.PuntoEntrega!=null)
+                if (detail.PuntoEntrega != null)
                     jobs.Add(job);
             }
 
             route.Jobs = jobs.ToArray();
+            Logger.Info(JsonConvert.SerializeObject(route));
             return Ok(route);
         }
         

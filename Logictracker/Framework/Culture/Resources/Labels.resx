@@ -4759,4 +4759,10 @@
   <data name="SIN_DINERO" xml:space="preserve">
     <value>Sin dinero</value>
   </data>
+  <data name="ITERATIVO" xml:space="preserve">
+    <value>Iterativo</value>
+  </data>
+  <data name="CONTROL_INVERSO" xml:space="preserve">
+    <value>Control Inverso</value>
+  </data>
 </root>

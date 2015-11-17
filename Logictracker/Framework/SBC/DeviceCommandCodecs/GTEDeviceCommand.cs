@@ -234,20 +234,26 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                 var cond1 = validPacketIds.Any(l => l == PacketId);
                 var cond2 = validPacketIds.Any(l => l == garminCommandResponse.PacketId);
                 var result = cond1 && (cond2 || garminCommandResponse.isAcknowledge);
-                                
+
+                if (result == false)
+                    STrace.Error("GARMIN RESPONSE", IdNum, string.Format("Invalid Packet Ids - cond1: {0}, cond2: {1}, isAcknowledge: {2}", cond1, cond2, garminCommandResponse.isAcknowledge));
+                
                 if (result)
                 {
                     if (!garminCommandResponse.isAcknowledge)
                     {
                         if (PacketId == 0xA1 && garminCommandResponse.PacketId == 0xA1)
                         {
-                            result =
-                                validA1Combinations.Any(
-                                    kv => CommandId == kv.Key && garminCommandResponse.CommandId == kv.Value);
+                            result = validA1Combinations.Any(kv => CommandId == kv.Key && garminCommandResponse.CommandId == kv.Value);
+                            if (result == false) 
+                                STrace.Error("GARMIN RESPONSE", IdNum, string.Format("Invalid A1 Combinations - CommandId: {0}, garminCommandResponse.CommandId: {1}", CommandId, garminCommandResponse.CommandId));
                         }
-                    } else
+                    } 
+                    else
                     {
                         result = (MessageId == garminCommandResponse.MessageId && ((PacketId == 0xA1 && validA1NonReturn.Any(v => v == CommandId)) || PacketId == 0x06));
+                        if (result == false) 
+                            STrace.Error("GARMIN RESPONSE", IdNum, string.Format("Invalid MessageId - MessageId: {0}, garminCommandResponse.MessageId: {1}, PacketId: {2}", MessageId, garminCommandResponse.MessageId, PacketId));
                     }
                 }
 
@@ -275,7 +281,10 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                                 break;
 
                             var UId = BitConverter.ToUInt32(pArr, 2);
-                        
+
+                            if (UId != rUId) 
+                                STrace.Error("GARMIN RESPONSE", IdNum, string.Format("UId != rUId - UId: {0}, rUId: {1}", UId, rUId));
+
                             return (UId == rUId ? DeviceCommandResponseStatus.Valid : DeviceCommandResponseStatus.Invalid);
                         case FmiPacketId.CsTextMessageReceiptA604OpenServer2Client:
                             /*
@@ -484,6 +493,7 @@ namespace Logictracker.Layers.DeviceCommandCodecs
         {
             var error = "";                        
             var result = base.isExpectedResponse(response);
+            STrace.Error("GARMIN RESPONSE", IdNum ?? response.IdNum ?? 0, string.Format("MessageId: {0}, response.MessageId: {1}", MessageId, response.MessageId));
 
             if (DeviceCommandResponseStatus.Valid == result)
             {
@@ -558,7 +568,10 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                         if (!String.IsNullOrEmpty(error))
                             STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GARMIN LEVEL:" + error);
                         else
+                        {
                             STrace.Debug(typeof(GTEDeviceCommand).FullName, IdNum ?? response.IdNum ?? 0, "GARMIN LEVEL: + EXPECTED RESPONSE");
+                            result = DeviceCommandResponseStatus.Valid;
+                        }
                     }
                     else
                     {
@@ -566,6 +579,7 @@ namespace Logictracker.Layers.DeviceCommandCodecs
                     }
                 }
             }
+            STrace.Debug(typeof (GTEDeviceCommand).FullName, IdNum??response.IdNum??0, String.Format("- GET GARMIN RESPONSE {0} -", result));
             return result;
         }
 

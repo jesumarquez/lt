@@ -48,6 +48,8 @@ namespace LogicTracker.App.Web.Api.Controllers
                 return BadRequest();
 
             var dt = DateTime.ParseExact(id, "yyyyMMddTHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None);
+            if (!dt.Day.Equals(DateTime.Now.Day))
+                dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
 
             var messages = RouteService.GetMessagesMobile(GetDeviceId(Request), dt);
 

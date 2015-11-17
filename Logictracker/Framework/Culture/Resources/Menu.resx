@@ -951,7 +951,13 @@
   <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
     <value>Tipo de Ciclo Logístico</value>
   </data>
+  <data name="REP_ESTADOS_LOGISTICOS" xml:space="preserve">
+    <value>Reporte de Estados Logísticos</value>
+  </data>
   <data name="CLOG_RECHAZO" xml:space="preserve">
     <value>Rechazo</value>
+  </data>
+  <data name="ORDERS" xml:space="preserve">
+    <value>Ordenes</value>
   </data>
 </root>

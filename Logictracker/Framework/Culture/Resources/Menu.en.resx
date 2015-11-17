@@ -912,7 +912,13 @@
   <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
     <value>Logistic Cycle Type</value>
   </data>
+  <data name="REP_ESTADOS_LOGISTICOS" xml:space="preserve">
+    <value>Logistics States Report</value>
+  </data>
   <data name="CLOG_RECHAZO" xml:space="preserve">
     <value>Rejection</value>
+  </data>
+  <data name="ORDERS" xml:space="preserve">
+    <value>Orders</value>
   </data>
 </root>

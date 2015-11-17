@@ -822,6 +822,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\ParametroDistribucion.hbm.xml" />
     <Content Include="HBM\BusinessObjects\Rechazos\DetalleTicketRechazo.xml" />
     <Content Include="HBM\BusinessObjects\Rechazos\TicketRechazo.hbm.xml" />
   </ItemGroup>

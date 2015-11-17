@@ -24,6 +24,7 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.Host
                 x.DependsOnMsmq();
                 x.DependsOnEventLog();
             });
+
         }
     }
 }
