@@ -168,15 +168,17 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onFail);
     $scope.estadoRO = true;
 
-    $scope.distribucionCodigo = {};
-    $scope.distribucionCodigoRO = true;
-
+    
     $scope.entregaSelected = {};
     $scope.entregaRO = true;
 
     $scope.clienteSelected = {};
     $scope.clienteRO = true;
-    $scope.clienteDS = EntitiesService.distrito.clientes({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail); // [{codigo:"12"},{codigo:"33"}];
+    $scope.clienteDS = EntitiesService.distrito.clientes.models({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail); // [{codigo:"12"},{codigo:"33"}];
+
+    $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail);
+    $scope.distribucionSeñected = {};
+    $scope.distribucionRO = true;
 
     $scope.supervisorRutaSelected = {};
     $scope.supervisorRutaRO = true;
@@ -194,5 +196,6 @@ function RechazoItemController($scope, EntitiesService) {
 
     function isNew() { return $scope.operation === "A"; }
 
+    $scope.tDistribucion = kendo.template($("#tDistribucion").html());
 }
 

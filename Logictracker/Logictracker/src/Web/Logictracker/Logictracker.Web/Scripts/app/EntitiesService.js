@@ -10,7 +10,12 @@ function EntitiesService($resource, $http) {
             departamento: getDepartamentosDS,
             centroDeCostos: getCentroDeCostosDS,
             transportista: getTransportistaDS,
-            clientes: getCliente
+            clientes: {
+                models: getClientes
+            },
+            distribuciones : {
+                models: getDistribuciones
+            }
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -194,7 +199,7 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-    function getCliente(data_,onEnd, onFail) {
+    function getClientes(data_,onEnd, onFail) {
 
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
@@ -207,12 +212,37 @@ function EntitiesService($resource, $http) {
                     },
                     
                 },
-                //parameterMap: function (options, type) {
-                //    options.prefix = "";
+          
+            },
+            schema: {
+                data: "Data"
+            },
+            serverFiltering: true
+        });
 
-                //    var paramMap = kendo.data.transports["aspnetmvc-ajax"].fn.options.parameterMap(options,type);
-                //    return paramMap;
-                //}
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+    }
+
+
+
+    function getDistribuciones(data_, onEnd, onFail) {
+
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/distribucion/models";
+                    },
+
+                },
+
             },
             schema: {
                 data: "Data"

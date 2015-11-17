@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 {
     [Serializable]
-    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto
+    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto 
     {
         public static class Estados
         {
