@@ -56,22 +56,15 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer
         }
 
         private List<Novelty> GetNovelties(string response)
-        {
+        {          
             var alerts = response.Split('#');
             foreach (var alert in alerts)
             {
-                //20151020303780,1271#20151020303781,1532#
-                var novelty = new Novelty(alert.Split(',')[0], alert.Split(',')[1]);
+                var novelty = TranslateFrameToClass.ParseFrame(alert);
                 Novelties.Add(novelty);
             }
 
             return Novelties;
-        }
-
-        private void GetServiceByMobile(Novelty novelty)
-        {
-            var passwd = "123";
-
         }
     }
 }
