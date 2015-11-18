@@ -197,5 +197,7 @@ function RechazoItemController($scope, EntitiesService) {
     function isNew() { return $scope.operation === "A"; }
 
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
+    $scope.tCliente = kendo.template($("#tCliente").html());
+
 }
 

@@ -19,9 +19,7 @@ namespace Logictracker.Web.Controllers.api
             return filterValue != null ? EntityDao.FindByCodeLike(new[] { distritoId }, new[] { baseId }, filterValue.ToString()).ToDataSourceResult(filter, e => Mapper.EntityToModel(e, new ClienteModel())) : EntityDao.GetList(new[] { distritoId }, new[] { baseId }).ToDataSourceResult(filter, e => Mapper.EntityToModel(e, new ClienteModel()));
            
         }
-
-
-    
+        
     }
 
     public class ClienteModel
@@ -39,7 +37,7 @@ namespace Logictracker.Web.Controllers.api
             model.ClienteId = entity.Id;
             model.Codigo = entity.Codigo;
             model.DescripcionCorta = entity.DescripcionCorta;
-            model.DireccionNomenclada = entity.DireccionNomenclada;
+            model.DireccionNomenclada = entity.DireccionNomenclada??string.Empty;
             return model;
         }
 
