@@ -7,6 +7,7 @@ using Kendo.Mvc.UI;
 using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
+using System;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -28,6 +29,12 @@ namespace Logictracker.Web.Controllers.api
                 [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
             return EntityDao.FindAll().ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+        }
+
+        [Route("api/ticketrechazo/cantidadesporestado/items")]
+        public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
+        {
+            return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
         }
     }
 

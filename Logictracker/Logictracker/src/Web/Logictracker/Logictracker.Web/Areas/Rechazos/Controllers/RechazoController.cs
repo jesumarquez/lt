@@ -17,6 +17,12 @@ namespace Logictracker.Web.Areas.Rechazos.Controllers
             return View("Item");
         }
 
+        // GET: Rechazos/Rechazo/Estadisticas
+        public ActionResult Estadisticas()
+        {
+            return View();
+        }
+
         public string ReferenceName
         {
             get { return "PAR_RECHAZO"; }
