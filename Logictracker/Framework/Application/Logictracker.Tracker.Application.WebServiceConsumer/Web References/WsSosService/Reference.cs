@@ -39,9 +39,13 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
         
         private System.Threading.SendOrPostCallback informarResultadosOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ActualizarSvcOperationCompleted;
+        
         private System.Threading.SendOrPostCallback ObtenerFormularioOperationCompleted;
         
         private System.Threading.SendOrPostCallback ValidarAccesoOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback _alertasRollbackOperationCompleted;
         
         private System.Threading.SendOrPostCallback ObtenerAlertasOperationCompleted;
         
@@ -99,10 +103,16 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
         public event informarResultadosCompletedEventHandler informarResultadosCompleted;
         
         /// <remarks/>
+        public event ActualizarSvcCompletedEventHandler ActualizarSvcCompleted;
+        
+        /// <remarks/>
         public event ObtenerFormularioCompletedEventHandler ObtenerFormularioCompleted;
         
         /// <remarks/>
         public event ValidarAccesoCompletedEventHandler ValidarAccesoCompleted;
+        
+        /// <remarks/>
+        public event _alertasRollbackCompletedEventHandler _alertasRollbackCompleted;
         
         /// <remarks/>
         public event ObtenerAlertasCompletedEventHandler ObtenerAlertasCompleted;
@@ -259,6 +269,41 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ws_derivacion_ivr.redsos.com.ar/ActualizarSvc", RequestNamespace="http://ws_derivacion_ivr.redsos.com.ar/", ResponseNamespace="http://ws_derivacion_ivr.redsos.com.ar/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int ActualizarSvc(string _idMovil, string _servicio, int _estadoSvc, string _dato) {
+            object[] results = this.Invoke("ActualizarSvc", new object[] {
+                        _idMovil,
+                        _servicio,
+                        _estadoSvc,
+                        _dato});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ActualizarSvcAsync(string _idMovil, string _servicio, int _estadoSvc, string _dato) {
+            this.ActualizarSvcAsync(_idMovil, _servicio, _estadoSvc, _dato, null);
+        }
+        
+        /// <remarks/>
+        public void ActualizarSvcAsync(string _idMovil, string _servicio, int _estadoSvc, string _dato, object userState) {
+            if ((this.ActualizarSvcOperationCompleted == null)) {
+                this.ActualizarSvcOperationCompleted = new System.Threading.SendOrPostCallback(this.OnActualizarSvcOperationCompleted);
+            }
+            this.InvokeAsync("ActualizarSvc", new object[] {
+                        _idMovil,
+                        _servicio,
+                        _estadoSvc,
+                        _dato}, this.ActualizarSvcOperationCompleted, userState);
+        }
+        
+        private void OnActualizarSvcOperationCompleted(object arg) {
+            if ((this.ActualizarSvcCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ActualizarSvcCompleted(this, new ActualizarSvcCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ws_derivacion_ivr.redsos.com.ar/ObtenerFormulario", RequestNamespace="http://ws_derivacion_ivr.redsos.com.ar/", ResponseNamespace="http://ws_derivacion_ivr.redsos.com.ar/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string ObtenerFormulario(string _idMovil, string _pass) {
             object[] results = this.Invoke("ObtenerFormulario", new object[] {
@@ -317,6 +362,35 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
             if ((this.ValidarAccesoCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.ValidarAccesoCompleted(this, new ValidarAccesoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ws_derivacion_ivr.redsos.com.ar/_alertasRollback", RequestNamespace="http://ws_derivacion_ivr.redsos.com.ar/", ResponseNamespace="http://ws_derivacion_ivr.redsos.com.ar/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string _alertasRollback(string nroSvc) {
+            object[] results = this.Invoke("_alertasRollback", new object[] {
+                        nroSvc});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void _alertasRollbackAsync(string nroSvc) {
+            this._alertasRollbackAsync(nroSvc, null);
+        }
+        
+        /// <remarks/>
+        public void _alertasRollbackAsync(string nroSvc, object userState) {
+            if ((this._alertasRollbackOperationCompleted == null)) {
+                this._alertasRollbackOperationCompleted = new System.Threading.SendOrPostCallback(this.On_alertasRollbackOperationCompleted);
+            }
+            this.InvokeAsync("_alertasRollback", new object[] {
+                        nroSvc}, this._alertasRollbackOperationCompleted, userState);
+        }
+        
+        private void On_alertasRollbackOperationCompleted(object arg) {
+            if ((this._alertasRollbackCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this._alertasRollbackCompleted(this, new _alertasRollbackCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -498,6 +572,32 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
+    public delegate void ActualizarSvcCompletedEventHandler(object sender, ActualizarSvcCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ActualizarSvcCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ActualizarSvcCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
     public delegate void ObtenerFormularioCompletedEventHandler(object sender, ObtenerFormularioCompletedEventArgs e);
     
     /// <remarks/>
@@ -544,6 +644,32 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.WsSosService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
+    public delegate void _alertasRollbackCompletedEventHandler(object sender, _alertasRollbackCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class _alertasRollbackCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal _alertasRollbackCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
             }
         }
     }

@@ -63,6 +63,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ActualizarSvc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_idMovil" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="_servicio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="_estadoSvc" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="_dato" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ActualizarSvcResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ActualizarSvcResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ObtenerFormulario">
         <s:complexType>
           <s:sequence>
@@ -90,6 +107,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="ValidarAccesoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="_alertasRollback">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nroSvc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="_alertasRollbackResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_alertasRollbackResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -137,6 +168,12 @@
   <wsdl:message name="informarResultadosSoapOut">
     <wsdl:part name="parameters" element="tns:informarResultadosResponse" />
   </wsdl:message>
+  <wsdl:message name="ActualizarSvcSoapIn">
+    <wsdl:part name="parameters" element="tns:ActualizarSvc" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarSvcSoapOut">
+    <wsdl:part name="parameters" element="tns:ActualizarSvcResponse" />
+  </wsdl:message>
   <wsdl:message name="ObtenerFormularioSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerFormulario" />
   </wsdl:message>
@@ -148,6 +185,12 @@
   </wsdl:message>
   <wsdl:message name="ValidarAccesoSoapOut">
     <wsdl:part name="parameters" element="tns:ValidarAccesoResponse" />
+  </wsdl:message>
+  <wsdl:message name="_alertasRollbackSoapIn">
+    <wsdl:part name="parameters" element="tns:_alertasRollback" />
+  </wsdl:message>
+  <wsdl:message name="_alertasRollbackSoapOut">
+    <wsdl:part name="parameters" element="tns:_alertasRollbackResponse" />
   </wsdl:message>
   <wsdl:message name="ObtenerAlertasSoapIn">
     <wsdl:part name="parameters" element="tns:ObtenerAlertas" />
@@ -184,6 +227,15 @@
   <wsdl:message name="informarResultadosHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
+  <wsdl:message name="ActualizarSvcHttpGetIn">
+    <wsdl:part name="_idMovil" type="s:string" />
+    <wsdl:part name="_servicio" type="s:string" />
+    <wsdl:part name="_estadoSvc" type="s:string" />
+    <wsdl:part name="_dato" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarSvcHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
   <wsdl:message name="ObtenerFormularioHttpGetIn">
     <wsdl:part name="_idMovil" type="s:string" />
     <wsdl:part name="_pass" type="s:string" />
@@ -197,6 +249,12 @@
   </wsdl:message>
   <wsdl:message name="ValidarAccesoHttpGetOut">
     <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="_alertasRollbackHttpGetIn">
+    <wsdl:part name="nroSvc" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="_alertasRollbackHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="ObtenerAlertasHttpGetIn" />
   <wsdl:message name="ObtenerAlertasHttpGetOut">
@@ -231,6 +289,15 @@
   <wsdl:message name="informarResultadosHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
+  <wsdl:message name="ActualizarSvcHttpPostIn">
+    <wsdl:part name="_idMovil" type="s:string" />
+    <wsdl:part name="_servicio" type="s:string" />
+    <wsdl:part name="_estadoSvc" type="s:string" />
+    <wsdl:part name="_dato" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarSvcHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
   <wsdl:message name="ObtenerFormularioHttpPostIn">
     <wsdl:part name="_idMovil" type="s:string" />
     <wsdl:part name="_pass" type="s:string" />
@@ -244,6 +311,12 @@
   </wsdl:message>
   <wsdl:message name="ValidarAccesoHttpPostOut">
     <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="_alertasRollbackHttpPostIn">
+    <wsdl:part name="nroSvc" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="_alertasRollbackHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="ObtenerAlertasHttpPostIn" />
   <wsdl:message name="ObtenerAlertasHttpPostOut">
@@ -270,6 +343,10 @@
       <wsdl:input message="tns:informarResultadosSoapIn" />
       <wsdl:output message="tns:informarResultadosSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSvc">
+      <wsdl:input message="tns:ActualizarSvcSoapIn" />
+      <wsdl:output message="tns:ActualizarSvcSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <wsdl:input message="tns:ObtenerFormularioSoapIn" />
       <wsdl:output message="tns:ObtenerFormularioSoapOut" />
@@ -277,6 +354,10 @@
     <wsdl:operation name="ValidarAcceso">
       <wsdl:input message="tns:ValidarAccesoSoapIn" />
       <wsdl:output message="tns:ValidarAccesoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="_alertasRollback">
+      <wsdl:input message="tns:_alertasRollbackSoapIn" />
+      <wsdl:output message="tns:_alertasRollbackSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerAlertas">
       <wsdl:input message="tns:ObtenerAlertasSoapIn" />
@@ -304,6 +385,10 @@
       <wsdl:input message="tns:informarResultadosHttpGetIn" />
       <wsdl:output message="tns:informarResultadosHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSvc">
+      <wsdl:input message="tns:ActualizarSvcHttpGetIn" />
+      <wsdl:output message="tns:ActualizarSvcHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <wsdl:input message="tns:ObtenerFormularioHttpGetIn" />
       <wsdl:output message="tns:ObtenerFormularioHttpGetOut" />
@@ -311,6 +396,10 @@
     <wsdl:operation name="ValidarAcceso">
       <wsdl:input message="tns:ValidarAccesoHttpGetIn" />
       <wsdl:output message="tns:ValidarAccesoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="_alertasRollback">
+      <wsdl:input message="tns:_alertasRollbackHttpGetIn" />
+      <wsdl:output message="tns:_alertasRollbackHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerAlertas">
       <wsdl:input message="tns:ObtenerAlertasHttpGetIn" />
@@ -338,6 +427,10 @@
       <wsdl:input message="tns:informarResultadosHttpPostIn" />
       <wsdl:output message="tns:informarResultadosHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSvc">
+      <wsdl:input message="tns:ActualizarSvcHttpPostIn" />
+      <wsdl:output message="tns:ActualizarSvcHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <wsdl:input message="tns:ObtenerFormularioHttpPostIn" />
       <wsdl:output message="tns:ObtenerFormularioHttpPostOut" />
@@ -345,6 +438,10 @@
     <wsdl:operation name="ValidarAcceso">
       <wsdl:input message="tns:ValidarAccesoHttpPostIn" />
       <wsdl:output message="tns:ValidarAccesoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="_alertasRollback">
+      <wsdl:input message="tns:_alertasRollbackHttpPostIn" />
+      <wsdl:output message="tns:_alertasRollbackHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerAlertas">
       <wsdl:input message="tns:ObtenerAlertasHttpPostIn" />
@@ -398,6 +495,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSvc">
+      <soap:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/ActualizarSvc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <soap:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/ObtenerFormulario" style="document" />
       <wsdl:input>
@@ -409,6 +515,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarAcceso">
       <soap:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/ValidarAcceso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_alertasRollback">
+      <soap:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/_alertasRollback" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -473,6 +588,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSvc">
+      <soap12:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/ActualizarSvc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <soap12:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/ObtenerFormulario" style="document" />
       <wsdl:input>
@@ -484,6 +608,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarAcceso">
       <soap12:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/ValidarAcceso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_alertasRollback">
+      <soap12:operation soapAction="http://ws_derivacion_ivr.redsos.com.ar/_alertasRollback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -548,6 +681,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSvc">
+      <http:operation location="/ActualizarSvc" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <http:operation location="/ObtenerFormulario" />
       <wsdl:input>
@@ -559,6 +701,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarAcceso">
       <http:operation location="/ValidarAcceso" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_alertasRollback">
+      <http:operation location="/_alertasRollback" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -623,6 +774,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarSvc">
+      <http:operation location="/ActualizarSvc" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerFormulario">
       <http:operation location="/ObtenerFormulario" />
       <wsdl:input>
@@ -634,6 +794,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarAcceso">
       <http:operation location="/ValidarAcceso" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_alertasRollback">
+      <http:operation location="/_alertasRollback" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
