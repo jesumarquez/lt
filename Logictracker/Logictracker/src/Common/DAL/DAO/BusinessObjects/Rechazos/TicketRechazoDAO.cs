@@ -21,5 +21,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
                 .Cast<TicketRechazo.Estado>()
                 .Select(k => new KeyValuePair<TicketRechazo.Estado, string>(k, TicketRechazo.GetEstadoLabelVariableName(k)));
         }
+
+        public IEnumerable<TicketRechazo> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
+        {
+            return Query.ToList();
+        }
     }
 }
