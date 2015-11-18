@@ -16,7 +16,7 @@ namespace Logictracker.Web.Filters
             var module = WebSecurity.GetUserModuleByRef(funcController.ReferenceName.ToUpper());
 
             if (module == null)
-            {}//filterContext.Result = new RedirectResult("~/SinAcceso.aspx");
+                filterContext.Result = new RedirectResult("~/SinAcceso.aspx");
             else
                 controller.Module = module;
         }
