@@ -16,6 +16,7 @@ using Logictracker.Types.BusinessObjects.Entidades;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Web.Helpers.ExportHelpers;
 using Logictracker.Web.BaseClasses.Util;
+using System.Drawing;
 
 namespace Logictracker.Web.Reportes.CicloLogistico
 {
@@ -141,6 +142,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                     e.Row.Cells[index].Text = viaje.Linea.Descripcion;
                     index++;
                     e.Row.Cells[index].Text = viaje.Inicio.ToString("dd/MM/yyyy");
+                    e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                     index++;
                     e.Row.Cells[index].Text = viaje.Codigo;
                     index++;
@@ -161,14 +163,21 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                             var promedio = new TimeSpan(0, 0, prom);
 
                             e.Row.Cells[index].Text = cantidad.ToString("#0");
+                            e.Row.Cells[index].BackColor = Color.Orange;
+                            e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                             index++; 
                             e.Row.Cells[index].Text = promedio.TotalSeconds > 0
                                                         ? promedio.Hours.ToString("00") + ":" + promedio.Minutes.ToString("00") + ":" + promedio.Seconds.ToString("00")
                                                         : "00:00:00";
+                            e.Row.Cells[index].BackColor = Color.Orange;
+                            e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                             index++;                            
                             e.Row.Cells[index].Text = tiempoTotal.TotalSeconds > 0
                                                         ? tiempoTotal.Hours.ToString("00") + ":" + tiempoTotal.Minutes.ToString("00") + ":" + tiempoTotal.Seconds.ToString("00")
                                                         : "00:00:00";
+                            e.Row.Cells[index].BackColor = Color.Green;
+                            e.Row.Cells[index].ForeColor = Color.White;
+                            e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                             index++;
                         }
                         else
@@ -177,10 +186,12 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                             e.Row.Cells[index].Text = estadoDistribucion != null && estadoDistribucion.Inicio.HasValue
                                                         ? estadoDistribucion.Inicio.Value.ToDisplayDateTime().ToString("HH:mm")
                                                         : "-";
+                            e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                             index++;
                             e.Row.Cells[index].Text = estadoDistribucion != null && estadoDistribucion.Fin.HasValue
                                                         ? estadoDistribucion.Fin.Value.ToDisplayDateTime().ToString("HH:mm")
                                                         : "-";
+                            e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                             index++;
                             var duracion = estadoDistribucion != null && estadoDistribucion.Inicio.HasValue && estadoDistribucion.Fin.HasValue
                                                         ? estadoDistribucion.Fin.Value.Subtract(estadoDistribucion.Inicio.Value)
@@ -188,6 +199,9 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                             e.Row.Cells[index].Text = duracion.TotalSeconds > 0
                                                         ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
                                                         : "-";
+                            e.Row.Cells[index].BackColor = Color.Green;
+                            e.Row.Cells[index].ForeColor = Color.White;
+                            e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                             index++;
                         }
                     }
@@ -200,6 +214,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                     e.Row.Cells[index].Text = total.TotalSeconds > 0
                                                 ? total.Hours.ToString("00") + ":" + total.Minutes.ToString("00") + ":" + total.Seconds.ToString("00")
                                                 : "-";
+                    e.Row.Cells[index].HorizontalAlign = HorizontalAlign.Center;
                     index++;
                     e.Row.Cells[index].Text = CultureManager.GetLabel(ViajeDistribucion.Estados.GetLabelVariableName(viaje.Estado));
                 }
