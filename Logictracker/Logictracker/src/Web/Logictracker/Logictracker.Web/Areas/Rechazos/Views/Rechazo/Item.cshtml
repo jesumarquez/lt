@@ -12,9 +12,19 @@
         # } else { #
         <span style="font-size:xx-small;color:red;"> sin vehículo</span>
         # } #
-        <span style="font-size:xx-small"> inicia : #= kendo.toString(new Date(data.Inicio),"G") #</span>
+        <span style="font-size:xx-small"> Inicia : #= kendo.toString(new Date(data.Inicio),"G") #</span>
     </div>
 </script>
+
+<script id="tCliente" type="text/x-kendo-template">
+    <div>
+        <span>#= data.Codigo #</span>
+        <br />
+        <span style="font-size:xx-small;"> #= data.DescripcionCorta #</span>
+        <span style="font-size:xx-small">#= data.DireccionNomenclada #</span>
+    </div>
+</script>
+
 
 <div ng-controller="RechazoItemController">
     <div class="InputContainer">
@@ -104,7 +114,8 @@
                        k-readonly="clienteRO"
                        k-data-text-field="'Codigo'"
                        k-filter="'contains'"
-                       k-min-length="3" />
+                       k-min-length="3"
+                       k-template="tCliente"/>
             </div>
         </div>
     </div>
