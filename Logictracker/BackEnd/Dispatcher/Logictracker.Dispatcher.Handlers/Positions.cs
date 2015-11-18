@@ -500,8 +500,7 @@ namespace Logictracker.Dispatcher.Handlers
                     switch (evento.Evento) 
                     {
                         case GeocercaEventState.Sale:
-                            var isInicioDistribucionPorSalidaDeBase = Coche.Empresa.InicioDistribucionPorSalidaDeBase;
-                            
+                            var isInicioDistribucionPorSalidaDeBase = Coche.Empresa.InicioDistribucionPorSalidaDeBase;                            
                             if (isInicioDistribucionPorSalidaDeBase)
                             {
                                 if (DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche) == null)
