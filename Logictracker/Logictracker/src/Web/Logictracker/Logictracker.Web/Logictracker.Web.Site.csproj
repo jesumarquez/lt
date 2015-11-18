@@ -1713,6 +1713,10 @@
     <Content Include="Content\font-awesome\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\Rechazos\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\Item.cshtml" />
+    <Content Include="Areas\Ordenes\Views\web.config" />
+    <Content Include="Areas\Ordenes\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1720,9 +1724,13 @@
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\app\EntitiesService.js" />
+    <Content Include="Scripts\app\ordenes\ordenes-controller.js" />
+    <Content Include="Scripts\app\ordenes\ordenes-directives.js" />
+    <Content Include="Scripts\app\ordenes\ordenes-service.js" />
     <Content Include="Scripts\app\orders\orders-controller.js" />
     <Content Include="Scripts\app\orders\orders-service.js" />
     <Content Include="Scripts\app\rechazo\rechazo-controller.js" />
+    <Content Include="Scripts\app\rechazo\rechazo-directives.js" />
     <Content Include="Scripts\app\rechazo\rechazo-service.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2120,6 +2128,7 @@
       <DependentUpon>Services.aspx</DependentUpon>
     </Compile>
     <Content Include="App_Code\ViewExtensions.cs" />
+    <Content Include="App_Code\WebApiKendoBinder.cs" />
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2331,6 +2340,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Ordenes\Controllers\ProgramarController.cs" />
+    <Compile Include="Areas\Ordenes\OrdenesAreaRegistration.cs" />
     <Compile Include="Areas\Rechazos\Controllers\RechazoController.cs" />
     <Compile Include="Areas\Rechazos\RechazosAreaRegistration.cs" />
     <Compile Include="CicloLogistico\AgendaAlta.aspx.cs">
@@ -2651,6 +2662,9 @@
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
     <Compile Include="Controllers\api\OrdersController.cs" />
+    <Compile Include="Controllers\api\ClienteController.cs" />
+    <Compile Include="Controllers\api\TicketRechazoController.cs" />
+    <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Models\CentroDeCostosModel.cs" />
@@ -5004,6 +5018,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Ordenes\Models\" />
     <Folder Include="Areas\Rechazos\Models\" />
     <Folder Include="Areas\Rechazos\Views\Shared\" />
   </ItemGroup>

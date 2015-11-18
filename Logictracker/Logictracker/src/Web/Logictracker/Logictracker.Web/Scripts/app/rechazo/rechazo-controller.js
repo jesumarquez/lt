@@ -1,9 +1,7 @@
 ﻿angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
     .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController])
-    .controller('RechazoItemController',['$scope', 'EntitiesService', RechazoItemController]);
-
-
+    .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController]);
 
 function RechazoController($scope, EntitiesService) {
 
@@ -21,79 +19,107 @@ function RechazoController($scope, EntitiesService) {
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
 
-    $scope.estadoSelected = {};
+    $scope.distritoDS = EntitiesService.distrito.items(onDistritoDSLoad, onFail);
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
 
+    $scope.estadoSelected = {};
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; },
+        onFail);
 
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados.query(null,
-        function () { $scope.estadoSelected = $scope.estadoDS[0]; },
-        $scope.onerror);
+    $scope.motivoSelected = {};
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; },
+        onFail);
 
-    $scope.distritoDS = EntitiesService.distrito.items.query({}, function () {
-        $scope.distritoSelected = $scope.distritoDS[0];
-    }, $scope.onerror);
+    $scope.baseDS = EntitiesService.distrito.bases(onBaseDSLoad, onFail);
 
+    $scope.departamentoDS = EntitiesService.distrito.departamento(onDepartamentoDSLoad, onFail);
 
-    $scope.$watch("distritoSelected", function (newValue, oldValue) {
-        if (newValue !== oldValue)
-            $scope.baseDS = EntitiesService.distrito.bases.query(
-         { distritoId: $scope.distritoSelected.Key }
-         , function () {
-             $scope.baseSelected = $scope.baseDS[0];
-         }, $scope.onerror);
-    });
+    $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad,onFail);
+    
+    $scope.transportistaDS = EntitiesService.distrito.transportista(ontransportistaDSLoad,onFail);
 
-    $scope.$watch("basesDS", function (newValue, oldValue) {
+    $scope.$watch("distritoSelected", onDistritoSelected);
+
+    $scope.$watch("basesDS", onBasesDSChange);
+
+    $scope.$watch("baseSelected", onBaseSelected);
+
+    $scope.$watchGroup(["departamentoSelected", "baseSelected"],
+        onDepartamentoAndBaseChange);
+
+    function onDistritoDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.distritoSelected = e.response[0];
+        }
+    };
+
+    function onBaseDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.baseSelected = e.response[0];
+        }
+    }
+
+    function onFail(error) {
+        $scope.notify.show(error.errorThrown, "error");
+    };
+
+    function onDistritoSelected(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key });
+        }
+    };
+
+    function onBasesDSChange(newValue, oldValue) {
         if (newValue !== oldValue) {
             $scope.departamentoSelected = [];
             $scope.centroDeCostosSelected = [];
         }
-    });
+    };
 
-    $scope.$watch("baseSelected", function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.departamentoDS = EntitiesService.distrito.departamento.query(
-                {
-                    distritoId: $scope.distritoSelected.Key,
-                    baseId: $scope.baseSelected.Key
-                }, function () {
-                    $scope.departamentoSelected = [];
-
-                }, $scope.onerror
-            );
-            $scope.transportistaDS = EntitiesService.distrito.transportista.query(
-                {
-                    distritoId: $scope.distritoSelected.Key,
-                    baseId: $scope.baseSelected.Key
-                }, function () {
-                    $scope.transportistaSelected = [];
-
-                }, $scope.onerror
-            );
+    function onDepartamentoDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.departamentoSelected = [];
         }
-    });
-
-    $scope.$watchGroup(["departamentoSelected", "baseSelected"], function (newValue, oldValue) {
-        if (newValue !== oldValue)
-            $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos.query(
-            {
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                deptoId: $scope.departamentoSelected.map(function (o) {
-                    return o.Key;
-                })
-            }, function () {
-                $scope.centroDeCostosSelected = [];
-            }, $scope.onerror);
-    });
-
-    $scope.onerror = function (error) {
-        $scope.notify.show(error.statusText, "error");
     }
 
-    $scope.rechazosDS = []; 
+    function onCentroDeCostosDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.centroDeCostosSelected = [];
+        }
+    }
+
+    function ontransportistaDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.transportistaSelected = [];
+        }
+    }
+
+    function onBaseSelected(newValue, oldValue) {
+        if (newValue != null && newValue !== oldValue) {
+            $scope.departamentoDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key
+            });
+
+            $scope.transportistaDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key
+            });
+        }
+    };
+
+    function onDepartamentoAndBaseChange(newValue, oldValue) {
+        if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
+            $scope.centroDeCostosDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key,
+                departamentoId: $scope.departamentoSelected.map(function (o) { return o.Key; })
+            });
+    }
+
+    $scope.rechazosDS = [];
 
     $scope.gridOptions = {
         columns:
@@ -112,23 +138,61 @@ function RechazoController($scope, EntitiesService) {
     }
 
     $scope.onNuevo = function () {
-        $scope.rechazoWin.refresh({ url: "Item?op=A" });
-        $scope.rechazoWin.center();
-        $scope.rechazoWin.open();
+        $scope.operacion = "A";
+        $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
     };
 
-    $scope.onEdit = function(id) {
-        $scope.rechazoWin.refresh({ url: "Item?op=E&id=" + id });   
-        $scope.rechazoWin.center();
-        $scope.rechazoWin.open();
+    $scope.onEdit = function (id) {
+        $scope.operacion = "E";
+        $scope.rechazoWin.refresh({ url: "Item?op=E&id=" + id }).open().center();
     }
 
-    $scope.onBuscar = function() {
-
+    $scope.onBuscar = function () {
     };
 
 }
 
 function RechazoItemController($scope, EntitiesService) {
-    $scope.mensaje = "Soy en numero 4";
+
+    // A = alta , M = modification
+    //$scope.operation = "A";
+
+
+    $scope.motivoSelected = {};
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; }, $scope.onFail);
+    // El motivo es editable solo si es un alta
+    $scope.motivoRO = function () { return !isNew(); };
+
+
+    $scope.estadoSelected = {};
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onFail);
+    $scope.estadoRO = true;
+
+    $scope.distribucionCodigo = {};
+    $scope.distribucionCodigoRO = true;
+
+    $scope.entregaSelected = {};
+    $scope.entregaRO = true;
+
+    $scope.clienteSelected = {};
+    $scope.clienteRO = true;
+    $scope.clienteDS = EntitiesService.distrito.clientes({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail); // [{codigo:"12"},{codigo:"33"}];
+
+    $scope.supervisorRutaSelected = {};
+    $scope.supervisorRutaRO = true;
+
+    $scope.supervisorVentasSelected = {};
+    $scope.supervisorVentas = true;
+
+    $scope.territorio = "";
+    $scope.territorioRO = true;
+
+    $scope.enHorarioSelected = {};
+    $scope.enHorarioRO = true;
+
+    $scope.movimientosDS = {};
+
+    function isNew() { return $scope.operation === "A"; }
+
 }
+

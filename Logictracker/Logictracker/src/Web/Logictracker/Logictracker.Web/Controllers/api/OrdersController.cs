@@ -12,17 +12,17 @@ namespace Logictracker.Web.Controllers.api
     public class OrdersController : ApiController
     {
         IRoutingService RoutingService { get; set; }
-        public int IdEmpresa = 91;
-
+        
         public OrdersController()
         {
             RoutingService = new RoutingService();
         }
 
-         //GET: api/Orders
-        public IHttpActionResult Get()
+        //GET: api/distrito/91/Orders/base/321/ordenes
+         [Route("api/distrito/{distritoId}/base/{baseId}/ordenes")]
+        public IHttpActionResult Get(int distritoId, int baseId, [FromUri] int[] transportistaId)
         {
-            var orders = RoutingService.GetOrders(IdEmpresa);
+            var orders = RoutingService.GetOrders(distritoId, baseId, transportistaId);
 
             var orderList = new List<OrderModel>();
             foreach (var order in orders)
@@ -33,6 +33,8 @@ namespace Logictracker.Web.Controllers.api
                 if (order.Empleado != null) orderModel.IdEmpleado = order.Empleado.Entidad.Id;
                 if (order.Empresa != null) orderModel.Empresa = order.Empresa.RazonSocial;
                 if (order.Empresa != null) orderModel.IdEmpresa = order.Empresa.Id;
+                
+                orderModel.BaseId = order.Linea.Id;
                 orderModel.FechaAlta = order.FechaAlta;
                 if (order.FechaEntrega != null)
                     orderModel.FechaEntrega = order.FechaEntrega.Value;
@@ -53,17 +55,18 @@ namespace Logictracker.Web.Controllers.api
             return Ok(orderList);
         }
 
-        // GET: api/Orders/5
-        public IHttpActionResult Get(int id)
+        //GET: api/Ordenes/91/Orders/1
+        [Route("api/distrito/{distritoId}/base/{baseId}/ordenes/{id}")]
+        public IHttpActionResult Get(int distritoId, int baseId, int transportistaId, int orderId)
         {
-            var orderDetails = RoutingService.GetOrderDetails(id);
+            var orderDetails = RoutingService.GetOrderDetails(orderId);
 
             var orderDetailList = new List<OrderDetailModel>();
             foreach (var orderDetail in orderDetails)
             {
                 var orderDetailModel = new OrderDetailModel();
                 orderDetailModel.Id = orderDetail.Id;
-                orderDetailModel.OrderId = id;
+                orderDetailModel.OrderId = orderId;
                 if (orderDetail.Insumo != null) orderDetailModel.Insumo= orderDetail.Insumo.Descripcion;
                 orderDetailModel.PrecioUnitario = orderDetail.PrecioUnitario;
                 orderDetailModel.Cantidad = orderDetail.Cantidad;
@@ -74,8 +77,10 @@ namespace Logictracker.Web.Controllers.api
             return Ok(orderDetailList);
         }
 
-        // POST: api/Orders
-        public IHttpActionResult Post([FromBody] OrderSelectionModel orderSelectionModel)
+        // POST: api/Orders/91/Orders
+        [Route("api/distrito/{distritoId}/ordenes")]
+        [HttpPost]
+        public IHttpActionResult Post(int customerId, [FromBody] OrderSelectionModel orderSelectionModel)
         {
             foreach (var orderModel in orderSelectionModel.OrderList)
             {
@@ -85,6 +90,7 @@ namespace Logictracker.Web.Controllers.api
                 order.CodigoPedido = orderModel.CodigoPedido;
                 order.Empleado = new Empleado {Id = orderModel.IdEmpleado};
                 order.Empresa = new Empresa {Id = orderModel.IdEmpresa};
+                order.Linea = new Linea {Id = orderModel.BaseId};
                 order.FechaAlta = orderModel.FechaAlta;
                 order.FechaEntrega = orderModel.FechaEntrega;
                 order.FechaPedido = orderModel.FechaPedido;
@@ -95,7 +101,7 @@ namespace Logictracker.Web.Controllers.api
                 order.Transportista = new Transportista {Id = orderModel.IdTransportista};
                     
                 RoutingService.Programming(order,orderSelectionModel.RouteCode,orderSelectionModel.IdVehicle,
-                    orderSelectionModel.StartDateTime,orderSelectionModel.LogisticsCycleType);
+                    orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType);
             }
             
             return Ok();

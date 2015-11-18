@@ -12,6 +12,7 @@ namespace Logictracker.Web.Models
         public int Id { get; set; }
         public string Empresa { get; set; }
         public int IdEmpresa { get; set; }
+        public int BaseId { get; set; }
         public string Empleado { get; set; }
         public int IdEmpleado { get; set; }
         public string Transportista { get; set; }
