@@ -10,6 +10,10 @@ function EntitiesService($resource) {
             departamento: $resource("/api/distrito/:distritoId/base/:baseId/departamento/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId" , deptoId:"@deptoId"}),
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+        },
+        ticketrechazo: {
+            estados: $resource("/api/ticketrechazo/estado/items"),
+            motivos: $resource("/api/ticketrechazo/motivo/items")
         }
     }
 }
