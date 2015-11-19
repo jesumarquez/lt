@@ -53,11 +53,11 @@ namespace Logictracker.Process.Geofences
             var t = new TimeElapsed();
             lock (GetLock(vehiculo.Id))
             {
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/EntroAlLock ({0} secs)", t.getTimeElapsed().TotalSeconds));           
+                if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/EntroAlLock ({0} secs)", t.getTimeElapsed().TotalSeconds));           
                 
                 t.Restart();
                 var qtree = GetQtree(vehiculo);
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/GetQTree ({0} secs)", t.getTimeElapsed().TotalSeconds));
+                if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/GetQTree ({0} secs)", t.getTimeElapsed().TotalSeconds));
                 var geocercas = qtree != null && qtree.GetData(position.Lat, position.Lon) != null 
                                     ? qtree.GetData(position.Lat, position.Lon) : new List<Geocerca>(0);
                 
@@ -90,7 +90,7 @@ namespace Logictracker.Process.Geofences
                         }
                         
                         geocercas = geocercas.Where(g => idGeocercas.Contains(g.Id)).ToList();
-                        if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercasViaje: {0} segundos", t.getTimeElapsed().TotalSeconds));
+                        if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercasViaje: {0} segundos", t.getTimeElapsed().TotalSeconds));
                     }
                 }
 
@@ -119,7 +119,7 @@ namespace Logictracker.Process.Geofences
 
                     estadoVehiculo.GeocercasDentro.Add(estadoGeocerca);
                 }
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/ForEach ({0} secs)", t.getTimeElapsed().TotalSeconds));                
+                if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/ForEach ({0} secs)", t.getTimeElapsed().TotalSeconds));                
                 
                 return estadoVehiculo;
             }

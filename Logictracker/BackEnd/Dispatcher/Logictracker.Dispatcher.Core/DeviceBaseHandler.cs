@@ -52,23 +52,14 @@ namespace Logictracker.Dispatcher.Core
             try
             {
                 SessionHelper.CreateSession();
-                var te = new TimeElapsed();
                 Dispositivo = DaoFactory.DispositivoDAO.FindById(message.DeviceId);
-                var totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", message.DeviceId, "DispositivoDAO.FindById: " + totalSecs);
-
+                
                 if (Dispositivo == null) return HandleResults.BreakSuccess;
 
-                te.Restart();
                 CalculateDeviceParameters();
-                totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", message.DeviceId, "CalculateDeviceParameters: " + totalSecs);
-
-                te.Restart();
+                
                 Coche = DaoFactory.CocheDAO.FindMobileByDevice(Dispositivo.Id);
-                totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", message.DeviceId, "FindMobileByDevice: " + totalSecs);
-
+                
                 var result = OnDeviceHandleMessage(message);
 
                 SessionHelper.CloseSession();

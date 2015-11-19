@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 {
     [Serializable]
-    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto
+    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto, IHasTransportista
     {
         public static class Estados
         {
@@ -48,6 +48,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual int Id { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual Transportista Transportista { get; set; }
         public virtual CentroDeCostos CentroDeCostos { get; set; }
         public virtual SubCentroDeCostos SubCentroDeCostos { get; set; }
         public virtual Coche Vehiculo { get; set; }
