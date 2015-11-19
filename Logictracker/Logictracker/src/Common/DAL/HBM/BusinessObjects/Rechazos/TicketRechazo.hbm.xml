@@ -16,8 +16,9 @@
 
     <property column="opetick10_fecha" type="DateTime" not-null="true"  name="FechaHora" />
     <property column="opetick10_territorio" type="string" name="Territorio" />
-    <property column="opetick10_motivo" type="int" name="Motivo" />
+    <property column="opetick10_motivo" type="Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.MotivoRechazo,Logictracker.Types" name="Motivo" />
     <property column="opetick10_bultos" type="int" name="Bultos" />
+    <property column="opetick10_estado_final" type="Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.EstadoFinal,Logictracker.Types" name="Final" />
 
     <set name="_detalles" access="field" lazy="true" inverse="true"
          cascade="all-delete-orphan" order-by="opetick11_fecha DESC">

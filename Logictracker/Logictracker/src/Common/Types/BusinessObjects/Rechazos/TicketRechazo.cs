@@ -62,14 +62,95 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             Notificado = 2,
             Alertado = 3,
             Resuelto = 4,
-            Anulada = 5,
+            Anulado = 5,
             Avisado = 6,
             Entregado = 7,
             SinAviso = 77,
             NoResuelta = 8,
-            AltaErronea = 9
+            AltaErronea = 9,
+            Duplicado = 10,
         }
 
+
+        public enum EstadoFinal
+        {
+            SolucionPendiente=1,
+            RechazoDuplicado=2,
+            RechazoErroneo=3,
+            ResueltoEntregado=4,
+            ResueltoSinEntrega=5
+        }
+
+        public static Estado[] Next(Estado actual)
+        {
+            switch (actual)
+            {
+                case Estado.Pendiente:
+                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado };
+                case Estado.Notificado:
+                    return new[] { Estado.Alertado, };
+                case Estado.Alertado:
+                    return new[] { Estado.Resuelto, Estado.Anulado, };
+                case Estado.Resuelto:
+                    return new[] { Estado.Avisado, };
+                case Estado.Anulado:
+                    return new Estado[] { };
+                case Estado.Avisado:
+                    return new[] { Estado.Entregado, Estado.NoResuelta, };
+                case Estado.Entregado:
+                    return new Estado[] { };
+                case Estado.SinAviso:
+                    return new Estado[] { };
+                case Estado.NoResuelta:
+                    return new Estado[] { };
+                case Estado.AltaErronea:
+                    return new Estado[] { };
+            }
+            return new Estado[] {};
+        }
+
+
+        private TicketRechazo()
+        {
+            
+        }
+
+        public TicketRechazo(string observacion , Usuario usuario , DateTime fechaHora)
+        {
+            Final = EstadoFinal.SolucionPendiente;
+
+            var detalle = new DetalleTicketRechazo()
+            {
+                Estado = Estado.Pendiente,
+                FechaHora = fechaHora,
+                Observacion = observacion,
+                Ticket = this,
+                Usuario = usuario
+            };
+            
+            FechaHora = fechaHora;
+            
+            Detalle.Add(detalle);
+        }
+
+        public void ChangeEstado(Estado nuevoEstado , string observacion , Usuario usuario)
+        {
+            if (!Next(UltimoEstado).Any(e => e == nuevoEstado))
+                throw new Exception(string.Format("Cambio de estado invalido {0} -> {1}", UltimoEstado, nuevoEstado));
+
+            var detalle = new DetalleTicketRechazo
+            {
+                Estado = nuevoEstado,
+                FechaHora = DateTime.UtcNow,
+                Observacion = observacion,
+                Ticket = this,
+                Usuario = usuario
+            };
+            
+            Detalle.Add(detalle);
+
+        }
+        
         public static string GetEstadoLabelVariableName(Estado estado)
         {
             switch (estado)
@@ -82,7 +163,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return "ALERTADO";
                 case Estado.Resuelto:
                     return "RESUELTO";
-                case Estado.Anulada:
+                case Estado.Anulado:
                     return "ANULADO";
                 case Estado.Avisado:
                     return "AVISADO";
@@ -115,7 +196,6 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual Empleado SupervisorRuta { get; set; }
 
         public virtual Empleado SupervisorVenta { get; set; }
-
         public virtual string Territorio { get; set; }
 
         public virtual MotivoRechazo Motivo { get; set; }
@@ -126,12 +206,13 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         private ISet<DetalleTicketRechazo> _detalle;
 
-        public Type TypeOf() { return GetType(); }
+        public  virtual Type TypeOf() { return GetType(); }
 
         public virtual ISet<DetalleTicketRechazo> Detalle
         {
             get { return _detalle ?? (_detalle = new HashSet<DetalleTicketRechazo>()); }
         }
 
+        public virtual EstadoFinal Final { get; set; }
     }
 }
