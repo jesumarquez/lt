@@ -134,6 +134,7 @@ namespace Logictracker.CicloLogistico.Distribucion
 
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
             cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
+            cbTransportista.SetSelectedValue(EditObject.Transportista != null ? EditObject.Transportista.Id : cbTransportista.AllValue);
             cbCentroDeCosto.SetSelectedValue(EditObject.CentroDeCostos != null ? EditObject.CentroDeCostos.Id : cbCentroDeCosto.AllValue);
             cbSubCentroDeCosto.SetSelectedValue(EditObject.SubCentroDeCostos != null ? EditObject.SubCentroDeCostos.Id : cbSubCentroDeCosto.AllValue);
             cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.AllValue);
@@ -258,6 +259,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                 {
                     EditObject.Empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
                     EditObject.Linea = cbLinea.Selected > 0 ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+                    EditObject.Transportista = cbTransportista.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(cbTransportista.Selected) : null;
                     EditObject.CentroDeCostos = cbCentroDeCosto.Selected > 0 ? DAOFactory.CentroDeCostosDAO.FindById(cbCentroDeCosto.Selected) : null;
                     EditObject.SubCentroDeCostos = cbSubCentroDeCosto.Selected > 0
                         ? DAOFactory.SubCentroDeCostosDAO.FindById(cbSubCentroDeCosto.Selected)

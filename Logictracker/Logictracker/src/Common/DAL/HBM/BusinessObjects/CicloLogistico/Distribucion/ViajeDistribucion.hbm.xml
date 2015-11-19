@@ -10,6 +10,7 @@
 
     <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
     <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+    <many-to-one name="Transportista" column="rela_parenti07" lazy="proxy" />
     <many-to-one name="CentroDeCostos" column="rela_parenti37" lazy="proxy" />
     <many-to-one name="SubCentroDeCostos" column="rela_parenti99" lazy="proxy" />
     <many-to-one name="Vehiculo" column="rela_parenti03" lazy="proxy" />
