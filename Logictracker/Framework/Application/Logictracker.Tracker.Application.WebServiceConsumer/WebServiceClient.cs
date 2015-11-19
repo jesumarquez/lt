@@ -6,12 +6,15 @@ using System.Timers;
 using log4net;
 using log4net.Repository.Hierarchy;
 using Logictracker.Tracker.Services;
+using Spring.Messaging.Core;
 
 namespace Logictracker.Tracker.Application.WebServiceConsumer
 {
     public class WebServiceClient : IWebServiceClient
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(WebServiceClient));
+        public MessageQueueTemplate GarminQueueTemplate { get; set; }
+
         public WsSosService.Service WebService;
         public System.Timers.Timer Timer4Services;
         public List<Novelty> Novelties;
@@ -47,31 +50,48 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer
         {
             var webservice = new WsSosService.Service();
 
-            var alerts = GetNovelties(webservice.ObtenerAlertas());
+            var response = webservice.ObtenerAlertas();
 
-            if (alerts.Count > 0)
-                Timer4Services.Stop();
+            if (response != "")
+            {
+                var alerts = GetNovelties(response);
 
-            Logger.InfoFormat("Found {0} services", alerts.Count);
+                if (alerts.Count > 0)
+                    Timer4Services.Stop();
+
+                Logger.InfoFormat("Found {0} services", alerts.Count);
+
+                MostrarInformacionAlerta();
+            }
         }
 
         private List<Novelty> GetNovelties(string response)
-        {
+        {          
             var alerts = response.Split('#');
             foreach (var alert in alerts)
             {
-                //20151020303780,1271#20151020303781,1532#
-                var novelty = new Novelty(alert.Split(',')[0], alert.Split(',')[1]);
+                var novelty = TranslateFrameToClass.ParseFrame(alert);
                 Novelties.Add(novelty);
             }
 
             return Novelties;
         }
 
-        private void GetServiceByMobile(Novelty novelty)
-        {
-            var passwd = "123";
 
+        private void MostrarInformacionAlerta()
+        {
+            foreach (var novelty in Novelties)
+            {
+                Logger.Info(novelty.NumeroServicio);
+                Logger.Info(novelty.Diagnostico);
+                Logger.Info(novelty.Prioridad);
+                Logger.Info(novelty.HoraServicio);
+                Logger.Info(novelty.CobroAdicional);
+                Logger.Info(novelty.Estado);
+                Logger.Info(novelty.Vehiculo);
+                Logger.Info(novelty.Origen);
+                Logger.Info(novelty.Destino);
+            }
         }
     }
 }

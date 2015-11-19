@@ -197,5 +197,29 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
             public RecorridoDistribucion Inicio { get; set; }
             public RecorridoDistribucion Fin { get; set; }
         }
+
+        public virtual void AgregarBaseFinal()
+        {
+            var baseFinal = new EntregaDistribucion()
+            {             
+                Linea = Detalles[0].Linea,
+                Descripcion = Detalles[0].Descripcion,
+                Estado = EntregaDistribucion.Estados.Pendiente,
+                Programado = Detalles[0].Programado,
+                ProgramadoHasta = Detalles[0].ProgramadoHasta,
+                Orden = Detalles.Count,
+                Viaje = Detalles[0].Viaje,
+                KmCalculado = 0
+            };
+
+            for (var i = 1; i < Detalles.Count; i++)
+            {
+                if (Detalles[i].Descripcion.Equals(Detalles[0].Descripcion))
+                {
+                    Detalles.RemoveAt(i);
+                }
+            }
+            Detalles.Add(baseFinal);
+        }
     }
 }

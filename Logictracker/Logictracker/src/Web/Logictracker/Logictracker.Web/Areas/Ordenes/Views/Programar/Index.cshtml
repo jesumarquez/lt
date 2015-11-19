@@ -121,8 +121,9 @@
                                     <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" ng-model="order.LogisticsCycleType" id="tipoCiclo" name="tipoCiclo">
-                                            <option value="0" >Seleccione</option>
-                                            <option value="1" selected="selected" >Distribucion Urbana</option>
+                                                <option value="0" />Seleccione
+                                                <option value="2" />Larga Distancia
+                                                <option value="1" selected="selected" />Urbana
                                         </select>
                                     </div>
                                 </div>
@@ -130,7 +131,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <a class="btn btn-primary" ng-click="programOrders(order)">Programar</a>
+                            <a class="btn btn-primary" ng-click="programOrders(order)" data-dismiss="modal">Programar</a>
                         </div>
                     </div>
                 </div>
