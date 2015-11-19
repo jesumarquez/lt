@@ -60,7 +60,7 @@ namespace Logictracker.Reportes.CicloLogistico
                                                                      new[] {-1}, // DEPTOS
                                                                      new[] {-1}, // CENTROS
                                                                      new[] {-1}, // SUBCC
-                                                                     new[] { 0 },//lbVehiculo.SelectedValues,
+                                                                     lbVehiculo.SelectedValues,
                                                                      desde,
                                                                      hasta)
                                                             .Where(v => v.Vehiculo != null && v.InicioReal.HasValue);
