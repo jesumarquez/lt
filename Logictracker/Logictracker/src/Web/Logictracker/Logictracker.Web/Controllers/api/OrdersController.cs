@@ -91,6 +91,7 @@ namespace Logictracker.Web.Controllers.api
                 order.Empleado = new Empleado {Id = orderModel.IdEmpleado};
                 order.Empresa = new Empresa {Id = orderModel.IdEmpresa};
                 order.Linea = new Linea {Id = orderModel.BaseId};
+                order.Transportista = new Transportista {Id = orderModel.IdTransportista};
                 order.FechaAlta = orderModel.FechaAlta;
                 order.FechaEntrega = orderModel.FechaEntrega;
                 order.FechaPedido = orderModel.FechaPedido;

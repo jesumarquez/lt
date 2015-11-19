@@ -136,6 +136,7 @@ namespace Logictracker.Tracker.Application.Services
                 viaje.Inicio = startDateTime;
                 viaje.RegresoABase = true;
                 viaje.Fin = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 18, 0, 0);
+                viaje.Transportista = DaoFactory.TransportistaDAO.FindById(order.Transportista.Id);
 
                 //base al inicio
                 var entregaBase = new EntregaDistribucion
