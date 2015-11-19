@@ -1717,6 +1717,7 @@
     <Content Include="Areas\Ordenes\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
