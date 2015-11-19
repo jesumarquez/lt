@@ -178,12 +178,12 @@ namespace Logictracker.Dispatcher.Handlers
                 var t = new TimeElapsed();
                 SetUpEnviroment(msg);
                 var ts = t.getTimeElapsed().TotalSeconds;
-                if (ts > 1) STrace.Debug("DispatcherLock", "SetUpEnviroment: " + ts);
+                if (ts > 0.5) STrace.Debug("DispatcherLock", "SetUpEnviroment: " + ts);
 
                 t.Restart();
                 ProcessData();
                 ts = t.getTimeElapsed().TotalSeconds;
-                if (ts > 1) STrace.Debug("DispatcherLock", "ProcessData: " + ts);
+                if (ts > 0.5) STrace.Debug("DispatcherLock", "ProcessData: " + ts);
 
                 return HandleResults.Success;
             }
@@ -277,7 +277,11 @@ namespace Logictracker.Dispatcher.Handlers
             foreach (var position in _posicion.GeoPoints.Where(position => !DiscardInvalidPosition(position)))
             {   
                 nonDiscarted++;
+                var t = new TimeElapsed();
                 var correctsHdop = CorrectionByHdop(position);
+                var ts = t.getTimeElapsed().TotalSeconds;
+                if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "CorrectionByHdop: " + ts);
+
                 if (correctsHdop)
                 {
                     position.Lat = _lastPosition.Lat;
@@ -290,21 +294,42 @@ namespace Logictracker.Dispatcher.Handlers
 
                 if (_fechasOnline)
                 {
+                    t.Restart();
                     estado = AnalizeGeoReferences(position, procesarCicloLogisticoFlag);
+                    ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "AnalizeGeoReferences: " + ts);
                 }
                 else
                 {
                     STrace.Error("FechasOnline Dispatcher", _posicion.DeviceId, "No se procesa el AnalizeGeoReferences");
                 }
 
+                t.Restart();
                 SavePosition(position, estado);
+                ts = t.getTimeElapsed().TotalSeconds;
+                if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "SavePosition: " + ts);
             	
                 if (_fechasOnline)
             	{
+                    t.Restart();
                     AnalizeStoppedEvents(position, correctsHdop);
+                    ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "AnalizeStoppedEvents: " + ts);
+
+                    t.Restart();
                     UpdateKilometers(position);
+                    ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "UpdateKilometers: " + ts);
+
+                    t.Restart();
             	    UpdateHours(position);
+                    ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "UpdateHours: " + ts);
+
+                    t.Restart();
                     AnalizeShifts(position);
+                    ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "AnalizeShifts: " + ts);
             	}
 
             	_lastValidPosition = position;
@@ -316,8 +341,15 @@ namespace Logictracker.Dispatcher.Handlers
 
             if (nonDiscarted.Equals(0) || !_fechasOnline) return;
 
+            var time = new TimeElapsed();
             UpdateVehicleOdometers();
+            var total = time.getTimeElapsed().TotalSeconds;
+            if (total > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "UpdateVehicleOdometers: " + total);
+
+            time.Restart();
             UpdateLastPosition(_lastValidPosition);
+            total = time.getTimeElapsed().TotalSeconds;
+            if (total > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "UpdateLastPosition: " + total);
 
             LastPositionReceivedAt = DateTime.UtcNow;
         }
@@ -479,21 +511,21 @@ namespace Logictracker.Dispatcher.Handlers
         /// <param name="procesarCicloLogisticoFlag"> </param>
         private EstadoVehiculo AnalizeGeoReferences(GPSPoint position, bool procesarCicloLogisticoFlag)
         {
-            var ts = new TimeElapsed();
+            var t = new TimeElapsed();
             var estado = GeocercaManager.Process(Coche, position, DaoFactory);
-            if (ts.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", String.Format("GeocercaManager.Process ({0} secs)", ts.getTimeElapsed().TotalSeconds.ToString()));
+            var ts = t.getTimeElapsed().TotalSeconds;
+            if (ts > 0.5) STrace.Error("DispatcherLock", String.Format("GeocercaManager.Process ({0} secs)", ts));
 
+            t.Restart();
             foreach (var evento in estado.Eventos)
             {
                 try
                 {
-                    Empleado chofer = null;
-                    var t = new TimeElapsed();
+                    Empleado chofer = null;                    
 
                     if (new[] { GeocercaEventState.Sale, GeocercaEventState.Entra }.Any(e => e == evento.Evento))
                     {
-                        chofer = DaoFactory.EmpleadoDAO.GetLoggedInDriver(Coche);
-                        if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", position.DeviceId, String.Format("AnalizeGeoReferences/GetLoggedInChofer ({0} secs)", t.getTimeElapsed().TotalSeconds.ToString()));
+                        chofer = DaoFactory.EmpleadoDAO.GetLoggedInDriver(Coche);                        
                     }
 
                     t.Restart();
@@ -722,8 +754,10 @@ namespace Logictracker.Dispatcher.Handlers
                     STrace.Exception(evento.Estado.Estado.ToString(), ex, Coche.Dispositivo.Id);
                 }
             }
+            ts = t.getTimeElapsed().TotalSeconds;
+            if (ts > 0.5) STrace.Error("DispatcherLock", position.DeviceId, String.Format("AnalizeGeoReferences/foreach ({0} secs)", ts));
 
-            var te = new TimeElapsed();
+            t.Restart();
             if (procesarCicloLogisticoFlag && !estado.Eventos.Any())
             {
                 var enCurso = GetCiclo(Coche, new MessageSaver(DaoFactory), DaoFactory);
@@ -731,7 +765,8 @@ namespace Logictracker.Dispatcher.Handlers
                 {
                     var e = new PositionEvent(position.Date, position.Lat, position.Lon);
                     enCurso.ProcessEvent(e);
-                    if (te.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", position.DeviceId, String.Format("AnalizeGeoReferences/enCurso.ProcessEvent({0} secs)", te.getTimeElapsed().TotalSeconds.ToString()));
+                    ts = t.getTimeElapsed().TotalSeconds;
+                    if (ts > 0.5) STrace.Error("DispatcherLock", position.DeviceId, String.Format("AnalizeGeoReferences/enCurso.ProcessEvent({0} secs)", ts));
                 }
             }
             

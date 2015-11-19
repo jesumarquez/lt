@@ -110,8 +110,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                             ProcessVehicle(vehicle, today);
                             procesado = true;
                             var parametros = new[] { "Vehículo " + vehicle.Id + " procesado exitosamente luego de " + retry + " intentos.", vehicle.Id.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
-                            SendMail(parametros);
-                            STrace.Trace(GetType().FullName, "Vehículo " + vehicle.Id + " procesado exitosamente luego de " + retry + " intentos.");
                         }
                         catch (Exception e)
                         {
