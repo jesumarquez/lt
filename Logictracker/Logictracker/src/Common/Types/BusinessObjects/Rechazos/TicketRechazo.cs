@@ -65,10 +65,10 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             Anulado = 5,
             Avisado = 6,
             Entregado = 7,
-            SinAviso = 77,
-            NoResuelta = 8,
-            AltaErronea = 9,
-            Duplicado = 10,
+            SinAviso = 8,
+            NoResuelta = 9,
+            AltaErronea = 10,
+            Duplicado = 11,
         }
 
 
@@ -175,6 +175,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return "NO_RESUELTA";
                 case Estado.AltaErronea:
                     return "ALTA_ERRONEA";
+                case Estado.Duplicado:
+                    return "DUPLICADO";
                 default:
                     throw new ArgumentOutOfRangeException("estado");
             }
