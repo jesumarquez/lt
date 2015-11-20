@@ -119,15 +119,18 @@ function RechazoController($scope, EntitiesService) {
             });
     }
 
-    $scope.rechazosDS = [];
+    function onRechazosDSLoad() {
+
+    }
+
 
     $scope.gridOptions = {
         columns:
         [
-        { field: "Id", title: "Ticket" },
+        { field: "TicketRechazoId", title: "Ticket" },
         { field: "FechaHora", title: "Fecha Hora" },
-        { field: "ClienteCod", title: "Cod. Cliente" },
-        { field: "ClienteDesc", title: "Cliente" },
+        { field: "CodCliente", title: "Cod. Cliente" },
+        { field: "Cliente", title: "Cliente" },
         { field: "SupVenDesc", title: "Sup. Venta" },
         { field: "SupRutDesc", title: "Sup. Ruta" },
         { field: "UltEstado", title: "Estado" },
@@ -148,6 +151,28 @@ function RechazoController($scope, EntitiesService) {
     }
 
     $scope.onBuscar = function () {
+
+        var filterLIst = [];
+
+        if ($scope.distritoSelected != undefined)
+            filterLIst.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key })
+
+        if ($scope.baseSelected != undefined)
+            filterLIst.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key })
+
+        if ($scope.estadoSelected != undefined)
+            filterLIst.push({ field: "UltimoEstado", operator: "eq", value: $scope.estadoSelected.Key })
+
+        if ($scope.motivoSelected != undefined)
+            filterLIst.push({ field: "Motivo", operator: "eq", value: $scope.motivoSelected.Key })
+
+        var filters = {
+            logic: "and",
+            filters: filterLIst
+        };
+
+        $scope.rechazosDS = EntitiesService.ticketrechazo.items(filters, onRechazosDSLoad, onFail);
+
     };
 
 }

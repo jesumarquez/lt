@@ -17,7 +17,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         public virtual string Observacion { get; set; }
 
-        public Type TypeOf() { return GetType(); }
+        public virtual Type TypeOf() { return GetType(); }
 
     }
 }
