@@ -1,7 +1,9 @@
 ﻿angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
     .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController])
-    .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController]);
+    .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController])
+    .controller("RechazoEstadisticasController", ["$scope", "EntitiesService", RechazoEstadisticasController]);
+
 
 function RechazoController($scope, EntitiesService) {
 
@@ -261,3 +263,34 @@ function RechazoItemController($scope, EntitiesService) {
     };
 }
 
+function RechazoEstadisticasController($scope, EntitiesService){
+	$scope.gridOptions = {
+        columns: [
+        { field: "Vendedor", title: "Vendedores" },
+        { field: "Promedio", title: "Promedio (min)" },
+        { field: "Estado", title: "Estado" },
+        { field: "Pendiente", title: "Pend" },
+        { field: "Pendiente14", title: "Pend > 14" }]
+    };
+	$scope.statsDS = [{
+		Vendedor : "Giacomo Guillizani"
+	}];
+	
+	$scope.averageScale = { min:0, max: 100};
+	$scope.averageOL = 50;
+	$scope.averageVendedores = 25;
+
+	$scope.screenResolution = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "/js/rechazos/screen_resolution.json",
+                        dataType: "json"
+                    }
+                },
+                filter: {
+                    field: "year",
+                    operator: "eq",
+                    value: 2009
+                }
+            });
+}
