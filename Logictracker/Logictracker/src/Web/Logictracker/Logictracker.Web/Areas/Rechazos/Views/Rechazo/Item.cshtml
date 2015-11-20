@@ -25,6 +25,14 @@
     </div>
 </script>
 
+<script id="tPuntoEntrega" type="text/x-kendo-template">
+    <div>
+        <span>#= data.Codigo #</span>
+        <br />
+        <span style="font-size:xx-small;"> #= data.Descripcion #</span>
+    </div>
+</script>
+
 
 <div ng-controller="RechazoItemController">
     <div class="InputContainer">
@@ -88,9 +96,17 @@
     <div class="InputContainer">
 
         <div class="InputGroup">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
             <div class="InputGroup__control">
-                <input class="form-control" kendo-combo-box />
+                <input class="form-control"
+                       kendo-auto-complete
+                       k-ng-model="clienteSelected"
+                       k-data-source="clienteDS"
+                       k-readonly="clienteRO"
+                       k-data-text-field="'Codigo'"
+                       k-filter="'contains'"
+                       k-min-length="3"
+                       k-template="tCliente" />                
             </div>
         </div>
         <div class="InputGroup">
@@ -105,17 +121,17 @@
     <div class="InputContainer--50">
 
         <div class="InputGroup">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
             <div class="InputGroup__control">
                 <input class="form-control"
                        kendo-auto-complete
-                       k-ng-model="clienteSelected"
-                       k-data-source="clienteDS"
-                       k-readonly="clienteRO"
+                       k-data-source="puntoEntregaDS"
+                       k-readonly="puntoEntregaRO"
                        k-data-text-field="'Codigo'"
                        k-filter="'contains'"
-                       k-min-length="3"
-                       k-template="tCliente"/>
+                       k-min-length="3"                       
+                       k-ng-model="puntoEntregaSelected"
+                       k-template="tPuntoEntrega" />
             </div>
         </div>
     </div>

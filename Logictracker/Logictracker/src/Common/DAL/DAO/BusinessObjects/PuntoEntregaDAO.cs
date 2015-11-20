@@ -113,6 +113,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return q.Cacheable().ToList();
         }
 
+        public IQueryable<PuntoEntrega> FindByCodeLike(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, string codigo)
+        {
+            return Query.FilterCliente(Session, empresas, lineas, clientes)
+                .Where(p => !p.Baja)
+                .Where(p => p.Codigo.Contains(codigo))
+                .Cacheable()
+                .AsQueryable();
+         }
+
         #endregion
 
         #region Override Methods
