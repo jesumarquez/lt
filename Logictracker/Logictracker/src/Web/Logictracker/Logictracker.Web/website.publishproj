@@ -20,8 +20,8 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
     <SourceWebVirtualPath>/Logictracker.Web</SourceWebVirtualPath>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <SourceWebProject>C:\source\Logictracker 4.0\Logictracker\Logictracker\src\Web\Logictracker\Logictracker.Web</SourceWebProject>
-    <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/2/ROOT</SourceWebMetabasePath>
+    <SourceWebProject>C:\Users\LogicTracker\Source\Repos\Logictracker 4.0\Logictracker\Logictracker\src\Web\Logictracker\Logictracker.Web</SourceWebProject>
+    <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/4/ROOT</SourceWebMetabasePath>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -62,6 +62,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
       <Project>{DB06B613-C477-4AB6-B90F-93A2C50CDF11}</Project>
       <Name>LogicOut.Server</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\BackEnd\Codecs\Logitracker.Codecs.Sitrack\Logitracker.Codecs.Sitrack.csproj">
+      <Project>{B4103F7F-7B2E-41AA-AB82-96171076C7C6}</Project>
+      <Name>Logitracker.Codecs.Sitrack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\BackEnd\Interfaces\Logictracker.Interfaces.OrbComm\Logictracker.Interfaces.OrbComm.csproj">
       <Project>{ACC7E8BF-B7CB-4C0E-A928-DEECB889A04F}</Project>
       <Name>Logictracker.Interfaces.OrbComm</Name>
@@ -74,6 +78,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
       <Project>{9353DB7D-85AB-49F2-BA17-5D54AA0D480B}</Project>
       <Name>Logictracker.Scheduler.Tasks.Mantenimiento</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Application\Logictracker.Tracker.Application.Reports.Service\Logictracker.Tracker.Application.Reports.csproj">
+      <Project>{49F37EAC-6DC8-4D61-BACF-F76B877ECDD0}</Project>
+      <Name>Logictracker.Tracker.Application.Reports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\AVL\Logictracker.AVL.csproj">
       <Project>{0FD2623E-2379-410D-81E3-C8749BC014DE}</Project>
       <Name>Logictracker.AVL</Name>
@@ -81,6 +89,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <ProjectReference Include="..\..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
+      <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>
+      <Name>Logictracker.Tracker.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Culture\Logictracker.Culture.csproj">
       <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
@@ -117,6 +129,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
       <Project>{CC8A4E06-EC41-4705-AA17-0649564F05BA}</Project>
       <Name>Logictracker.Messages.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messaging.WebConsumer\Logictracker.Messaging.WebConsumer.csproj">
+      <Project>{0F54EA37-0E82-4636-A0D2-94196F927B79}</Project>
+      <Name>Logictracker.Messaging.WebConsumer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Model\Logictracker.Model.csproj">
       <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
