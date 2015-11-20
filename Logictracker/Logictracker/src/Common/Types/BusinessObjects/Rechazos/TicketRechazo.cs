@@ -110,7 +110,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         }
 
 
-        private TicketRechazo()
+        protected TicketRechazo()
         {
             
         }
@@ -133,7 +133,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             Detalle.Add(detalle);
         }
 
-        public void ChangeEstado(Estado nuevoEstado , string observacion , Usuario usuario)
+        public virtual void ChangeEstado(Estado nuevoEstado , string observacion , Usuario usuario)
         {
             if (!Next(UltimoEstado).Any(e => e == nuevoEstado))
                 throw new Exception(string.Format("Cambio de estado invalido {0} -> {1}", UltimoEstado, nuevoEstado));
@@ -204,13 +204,13 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         public virtual int Bultos { get; set; }
 
-        private ISet<DetalleTicketRechazo> _detalle;
+        private ISet<DetalleTicketRechazo> _detalles;
 
         public  virtual Type TypeOf() { return GetType(); }
 
         public virtual ISet<DetalleTicketRechazo> Detalle
         {
-            get { return _detalle ?? (_detalle = new HashSet<DetalleTicketRechazo>()); }
+            get { return _detalles ?? (_detalles = new HashSet<DetalleTicketRechazo>()); }
         }
 
         public virtual EstadoFinal Final { get; set; }
