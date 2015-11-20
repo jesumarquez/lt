@@ -1,6 +1,48 @@
 ﻿@using Logictracker.Web
 @{
-    Layout = null;
+    ViewBag.Title = "Estadisticas";
 }
 
 <h1>Estadísticas</h1>
+<div ng-controller="RechazoEstadisticasController">
+
+    <div class="col-md-2">
+        <div class="row">
+            <div class="col-md-12 k-content GaugeContainer">
+                <label>Promedio OL</label>
+                <span kendo-radialgauge
+                      k-scale="averageScale"
+                      ng-model="averageOL"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 GaugeContainer">
+                <label>Promedio Vendedores</label>
+                <span kendo-radialgauge
+                      k-scale="averageScale"
+                      ng-model="averageVendedores"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-8 StatsContent-top">
+                <div kendo-grid k-options="gridOptions" k-data-source="statsDS"></div>
+            </div>
+            <div class="col-md-4 GaugeContainer">
+                <div kendo-chart
+                     k-series-defaults="{ type: 'pie' }"
+                     k-series="[{
+	                                field: 'share',
+	                                categoryField: 'resolution',
+	                                padding: 0
+	                              }]"
+                     k-data-source="screenResolution">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 StatsContent-bottom">data3</div>
+        </div>
+    </div>
+</div>
