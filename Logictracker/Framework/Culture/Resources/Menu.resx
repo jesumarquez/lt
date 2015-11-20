@@ -957,7 +957,7 @@
   <data name="CLOG_RECHAZO" xml:space="preserve">
     <value>Rechazo</value>
   </data>
-  <data name="ORDERS" xml:space="preserve">
+  <data name="PAR_ORDENES" xml:space="preserve">
     <value>Ordenes</value>
   </data>
 </root>
