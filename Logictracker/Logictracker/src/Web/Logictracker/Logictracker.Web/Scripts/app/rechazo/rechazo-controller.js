@@ -168,6 +168,19 @@ function RechazoController($scope, EntitiesService) {
         if ($scope.motivoSelected != undefined)
             filterLIst.push({ field: "Motivo", operator: "eq", value: $scope.motivoSelected.Key });
 
+        if ($scope.desde != undefined) {
+            var fDesde = new Date($scope.desde);
+            fDesde.setHours(0, 0, 0, 0);
+            filterLIst.push({ field: "FechaHora", operator: "gte", value: fDesde });
+        }
+
+        if ($scope.hasta != undefined) {
+            var fHasta = new Date($scope.hasta);
+            fHasta.setHours(23,59, 0, 0);
+            filterLIst.push({ field: "FechaHora", operator: "lte", value: fHasta });
+        }
+
+
         var filters = {
             logic: "and",
             filters: filterLIst
