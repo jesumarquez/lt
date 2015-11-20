@@ -95,3 +95,14 @@ textarea {
     width:50%;
 }
 
+/*
+    TextArea
+*/
+.InputGroup__control table.k-editor {
+    height:5em;
+    table-layout: auto;
+}
+
+.InputGroup__control .k-editor .k-editable-area{
+    height:5em;
+}
