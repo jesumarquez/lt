@@ -43,10 +43,14 @@
         </div>
 
         <div class="InputGroup">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
             <div class="InputGroup__control">
-                <input class="form-control" kendo-combo-box />
-            </div>
+                <input class="form-control" kendo-combo-box
+                       k-data-source="supervisorVentasDS"
+                       k-data-text-field="'Value'"
+                       k-data-value-field="'Key'"
+                       k-ng-model="supervisorVentasSelected" />
+            </div>            
         </div>
 
     </div>
@@ -59,12 +63,16 @@
         </div>
 
         <div class="InputGroup">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
             <div class="InputGroup__control">
-                <input class="form-control" kendo-combo-box />
+                <input class="form-control" kendo-combo-box
+                       k-data-source="supervisorRutaDS"
+                       k-data-text-field="'Value'"
+                       k-data-value-field="'Key'"
+                       k-ng-model="supervisorRutaSelected" />
+
             </div>
         </div>
-
     </div>
 
     <div class="InputContainer">

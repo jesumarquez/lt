@@ -200,14 +200,16 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.puntoEntregaRO = true;
 
     $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail);
-    $scope.distribucionSeñected = {};
+    $scope.distribucionSelected = {};
     $scope.distribucionRO = true;
 
     $scope.supervisorRutaSelected = {};
     $scope.supervisorRutaRO = true;
+    $scope.supervisorRutaDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorRutaDSLoad, onFail);
 
     $scope.supervisorVentasSelected = {};
-    $scope.supervisorVentas = true;
+    $scope.supervisorVentasRO = true;
+    $scope.supervisorVentasDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorVentasDSLoad, onFail);
 
     $scope.territorio = "";
     $scope.territorioRO = true;
@@ -218,7 +220,11 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.movimientosDS = {};
 
     $scope.$watch("clienteSelected", onClienteSelected);
+    $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
+    $scope.$watch("supervisorVentasSelected", onSupervisorVentasSelected);
 
+    //$scope.$watch("supervisorVentasDS", onsupervisorVentasDSChange);
+   
     function onClienteSelected(newValue, oldValue) {
 
         $scope.puntoEntregaSelected = [];
@@ -231,6 +237,47 @@ function RechazoItemController($scope, EntitiesService) {
             }, null, $scope.onFail);
         }
     };
+
+    function onPuntoEntregaSelected(newValue, oldValue) {
+
+        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
+            $scope.supervisorVentasDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key,
+                empleadoId: $scope.puntoEntregaSelected[0].ResponsableId
+            });
+        }
+    };
+
+    function onSupervisorVentasSelected(newValue, oldValue) {
+
+        if (newValue !== undefined && newValue !== oldValue) {
+            $scope.supervisorRutaDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key,
+                empleadoId: $scope.supervisorVentasSelected.Key
+            });
+        }
+    };
+
+    function onSupervisorVentasDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.supervisorVentasSelected = e.response[0];           
+        }
+    }
+
+    function onSupervisorRutaDSLoad(e) {
+        if (e.type === "read" && e.response) {
+           $scope.supervisorRutaSelected = e.response[0];
+        }
+    }
+    
+    //function onSupervisorVentasDSChange(newValue, oldValue)
+    //{
+    //    if (newValue !== oldValue) {
+    //        $scope.supervisorRutaSelected = [];
+    //    }
+    //}
 
     function isNew() { return $scope.operation === "A"; }
 
@@ -258,6 +305,10 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.onSave = function() {
         $scope.rechazoWin.close();
+    };
+
+    function onFail(error) {
+        $scope.notify.show(error.errorThrown, "error");
     };
 }
 
