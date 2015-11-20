@@ -31,11 +31,11 @@ namespace Logictracker.Web.Controllers.api
             return EntityDao.FindAll().ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
         }
 
-        [Route("api/ticketrechazo/cantidadesporestado/items")]
-        public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
-        {
-            return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
-        }
+        //[Route("api/ticketrechazo/cantidadesporestado/items")]
+        //public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
+        //{
+        //    return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
+        //}
     }
 
 }
