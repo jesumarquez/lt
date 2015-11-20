@@ -15,14 +15,16 @@ function EntitiesService($resource, $http) {
             },
             distribuciones : {
                 models: getDistribuciones
-            }
+            },
+            puntoEntrega: getPuntoEntrega
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
             departamentos: $resource("/api/distrito/:distritoId/base/:baseId/departamento/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId", deptoId: "@deptoId" }),
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
-        },
+            puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
+            },
         ticketrechazo: {
             estados: getEstados, //$resource("/api/ticketrechazo/estado/items"),
             motivos: getMotivos, // $resource("/api/ticketrechazo/motivo/items")
@@ -150,6 +152,35 @@ function EntitiesService($resource, $http) {
             ds.bind("error", onFail);
         return ds;
     };
+
+    function getPuntoEntrega(data_, onEnd, onFail)
+    {
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/cliente/" + data_.clienteId + "/PuntoEntrega/items";
+                    },
+
+                },
+
+            },
+            schema: {
+                data: "Data"
+            },
+            serverFiltering: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+
+    }
 
     function getData(res, option, params) {
         res.query(params,

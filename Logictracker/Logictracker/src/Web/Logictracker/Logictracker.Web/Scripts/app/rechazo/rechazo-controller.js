@@ -163,19 +163,17 @@ function RechazoItemController($scope, EntitiesService) {
     // El motivo es editable solo si es un alta
     $scope.motivoRO = function () { return !isNew(); };
 
-
     $scope.estadoSelected = {};
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onFail);
     $scope.estadoRO = true;
 
-    
-    $scope.entregaSelected = {};
-    $scope.entregaRO = true;
-
     $scope.clienteSelected = {};
     $scope.clienteRO = true;
-    $scope.clienteDS = EntitiesService.distrito.clientes.models({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail); // [{codigo:"12"},{codigo:"33"}];
+    $scope.clienteDS = EntitiesService.distrito.clientes.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail); // [{codigo:"12"},{codigo:"33"}];
 
+    $scope.puntoEntregaSelected = {};
+    $scope.entregaRO = true;
+   
     $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail);
     $scope.distribucionSeñected = {};
     $scope.distribucionRO = true;
@@ -193,6 +191,22 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.enHorarioRO = true;
 
     $scope.movimientosDS = {};
+
+    $scope.$watch("clienteSelected", onClienteSelected);
+
+    function onClienteSelected(newValue, oldValue) {
+
+        $scope.puntoEntregaSelected = [];
+
+        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue)
+        {
+            $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key,
+                clienteId: $scope.clienteSelected[0].ClienteId
+            }, null, $scope.onFail);
+        }
+    };
 
     function isNew() { return $scope.operation === "A"; }
 

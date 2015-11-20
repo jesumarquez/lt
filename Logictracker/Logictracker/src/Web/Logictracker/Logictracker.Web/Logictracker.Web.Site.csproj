@@ -2615,11 +2615,13 @@
     <Compile Include="ControlAcceso\Fichada.aspx.designer.cs">
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\api\PuntoEntregaController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
     <Compile Include="Controllers\api\ClienteController.cs" />
     <Compile Include="Controllers\api\DistribucionController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
+    <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />
     <Compile Include="Models\CentroDeCostosModel.cs" />
