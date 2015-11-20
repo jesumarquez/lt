@@ -184,12 +184,12 @@ function RechazoItemController($scope, EntitiesService) {
 
 
     $scope.motivoSelected = {};
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; }, $scope.onFail);
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function() { $scope.motivoSelected = $scope.motivoDS[0]; }, $scope.onFail);
     // El motivo es editable solo si es un alta
-    $scope.motivoRO = function () { return !isNew(); };
+    $scope.motivoRO = function() { return !isNew(); };
 
     $scope.estadoSelected = {};
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onFail);
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function() { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onFail);
     $scope.estadoRO = true;
 
     $scope.clienteSelected = {};
@@ -197,9 +197,9 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.clienteDS = EntitiesService.distrito.clientes.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail); // [{codigo:"12"},{codigo:"33"}];
 
     $scope.puntoEntregaSelected = {};
-    $scope.entregaRO = true;
-   
-    $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({distritoId:$scope.distritoSelected.Key,baseId:$scope.baseSelected.Key},null,$scope.onFail);
+    $scope.puntoEntregaRO = true;
+
+    $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail);
     $scope.distribucionSeñected = {};
     $scope.distribucionRO = true;
 
@@ -223,8 +223,7 @@ function RechazoItemController($scope, EntitiesService) {
 
         $scope.puntoEntregaSelected = [];
 
-        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue)
-        {
+        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
             $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
@@ -237,6 +236,28 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
     $scope.tCliente = kendo.template($("#tCliente").html());
+    $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
+    
 
+    $scope.gridDetalleOptions = {
+        columns:
+        [
+            { field: "TicketRechazoDetalleId", title: "Id" },
+            { field: "FechaHora", title: "Fecha Hora" },
+            { field: "UsuarioNombre", title: "Usuario" },
+            { field: "Estado", title: "Estado" },
+            { field: "Observacion", title: "Observacion" },
+        ]
+    };
+
+
+    $scope.onClose = function () {
+        $scope.rechazoWin.close();
+    };
+
+
+    $scope.onSave = function() {
+        $scope.rechazoWin.close();
+    };
 }
 
