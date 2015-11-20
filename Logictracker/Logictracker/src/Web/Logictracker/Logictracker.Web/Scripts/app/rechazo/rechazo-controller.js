@@ -25,11 +25,11 @@ function RechazoController($scope, EntitiesService) {
     $scope.hasta = new Date();
 
     $scope.estadoSelected = {};
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; },
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function (e) { $scope.estadoSelected = e.response[0]; },
         onFail);
 
     $scope.motivoSelected = {};
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; },
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function (e) { $scope.motivoSelected = e.response[0]; },
         onFail);
 
     $scope.baseDS = EntitiesService.distrito.bases(onBaseDSLoad, onFail);
@@ -155,16 +155,16 @@ function RechazoController($scope, EntitiesService) {
         var filterLIst = [];
 
         if ($scope.distritoSelected != undefined)
-            filterLIst.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key })
+            filterLIst.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key });
 
         if ($scope.baseSelected != undefined)
-            filterLIst.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key })
+            filterLIst.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
 
         if ($scope.estadoSelected != undefined)
-            filterLIst.push({ field: "UltimoEstado", operator: "eq", value: $scope.estadoSelected.Key })
+            filterLIst.push({ field: "UltimoEstado", operator: "eq", value: $scope.estadoSelected.Key });
 
         if ($scope.motivoSelected != undefined)
-            filterLIst.push({ field: "Motivo", operator: "eq", value: $scope.motivoSelected.Key })
+            filterLIst.push({ field: "Motivo", operator: "eq", value: $scope.motivoSelected.Key });
 
         var filters = {
             logic: "and",
