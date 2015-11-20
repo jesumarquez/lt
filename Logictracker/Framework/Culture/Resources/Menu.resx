@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ACC_DET_INFRACCIONES_X_CHOFER" xml:space="preserve">
     <value>Detalle de Infracciones por Chofer</value>
@@ -950,5 +950,14 @@
   </data>
   <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
     <value>Tipo de Ciclo Logístico</value>
+  </data>
+  <data name="REP_ESTADOS_LOGISTICOS" xml:space="preserve">
+    <value>Reporte de Estados Logísticos</value>
+  </data>
+  <data name="CLOG_RECHAZO" xml:space="preserve">
+    <value>Rechazo</value>
+  </data>
+  <data name="ORDERS" xml:space="preserve">
+    <value>Ordenes</value>
   </data>
 </root>

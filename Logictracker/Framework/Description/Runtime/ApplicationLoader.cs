@@ -27,7 +27,7 @@ namespace Logictracker.Description.Runtime
 
 		    STrace.Debug(typeof(ApplicationLoader).FullName, "Creating Backend Category into PerformanceCounterHelper");
             PerformanceCounterHelper.Create(new BackendCategory());
-            STrace.Debug(typeof(ApplicationLoader).FullName, "Launching Debugger...");
+            //STrace.Debug(typeof(ApplicationLoader).FullName, "Launching Debugger...");
             //Debugger.LaunchDebugger(1);
 
             STrace.Debug(typeof(ApplicationLoader).FullName, "Initiating AppDomain...");

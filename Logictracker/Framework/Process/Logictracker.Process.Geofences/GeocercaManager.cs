@@ -11,6 +11,7 @@ using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ValueObject;
 using Logictracker.Utils;
 using System.Drawing;
+using System.Threading;
 
 namespace Logictracker.Process.Geofences
 {
@@ -52,12 +53,13 @@ namespace Logictracker.Process.Geofences
             var t = new TimeElapsed();
             lock (GetLock(vehiculo.Id))
             {
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/EntroAlLock ({0} secs)", t.getTimeElapsed().TotalSeconds));           
+                if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/EntroAlLock ({0} secs)", t.getTimeElapsed().TotalSeconds));           
                 
                 t.Restart();
                 var qtree = GetQtree(vehiculo);
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/GetQTree ({0} secs)", t.getTimeElapsed().TotalSeconds));
-                var geocercas = qtree.GetData(position.Lat, position.Lon) ?? new List<Geocerca>(0);
+                if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/GetQTree ({0} secs)", t.getTimeElapsed().TotalSeconds));
+                var geocercas = qtree != null && qtree.GetData(position.Lat, position.Lon) != null 
+                                    ? qtree.GetData(position.Lat, position.Lon) : new List<Geocerca>(0);
                 
                 t.Restart();
                 if (vehiculo.Empresa.EvaluaSoloGeocercasViaje)
@@ -88,7 +90,7 @@ namespace Logictracker.Process.Geofences
                         }
                         
                         geocercas = geocercas.Where(g => idGeocercas.Contains(g.Id)).ToList();
-                        if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercasViaje: {0} segundos", t.getTimeElapsed().TotalSeconds));
+                        if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercasViaje: {0} segundos", t.getTimeElapsed().TotalSeconds));
                     }
                 }
 
@@ -117,7 +119,7 @@ namespace Logictracker.Process.Geofences
 
                     estadoVehiculo.GeocercasDentro.Add(estadoGeocerca);
                 }
-                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/ForEach ({0} secs)", t.getTimeElapsed().TotalSeconds));                
+                if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Error("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("CalcularEstadoVehiculo/ForEach ({0} secs)", t.getTimeElapsed().TotalSeconds));                
                 
                 return estadoVehiculo;
             }
@@ -331,46 +333,59 @@ namespace Logictracker.Process.Geofences
 
         private static QtreeNode GetQtree(int empresa, int linea)
         {
-            var t = new TimeElapsed();
+            var lastMod = ReferenciaGeograficaDAO.GetLastUpdate(empresa, linea);
+            var key = GetQtreeKey(empresa, linea);
 
-            lock (GetLock(empresa, linea))
+            var root = _qtrees.ContainsKey(key) ? _qtrees[key] : null;
+
+            if (root != null && lastMod < root.LastUpdate)
             {
-                var ts = t.getTimeElapsed().TotalSeconds;
-                if (ts > 1) STrace.Trace("DispatcherLock", string.Format("GetLock({0},{1}): {2} segundos", empresa, linea, ts));
-
-                var lastMod = ReferenciaGeograficaDAO.GetLastUpdate(empresa, linea);
-                var key = GetQtreeKey(empresa, linea);
-
-                var root = _qtrees.ContainsKey(key) ? _qtrees[key] : null;
-                if (root != null && lastMod < root.LastUpdate)
-                    return root;
-
-                if (root != null) _qtrees.Remove(key);
-                root = new QtreeNode();
-
-                using (var transaction = SmartTransaction.BeginTransaction())
+                return root;
+            }
+            else
+            {
+                if (Monitor.IsEntered(_qtrees))
                 {
-                    var daoFactory = new DAOFactory();
-
-                    t.Restart();
-                    var geocercas = daoFactory.ReferenciaGeograficaDAO.GetGeocercasFor(empresa, linea);
-                    ts = t.getTimeElapsed().TotalSeconds;
-                    if (ts > 1) STrace.Trace("DispatcherLock", string.Format("GetGeocercasFor({0},{1}): {2} segundos", empresa, linea, ts));
-
-                    transaction.Commit();
-                
-                    t.Restart();
-                    foreach (var geocerca in geocercas)
-                    {
-                        root.AddValue(geocerca);
-                    }
-                    ts = t.getTimeElapsed().TotalSeconds;
-                    if (ts > 1) STrace.Trace("DispatcherLock", string.Format("foreach root.AddValue({0},{1}): {2} segundos", empresa, linea, ts));
-
-                    _qtrees.Add(key, root);
-                    
+                    // ESTA TOMADO => SE ESTA REGENERANDO
+                    STrace.Trace("DispatcherLock", string.Format("qtree OLD ---> {0} | {1}", empresa, linea));
                     return root;
                 }
+                
+                var tryEnter = false;
+                Monitor.TryEnter(_qtrees, 10, ref tryEnter);
+                if (tryEnter)
+                {
+                    // NO ESTA TOMADO => LO TOMO PARA REGENERAR
+                    STrace.Trace("DispatcherLock", string.Format("qtree UPDATE ---> {0} | {1}", empresa, linea));
+
+                    using (var transaction = SmartTransaction.BeginTransaction())
+                    {
+                        var daoFactory = new DAOFactory();
+                        var geocercas = daoFactory.ReferenciaGeograficaDAO.GetGeocercasFor(empresa, linea);
+                        transaction.Commit();
+
+                        var keyToRemove = string.Empty;
+                        if (root != null) keyToRemove = key;
+                        root = new QtreeNode();
+
+                        foreach (var geocerca in geocercas)
+                        {
+                            root.AddValue(geocerca);
+                        }
+
+                        if (keyToRemove != string.Empty) _qtrees.Remove(keyToRemove);
+                        _qtrees.Add(key, root);
+                    }
+
+                    Monitor.Exit(_qtrees);
+                    STrace.Trace("DispatcherLock", string.Format("qtree NEW ---> {0} | {1}", empresa, linea));
+                }
+                else
+                {
+                    STrace.Trace("DispatcherLock", string.Format("qtree OLD ---> {0} | {1}", empresa, linea));                    
+                }
+
+                return root;
             }
         }
 

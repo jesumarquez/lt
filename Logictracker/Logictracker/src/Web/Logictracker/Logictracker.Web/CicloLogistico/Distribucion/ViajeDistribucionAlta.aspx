@@ -436,7 +436,7 @@
                 <tr>
                     <td style="width: 80px;">&nbsp;</td>
                     <td style="width: 120px;">
-                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" />
+                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Entities" VariableName="OPETICK04" />
                     </td>
                     <td style="width: 100px;">
                         <cwc:ResourceLabel ID="ResourceLabel6" runat="server" ResourceName="Entities" VariableName="PARENTI44" />

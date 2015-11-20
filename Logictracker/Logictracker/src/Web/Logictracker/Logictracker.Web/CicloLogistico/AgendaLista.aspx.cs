@@ -29,6 +29,7 @@ namespace Logictracker.Web.CicloLogistico
         {
             var list = DAOFactory.AgendaVehicularDAO.GetList(cbEmpresa.SelectedValues,
                                                              cbLinea.SelectedValues,
+                                                             cbDepartamento.SelectedValues,
                                                              cbMovil.SelectedValues,
                                                              dtpDesde.SelectedDate.Value.ToDataBaseDateTime(),
                                                              dtpHasta.SelectedDate.Value.ToDataBaseDateTime());
@@ -40,6 +41,7 @@ namespace Logictracker.Web.CicloLogistico
         {
             data.LoadStaticFilter(FilterData.StaticDistrito, cbEmpresa);
             data.LoadStaticFilter(FilterData.StaticBase, cbLinea);
+            data.LoadStaticFilter(FilterData.StaticDepartamento, cbDepartamento);
             data.LoadLocalFilter("DESDE", dtpDesde);
             data.LoadLocalFilter("HASTA", dtpHasta);
         }
@@ -48,6 +50,7 @@ namespace Logictracker.Web.CicloLogistico
         {
             data.AddStatic(FilterData.StaticDistrito, cbEmpresa.Selected);
             data.AddStatic(FilterData.StaticBase, cbLinea.Selected);
+            data.AddStatic(FilterData.StaticDepartamento, cbDepartamento.Selected);
             data.Add("DESDE", dtpDesde.SelectedDate);
             data.Add("HASTA", dtpHasta.SelectedDate);
             return data;

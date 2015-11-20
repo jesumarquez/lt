@@ -100,7 +100,31 @@ function Clean-SourceDirectory()
     RemoveItem("$source\ParserHost\*.xml")
 }
 
+Import-Module WebAdministration
+
+function Get-SiteNameByPhysicalPath($PhysicalPath)
+{
+	$Websites = Get-ChildItem IIS:\Sites
+	foreach($Site in $Websites)
+	{
+		if($Site.physicalPath -eq $PhysicalPath)
+		{
+			return $Site.name
+		}     
+	}
+}
+
 Clean-SourceDirectory
+
+$webSiteName = Get-SiteNameByPhysicalPath($targetWebsitePath)
+$webApiName = Get-SiteNameByPhysicalPath($targetWebApiPath)
+
+Write-Output "Stop sitio web: $webSiteName. `n`r"
+Stop-WebSite -Name $webSiteName
+Write-Output "Stop sitio web: $webApiName. `n`r"
+Stop-WebSite -Name $webApiName
+
+start-sleep 5
 
 Write-Output "Copiando sitio web. `n`r"
 #%windir%\system32\inetsrv\appcmd.exe stop site /site.name:lgtkr45
@@ -109,6 +133,11 @@ xcopy $source\web $targetWebsitePath /S /R /Y
 Write-Output "Copiando sitio webapi. `n`r"
 xcopy $source\webapi $targetWebApiPath /S /R /Y
 #%windir%\system32\inetsrv\appcmd.exe start site /site.name:lgtkr45
+
+Write-Output "Start sitio web: $webSiteName. `n`r"
+Start-WebSite -Name $webSiteName
+Write-Output "Start sitio web: $webApiName. `n`r"
+Start-WebSite -Name $webApiName
 
 Write-Output "Finalizado.`r"
 

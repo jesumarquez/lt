@@ -24,6 +24,8 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual string Descripcion { get; set; }
         public virtual short Demora { get; set; }
         public virtual bool Productivo { get; set; }
+        public virtual bool Iterativo { get; set; }
+        public virtual bool ControlInverso { get; set; }
         public virtual bool Baja { get; set; }
     }
 }

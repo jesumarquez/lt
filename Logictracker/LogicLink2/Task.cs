@@ -23,7 +23,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
     public class Task : BaseTask
     {
         private const string Component = "Logiclink2";
-        private Dictionary<int, List<int>> _empresasLineas;
+        private bool _update;
         private DateTime _lastUpdate;
 
         private int IdEmpresa
@@ -39,11 +39,16 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
         {
             if (IdEmpresa <= 0) return;
 
-            if (LogicCache.KeyExists(typeof(object), Component + "_empresasLineas"))
-                _empresasLineas = LogicCache.Retrieve<Dictionary<int, List<int>>>(typeof(object), Component + "_empresasLineas");
+            var keyUpdate = Component + "_update_" + IdEmpresa;
+            var keyLastUpdate = Component + "_lastUpdate_" + IdEmpresa;
 
-            if (LogicCache.KeyExists(typeof(DateTime), Component + "_lastUpdate"))
-                _lastUpdate = (DateTime) LogicCache.Retrieve<object>(typeof(DateTime), Component + "_lastUpdate");
+            if (LogicCache.KeyExists(typeof(bool), keyUpdate))
+                _update = (bool) LogicCache.Retrieve<object>(typeof(bool), keyUpdate);
+
+            STrace.Trace(Component, string.Format("Init Update: {0}", _update ? "TRUE" : "FALSE"));
+
+            if (LogicCache.KeyExists(typeof(DateTime), keyLastUpdate))
+                _lastUpdate = (DateTime) LogicCache.Retrieve<object>(typeof(DateTime), keyLastUpdate);
 
             //var archivoPendiente = DaoFactory.LogicLinkFileDAO.GetNextPendiente(IdEmpresa);
             //if (archivoPendiente != null)
@@ -57,6 +62,9 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
 
             var archivosPendientes = DaoFactory.LogicLinkFileDAO.GetPendientes(IdEmpresa).ToList();
             STrace.Trace(Component, "Archivos pendientes: " + archivosPendientes.Count());
+
+            //var archivo = DaoFactory.LogicLinkFileDAO.FindById();
+            //archivosPendientes.Add(archivo);
 
             foreach (var archivoPendiente in archivosPendientes)
             {
@@ -72,19 +80,27 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             var lastUpdateMinutes = now.Subtract(_lastUpdate).TotalMinutes;
 
             STrace.Trace(Component, string.Format("Last Update: {0} - {1} minutos", _lastUpdate.ToString("dd/MM/yyyy HH:mm:ss"), lastUpdateMinutes));
-            if (_empresasLineas != null) STrace.Trace(Component, string.Format("Items to update: {0}", _empresasLineas.Count));
+            STrace.Trace(Component, string.Format("Update: {0}", _update ? "TRUE" : "FALSE"));
 
-            if (lastUpdateMinutes > empresa.LogiclinkMinutosUpdate && _empresasLineas != null && _empresasLineas.Count > 0)
+            if (lastUpdateMinutes > empresa.LogiclinkMinutosUpdate && _update)
             {
-                DaoFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                _empresasLineas.Clear();
+                var lineas = new List<int>();
+                var dict = new Dictionary<int, List<int>>();
+
+                var todaslaslineas = DaoFactory.LineaDAO.GetList(new[] { IdEmpresa });
+                lineas.Add(-1);
+                lineas.AddRange(todaslaslineas.Select(l => l.Id));
+                dict.Add(IdEmpresa, lineas);
+
+                DaoFactory.ReferenciaGeograficaDAO.UpdateGeocercas(dict);
+                _update = false;
                 _lastUpdate = now;
             }
 
-            if (_empresasLineas == null) _empresasLineas = new Dictionary<int, List<int>>();
+            STrace.Trace(Component, string.Format("Store Update: {0}", _update ? "TRUE" : "FALSE"));
 
-            LogicCache.Store(typeof(object), Component + "_empresasLineas", _empresasLineas);
-            LogicCache.Store(typeof(DateTime), Component + "_lastUpdate", _lastUpdate);
+            LogicCache.Store(typeof(bool), keyUpdate, _update);
+            LogicCache.Store(typeof(DateTime), keyLastUpdate, _lastUpdate);
         }
 
         public void ProcessArchivo(LogicLinkFile archivo)
@@ -104,33 +120,36 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                     var result = string.Empty;
                     var observaciones = string.Empty;
                     ViajeDistribucion viaje = null;
-                    Dictionary<int, List<int>> empresasLineas = null;
 
                     switch (archivo.Strategy)
                     {
                         case LogicLinkFile.Estrategias.DistribucionFemsa:
-                            empresasLineas = DistribucionFemsa.Parse(archivo, out rutas, out entregas);
+                            DistribucionFemsa.Parse(archivo, out rutas, out entregas);
+                            _update = true;
                             result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionQuilmes:
-                            empresasLineas = DistribucionQuilmes.Parse(archivo, out rutas, out entregas, out observaciones);
+                            DistribucionQuilmes.Parse(archivo, out rutas, out entregas, out observaciones);
+                            _update = true;
                             result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
                         case LogicLinkFile.Estrategias.DistribucionMusimundo:
-                            empresasLineas = DistribucionMusimundo.Parse(archivo, out rutas, out entregas, out observaciones);
+                            DistribucionMusimundo.Parse(archivo, out rutas, out entregas, out observaciones);
+                            _update = true;
                             result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
                         case LogicLinkFile.Estrategias.DistribucionBrinks:
-                            //EmpresasLineas = DistribucionBrinks.Parse(archivo, out rutas, out entregas);
+                            //DistribucionBrinks.Parse(archivo, out rutas, out entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionSos:
                             viaje = DistribucionSos.Parse(archivo, out rutas, out entregas);
                             result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionReginaldLee:
-                            empresasLineas = DistribucionReginaldLee.Parse(archivo, out rutas, out entregas);
+                            DistribucionReginaldLee.Parse(archivo, out rutas, out entregas);
+                            _update = true;
                             result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                             break;
                         case LogicLinkFile.Estrategias.DistribucionCCU:
@@ -138,7 +157,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             switch (extension)
 	                        {
                                 case "Rutas.xlsx":
-                                    empresasLineas = DistribucionCCU.ParseRutas(archivo, out rutas, out entregas, out observaciones);
+                                    DistribucionCCU.ParseRutas(archivo, out rutas, out entregas, out observaciones);
+                                    _update = true;
                                     result = string.Format("Archivo procesado exitosamente. Rutas: {0} - Entregas: {1}", rutas, entregas);
                                     break;
                                 case "Clientes.xlsx":
@@ -176,7 +196,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             foreach (var detalle in viaje.Detalles)
                             {
                                 if (detalle.PuntoEntrega != null && detalle.PuntoEntrega.ReferenciaGeografica != null)
-                                    AddReferenciasGeograficas(detalle.ReferenciaGeografica);
+                                    _update = true;
                             }
 
                             if (viaje.Vehiculo != null && viaje.Estado == ViajeDistribucion.Estados.Pendiente)
@@ -219,25 +239,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             }
                         }
                     }
-
-                    if (_empresasLineas == null) _empresasLineas = new Dictionary<int, List<int>>();
-
-                    foreach (var item in empresasLineas)
-                    {
-                        if (_empresasLineas.Keys.Contains(item.Key))
-                        {
-                            foreach (var linea in item.Value)
-                            {
-                                if (!_empresasLineas[item.Key].Contains(linea))
-                                    _empresasLineas[item.Key].Add(linea);
-                            }
-                        }
-                        else
-                        {
-                            _empresasLineas.Add(item.Key, item.Value);
-                        }
-                    }
-
+                    
                     STrace.Trace(Component, result);
                 }
                 catch (Exception ex)
@@ -265,35 +267,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             ClearSessions();
             GC.Collect();
         }
-
-        private void AddReferenciasGeograficas(ReferenciaGeografica rg)
-        {
-            if (rg == null)
-                STrace.Error(Component, "AddReferenciasGeograficas: rg is null");
-            else if (rg.Empresa == null)
-                STrace.Error(Component, "AddReferenciasGeograficas: rg.Empresa is null");
-            else
-            {
-                if (!_empresasLineas.ContainsKey(rg.Empresa.Id))
-                    _empresasLineas.Add(rg.Empresa.Id, new List<int> { -1 });
-
-                if (rg.Linea != null)
-                {
-                    if (!_empresasLineas[rg.Empresa.Id].Contains(rg.Linea.Id))
-                        _empresasLineas[rg.Empresa.Id].Add(rg.Linea.Id);
-                }
-                else
-                {
-                    var todaslaslineas = DaoFactory.LineaDAO.GetList(new[] { rg.Empresa.Id });
-                    foreach (var linea in todaslaslineas)
-                    {
-                        if (!_empresasLineas.ContainsKey(linea.Id))
-                            _empresasLineas[rg.Empresa.Id].Add(linea.Id);
-                    }
-                }
-            }
-        }
-
+        
         private string GetFileName(string filePath)
         {
             var filename = string.Empty;

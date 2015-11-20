@@ -26,7 +26,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 {
     public class PedidosPetrobras : Strategy
     {
-        private static Dictionary<int, List<int>> EmpresasLineas = new Dictionary<int, List<int>>();
         private const string Component = "Logiclink2";
 
         private Empresa Empresa { get; set; }
@@ -117,6 +116,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         orden.Linea = planta;
                         orden.PuntoEntrega = puntoEntrega;
                         orden.Transportista = transportista;
+                        orden.Programado = false;
 
                         var naftaSuper = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaSuper].ToString().Trim());
                         var naftaPremium = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaPremium].ToString().Trim());

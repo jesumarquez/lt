@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 {
     [Serializable]
-    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto
+    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto, IHasTransportista
     {
         public static class Estados
         {
@@ -48,6 +48,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual int Id { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual Transportista Transportista { get; set; }
         public virtual CentroDeCostos CentroDeCostos { get; set; }
         public virtual SubCentroDeCostos SubCentroDeCostos { get; set; }
         public virtual Coche Vehiculo { get; set; }
@@ -101,6 +102,13 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         {
             get { return _estadosCumplidos ?? (_estadosCumplidos = new List<EstadoDistribucion>()); }
             set { _estadosCumplidos = value; }
+        }
+
+        private IList<ParametroDistribucion> _parametros;
+        public virtual IList<ParametroDistribucion> Parametros
+        {
+            get { return _parametros ?? (_parametros = new List<ParametroDistribucion>()); }
+            set { _parametros = value; }
         }
 
         private IList<RecorridoDistribucion> _recorrido;
@@ -188,6 +196,30 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
             public int Index { get; set; }
             public RecorridoDistribucion Inicio { get; set; }
             public RecorridoDistribucion Fin { get; set; }
+        }
+
+        public virtual void AgregarBaseFinal()
+        {
+            var baseFinal = new EntregaDistribucion()
+            {             
+                Linea = Detalles[0].Linea,
+                Descripcion = Detalles[0].Descripcion,
+                Estado = EntregaDistribucion.Estados.Pendiente,
+                Programado = Detalles[0].Programado,
+                ProgramadoHasta = Detalles[0].ProgramadoHasta,
+                Orden = Detalles.Count,
+                Viaje = Detalles[0].Viaje,
+                KmCalculado = 0
+            };
+
+            for (var i = 1; i < Detalles.Count; i++)
+            {
+                if (Detalles[i].Descripcion.Equals(Detalles[0].Descripcion))
+                {
+                    Detalles.RemoveAt(i);
+                }
+            }
+            Detalles.Add(baseFinal);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Logictracker.Reportes.CicloLogistico
                                                                           lbTransportista.SelectedValues,
                                                                           new[] {-1}, // DEPARTAMENTOS
                                                                           new[] {-1}, // CENTROS
-                                                                          vehiculos.Select(v => v.Id),
+                                                                          vehiculos.Select(v => v.Id).ToList(),
                                                                           dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime(),
                                                                           dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime())
                                                                  .Where(e => e.Detalle.Linea == null);
