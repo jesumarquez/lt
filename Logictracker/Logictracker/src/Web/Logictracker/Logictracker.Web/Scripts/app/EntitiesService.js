@@ -26,6 +26,7 @@ function EntitiesService($resource, $http) {
         ticketrechazo: {
             estados: getEstados, //$resource("/api/ticketrechazo/estado/items"),
             motivos: getMotivos, // $resource("/api/ticketrechazo/motivo/items")
+            items: getRechazoItems
         }
     };
 
@@ -256,6 +257,34 @@ function EntitiesService($resource, $http) {
             ds.bind("error", onFail);
         return ds;
     }
+
+    function getRechazoItems(filters, onEnd, onFail) {
+        
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ticketrechazo/datasource";
+                    },
+                },
+            },
+            schema: {
+                data: "Data"
+            },
+            filter: filters,
+            serverFiltering: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
 
     return _service;
 }
