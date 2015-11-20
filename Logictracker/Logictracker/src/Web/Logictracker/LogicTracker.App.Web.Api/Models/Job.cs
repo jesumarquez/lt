@@ -17,5 +17,7 @@ namespace LogicTracker.App.Web.Api.Models
         public float Value;
         public float Volumen;
         public float Weight;
+        public string clienttype;
+        public string direccionreal;
     }
 }

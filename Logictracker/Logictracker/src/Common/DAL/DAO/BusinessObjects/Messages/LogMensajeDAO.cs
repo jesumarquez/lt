@@ -529,6 +529,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return eventos;
         }
 
+        public IList<LogMensaje> GetByVehicleAndCode(int vehicleId, string code, DateTime desde, DateTime hasta, int maxMonths, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            var eventos = GetEvents(0, new[] { vehicleId }, new[] { code }, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Asc("Fecha"), page, pageSize, ref totalRows, reCount);
+
+            return eventos;
+        }
+
         public IList<LogMensaje> GetByVehicleAndCodeWithSession(int vehicleId, string code, DateTime desde, DateTime hasta, int maxMonths)
         {
             return GetByVehiclesAndCode(new[] { vehicleId }, code, desde, hasta, maxMonths);
