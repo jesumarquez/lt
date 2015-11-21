@@ -24,10 +24,12 @@ function EntitiesService($resource, $http) {
             centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId", deptoId: "@deptoId" }),
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
+            empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/items"),
             },
         ticketrechazo: {
             estados: getEstados, //$resource("/api/ticketrechazo/estado/items"),
             motivos: getMotivos, // $resource("/api/ticketrechazo/motivo/items")
+            empleadoReporta: getEmpleadoReportaDS,
             items: getRechazoItems
         }
     };
@@ -182,6 +184,33 @@ function EntitiesService($resource, $http) {
         return ds;
 
     }
+
+    function getEmpleadoReportaDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "" &&
+                        op.data.empleadoId !== undefined && op.data.empleadoId !== "") {
+
+                        getData(_service.resources.empleadoReporta,
+                            op,
+                            { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
+
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+    };
 
     function getData(res, option, params) {
         res.query(params,

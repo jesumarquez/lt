@@ -43,28 +43,11 @@
         </div>
 
         <div class="InputGroup">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
-            <div class="InputGroup__control">
-                <input class="form-control" kendo-combo-box />
-            </div>
-        </div>
-
-        <div class="InputGroup">
             <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Estado"):</span>
             <lt-rechazo-estado class="InputGroup__control" />
+            
         </div>
 
-    </div>
-
-    <div class="InputContainer">
-
-
-        <div class="InputGroup">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
-            <div class="InputGroup__control">
-                <input class="form-control" kendo-combo-box />
-            </div>
-        </div>
         <div class="InputGroup">
             <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
             <div class="InputGroup__control">
@@ -78,18 +61,13 @@
                        k-filter="'contains'"
                        k-min-length="3"
                        k-template="tDistribucion" />
-            </div>
-        </div>
-        <div class="InputGroup">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
-            <div class="InputGroup__control">
-                <input class="form-control input-sm" type="text" />
-            </div>
+            </div>            
         </div>
 
     </div>
 
     <div class="InputContainer">
+
 
         <div class="InputGroup">
             <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
@@ -105,12 +83,6 @@
                        k-template="tCliente" />
             </div>
         </div>
-        <div class="InputGroup" style="max-height: 5em">
-            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
-            <div class="InputGroup__control">
-                <input class="form-control" kendo-combo-box />
-            </div>
-        </div>
         <div class="InputGroup">
             <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
             <div class="InputGroup__control">
@@ -124,6 +96,44 @@
                        k-ng-model="puntoEntregaSelected"
                        k-template="tPuntoEntrega" />
             </div>
+
+        </div>
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control input-sm" type="text" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="InputContainer">
+
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control" kendo-combo-box
+                       k-data-source="supervisorVentasDS"
+                       k-data-text-field="'Value'"
+                       k-data-value-field="'Key'"
+                       k-ng-model="supervisorVentasSelected" />
+            </div>            
+        </div>
+        <div class="InputGroup" style="max-height: 5em">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control" kendo-combo-box
+                       k-data-source="supervisorRutaDS"
+                       k-data-text-field="'Value'"
+                       k-data-value-field="'Key'"
+                       k-ng-model="supervisorRutaSelected" />
+            </div>
+        </div>
+        <div class="InputGroup">
+            <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
+            <div class="InputGroup__control">
+                <input class="form-control" kendo-combo-box />
+            </div>
         </div>
 
     </div>
@@ -131,8 +141,8 @@
         <div class="InputGroup">
             <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Observaciones"):</span>
             <div class="InputGroup__control">
-                <textarea class="form-control" kendo-editor></textarea>
-            </div>
+        <textarea class="form-control" kendo-editor></textarea>
+    </div>
         </div>
     </div>
     <div class="form-group">

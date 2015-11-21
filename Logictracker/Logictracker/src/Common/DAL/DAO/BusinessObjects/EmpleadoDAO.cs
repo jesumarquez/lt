@@ -123,6 +123,25 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 						.SafeFirstOrDefault();
         }
 
+        public Empleado GetById(int empresa, int linea, int id)
+        {
+            return Query.FilterEmpresa(Session, new[] { empresa })
+                        .FilterLinea(Session, new[] { empresa }, new[] { linea })
+                        .Where(q => !q.Baja)
+                        .Where(q => q.Id == id)
+                        .SafeFirstOrDefault();
+        }
+
+        public List<Empleado> GetReporta(int empresa, int linea, int id)
+        {
+            var reporta = new List<Empleado>();
+            var empleado = GetById(empresa, linea, id);
+            if (empleado.Reporta1 != null) reporta.Add(empleado.Reporta1);
+            if (empleado.Reporta2 != null) reporta.Add(empleado.Reporta2);
+            if (empleado.Reporta3 != null) reporta.Add(empleado.Reporta3);
+            return reporta;
+        }
+
         public List<Empleado> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tiposEmpleado, IEnumerable<int> transportistas)
         {
             return Query.FilterEmpresa(Session, empresas)
