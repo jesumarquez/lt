@@ -39,7 +39,9 @@ namespace Logictracker.Web.Controllers.api
 
             EntityDao.Save(rechazoEntity);
 
-            return Created("api/ticketrechazo/item/1", rechazoModel);
+            // Mapper.EntityToModel(rechazoEntity, rechazoModel);
+
+            return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
         }
         //[Route("api/ticketrechazo/cantidadesporestado/items")]
         //public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
