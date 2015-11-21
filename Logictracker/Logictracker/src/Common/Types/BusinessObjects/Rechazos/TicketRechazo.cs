@@ -47,6 +47,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return "PRODUCTO_NO_APTO";
                 case MotivoRechazo.SinDinero:
                     return "SIN_DINERO";
+                case MotivoRechazo.CaminoIntransitable:
+                    return "CAMINO_INTRANSITABLE";
                 default:
                     throw new ArgumentOutOfRangeException("motivoRechazo");
             }
@@ -74,11 +76,11 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         public enum EstadoFinal
         {
-            SolucionPendiente=1,
-            RechazoDuplicado=2,
-            RechazoErroneo=3,
-            ResueltoEntregado=4,
-            ResueltoSinEntrega=5
+            SolucionPendiente = 1,
+            RechazoDuplicado = 2,
+            RechazoErroneo = 3,
+            ResueltoEntregado = 4,
+            ResueltoSinEntrega = 5
         }
 
         public static Estado[] Next(Estado actual)
@@ -106,16 +108,16 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                 case Estado.AltaErronea:
                     return new Estado[] { };
             }
-            return new Estado[] {};
+            return new Estado[] { };
         }
 
 
         protected TicketRechazo()
         {
-            
+
         }
 
-        public TicketRechazo(string observacion , Usuario usuario , DateTime fechaHora)
+        public TicketRechazo(string observacion, Usuario usuario, DateTime fechaHora)
         {
             Final = EstadoFinal.SolucionPendiente;
 
@@ -127,13 +129,13 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                 Ticket = this,
                 Usuario = usuario
             };
-            
+
             FechaHora = fechaHora;
-            
+
             Detalle.Add(detalle);
         }
 
-        public virtual void ChangeEstado(Estado nuevoEstado , string observacion , Usuario usuario)
+        public virtual void ChangeEstado(Estado nuevoEstado, string observacion, Usuario usuario)
         {
             if (!Next(UltimoEstado).Any(e => e == nuevoEstado))
                 throw new Exception(string.Format("Cambio de estado invalido {0} -> {1}", UltimoEstado, nuevoEstado));
@@ -146,11 +148,11 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                 Ticket = this,
                 Usuario = usuario
             };
-            
+
             Detalle.Add(detalle);
 
         }
-        
+
         public static string GetEstadoLabelVariableName(Estado estado)
         {
             switch (estado)
@@ -208,7 +210,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         private ISet<DetalleTicketRechazo> _detalles;
 
-        public  virtual Type TypeOf() { return GetType(); }
+        public virtual Type TypeOf() { return GetType(); }
 
         public virtual ISet<DetalleTicketRechazo> Detalle
         {

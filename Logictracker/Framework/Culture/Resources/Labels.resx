@@ -4762,4 +4762,7 @@
   <data name="DUPLICADO" xml:space="preserve">
     <value>Duplicado</value>
   </data>
+  <data name="CAMINO_INTRANSITABLE" xml:space="preserve">
+    <value>Camino intransitable</value>
+  </data>
 </root>
