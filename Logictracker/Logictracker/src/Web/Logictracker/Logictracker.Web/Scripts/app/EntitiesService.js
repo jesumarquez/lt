@@ -25,6 +25,7 @@ function EntitiesService($resource, $http) {
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
             empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/items"),
+            ticketRechazo: $resource("/api/ticketrechazo/item"),
         },
         ticketrechazo: {
             estados: getEstados, //$resource("/api/ticketrechazo/estado/items"),

@@ -97,7 +97,8 @@
             <div class="InputGroup">
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
                 <div class="InputGroup__control">
-                    <input class="form-control input-sm" type="text" />
+                    <input class="form-control input-sm" type="text"
+                           k-ng-model="territorio" />
                 </div>
             </div>
         </div>
@@ -135,7 +136,9 @@
         <div class="InputGroup">
             <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Observaciones"):</span>
             <div class="InputGroup__control">
-        <textarea class="form-control" kendo-editor></textarea>
+            <textarea class="form-control"
+                      kendo-editor
+                      k-ng-model="observaciones" ></textarea>
     </div>
         </div>
     </div>
