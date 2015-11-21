@@ -127,15 +127,20 @@ function RechazoController($scope, EntitiesService) {
 
 
     $scope.gridOptions = {
+        sortable: true,
+        groupable: true,
+        pageable : {
+            pageSize:20
+        },
         columns:
         [
         { field: "TicketRechazoId", title: "Ticket" },
-        { field: "FechaHora", title: "Fecha Hora" },
-        { field: "CodCliente", title: "Cod. Cliente" },
+        { field: "FechaHora", title: "Fecha Hora", format: "{0:G}" , sortable:true },
+        { field: "CodCliente", title: "Cod. Cliente"  },
         { field: "Cliente", title: "Cliente" },
         { field: "SupVenDesc", title: "Sup. Venta" },
         { field: "SupRutDesc", title: "Sup. Ruta" },
-        { field: "UltEstado", title: "Estado" },
+        { field: "Estado", title: "Estado" },
         { field: "Territorio", title: "Territorio" },
         { field: "Motivo", title: "Motivo" },
         { field: "Bultos", title: "Bultos" },
@@ -167,6 +172,19 @@ function RechazoController($scope, EntitiesService) {
 
         if ($scope.motivoSelected != undefined)
             filterLIst.push({ field: "Motivo", operator: "eq", value: $scope.motivoSelected.Key });
+
+        if ($scope.desde != undefined) {
+            var fDesde = new Date($scope.desde);
+            fDesde.setHours(0, 0, 0, 0);
+            filterLIst.push({ field: "FechaHora", operator: "gte", value: fDesde });
+        }
+
+        if ($scope.hasta != undefined) {
+            var fHasta = new Date($scope.hasta);
+            fHasta.setHours(23,59, 0, 0);
+            filterLIst.push({ field: "FechaHora", operator: "lte", value: fHasta });
+        }
+
 
         var filters = {
             logic: "and",

@@ -1,4 +1,5 @@
 ﻿using System;
+using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
 
@@ -12,6 +13,12 @@ namespace Logictracker.Web.Controllers.api
         public int TicketRechazoId { get; set; }
         public string CodCliente { get; set; }
         public string Cliente { get; set; }
+        public string SupVenDesc { get; set; }
+        public string SupRutDesc { get; set; }
+        public string Estado { get; set; }
+        public string Territorio { get; set; }
+        public string Motivo { get; set; }
+        public int Bultos { get; set; }
     }
 
     public class TicketRechazoMapper : EntityModelMapper<TicketRechazo, TicketRechazoModel>
@@ -24,6 +31,12 @@ namespace Logictracker.Web.Controllers.api
             model.FechaHora = entity.FechaHora;
             model.CodCliente = entity.Cliente.Codigo;
             model.Cliente = entity.Cliente.Descripcion;
+            model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
+            model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
+            model.Estado = CultureManager.GetLabel( TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
+            model.Territorio = entity.Territorio;
+            model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
+            model.Bultos = entity.Bultos;
             return model;
         }
 
