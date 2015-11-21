@@ -42,7 +42,15 @@ namespace Logictracker.Web.Controllers.api
 
         public override TicketRechazo ModelToEntity(TicketRechazoModel model, TicketRechazo entity)
         {
-            throw  new NotImplementedException();
+            entity.Id = model.TicketRechazoId;
+            entity.Empresa.Id = model.DistritoId;
+            entity.Linea.Id = model.LineaId;
+            entity.FechaHora = model.FechaHora;
+            entity.Cliente.Codigo = model.CodCliente;
+            entity.Territorio = model.Territorio;
+            entity.Bultos = model.Bultos;
+
+            return entity;
         }
 
         public override ItemModel ToItem(TicketRechazo entity)
