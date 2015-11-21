@@ -68,9 +68,13 @@ textarea {
  
 .InputContainer{
 	display: flex;
+    flex-direction: row;
 	justify-content: space-between;
 }
-
+    .InputContainer-column{
+        display: flex;
+        flex-direction: column;
+    }
 	.InputGroup{
 		display: flex;
 		justify-content: space-between;
