@@ -202,14 +202,24 @@ function RechazoItemController($scope, EntitiesService) {
     // A = alta , M = modification
     //$scope.operation = "A";
 
+    //$scope.ticketRechazo = {
+    //    baseId: "",
+	//	DistritoId: "",
+    //    LineaId: "",
+    //    CodCliente: "",
+    //    SupVenDesc: "",
+    //    SupRutDesc: "",
+    //    Estado: "",
+    //    Motivo: ""
+    //};
 
     $scope.motivoSelected = {};
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function() { $scope.motivoSelected = $scope.motivoDS[0]; }, $scope.onFail);
+    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(onMotivoDSLoad, $scope.onFail);
     // El motivo es editable solo si es un alta
     $scope.motivoRO = function() { return !isNew(); };
 
     $scope.estadoSelected = {};
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function() { $scope.estadoSelected = $scope.estadoDS[0]; }, $scope.onFail);
+    $scope.estadoDS = EntitiesService.ticketrechazo.estados(onEstadoDSLoad, $scope.onFail);
     $scope.estadoRO = true;
 
     $scope.clienteSelected = {};
@@ -243,8 +253,6 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
     $scope.$watch("supervisorVentasSelected", onSupervisorVentasSelected);
 
-    //$scope.$watch("supervisorVentasDS", onsupervisorVentasDSChange);
-   
     function onClienteSelected(newValue, oldValue) {
 
         $scope.puntoEntregaSelected = [];
@@ -271,7 +279,7 @@ function RechazoItemController($scope, EntitiesService) {
 
     function onSupervisorVentasSelected(newValue, oldValue) {
 
-        if (newValue !== undefined && newValue !== oldValue) {
+        if (newValue != null && newValue !== undefined && newValue !== oldValue) {
             $scope.supervisorRutaDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
@@ -291,14 +299,19 @@ function RechazoItemController($scope, EntitiesService) {
            $scope.supervisorRutaSelected = e.response[0];
         }
     }
-    
-    //function onSupervisorVentasDSChange(newValue, oldValue)
-    //{
-    //    if (newValue !== oldValue) {
-    //        $scope.supervisorRutaSelected = [];
-    //    }
-    //}
 
+    function onMotivoDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.motivoSelected = e.response[0];
+        }
+    }
+
+    function onEstadoDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.estadoSelected = e.response[0];
+        }
+    }
+    
     function isNew() { return $scope.operation === "A"; }
 
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
@@ -323,7 +336,21 @@ function RechazoItemController($scope, EntitiesService) {
     };
 
 
-    $scope.onSave = function() {
+    $scope.onSave = function () {
+
+        var ticketRechazo = {
+            DistritoId: $scope.distritoSelected.Key,
+            LineaId: $scope.baseSelected.Key,
+            CodCliente: $scope.clienteSelected != null && $scope.clienteSelected[0] !== undefined ? $scope.clienteSelected[0].ClienteId : "",
+            SupVenDesc: $scope.supervisorVentasSelected != null ? $scope.supervisorVentasSelected.Key : "",
+            SupRutDesc: $scope.supervisorRutaSelected != null ?  $scope.supervisorRutaSelected.Key : "",
+            Estado: $scope.estadoSelected.Key,
+            Motivo: $scope.motivoSelected.Key,
+            Territorio: $scope.territorio
+        };
+
+        EntitiesService.resources.ticketRechazo.save(ticketRechazo);
+
         $scope.rechazoWin.close();
     };
 
