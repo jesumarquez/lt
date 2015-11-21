@@ -13,7 +13,7 @@ function EntitiesService($resource, $http) {
             clientes: {
                 models: getClientes
             },
-            distribuciones : {
+            distribuciones: {
                 models: getDistribuciones
             },
             puntoEntrega: getPuntoEntrega
@@ -24,7 +24,7 @@ function EntitiesService($resource, $http) {
             centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId", deptoId: "@deptoId" }),
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
-            },
+        },
         ticketrechazo: {
             estados: getEstados, //$resource("/api/ticketrechazo/estado/items"),
             motivos: getMotivos, // $resource("/api/ticketrechazo/motivo/items")
@@ -154,8 +154,7 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-    function getPuntoEntrega(data_, onEnd, onFail)
-    {
+    function getPuntoEntrega(data_, onEnd, onFail) {
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
             transport: {
@@ -231,20 +230,20 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-    function getClientes(data_,onEnd, onFail) {
+    function getClientes(data_, onEnd, onFail) {
 
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
             transport: {
                 read: {
-                    type:"GET",
+                    type: "GET",
                     dataType: "json",
-                    url: function(op) {
+                    url: function (op) {
                         return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/cliente/models";
                     },
-                    
+
                 },
-          
+
             },
             schema: {
                 data: "Data"
@@ -290,7 +289,7 @@ function EntitiesService($resource, $http) {
     }
 
     function getRechazoItems(filters, onEnd, onFail) {
-        
+
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
             transport: {
@@ -303,10 +302,19 @@ function EntitiesService($resource, $http) {
                 },
             },
             schema: {
-                data: "Data"
+                total: "total",
+                data: "Data",
+                parse: function (data) {
+                    $.each(data.Data, function (i, val) {
+                        val.FechaHora = kendo.parseDate(val.FechaHora);
+                    });
+                    return data;
+                }
             },
             filter: filters,
-            serverFiltering: true
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: true,
         });
 
         if (angular.isFunction(onEnd))

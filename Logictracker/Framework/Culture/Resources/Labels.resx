@@ -4759,4 +4759,7 @@
   <data name="SIN_DINERO" xml:space="preserve">
     <value>Sin dinero</value>
   </data>
+  <data name="DUPLICADO" xml:space="preserve">
+    <value>Duplicado</value>
+  </data>
 </root>

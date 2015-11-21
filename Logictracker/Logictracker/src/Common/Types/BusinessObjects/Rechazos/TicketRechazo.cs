@@ -15,7 +15,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             NoEncontroDomicilio = 6053,
             NoPedido = 6054,
             Cerrado = 6055,
-            CaminoIntransitable = 6055,
+            CaminoIntransitable = 6056,
             FaltaSinCargo = 6057,
             FueraDeHorario = 6058,
             FueraDeZona = 6059,
