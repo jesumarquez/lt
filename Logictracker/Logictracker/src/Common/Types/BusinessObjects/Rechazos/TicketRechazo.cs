@@ -112,7 +112,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         }
 
 
-        protected TicketRechazo()
+        public TicketRechazo()
         {
 
         }
