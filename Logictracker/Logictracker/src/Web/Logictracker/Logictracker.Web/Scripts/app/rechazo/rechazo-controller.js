@@ -341,12 +341,15 @@ function RechazoItemController($scope, EntitiesService) {
         var ticketRechazo = {
             DistritoId: $scope.distritoSelected.Key,
             LineaId: $scope.baseSelected.Key,
-            CodCliente: $scope.clienteSelected != null && $scope.clienteSelected[0] !== undefined ? $scope.clienteSelected[0].ClienteId : "",
+            ClienteId: $scope.clienteSelected != null && $scope.clienteSelected[0] !== undefined ? $scope.clienteSelected[0].ClienteId : "",
             SupVenDesc: $scope.supervisorVentasSelected != null ? $scope.supervisorVentasSelected.Key : "",
             SupRutDesc: $scope.supervisorRutaSelected != null ?  $scope.supervisorRutaSelected.Key : "",
             Estado: $scope.estadoSelected.Key,
             Motivo: $scope.motivoSelected.Key,
-            Territorio: $scope.territorio
+            Territorio: $scope.territorio,
+            VendedorId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ResponsableId : "",
+            SupVenId: $scope.supervisorVentasSelected.Key,
+            SupRutId: $scope.supervisorRutaSelected.Key,
         };
 
         EntitiesService.resources.ticketRechazo.save(ticketRechazo);
