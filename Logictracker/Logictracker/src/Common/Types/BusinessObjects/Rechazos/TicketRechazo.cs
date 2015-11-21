@@ -202,7 +202,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         public virtual MotivoRechazo Motivo { get; set; }
 
-        public virtual Estado UltimoEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().Estado; } }
+        public virtual Estado UltimoEstado { get; protected set; }
 
         public virtual int Bultos { get; set; }
 
