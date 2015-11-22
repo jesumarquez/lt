@@ -31,6 +31,15 @@ namespace Logictracker.Web.Controllers.api
             return EntityDao.FindAll().ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
         }
 
+        [Route("api/ticketrechazo/item/{id}")]
+        public IHttpActionResult GetItem(int id)
+        {
+            var rechazo = EntityDao.FindById(id);
+            var rechazoModel = new TicketRechazoModel();
+            Mapper.EntityToModel(rechazo, rechazoModel);
+
+            return Json(rechazoModel);
+        }
         [Route("api/ticketrechazo/item")]
         public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
         {
