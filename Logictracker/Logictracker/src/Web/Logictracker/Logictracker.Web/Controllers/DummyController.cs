@@ -87,12 +87,7 @@ namespace Logictracker.Web.Controllers
             }
         }
 
-        public string ReferenceName
-        {
-            get
-            {
-                return "Dummy";
-            }
-        }
+        public string VariableName { get { return "Dummy"; } }
+        public string GetRefference() { return "Dummy"; }
     }
 }

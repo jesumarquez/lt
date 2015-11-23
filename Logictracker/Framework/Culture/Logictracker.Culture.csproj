@@ -192,17 +192,32 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\MenuImages\AC_CATEGORIA.png" />
     <Content Include="Resources\MenuImages\ANALIZADOR_MEDICIONES.png" />
+    <Content Include="Resources\MenuImages\CLOG_CONSOLA_TICKETS.png" />
+    <Content Include="Resources\MenuImages\CLOG_CONTROL_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\CLOG_INTERCALADOR.png" />
     <Content Include="Resources\MenuImages\CLOG_RECHAZO.png" />
+    <Content Include="Resources\MenuImages\CLOG_TIMETRACKING.png" />
+    <Content Include="Resources\MenuImages\COMB_FLEETONLINE.png" />
     <Content Include="Resources\MenuImages\CONSOLA_ENTREGAS.png" />
     <Content Include="Resources\MenuImages\ACC_DET_INFRACCIONES_X_VEHICULO.png" />
+    <Content Include="Resources\MenuImages\EST_HS_PRODUCTIVAS.png" />
+    <Content Include="Resources\MenuImages\EST_KM_PRODUCTIVOS.png" />
+    <Content Include="Resources\MenuImages\OPE_CONSOLA_DISPOSITIVOS.png" />
     <Content Include="Resources\MenuImages\OPE_MIMICO_ENTREGAS.png" />
+    <Content Include="Resources\MenuImages\OPE_MON_VIAJES.png" />
+    <Content Include="Resources\MenuImages\PAR_LIST_DET_DISPOSITIVO.png" />
     <Content Include="Resources\MenuImages\PAR_ORDENES.png" />
+    <Content Include="Resources\MenuImages\PAR_ORDENES2.png" />
+    <Content Include="Resources\MenuImages\PAR_TIPO_ZONA.png" />
+    <Content Include="Resources\MenuImages\REPORTE_CONSUMOS.png" />
     <Content Include="Resources\MenuImages\REP_ESTADOS_LOGISTICOS.png" />
     <Content Include="Resources\MenuImages\PAR_TIPO_CICLO_LOGISTICO.png" />
     <Content Include="Resources\MenuImages\PAR_ESTADO_LOGISTICO.png" />
     <Content Include="Resources\MenuImages\REPORT_LOG.png" />
     <Content Include="Resources\MenuImages\KILOMETROS_DIARIOS.png" />
+    <Content Include="Resources\MenuImages\REP_PERFORMANCE.png" />
     <Content Include="Resources\MenuImages\RESUMEN_ACTIVIDAD.png" />
     <Content Include="Resources\MenuImages\PAR_AGENDA.png" />
     <Content Include="Resources\MenuImages\KPI_ESTADO_ENTREGAS.png" />
