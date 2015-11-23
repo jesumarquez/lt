@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Timers;
 using log4net;
@@ -14,6 +15,7 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(WebServiceClient));
         public MessageQueueTemplate GarminQueueTemplate { get; set; }
+        public IntegrationService IntegrationService { get; set; }
 
         public WsSosService.Service WebService;
         public System.Timers.Timer Timer4Services;
@@ -22,46 +24,54 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer
 
         public void StartService()
         {
+            IntegrationService =new IntegrationService();
+            Novelties = new List<Novelty>();
+            WebService = new WsSosService.Service();
+
             //Timer4Services = new System.Timers.Timer(Time * 60000);
             Timer4Services = new System.Timers.Timer(10000);
             Timer4Services.Elapsed += OnTimedEvent;
             Timer4Services.AutoReset = true;
-            Timer4Services.Enabled = true;
+            Timer4Services.Enabled = true;           
 
-            WebService = new WsSosService.Service();
-            //try
-            //{
-            //    new Thread(Run).Start();
-            //}
-            //catch (Exception e)
-            //{
-            //    Logger.ErrorFormat("StartService ex : {0}", e.ToString());
-            //    //Stop();
-            //}
-        }
-
-        private void OnTimedEvent(object sender, ElapsedEventArgs e)
-        {
-            Logger.Info("Searching for a new alarm in S.O.S. service...");
             FindAlerts();
         }
 
-        private void FindAlerts()
+        private void Run()
         {
-            var webservice = new WsSosService.Service();
+            Timer4Services.Stop();
 
+            Logger.Info("Searching for a new alarm in S.O.S. service...");
+
+            var webservice = new WsSosService.Service();
             var response = webservice.ObtenerAlertas();
 
             if (response != "")
             {
                 var alerts = GetNovelties(response);
-
-                if (alerts.Count > 0)
-                    Timer4Services.Stop();
-
                 Logger.InfoFormat("Found {0} services", alerts.Count);
+            }
+            MostrarInformacionAlerta();
+            IntegrationService.NewServices(Novelties);
 
-                MostrarInformacionAlerta();
+            Timer4Services.Start();
+        }
+
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            FindAlerts();
+        }
+
+        private void FindAlerts()
+        {
+            try
+            {
+                new Thread(Run).Start();
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("StartService ex : {0}", e.ToString());
+                //Stop();
             }
         }
 
@@ -70,28 +80,32 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer
             var alerts = response.Split('#');
             foreach (var alert in alerts)
             {
+                if (alert=="") continue;
                 var novelty = TranslateFrameToClass.ParseFrame(alert);
                 Novelties.Add(novelty);
             }
 
             return Novelties;
         }
-
-
+        
         private void MostrarInformacionAlerta()
         {
+            var salida = new StringBuilder();
+
             foreach (var novelty in Novelties)
             {
-                Logger.Info(novelty.NumeroServicio);
-                Logger.Info(novelty.Diagnostico);
-                Logger.Info(novelty.Prioridad);
-                Logger.Info(novelty.HoraServicio);
-                Logger.Info(novelty.CobroAdicional);
-                Logger.Info(novelty.Estado);
-                Logger.Info(novelty.Vehiculo);
-                Logger.Info(novelty.Origen);
-                Logger.Info(novelty.Destino);
+                salida.AppendLine("servicio:" + novelty.NumeroServicio);
+                salida.AppendLine("diagnostico:" + novelty.Diagnostico);
+                salida.AppendLine("prioridad:" + novelty.Prioridad);
+                salida.AppendLine("hora:" + novelty.HoraServicio);
+                salida.AppendLine("cobro:" + novelty.CobroAdicional);
+                salida.AppendLine("estado:" + novelty.Estado);
+                salida.AppendLine("operador:" + novelty.Operador);
+                salida.AppendLine("patente:" + novelty.Vehiculo.Patente);
+                salida.AppendLine("ubicacion:" + novelty.Origen.Referencia);
+                salida.AppendLine("------------------------------------");
             }
+            Logger.Info(salida.ToString());
         }
     }
 }

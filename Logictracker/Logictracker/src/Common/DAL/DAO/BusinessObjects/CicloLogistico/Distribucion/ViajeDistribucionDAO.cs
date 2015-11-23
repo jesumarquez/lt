@@ -319,5 +319,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
         } 
 
         #endregion
+
+        public ViajeDistribucion FindByCodigo(string codigoServicio)
+        {
+            return Query.Where(t => t.Estado != ViajeDistribucion.Estados.Eliminado)
+                .FirstOrDefault(t => t.Codigo == codigoServicio);
+        }
     }
 }
