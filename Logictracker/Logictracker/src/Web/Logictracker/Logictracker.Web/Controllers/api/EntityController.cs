@@ -7,6 +7,9 @@ using Logictracker.DAL.Factories;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using Logictracker.Web.Filters;
 using Logictracker.Web.Models;
+using Logictracker.Types.BusinessObjects;
+using Logictracker.Security;
+using Logictracker.DAL.DAO.BusinessObjects;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -22,6 +25,17 @@ namespace Logictracker.Web.Controllers.api
         protected TDao EntityDao { get { return _dao ?? (_dao = DAOFactory.GetDao<TDao>()); } }
 
         protected TEntityMapper Mapper { get { return _mapper ?? (_mapper = new TEntityMapper()); } }
+
+        protected Usuario Usuario
+        {
+            get
+            {
+                var sessionUser = WebSecurity.AuthenticatedUser;
+                var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
+                return user;
+            }
+        }
+
 
         [HttpGet]
         public virtual TModel Get(int id)
