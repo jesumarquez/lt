@@ -198,10 +198,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
             var estadosList = estados.ToList();
             var q = Query.FilterEmpresa(Session, empresas)
                          .FilterLinea(Session, empresas, lineas)
-                         .FilterVehiculo(Session, empresas, lineas, transportistas, departamentos, centrosDeCosto, tiposVehiculo, vehiculos);
+                         .FilterVehiculo(Session, empresas, lineas, new[]{-1}, departamentos, centrosDeCosto, tiposVehiculo, vehiculos);
 
-            if (!QueryExtensions.IncludesAll(empleados) || !QueryExtensions.IncludesAll(transportistas)) 
-                q = q.FilterEmpleado(Session, empresas, lineas, transportistas, tiposEmpleado, empleados);
+            if (!QueryExtensions.IncludesAll(transportistas))
+                q = q.FilterTransportista(Session, empresas, lineas, transportistas);
+
+            if (!QueryExtensions.IncludesAll(empleados)) 
+                q = q.FilterEmpleado(Session, empresas, lineas, new[]{-1}, tiposEmpleado, empleados);
 
             if (!QueryExtensions.IncludesAll(departamentos) || !QueryExtensions.IncludesAll(centrosDeCosto))
                 q = q.FilterCentroDeCostos(Session, empresas, lineas, departamentos, centrosDeCosto);
