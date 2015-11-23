@@ -356,6 +356,7 @@ function RechazoItemController($scope, EntitiesService) {
             VendedorId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ResponsableId : "",
             SupVenId: $scope.supervisorVentasSelected.Key,
             SupRutId: $scope.supervisorRutaSelected.Key,
+            Observacion: $scope.observacion,
         };
 
         EntitiesService.resources.ticketRechazo.save(ticketRechazo);
