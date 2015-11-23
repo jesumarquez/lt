@@ -126,7 +126,11 @@
             <div class="InputGroup">
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
                 <div class="InputGroup__control">
-                    <input class="form-control" kendo-combo-box />
+                    <input class="form-control" kendo-combo-box
+                           k-data-source="enHorarioDS"
+                           k-data-text-field="'Value'"
+                           k-data-value-field="'Key'"
+                           k-ng-model="enHorarioSelected" />
                 </div>
             </div>
         </div>

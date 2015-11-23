@@ -153,6 +153,11 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         }
 
+        public DetalleTicketRechazo GetUltimoDetalle()
+        {
+            return this.Detalle.OrderByDescending(d => d.FechaHora).FirstOrDefault();
+        }
+
         public static string GetEstadoLabelVariableName(Estado estado)
         {
             switch (estado)

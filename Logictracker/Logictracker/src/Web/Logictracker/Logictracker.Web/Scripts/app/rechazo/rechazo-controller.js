@@ -253,6 +253,11 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
     $scope.$watch("supervisorVentasSelected", onSupervisorVentasSelected);
 
+    $scope.enHorarioDS = [
+        { Key: true, Value: "Si" },
+        { Key: false, Value: "No" },
+    ];
+
     function onClienteSelected(newValue, oldValue) {
 
         $scope.puntoEntregaSelected = [];

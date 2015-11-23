@@ -25,6 +25,8 @@ namespace Logictracker.Web.Controllers.api
         public string Motivo { get; set; }
         public int Bultos { get; set; }
         public int VendedorId { get; set; }
+        public string Observaciones { get; set; }
+        public bool EnHorario { get; set; }
     }
 
     public class TicketRechazoMapper : EntityModelMapper<TicketRechazo, TicketRechazoModel>
@@ -42,7 +44,7 @@ namespace Logictracker.Web.Controllers.api
             model.Estado = CultureManager.GetLabel( TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
             model.Territorio = entity.Territorio;
             model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
-            model.Bultos = entity.Bultos;
+            model.Bultos = entity.Bultos;            
             return model;
         }
 
