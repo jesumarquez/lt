@@ -123,6 +123,16 @@ namespace Logictracker.Web.Documentos
                             break;
                     val.Valor = sval;
                     break;
+                case TipoParametroDocumento.StringBarcode:
+                    var svalcode = (ctl as TextBox).Text;
+
+                    if (string.IsNullOrEmpty(svalcode))
+                        if (par.Obligatorio)
+                            throw new ApplicationException("El campo " + par.Nombre + " no puede estar vacio");
+                        else
+                            break;
+                    val.Valor = svalcode;
+                    break;
                 case TipoParametroDocumento.DateTime:
                     var dval = (ctl as TextBox).Text;
                     if (!par.Obligatorio && string.IsNullOrEmpty(dval))

@@ -65,15 +65,15 @@ namespace Logictracker.Tracker.Application.Services
             var employee = GetEmployeeByDeviceImei(deviceId);
             if (employee == null) return null;
 
-            var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
-            if (vehicle == null) return null;
+           // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
+            //if (vehicle == null) return null;
 
             var companies = new[] { employee.Empresa.Id };
             var lineas = new int[] {};
-            var vehiculos = new [] { vehicle.Id };
+            var vehiculos = new int[] { }; //vehicle.Id 
             var empleados = new[] {employee.Id};
             //var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, new int[] { }, null, null);
-            var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados);
+            var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados).Where(x => x.Vehiculo != null);
 
             return routes.Where(viajeDistribucion => viajeDistribucion.Inicio.Date.Equals(DateTime.Now.Date)).ToList();
         }
@@ -142,7 +142,8 @@ namespace Logictracker.Tracker.Application.Services
             var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             if (vehicle == null) return null;
 
-            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), DateTime.UtcNow.Date.AddDays(-1), DateTime.UtcNow, 1);
+            int totalRows = 0;
+            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), DateTime.UtcNow.Date.AddDays(-1), DateTime.UtcNow, 1, 0, 10, ref totalRows, false);
 
         }
 
@@ -196,7 +197,8 @@ namespace Logictracker.Tracker.Application.Services
             var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             if (vehicle == null) return null;
 
-            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1);
+            int totalRows = 0;
+            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1, 0, 10, ref totalRows, true);
 
         }
 

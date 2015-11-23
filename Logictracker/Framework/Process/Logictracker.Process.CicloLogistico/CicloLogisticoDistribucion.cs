@@ -744,6 +744,27 @@ namespace Logictracker.Process.CicloLogistico
                     msg.Send();
 
                     break;
+                case EntregaDistribucion.Estados.Pendiente:
+                    detalle.Manual = null;
+                    detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                    DaoFactory.ViajeDistribucionDAO.Update(detalle.Viaje);
+
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), ", <b>reactivada y pendiente<b>: " + destDetail, data);
+
+                    descripcion = "-> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
+                    SaveMessageAtraso(data, detalle);
+
+                    destiny = new Destination(detalle.Id,
+                                               gpsPoint,
+                                               detalle.Descripcion,
+                                               detalle.PuntoEntrega.Descripcion,
+                                               detalle.ReferenciaGeografica.Direccion.Descripcion);
+
+                    msg = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver).AddDestinations(new[] { destiny });
+                    msg.Send();
+
+                    break;
                 case EntregaDistribucion.Estados.Cancelado:
                 case EntregaDistribucion.Estados.NoCompletado:
                     if (detalle.Manual.HasValue)

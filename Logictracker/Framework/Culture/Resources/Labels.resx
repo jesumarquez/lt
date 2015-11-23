@@ -2637,6 +2637,9 @@
   <data name="DOC_FIELDTYPE_TEXT" xml:space="preserve">
     <value>Text</value>
   </data>
+  <data name="DOC_FIELDTYPE_TEXTBARCODE" xml:space="preserve">
+    <value>TextBarcode</value>
+  </data>
   <data name="DOC_FIELDTYPE_TRANSPORTISTA" xml:space="preserve">
     <value>Transportista</value>
   </data>

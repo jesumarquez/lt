@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Http;
@@ -19,30 +19,30 @@ namespace LogicTracker.App.Web.Api.Controllers
 
 
         // GET: api/Routes/
-        // [LogicTracker.App.Web.Api.Providers.CompressContent]
+       // [LogicTracker.App.Web.Api.Providers.CompressContent]
         public IHttpActionResult Get()
         {
             var deviceId = GetDeviceId(Request);
             if (deviceId == null) return BadRequest();
 
             var routes = RouteService.GetAvailableRoutes(deviceId);
-
+            
             if (routes == null) return Unauthorized();
             if (routes.Count < 1) return Ok(new RouteList());
-
+           
             var listRoute = new RouteList
             {
                 CompanyId = routes[0].Empresa.Id,
                 LineId = routes[0].Linea.Id,
                 DateTime = DateTime.UtcNow
             };
-
+            
             var items = new List<RouteItem>();
             foreach (var viajeDistribucion in routes)
             {
                 if (!viajeDistribucion.Estado.ToString().Equals(ROUTE_STATUS_FINALIZE))
                 {
-                    RouteItem element = new RouteItem()
+                   RouteItem element = new RouteItem()
                     {
                         Code = viajeDistribucion.Codigo,
                         DeliveriesNumber = viajeDistribucion.Detalles.Count - 1,
@@ -52,25 +52,25 @@ namespace LogicTracker.App.Web.Api.Controllers
                         StartDateTime = viajeDistribucion.Inicio
 
                     };
-                    if (viajeDistribucion.Vehiculo != null)
-                    {
-                        element.patente = viajeDistribucion.Vehiculo.Patente;
-                        element.interno = viajeDistribucion.Vehiculo.Interno;
-                    }
-                    items.Add(element);
+                   if (viajeDistribucion.Vehiculo != null)
+                   { 
+                       element.patente = viajeDistribucion.Vehiculo.Patente;
+                       element.interno = viajeDistribucion.Vehiculo.Interno;
+                   }
+                   items.Add(element);
                 }
             }
 
             listRoute.RouteItems = items.ToArray();
             return Ok(listRoute);
         }
-
+        
         private string PlacesToDescription(ViajeDistribucion viajeDistribucion)
         {
             var places = new StringBuilder();
             foreach (var entregaDistribucion in viajeDistribucion.Detalles)
             {
-                if (entregaDistribucion.PuntoEntrega != null)
+                if(entregaDistribucion.PuntoEntrega!=null)
                     places.Append(entregaDistribucion.Descripcion + ", ");
             }
             return places.ToString();
@@ -97,7 +97,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 job.Id = detail.Id;
                 job.StartDate = detail.Programado.ToString("yyyy-MM-ddTHH:mm:ss");
                 job.EndDate = detail.ProgramadoHasta.ToString("yyyy-MM-ddTHH:mm:ss");
-                job.State = detail.Estado == 3 ? 0 : detail.Estado;
+                job.State = detail.Estado==3 ? 0 : detail.Estado;
                 if (detail.PuntoEntrega != null && detail.PuntoEntrega.Descripcion != null)
                 {
                     job.Code = detail.PuntoEntrega.Codigo;
@@ -107,7 +107,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 else
                 {
                     if (detail.Cliente != null)
-                    {
+                    { 
                         job.ClientName = detail.Cliente.Descripcion;
                         job.Code = detail.Cliente.Codigo;
                     }
@@ -124,7 +124,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                         job.direccionreal = detail.ReferenciaGeografica.Direccion.Descripcion;
                 }
                 job.Description = detail.Descripcion;
-
+                
                 job.Order = detail.Orden;
                 job.Location = new Location();
 
@@ -135,23 +135,23 @@ namespace LogicTracker.App.Web.Api.Controllers
 
                 if (detail.PuntoEntrega != null)
                 {
-                    job.Location.Latitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Latitude;
-                    job.Location.Longitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Longitude;
+                    job.Location.Latitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Latitude;
+                    job.Location.Longitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Longitude;
                 }
                 else
                 {
-                    job.Location.Latitude = (float)detail.Linea.ReferenciaGeografica.Latitude;
-                    job.Location.Longitude = (float)detail.Linea.ReferenciaGeografica.Longitude;
+                    job.Location.Latitude = (float) detail.Linea.ReferenciaGeografica.Latitude;
+                    job.Location.Longitude = (float) detail.Linea.ReferenciaGeografica.Longitude;
                 }
 
-                if (detail.PuntoEntrega != null)
+                if (detail.PuntoEntrega!=null)
                     jobs.Add(job);
             }
 
             route.Jobs = jobs.ToArray();
             return Ok(route);
         }
-
+        
         // POST: api/Routes
         public IHttpActionResult Post([FromBody]RouteState routeState)
         {
@@ -187,7 +187,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             switch (routeEvent.RouteCommand.ToUpper())
             {
                 case "START":
-                    {
+                    { 
                         commandStatus = RouteService.StartRoute(id);
                     }
                     break;
@@ -211,7 +211,7 @@ namespace LogicTracker.App.Web.Api.Controllers
         {
             if (messages == null) return BadRequest();
 
-            var msgCodes = new List<string>();
+            var msgCodes= new List<string>();
 
             var deviceId = GetDeviceId(Request);
             if (deviceId == null) return Unauthorized();
@@ -220,10 +220,10 @@ namespace LogicTracker.App.Web.Api.Controllers
             {
                 msgCodes.Add(RouteService.SendMessageByRouteAndDelivery(routeId, message.MessageType.Code,
                     message.MessageType.Description, message.DateTime.ToLocalTime(), message.JobId, message.Latitude,
-                    message.Longitude, deviceId));
+                    message.Longitude, deviceId) );
             }
 
             return Ok(msgCodes.ToArray());
-        }
+        }            
     }
 }

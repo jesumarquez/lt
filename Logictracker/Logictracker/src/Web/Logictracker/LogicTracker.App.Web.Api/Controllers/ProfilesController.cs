@@ -17,14 +17,14 @@ namespace LogicTracker.App.Web.Api.Controllers
         public IHttpActionResult Get()
         {
             var deviceId = GetDeviceId(Request);
-            if (deviceId == null) return BadRequest();          
+            if (deviceId == null) return BadRequest();
 
             var mobileId = RouteService.GetMobileIdByImei(deviceId);
             DetalleDispositivoDAO detalle = new DetalleDispositivoDAO();
             IList<DetalleDispositivo> lista = detalle.GetDeviceDetails(mobileId);
             var routeMessages = RouteService.GetProfileMessages(deviceId);
 
-            if (routeMessages == null) return Unauthorized();   
+            if (routeMessages == null) return Unauthorized();
 
             var messages = new List<MessageType>();
 
@@ -89,12 +89,67 @@ namespace LogicTracker.App.Web.Api.Controllers
                             else
                                 profile.modocamionvendedor = Convert.ToInt32(false);
                         }
-                        break;                        
+                        break;
                     default:
                         break;
                 }
             }
             return Ok(profile);
+        }
+
+        // POST: api/Routes
+        public IHttpActionResult Post(int id, [FromBody]String version)
+        {
+            var deviceId = GetDeviceId(Request);
+            if (deviceId == null) return BadRequest();
+
+            var mobileId = RouteService.GetMobileIdByImei(deviceId);
+            DetalleDispositivoDAO detalle = new DetalleDispositivoDAO();
+            TipoParametroDispositivoDAO tipo = new TipoParametroDispositivoDAO();
+            
+            IList<DetalleDispositivo> lista = detalle.GetDeviceDetails(mobileId);
+            DetalleDispositivo setVersion = new DetalleDispositivo();
+            foreach (var item in lista)
+            {
+                if (item.TipoParametro.Nombre.Equals("Version_Software") &&
+                   item.TipoParametro.TipoDato == "string")
+                {
+                    setVersion = item;
+                    break;
+                }
+            }
+            TipoParametroDispositivoDAO tp = new TipoParametroDispositivoDAO();
+            if (setVersion.Dispositivo == null)
+            {
+                setVersion.Dispositivo = new DispositivoDAO().FindByImei(deviceId);
+                setVersion.TipoParametro = new TipoParametroDispositivo();
+
+                setVersion.TipoParametro.Consumidor = "D";
+                setVersion.TipoParametro.Descripcion = "Es la version instalada de LTMobile";
+                setVersion.TipoParametro.Editable = true;
+                setVersion.TipoParametro.Nombre = "Version_Software";
+                setVersion.TipoParametro.TipoDato = "string";
+                setVersion.TipoParametro.ValorInicial = version;
+                setVersion.TipoParametro.RequiereReset = false;
+                setVersion.TipoParametro.DispositivoTipo = setVersion.Dispositivo.TipoDispositivo;
+                setVersion.Valor = version;
+                foreach (var item in lista)
+                {
+                    setVersion.TipoParametro.DispositivoDetalle.Add(item);
+                }
+                setVersion.TipoParametro.DispositivoDetalle.Add(setVersion);
+                setVersion.Dispositivo.TipoDispositivo.TiposParametro.Add(setVersion.TipoParametro);
+                tp.SaveOrUpdate(setVersion.TipoParametro);
+            }
+            else
+            {
+                setVersion.TipoParametro.Descripcion = "Es la version instalada de LTMobile";
+                setVersion.TipoParametro.Nombre = "Version_Software";
+                tp.SaveOrUpdate(setVersion.TipoParametro);
+                setVersion.Valor = version;
+            }
+            detalle.SaveOrUpdate(setVersion);
+            return Ok("ok");
         }
     }
 }
