@@ -150,12 +150,17 @@ function RechazoController($scope, EntitiesService) {
 
     $scope.onNuevo = function () {
         $scope.operacion = "A";
+        $scope.ticketItem = undefined;
         $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
     };
 
     $scope.onEdit = function (id) {
         $scope.operacion = "E";
-        $scope.rechazoWin.refresh({ url: "Item?op=E&id=" + id }).open().center();
+        $scope.ticketItem = EntitiesService.resources.ticketRechazo.get({ id: id }, 
+            function () {
+                $scope.rechazoWin.refresh({ url: "Item"}).open().center();
+            },
+            onFail);
     }
 
     $scope.onBuscar = function () {
