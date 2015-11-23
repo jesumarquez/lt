@@ -259,6 +259,11 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
     $scope.$watch("supervisorVentasSelected", onSupervisorVentasSelected);
 
+    $scope.enHorarioDS = [
+        { Key: true, Value: "Si" },
+        { Key: false, Value: "No" },
+    ];
+
     function onClienteSelected(newValue, oldValue) {
 
         $scope.puntoEntregaSelected = [];
@@ -356,6 +361,7 @@ function RechazoItemController($scope, EntitiesService) {
             VendedorId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ResponsableId : "",
             SupVenId: $scope.supervisorVentasSelected.Key,
             SupRutId: $scope.supervisorRutaSelected.Key,
+            Observacion: $scope.observacion,
         };
 
         EntitiesService.resources.ticketRechazo.save(ticketRechazo);
