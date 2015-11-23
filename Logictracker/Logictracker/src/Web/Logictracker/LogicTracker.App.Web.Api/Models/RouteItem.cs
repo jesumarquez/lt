@@ -12,7 +12,5 @@ namespace LogicTracker.App.Web.Api.Models
         public string Places { get; set; }
         public DateTime StartDateTime { get; set; }
         public string Status { get; set; }
-        public string interno { get; set; }
-        public string patente { get; set; }
     }
 }
