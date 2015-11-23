@@ -357,6 +357,7 @@ function RechazoItemController($scope, EntitiesService) {
             SupVenId: $scope.supervisorVentasSelected.Key,
             SupRutId: $scope.supervisorRutaSelected.Key,
             Observacion: $scope.observacion,
+            EnHorario: $scope.enHorarioSelected.Key,
         };
 
         EntitiesService.resources.ticketRechazo.save(ticketRechazo);

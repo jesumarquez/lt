@@ -46,6 +46,7 @@ namespace Logictracker.Web.Controllers.api
             model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
             model.Bultos = entity.Bultos;
             model.Observacion = entity.GetUltimoDetalle().Observacion;
+            model.EnHorario = entity.EnHorario;
             return model;
         }
 
@@ -61,6 +62,7 @@ namespace Logictracker.Web.Controllers.api
             entity.SupervisorRuta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupRutId);
             entity.SupervisorVenta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupVenId);
             entity.Motivo = (TicketRechazo.MotivoRechazo) Enum.Parse(typeof(TicketRechazo.MotivoRechazo), model.Motivo);
+            entity.EnHorario = model.EnHorario;
      
             return entity;
         }
