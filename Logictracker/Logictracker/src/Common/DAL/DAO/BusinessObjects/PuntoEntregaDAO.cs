@@ -38,6 +38,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
             return q.SafeFirstOrDefault();
         }
+
+        public List<PuntoEntrega> FindByEmpresaAndCodes(int empresaId, IEnumerable<string> codes)
+        {
+            return Query.FilterCliente(Session, new[]{empresaId}, new[]{-1}, new[]{-1})
+                        .Where(c => !c.Baja && codes.Contains(c.Codigo))
+                        .Cacheable()
+                        .ToList();
+        }
+
         #endregion
 
         #region Get Methods
