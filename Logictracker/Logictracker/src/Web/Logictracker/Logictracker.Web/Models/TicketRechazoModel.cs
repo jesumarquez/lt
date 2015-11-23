@@ -25,6 +25,8 @@ namespace Logictracker.Web.Controllers.api
         public string Motivo { get; set; }
         public int Bultos { get; set; }
         public int VendedorId { get; set; }
+        public string Observacion { get; set; }
+        public bool EnHorario { get; set; }
     }
 
     public class TicketRechazoMapper : EntityModelMapper<TicketRechazo, TicketRechazoModel>
@@ -43,6 +45,7 @@ namespace Logictracker.Web.Controllers.api
             model.Territorio = entity.Territorio;
             model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
             model.Bultos = entity.Bultos;
+            model.Observacion = entity.GetUltimoDetalle().Observacion;
             return model;
         }
 
@@ -51,14 +54,14 @@ namespace Logictracker.Web.Controllers.api
             entity.Id = model.TicketRechazoId;
             entity.Empresa = DAOFactory.GetDao<EmpresaDAO>().FindById(model.DistritoId);
             entity.Linea = DAOFactory.GetDao<LineaDAO>().FindById(model.LineaId);
-            entity.FechaHora = DateTime.UtcNow;//model.FechaHora;
             entity.Cliente = DAOFactory.GetDao<ClienteDAO>().FindById(model.ClienteId);
             entity.Territorio = model.Territorio;
             entity.Bultos = model.Bultos;
             entity.Vendedor = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.VendedorId);
             entity.SupervisorRuta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupRutId);
             entity.SupervisorVenta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupVenId);
-
+            entity.Motivo = (TicketRechazo.MotivoRechazo) Enum.Parse(typeof(TicketRechazo.MotivoRechazo), model.Motivo);
+     
             return entity;
         }
 

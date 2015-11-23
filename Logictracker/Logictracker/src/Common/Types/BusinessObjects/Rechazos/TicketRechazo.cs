@@ -123,7 +123,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
             var detalle = new DetalleTicketRechazo()
             {
-                Estado = Estado.Pendiente,
+                Estado = this.UltimoEstado = Estado.Pendiente,
                 FechaHora = fechaHora,
                 Observacion = observacion,
                 Ticket = this,
@@ -142,7 +142,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
             var detalle = new DetalleTicketRechazo
             {
-                Estado = nuevoEstado,
+                Estado = this.UltimoEstado = nuevoEstado,
                 FechaHora = DateTime.UtcNow,
                 Observacion = observacion,
                 Ticket = this,
@@ -151,6 +151,11 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
             Detalle.Add(detalle);
 
+        }
+
+        public virtual DetalleTicketRechazo GetUltimoDetalle()
+        {
+            return this.Detalle.OrderByDescending(d => d.FechaHora).FirstOrDefault();
         }
 
         public static string GetEstadoLabelVariableName(Estado estado)
