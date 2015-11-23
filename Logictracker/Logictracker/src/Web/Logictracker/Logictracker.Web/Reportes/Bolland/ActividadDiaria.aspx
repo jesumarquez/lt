@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="ActividadDiaria.aspx.cs" Inherits="Logictracker.Reportes.Bolland.ActividadDiaria" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.Bolland.ActividadDiaria" Codebehind="ActividadDiaria.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">
 <table width="100%" style="font-size: x-small">

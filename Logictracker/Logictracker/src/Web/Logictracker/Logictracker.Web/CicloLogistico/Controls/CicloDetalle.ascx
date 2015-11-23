@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CicloDetalle.ascx.cs" Inherits="Logictracker.CicloLogistico.Controls.ControlDetalleCiclo" ClassName="ControlDetalleCiclo" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Controls.ControlDetalleCiclo" ClassName="ControlDetalleCiclo" Codebehind="CicloDetalle.ascx.cs" %>
 
 <table style="width: 100%;" cellpadding="0"><tr>
     <td style="background-color: #CCCCCC; padding: 3px; text-align:center; border: solid 1px #999999; width: 20px;"><asp:Label ID="lblOrden" runat="server" Text="1" /></td>

@@ -1,5 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true"
-    CodeFile="Despachos.aspx.cs" Inherits="Logictracker.Reportes.ControlDeCombustible.ControlDeCombustible_Despachos" Title="Despachos" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.ControlDeCombustible.ControlDeCombustible_Despachos" Title="Despachos" Codebehind="Despachos.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>   
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">  

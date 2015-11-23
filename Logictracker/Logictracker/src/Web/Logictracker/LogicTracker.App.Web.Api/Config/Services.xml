@@ -9,6 +9,10 @@
     <property name="DaoFactory" ref="daoFactory"/>
   </object>
 
+  <object id="RoutingService" type="Logictracker.Tracker.Application.Services.RoutingService, Logictracker.Tracker.Application.Services" singleton="true"  autowire="autodetect" >
+    <property name="DaoFactory" ref="daoFactory"/>
+  </object>
+  
   <!--<object id="SecureResourceAttribute" type="LogicTracker.App.Web.Api.Filters.SecureResourceAttribute, LogicTracker.App.Web.Api.Filters" singleton="true"  autowire="autodetect" >
     <property name="DaoFactory" ref="daoFactory"/>
   </object>-->

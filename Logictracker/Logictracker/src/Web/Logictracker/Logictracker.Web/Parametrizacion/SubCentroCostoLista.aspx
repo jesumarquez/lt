@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="SubCentroCostoLista.aspx.cs" Inherits="Logictracker.Parametrizacion.SubCentroCostoLista" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.SubCentroCostoLista" Codebehind="SubCentroCostoLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" runat="server">
     <table>

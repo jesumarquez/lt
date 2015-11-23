@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TicketSoporteAlta.aspx.cs" Inherits="Logictracker.Soporte.SoporteTicketSoporteAlta" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Soporte.SoporteTicketSoporteAlta" ValidateRequest="false" Codebehind="TicketSoporteAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" Runat="Server">
     <%--TOOLBAR--%>

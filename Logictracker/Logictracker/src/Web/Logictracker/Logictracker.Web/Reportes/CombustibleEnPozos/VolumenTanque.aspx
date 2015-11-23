@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPages/ReportGridPage.master"  CodeFile="VolumenTanque.aspx.cs" Inherits="Logictracker.Reportes.CombustibleEnPozos.Reportes_CombustibleEnPozos_VolumenTanque" Title="Volumen del Tanque" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPages/ReportGridPage.master" Inherits="Logictracker.Reportes.CombustibleEnPozos.Reportes_CombustibleEnPozos_VolumenTanque" Title="Volumen del Tanque" Codebehind="VolumenTanque.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/Pickers/DateTimePicker.ascx" TagName="DateTimePicker" TagPrefix="uc1" %>
 <%@ Register Src="~/App_Controls/Pickers/NumberPicker.ascx" TagName="NumberPicker" TagPrefix="uc1" %>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TipoCocheAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoCocheAlta" %>  
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoCocheAlta" Codebehind="TipoCocheAlta.aspx.cs" %>  
 
 <%@ Register Src="~/App_Controls/IconPicker.ascx" TagName="IconPicker" TagPrefix="uc" %>
 

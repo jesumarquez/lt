@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ActividadCliente.aspx.cs" MasterPageFile="~/MasterPages/ReportGridPage.master" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaActividadCliente" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPages/ReportGridPage.master" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaActividadCliente" Codebehind="ActividadCliente.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">    
         <table width="100%" style="font-size: x-small">

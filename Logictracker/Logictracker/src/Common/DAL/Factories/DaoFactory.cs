@@ -13,6 +13,7 @@ using Logictracker.DAL.DAO.BusinessObjects.Documentos;
 using Logictracker.DAL.DAO.BusinessObjects.Entidades;
 using Logictracker.DAL.DAO.BusinessObjects.Mantenimiento;
 using Logictracker.DAL.DAO.BusinessObjects.Messages;
+using Logictracker.DAL.DAO.BusinessObjects.Ordenes;
 using Logictracker.DAL.DAO.BusinessObjects.Organizacion;
 using Logictracker.DAL.DAO.BusinessObjects.Positions;
 using Logictracker.DAL.DAO.BusinessObjects.Postal;
@@ -187,6 +188,13 @@ namespace Logictracker.DAL.Factories
 
         #endregion
 
+        #region Ordenes
+
+        private OrderDAO _orderDao;
+        public OrderDAO OrderDAO { get { return _orderDao ?? (_orderDao = GetDao<OrderDAO>()); } }
+
+        #endregion
+
         #region Entidades
 
         private EmpresaDAO _empresa;
@@ -263,6 +271,9 @@ namespace Logictracker.DAL.Factories
 
         private EntregaDistribucionDAO _entregaDistribucionDao;
         public EntregaDistribucionDAO EntregaDistribucionDAO { get { return _entregaDistribucionDao ?? (_entregaDistribucionDao = GetDao<EntregaDistribucionDAO>()); } }
+
+        private EstadoDistribucionDAO _estadoDistribucionDao;
+        public EstadoDistribucionDAO EstadoDistribucionDAO { get { return _estadoDistribucionDao ?? (_estadoDistribucionDao = GetDao<EstadoDistribucionDAO>()); } }
 
         private RecorridoDistribucionDAO _recorridoDistribucionDao;
         public RecorridoDistribucionDAO RecorridoDistribucionDAO { get { return _recorridoDistribucionDao ?? (_recorridoDistribucionDao = GetDao<RecorridoDistribucionDAO>()); } }
@@ -347,9 +358,7 @@ namespace Logictracker.DAL.Factories
 
         #endregion
 
-        private SindicaturaDAO _sindicaturaDao;
-        public SindicaturaDAO SindicaturaDAO { get { return _sindicaturaDao ?? (_sindicaturaDao = GetDao<SindicaturaDAO>()); } }
-
+     
         private EstadoDAO _estadoDao;
         public EstadoDAO EstadoDAO { get { return _estadoDao ?? (_estadoDao = GetDao<EstadoDAO>()); } }
 
@@ -529,7 +538,7 @@ namespace Logictracker.DAL.Factories
         /// Gets an instance of the dao associated to the givenn type.
         /// </summary>
         /// <returns></returns>
-        private T GetDao<T>() where T : IGenericDAO
+        public static T GetDao<T>() where T : IGenericDAO
         {
             var type = typeof(T);
 

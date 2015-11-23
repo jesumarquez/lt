@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="PreasignacionViajeVehiculoAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.PreasignacionViajeVehiculoAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Distribucion.PreasignacionViajeVehiculoAlta" Codebehind="PreasignacionViajeVehiculoAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="server">
     

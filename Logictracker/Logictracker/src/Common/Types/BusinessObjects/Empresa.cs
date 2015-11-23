@@ -38,6 +38,8 @@ namespace Logictracker.Types.BusinessObjects
             public const string SegundosMinimosEnDetencion = "distribucion.segundos.minimos.detencion";
             public const string TipoCalculoCostoKm = "tipo.calculo.costo.km";
             public const string InicioDistribucionPorSalidaDeBase = "distribucion.inicio.salida.base";
+            public const string InicioDistribucionPorSalidaDeGeocerca = "distribucion.inicio.salida.geocerca";
+            public const string InicioDistribucionIdTipoGeocerca = "distribucion.inicio.id.tipo.geocerca";
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
             public const string InicioDistribucionSiguienteAlCerrar = "distribucion.inicio.siguiente";
@@ -73,6 +75,8 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string KpiCantidadPagina = "kpi.cantidad.pagina";
             public const string MonitorHistoricoDiaEntero = "monitor.historico.dia.entero";
+
+            public const string LogiclinkMinutosUpdate = "logiclink.minutos.update";
         }
         public static class OrdenRuta
         {
@@ -316,6 +320,26 @@ namespace Logictracker.Types.BusinessObjects
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;
+            }
+        }
+        public virtual bool InicioDistribucionPorSalidaDeGeocerca
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionPorSalidaDeGeocerca);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+        public virtual int InicioDistribucionIdTipoGeocerca
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionIdTipoGeocerca);
+                int id;
+                if (valor == null || !int.TryParse(valor, out id)) return 0;
+                return id;
             }
         }
         public virtual bool InicioDistribucionPorMensaje
@@ -633,6 +657,17 @@ namespace Logictracker.Types.BusinessObjects
                 var valor = GetParameter(Params.MonitorHistoricoDiaEntero);
                 bool v;
                 if (valor == null || !bool.TryParse(valor, out v)) return false;
+                return v;
+            }
+        }
+
+        public virtual int LogiclinkMinutosUpdate
+        {
+            get
+            {
+                var valor = GetParameter(Params.LogiclinkMinutosUpdate);
+                int v;
+                if (valor == null || !int.TryParse(valor, out v)) return 0;
                 return v;
             }
         }

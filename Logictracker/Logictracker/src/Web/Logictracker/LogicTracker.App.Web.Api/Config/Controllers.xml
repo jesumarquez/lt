@@ -3,6 +3,7 @@
 
   <object type="Logictracker.App.Web.Api.Controllers.ValuesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.RoutesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
+  <object type="Logictracker.App.Web.Api.Controllers.RoutingController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.GeocercasController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.FormulariosController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.ProfilesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>

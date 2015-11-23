@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="BocaDeCargaLista.aspx.cs" Inherits="Logictracker.CicloLogistico.ListaBocaDeCarga" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.ListaBocaDeCarga" Title="Untitled Page" Codebehind="BocaDeCargaLista.aspx.cs" %>
       
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" runat="Server">
     <table>

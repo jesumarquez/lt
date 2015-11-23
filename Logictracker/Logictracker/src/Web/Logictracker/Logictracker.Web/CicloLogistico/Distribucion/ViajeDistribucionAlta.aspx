@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ViajeDistribucionAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="True" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" Codebehind="ViajeDistribucionAlta.aspx.cs" %>
 <%@ Import Namespace="System.IO" %>
 
 <%@ Import Namespace="Logictracker.CicloLogistico.Distribucion" %>
@@ -436,7 +436,7 @@
                 <tr>
                     <td style="width: 80px;">&nbsp;</td>
                     <td style="width: 120px;">
-                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" />
+                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Entities" VariableName="OPETICK04" />
                     </td>
                     <td style="width: 100px;">
                         <cwc:ResourceLabel ID="ResourceLabel6" runat="server" ResourceName="Entities" VariableName="PARENTI44" />
@@ -540,4 +540,64 @@
             </asp:UpdatePanel>
         </div>
     </cwc:AbmTabPanel>
+
+    <cwc:AbmTabPanel ID="AbmTabPanel2" runat="server" ResourceName="Menu" VariableName="PAR_ESTADO_LOGISTICO">        
+        <asp:UpdatePanel ID="pnlUpdate" runat="server">
+                <ContentTemplate>
+                    <table width="100%" border="0">
+                        <tr>
+                            <td align="center" valign="top"> 
+                                <c1:C1GridView ID="gridEstadosCumplidos" runat="server" OnRowDataBound="GridEstadosCumplidosOnRowDataBound" AutoGenerateColumns="false" Width="100%" Visible="true" SkinID="ListGridNoGroupNoPage" >
+                                    <Columns>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgIcono" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblEstadoLogistico" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDesde" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblHasta" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblTotal" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDemora" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                        <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDesvio" runat="server" />
+                                            </ItemTemplate>                                            
+                                        </c1:C1TemplateField>
+                                    </Columns>
+                                </c1:C1GridView>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+    </cwc:AbmTabPanel>
+
 </asp:Content>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="TicketSoporteLista.aspx.cs" Inherits="Logictracker.Soporte.SoporteTicketSoporteLista" Title="" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Soporte.SoporteTicketSoporteLista" Title="" Codebehind="TicketSoporteLista.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" runat="Server">
     <table width="100%">

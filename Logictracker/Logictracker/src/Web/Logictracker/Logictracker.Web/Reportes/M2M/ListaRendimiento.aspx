@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="ListaRendimiento.aspx.cs" Inherits="Logictracker.Reportes.M2M.ListaRendimiento" Title="Listado de Rendimiento" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" Inherits="Logictracker.Reportes.M2M.ListaRendimiento" Title="Listado de Rendimiento" Codebehind="ListaRendimiento.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
     <%--FILTROS--%>

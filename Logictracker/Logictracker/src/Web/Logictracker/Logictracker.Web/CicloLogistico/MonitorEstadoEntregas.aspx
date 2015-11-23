@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MonitorEstadoEntregas.aspx.cs" Inherits="Logictracker.CicloLogistico.MonitorEstadoEntregas" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.MonitorEstadoEntregas" Codebehind="MonitorEstadoEntregas.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register TagPrefix="c1" Namespace="C1.Web.UI.Controls.C1Gauge" Assembly="C1.Web.UI.Controls.3, Version=3.5.20113.220, Culture=neutral, PublicKeyToken=9b75583953471eea" %>

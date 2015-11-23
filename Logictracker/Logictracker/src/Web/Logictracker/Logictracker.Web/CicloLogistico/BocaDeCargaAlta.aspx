@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="BocaDeCargaAlta.aspx.cs"  Inherits="Logictracker.CicloLogistico.BocaDeCargaAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"  Inherits="Logictracker.CicloLogistico.BocaDeCargaAlta" Codebehind="BocaDeCargaAlta.aspx.cs" %>
       
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">   
 

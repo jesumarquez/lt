@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" CodeFile="LineaTelefonicaImport.aspx.cs" Inherits="Logictracker.Parametrizacion.LineaTelefonicaImport"  %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.LineaTelefonicaImport"  Codebehind="LineaTelefonicaImport.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentImport" Runat="Server">   
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">

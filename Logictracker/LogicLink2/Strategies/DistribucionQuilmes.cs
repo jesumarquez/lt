@@ -22,7 +22,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 {
     public class DistribucionQuilmes : Strategy
     {
-        private static Dictionary<int, List<int>> EmpresasLineas = new Dictionary<int, List<int>>();
         private const string Component = "Logiclink2";
 
         private Empresa Empresa { get; set; }
@@ -34,11 +33,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         private readonly List<ViajeDistribucion> _viajesBuffer = new List<ViajeDistribucion>();
         private readonly List<Coche> _cochesBuffer = new List<Coche>();
         private readonly List<TipoServicioCiclo> _tiposServicioBuffer = new List<TipoServicioCiclo>();
+        private const double _latitudDefault = -34.5411981040848;
+        private const double _longitudDefault = -57.9051147460951;
 
-        public static Dictionary<int, List<int>> Parse(LogicLinkFile file, out int rutas, out int entregas, out string observaciones)
+        public static void Parse(LogicLinkFile file, out int rutas, out int entregas, out string observaciones)
         {
             new DistribucionQuilmes(file).Parse(out rutas, out entregas, out observaciones);
-            return EmpresasLineas;
         }
 
         public DistribucionQuilmes(LogicLinkFile file)
@@ -102,10 +102,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 var sOrden = row.Cells[Properties.DistribucionQuilmes.Orden].ToString().Trim();
                 var orden = Convert.ToInt32(sOrden);
 
+                var nroViaje = row.Cells[Properties.DistribucionQuilmes.Viaje].ToString().Trim();
                 var latitud = row.Cells[Properties.DistribucionQuilmes.Latitud].ToString().Trim();
                 var longitud = row.Cells[Properties.DistribucionQuilmes.Longitud].ToString().Trim();
-                var esBase = latitud.Trim().Equals(string.Empty) && longitud.Trim().Equals(string.Empty);
-
+                var esBase = latitud.Equals(string.Empty) && longitud.Equals(string.Empty) && nroViaje.Equals(string.Empty);
+                var incompleto = !esBase && (latitud.Trim().Equals(string.Empty) || longitud.Trim().Equals(string.Empty));
+                
                 var dia = Convert.ToInt32(sFecha.Substring(0, 2));
                 var mes = Convert.ToInt32(sFecha.Substring(2, 2));
                 var anio = Convert.ToInt32(sFecha.Substring(4, 2)) + 2000;
@@ -143,7 +145,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     item.Alta = DateTime.UtcNow;
                     item.ProgramacionDinamica = codigo.Contains("TR");
 
-                    var nroViaje = row.Cells[Properties.DistribucionQuilmes.Viaje].ToString().Trim();
+                    
                     item.NumeroViaje = Convert.ToInt32(nroViaje);
 
                     if (vehiculo != null)
@@ -238,11 +240,21 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     if (tipoServ != null && tipoServ.Id > 0) tipoServicio = tipoServ;
                 }
 
-                latitud = latitud.Replace(',', '.');
-                longitud = longitud.Replace(',', '.');
-                var lat = Convert.ToDouble(latitud, CultureInfo.InvariantCulture);
-                var lon = Convert.ToDouble(longitud, CultureInfo.InvariantCulture);
-                ValidateGpsPoint(codigo, codigoPuntoEntrega, (float)lat, (float)lon);
+                double lat, lon;
+
+                if (incompleto)
+                {
+                    lat = _latitudDefault;
+                    lon = _longitudDefault;
+                }
+                else
+                {
+                    latitud = latitud.Replace(',', '.');
+                    longitud = longitud.Replace(',', '.');
+                    lat = Convert.ToDouble(latitud, CultureInfo.InvariantCulture);
+                    lon = Convert.ToDouble(longitud, CultureInfo.InvariantCulture);
+                    ValidateGpsPoint(codigo, codigoPuntoEntrega, (float)lat, (float)lon);
+                }                
 
                 var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoPuntoEntrega);
 
@@ -317,18 +329,25 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 listPuntos.Add(puntoEntrega);
 
-                if (codigo.Contains("TR"))
+                if (codigo.Contains("TR"))                 
                 {
-                    var ultimo = item.Detalles.Last().ReferenciaGeografica;
-                    var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
-                    var destino = new LatLon(puntoEntrega.ReferenciaGeografica.Latitude, puntoEntrega.ReferenciaGeografica.Longitude);
-                    var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
-
-                    if (directions != null)
+                    if (puntoEntrega.ReferenciaGeografica.Latitude == _latitudDefault && puntoEntrega.ReferenciaGeografica.Longitude == _longitudDefault)
                     {
-                        distance = directions.Distance / 1000.0;
-                        var duracion = directions.Duration;
-                        fecha = item.Detalles.Last().Programado.Add(duracion);
+                        distance = 0.0;
+                    }
+                    else
+                    {
+                        var ultimo = item.Detalles.Last(d => d.ReferenciaGeografica.Latitude != _latitudDefault && d.ReferenciaGeografica.Longitude != _longitudDefault).ReferenciaGeografica;
+                        var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
+                        var destino = new LatLon(puntoEntrega.ReferenciaGeografica.Latitude, puntoEntrega.ReferenciaGeografica.Longitude);
+                        var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
+
+                        if (directions != null)
+                        {
+                            distance = directions.Distance / 1000.0;
+                            var duracion = directions.Duration;
+                            fecha = item.Detalles.Last().Programado.Add(duracion);
+                        }
                     }
                 }
 
@@ -361,7 +380,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             foreach (var referenciaGeografica in listReferencias)
             {
                 DaoFactory.ReferenciaGeograficaDAO.Guardar(referenciaGeografica);
-                AddReferenciasGeograficas(referenciaGeografica);
             }
             STrace.Trace(Component, string.Format("Referencias guardadas en {0} segundos", te.getTimeElapsed().TotalSeconds));
 
@@ -573,34 +591,6 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 sender.Config.ToAddress = destinatario;
                 sender.SendMail(parametros);
                 STrace.Trace(Component, "Email sent to: " + destinatario);
-            }
-        }
-
-        private static void AddReferenciasGeograficas(ReferenciaGeografica rg)
-        {
-            if (rg == null)
-                STrace.Error(Component, "AddReferenciasGeograficas: rg is null");
-            else if (rg.Empresa == null)
-                STrace.Error(Component, "AddReferenciasGeograficas: rg.Empresa is null");
-            else
-            {
-                if (!EmpresasLineas.ContainsKey(rg.Empresa.Id))
-                    EmpresasLineas.Add(rg.Empresa.Id, new List<int> { -1 });
-
-                if (rg.Linea != null)
-                {
-                    if (!EmpresasLineas[rg.Empresa.Id].Contains(rg.Linea.Id))
-                        EmpresasLineas[rg.Empresa.Id].Add(rg.Linea.Id);
-                }
-                else
-                {
-                    var todaslaslineas = new DAOFactory().LineaDAO.GetList(new[] { rg.Empresa.Id });
-                    foreach (var linea in todaslaslineas)
-                    {
-                        if (!EmpresasLineas.ContainsKey(linea.Id))
-                            EmpresasLineas[rg.Empresa.Id].Add(linea.Id);
-                    }
-                }
             }
         }
     }

@@ -9,6 +9,7 @@ using Logictracker.Process.CicloLogistico.Events;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
+using Logictracker.AVL.Messages;
 
 namespace Logictracker.Process.CicloLogistico
 {
@@ -49,15 +50,15 @@ namespace Logictracker.Process.CicloLogistico
 
         private static ICicloLogistico GetCiclo(Coche coche, IMessageSaver messageSaver, DAOFactory daoFactory)
         {
-            if(coche.Dispositivo == null) return null;
-
-            var ticket = daoFactory.TicketDAO.FindEnCurso(coche.Dispositivo);
-
-            if (ticket != null) return new CicloLogisticoHormigon(ticket, daoFactory, messageSaver);
+            if (coche.Dispositivo == null) return null;
 
             var distribucion = daoFactory.ViajeDistribucionDAO.FindEnCurso(coche);
 
             if (distribucion != null) return new CicloLogisticoDistribucion(distribucion, daoFactory, messageSaver);
+
+            var ticket = daoFactory.TicketDAO.FindEnCurso(coche.Dispositivo);
+
+            if (ticket != null) return new CicloLogisticoHormigon(ticket, daoFactory, messageSaver);
 
             return null;
         }
@@ -141,6 +142,30 @@ namespace Logictracker.Process.CicloLogistico
                     return;
                 }
                 ciclo.ProcessEvent(data);
+            }
+            catch (Exception ex)
+            {
+                STrace.Exception(typeof(CicloLogisticoFactory).FullName, ex);
+            }
+        }
+
+        public static void ProcessEstadoLogistico(Coche vehiculo, Event evento, string code)
+        {
+            try
+            {
+                if (vehiculo.Dispositivo == null) return;
+
+                var daoFactory = new DAOFactory();
+                var distribucion = daoFactory.ViajeDistribucionDAO.FindEnCurso(vehiculo);
+
+                if (distribucion != null)
+                {
+                    var messageSaver = new MessageSaver(daoFactory);
+                    CicloLogisticoDistribucion ciclo = null;
+                    ciclo = new CicloLogisticoDistribucion(distribucion, daoFactory, messageSaver);
+
+                    if (ciclo != null) ciclo.ProcessEstadoLogistico(evento, code);
+                }
             }
             catch (Exception ex)
             {

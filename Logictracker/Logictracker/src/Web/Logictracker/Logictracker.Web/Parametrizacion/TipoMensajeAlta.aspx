@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TipoMensajeAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoMensajeAlta" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoMensajeAlta" Title="Untitled Page" Codebehind="TipoMensajeAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/IconPicker.ascx" TagName="SelectIcon" TagPrefix="uc1" %> 
 

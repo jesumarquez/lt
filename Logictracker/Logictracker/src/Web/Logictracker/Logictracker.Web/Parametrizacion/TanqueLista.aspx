@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="TanqueLista.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionTanqueLista" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionTanqueLista" Codebehind="TanqueLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>

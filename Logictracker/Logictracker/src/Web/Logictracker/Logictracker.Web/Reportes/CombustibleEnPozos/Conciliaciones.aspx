@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Conciliaciones" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="Conciliaciones.aspx.cs" Inherits="Logictracker.Reportes.CombustibleEnPozos.Reportes_CombustibleEnPozos_Conciliaciones" %>  
+﻿<%@ Page Title="Conciliaciones" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CombustibleEnPozos.Reportes_CombustibleEnPozos_Conciliaciones" Codebehind="Conciliaciones.aspx.cs" %>  
 
 <%@ Register Src="~/App_Controls/Pickers/DateTimePicker.ascx" TagName="DateTimePicker" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists.ControlDeCombustible" Assembly="Logictracker.Web.CustomWebControls" %>

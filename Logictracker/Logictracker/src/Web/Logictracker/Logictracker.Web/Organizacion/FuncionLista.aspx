@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="FuncionLista.aspx.cs"
-    Inherits="Logictracker.Organizacion.ListaFuncion"  Title="Funciones" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Organizacion.ListaFuncion"  Title="Funciones" Codebehind="FuncionLista.aspx.cs" %>
     
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" Runat="Server">
 

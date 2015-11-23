@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="AgendaAlta.aspx.cs" Inherits="Logictracker.Web.CicloLogistico.AgendaAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Web.CicloLogistico.AgendaAlta" Codebehind="AgendaAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="server">
     <table width="100%">
@@ -26,6 +26,22 @@
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+                            </td>
+                            <td width="20%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td width="40%" align="right">
+                                <cwc:ResourceLabel ID="lblDepto" runat="server" ResourceName="Entities" VariableName="PARENTI04" />
+                            </td>
+                            <td width="40%" align="left">
+                                <asp:UpdatePanel ID="upDepto" runat="server" UpdateMode="Conditional" RenderMode="Inline">
+                                    <ContentTemplate>
+                                        <cwc:DepartamentoDropDownList ID="cbDepartamento" runat="server" Width="98%" ParentControls="cbEmpresa,cbLinea" OnSelectedIndexChanged="ConditionChanged" AddAllItem="true" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
                                     </Triggers>
                                 </asp:UpdatePanel>
                             </td>
@@ -75,6 +91,7 @@
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
                                         <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbDepartamento" EventName="SelectedIndexChanged" />
                                         <asp:AsyncPostBackTrigger ControlID="dtpDesde" EventName="DateChanged" />
                                         <asp:AsyncPostBackTrigger ControlID="dtpHasta" EventName="DateChanged" />
                                         <asp:AsyncPostBackTrigger ControlID="btnConsultar" EventName="Click" />
@@ -89,11 +106,12 @@
                             <td width="50%" align="left">
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                                     <ContentTemplate>
-                                        <cwc:EmpleadoDropDownList ID="cbEmpleado" runat="server" Width="60%" ParentControls="cbEmpresa,cbLinea" />
+                                        <cwc:EmpleadoDropDownList ID="cbEmpleado" runat="server" Width="60%" ParentControls="cbEmpresa,cbLinea,cbDepartamento" />
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
                                         <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbDepartamento" EventName="SelectedIndexChanged" />
                                     </Triggers>
                                 </asp:UpdatePanel>
                             </td>

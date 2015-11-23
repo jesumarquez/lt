@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="TipoZonaLista.aspx.cs" Inherits="Logictracker.Parametrizacion.TipoZonaLista" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.TipoZonaLista" Codebehind="TipoZonaLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>

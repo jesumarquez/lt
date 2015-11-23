@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="EmpleadoAlta.aspx.cs"
-    Inherits="Logictracker.Parametrizacion.ParametrizacionEmpleadoAlta" Title="Choferes" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="True"
+    Inherits="Logictracker.Parametrizacion.ParametrizacionEmpleadoAlta" Title="Choferes" Codebehind="EmpleadoAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/altaEntidad.ascx" TagName="altaEntidad" TagPrefix="uc1" %>
 <%@ Register Src="../App_Controls/DocumentList.ascx" TagName="DocumentList" TagPrefix="uc1" %>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="ParteReport.aspx.cs" Inherits="Logictracker.Documentos.Documentos_ParteReport" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Documentos.Documentos_ParteReport" Title="Untitled Page" Codebehind="ParteReport.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">  

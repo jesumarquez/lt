@@ -26,6 +26,10 @@ namespace Logictracker.Utils
 		{
 			Pack((float) course);
 		}
+        public Course()
+        {
+            Pack(0);
+        }
 
 		public void Pack(float data)
         {

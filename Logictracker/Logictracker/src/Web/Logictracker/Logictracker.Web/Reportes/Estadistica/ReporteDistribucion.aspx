@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="ReporteDistribucion.aspx.cs" Inherits="Logictracker.Reportes.Estadistica.ReporteDistribucion" Title="Reporte de Distribución" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" Inherits="Logictracker.Reportes.Estadistica.ReporteDistribucion" Title="Reporte de Distribución" Codebehind="ReporteDistribucion.aspx.cs" %>
 
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.Controls" Assembly="Logictracker.Web" %>
 

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="TipoDispositivoLista.aspx.cs" Inherits="Logictracker.Parametrizacion.TipoDispositivoLista" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.TipoDispositivoLista" Codebehind="TipoDispositivoLista.aspx.cs" %>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">

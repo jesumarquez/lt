@@ -1,4 +1,4 @@
- <%@ Page Language="C#" AutoEventWireup="true" CodeFile="monitorDeCalidad.aspx.cs" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" %>
+ <%@ Page Language="C#" AutoEventWireup="True" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" Codebehind="monitorDeCalidad.aspx.cs" %>
 
 <%@ Import Namespace="Logictracker.Culture"%>
 
@@ -228,15 +228,34 @@
             
             <div class="x-panel-body" style="text-align: center; padding-top: 10px;">
             
-                <div style="text-align: left; padding: 10px;">
-                    <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />    
-                </div>
+                <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />
                 
-                <br/>
-                
-                <asp:UpdatePanel runat="server" ID="updEditarQtree" >
+                <br />
+                <br />
+
+                <asp:UpdatePanel ID="pnlQtree" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Inline">
                     <ContentTemplate>
-                        <table width="100%">
+                        <table width="100%" id="tblVersion" runat="server">
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl1" runat="server" VariableName="ARCHIVO" ResourceName="Labels" />: <asp:Label ID="lblArchivo" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl2" runat="server" VariableName="VERSION_SERVER" ResourceName="Labels" />: <asp:Label ID="lblVersionServer" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl3" runat="server" VariableName="VERSION_EQUIPO" ResourceName="Labels" />: <asp:Label ID="lblVersionEquipo" runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br />
+
+                        <table width="100%" id="tblEditar" runat="server">
                             <tr>
                                 <td align="center">
                                     <cwc:ResourceLabel ID="lblEditarTramo" runat="server" VariableName="EDITAR_TRAMO" ResourceName="Labels" />
@@ -251,6 +270,8 @@
                         </table>
                     </ContentTemplate>
                 </asp:UpdatePanel>
+
+                <br />
                 <br />
 
                 <asp:UpdatePanel runat="server" ID="pnlLnk">

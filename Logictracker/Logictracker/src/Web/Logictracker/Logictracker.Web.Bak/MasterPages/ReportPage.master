@@ -1,0 +1,186 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="ReportPage.master.cs" Inherits="Logictracker.MasterPages.ReportPage" %>
+<%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>  
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+    <%--TOOLBAR--%>
+    <cwc:ToolBar ID="ToolBar1" runat="server" /> 
+    
+    <script type="text/javascript">
+    var iframesLeft = 0;
+    
+    function PrintReport()
+    {
+        checkIframes();
+    }
+    
+    function checkIframes()
+    {
+        try
+        {
+            var content = document.getElementById('printContent');        
+            var iframesInternos = content.getElementsByTagName('iframe');
+            iframesLeft = iframesInternos.length;
+            
+            for(var i = iframesInternos.length - 1; i >= 0; i--)
+            {
+                var ifr = iframesInternos[i];
+                if(ifr.contentDocument.readyState != 'complete') break;
+                iframesLeft--;
+            }
+        }catch(e){}
+        
+        if(iframesLeft == 0)
+        {
+            DoPrint();
+            return;
+        }
+        setTimeout(checkIframes, 500);
+    }
+    
+    function DoPrint()
+    {
+            try{
+            var oIframe = document.getElementById('ifPrint');
+            var content = document.getElementById('printContent');
+            
+            var oContent = content.innerHTML;
+            var oDoc = (oIframe.contentWindow || oIframe.contentDocument);
+            if (oDoc.document) oDoc = oDoc.document;
+                    
+		    oDoc.write("<html><head><title>"+document.getElementsByTagName('title')[0].innerHTML);
+		    oDoc.write("</title>");
+		    var links = document.getElementsByTagName('link');		
+		    for(l in links) if(links[l].type == 'text/css') oDoc.write('<link href="'+links[l].getAttribute('href')+'" type="text/css" rel="stylesheet" />');
+		    oDoc.write("</head><body onload= 'parent.ReplaceIframes(this); this.focus(); this.print();'>");
+		    oDoc.write(oContent + "</body></html>");   
+		    oDoc.close();
+        }
+        catch(e){ alert(e); self.print(); }
+    }
+    
+    function ReplaceIframes(iframe)                 
+       {                                                                            
+            var iframesInternos = iframe.document.getElementsByTagName('iframe');
+                 
+            for(var i = iframesInternos.length - 1; i >= 0; i--)  
+            {                                                                       
+                var ifr = iframesInternos[i];                                                  
+                var div = iframe.document.createElement('div');                       
+                div.innerHTML = ifr.contentDocument.getElementsByTagName('form')[0].innerHTML;   
+                ifr.parentNode.replaceChild(div, ifr);                                                                              
+            }
+            return;   
+        }   
+                                                                      
+</script>
+    
+    <%--FILTROS--%>
+    <div  class="filterpanel">
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 30px;">
+                <span id="btExpandFilters" runat="server" style="cursor:pointer; font-size: 9px; color: Blue; padding-top: 5px;" onclick="$get('trFiltrosAvanzados').style.display = $get('trFiltrosAvanzados').style.display == 'none' ? '' : 'none';" >( + )</span>
+            </td>
+            <td style="text-align: left;">
+                <asp:UpdatePanel ID="updFilters" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                    <ContentTemplate>
+                        <asp:ContentPlaceHolder ID="ContentFiltros" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td rowspan="2" style="color: #999999; width: 100px; text-align: right; vertical-align: bottom;">
+                <cwc:ResourceButton ID="buttonSearch" runat="server" ResourceName="Controls" VariableName="BUTTON_SEARCH" />
+                
+                <asp:UpdatePanel ID="updDummy" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                    <ContentTemplate></ContentTemplate>
+                    <Triggers><asp:AsyncPostBackTrigger ControlID="buttonSearch"/></Triggers>
+                </asp:UpdatePanel>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div id="trFiltrosAvanzados" style="display: none; border-top: solid 1px #cccccc; padding: 5px; text-align:right;">
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="true">
+                        <ContentTemplate>
+                            <table style="width: 100%;color: #999999;">
+                                <tr>
+                                    <td style="text-align: left; padding-left: 50px;">                    
+                                        <asp:ContentPlaceHolder ID="ContentFiltrosAvanzados" runat="server">
+                                        </asp:ContentPlaceHolder>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <asp:Panel ID="panelBuscar" runat="server">
+                                            <cwc:ResourceLabel  ID="lblBuscar" runat="server" ResourceName="Labels" VariableName="BUSCAR" />
+                                            <asp:TextBox ID="txtBuscar" runat="server" Width="200px" AutoPostBack="true"></asp:TextBox>
+                                            <div style="width: 20px; height: 20px; float: right; padding-top: 5px; text-align:center; position: relative; right: 24px; cursor: pointer;" onclick="var t = $get('<%= txtBuscar.ClientID %>'); t.value = ''; <%= Page.ClientScript.GetPostBackEventReference(txtBuscar, "") %>;">X</div>
+                                        </asp:Panel>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </div>
+    
+    <%--PROGRESSLABEL--%>
+    <cwc:ProgressLabel ID="ProgressLabel1" runat="server" />
+    
+    <%--ERRORLABEL--%>
+    <cwc:InfoLabel ID="infoLabel1" runat="server" />
+    
+    <div>
+        <asp:UpdatePanel ID="updReport" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
+            <ContentTemplate>
+                <asp:ContentPlaceHolder ID="ContentReport" runat="server">
+                </asp:ContentPlaceHolder>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="buttonSearch" EventName="Click" />
+            </Triggers>
+        </asp:UpdatePanel>
+    </div>
+
+    <div id="printContent" style="display: none;">
+        
+        <asp:UpdatePanel ID="upFiltrosPrinta" runat="server" UpdateMode="Always">
+        <ContentTemplate>
+        <table style="width: 100%; border-spacing: 5px;">
+        
+        <asp:Repeater ID="FiltrosPrint" runat="server" Visible="true">
+            <HeaderTemplate>
+                <tr>
+                    <td style="text-decoration:underline; width:20%">
+                        <asp:Label ID="Label1" runat="server" Font-Bold="true" Text="Filtros" />
+                        <br/> 
+                        <br/> 
+                    </td> 
+                    <td  />
+                </tr>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <tr>
+                    <td style="text-decoration:underline; width:20%" valign="top" >
+                        <%# Eval("key") %>:
+                    </td>
+                    <td >
+                        <%# Eval("value") %> <br/> 
+                    </td>
+                </tr>
+            </ItemTemplate>
+        </asp:Repeater>
+        </table>
+        </ContentTemplate>
+        </asp:UpdatePanel>
+        <br/> 
+        
+        <asp:ContentPlaceHolder ID="ContentPrint" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>    
+    <iframe id="ifPrint" width="0" height="0" style="visibility: hidden;" >
+    </iframe>
+</asp:Content>

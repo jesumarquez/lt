@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" CodeFile="TableroControl.aspx.cs" Inherits="Logictracker.Reportes.CicloLogistico.TableroControl" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CicloLogistico.TableroControl" Codebehind="TableroControl.aspx.cs" %>
 
 <asp:Content ID="Filtros" runat="server" ContentPlaceHolderID="ContentFiltros">
     <table width="100%" style="font-size: x-small">

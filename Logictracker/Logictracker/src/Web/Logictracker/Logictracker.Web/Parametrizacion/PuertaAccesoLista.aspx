@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="PuertaAccesoLista.aspx.cs" Inherits="Logictracker.Parametrizacion.PuertaAccesoLista" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.PuertaAccesoLista" Title="Untitled Page" Codebehind="PuertaAccesoLista.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" Runat="Server">
 <table><tr><td>

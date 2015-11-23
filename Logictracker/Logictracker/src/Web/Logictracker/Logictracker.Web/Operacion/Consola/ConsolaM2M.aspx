@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ConsolaM2M.aspx.cs" Inherits="Logictracker.Operacion.Consola.ConsolaM2M" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Consola.ConsolaM2M" Codebehind="ConsolaM2M.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 

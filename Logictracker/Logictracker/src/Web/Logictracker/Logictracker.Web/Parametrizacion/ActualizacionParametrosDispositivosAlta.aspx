@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ActualizacionParametrosDispositivosAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionActualizacionParametrosDispositivosAlta" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionActualizacionParametrosDispositivosAlta" Codebehind="ActualizacionParametrosDispositivosAlta.aspx.cs" %>
 <%@ Register TagPrefix="c1h" Namespace="Logictracker.Web.Helpers.C1Helpers" Assembly="Logictracker.Web.Helpers" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 

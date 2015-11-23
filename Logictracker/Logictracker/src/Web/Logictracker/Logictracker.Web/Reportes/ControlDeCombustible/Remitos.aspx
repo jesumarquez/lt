@@ -1,5 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" 
-    CodeFile="Remitos.aspx.cs" Inherits="Logictracker.Reportes.ControlDeCombustible.ControlDeCombustible_Remitos" Title="Remitos" %>  
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.ControlDeCombustible.ControlDeCombustible_Remitos" Title="Remitos" Codebehind="Remitos.aspx.cs" %>  
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
         <table width="100%">

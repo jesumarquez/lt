@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="DetentionTimes.aspx.cs" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaDetentionTimes" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.Estadistica.ReportesEstadisticaDetentionTimes" Title="Untitled Page" Codebehind="DetentionTimes.aspx.cs" %>
     
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
     <table width="100%" cellpadding="5">

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ACTIONTYPE_MAIL" xml:space="preserve">
     <value>Mail</value>
@@ -4663,9 +4663,6 @@
   <data name="ULTIMA_POSICION_GPS" xml:space="preserve">
     <value>Última Posición GPS</value>
   </data>
-  <data name="VER_EVENTOS_ADMIN" xml:space="preserve">
-    <value>Ver Eventos Admin</value>
-  </data>
   <data name="EventsReport" xml:space="preserve">
     <value>Reporte de Eventos</value>
   </data>
@@ -4701,5 +4698,74 @@
   </data>
   <data name="EDITAR_TRAMO" xml:space="preserve">
     <value>Editar tramo</value>
+  </data>
+  <data name="VERSION_SERVER" xml:space="preserve">
+    <value>Versión server</value>
+  </data>
+  <data name="VERSION_EQUIPO" xml:space="preserve">
+    <value>Versión equipo</value>
+  </data>
+  <data name="ALERTADO" xml:space="preserve">
+    <value>Alertado</value>
+  </data>
+  <data name="ALTA_ERRONEA" xml:space="preserve">
+    <value>Alta erronea</value>
+  </data>
+  <data name="ANULADO" xml:space="preserve">
+    <value>Anulado</value>
+  </data>
+  <data name="AVISADO" xml:space="preserve">
+    <value>Avisado</value>
+  </data>
+  <data name="CERRADO" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="FALTA_SIN_CARGO" xml:space="preserve">
+    <value>Falta sin cargo/canje</value>
+  </data>
+  <data name="FUERA_DE_HORARIO" xml:space="preserve">
+    <value>Fuera de horario</value>
+  </data>
+  <data name="FUERA_DE_ZONA" xml:space="preserve">
+    <value>Fuera de zona</value>
+  </data>
+  <data name="MAL_FACTURADO" xml:space="preserve">
+    <value>Mal facturado</value>
+  </data>
+  <data name="MAL_PEDIDO" xml:space="preserve">
+    <value>Mal pedido</value>
+  </data>
+  <data name="NOTIFICADO" xml:space="preserve">
+    <value>Notificado</value>
+  </data>
+  <data name="NO_ENCONTRO_DOMICILIO" xml:space="preserve">
+    <value>No encontro domicilio</value>
+  </data>
+  <data name="NO_PEDIDO" xml:space="preserve">
+    <value>No pedido</value>
+  </data>
+  <data name="NO_RESUELTA" xml:space="preserve">
+    <value>No resuelta</value>
+  </data>
+  <data name="PENDIENTE" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="PRODUCTO_NO_APTO" xml:space="preserve">
+    <value>Producto no apto</value>
+  </data>
+  <data name="RESUELTO" xml:space="preserve">
+    <value>Resuelto</value>
+  </data>
+  <data name="SIN_AVISO" xml:space="preserve">
+    <value>Sin aviso</value>
+  </data>
+  <data name="SIN_DINERO" xml:space="preserve">
+    <value>Sin dinero</value>
+  </data>
+  <data name="ITERATIVO" xml:space="preserve">
+    <value>Iterativo</value>
+  </data>
+  <data name="CONTROL_INVERSO" xml:space="preserve">
+    <value>Control Inverso</value>
   </data>
 </root>

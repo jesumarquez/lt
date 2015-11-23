@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" CodeFile="ModeloImport.aspx.cs" Inherits="Logictracker.Parametrizacion.ModeloImport"  %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ModeloImport"  Codebehind="ModeloImport.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentImport" Runat="Server">
     <table border="0">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="ReporteComparativo.aspx.cs" Inherits="Logictracker.Reportes.M2M.ReporteComparativo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.M2M.ReporteComparativo" Codebehind="ReporteComparativo.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
     <table width="100%" style="font-size: x-small">

@@ -12,9 +12,10 @@ namespace Logictracker.Tracker.Application.Services
 {
     public class ReceptionService : IReceptionService
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(ReceptionService));
+
         public MessageQueueTemplate TrackMessageQueueTemplate { get; set; }
         public DAOFactory DaoFactory { get; set; }
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ReceptionService));
 
         public void ParseSitrackPositions(List<SitrackFrame> positions)
         {

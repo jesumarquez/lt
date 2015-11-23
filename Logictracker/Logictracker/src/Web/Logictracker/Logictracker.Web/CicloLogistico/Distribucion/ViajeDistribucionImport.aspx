@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" CodeFile="ViajeDistribucionImport.aspx.cs" Inherits="Logictracker.Web.CicloLogistico.Distribucion.ViajeDistribucionImport" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ImportPage.master" AutoEventWireup="true" Inherits="Logictracker.Web.CicloLogistico.Distribucion.ViajeDistribucionImport" Title="Untitled Page" Codebehind="ViajeDistribucionImport.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentImport" Runat="Server">
         

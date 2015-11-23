@@ -32,6 +32,7 @@ using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Point = Logictracker.Web.Monitor.Geometries.Point;
 using Logictracker.DAL.NHibernate;
 using ListItem = System.Web.UI.WebControls.ListItem;
+using C1.Web.UI.Controls.C1GridView;
 
 namespace Logictracker.CicloLogistico.Distribucion
 {
@@ -133,6 +134,7 @@ namespace Logictracker.CicloLogistico.Distribucion
 
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
             cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
+            cbTransportista.SetSelectedValue(EditObject.Transportista != null ? EditObject.Transportista.Id : cbTransportista.AllValue);
             cbCentroDeCosto.SetSelectedValue(EditObject.CentroDeCostos != null ? EditObject.CentroDeCostos.Id : cbCentroDeCosto.AllValue);
             cbSubCentroDeCosto.SetSelectedValue(EditObject.SubCentroDeCostos != null ? EditObject.SubCentroDeCostos.Id : cbSubCentroDeCosto.AllValue);
             cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.AllValue);
@@ -167,6 +169,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             Entregas.Set(entregas);
 
             BindEntregas();
+            BindEstadosCumplidos();
 
             var points = EditObject.Recorrido.Select(detalle => new PointF((float)detalle.Longitud, (float)detalle.Latitud)).ToList();
             EditLine1.SetLine(points);
@@ -224,6 +227,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbTransportista.Enabled = pendiente;
             cbVehiculo.Enabled = pendiente;
             cbChofer.Enabled = pendiente;
+            cbTipoCicloLogistico.Enabled = pendiente;
            // txtCodigo.Enabled = pendiente;
             dtFecha.Enabled = pendiente;
             txtUmbral.Enabled = pendiente;
@@ -255,6 +259,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                 {
                     EditObject.Empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
                     EditObject.Linea = cbLinea.Selected > 0 ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+                    EditObject.Transportista = cbTransportista.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(cbTransportista.Selected) : null;
                     EditObject.CentroDeCostos = cbCentroDeCosto.Selected > 0 ? DAOFactory.CentroDeCostosDAO.FindById(cbCentroDeCosto.Selected) : null;
                     EditObject.SubCentroDeCostos = cbSubCentroDeCosto.Selected > 0
                         ? DAOFactory.SubCentroDeCostosDAO.FindById(cbSubCentroDeCosto.Selected)
@@ -439,13 +444,24 @@ namespace Logictracker.CicloLogistico.Distribucion
             var cerrar = !chkNoCerrar.Checked;
 
             var ruta = DAOFactory.ViajeDistribucionDAO.FindById(EditObject.Id);
+
+            foreach (var detalle in ruta.Detalles)
+            {
+                detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                detalle.Entrada = null;
+                detalle.Manual = null;
+                detalle.Salida = null;
+
+                DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
+            }
+            
             ruta.InicioReal = desde;
             if (cerrar) ruta.Fin = hasta;
             ruta.Estado = ViajeDistribucion.Estados.EnCurso;
             DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
 
             var ciclo = new CicloLogisticoDistribucion(ruta, DAOFactory, null);
-            ciclo.Regenerate(desde, hasta);
+            ciclo.Regenerar(desde, hasta);
 
             if (cerrar)
             {
@@ -458,6 +474,20 @@ namespace Logictracker.CicloLogistico.Distribucion
 
         #endregion
 
+        private void BindEstadosCumplidos()
+        {
+            gridEstadosCumplidos.Columns[0].HeaderText = string.Empty;
+            gridEstadosCumplidos.Columns[1].HeaderText = CultureManager.GetEntity("PARTICK08");
+            gridEstadosCumplidos.Columns[2].HeaderText = CultureManager.GetLabel("INICIO");
+            gridEstadosCumplidos.Columns[3].HeaderText = CultureManager.GetLabel("FIN");
+            gridEstadosCumplidos.Columns[4].HeaderText = CultureManager.GetLabel("TOTAL");
+            gridEstadosCumplidos.Columns[5].HeaderText = CultureManager.GetLabel("DEMORA");
+            gridEstadosCumplidos.Columns[6].HeaderText = CultureManager.GetLabel("DESVIO");
+
+            var dt = EditObject.EstadosCumplidos;
+            gridEstadosCumplidos.DataSource = dt;
+            gridEstadosCumplidos.DataBind();
+        }
         private void BindEntregas()
         {
             CreateOrigen();
@@ -510,6 +540,40 @@ namespace Logictracker.CicloLogistico.Distribucion
                 var dt = item.FindControl("dtHasta") as DateTimePicker;
                 if (dt != null) dt.SelectedDate = hasta[i].ToDisplayDateTime();
                 if (updHasta != null) updHasta.Update();
+            }
+        }
+
+        protected void GridEstadosCumplidosOnRowDataBound(object sender, C1GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == C1GridViewRowType.DataRow)
+            {
+                var result = e.Row.DataItem as EstadoDistribucion;
+                if (result != null)
+                {
+                    var img = e.Row.FindControl("imgIcono") as System.Web.UI.WebControls.Image;
+                    if (img != null) img.ImageUrl = "../../iconos/" + result.EstadoLogistico.Icono.PathIcono;
+
+                    var lbl = e.Row.FindControl("lblEstadoLogistico") as Label;
+                    if (lbl != null) lbl.Text = result.EstadoLogistico.Descripcion;
+
+                    lbl = e.Row.FindControl("lblDesde") as Label;
+                    if (lbl != null) lbl.Text = result.Inicio.HasValue ? result.Inicio.Value.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm") : string.Empty;
+
+                    lbl = e.Row.FindControl("lblHasta") as Label;
+                    if (lbl != null) lbl.Text = result.Fin.HasValue ? result.Fin.Value.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm") : string.Empty;
+
+                    var total = result.Inicio.HasValue && result.Fin.HasValue ? result.Fin.Value.Subtract(result.Inicio.Value) : new TimeSpan();
+                    lbl = e.Row.FindControl("lblTotal") as Label;
+                    if (lbl != null) lbl.Text = total.ToString();
+
+                    var demora = new TimeSpan(0, result.EstadoLogistico.Demora, 0);
+                    lbl = e.Row.FindControl("lblDemora") as Label;
+                    if (lbl != null) lbl.Text = demora.ToString();
+
+                    var desvio = total.TotalSeconds > 0 ? total.Subtract(demora) : new TimeSpan();
+                    lbl = e.Row.FindControl("lblDesvio") as Label;
+                    if (lbl != null) lbl.Text = desvio.ToString();
+                }
             }
         }
 

@@ -1,0 +1,95 @@
+﻿@using Logictracker.Web.App_Code
+@{
+    ViewBag.Title = "Ordenes Pendientes";
+}
+
+<h3>@ViewBag.Title</h3>
+
+<div ng-controller="OrdersController as order">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <td></td>
+                <td>Empresa</td>
+                <td>Empleado</td>
+                <td>Transportista</td>
+                <td>Entrega</td>
+                <td>Codigo</td>
+                <td>Registrado</td>
+                <td>Pedido</td>
+                <td>Entrega</td>
+                <td>Inicio</td>
+                <td>Fin</td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="orderDet in order.OrderList">
+                <td><input type="checkbox" ng-model="orderDet.Selected"></td>
+                <td>{{orderDet.Empresa}}</td>
+                <td>{{orderDet.Empleado}}</td>
+                <td>{{orderDet.Transportista}}</td>
+                <td>{{orderDet.PuntoEntrega}}</td>
+                <td>{{orderDet.CodigoPedido}}</td>
+                <td>{{orderDet.FechaAlta | date:'medium'}}</td>
+                <td>{{orderDet.FechaPedido | date:'medium'}}</td>
+                <td>{{orderDet.FechaEntrega | date:'medium'}}</td>
+                <td>{{orderDet.InicioVentana}}</td>
+                <td>{{orderDet.FinVentana}}</td>
+                <td>
+                    <a class="btn btn-primary" ui-sref="viewMovie({id:order._id})">Detalles</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Asignar
+    </button>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Enviar a Distribución</h4>
+                </div>
+                <div style="height: 200px" class="modal-body">
+                        
+                    <div class="form-group">
+                        <label for="title" class="col-sm-4 control-label">Ruta</label>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="order.RouteCode" class="form-control" id="title" placeholder="Cual es el Código de la Ruta?" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="year" class="col-sm-4 control-label">Camión</label>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="order.Vehicle" class="form-control" readonly="true" id="year" placeholder="No disponible" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDateTime" class="col-sm-4 control-label">Fecha/Hora Inicio</label>
+                        <div class="col-sm-8">
+                            <input id="startDateTime" kendo-date-picker k-ng-model="order.StartDateTime" />                        
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="order.LogisticsCycleType" id="tipoCiclo" name="tipoCiclo" >
+                                <option value="">Escoja el tipo</option>
+                                <option value="1">Regular</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" ng-click="programOrders(order)" data-dismiss="modal">Programar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -19,6 +19,7 @@ using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
+using Logictracker.AVL.Messages;
 
 namespace Logictracker.Process.CicloLogistico
 {
@@ -133,9 +134,9 @@ namespace Logictracker.Process.CicloLogistico
 
         protected override void Process(CloseEvent data)
         {
-            if (Distribucion.Estado == ViajeDistribucion.Estados.Cerrado)
+            if (Distribucion.Estado != ViajeDistribucion.Estados.EnCurso)
             {
-                STrace.Debug(GetType().FullName, Distribucion.Vehiculo.Dispositivo.Id, "Se esta intentando cerrar un Ciclo Logistico de Distribucion que ya estaba cerrado");
+                STrace.Debug(GetType().FullName, Distribucion.Vehiculo.Dispositivo.Id, "Se esta intentando cerrar un Ciclo Logistico de Distribucion que no esta iniciado");
                 return;
             }
 
@@ -147,6 +148,15 @@ namespace Logictracker.Process.CicloLogistico
             {
                 detalle.Estado = detalle.Viaje.Empresa.EstadoCierreDistribucion;
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
+            }
+            foreach (var estadoCumplido in Distribucion.EstadosCumplidos)
+            {
+                if (!estadoCumplido.Inicio.HasValue || !estadoCumplido.Fin.HasValue)
+                {
+                    Distribucion.EstadosCumplidos.Remove(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                    DaoFactory.EstadoDistribucionDAO.Delete(estadoCumplido);
+                }   
             }
 
             // Informar al dispositivo que cierre la distribución
@@ -882,6 +892,118 @@ namespace Logictracker.Process.CicloLogistico
 
         #endregion
 
+        #region EstadoLogistico
+
+        public void ProcessEstadoLogistico(Event evento, string code)
+        {
+            if (Distribucion.TipoCicloLogistico != null)
+            {
+                var estados = Distribucion.TipoCicloLogistico.Estados;
+                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == code);
+                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == code);
+
+                foreach (var item in aCerrar)
+                {
+                    if (item.ControlInverso)
+                    {
+                        if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id))
+                            continue;
+
+                        var inicio = DaoFactory.LogMensajeDAO.GetLastByVehicleAndCode(Distribucion.Vehiculo.Id, item.MensajeInicio.Codigo, Distribucion.InicioReal.Value, evento.GeoPoint.Date, 1);
+                        if (inicio != null)
+                        {
+                            var estadoCumplido = new EstadoDistribucion();
+                            estadoCumplido.EstadoLogistico = item;
+                            estadoCumplido.Inicio = inicio.Fecha;
+                            estadoCumplido.Fin = evento.GeoPoint.Date;
+                            estadoCumplido.Viaje = Distribucion;
+                            Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                        }
+                    }
+                    else
+                    {
+                        var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                        foreach (var abierto in abiertos)
+                        {
+                            abierto.Fin = evento.GeoPoint.Date;
+                        }
+                    }
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+
+                foreach (var item in aIniciar)
+                {
+                    if (item.ControlInverso) continue;
+                    if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id)) continue;
+
+                    var estadoCumplido = new EstadoDistribucion();
+                    estadoCumplido.EstadoLogistico = item;
+                    estadoCumplido.Inicio = evento.GeoPoint.Date;
+                    estadoCumplido.Viaje = Distribucion;
+                    Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+            }
+        }
+
+        public void ProcessEstadoLogistico(string codigo, DateTime fecha, int idGeocerca)
+        {
+            if (Distribucion.TipoCicloLogistico != null)
+            {
+                var estados = Distribucion.TipoCicloLogistico.Estados;
+                var tipoGeocerca = DaoFactory.ReferenciaGeograficaDAO.FindById(idGeocerca).TipoReferenciaGeografica;
+                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == codigo);
+                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == codigo);
+
+                foreach (var item in aCerrar)
+                {
+                    if (item.TipoGeocercaFin != null && item.TipoGeocercaFin.Id != tipoGeocerca.Id) continue;
+
+                    if (item.ControlInverso)
+                    {
+                        if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id)) continue;
+
+                        var inicio = DaoFactory.LogMensajeDAO.GetLastBySPVehicleAndCode(Distribucion.Vehiculo.Id, item.MensajeInicio.Codigo, Distribucion.InicioReal.Value, fecha);
+                        if (inicio != null)
+                        {
+                            var estadoCumplido = new EstadoDistribucion();
+                            estadoCumplido.EstadoLogistico = item;
+                            estadoCumplido.Inicio = inicio.Fecha;
+                            estadoCumplido.Fin = fecha;
+                            estadoCumplido.Viaje = Distribucion;
+                            Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                        }
+                    }
+                    else
+                    {
+                        var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                        foreach (var abierto in abiertos)
+                        {
+                            abierto.Fin = fecha;
+                        }
+                    }
+
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+
+                foreach (var item in aIniciar)
+                {
+                    if (item.ControlInverso) continue;
+                    if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id)) continue;
+                    if (item.TipoGeocercaInicio != null && item.TipoGeocercaInicio.Id != tipoGeocerca.Id) continue;
+
+                    var estadoCumplido = new EstadoDistribucion();
+                    estadoCumplido.EstadoLogistico = item;
+                    estadoCumplido.Inicio = fecha;
+                    estadoCumplido.Viaje = Distribucion;
+                    Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region AutoClose
@@ -1193,5 +1315,29 @@ namespace Logictracker.Process.CicloLogistico
         }
 
         #endregion
+
+        public void Regenerar(DateTime desde, DateTime hasta)
+        {
+            Regeneracion = true;
+            var maxMonths = Vehiculo.Empresa != null ? Vehiculo.Empresa.MesesConsultaPosiciones : 3;
+            var logMensajes = DaoFactory.LogMensajeDAO.GetEvents(Vehiculo.Id, desde, hasta, maxMonths);
+
+            foreach (var logMensaje in logMensajes)
+            {
+                if (logMensaje.Latitud == 0 || logMensaje.Longitud == 0)
+                {
+                    var pos = DaoFactory.LogPosicionDAO.GetFirstPositionOlderThanDate(Vehiculo.Id, logMensaje.Fecha, maxMonths);
+                    logMensaje.Latitud = pos.Latitud;
+                    logMensaje.Longitud = pos.Longitud;
+                    DaoFactory.LogMensajeDAO.SaveOrUpdate(logMensaje);
+                }
+                var evento = EventFactory.GetEvent(DaoFactory, logMensaje);
+                if (evento == null) continue;
+                ProcessEvent(evento);
+                
+                if (Distribucion.Estado == ViajeDistribucion.Estados.Cerrado) break;
+            }
+            Regeneracion = false;
+        } 
     }
 }

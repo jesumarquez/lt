@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ServicioAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.AltaServicio" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.AltaServicio" Title="Untitled Page" Codebehind="ServicioAlta.aspx.cs" %>
 
 <%@ Register Src="~/CicloLogistico/Controls/ServicioDetalle.ascx" TagName="ServicioDetalle" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists.Tickets" Assembly="Logictracker.Web.CustomWebControls" %>

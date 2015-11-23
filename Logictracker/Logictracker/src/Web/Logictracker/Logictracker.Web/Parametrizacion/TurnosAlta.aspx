@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TurnosAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionTurnosAlta" %>  
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionTurnosAlta" Codebehind="TurnosAlta.aspx.cs" %>  
 
 <%@ Register Src="~/App_Controls/Pickers/TimePicker.ascx" TagName="TimePicker" TagPrefix="uc1" %>
 

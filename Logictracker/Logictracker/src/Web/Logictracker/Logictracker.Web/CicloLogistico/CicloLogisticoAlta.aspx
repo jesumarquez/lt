@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="CicloLogisticoAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.CicloLogisticoAlta" Title="Untitled Page" %>  
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.CicloLogisticoAlta" Title="Untitled Page" Codebehind="CicloLogisticoAlta.aspx.cs" %>  
     
 <%@ Register Src="~/CicloLogistico/Controls/CicloDetalle.ascx" TagName="CicloDetalle" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists" Assembly="Logictracker.Web.CustomWebControls" %>

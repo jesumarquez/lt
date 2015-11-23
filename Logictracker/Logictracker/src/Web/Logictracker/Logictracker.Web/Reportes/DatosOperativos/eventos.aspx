@@ -1,5 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="eventos.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.ReportesEventos" Title="Reporte de Eventos" %>
-
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="True" EnableEventValidation="false" Inherits="Logictracker.Reportes.DatosOperativos.ReportesEventos" Title="Reporte de Eventos" Codebehind="eventos.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="server">
     <%--FILTROS--%>
     <table width="100%">

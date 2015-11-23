@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Logictracker.Operacion.Mimico.Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Mimico.Default" Codebehind="Default.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 

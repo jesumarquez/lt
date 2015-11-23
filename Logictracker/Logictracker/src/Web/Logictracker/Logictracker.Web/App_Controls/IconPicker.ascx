@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="IconPicker.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_IconPicker" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="IconPicker.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_IconPicker" %>
 
 <style type="text/css">
 .icon

@@ -327,6 +327,9 @@
   <data name="OPETICK03" xml:space="preserve">
     <value>Viagem</value>
   </data>
+  <data name="OPETICK04" xml:space="preserve">
+    <value>Entrega</value>
+  </data>
   <data name="PARENTI35" xml:space="preserve">
     <value>Talher</value>
   </data>
@@ -335,6 +338,9 @@
   </data>
   <data name="SOCUSUA02" xml:space="preserve">
     <value>Perfil</value>
+  </data>
+  <data name="PARTICK08" xml:space="preserve">
+    <value>Estado Logistico</value>
   </data>
   <data name="PARTICK09" xml:space="preserve">
     <value>Tipo do Ciclo Logistico</value>

@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties.cs" />
+    <Compile Include="Strategies\PedidosPetrobras.cs" />
     <Compile Include="Strategies\DistribucionMusimundo.cs" />
     <Compile Include="Strategies\DistribucionReginaldLee.cs" />
     <Compile Include="Strategies\DistribucionCCU.cs" />

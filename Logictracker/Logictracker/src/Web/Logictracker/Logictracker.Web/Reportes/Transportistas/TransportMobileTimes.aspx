@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="TransportMobileTimes.aspx.cs" Inherits="Logictracker.Reportes.Transportistas.TransportMobileTimes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.Transportistas.TransportMobileTimes" Codebehind="TransportMobileTimes.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">
         <table width="100%">

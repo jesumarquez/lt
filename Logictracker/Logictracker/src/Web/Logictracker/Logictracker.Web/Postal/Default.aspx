@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Logictracker.Postal.Postal_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Postal.Postal_Default" Codebehind="Default.aspx.cs" %>
 
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="Logictracker.Configuration" %>

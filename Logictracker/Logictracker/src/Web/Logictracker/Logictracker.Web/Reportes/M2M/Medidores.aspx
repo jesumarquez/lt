@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="Medidores.aspx.cs" Inherits="Logictracker.Reportes.M2M.Medidores" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.M2M.Medidores" Codebehind="Medidores.aspx.cs" %>
 
 <%@ Register TagPrefix="uc2" TagName="Filtros" Src="../../App_Controls/FiltroDetalles.ascx" %>
 

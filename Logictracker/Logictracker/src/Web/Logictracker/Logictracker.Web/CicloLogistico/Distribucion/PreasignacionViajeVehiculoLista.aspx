@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="PreasignacionViajeVehiculoLista.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.PreasignacionViajeVehiculoLista" Title="" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Distribucion.PreasignacionViajeVehiculoLista" Title="" Codebehind="PreasignacionViajeVehiculoLista.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" Runat="server">
     <table>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="AccionesAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionAccionAlta" Title="Acciones" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionAccionAlta" Title="Acciones" Codebehind="AccionesAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/IconPicker.ascx" TagName="IconPicker" TagPrefix="uc" %>  
 <%@ Register Src="../App_Controls/ColorPicker.ascx" TagName="ColorPicker" TagPrefix="uc" %>  

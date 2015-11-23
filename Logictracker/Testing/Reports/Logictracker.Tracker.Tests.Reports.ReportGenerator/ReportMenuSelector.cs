@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using Logictracker.Tracker.Application.WebServiceConsumer;
 using Logictracker.Tracker.Services;
 
 namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
@@ -10,7 +9,7 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
     public class ReportMenuSelector
     {
         public IReportService ReportService { get; set; }
-        public IWebServiceConsumerService WebServiceConsumerService { get; set; }
+        public IWebServiceClient WebServiceConsumerService { get; set; }
 
         public ReportMenuSelector()
         {
@@ -47,20 +46,13 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
                 case 'b':
                     GenerateFinalReportExecutionCommand(DateTime.Now, "julian.millan@logictracker.com");
                     break;
-                case 'c':
-                    GenerateNoveltyCommand();
-                    break;
+
                 default:
                     Console.WriteLine(" <-- Opcion invalida");
                     break;
             }
         }
 
-        private void GenerateNoveltyCommand()
-        {
-            WebServiceConsumerService.SendCommand(WebServiceConsumerService.GenerateNoveltyCommand());
-            Console.WriteLine("MSG Sent");
-        }
 
         private void GenerateFinalReportExecutionCommand(DateTime dateTime, string mail)
         {

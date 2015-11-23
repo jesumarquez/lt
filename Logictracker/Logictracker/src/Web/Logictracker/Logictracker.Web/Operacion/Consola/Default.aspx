@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Logictracker.Operacion.Consola.Operacion_Consola_Default" EnableSessionState="ReadOnly" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Consola.Operacion_Consola_Default" EnableSessionState="ReadOnly" Codebehind="Default.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register Src="../../App_Controls/Mensajeria.ascx" TagName="Mensajeria" TagPrefix="uc1" %>

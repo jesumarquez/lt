@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" CodeFile="ControlarDistribucion.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.ControlarDistribucion" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Distribucion.ControlarDistribucion" Codebehind="ControlarDistribucion.aspx.cs" %>
 <%@ Import Namespace="Logictracker.Security" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" Runat="Server">

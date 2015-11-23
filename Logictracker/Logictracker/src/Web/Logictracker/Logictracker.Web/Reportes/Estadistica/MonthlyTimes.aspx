@@ -1,5 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MonthlyTimes.aspx.cs" MasterPageFile="~/MasterPages/ReportGraphPage.master"
-    Inherits="Logictracker.Reportes.Estadistica.Reportes_MontlyTimes" %>
+<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPages/ReportGraphPage.master"
+    Inherits="Logictracker.Reportes.Estadistica.Reportes_MontlyTimes" Codebehind="MonthlyTimes.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
  

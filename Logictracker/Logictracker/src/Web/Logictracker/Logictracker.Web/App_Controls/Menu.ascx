@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Menu.ascx.cs" Inherits="Logictracker.App_Controls.Menu" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="Menu.ascx.cs" Inherits="Logictracker.App_Controls.Menu" %>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
 <ContentTemplate>
     

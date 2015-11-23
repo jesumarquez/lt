@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="MobilePoisHistoric.aspx.cs" Inherits="Logictracker.Reportes.Estadistica.MobilePoisHistoric" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.Estadistica.MobilePoisHistoric" Title="Untitled Page" Codebehind="MobilePoisHistoric.aspx.cs" %>
 <%@ Register src="~/App_Controls/Pickers/NumberPicker.ascx" tagname="NumberPicker" tagprefix="uc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">

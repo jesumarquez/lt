@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="ResumenDeEntidades.aspx.cs" Inherits="Logictracker.Reportes.M2M.ResumenDeEntidades" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.M2M.ResumenDeEntidades" Codebehind="ResumenDeEntidades.aspx.cs" %>
 
 <%@ Register Assembly="C1.Web.UI.Controls.3" Namespace="C1.Web.UI.Controls.C1Gauge" TagPrefix="c1" %>
 
