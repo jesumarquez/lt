@@ -144,6 +144,7 @@ function RechazoController($scope, EntitiesService) {
         { field: "Territorio", title: "Territorio" },
         { field: "Motivo", title: "Motivo" },
         { field: "Bultos", title: "Bultos" },
+        { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "100px" }
         ]
     }
 

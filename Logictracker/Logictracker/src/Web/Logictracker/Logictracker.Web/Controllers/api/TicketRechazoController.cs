@@ -43,7 +43,8 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/item")]
         public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
         {
-            var rechazoEntity = new TicketRechazo();
+            var rechazoEntity = new TicketRechazo(string.Empty, this.Usuario, DateTime.Now);
+
             Mapper.ModelToEntity(rechazoModel, rechazoEntity);
 
             EntityDao.Save(rechazoEntity);
