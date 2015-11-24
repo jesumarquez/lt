@@ -137,7 +137,7 @@ function RechazoController($scope, EntitiesService) {
         [
         { field: "TicketRechazoId", title: "Ticket" },
         { field: "FechaHora", title: "Fecha Hora", format: "{0:G}" , sortable:true },
-        { field: "CodCliente", title: "Cod. Cliente"  },
+        { field: "ClienteId", title: "Cod. Cliente" },
         { field: "Cliente", title: "Cliente" },
         { field: "SupVenDesc", title: "Sup. Venta" },
         { field: "SupRutDesc", title: "Sup. Ruta" },
@@ -378,23 +378,47 @@ function RechazoItemController($scope, EntitiesService) {
 }
 
 function RechazoEditItemController($scope, EntitiesService) {
-    $scope.ticketItem = {
-        data : EntitiesService.resources.ticketRechazo.get({ id: $scope.ticketItemId }),
-        nextEstadoSelected : {},
-        gridDetalleOptions : {
-            columns:
-            [
-                { field: "TicketRechazoDetalleId", title: "Id" },
-                { field: "FechaHora", title: "Fecha Hora" },
-                { field: "UsuarioNombre", title: "Usuario" },
-                { field: "Estado", title: "Estado" },
-                { field: "Observacion", title: "Observacion" },
-            ]
-        },
-        nextEstadoDS : EntitiesService.ticketrechazo.nextEstado({ ticketId: $scope.ticketItemId }, null, onFail)
+
+    $scope.ticketItem = EntitiesService.resources.ticketRechazo.get({ id: $scope.ticketItemId });
+    $scope.gridDetalleOptions = {
+        columns:
+        [
+            { field: "TicketRechazoDetalleId", title: "Id" },
+            { field: "FechaHora", title: "Fecha Hora" },
+            { field: "UsuarioNombre", title: "Usuario" },
+            { field: "Estado", title: "Estado" },
+            { field: "Observacion", title: "Observacion" },
+        ]
     };
+
+    $scope.estadoSelected = {};
+    $scope.estadoDS = EntitiesService.ticketrechazo.nextEstado({ ticketId: $scope.ticketItemId }, onEstadoDS, onFail)
+
+    function onEstadoDS(e) {
+         if (e.type === "read" && e.response) {
+           $scope.estadoSelected = e.response[0];
+        }
+    }
+
     function onFail(error) {
         $scope.notify.show(error.errorThrown, "error");
+    };
+
+    $scope.onClose = function () {
+        $scope.rechazoWin.close();
+    };
+
+    $scope.onSave = function () {
+
+        //var ticketRechazo = {
+        //    DistritoId: $scope.ticketItemId,
+        //    Estado: $scope.estadoSelected.Key,
+        //    Observacion: $scope.observacion
+        //};
+
+        //EntitiesService.resources.ticketRechazo.save(ticketRechazo);
+
+        $scope.rechazoWin.close();
     };
 }
 
