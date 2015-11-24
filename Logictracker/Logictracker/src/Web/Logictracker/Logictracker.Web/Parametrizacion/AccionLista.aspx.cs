@@ -69,6 +69,7 @@ namespace Logictracker.Parametrizacion
             CreateImageTemplate(row, "imgEvaluaGeocerca", AccionVo.IndexEvaluaGeocerca);
             CreateImageTemplate(row, "imgReportaAssistCargo", AccionVo.IndexReportaAssistCargo);
             CreateImageTemplate(row, "imgEnviaReporte", AccionVo.IndexEnviaReporte);
+            CreateImageTemplate(row, "imgReportaResponsable", AccionVo.IndexReportaResponsable);
         }
 
         protected override void OnRowDataBound(C1GridView grid, C1GridViewRowEventArgs e, AccionVo dataItem)
@@ -118,6 +119,7 @@ namespace Logictracker.Parametrizacion
             ((Image)GridUtils.GetCell(e.Row, AccionVo.IndexEvaluaGeocerca).FindControl("imgEvaluaGeocerca")).ImageUrl = accion.EvaluaGeocerca ? TrueIcon : FalseIcon;
             ((Image)GridUtils.GetCell(e.Row, AccionVo.IndexReportaAssistCargo).FindControl("imgReportaAssistCargo")).ImageUrl = accion.ReportaAssistCargo ? TrueIcon : FalseIcon;
             ((Image)GridUtils.GetCell(e.Row, AccionVo.IndexEnviaReporte).FindControl("imgEnviaReporte")).ImageUrl = accion.EnviaReporte ? TrueIcon : FalseIcon;
+            ((Image)GridUtils.GetCell(e.Row, AccionVo.IndexReportaResponsable).FindControl("imgReportaResponsable")).ImageUrl = accion.ReportaResponsable ? TrueIcon : FalseIcon;
         }
 
         /// <summary>

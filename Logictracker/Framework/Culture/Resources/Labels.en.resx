@@ -4567,4 +4567,7 @@
   <data name="CONTROL_INVERSO" xml:space="preserve">
     <value>Inverse Control</value>
   </data>
+  <data name="REPORTA_RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Reports Account Manager</value>
+  </data>
 </root>
