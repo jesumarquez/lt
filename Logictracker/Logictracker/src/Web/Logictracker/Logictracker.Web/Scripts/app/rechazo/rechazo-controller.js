@@ -410,13 +410,13 @@ function RechazoEditItemController($scope, EntitiesService) {
 
     $scope.onSave = function () {
 
-        //var ticketRechazo = {
-        //    DistritoId: $scope.ticketItemId,
-        //    Estado: $scope.estadoSelected.Key,
-        //    Observacion: $scope.observacion
-        //};
+        var ticketRechazo = {
+            TicketRechazoId: $scope.ticketItemId,
+            Estado: $scope.estadoSelected.Key,
+            Observacion: $scope.ticketItem.Observacion
+        };
 
-        //EntitiesService.resources.ticketRechazo.save(ticketRechazo);
+        EntitiesService.resources.ticketRechazo.update({ id: $scope.ticketItemId }, ticketRechazo);
 
         $scope.rechazoWin.close();
     };
