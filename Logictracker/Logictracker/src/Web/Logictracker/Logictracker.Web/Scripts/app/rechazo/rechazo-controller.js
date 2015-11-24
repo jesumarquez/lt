@@ -2,6 +2,7 @@
     .module('logictracker.rechazo.controller', ['kendo.directives'])
     .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController])
     .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController])
+    .controller('RechazoEditItemController', ['$scope', 'EntitiesService', RechazoEditItemController])
     .controller("RechazoEstadisticasController", ["$scope", "EntitiesService", RechazoEstadisticasController]);
 
 
@@ -156,11 +157,12 @@ function RechazoController($scope, EntitiesService) {
 
     $scope.onEdit = function (id) {
         $scope.operacion = "E";
-        $scope.ticketItem = EntitiesService.resources.ticketRechazo.get({ id: id }, 
-            function () {
-                $scope.rechazoWin.refresh({ url: "Item"}).open().center();
-            },
-            onFail);
+        $scope.ticketItemId = id;
+        //$scope.ticketItem = EntitiesService.resources.ticketRechazo.get({ id: id }, 
+        //    function () {
+                $scope.rechazoWin.refresh({ url: "EditItem"}).open().center();
+        //    },
+        //    onFail);
     }
 
     $scope.onBuscar = function () {
@@ -370,6 +372,27 @@ function RechazoItemController($scope, EntitiesService) {
         $scope.rechazoWin.close();
     };
 
+    function onFail(error) {
+        $scope.notify.show(error.errorThrown, "error");
+    };
+}
+
+function RechazoEditItemController($scope, EntitiesService) {
+    $scope.ticketItem = {
+        data : EntitiesService.resources.ticketRechazo.get({ id: $scope.ticketItemId }),
+        nextEstadoSelected : {},
+        gridDetalleOptions : {
+            columns:
+            [
+                { field: "TicketRechazoDetalleId", title: "Id" },
+                { field: "FechaHora", title: "Fecha Hora" },
+                { field: "UsuarioNombre", title: "Usuario" },
+                { field: "Estado", title: "Estado" },
+                { field: "Observacion", title: "Observacion" },
+            ]
+        },
+        nextEstadoDS : EntitiesService.ticketrechazo.nextEstado({ ticketId: $scope.ticketItemId }, null, onFail)
+    };
     function onFail(error) {
         $scope.notify.show(error.errorThrown, "error");
     };
