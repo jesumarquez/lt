@@ -13,7 +13,8 @@
     <many-to-one name="Vendedor" column="rela_parenti09_vendedor" lazy="proxy" />
     <many-to-one name="SupervisorVenta" column="rela_parenti09_supervisor_ventas" lazy="proxy" />
     <many-to-one name="SupervisorRuta" column="rela_parenti09_supervisor_ruta" lazy="proxy" />
-
+    <many-to-one name="Entrega" column="rela_opetick04" lazy="proxy"/>
+    
     <property column="opetick10_fecha" type="DateTime" not-null="true"  name="FechaHora" />
     <property column="opetick10_territorio" type="string" name="Territorio" />
     <property column="opetick10_motivo" type="int" name="Motivo" />
@@ -30,5 +31,6 @@
       <key column="rela_opetick10" />
       <one-to-many class="Logictracker.Types.BusinessObjects.Rechazos.DetalleTicketRechazo,Logictracker.Types" />
     </set>
+    
   </class>
 </hibernate-mapping>

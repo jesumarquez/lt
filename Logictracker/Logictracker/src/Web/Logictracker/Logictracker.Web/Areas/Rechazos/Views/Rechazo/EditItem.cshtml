@@ -18,7 +18,7 @@
 
             <div class="InputGroup">
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
-                <sapn class="InputGroup__control"></sapn>
+                <sapn class="InputGroup__control">{{ticketItem.data.CodigoDistribucion}}</sapn>
             </div>
         </div>
         <div class="InputContainer-column">
@@ -65,7 +65,7 @@
     
     <div class="form-group">
         <span>@Html.ResourceLabel("Labels", "Información del Ticket:")</span>
-        <div kendo-grid k-options="gridDetalleOptions" k-data-source="detalleDS"></div>
+        <div kendo-grid k-options="ticketItem.gridDetalleOptions" k-data-source="ticketItem.data.Detalle"></div>
     </div>
 
     <div class="from-grop">
