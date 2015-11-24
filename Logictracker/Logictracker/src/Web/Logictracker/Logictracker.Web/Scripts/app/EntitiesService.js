@@ -31,7 +31,8 @@ function EntitiesService($resource, $http) {
             estados: getEstados, //$resource("/api/ticketrechazo/estado/items"),
             motivos: getMotivos, // $resource("/api/ticketrechazo/motivo/items")
             empleadoReporta: getEmpleadoReportaDS,
-            items: getRechazoItems
+            items: getRechazoItems,
+            nextEstado:  getNextEstado
         }
     };
 
@@ -354,6 +355,25 @@ function EntitiesService($resource, $http) {
 
         return ds;
     };
+
+    function getNextEstado(data_, onEnd, onFail){
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: "/api/ticketrechazo/" + data_.ticketId + "/estado/next/",
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    }
 
     return _service;
 }

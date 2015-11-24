@@ -16,6 +16,10 @@ namespace Logictracker.Web.Areas.Rechazos.Controllers
             
             return View("Item");
         }
+        public ActionResult EditItem()
+        {
+            return View("EditItem");
+        }
 
         // GET: Rechazos/Rechazo/Estadisticas
         public ActionResult Estadisticas()
