@@ -56,20 +56,24 @@
         <div class="InputGroup">
             <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Observaciones"):</span>
             <div class="InputGroup__control">
-            <textarea class="form-control"
-                      kendo-editor
-                      k-ng-model="ticketItem.Observacion" ></textarea>
-    </div>
+                <textarea class="form-control"
+                          kendo-editor
+                          k-ng-model="ticketItem.Observacion"></textarea>
+            </div>
         </div>
     </div>
-    
+    </br>
+
+    <div class="form-group">
+        <button kendo-button ng-click="onClose()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Cerrar")</button>
+        <button kendo-button ng-click="onSave()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Guardar")</button>
+    </div>
+
+    <br/>
+    <br/>
     <div class="form-group">
         <span>@Html.ResourceLabel("Labels", "Información del Ticket:")</span>
         <div kendo-grid k-options="ticketItem.gridDetalleOptions" k-data-source="ticketItem.Detalle"></div>
     </div>
 
-    <div class="from-grop">
-        <button kendo-button ng-click="onClose()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Cerrar")</button>
-        <button kendo-button ng-click="onSave()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Guardar")</button>
-    </div>
 </div>

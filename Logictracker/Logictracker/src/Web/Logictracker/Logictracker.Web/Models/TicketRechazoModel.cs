@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Logictracker.Culture;
-using Logictracker.Types.BusinessObjects.Rechazos;
-using Logictracker.Web.Models;
 using Logictracker.DAL.DAO.BusinessObjects;
 using Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.DAL.Factories;
-using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
-using NHibernate.Util;
+using Logictracker.Types.BusinessObjects.Rechazos;
+using Logictracker.Web.Models;
 
 namespace Logictracker.Web.Controllers.api
 {
-    [Serializable]
+  
     public class TicketRechazoDetalleModel
     {
         public int TicketRechazoDetalleId { get; set; }
@@ -20,7 +18,6 @@ namespace Logictracker.Web.Controllers.api
         public string UsuarioNombre { get; set; }
         public DateTime FechaHora { get; set; }
     }
-    [Serializable]
     public class TicketRechazoModel
     {
         public int DistritoId { get; set; }
