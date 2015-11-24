@@ -39,16 +39,6 @@
                     'k-ng-model="estadoSelected" />'
     };
 })
-.directive('ltRechazoNextEstado', function () {
-    return {
-        restrict: 'E',
-        template: '<input class="form-control" kendo-drop-down-list ' +
-                    'k-data-source="ticketItem.nextEstadoDS" ' +
-                    'k-data-text-field="\'Value\'" ' +
-                    'k-data-value-field="\'Key\'" ' +
-                    'k-ng-model="ticketItem.nextEstadoSelected" />'
-    };
-})
 .directive('ltRechazoCentroDeCostos', function () {
     return {
         restrict: 'E',
