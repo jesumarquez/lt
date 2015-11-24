@@ -207,20 +207,7 @@ function RechazoController($scope, EntitiesService) {
 
 function RechazoItemController($scope, EntitiesService) {
 
-    // A = alta , M = modification
-    //$scope.operation = "A";
-
-    //$scope.ticketRechazo = {
-    //    baseId: "",
-	//	DistritoId: "",
-    //    LineaId: "",
-    //    CodCliente: "",
-    //    SupVenDesc: "",
-    //    SupRutDesc: "",
-    //    Estado: "",
-    //    Motivo: ""
-    //};
-
+   
     $scope.motivoSelected = {};
     $scope.motivoDS = EntitiesService.ticketrechazo.motivos(onMotivoDSLoad, $scope.onFail);
     // El motivo es editable solo si es un alta

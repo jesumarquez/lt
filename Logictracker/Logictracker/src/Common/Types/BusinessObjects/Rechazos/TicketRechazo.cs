@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.InterfacesAndBaseClasses;
 
 namespace Logictracker.Types.BusinessObjects.Rechazos
@@ -224,5 +225,6 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         public virtual EstadoFinal Final { get; set; }
         public virtual bool EnHorario { get; set; }
+        public EntregaDistribucion Entrega { get; set; }
     }
 }
