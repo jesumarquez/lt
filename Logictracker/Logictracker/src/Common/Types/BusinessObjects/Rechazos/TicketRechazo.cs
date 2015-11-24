@@ -225,6 +225,6 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         public virtual EstadoFinal Final { get; set; }
         public virtual bool EnHorario { get; set; }
-        public EntregaDistribucion Entrega { get; set; }
+        public virtual EntregaDistribucion Entrega { get; set; }
     }
 }

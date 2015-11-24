@@ -12,6 +12,7 @@ using NHibernate.Util;
 
 namespace Logictracker.Web.Controllers.api
 {
+    [Serializable]
     public class TicketRechazoDetalleModel
     {
         public int TicketRechazoDetalleId { get; set; }
@@ -19,6 +20,7 @@ namespace Logictracker.Web.Controllers.api
         public string UsuarioNombre { get; set; }
         public DateTime FechaHora { get; set; }
     }
+    [Serializable]
     public class TicketRechazoModel
     {
         public int DistritoId { get; set; }
@@ -87,7 +89,7 @@ namespace Logictracker.Web.Controllers.api
             model.EnHorario = entity.EnHorario;
             var mt = new TicketRechazoDetalleMapper();
             model.Detalle = new List<TicketRechazoDetalleModel>(entity.Detalle.Select(d => mt.EntityToModel(d, new TicketRechazoDetalleModel())));
-            model.EntregaId = entity.Entrega.Id;
+            model.EntregaId = entity.Entrega == null ? 0: entity.Entrega.Id;
             return model;
         }
 
