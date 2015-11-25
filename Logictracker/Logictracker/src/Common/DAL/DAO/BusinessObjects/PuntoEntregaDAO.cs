@@ -41,8 +41,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         public List<PuntoEntrega> FindByEmpresaAndCodes(int empresaId, IEnumerable<string> codes)
         {
-            return Query.FilterCliente(Session, new[]{empresaId}, new[]{-1}, new[]{-1})
-                        .Where(c => !c.Baja && codes.Contains(c.Codigo))
+            return Query.Where(c => c.Cliente.Empresa.Id == empresaId && !c.Baja && codes.Contains(c.Codigo))
                         .Cacheable()
                         .ToList();
         }

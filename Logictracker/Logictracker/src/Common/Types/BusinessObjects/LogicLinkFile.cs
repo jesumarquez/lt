@@ -38,6 +38,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string DistribucionReginaldLee = "Distribucion.RL";
             public const string DistribucionCCU = "Distribucion.CCU";
             public const string PedidosPetrobras = "Pedidos.PETROBRAS";
+            public const string AsignacionClienteEmpleado = "Cliente.Empleado";
         }
 
         public virtual int Id { get; set; }
