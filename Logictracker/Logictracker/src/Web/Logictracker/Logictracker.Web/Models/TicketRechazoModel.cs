@@ -1,12 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Logictracker.Culture;
+using Logictracker.DAL.DAO.BusinessObjects;
+using Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion;
+using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
-using Logictracker.DAL.DAO.BusinessObjects;
-using Logictracker.DAL.Factories;
 
 namespace Logictracker.Web.Controllers.api
 {
+  
+    public class TicketRechazoDetalleModel
+    {
+        public int TicketRechazoDetalleId { get; set; }
+        public string Observacion { get; set; }
+        public string UsuarioNombre { get; set; }
+        public DateTime FechaHora { get; set; }
+    }
     public class TicketRechazoModel
     {
         public int DistritoId { get; set; }
@@ -27,6 +38,32 @@ namespace Logictracker.Web.Controllers.api
         public int VendedorId { get; set; }
         public string Observacion { get; set; }
         public bool EnHorario { get; set; }
+        public IList<TicketRechazoDetalleModel> Detalle { get; set; }
+
+        public int EntregaId { get; set; }
+    }
+
+    public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
+    {
+        public override TicketRechazoDetalleModel EntityToModel(DetalleTicketRechazo entity,
+            TicketRechazoDetalleModel model)
+        {
+            model.TicketRechazoDetalleId = entity.Id;
+            model.FechaHora = entity.FechaHora;
+            model.UsuarioNombre = entity.Usuario.NombreUsuario;
+            model.Observacion = entity.Observacion;
+            return model;
+        }
+
+        public override DetalleTicketRechazo ModelToEntity(TicketRechazoDetalleModel model, DetalleTicketRechazo entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ItemModel ToItem(DetalleTicketRechazo entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class TicketRechazoMapper : EntityModelMapper<TicketRechazo, TicketRechazoModel>
@@ -41,12 +78,15 @@ namespace Logictracker.Web.Controllers.api
             model.Cliente = entity.Cliente.Descripcion;
             model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
             model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
-            model.Estado = CultureManager.GetLabel( TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
+            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
             model.Territorio = entity.Territorio;
             model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
             model.Bultos = entity.Bultos;
             model.Observacion = entity.GetUltimoDetalle().Observacion;
             model.EnHorario = entity.EnHorario;
+            var mt = new TicketRechazoDetalleMapper();
+            model.Detalle = new List<TicketRechazoDetalleModel>(entity.Detalle.Select(d => mt.EntityToModel(d, new TicketRechazoDetalleModel())));
+            model.EntregaId = entity.Entrega == null ? 0: entity.Entrega.Id;
             return model;
         }
 
@@ -61,9 +101,9 @@ namespace Logictracker.Web.Controllers.api
             entity.Vendedor = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.VendedorId);
             entity.SupervisorRuta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupRutId);
             entity.SupervisorVenta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupVenId);
-            entity.Motivo = (TicketRechazo.MotivoRechazo) Enum.Parse(typeof(TicketRechazo.MotivoRechazo), model.Motivo);
+            entity.Motivo = (TicketRechazo.MotivoRechazo) Enum.Parse(typeof (TicketRechazo.MotivoRechazo), model.Motivo);
             entity.EnHorario = model.EnHorario;
-     
+            entity.Entrega = DAOFactory.GetDao<EntregaDistribucionDAO>().FindById(model.EntregaId);
             return entity;
         }
 

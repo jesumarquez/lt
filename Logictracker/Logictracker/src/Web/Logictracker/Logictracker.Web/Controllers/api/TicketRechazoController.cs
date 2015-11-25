@@ -13,6 +13,15 @@ namespace Logictracker.Web.Controllers.api
 {
     public class TicketRechazoController : EntityController<TicketRechazo, TicketRechazoDAO, TicketRechazoModel, TicketRechazoMapper>
     {
+        [Route("api/ticketrechazo/{ticketId}/estado/next")]
+        public IEnumerable<ItemModel> GetNextEstado(int ticketId)
+        {
+            var ticket = EntityDao.FindById(ticketId);
+            var estados = TicketRechazo.Next(ticket.UltimoEstado);
+            
+            return estados.Select(e => new ItemModel { Key = (int)e, Value = Culture.CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(e)) });
+        }
+
         [Route("api/ticketrechazo/estado/items")]
         public IEnumerable<ItemModel> GetEstado()
         {

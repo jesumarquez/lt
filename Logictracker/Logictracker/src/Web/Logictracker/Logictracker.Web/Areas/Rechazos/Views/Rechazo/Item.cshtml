@@ -98,7 +98,7 @@
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
                 <div class="InputGroup__control">
                     <input class="form-control input-sm" type="text"
-                           k-ng-model="territorio" />
+                           ng-model="territorio" />
                 </div>
             </div>
         </div>
@@ -148,8 +148,8 @@
     </div>
     
     <div class="form-group">
-        <span>@Html.ResourceLabel("Labels", "Información del Ticket:")</span>
-        <div kendo-grid k-options="gridDetalleOptions" k-data-source="detalleDS"></div>
+       @* <span>@Html.ResourceLabel("Labels", "Información del Ticket:")</span>*@
+        @*<div kendo-grid k-options="gridDetalleOptions" k-data-source="detalleDS"></div>*@
     </div>
 
     <div class="from-grop">
