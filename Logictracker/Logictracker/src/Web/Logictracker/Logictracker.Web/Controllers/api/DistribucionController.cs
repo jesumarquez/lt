@@ -21,12 +21,14 @@ namespace Logictracker.Web.Controllers.api
 
         [Route("api/distrito/{distritoId}/base/{baseId}/distribucion/models")]
         public DataSourceResult GetDataSource(
-            [ModelBinder(typeof (WebApiDataSourceRequestModelBinder))] DataSourceRequest filter, int distritoId,
+            [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest filter, int distritoId,
             int baseId)
         {
-            var filterValue = GetFilterValue(filter.Filters,"Codigo");
-            return EntityDao.FindByCodeLike(distritoId, baseId, filterValue.ToString()).ToDataSourceResult(filter,e=>Mapper.EntityToModel(e,new ViajeDistribucionModel()));
+            var filterValue = GetFilterValue(filter.Filters, "Codigo");
+            return EntityDao.FindByCodeLike(distritoId, baseId, filterValue.ToString()).ToDataSourceResult(filter, e => Mapper.EntityToModel(e, new ViajeDistribucionModel()));
         }
+        
+
     }
 
     public class ViajeDistribucionMapper : EntityModelMapper<ViajeDistribucion, ViajeDistribucionModel>

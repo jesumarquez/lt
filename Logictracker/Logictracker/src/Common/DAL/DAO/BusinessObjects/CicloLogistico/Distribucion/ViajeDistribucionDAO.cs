@@ -324,12 +324,17 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
         {
             Empresa e = null;
             Linea l = null;
-            return Session.QueryOver<ViajeDistribucion>()
+            var q= Session.QueryOver<ViajeDistribucion>()
                 .JoinAlias(v => v.Empresa, () => e)
                 .JoinAlias(w => w.Linea, () => l)
                 .Where(() => e.Id == empresa)
                 .Where(() => l.Id == linea)
+                .WhereRestrictionOn(x=>x.Codigo).IsLike(codigo+"%")
+                .WhereRestrictionOn(x => x.Estado).IsIn(new[] { ViajeDistribucion.Estados.EnCurso , ViajeDistribucion.Estados.Pendiente})
+                .Fetch(v => v.Vehiculo).Eager
                 .Future();
+           
+            return q;
         }
     }
 }
