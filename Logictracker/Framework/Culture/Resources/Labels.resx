@@ -4771,4 +4771,7 @@
   <data name="REPORTA_RESPONSABLE_CUENTA" xml:space="preserve">
     <value>Reporta Responsable de Cuenta</value>
   </data>
+  <data name="RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Responsable de Cuenta</value>
+  </data>
 </root>
