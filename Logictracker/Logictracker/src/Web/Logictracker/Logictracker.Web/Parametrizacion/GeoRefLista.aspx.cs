@@ -40,7 +40,7 @@ namespace Logictracker.Parametrizacion
 
         protected override List<ReferenciaGeograficaVo> GetListData()
         {
-
+            string TEXT = SearchString;
             if (CheckBoxActivarPaginacion.Checked)
             {
                bool recount = true;
@@ -50,6 +50,7 @@ namespace Logictracker.Parametrizacion
                Session["cbLinea"] = cbLinea.Selected;
                Session["cbTipoReferenciaGeografica"] = cbTipoReferenciaGeografica.Selected;
                Session["cbEmpresa"] = cbEmpresa.Selected;
+
                }
                else
                {
@@ -66,9 +67,17 @@ namespace Logictracker.Parametrizacion
                        recount = false;
                    }
                }
+
+               if (Session["SearchString"] != null &&
+                      !Session["SearchString"].ToString().Equals(SearchString))
+               {
+                   recount = true;
+                   Session["SearchString"] = SearchString;
+               }
+
                var result = DAOFactory.ReferenciaGeograficaDAO.GetList(new[] { cbEmpresa.Selected }, new[] { cbLinea.Selected },
                                                               new[] { cbTipoReferenciaGeografica.Selected },
-                                                              Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount)
+                                                              Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount, SearchString)
                        .Select(r => new ReferenciaGeograficaVo(r))
                        .ToList();
                 if (recount)
@@ -83,7 +92,7 @@ namespace Logictracker.Parametrizacion
 
                 return
                     DAOFactory.ReferenciaGeograficaDAO.GetList(new[] { cbEmpresa.Selected }, new[] { cbLinea.Selected },
-                                                               new[] { cbTipoReferenciaGeografica.Selected })
+                                                               new[] { cbTipoReferenciaGeografica.Selected }, SearchString)
                         .Select(r => new ReferenciaGeograficaVo(r))
                         .ToList();
             }
@@ -122,10 +131,13 @@ namespace Logictracker.Parametrizacion
             Session["SelectedClient"] = null;
             Session["Distrito"] = null;
             Session["Base"] = null;
+            Session["SearchString"] = null;
             if (CheckBoxActivarPaginacion.Checked)
             {               
                 if (Session["totalVirtualRows"] == null)
                     Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;
                 Grid.AllowPaging = true;
                 Grid.AllowCustomPaging = true;
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
@@ -136,6 +148,8 @@ namespace Logictracker.Parametrizacion
             {               
                 if (Session["totalVirtualRows"] == null)
                     Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;
                 Grid.AllowPaging = true;
                 Grid.AllowCustomPaging = false;
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;

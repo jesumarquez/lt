@@ -25,13 +25,13 @@ namespace Logictracker.Tracker.Application.Services
     {
         public DAOFactory DaoFactory { get; set; }
 
-       // public MessageQueueTemplate MessageQueueTemplate { get; set; }
+        // public MessageQueueTemplate MessageQueueTemplate { get; set; }
         //private static readonly ILog Logger = LogManager.GetLogger(typeof(RouteService));
 
         public IList<Mensaje> GetProfileMessages(string deviceId)
         {
             var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
-            
+
             if (device == null) return new List<Mensaje>();
 
             var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
@@ -40,7 +40,7 @@ namespace Logictracker.Tracker.Application.Services
 
             var companies = new[] { employee.Empresa.Id };
             //var lineas = employee.Linea != null ? new[] { employee.Linea.Id } : new int[] { };
-            var lineas = new int[] {};
+            var lineas = new int[] { };
 
             var confirmationMessages = DaoFactory.MensajeDAO.GetMensajesDeConfirmacion(companies, lineas);
             var rejectionMessages = DaoFactory.MensajeDAO.GetMensajesDeRechazo(companies, lineas);
@@ -48,36 +48,36 @@ namespace Logictracker.Tracker.Application.Services
 
             return confirmationMessages.Concat(rejectionMessages).Concat(userMessages).ToList();
         }
-        
+
         public Empleado GetEmployeeByDeviceImei(string imei)
         {
             var device = DaoFactory.DispositivoDAO.FindByImei(imei);
             return DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
         }
-        
+
         public ViajeDistribucion GetDistributionRouteById(int routeId)
         {
             return DaoFactory.ViajeDistribucionDAO.FindById(routeId);
         }
-        
+
         public IList<ViajeDistribucion> GetAvailableRoutes(string deviceId)
         {
             var employee = GetEmployeeByDeviceImei(deviceId);
             if (employee == null) return null;
 
-           // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
+            // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             //if (vehicle == null) return null;
 
             var companies = new[] { employee.Empresa.Id };
-            var lineas = new int[] {};
+            var lineas = new int[] { };
             var vehiculos = new int[] { }; //vehicle.Id 
-            var empleados = new[] {employee.Id};
+            var empleados = new[] { employee.Id };
             //var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, new int[] { }, null, null);
             var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados).Where(x => x.Vehiculo != null);
 
             return routes.Where(viajeDistribucion => viajeDistribucion.Inicio.Date.Equals(DateTime.Now.Date)).ToList();
         }
-        
+
         public string StartRoute(int routeId)
         {
             var ticket = DaoFactory.ViajeDistribucionDAO.FindById(routeId);
@@ -93,36 +93,36 @@ namespace Logictracker.Tracker.Application.Services
             {
                 return "TICKET_NO_VEHICLE_ASSIGNED";
             }
-            catch //AlreadyOpenException, QueueException, Exception
+            catch (Exception ex) //AlreadyOpenException, QueueException, Exception
             {
-                return "CLOG_MESSAGE_NOT_SENT";
+                return "CLOG_MESSAGE_NOT_SENT" + ex.Message.ToString() + ex.StackTrace.ToString();
             }
         }
-        
+
         public string FinalizeRoute(int routeId)
         {
             var ticket = DaoFactory.ViajeDistribucionDAO.FindById(routeId);
             var opened = DaoFactory.ViajeDistribucionDAO.FindEnCurso(ticket.Vehiculo);
-            
+
             if (opened == null) return "ROUTE_CLOSED";
 
-            var ciclo = new CicloLogisticoDistribucion(opened, DaoFactory,new MessageSaver(DaoFactory));
+            var ciclo = new CicloLogisticoDistribucion(opened, DaoFactory, new MessageSaver(DaoFactory));
             var evento = new CloseEvent(DateTime.UtcNow);
             ciclo.ProcessEvent(evento);
             return "CLOG_FINALIZE_SENT";
         }
-        
+
         public short ReportDelivery(int routeId, long jobId, Coordinate coord, int messageId, short jobStatus, string deviceId)
         {
             var ticket = DaoFactory.ViajeDistribucionDAO.FindById(routeId);
             var ciclo = new CicloLogisticoDistribucion(ticket, DaoFactory, new MessageSaver(DaoFactory));
-            var evento = new MobileEvent(DateTime.UtcNow, jobId,coord.Latitude, coord.Longitude, jobStatus, messageId, deviceId);
+            var evento = new MobileEvent(DateTime.UtcNow, jobId, coord.Latitude, coord.Longitude, jobStatus, messageId, deviceId);
 
             try
             {
                 ciclo.ProcessEvent(evento);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 return -9;
@@ -135,15 +135,14 @@ namespace Logictracker.Tracker.Application.Services
         {
             var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
             if (device == null) return null;
-                
+
             var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
             if (employee == null) return null;
-            
+
             var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             if (vehicle == null) return null;
 
-            int totalRows = 0;
-            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), DateTime.UtcNow.Date.AddDays(-1), DateTime.UtcNow, 1, 0, 10, ref totalRows, false);
+            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), DateTime.UtcNow.Date.AddDays(-1), DateTime.UtcNow, 1);
 
         }
 
@@ -165,14 +164,14 @@ namespace Logictracker.Tracker.Application.Services
                 mensaje.Dispositivo = device;
 
                 var msg = new MessageSaver(DaoFactory);
-                
-                var position= new GPSPoint();
-                
-                if ((mensaje.Latitud!=0)&&(mensaje.Longitud!=0))
+
+                var position = new GPSPoint();
+
+                if ((mensaje.Latitud != 0) && (mensaje.Longitud != 0))
                     position = new GPSPoint(mensaje.Fecha, (float)mensaje.Latitud, (float)mensaje.Longitud);
-                
+
                 msg.Save(MessageCode.TextEvent.GetMessageCode(), vehicle, employee, mensaje.Fecha, position, mensaje.Texto);
-                
+
                 //var codes = new List<string> { MessageCode.TextEvent.GetMessageCode() };
                 //mensaje.Mensaje = DaoFactory.MensajeDAO.FindByCodes(codes.AsEnumerable()).FirstOrDefault();
                 //DaoFactory.LogMensajeDAO.Save(mensaje);                 
@@ -197,8 +196,7 @@ namespace Logictracker.Tracker.Application.Services
             var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             if (vehicle == null) return null;
 
-            int totalRows = 0;
-            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1, 0, 10, ref totalRows, true);
+            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1);
 
         }
 
@@ -215,21 +213,21 @@ namespace Logictracker.Tracker.Application.Services
             //var companies = new[] { employee.Empresa.Id };
             //var lineas = employee.Linea != null ? new[] { employee.Linea.Id } : new int[] { };
 
-            var route= DaoFactory.ViajeDistribucionDAO.FindById(routeId);
+            var route = DaoFactory.ViajeDistribucionDAO.FindById(routeId);
             var delivery = DaoFactory.EntregaDistribucionDAO.FindById(int.Parse(deliveryId.ToString()));
             var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
 
             GPSPoint point = null;
-            if ((lat!=0) &&(lon!=0))
+            if ((lat != 0) && (lon != 0))
                 point = new GPSPoint(dateTime.ToUniversalTime(), lat, lon);
 
             var msgSaver = new MessageSaver(DaoFactory);
             var description = "Ciclo Logistico ->" + text;
 
             if ((route != null) && (delivery != null))
-                description = string.Format("Ciclo Logistico {0} - {1} : {2}", route.Codigo, delivery.Descripcion,text);
+                description = string.Format("Ciclo Logistico {0} - {1} : {2}", route.Codigo, delivery.Descripcion, text);
 
-            msgSaver.Save(null, MessageCode.TextEvent.GetMessageCode(), device, vehicle, employee,dateTime.ToUniversalTime(), point, description, route, delivery);
+            msgSaver.Save(null, MessageCode.TextEvent.GetMessageCode(), device, vehicle, employee, dateTime.ToUniversalTime(), point, description, route, delivery);
             return string.Empty;
         }
 

@@ -60,6 +60,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .ToList();
         }
 
+        public List<PuntoEntrega> FindByEmpresaAndCodes(int empresa, IEnumerable<string> codes)
+        {
+            return Query.Where(p => p.Cliente.Empresa.Id == empresa
+                                 && codes.Contains(p.Codigo)
+                                 && !p.Baja)
+                        .Cacheable()
+                        .ToList();
+        }
+
         public List<PuntoEntrega> GetByCliente(int idCliente, int page, int pageSize, ref int totalRows, bool reCount, string SearchString)
         {
             if (string.IsNullOrEmpty(SearchString))
@@ -135,6 +144,28 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             
             return q.Cacheable().ToList();
         }
+
+        public List<PuntoEntrega> GetByCliente(int idCliente, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            if (reCount)
+            {
+                int count = Query.Where(p => p.Cliente.Id == idCliente
+                    && !p.Baja).Count();
+                if (!totalRows.Equals(count))
+                {
+                    totalRows = count;
+                }
+            }
+            return Query.Where(p => p.Cliente.Id == idCliente
+                    && !p.Baja)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .Cacheable()
+                        .ToList();
+        }
+
+
+
 
         public List<PuntoEntrega> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, string prefixText)
         {

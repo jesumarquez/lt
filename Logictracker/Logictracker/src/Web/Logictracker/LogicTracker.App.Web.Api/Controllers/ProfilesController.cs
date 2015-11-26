@@ -106,49 +106,37 @@ namespace LogicTracker.App.Web.Api.Controllers
             var mobileId = RouteService.GetMobileIdByImei(deviceId);
             DetalleDispositivoDAO detalle = new DetalleDispositivoDAO();
             TipoParametroDispositivoDAO tipo = new TipoParametroDispositivoDAO();
-            
-            IList<DetalleDispositivo> lista = detalle.GetDeviceDetails(mobileId);
-            DetalleDispositivo setVersion = new DetalleDispositivo();
+           DispositivoDAO dispositivodao = new DispositivoDAO();
+           var dispositivo = dispositivodao.FindByImei(deviceId);
+            IList<DetalleDispositivo> lista = dispositivo.DetallesDispositivo.ToList();
+            DetalleDispositivo setVersion = null;
             foreach (var item in lista)
             {
                 if (item.TipoParametro.Nombre.Equals("Version_Software") &&
                    item.TipoParametro.TipoDato == "string")
                 {
+                   // dispositivo.DetallesDispositivo.Remove(item);
+                    //detalle.Delete(item);
                     setVersion = item;
+                    setVersion.Valor = version;
+                   // dispositivodao.SaveOrUpdate(dispositivo);
                     break;
                 }
             }
-            TipoParametroDispositivoDAO tp = new TipoParametroDispositivoDAO();
-            if (setVersion.Dispositivo == null)
+            
+            if (setVersion == null)
             {
-                setVersion.Dispositivo = new DispositivoDAO().FindByImei(deviceId);
-                setVersion.TipoParametro = new TipoParametroDispositivo();
-
-                setVersion.TipoParametro.Consumidor = "D";
-                setVersion.TipoParametro.Descripcion = "Es la version instalada de LTMobile";
-                setVersion.TipoParametro.Editable = true;
-                setVersion.TipoParametro.Nombre = "Version_Software";
-                setVersion.TipoParametro.TipoDato = "string";
-                setVersion.TipoParametro.ValorInicial = version;
-                setVersion.TipoParametro.RequiereReset = false;
-                setVersion.TipoParametro.DispositivoTipo = setVersion.Dispositivo.TipoDispositivo;
+                setVersion = new DetalleDispositivo();
+                TipoParametroDispositivoDAO tp = new TipoParametroDispositivoDAO();
+                setVersion.Dispositivo = dispositivo;
+                setVersion.TipoParametro = tp.FindByTipoDispositivo(dispositivo.TipoDispositivo.Id).Where(x => x.Nombre.Equals("Version_Software")).FirstOrDefault();                
+               
                 setVersion.Valor = version;
-                foreach (var item in lista)
-                {
-                    setVersion.TipoParametro.DispositivoDetalle.Add(item);
-                }
-                setVersion.TipoParametro.DispositivoDetalle.Add(setVersion);
-                setVersion.Dispositivo.TipoDispositivo.TiposParametro.Add(setVersion.TipoParametro);
                 tp.SaveOrUpdate(setVersion.TipoParametro);
-            }
-            else
-            {
-                setVersion.TipoParametro.Descripcion = "Es la version instalada de LTMobile";
-                setVersion.TipoParametro.Nombre = "Version_Software";
-                tp.SaveOrUpdate(setVersion.TipoParametro);
-                setVersion.Valor = version;
+                dispositivo.DetallesDispositivo.Add(setVersion);
             }
             detalle.SaveOrUpdate(setVersion);
+            dispositivodao.SaveOrUpdate(dispositivo);
             return Ok("ok");
         }
     }
