@@ -63,7 +63,16 @@ namespace Logictracker.Web.Controllers.api
 
             return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
         }
+        [Route("api/ticketrechazo/item/{id}")]
+        public IHttpActionResult PutItem(int id, TicketRechazoModel rechazoModel)
+        {
+            var ticketEntity = EntityDao.FindById(id);
+            
+            ticketEntity.ChangeEstado((TicketRechazo.Estado)Enum.Parse(typeof(TicketRechazo.Estado), rechazoModel.Estado), rechazoModel.Observacion, this.Usuario);
+            EntityDao.SaveOrUpdate(ticketEntity);
 
+            return Ok();
+        }
         //[Route("api/ticketrechazo/cantidadesporestado/items")]
         //public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
         //{
