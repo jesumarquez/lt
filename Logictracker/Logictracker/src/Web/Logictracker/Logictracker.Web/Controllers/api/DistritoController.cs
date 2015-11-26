@@ -12,11 +12,8 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/Distrito/items")]
         public  IEnumerable<ItemModel> GetComboItem()
         {
-            var mapper = new EmpresaMapper();
-            return EntityDao.GetEmpresasPermitidas().Select(e=>mapper.ToItem(e));
+            return EntityDao.GetEmpresasPermitidas().Select(e=>Mapper.ToItem(e));
         }
-
-      
     }
 
 }

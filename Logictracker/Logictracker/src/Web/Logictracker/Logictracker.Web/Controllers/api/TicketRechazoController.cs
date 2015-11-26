@@ -37,6 +37,7 @@ namespace Logictracker.Web.Controllers.api
         public DataSourceResult GetDataSource(
                 [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
+            
             return EntityDao.FindAll().ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
         }
 
