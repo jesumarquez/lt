@@ -140,3 +140,11 @@ textarea {
 	text-align: center;
 	height: 200px;
 }
+
+.k-invalid{
+    border-color : red !important;
+}
+
+.k-widget.k-tooltip-validation {
+  display: none !important;
+}
