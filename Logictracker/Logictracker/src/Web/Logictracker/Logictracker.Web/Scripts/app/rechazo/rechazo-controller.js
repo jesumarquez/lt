@@ -57,7 +57,12 @@ function RechazoController($scope, EntitiesService, $filter) {
     function onDistritoDSLoad(e) {
         if (e.type === "read" && e.response) {
             try {
-                $scope.distritoSelected = $filter('filter')(e.response, { Key: $scope.UserData.DistritoSelected }, true)[0];
+                if ($scope.UserData.DistritoSelected !== null) {
+                    $scope.distritoSelected = $filter('filter')(e.response, { Key: $scope.UserData.DistritoSelected }, true)[0];
+                }
+                else {
+                    $scope.distritoSelected = e.response[0];
+                }
             } catch (ex) {
                 $scope.distritoSelected = e.response[0];
             }
@@ -67,7 +72,12 @@ function RechazoController($scope, EntitiesService, $filter) {
     function onBaseDSLoad(e) {
         if (e.type === "read" && e.response) {
             try {
-                $scope.baseSelected = $filter('filter')(e.response, { Key: $scope.UserData.BaseSelected }, true)[0];
+                if ($scope.UserData.BaseSelected !== null) {
+                    $scope.baseSelected = $filter('filter')(e.response, { Key: $scope.UserData.BaseSelected }, true)[0];
+                }
+                else {
+                    $scope.baseSelected = e.response[0];
+                }
             } catch (ex) {
                 $scope.baseSelected = e.response[0];
             }
@@ -413,17 +423,21 @@ function RechazoEditItemController($scope, EntitiesService) {
         $scope.rechazoWin.close();
     };
 
-    $scope.onSave = function () {
+    $scope.onSave = function (event) {
+        event.preventDefault();
 
-        var ticketRechazo = {
-            TicketRechazoId: $scope.ticketItemId,
-            Estado: $scope.estadoSelected.Key,
-            Observacion: $scope.ticketItem.Observacion
-        };
+        if ($scope.validator.validate()) {
 
-        EntitiesService.resources.ticketRechazo.update({ id: $scope.ticketItemId }, ticketRechazo);
+            var ticketRechazo = {
+                TicketRechazoId: $scope.ticketItemId,
+                Estado: $scope.estadoSelected.Key,
+                Observacion: $scope.ticketItem.Observacion
+            };
 
-        $scope.rechazoWin.close();
+            EntitiesService.resources.ticketRechazo.update({ id: $scope.ticketItemId }, ticketRechazo);
+
+            $scope.rechazoWin.close();
+        }
     };
 }
 

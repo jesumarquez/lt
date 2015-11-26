@@ -141,7 +141,7 @@ textarea {
 	height: 200px;
 }
 
-.k-invalid{
+.k-invalid, .k-invalid>span:first-child{
     border-color : red !important;
 }
 
