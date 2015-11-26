@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 using Kendo.Mvc;
 using Logictracker.DAL.DAO.BaseClasses;
@@ -20,8 +21,10 @@ namespace Logictracker.Web.Controllers.api
         where TEntityMapper : EntityModelMapper<TEntity, TModel>, new()
         where TModel : new()
     {
+
         private TDao _dao;
         private TEntityMapper _mapper;
+        private UserDataModel _userDataMode;
         protected TDao EntityDao { get { return _dao ?? (_dao = DAOFactory.GetDao<TDao>()); } }
 
         protected TEntityMapper Mapper { get { return _mapper ?? (_mapper = new TEntityMapper()); } }
@@ -34,6 +37,11 @@ namespace Logictracker.Web.Controllers.api
                 var user = sessionUser != null ? new UsuarioDAO().FindById(sessionUser.Id) : null;
                 return user;
             }
+        }
+
+        protected UserDataModel UserDataModel
+        {
+            get { return _userDataMode ?? (_userDataMode = UserDataModel.Create(HttpContext.Current.Session)); }
         }
 
 

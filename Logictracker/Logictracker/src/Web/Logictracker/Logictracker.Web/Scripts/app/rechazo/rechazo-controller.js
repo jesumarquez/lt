@@ -1,12 +1,14 @@
 ﻿angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
-    .controller('RechazoController', ['$scope', 'EntitiesService', RechazoController])
+    .controller('RechazoController', ['$scope', 'EntitiesService', '$filter', RechazoController])
     .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController])
     .controller('RechazoEditItemController', ['$scope', 'EntitiesService', RechazoEditItemController])
     .controller("RechazoEstadisticasController", ["$scope", "EntitiesService", RechazoEstadisticasController]);
 
 
-function RechazoController($scope, EntitiesService) {
+function RechazoController($scope, EntitiesService, $filter) {
+
+    $scope.UserData = EntitiesService.resources.userData.get();
 
     $scope.distritoSelected = {};
 
@@ -54,14 +56,23 @@ function RechazoController($scope, EntitiesService) {
 
     function onDistritoDSLoad(e) {
         if (e.type === "read" && e.response) {
-            $scope.distritoSelected = e.response[0];
+            try {
+                $scope.distritoSelected = $filter('filter')(e.response, { Key: $scope.UserData.DistritoSelected }, true)[0];
+            } catch (ex) {
+                $scope.distritoSelected = e.response[0];
+            }
         }
     };
 
     function onBaseDSLoad(e) {
         if (e.type === "read" && e.response) {
-            $scope.baseSelected = e.response[0];
+            try {
+                $scope.baseSelected = $filter('filter')(e.response, { Key: $scope.UserData.BaseSelected }, true)[0];
+            } catch (ex) {
+                $scope.baseSelected = e.response[0];
+            }
         }
+
     }
 
     function onFail(error) {
@@ -101,6 +112,12 @@ function RechazoController($scope, EntitiesService) {
 
     function onBaseSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
+
+            $scope.UserData.DistritoSelected = $scope.distritoSelected.Key;
+            $scope.UserData.BaseSelected = $scope.baseSelected.Key;
+
+            $scope.UserData.$save();
+
             $scope.departamentoDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key
@@ -110,6 +127,8 @@ function RechazoController($scope, EntitiesService) {
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key
             });
+
+           
         }
     };
 
@@ -171,10 +190,10 @@ function RechazoController($scope, EntitiesService) {
         if ($scope.baseSelected != undefined)
             filterLIst.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
 
-        if ($scope.estadoSelected != undefined)
+        if ($scope.estadoSelected != undefined && $scope.estadoSelected.Key !== -1)
             filterLIst.push({ field: "UltimoEstado", operator: "eq", value: $scope.estadoSelected.Key });
 
-        if ($scope.motivoSelected != undefined)
+        if ($scope.motivoSelected != undefined && $scope.motivoSelected.Key !== -1)
             filterLIst.push({ field: "Motivo", operator: "eq", value: $scope.motivoSelected.Key });
 
         if ($scope.desde != undefined) {
@@ -198,6 +217,9 @@ function RechazoController($scope, EntitiesService) {
         $scope.rechazosDS = EntitiesService.ticketrechazo.items(filters, onRechazosDSLoad, onFail);
 
     };
+
+
+
 
 }
 
