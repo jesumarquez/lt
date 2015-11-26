@@ -215,10 +215,11 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.clienteSelected = {};
     $scope.clienteRO = true;
-    $scope.clienteDS = EntitiesService.distrito.clientes.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail); // [{codigo:"12"},{codigo:"33"}];
+    // $scope.clienteDS = EntitiesService.distrito.clientes.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail); // [{codigo:"12"},{codigo:"33"}];
 
     $scope.puntoEntregaSelected = {};
     $scope.puntoEntregaRO = true;
+    $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, onPuntoEntregaDSLoad, $scope.onFail);
 
     $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail);
     $scope.distribucionSelected = {};
@@ -230,7 +231,7 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.supervisorVentasSelected = {};
     $scope.supervisorVentasRO = true;
-    $scope.supervisorVentasDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorVentasDSLoad, onFail);
+    $scope.supervisorVentasDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorVentasDSLoad, onFail);    
 
     $scope.territorio = "";
     $scope.territorioRO = true;
@@ -240,7 +241,8 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.movimientosDS = {};
 
-    $scope.$watch("clienteSelected", onClienteSelected);
+    //$scope.$watch("clienteSelected", onClienteSelected);
+    $scope.$watch("distribucionSelected", onDistribucionSelected);
     $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
     $scope.$watch("supervisorVentasSelected", onSupervisorVentasSelected);
 
@@ -262,9 +264,25 @@ function RechazoItemController($scope, EntitiesService) {
         }
     };
 
+    function onDistribucionSelected(newValue, oldValue) {
+
+        $scope.puntoEntregaSelected = [];
+
+        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
+            $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key,
+                distribucionId: $scope.distribucionSelected[0].Id
+            }, null, $scope.onFail);
+        }
+    };
+
     function onPuntoEntregaSelected(newValue, oldValue) {
 
         if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
+
+           $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteCodigo;
+
             $scope.supervisorVentasDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
@@ -305,6 +323,12 @@ function RechazoItemController($scope, EntitiesService) {
     function onEstadoDSLoad(e) {
         if (e.type === "read" && e.response) {
             $scope.estadoSelected = e.response[0];
+        }
+    }
+
+    function onPuntoEntregaDSLoad(e)
+    {
+        if (e.type === "read" && e.response) {
         }
     }
 

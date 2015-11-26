@@ -16,7 +16,7 @@ function EntitiesService($resource, $http) {
             distribuciones: {
                 models: getDistribuciones
             },
-            puntoEntrega: getPuntoEntrega
+            puntoEntrega: getPuntoEntrega            
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -159,6 +159,10 @@ function EntitiesService($resource, $http) {
     };
 
     function getPuntoEntrega(data_, onEnd, onFail) {
+        
+        var url = data_.distribucionId != null ? "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/viajeDistribucion/" + data_.distribucionId + "/PuntoEntrega/items" :
+            "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/PuntoEntrega/items";
+
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
             transport: {
@@ -166,7 +170,7 @@ function EntitiesService($resource, $http) {
                     type: "GET",
                     dataType: "json",
                     url: function (op) {
-                        return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/cliente/" + data_.clienteId + "/PuntoEntrega/items";
+                        return url;
                     },
 
                 },

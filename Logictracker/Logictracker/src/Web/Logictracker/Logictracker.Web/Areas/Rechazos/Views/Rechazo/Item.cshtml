@@ -66,33 +66,34 @@
         </div>
         <div class="InputContainer-column">
             <div class="InputGroup">
-                <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
-                <div class="InputGroup__control">
-                    <input class="form-control"
-                            kendo-auto-complete
-                            k-ng-model="clienteSelected"
-                            k-data-source="clienteDS"
-                            k-readonly="clienteRO"
-                            k-data-text-field="'Codigo'"
-                            k-filter="'contains'"
-                            k-min-length="3"
-                            k-template="tCliente" />
-                </div>
-            </div>
-            <div class="InputGroup">
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
                 <div class="InputGroup__control">
                     <input class="form-control"
-                            kendo-auto-complete
-                            k-data-source="puntoEntregaDS"
-                            k-readonly="puntoEntregaRO"
-                            k-data-text-field="'Codigo'"
-                            k-filter="'contains'"
-                            k-min-length="3"
-                            k-ng-model="puntoEntregaSelected"
-                            k-template="tPuntoEntrega" />
+                           kendo-auto-complete
+                           k-data-source="puntoEntregaDS"
+                           k-readonly="puntoEntregaRO"
+                           k-data-text-field="'Codigo'"
+                           k-filter="'contains'"
+                           k-min-length="3"
+                           k-ng-model="puntoEntregaSelected"
+                           k-template="tPuntoEntrega" />
                 </div>
-
+            </div>
+            <div class="InputGroup">
+                <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
+                <div class="InputGroup__control">
+                    <input class="form-control input-sm" type="text"
+                           ng-model="clienteSelected" />
+                    @*<input class="form-control"
+                           kendo-auto-complete
+                           k-ng-model="clienteSelected"
+                           k-data-source="clienteDS"
+                           k-readonly="clienteRO"
+                           k-data-text-field="'Codigo'"
+                           k-filter="'contains'"
+                           k-min-length="3"
+                           k-template="tCliente" />*@
+                </div>
             </div>
             <div class="InputGroup">
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
