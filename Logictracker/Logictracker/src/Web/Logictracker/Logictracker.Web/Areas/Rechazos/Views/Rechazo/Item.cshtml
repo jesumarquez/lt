@@ -33,7 +33,7 @@
     </div>
 </script>
 
-
+<form kendo-validator="validator" ng-submit="onSave($event)">
 <div ng-controller="RechazoItemController">
     <div class="InputContainer">
         <div class="InputContainer-column">
@@ -52,8 +52,9 @@
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
                 <div class="InputGroup__control">
 
-                    <input class="form-control"
+                        <input class="form-control k-textbox"
                            kendo-auto-complete
+                               required 
                            k-ng-model="distribucionSelected"
                            k-data-source="distribucionDS"
                            k-readonly="distribucionRO"
@@ -70,6 +71,7 @@
                 <div class="InputGroup__control">
                     <input class="form-control"
                            kendo-auto-complete
+                           required
                            k-data-source="puntoEntregaDS"
                            k-readonly="puntoEntregaRO"
                            k-data-text-field="'Codigo'"
@@ -85,20 +87,20 @@
                     <input class="form-control input-sm" type="text"
                            ng-model="clienteSelected" />
                     @*<input class="form-control"
-                           kendo-auto-complete
+                            kendo-auto-complete
                            k-ng-model="clienteSelected"
                            k-data-source="clienteDS"
                            k-readonly="clienteRO"
-                           k-data-text-field="'Codigo'"
-                           k-filter="'contains'"
-                           k-min-length="3"
+                            k-data-text-field="'Codigo'"
+                            k-filter="'contains'"
+                            k-min-length="3"
                            k-template="tCliente" />*@
                 </div>
             </div>
             <div class="InputGroup">
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
                 <div class="InputGroup__control">
-                    <input class="form-control input-sm" type="text"
+                        <input class="form-control k-textbox" required type="text"
                            ng-model="territorio" />
                 </div>
             </div>
@@ -108,6 +110,7 @@
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
                 <div class="InputGroup__control">
                     <input class="form-control" kendo-combo-box
+                               required
                             k-data-source="supervisorVentasDS"
                             k-data-text-field="'Value'"
                             k-data-value-field="'Key'"
@@ -118,6 +121,7 @@
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
                 <div class="InputGroup__control">
                     <input class="form-control" kendo-combo-box
+                               required
                             k-data-source="supervisorRutaDS"
                             k-data-text-field="'Value'"
                             k-data-value-field="'Key'"
@@ -128,6 +132,7 @@
                 <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
                 <div class="InputGroup__control">
                     <input class="form-control" kendo-combo-box
+                               required
                            k-data-source="enHorarioDS"
                            k-data-text-field="'Value'"
                            k-data-value-field="'Key'"
@@ -143,7 +148,7 @@
             <div class="InputGroup__control">
             <textarea class="form-control"
                       kendo-editor
-                      k-ng-model="observacion" ></textarea>
+                              k-ng-model="observacion"></textarea>
     </div>
         </div>
     </div>
@@ -155,6 +160,7 @@
 
     <div class="from-grop">
         <button kendo-button ng-click="onClose()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Cerrar")</button>
-        <button kendo-button ng-click="onSave()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Guardar")</button>
+            <button kendo-button type="submit" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Guardar")</button>
     </div>
 </div>
+</form>
