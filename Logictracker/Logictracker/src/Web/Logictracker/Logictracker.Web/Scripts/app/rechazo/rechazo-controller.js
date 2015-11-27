@@ -175,15 +175,15 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.onNuevo = function () {
         $scope.operacion = "A";
         $scope.ticketItem = undefined;
-        $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
+        $scope.rechazoWin.refresh({ url: "Item?op=A" }).open();
     };
 
     $scope.onEdit = function (id) {
         $scope.operacion = "E";
         $scope.ticketItemId = id;
-        $scope.rechazoWin.refresh({ url: "EditItem" }).open().center();
+        $scope.rechazoWin.refresh({ url: "EditItem" }).open();
     }
-
+    
     $scope.onBuscar = function () {
 
         var filterLIst = [];
@@ -221,6 +221,10 @@ function RechazoController($scope, EntitiesService, $filter) {
         $scope.rechazosDS = EntitiesService.ticketrechazo.items(filters, onRechazosDSLoad, onFail);
 
     };
+
+    $scope.onRefreshWindow = function () {
+       $scope.rechazoWin.center();
+    }
 }
 
 function RechazoItemController($scope, EntitiesService) {
