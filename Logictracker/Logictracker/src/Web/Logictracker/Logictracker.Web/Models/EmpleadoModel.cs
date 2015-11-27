@@ -27,7 +27,7 @@ namespace Logictracker.Web.Models
 
         public override ItemModel ToItem(Empleado entity)
         {
-            return new ItemModel { Key = entity.Id, Value = entity.Entidad.Nombre};
+            return new ItemModel { Key = entity.Id, Value = entity.Entidad.Descripcion};
         }
     }
 }
