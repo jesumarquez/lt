@@ -57,30 +57,24 @@ function RechazoController($scope, EntitiesService, $filter) {
     function onDistritoDSLoad(e) {
         if (e.type === "read" && e.response) {
             try {
-                if ($scope.UserData.DistritoSelected !== null) {
-                    $scope.distritoSelected = $filter('filter')(e.response, { Key: $scope.UserData.DistritoSelected }, true)[0];
+                if ($scope.UserData.DistritoSelected) {
+                    $scope.distritoSelected = $filter("filter")(e.response, { Key: $scope.UserData.DistritoSelected }, true)[0];
+                    if ($scope.distritoSelected) return;
                 }
-                else {
-                    $scope.distritoSelected = e.response[0];
-                }
-            } catch (ex) {
-                $scope.distritoSelected = e.response[0];
-            }
+            } catch (ex) { }
+            $scope.distritoSelected = e.response[0];
         }
     };
 
     function onBaseDSLoad(e) {
         if (e.type === "read" && e.response) {
             try {
-                if ($scope.UserData.BaseSelected !== null) {
-                    $scope.baseSelected = $filter('filter')(e.response, { Key: $scope.UserData.BaseSelected }, true)[0];
+                if ($scope.UserData.BaseSelected) {
+                    $scope.baseSelected = $filter("filter")(e.response, { Key: $scope.UserData.BaseSelected }, true)[0];
+                    if ($scope.baseSelected) return;
                 }
-                else {
-                    $scope.baseSelected = e.response[0];
-                }
-            } catch (ex) {
-                $scope.baseSelected = e.response[0];
-            }
+            } catch (ex) { }
+            $scope.baseSelected = e.response[0];
         }
 
     }
@@ -138,7 +132,7 @@ function RechazoController($scope, EntitiesService, $filter) {
                 baseId: $scope.baseSelected.Key
             });
 
-           
+
         }
     };
 
@@ -248,7 +242,7 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.puntoEntregaSelected = {};
     $scope.puntoEntregaRO = true;
     $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, onPuntoEntregaDSLoad, $scope.onFail);
-     
+
     $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail);
     $scope.distribucionSelected = {};
     $scope.distribucionRO = true;
@@ -312,12 +306,12 @@ function RechazoItemController($scope, EntitiesService) {
     function onDistribucionSelected(newValue, oldValue) {
 
         $scope.puntoEntregaSelected = [];
-        
+
         if (newValue != null && newValue !== oldValue) {
             $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                distribucionId: $scope.distribucionSelected[0] !== undefined? $scope.distribucionSelected[0].Id : null,
+                distribucionId: $scope.distribucionSelected[0] !== undefined ? $scope.distribucionSelected[0].Id : null,
             }, null, $scope.onFail);
         }
     };
@@ -385,8 +379,7 @@ function RechazoItemController($scope, EntitiesService) {
         }
     }
 
-    function onPuntoEntregaDSLoad(e)
-    {
+    function onPuntoEntregaDSLoad(e) {
         if (e.type === "read" && e.response) {
         }
     }
