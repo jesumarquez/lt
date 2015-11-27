@@ -16,7 +16,7 @@ function EntitiesService($resource, $http) {
             distribuciones: {
                 models: getDistribuciones
             },
-            puntoEntrega: getPuntoEntrega
+            puntoEntrega: getPuntoEntrega            
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -25,6 +25,8 @@ function EntitiesService($resource, $http) {
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
             empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/items"),
+            empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items"),
+            empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/item"),
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData")
         },
@@ -32,6 +34,7 @@ function EntitiesService($resource, $http) {
             estados: getEstados,
             motivos: getMotivos,
             empleadoReporta: getEmpleadoReportaDS,
+            empleado: getEmpleadosDS,
             items: getRechazoItems,
             nextEstado:  getNextEstado
         }
@@ -160,6 +163,10 @@ function EntitiesService($resource, $http) {
     };
 
     function getPuntoEntrega(data_, onEnd, onFail) {
+        
+        var url = data_.distribucionId != null ? "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/viajeDistribucion/" + data_.distribucionId + "/PuntoEntrega/items" :
+            "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/PuntoEntrega/items";
+
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
             transport: {
@@ -167,7 +174,7 @@ function EntitiesService($resource, $http) {
                     type: "GET",
                     dataType: "json",
                     url: function (op) {
-                        return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/cliente/" + data_.clienteId + "/PuntoEntrega/items";
+                        return url;
                     },
 
                 },
@@ -199,6 +206,39 @@ function EntitiesService($resource, $http) {
                             op,
                             { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
 
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+    };
+
+    function getEmpleadosDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+
+                        if (op.data.tipoEmpleadoCodigo != null && op.data.tipoEmpleadoCodigo !== "") {
+                            getData(_service.resources.empleadoByTipo,
+                                op,
+                                { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo });
+                        }
+                        else if(op.data.empleadoId != null && op.data.empleadoId !== "")
+                        {
+                            getData(_service.resources.empleado,
+                                op,
+                                { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
+                        }
                     }
                     else {
                         op.success([]);
