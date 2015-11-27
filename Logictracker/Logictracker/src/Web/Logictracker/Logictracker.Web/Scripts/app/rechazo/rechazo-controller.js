@@ -227,10 +227,6 @@ function RechazoController($scope, EntitiesService, $filter) {
         $scope.rechazosDS = EntitiesService.ticketrechazo.items(filters, onRechazosDSLoad, onFail);
 
     };
-
-
-
-
 }
 
 function RechazoItemController($scope, EntitiesService) {
@@ -245,14 +241,14 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(onEstadoDSLoad, $scope.onFail);
     $scope.estadoRO = true;
 
-    $scope.clienteSelected = {};
-    $scope.clienteRO = true;
-    // $scope.clienteDS = EntitiesService.distrito.clientes.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail); // [{codigo:"12"},{codigo:"33"}];
+    $scope.clienteSelected = "";
+    $scope.clienteRO = false;
+    //$scope.clienteDS = EntitiesService.distrito.clientes.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail); // [{codigo:"12"},{codigo:"33"}];
 
     $scope.puntoEntregaSelected = {};
     $scope.puntoEntregaRO = true;
     $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, onPuntoEntregaDSLoad, $scope.onFail);
-
+     
     $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail);
     $scope.distribucionSelected = {};
     $scope.distribucionRO = true;
@@ -263,7 +259,11 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.supervisorVentasSelected = {};
     $scope.supervisorVentasRO = true;
-    $scope.supervisorVentasDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorVentasDSLoad, onFail);    
+    $scope.supervisorVentasDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorVentasDSLoad, onFail);
+
+    $scope.vendedorSelected = {};
+    $scope.vendedorRO = true;
+    $scope.vendedorDS = EntitiesService.ticketrechazo.empleado(onVendedorDSLoad, onFail);
 
     $scope.territorio = "";
     $scope.territorioRO = true;
@@ -274,6 +274,7 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.movimientosDS = {};
 
     //$scope.$watch("clienteSelected", onClienteSelected);
+    $scope.$watch("vendedorSelected", onVendedorSelected);
     $scope.$watch("distribucionSelected", onDistribucionSelected);
     $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
     $scope.$watch("supervisorVentasSelected", onSupervisorVentasSelected);
@@ -283,43 +284,63 @@ function RechazoItemController($scope, EntitiesService) {
         { Key: false, Value: "No" },
     ];
 
-    function onClienteSelected(newValue, oldValue) {
+    //function onClienteSelected(newValue, oldValue) {
 
-        $scope.puntoEntregaSelected = [];
+    //    $scope.puntoEntregaSelected = [];
 
-        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
-            $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
+    //    if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
+    //        $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
+    //            distritoId: $scope.distritoSelected.Key,
+    //            baseId: $scope.baseSelected.Key,
+    //            clienteId: $scope.clienteSelected[0].ClienteId
+    //        }, null, $scope.onFail);
+    //    }
+    //};
+
+    function onVendedorSelected(newValue, oldValue) {
+
+        if (newValue != null && newValue !== undefined && newValue !== oldValue) {
+
+            $scope.supervisorVentasDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                clienteId: $scope.clienteSelected[0].ClienteId
-            }, null, $scope.onFail);
+                empleadoId: $scope.vendedorSelected.Key
+            });
         }
     };
 
     function onDistribucionSelected(newValue, oldValue) {
 
         $scope.puntoEntregaSelected = [];
-
-        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
+        
+        if (newValue != null && newValue !== oldValue) {
             $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                distribucionId: $scope.distribucionSelected[0].Id
+                distribucionId: $scope.distribucionSelected[0] !== undefined? $scope.distribucionSelected[0].Id : null,
             }, null, $scope.onFail);
         }
     };
 
     function onPuntoEntregaSelected(newValue, oldValue) {
 
-        if (newValue != null && newValue[0] !== undefined && newValue !== oldValue) {
+        if (newValue != null && newValue !== oldValue) {
 
-           $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteCodigo;
+            if ($scope.puntoEntregaSelected[0] !== undefined) {
 
-            $scope.supervisorVentasDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                empleadoId: $scope.puntoEntregaSelected[0].ResponsableId
-            });
+                $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteCodigo;
+
+                var responsable = ($scope.puntoEntregaSelected[0] !== undefined && $scope.puntoEntregaSelected[0].ResponsableId != 0);
+
+                // Si el punto de entrega no tiene responsable por el momento en el combo de vendedores se van a listar
+                // todos los empleados que tengan asignado el tipo de empleado "V".
+                $scope.vendedorDS.read({
+                    distritoId: $scope.distritoSelected.Key,
+                    baseId: $scope.baseSelected.Key,
+                    tipoEmpleadoCodigo: !responsable ? "V" : null,
+                    empleadoId: responsable ? $scope.puntoEntregaSelected[0].ResponsableId : null,
+                });
+            }
         }
     };
 
@@ -343,6 +364,12 @@ function RechazoItemController($scope, EntitiesService) {
     function onSupervisorRutaDSLoad(e) {
         if (e.type === "read" && e.response) {
             $scope.supervisorRutaSelected = e.response[0];
+        }
+    }
+
+    function onVendedorDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.vendedorSelected = e.response[0];
         }
     }
 
@@ -388,27 +415,33 @@ function RechazoItemController($scope, EntitiesService) {
     };
 
 
-    $scope.onSave = function () {
+    $scope.onSave = function (event) {
+        event.preventDefault();
 
-        var ticketRechazo = {
-            DistritoId: $scope.distritoSelected.Key,
-            LineaId: $scope.baseSelected.Key,
-            ClienteId: $scope.clienteSelected != null && $scope.clienteSelected[0] !== undefined ? $scope.clienteSelected[0].ClienteId : "",
-            SupVenDesc: $scope.supervisorVentasSelected != null ? $scope.supervisorVentasSelected.Key : "",
-            SupRutDesc: $scope.supervisorRutaSelected != null ? $scope.supervisorRutaSelected.Key : "",
-            Estado: $scope.estadoSelected.Key,
-            Motivo: $scope.motivoSelected.Key,
-            Territorio: $scope.territorio,
-            VendedorId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ResponsableId : "",
-            SupVenId: $scope.supervisorVentasSelected.Key,
-            SupRutId: $scope.supervisorRutaSelected.Key,
-            Observacion: $scope.observacion,
-            EnHorario: $scope.enHorarioSelected.Key,
-        };
+        if ($scope.validator.validate()) {
 
-        EntitiesService.resources.ticketRechazo.save(ticketRechazo);
+            var ticketRechazo = {
+                DistritoId: $scope.distritoSelected.Key,
+                LineaId: $scope.baseSelected.Key,
+                // $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ResponsableId : "",
+                //ClienteId: $scope.clienteSelected != null && $scope.clienteSelected[0] !== undefined ? $scope.clienteSelected[0].ClienteId : "",
+                ClienteId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ClienteId : "",
+                SupVenDesc: $scope.supervisorVentasSelected != null ? $scope.supervisorVentasSelected.Key : "",
+                SupRutDesc: $scope.supervisorRutaSelected != null ? $scope.supervisorRutaSelected.Key : "",
+                Estado: $scope.estadoSelected.Key,
+                Motivo: $scope.motivoSelected.Key,
+                Territorio: $scope.territorio,
+                VendedorId: $scope.vendedorSelected.Key,
+                SupVenId: $scope.supervisorVentasSelected.Key,
+                SupRutId: $scope.supervisorRutaSelected.Key,
+                Observacion: $scope.observacion,
+                EnHorario: $scope.enHorarioSelected.Key,
+            };
 
-        $scope.rechazoWin.close();
+            EntitiesService.resources.ticketRechazo.save(ticketRechazo);
+
+            $scope.rechazoWin.close();
+        }
     };
 
     function onFail(error) {

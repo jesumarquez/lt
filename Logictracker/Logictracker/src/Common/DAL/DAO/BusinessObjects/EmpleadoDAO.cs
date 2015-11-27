@@ -136,9 +136,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             var reporta = new List<Empleado>();
             var empleado = GetById(empresa, linea, id);
+
+            if (empleado == null)
+                return reporta;
+
             if (empleado.Reporta1 != null) reporta.Add(empleado.Reporta1);
             if (empleado.Reporta2 != null) reporta.Add(empleado.Reporta2);
             if (empleado.Reporta3 != null) reporta.Add(empleado.Reporta3);
+
             return reporta;
         }
 
