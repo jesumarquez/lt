@@ -112,7 +112,7 @@ namespace Logictracker.Web.Controllers.api
             entity.Vendedor = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.VendedorId);
             entity.SupervisorRuta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupRutId);
             entity.SupervisorVenta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupVenId);
-            entity.Motivo = (TicketRechazo.MotivoRechazo) Enum.Parse(typeof (TicketRechazo.MotivoRechazo), model.Motivo);
+            entity.Motivo = model.Motivo;
             entity.EnHorario = model.EnHorario;
             entity.Entrega = DAOFactory.GetDao<EntregaDistribucionDAO>().FindById(model.EntregaId);
             return entity;

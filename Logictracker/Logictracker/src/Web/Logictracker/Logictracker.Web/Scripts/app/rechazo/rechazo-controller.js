@@ -241,9 +241,10 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(onEstadoDSLoad, $scope.onFail);
     $scope.estadoRO = true;
 
+    // $scope.parametros = EntitiesService.resources.parametros.get({ distritoId: $scope.distritoSelected.Key });
+
     $scope.clienteSelected = "";
     $scope.clienteRO = false;
-    //$scope.clienteDS = EntitiesService.distrito.clientes.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail); // [{codigo:"12"},{codigo:"33"}];
 
     $scope.puntoEntregaSelected = {};
     $scope.puntoEntregaRO = true;
@@ -273,7 +274,6 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.movimientosDS = {};
 
-    //$scope.$watch("clienteSelected", onClienteSelected);
     $scope.$watch("vendedorSelected", onVendedorSelected);
     $scope.$watch("distribucionSelected", onDistribucionSelected);
     $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
