@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web.Http;
 using Logictracker.DAL.DAO.BusinessObjects;
 using Logictracker.Types.BusinessObjects;
@@ -26,8 +27,12 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/Distrito/{distritoId}/base/{baseId}/tipoEmpleadoCodigo/{tipoEmpleadoCodigo}/items")]
         public IEnumerable<ItemModel> GetEmpleados(int distritoId, int baseId, string tipoEmpleadoCodigo)
         {
-            var tp = DAOFactory.GetDao<TipoEmpleadoDAO>().FindByCodigo(distritoId, baseId, tipoEmpleadoCodigo);
-            return tp != null ? EntityDao.GetList(new[] { distritoId }, new[] { baseId }, new[] { tp.Id}, new int[] { }).Select(e => Mapper.ToItem(e)).ToList() : new List<ItemModel>();
+            return
+                EntityDao.GetByCodigoTipoEmpleado(new[] {distritoId}, new[] {baseId}, tipoEmpleadoCodigo)
+                    .Select(e => Mapper.ToItem(e))
+                    .ToList();
+            //var tp = DAOFactory.GetDao<TipoEmpleadoDAO>().FindByCodigo(distritoId, baseId, tipoEmpleadoCodigo);
+            //return tp != null ? EntityDao.GetList(new[] { distritoId }, new[] { baseId }, new[] { tp.Id}, new int[] { }).Select(e => Mapper.ToItem(e)).ToList() : new List<ItemModel>();
         }
     }
 }

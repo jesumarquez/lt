@@ -16,7 +16,7 @@ function EntitiesService($resource, $http) {
             distribuciones: {
                 models: getDistribuciones
             },
-            puntoEntrega: getPuntoEntrega            
+            puntoEntrega: getPuntoEntrega
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -36,7 +36,7 @@ function EntitiesService($resource, $http) {
             empleadoReporta: getEmpleadoReportaDS,
             empleado: getEmpleadosDS,
             items: getRechazoItems,
-            nextEstado:  getNextEstado
+            nextEstado: getNextEstado
         }
     };
 
@@ -163,7 +163,7 @@ function EntitiesService($resource, $http) {
     };
 
     function getPuntoEntrega(data_, onEnd, onFail) {
-        
+
         var url = data_.distribucionId != null ? "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/viajeDistribucion/" + data_.distribucionId + "/PuntoEntrega/items" :
             "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/PuntoEntrega/items";
 
@@ -233,8 +233,7 @@ function EntitiesService($resource, $http) {
                                 op,
                                 { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo });
                         }
-                        else if(op.data.empleadoId != null && op.data.empleadoId !== "")
-                        {
+                        else if (op.data.empleadoId != null && op.data.empleadoId !== "") {
                             getData(_service.resources.empleado,
                                 op,
                                 { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
@@ -374,15 +373,17 @@ function EntitiesService($resource, $http) {
                 },
             },
             schema: {
-                total: "total",
+                total: "Total",
                 data: "Data",
-                parse: function (data) {
+                errors: "Errors",
+                 parse: function (data) {
                     $.each(data.Data, function (i, val) {
                         val.FechaHora = kendo.parseDate(val.FechaHora);
                     });
                     return data;
                 }
             },
+            pageSize: 25,
             filter: filters,
             serverFiltering: true,
             serverSorting: false,
@@ -397,7 +398,7 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-    function getNextEstado(data_, onEnd, onFail){
+    function getNextEstado(data_, onEnd, onFail) {
         var ds = new kendo.data.DataSource({
             transport: {
                 read: {
