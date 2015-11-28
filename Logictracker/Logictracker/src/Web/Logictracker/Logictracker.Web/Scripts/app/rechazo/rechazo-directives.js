@@ -39,6 +39,16 @@
                     'k-ng-model="estadoSelected" />'
     };
 })
+.directive('ltRechazoEstadoMultiselect', function () {
+    return {
+        restrict: 'E',
+        template: '<input class="form-control" kendo-multi-select ' +
+                    'k-data-source="estadoDS" ' +
+                    'k-data-text-field="\'Value\'" ' +
+                    'k-data-value-field="\'Key\'" ' +
+                    'k-ng-model="estadoSelected" />'
+    };
+})
 .directive('ltRechazoCentroDeCostos', function () {
     return {
         restrict: 'E',
@@ -63,6 +73,18 @@
     return {
         restrict: "E",
         template: '<input class="form-control" kendo-drop-down-list ' +
+                    'k-data-source="motivoDS" ' +
+                    'k-data-text-field="\'Value\'" ' +
+                    'k-data-value-field="\'Key\'" ' +
+                    'k-ng-model=\"motivoSelected\" ' +
+                   '/>'
+
+    };
+})
+.directive("ltRechazoMotivoMultiselect", function () {
+    return {
+        restrict: "E",
+        template: '<input class="form-control" kendo-multi-select ' +
                     'k-data-source="motivoDS" ' +
                     'k-data-text-field="\'Value\'" ' +
                     'k-data-value-field="\'Key\'" ' +
