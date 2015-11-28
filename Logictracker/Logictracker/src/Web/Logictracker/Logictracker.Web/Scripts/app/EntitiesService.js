@@ -28,7 +28,8 @@ function EntitiesService($resource, $http) {
             empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items"),
             empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/item"),
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
-            userData: $resource("/api/UserData")
+            userData: $resource("/api/UserData"),
+            parametros: $resource("/api/Distrito/{distritoId}/parametros/items", { distritoId: "@distritoId" }),
         },
         ticketrechazo: {
             estados: getEstados,
