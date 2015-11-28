@@ -149,12 +149,14 @@ function RechazoController($scope, EntitiesService, $filter) {
 
     }
 
-
     $scope.gridOptions = {
         sortable: true,
         groupable: true,
+
         pageable: {
-            pageSize: 20
+            refresh: true,
+            pageSizes: true,
+            info: true
         },
         columns:
         [
@@ -183,7 +185,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         $scope.ticketItemId = id;
         $scope.rechazoWin.refresh({ url: "EditItem" }).open();
     }
-    
+
     $scope.onBuscar = function () {
 
         var filterLIst = [];
@@ -223,7 +225,7 @@ function RechazoController($scope, EntitiesService, $filter) {
     };
 
     $scope.onRefreshWindow = function () {
-       $scope.rechazoWin.center();
+        $scope.rechazoWin.center();
     }
 }
 
@@ -349,8 +351,7 @@ function RechazoItemController($scope, EntitiesService) {
                 empleadoId: $scope.supervisorVentasSelected.Key
             });
         }
-        else
-        {
+        else {
             $scope.supervisorRutaDS.data([]);
             $scope.supervisorRutaDS.read();
         }
@@ -424,17 +425,20 @@ function RechazoItemController($scope, EntitiesService) {
                 DistritoId: $scope.distritoSelected.Key,
                 LineaId: $scope.baseSelected.Key,
                 ClienteId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ClienteId : "",
-                SupVenDesc: $scope.supervisorVentasSelected != null ? $scope.supervisorVentasSelected.Key : "",
-                SupRutDesc: $scope.supervisorRutaSelected != null ? $scope.supervisorRutaSelected.Key : "",
-                Estado: $scope.estadoSelected.Key,
-                Motivo: $scope.motivoSelected.Key,
                 Territorio: $scope.territorio,
+                // Bultos ????
                 VendedorId: $scope.vendedorSelected.Key,
+                SupRutDesc: $scope.supervisorRutaSelected ? $scope.supervisorRutaSelected.Value : "",
+                SupVenDesc: $scope.supervisorVentasSelected ? $scope.supervisorVentasSelected.Value : "",
                 SupVenId: $scope.supervisorVentasSelected.Key,
                 SupRutId: $scope.supervisorRutaSelected.Key,
+                Motivo: $scope.motivoSelected.Key,
+                Estado: $scope.estadoSelected.Key,
                 Observacion: $scope.observacion,
                 EnHorario: $scope.enHorarioSelected.Key,
-            };
+                EntregaId: $scope.puntoEntregaSelected[0] ? $scope.puntoEntregaSelected[0].PuntoEntregaId : 0,
+            
+        };
 
             EntitiesService.resources.ticketRechazo.save(ticketRechazo);
 
@@ -453,10 +457,10 @@ function RechazoEditItemController($scope, EntitiesService) {
     $scope.gridDetalleOptions = {
         columns:
         [
-            { field: "TicketRechazoDetalleId", title: "Id" },
-            { field: "FechaHora", title: "Fecha Hora" },
-            { field: "UsuarioNombre", title: "Usuario" },
-            { field: "Estado", title: "Estado" },
+            { field: "TicketRechazoDetalleId", title: "Id", width: "5em" },
+            { field: "FechaHora", title: "Fecha Hora", width: "13em", template: "#: kendo.toString(kendo.parseDate(FechaHora),'G') #" },
+            { field: "UsuarioNombre", title: "Usuario", width: "8em" },
+            { field: "Estado", title: "Estado", width: "10em" },
             { field: "Observacion", title: "Observacion" },
         ]
     };

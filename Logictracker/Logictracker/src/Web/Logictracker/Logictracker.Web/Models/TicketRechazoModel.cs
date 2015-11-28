@@ -17,6 +17,7 @@ namespace Logictracker.Web.Controllers.api
         public string Observacion { get; set; }
         public string UsuarioNombre { get; set; }
         public DateTime FechaHora { get; set; }
+        public string Estado { get; set; }
     }
     public class TicketRechazoModel
     {
@@ -41,6 +42,7 @@ namespace Logictracker.Web.Controllers.api
         public IList<TicketRechazoDetalleModel> Detalle { get; set; }
 
         public int EntregaId { get; set; }
+        public string EntregaDesc { get; set; }
     }
 
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
@@ -52,6 +54,8 @@ namespace Logictracker.Web.Controllers.api
             model.FechaHora = entity.FechaHora;
             model.UsuarioNombre = entity.Usuario.NombreUsuario;
             model.Observacion = entity.Observacion;
+            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Estado));
+            
             return model;
         }
 
@@ -82,11 +86,16 @@ namespace Logictracker.Web.Controllers.api
             model.Territorio = entity.Territorio;
             model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
             model.Bultos = entity.Bultos;
-            model.Observacion = entity.GetUltimoDetalle().Observacion;
+            model.Observacion = entity.Detalle.First().Observacion;
             model.EnHorario = entity.EnHorario;
             var mt = new TicketRechazoDetalleMapper();
             model.Detalle = new List<TicketRechazoDetalleModel>(entity.Detalle.Select(d => mt.EntityToModel(d, new TicketRechazoDetalleModel())));
-            model.EntregaId = entity.Entrega == null ? 0: entity.Entrega.Id;
+            if (entity.Entrega != null && entity.Entrega.Id != 0)
+            {
+                model.EntregaId = entity.Entrega.Id;
+                model.EntregaDesc = entity.Entrega.Descripcion;
+                return model;
+            }
             return model;
         }
 
