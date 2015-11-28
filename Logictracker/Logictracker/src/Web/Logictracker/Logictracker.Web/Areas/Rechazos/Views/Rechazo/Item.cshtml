@@ -84,18 +84,10 @@
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
                     <div class="InputGroup__control">
-                        <input class="form-control input-sm" type="text"
-                               k-readonly="clienteRO"
-                               ng-model="clienteSelected" />
-                        @*<input class="form-control"
-                             kendo-auto-complete
-                            k-ng-model="clienteSelected"
-                            k-data-source="clienteDS"
-                            k-readonly="clienteRO"
-                             k-data-text-field="'Codigo'"
-                             k-filter="'contains'"
-                             k-min-length="3"
-                            k-template="tCliente" />*@
+                        {{clienteSelected}}
+                        @*<input class="form-control input-sm" type="text"
+                               k-readonly="'true'"
+                               ng-model="clienteSelected" />*@
                     </div>
                 </div>
                 <div class="InputGroup">
@@ -166,8 +158,6 @@
         </div>
 
         <div class="form-group">
-            @* <span>@Html.ResourceLabel("Labels", "Información del Ticket:")</span>*@
-            @*<div kendo-grid k-options="gridDetalleOptions" k-data-source="detalleDS"></div>*@
         </div>
 
         <div class="from-grop">

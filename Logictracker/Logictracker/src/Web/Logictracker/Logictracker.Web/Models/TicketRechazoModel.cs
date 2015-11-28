@@ -34,7 +34,7 @@ namespace Logictracker.Web.Controllers.api
         public string SupRutDesc { get; set; }
         public string Estado { get; set; }
         public string Territorio { get; set; }
-        public string Motivo { get; set; }
+        public TicketRechazo.MotivoRechazo Motivo { get; set; }
         public int Bultos { get; set; }
         public int VendedorId { get; set; }
         public string Observacion { get; set; }
@@ -43,6 +43,7 @@ namespace Logictracker.Web.Controllers.api
 
         public int EntregaId { get; set; }
         public string EntregaDesc { get; set; }
+        public string MotivoDesc { get; set; }
     }
 
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
@@ -79,12 +80,13 @@ namespace Logictracker.Web.Controllers.api
             model.LineaId = entity.Linea.Id;
             model.FechaHora = entity.FechaHora;
             model.ClienteId = entity.Cliente.Id;
-            model.Cliente = entity.Cliente.Descripcion;
+            model.Cliente = entity.Cliente.Codigo;
             model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
             model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
             model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
             model.Territorio = entity.Territorio;
-            model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
+            model.Motivo = entity.Motivo;
+            model.MotivoDesc = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
             model.Bultos = entity.Bultos;
             model.Observacion = entity.Detalle.First().Observacion;
             model.EnHorario = entity.EnHorario;
