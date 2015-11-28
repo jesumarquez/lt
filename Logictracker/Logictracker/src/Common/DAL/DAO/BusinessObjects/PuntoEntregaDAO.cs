@@ -5,6 +5,7 @@ using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Utils;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 
 namespace Logictracker.DAL.DAO.BusinessObjects
@@ -16,7 +17,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
     /// </remarks>
     public class PuntoEntregaDAO : GenericDAO<PuntoEntrega>
     {
-//        public PuntoEntregaDAO(ISession session) : base(session) { }
+        //        public PuntoEntregaDAO(ISession session) : base(session) { }
 
 
         #region Find Methods
@@ -48,7 +49,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .Where(p => !p.Baja)
                 .Where(p => p.Codigo == code)
                 .Cacheable()
-				.SafeFirstOrDefault();
+                .SafeFirstOrDefault();
         }
 
         public List<PuntoEntrega> FindByCodes(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, IEnumerable<string> codes)
@@ -62,7 +63,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         public List<PuntoEntrega> FindByEmpresaAndCodes(int empresa, IEnumerable<string> codes)
         {
-            return Query.Where(p => p.Cliente.Empresa.Id == empresa 
+            return Query.Where(p => p.Cliente.Empresa.Id == empresa
                                  && codes.Contains(p.Codigo)
                                  && !p.Baja)
                         .Cacheable()
@@ -73,7 +74,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             if (reCount)
             {
-                int count = Query.Where(p => p.Cliente.Id == idCliente 
+                int count = Query.Where(p => p.Cliente.Id == idCliente
                     && !p.Baja).Count();
                 if (!totalRows.Equals(count))
                 {
@@ -100,7 +101,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             var q = Query.FilterCliente(Session, empresas, lineas, clientes)
                          .Where(p => !p.Baja);
-            
+
             return q.Cacheable().ToList();
         }
 
@@ -113,14 +114,34 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return q.Cacheable().ToList();
         }
 
-        public IQueryable<PuntoEntrega> FindByCodeLike(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, string codigo)
+        public IQueryable<PuntoEntrega> FindByCodeLike(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, string codigo, int limit = 10)
         {
-            return Query.FilterCliente(Session, empresas, lineas, clientes)
-                .Where(p => !p.Baja)
-                .Where(p => p.Codigo.Contains(codigo))
-                .Cacheable()
-                .AsQueryable();
-         }
+            Cliente c = null;
+            Empresa e = null;
+            Linea l = null;
+            var queryOver = Session.QueryOver<PuntoEntrega>()
+                .JoinAlias(p => p.Cliente, () => c)
+                .JoinAlias(p => p.Cliente.Empresa, () => e)
+                .Left.JoinAlias(p => p.Cliente.Linea, () => l)
+                .WhereRestrictionOn(p => p.Codigo).IsLike(codigo + '%')
+                .AndNot(p => p.Baja);
+            if (!QueryExtensions.IncludesAll(empresas))
+                queryOver = queryOver.WhereRestrictionOn(() => e.Id).IsIn(empresas.ToArray());
+            if (!QueryExtensions.IncludesAll(lineas))
+            {
+                queryOver = queryOver.Where(Restrictions.Or(
+                    Restrictions.On(() => l.Id).IsIn(lineas.ToArray()),
+                    Restrictions.On(() => c.Linea).IsNull
+                    ));
+            }
+            return queryOver.Take(limit).Future().AsQueryable();
+
+            //return Query.FilterCliente(Session, empresas, lineas, clientes)
+            //    .Where(p => !p.Baja)
+            //    .Where(p => p.Codigo.Contains(codigo))
+            //    .Cacheable()
+            //    .AsQueryable();
+        }
 
         #endregion
 
@@ -149,7 +170,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         public void DeleteByCliente(int id)
         {
-            foreach (PuntoEntrega punto in FindList(new[]{-1}, new[]{-1}, new[]{id}))
+            foreach (PuntoEntrega punto in FindList(new[] { -1 }, new[] { -1 }, new[] { id }))
             {
                 punto.Baja = true;
                 Delete(punto);

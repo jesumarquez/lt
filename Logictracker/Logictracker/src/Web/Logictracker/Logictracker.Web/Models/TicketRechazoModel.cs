@@ -17,6 +17,7 @@ namespace Logictracker.Web.Controllers.api
         public string Observacion { get; set; }
         public string UsuarioNombre { get; set; }
         public DateTime FechaHora { get; set; }
+        public string Estado { get; set; }
     }
     public class TicketRechazoModel
     {
@@ -33,7 +34,7 @@ namespace Logictracker.Web.Controllers.api
         public string SupRutDesc { get; set; }
         public string Estado { get; set; }
         public string Territorio { get; set; }
-        public string Motivo { get; set; }
+        public TicketRechazo.MotivoRechazo Motivo { get; set; }
         public int Bultos { get; set; }
         public int VendedorId { get; set; }
         public string Observacion { get; set; }
@@ -41,6 +42,8 @@ namespace Logictracker.Web.Controllers.api
         public IList<TicketRechazoDetalleModel> Detalle { get; set; }
 
         public int EntregaId { get; set; }
+        public string EntregaDesc { get; set; }
+        public string MotivoDesc { get; set; }
     }
 
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
@@ -52,6 +55,8 @@ namespace Logictracker.Web.Controllers.api
             model.FechaHora = entity.FechaHora;
             model.UsuarioNombre = entity.Usuario.NombreUsuario;
             model.Observacion = entity.Observacion;
+            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Estado));
+            
             return model;
         }
 
@@ -75,18 +80,24 @@ namespace Logictracker.Web.Controllers.api
             model.LineaId = entity.Linea.Id;
             model.FechaHora = entity.FechaHora;
             model.ClienteId = entity.Cliente.Id;
-            model.Cliente = entity.Cliente.Descripcion;
+            model.Cliente = entity.Cliente.Codigo;
             model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
             model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
             model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
             model.Territorio = entity.Territorio;
-            model.Motivo = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
+            model.Motivo = entity.Motivo;
+            model.MotivoDesc = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
             model.Bultos = entity.Bultos;
-            model.Observacion = entity.GetUltimoDetalle().Observacion;
+            model.Observacion = entity.Detalle.First().Observacion;
             model.EnHorario = entity.EnHorario;
             var mt = new TicketRechazoDetalleMapper();
             model.Detalle = new List<TicketRechazoDetalleModel>(entity.Detalle.Select(d => mt.EntityToModel(d, new TicketRechazoDetalleModel())));
-            model.EntregaId = entity.Entrega == null ? 0: entity.Entrega.Id;
+            if (entity.Entrega != null && entity.Entrega.Id != 0)
+            {
+                model.EntregaId = entity.Entrega.Id;
+                model.EntregaDesc = entity.Entrega.Descripcion;
+                return model;
+            }
             return model;
         }
 
@@ -101,7 +112,7 @@ namespace Logictracker.Web.Controllers.api
             entity.Vendedor = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.VendedorId);
             entity.SupervisorRuta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupRutId);
             entity.SupervisorVenta = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.SupVenId);
-            entity.Motivo = (TicketRechazo.MotivoRechazo) Enum.Parse(typeof (TicketRechazo.MotivoRechazo), model.Motivo);
+            entity.Motivo = model.Motivo;
             entity.EnHorario = model.EnHorario;
             entity.Entrega = DAOFactory.GetDao<EntregaDistribucionDAO>().FindById(model.EntregaId);
             return entity;

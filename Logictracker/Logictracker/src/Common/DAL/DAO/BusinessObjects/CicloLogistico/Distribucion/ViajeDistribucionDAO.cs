@@ -257,6 +257,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
             return c.List<ViajeDistribucion>();
         }
 
+        public ViajeDistribucion GetById(IEnumerable<int> empresas, IEnumerable<int> lineas, int id)
+        {
+            return Query.FilterEmpresa(Session, empresas)
+                       .FilterLinea(Session, empresas, lineas)
+                       .Where(v => v.Id.Equals(id)).FirstOrDefault();
+        }
+
         public IList<ViajeDistribucion> FindByIds(IEnumerable<int> ids)
         {
             return Query.Where(v => ids.Contains(v.Id)).ToList();
