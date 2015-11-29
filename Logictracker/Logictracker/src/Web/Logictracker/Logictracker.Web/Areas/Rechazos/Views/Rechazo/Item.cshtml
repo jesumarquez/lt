@@ -61,11 +61,9 @@
                                k-data-text-field="'Codigo'"
                                k-filter="'contains'"
                                k-min-length="3"
-                               k-template="tDistribucion" />
+                               k-template="tDistribucion"/>
                     </div>
                 </div>
-            </div>
-            <div class="InputContainer-column">
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
                     <div class="InputGroup__control">
@@ -81,20 +79,38 @@
                                k-template="tPuntoEntrega" />
                     </div>
                 </div>
+            </div>
+            <div class="InputContainer-column">
+
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Transportista"):</span>
+                    <div class="InputGroup__control">
+                        <input class="form-control" kendo-combo-box
+                               required
+                               k-data-source="transportistaDS"
+                               k-data-text-field="'Value'"
+                               k-data-value-field="'Key'"
+                               k-ng-model="transportistaSelected" />
+                    </div>
+                </div>
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
                     <div class="InputGroup__control">
                         {{clienteSelected}}
-                        @*<input class="form-control input-sm" type="text"
-                               k-readonly="'true'"
-                               ng-model="clienteSelected" />*@
                     </div>
                 </div>
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
                     <div class="InputGroup__control">
                         <input class="form-control k-textbox" required type="text"
-                               ng-model="territorio" />
+                               ng-model="territorio"/>
+                    </div>
+                </div>
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Bultos"):</span>
+                    <div class="InputGroup__control">
+                        <input class="form-control k-textbox" required type="number"
+                               ng-model="bultos" min="0" value="0" />
                     </div>
                 </div>
             </div>
@@ -140,10 +156,12 @@
                                k-data-source="enHorarioDS"
                                k-data-text-field="'Value'"
                                k-data-value-field="'Key'"
-                               k-ng-model="enHorarioSelected" />
+                               k-ng-model="enHorarioSelected"/>
                     </div>
                 </div>
+
             </div>
+
         </div>
 
         <div class="InputContainer">

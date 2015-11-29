@@ -427,7 +427,7 @@ function RechazoItemController($scope, EntitiesService) {
                 LineaId: $scope.baseSelected.Key,
                 ClienteId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ClienteId : "",
                 Territorio: $scope.territorio,
-                // Bultos ????
+                Bultos: $scope.bultos,
                 VendedorId: $scope.vendedorSelected.Key,
                 SupRutDesc: $scope.supervisorRutaSelected ? $scope.supervisorRutaSelected.Value : "",
                 SupVenDesc: $scope.supervisorVentasSelected ? $scope.supervisorVentasSelected.Value : "",
@@ -438,16 +438,26 @@ function RechazoItemController($scope, EntitiesService) {
                 Observacion: $scope.observacion,
                 EnHorario: $scope.enHorarioSelected.Key,
                 EntregaId: $scope.puntoEntregaSelected[0] ? $scope.puntoEntregaSelected[0].PuntoEntregaId : 0,
-            
-        };
+                TransportistaId: $scope.transportistaSelected.Key
 
-            EntitiesService.resources.ticketRechazo.save(ticketRechazo);
+            };
 
-            $scope.rechazoWin.close();
+            EntitiesService.resources.ticketRechazo.save(ticketRechazo).$promise.then(
+                function () {
+                    $scope.rechazoWin.close();
+                }, onFail);
+
+
         }
     };
 
     function onFail(error) {
+        try {
+            if (error.data.ExceptionMessage) {
+                $scope.notify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) { }
         $scope.notify.show(error.errorThrown, "error");
     };
 }

@@ -44,6 +44,8 @@ namespace Logictracker.Web.Controllers.api
         public int EntregaId { get; set; }
         public string EntregaDesc { get; set; }
         public string MotivoDesc { get; set; }
+        public int TransportistaId { get; set; }
+        public string TransportistaDesc { get; set; }
     }
 
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
@@ -98,6 +100,12 @@ namespace Logictracker.Web.Controllers.api
                 model.EntregaDesc = entity.Entrega.Descripcion;
                 return model;
             }
+
+            if (entity.Transportista != null && entity.Transportista.Id != 0)
+            {
+                model.TransportistaId = entity.Transportista.Id;
+                model.TransportistaDesc = entity.Transportista.Descripcion;
+            }
             return model;
         }
 
@@ -115,6 +123,7 @@ namespace Logictracker.Web.Controllers.api
             entity.Motivo = model.Motivo;
             entity.EnHorario = model.EnHorario;
             entity.Entrega = DAOFactory.GetDao<EntregaDistribucionDAO>().FindById(model.EntregaId);
+            entity.Transportista = DAOFactory.GetDao<TransportistaDAO>().FindById(model.TransportistaId);
             return entity;
         }
 
