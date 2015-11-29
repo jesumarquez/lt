@@ -19,25 +19,38 @@
 
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
-                    <sapn class="InputGroup__control">{{ticketItem.CodigoDistribucion}}</sapn>
+                    <span class="InputGroup__control">{{ticketItem.CodigoDistribucion}}</span>
+                </div>
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
+                    <div class="InputGroup__control">{{ticketItem.EntregaCodigo}} {{ticketItem.EntregaDesc}}</div>
                 </div>
             </div>
             <div class="InputContainer-column">
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
-                    <span class="InputGroup__control">{{ticketItem.ClienteId}}</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Transportista"):</span>
+                    <span class="InputGroup__control">{{ticketItem.TransportistaDesc}}</span>
                 </div>
-                <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
-                    <div class="InputGroup__control">{{ticketItem.EntregaDesc}}</div>
 
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
+                    <span class="InputGroup__control">{{ticketItem.ClienteCodigo}}</span>
                 </div>
+
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
                     <span class="InputGroup__control">{{ticketItem.Territorio}}</span>
                 </div>
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Bultos"):</span>
+                    <span class="InputGroup__control">{{ticketItem.Bultos}}</span>
+                </div>
             </div>
             <div class="InputContainer-column">
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Vendedor"):</span>
+                    <span class="InputGroup__control">{{ticketItem.VendedorDesc}}</span>
+                </div>
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
                     <span class="InputGroup__control">{{ticketItem.SupVenDesc}}</span>
@@ -63,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
 
         <div class="form-group">
             <button kendo-button ng-click="onClose()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Cerrar")</button>

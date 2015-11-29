@@ -407,7 +407,7 @@ function RechazoItemController($scope, EntitiesService) {
             { field: "FechaHora", title: "Fecha Hora" },
             { field: "UsuarioNombre", title: "Usuario" },
             { field: "Estado", title: "Estado" },
-            { field: "Observacion", title: "Observacion" },
+            { field: "Observacion", title: "Observacion", encoded: false },
         ]
     };
 

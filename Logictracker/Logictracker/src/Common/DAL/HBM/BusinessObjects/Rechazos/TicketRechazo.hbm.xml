@@ -13,7 +13,7 @@
     <many-to-one name="Vendedor" column="rela_parenti09_vendedor" lazy="proxy" />
     <many-to-one name="SupervisorVenta" column="rela_parenti09_supervisor_ventas" lazy="proxy" />
     <many-to-one name="SupervisorRuta" column="rela_parenti09_supervisor_ruta" lazy="proxy" />
-    <many-to-one name="Entrega" column="rela_opetick04" lazy="proxy"/>
+    <many-to-one name="Entrega" column="rela_parenti44" lazy="proxy"/>
     <many-to-one name="Transportista" column="rela_parenti07" lazy="proxy"/>
     
     <property column="opetick10_fecha" type="DateTime" not-null="true"  name="FechaHora" />
