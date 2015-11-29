@@ -64,12 +64,8 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/distrito/{distritoId}/base/{baseId}/viajeDistribucion/{viajeDistribucionId}/PuntoEntrega/items")]
         public DataSourceResult GetDataSourceByDistribucion([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest filter, int distritoId, int baseId, int viajeDistribucionId)
         {
-            var filterValue = GetFilterValue(filter.Filters, "Codigo");
-
-            List<PuntoEntrega> entregas = new List<PuntoEntrega>();
-   
-            DAOFactory.GetDao<ViajeDistribucionDAO>().GetById(new[] { distritoId }, new[] { baseId }, viajeDistribucionId).Detalles.Where(d => d.PuntoEntrega != null).ToList().ForEach(d => { entregas.Add(d.PuntoEntrega); });
-
+            var entregas = new List<PuntoEntrega>();
+            DAOFactory.GetDao<ViajeDistribucionDAO>().FindById(viajeDistribucionId).Detalles.Where(d => d.PuntoEntrega != null).ToList().ForEach(d => { entregas.Add(d.PuntoEntrega); });
             return entregas.ToDataSourceResult(filter, e => Mapper.EntityToModel(e, new PuntoEntregaModel()));
        }
     }
