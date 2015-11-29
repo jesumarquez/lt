@@ -199,7 +199,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             Empresa jEmpresa = null;
             Linea jLinea = null;
-            TipoEmpleado jTipoEmpleado = null;
 
             var q = Session.QueryOver<Empleado>()
                 .Left.JoinAlias(empleado => empleado.Empresa, () => jEmpresa)

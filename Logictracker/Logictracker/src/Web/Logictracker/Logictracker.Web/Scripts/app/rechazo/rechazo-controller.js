@@ -158,17 +158,16 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
-        { field: "TicketRechazoId", title: "Ticket" },
-        { field: "FechaHora", title: "Fecha Hora", format: "{0: dd/MM HH:ss}", sortable: true },
-        { field: "ClienteId", title: "Cod. Cliente" },
-        { field: "Cliente", title: "Cliente", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:ss}", sortable: true },
+        { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "Estado", title: "Estado" },
+        { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "EntregaCodigo", title: "Cod. Entrega" },
+        { field: "VendedorDesc", title: "Vendedor" },
         { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "SupRutDesc", title: "Sup. Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "Estado", title: "Estado" },
         { field: "Territorio", title: "Territorio", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: ""}
+        { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
         ]
     }
 
@@ -510,7 +509,7 @@ function RechazoEditItemController($scope, EntitiesService) {
                 function () {
                     $scope.rechazosDS.read();
                     $scope.mainGrid.refresh();
-                     $scope.rechazoWin.close();
+                    $scope.rechazoWin.close();
                 },
                 onFail);
 

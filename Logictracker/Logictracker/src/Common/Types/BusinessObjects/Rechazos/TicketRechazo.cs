@@ -222,5 +222,6 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual bool EnHorario { get; set; }
         public virtual PuntoEntrega  Entrega { get; set; }
         public virtual Transportista Transportista { get; set; }
+        public virtual DateTime FechaHoraEstado { get; set; }
     }
 }

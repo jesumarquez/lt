@@ -260,12 +260,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
             return c.List<ViajeDistribucion>();
         }
 
-        public ViajeDistribucion GetById(IEnumerable<int> empresas, IEnumerable<int> lineas, int id)
-        {
-            return Query.FilterEmpresa(Session, empresas)
-                       .FilterLinea(Session, empresas, lineas)
-                       .Where(v => v.Id.Equals(id)).FirstOrDefault();
-        }
+        //public ViajeDistribucion GetById(IEnumerable<int> empresas, IEnumerable<int> lineas, int id)
+        //{
+        //    return Query.FilterEmpresa(Session, empresas).FilterLinea(Session, empresas, lineas).FirstOrDefault(v => v.Id.Equals(id));
+        //}
 
         public IList<ViajeDistribucion> FindByIds(IEnumerable<int> ids)
         {
