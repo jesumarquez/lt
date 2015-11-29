@@ -444,6 +444,8 @@ function RechazoItemController($scope, EntitiesService) {
 
             EntitiesService.resources.ticketRechazo.save(ticketRechazo).$promise.then(
                 function () {
+
+                    $scope.mainGrid.refresh();
                     $scope.rechazoWin.close();
                 }, onFail);
 
@@ -504,9 +506,15 @@ function RechazoEditItemController($scope, EntitiesService) {
                 Observacion: $scope.ticketItem.Observacion
             };
 
-            EntitiesService.resources.ticketRechazo.update({ id: $scope.ticketItemId }, ticketRechazo);
+            EntitiesService.resources.ticketRechazo.update({ id: $scope.ticketItemId }, ticketRechazo).$promise.then(
+                function () {
+                    $scope.rechazosDS.read();
+                    $scope.mainGrid.refresh();
+                     $scope.rechazoWin.close();
+                },
+                onFail);
 
-            $scope.rechazoWin.close();
+
         }
     };
 }

@@ -389,6 +389,10 @@ function EntitiesService($resource, $http) {
             serverFiltering: true,
             serverSorting: false,
             serverPaging: true,
+            group: {
+                field: "Estado",
+                dir: "asc"
+            }
         });
 
         if (angular.isFunction(onEnd))
