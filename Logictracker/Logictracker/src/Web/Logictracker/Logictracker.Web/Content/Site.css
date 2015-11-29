@@ -70,6 +70,7 @@ textarea {
 	display: flex;
     flex-direction: row;
 	justify-content: space-between;
+    flex-wrap: wrap;
 }
     .InputContainer-column{
         display: flex;
@@ -147,4 +148,17 @@ textarea {
 
 .k-widget.k-tooltip-validation {
   display: none !important;
+}
+
+.k-grid {
+    font-size: .8em;
+}
+
+@media (max-width: 700px){
+  .grid-colVisible {
+    display: none;
+  }
+}
+.grid-colVisible{
+
 }

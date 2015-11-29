@@ -150,7 +150,7 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.gridOptions = {
         sortable: true,
         groupable: true,
-
+        scrollable:false,
         pageable: {
             refresh: true,
             pageSizes: true,
@@ -158,19 +158,15 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
-        //{ field: "TicketRechazoId", title: "Ticket" },
-        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0:G}", sortable: true },
-        { field: "MotivoDesc", title: "Motivo" },
+        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:ss}", sortable: true },
+        { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Estado", title: "Estado" },
-        { field: "Bultos", title: "Bultos" },
-        { field: "EntregaCodigo", title: "Cod. Entrega" },
-
+        { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "EntregaCodigo", title: "Cod. Entrega", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "VendedorDesc", title: "Vendedor" },
-        { field: "SupVenDesc", title: "Sup. Venta" },
-        { field: "SupRutDesc", title: "Sup. Ruta" },
-
-        { field: "Territorio", title: "Territorio" },
-
+        { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "SupRutDesc", title: "Sup. Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "Territorio", title: "Territorio", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
         ]
     }
@@ -229,7 +225,7 @@ function RechazoController($scope, EntitiesService, $filter) {
     };
 
     $scope.onRefreshWindow = function () {
-        $scope.rechazoWin.center();
+        $scope.rechazoWin.open();
     }
 }
 
