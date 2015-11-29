@@ -131,6 +131,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
                 return fechaMin;
             }
         }
+
         public virtual DateTime? SalidaOManualExclusiva
         {
             get

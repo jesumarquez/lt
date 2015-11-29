@@ -30,11 +30,21 @@ function Unzip-Files($source, $destination)
     [System.IO.Compression.ZipFile]::ExtractToDirectory("$Source", "$destination")
 }
 
+function CleanPath($destination)
+{
+	If(Test-path $destination\Web) {Remove-item $destination\Web -recurse}
+	If(Test-path $destination\WebApi) {Remove-item $destination\WebApi -recurse}
+	If(Test-path $destination\Express) {Remove-item $destination\Express -recurse}
+	If(Test-path $destination\ParserHost) {Remove-item $destination\ParserHost -recurse}
+	If(Test-path $destination\ReportsHost) {Remove-item $destination\ReportsHost -recurse}
+}
+
 if($toCompress)
 {
     Zip-Files $source $destination
 }
 else
 {
+	CleanPath $destination
     Unzip-Files $source $destination
 }

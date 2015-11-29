@@ -21,6 +21,8 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbTipoGeocercaFin.SetSelectedValue(EditObject.TipoGeocercaFin != null ? EditObject.TipoGeocercaFin.Id : cbTipoGeocercaFin.NoneValue);
             cbIcono.Selected = EditObject.Icono != null ? EditObject.Icono.Id : 0;
             chkProductivo.Checked = EditObject.Productivo;
+            chkIterativo.Checked = EditObject.Iterativo;
+            chkControlInverso.Checked = EditObject.ControlInverso;
         }
 
         protected override void OnDelete()
@@ -39,6 +41,8 @@ namespace Logictracker.CicloLogistico.Distribucion
             EditObject.TipoGeocercaInicio = cbTipoGeocercaInicio.Selected > 0 ? DAOFactory.TipoReferenciaGeograficaDAO.FindById(cbTipoGeocercaInicio.Selected) : null;
             EditObject.TipoGeocercaFin = cbTipoGeocercaFin.Selected > 0 ? DAOFactory.TipoReferenciaGeograficaDAO.FindById(cbTipoGeocercaFin.Selected) : null;
             EditObject.Productivo = chkProductivo.Checked;
+            EditObject.Iterativo = chkIterativo.Checked;
+            EditObject.ControlInverso = chkControlInverso.Checked;
 
             DAOFactory.EstadoLogisticoDAO.SaveOrUpdate(EditObject);
         }

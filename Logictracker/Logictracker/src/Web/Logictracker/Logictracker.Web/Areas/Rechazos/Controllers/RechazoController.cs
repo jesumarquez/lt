@@ -27,9 +27,7 @@ namespace Logictracker.Web.Areas.Rechazos.Controllers
             return View();
         }
 
-        public string ReferenceName
-        {
-            get { return "PAR_RECHAZO"; }
-        }
+        public string VariableName { get { return "PAR_RECHAZO"; } }
+        public string GetRefference() { return "PAR_RECHAZO"; }
     }
 }

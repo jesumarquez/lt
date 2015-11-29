@@ -2583,6 +2583,9 @@
   <data name="DOC_FIELDTYPE_TEXT" xml:space="preserve">
     <value>Text</value>
   </data>
+  <data name="DOC_FIELDTYPE_TEXTBARCODE" xml:space="preserve">
+    <value>TextBarcode</value>
+  </data>
   <data name="DOC_FIELDTYPE_TRANSPORTISTA" xml:space="preserve">
     <value>Carrier</value>
   </data>
@@ -4557,5 +4560,17 @@
   </data>
   <data name="VERSION_EQUIPO" xml:space="preserve">
     <value>Device version</value>
+  </data>
+  <data name="ITERATIVO" xml:space="preserve">
+    <value>Iterative</value>
+  </data>
+  <data name="CONTROL_INVERSO" xml:space="preserve">
+    <value>Inverse Control</value>
+  </data>
+  <data name="REPORTA_RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Reports Account Manager</value>
+  </data>
+  <data name="RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Account Manager</value>
   </data>
 </root>

@@ -14,7 +14,7 @@
     <RootNamespace>Logictracker.Web</RootNamespace>
     <AssemblyName>Logictracker.Web.Site</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -591,9 +591,13 @@
     <Content Include="CicloLogistico\Controls\ServicioDetalle.ascx" />
     <Content Include="CicloLogistico\DistribucionGlobalDespachos.aspx" />
     <Content Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx" />
+    <Content Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx" />
+    <Content Include="CicloLogistico\Distribucion\EstadoLogisticoLista.aspx" />
     <Content Include="CicloLogistico\Distribucion\Intercalar.aspx" />
     <Content Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoAlta.aspx" />
     <Content Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoLista.aspx" />
+    <Content Include="CicloLogistico\Distribucion\TipoCicloLogisticoAlta.aspx" />
+    <Content Include="CicloLogistico\Distribucion\TipoCicloLogisticoLista.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionImport.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionLista.aspx" />
@@ -1447,6 +1451,7 @@
     <Content Include="Reportes\CicloLogistico\FlujoDeTareas.aspx" />
     <Content Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx" />
     <Content Include="Reportes\CicloLogistico\mobilesTickets.aspx" />
     <Content Include="Reportes\CicloLogistico\PedidosProgramados.aspx" />
@@ -1724,8 +1729,13 @@
     <Content Include="Content\font-awesome\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Areas\Rechazos\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\Item.cshtml" />
+    <Content Include="Areas\Ordenes\Views\web.config" />
+    <Content Include="Areas\Ordenes\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\Estadisticas.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\EditItem.cshtml" />
+    <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1733,6 +1743,11 @@
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\app\EntitiesService.js" />
+    <Content Include="Scripts\app\ordenes\ordenes-controller.js" />
+    <Content Include="Scripts\app\ordenes\ordenes-directives.js" />
+    <Content Include="Scripts\app\ordenes\ordenes-service.js" />
+    <Content Include="Scripts\app\orders\orders-controller.js" />
+    <Content Include="Scripts\app\orders\orders-service.js" />
     <Content Include="Scripts\app\rechazo\rechazo-controller.js" />
     <Content Include="Scripts\app\rechazo\rechazo-directives.js" />
     <Content Include="Scripts\app\rechazo\rechazo-service.js" />
@@ -1884,7 +1899,6 @@
     <Content Include="Scripts\kendo\2014.2.1008\messages\kendo.messages.zh-CN.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\messages\kendo.messages.zh-HK.min.js" />
     <Content Include="Scripts\kendo\2014.2.1008\messages\kendo.messages.zh-TW.min.js" />
-    <Content Include="Scripts\kendo\kendo.custom.js" />
     <Content Include="Scripts\kendo\kendo.modernizr.custom.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -2057,6 +2071,7 @@
     <Content Include="Scripts\kendo\2014.2.1008\kendo.view.min.js.map" />
     <Content Include="Scripts\kendo\2014.2.1008\kendo.web.min.js.map" />
     <Content Include="Scripts\kendo\2014.2.1008\kendo.window.min.js.map" />
+    <Content Include="Views\Orders\OrdersList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2343,6 +2358,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Ordenes\Controllers\ProgramarController.cs" />
+    <Compile Include="Areas\Ordenes\OrdenesAreaRegistration.cs" />
     <Compile Include="Areas\Rechazos\Controllers\RechazoController.cs" />
     <Compile Include="Areas\Rechazos\RechazosAreaRegistration.cs" />
     <Compile Include="CicloLogistico\AgendaAlta.aspx.cs">
@@ -2422,6 +2439,20 @@
     <Compile Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx.designer.cs">
       <DependentUpon>ControlarDistribucion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx.cs">
+      <DependentUpon>EstadoLogisticoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx.designer.cs">
+      <DependentUpon>EstadoLogisticoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoLista.aspx.cs">
+      <DependentUpon>EstadoLogisticoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoLista.aspx.designer.cs">
+      <DependentUpon>EstadoLogisticoLista.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CicloLogistico\Distribucion\Intercalar.aspx.cs">
       <DependentUpon>Intercalar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2442,6 +2473,20 @@
     </Compile>
     <Compile Include="CicloLogistico\Distribucion\PreasignacionViajeVehiculoLista.aspx.designer.cs">
       <DependentUpon>PreasignacionViajeVehiculoLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoAlta.aspx.cs">
+      <DependentUpon>TipoCicloLogisticoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoAlta.aspx.designer.cs">
+      <DependentUpon>TipoCicloLogisticoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoLista.aspx.cs">
+      <DependentUpon>TipoCicloLogisticoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\TipoCicloLogisticoLista.aspx.designer.cs">
+      <DependentUpon>TipoCicloLogisticoLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx.cs">
       <DependentUpon>ViajeDistribucionAlta.aspx</DependentUpon>
@@ -2636,6 +2681,7 @@
     <Compile Include="Controllers\api\PuntoEntregaController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
+    <Compile Include="Controllers\api\OrdersController.cs" />
     <Compile Include="Controllers\api\ClienteController.cs" />
     <Compile Include="Controllers\api\DistribucionController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
@@ -2644,6 +2690,7 @@
     <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Models\CentroDeCostosModel.cs" />
     <Compile Include="Controllers\api\DepartamentoController.cs" />
     <Compile Include="Controllers\api\DistritoController.cs" />
@@ -2964,6 +3011,9 @@
     <Compile Include="MasterPages\ReportPage.master.designer.cs">
       <DependentUpon>ReportPage.master</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderDetailModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\SelectionOrderModel.cs" />
     <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.cs">
       <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4219,6 +4269,13 @@
     <Compile Include="Reportes\CicloLogistico\KPIDistribucion.aspx.designer.cs">
       <DependentUpon>KPIDistribucion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx.cs">
+      <DependentUpon>ReporteEstadosLogisticos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx.designer.cs">
+      <DependentUpon>ReporteEstadosLogisticos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx.cs">
       <DependentUpon>KPIEstadoEntregas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4985,6 +5042,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Ordenes\Models\" />
     <Folder Include="Areas\Rechazos\Models\" />
     <Folder Include="Areas\Rechazos\Views\Shared\" />
   </ItemGroup>
@@ -5000,6 +5058,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Application\Logictracker.Tracker.Application.Reports.Service\Logictracker.Tracker.Application.Reports.csproj">
       <Project>{49f37eac-6dc8-4d61-bacf-f76b877ecdd0}</Project>
       <Name>Logictracker.Tracker.Application.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Application\Logictracker.Tracker.Application.Services\Logictracker.Tracker.Application.Services.csproj">
+      <Project>{ac30a8f9-e1b3-4b49-a63f-488538f2a2bf}</Project>
+      <Name>Logictracker.Tracker.Application.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
       <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
@@ -5126,6 +5188,9 @@
       <Name>Logictracker.Web.Monitor</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -5137,16 +5202,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4386</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4386/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

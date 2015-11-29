@@ -58,7 +58,6 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-
     function getBasesDS(onEnd, onFail) {
         var ds = new kendo.data.DataSource({
             transport: {

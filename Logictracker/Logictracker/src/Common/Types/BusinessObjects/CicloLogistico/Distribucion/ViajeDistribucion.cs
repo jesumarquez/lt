@@ -4,11 +4,12 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using System.Collections.Generic;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 {
     [Serializable]
-    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto 
+    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto, IHasTransportista
     {
         public static class Estados
         {
@@ -48,6 +49,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual int Id { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual Transportista Transportista { get; set; }
         public virtual CentroDeCostos CentroDeCostos { get; set; }
         public virtual SubCentroDeCostos SubCentroDeCostos { get; set; }
         public virtual Coche Vehiculo { get; set; }
@@ -101,6 +103,13 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         {
             get { return _estadosCumplidos ?? (_estadosCumplidos = new List<EstadoDistribucion>()); }
             set { _estadosCumplidos = value; }
+        }
+
+        private IList<ParametroDistribucion> _parametros;
+        public virtual IList<ParametroDistribucion> Parametros
+        {
+            get { return _parametros ?? (_parametros = new List<ParametroDistribucion>()); }
+            set { _parametros = value; }
         }
 
         private IList<RecorridoDistribucion> _recorrido;
@@ -188,6 +197,44 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
             public int Index { get; set; }
             public RecorridoDistribucion Inicio { get; set; }
             public RecorridoDistribucion Fin { get; set; }
+        }
+
+        public virtual void AgregarBaseFinal()
+        {
+            for (var i = 1; i < Detalles.Count; i++)
+            {
+                if (Detalles[i].Descripcion.Equals(Detalles[0].Descripcion))
+                {
+                    Detalles.RemoveAt(i);
+                }
+            }
+
+            var baseFinal = new EntregaDistribucion()
+            {             
+                Linea = Detalles[0].Linea,
+                Descripcion = Detalles[0].Descripcion,
+                Estado = EntregaDistribucion.Estados.Pendiente,
+                Orden = Detalles.Count,
+                Viaje = Detalles[0].Viaje
+            };
+
+            var ultimo = Detalles.Last().ReferenciaGeografica;
+            var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
+            var destino = new LatLon(baseFinal.ReferenciaGeografica.Latitude, baseFinal.ReferenciaGeografica.Longitude);
+            var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
+
+            if (directions != null)
+            {
+                var distancia = directions.Distance / 1000.0;
+                var duracion = directions.Duration;
+                var fecha = Detalles.Last().Programado.Add(duracion);
+
+                baseFinal.Programado = fecha;
+                baseFinal.ProgramadoHasta = fecha;
+                baseFinal.KmCalculado = distancia;                
+            }
+            
+            Detalles.Add(baseFinal);
         }
     }
 }

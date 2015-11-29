@@ -12,6 +12,8 @@
     <property column="partick08_descripcion" name="Descripcion" />
     <property column="partick08_demora" name="Demora" />
     <property column="partick08_productivo" name="Productivo" />
+    <property column="partick08_iterativo" name="Iterativo" />
+    <property column="partick08_control_inverso" name="ControlInverso" />
     <property column="partick08_baja" name="Baja" />
     
     <many-to-one name="Empresa" column="rela_parenti01" class="Logictracker.Types.BusinessObjects.Empresa,Logictracker.Types" lazy="proxy" />

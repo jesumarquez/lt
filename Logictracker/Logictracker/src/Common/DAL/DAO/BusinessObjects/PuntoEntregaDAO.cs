@@ -39,6 +39,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
             return q.SafeFirstOrDefault();
         }
+
+        public List<PuntoEntrega> FindByEmpresaAndCodes(int empresaId, IEnumerable<string> codes)
+        {
+            return Query.Where(c => c.Cliente.Empresa.Id == empresaId && !c.Baja && codes.Contains(c.Codigo))
+                        .Cacheable()
+                        .ToList();
+        }
+
         #endregion
 
         #region Get Methods
@@ -61,32 +69,44 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .ToList();
         }
 
-        public List<PuntoEntrega> FindByEmpresaAndCodes(int empresa, IEnumerable<string> codes)
+        public List<PuntoEntrega> GetByCliente(int idCliente, int page, int pageSize, ref int totalRows, bool reCount, string SearchString)
         {
-            return Query.Where(p => p.Cliente.Empresa.Id == empresa
-                                 && codes.Contains(p.Codigo)
-                                 && !p.Baja)
-                        .Cacheable()
-                        .ToList();
-        }
-
-        public List<PuntoEntrega> GetByCliente(int idCliente, int page, int pageSize, ref int totalRows, bool reCount)
-        {
-            if (reCount)
+            if (string.IsNullOrEmpty(SearchString))
             {
-                int count = Query.Where(p => p.Cliente.Id == idCliente
-                    && !p.Baja).Count();
-                if (!totalRows.Equals(count))
+                if (reCount)
                 {
-                    totalRows = count;
+                    int count = Query.Where(p => p.Cliente.Id == idCliente
+                        && !p.Baja).Count();
+                    if (!totalRows.Equals(count))
+                    {
+                        totalRows = count;
+                    }
                 }
+                return Query.Where(p => p.Cliente.Id == idCliente
+                        && !p.Baja).OrderBy(x => x.Nombre)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .Cacheable()
+                            .ToList();
             }
-            return Query.Where(p => p.Cliente.Id == idCliente
-                    && !p.Baja)
-                        .Skip((page - 1) * pageSize)
-                        .Take(pageSize)
-                        .Cacheable()
-                        .ToList();
+            else
+            {
+                if (reCount)
+                {
+                    int count = Query.Where(p => p.Cliente.Id == idCliente
+                        && !p.Baja && (p.Nombre.ToUpper().Contains(SearchString.ToUpper()) || p.Codigo.ToUpper().Contains(SearchString.ToUpper()))).Count();
+                    if (!totalRows.Equals(count))
+                    {
+                        totalRows = count;
+                    }
+                }
+                return Query.Where(p => p.Cliente.Id == idCliente
+                        && !p.Baja && (p.Nombre.ToUpper().Contains(SearchString.ToUpper()) || p.Codigo.ToUpper().Contains(SearchString.ToUpper()))).OrderBy(x => x.Nombre)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .Cacheable()
+                            .ToList();
+            }
         }
 
         public List<PuntoEntrega> GetByCliente(int idCliente)
@@ -96,6 +116,26 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                         .Cacheable()
                         .ToList();
         }
+
+        public List<PuntoEntrega> GetByCliente(int idCliente, string SearchString)
+        {
+           if (string.IsNullOrEmpty(SearchString))
+           { 
+
+            return Query.Where(p => p.Cliente.Id == idCliente
+                    && !p.Baja)
+                        .Cacheable()
+                        .ToList();
+           }
+            else
+           {
+               return Query.Where(p => p.Cliente.Id == idCliente
+                    && !p.Baja && (p.Nombre.ToUpper().Contains(SearchString.ToUpper()) || p.Codigo.ToUpper().Contains(SearchString.ToUpper())))
+                        .Cacheable()
+                        .ToList();
+           }
+        }
+        
 
         public List<PuntoEntrega> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes)
         {

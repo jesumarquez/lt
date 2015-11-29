@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="TipoCicloLogisticoLista.aspx.cs"
-    Inherits="Logictracker.CicloLogistico.Distribucion.TipoCicloLogisticoLista" Title="Estados Logisticos" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.CicloLogistico.Distribucion.TipoCicloLogisticoLista" Title="Estados Logisticos" Codebehind="TipoCicloLogisticoLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>

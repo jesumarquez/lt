@@ -10,6 +10,7 @@
 
     <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
     <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+    <many-to-one name="Transportista" column="rela_parenti07" lazy="proxy" />
     <many-to-one name="CentroDeCostos" column="rela_parenti37" lazy="proxy" />
     <many-to-one name="SubCentroDeCostos" column="rela_parenti99" lazy="proxy" />
     <many-to-one name="Vehiculo" column="rela_parenti03" lazy="proxy" />
@@ -88,6 +89,15 @@
       <cache usage="read-write" />
       <key column="rela_opetick03" />
       <one-to-many class="Logictracker.Types.BusinessObjects.Messages.EvenDistri, Logictracker.Types" />
-    </bag>    
+    </bag>
+
+    <bag name="Parametros" order-by="opetick10_parametro ASC"
+                inverse="true"
+                cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_opetick03" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.ParametroDistribucion, Logictracker.Types" />
+    </bag>
+
   </class>
 </hibernate-mapping>

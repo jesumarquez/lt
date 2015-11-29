@@ -49,6 +49,24 @@ namespace Logictracker.Web.CicloLogistico {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList cbLinea;
         
         /// <summary>
+        /// lblDepto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDepto;
+        
+        /// <summary>
+        /// cbDepartamento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.DepartamentoDropDownList cbDepartamento;
+        
+        /// <summary>
         /// lblParenti03 control.
         /// </summary>
         /// <remarks>

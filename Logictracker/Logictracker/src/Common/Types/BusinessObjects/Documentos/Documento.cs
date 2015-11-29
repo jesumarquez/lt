@@ -15,6 +15,7 @@ namespace Logictracker.Types.BusinessObjects.Documentos
         {
             public const short Eliminado = -1;
             public const short Abierto = 0;
+            public const short Prestado = 1;
             public const short Cerrado = 9;
         }
 
@@ -120,6 +121,8 @@ namespace Logictracker.Types.BusinessObjects.Documentos
                 case TipoParametroDocumento.Float:
                     return Convert.ToDouble(v.Valor, CultureInfo.InvariantCulture);
                 case TipoParametroDocumento.String:
+                    return v.Valor;
+                case TipoParametroDocumento.StringBarcode:
                     return v.Valor;
                 case TipoParametroDocumento.DateTime:
                     return Convert.ToDateTime(v.Valor, CultureInfo.InvariantCulture);
