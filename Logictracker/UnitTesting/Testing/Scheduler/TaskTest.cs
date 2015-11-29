@@ -12,8 +12,8 @@ namespace Logictracker.Testing.Scheduler
         [DeploymentItem("Logictracker.Scheduler.Tasks.ReportsScheduler.dll")]
         public void OnExecuteTest1()
         {
-            var target = new Task_Accessor();
-            target.OnExecute(null);
+            //var target = new Task_Accessor();
+            //target.OnExecute(null);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
     }

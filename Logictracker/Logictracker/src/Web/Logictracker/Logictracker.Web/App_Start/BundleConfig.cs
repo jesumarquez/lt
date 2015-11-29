@@ -58,7 +58,8 @@ namespace Logictracker.Web
                     //"~/Scripts/kendo/kendo.modernizr.custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/global").Include(
-                "~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.es-AR.min.js"));
+                "~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.es-AR.min.js",
+                "~/Scripts/kendo/2014.2.1008/messages/kendo.messages.es-ES.min.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css-kendo-ui").Include(
                 "~/Content/kendo/2014.2.1008/kendo.common-bootstrap.min.css",

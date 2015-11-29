@@ -1,4 +1,4 @@
-﻿@using Logictracker.Web.App_Code
+﻿@using Logictracker.Web
 @{
     ViewBag.Title = "Index";
 }
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Labels", "Estado"):
-                    <lt-rechazo-estado/>
+                    <lt-rechazo-estado-multiselect/>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Labels", "Motivo"):
-                    <lt-rechazo-motivo/>
+                    <lt-rechazo-motivo-multiselect/>
                 </div>
             </div>
         </div>
@@ -88,9 +88,9 @@
 
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
-            <div kendo-grid k-options="gridOptions" k-data-source="rechazosDS"></div>
+            <div kendo-grid="mainGrid" k-options="gridOptions" k-data-source="rechazosDS"></div>
         </div>
     </div>
     <span kendo-notification="notify"></span>
-    <div kendo-window="rechazoWin" k-width="1100" k-min-height="600" k-visible="false" k-modal="true"></div>
+    <div kendo-window="rechazoWin" k-width="1100" k-visible="false" k-modal="true" k-on-refresh="onRefreshWindow()"></div>
 </div>

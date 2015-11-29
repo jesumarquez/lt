@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.InterfacesAndBaseClasses;
 
 namespace Logictracker.Types.BusinessObjects.Rechazos
@@ -15,7 +16,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             NoEncontroDomicilio = 6053,
             NoPedido = 6054,
             Cerrado = 6055,
-            CaminoIntransitable = 6055,
+            CaminoIntransitable = 6056,
             FaltaSinCargo = 6057,
             FueraDeHorario = 6058,
             FueraDeZona = 6059,
@@ -47,6 +48,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return "PRODUCTO_NO_APTO";
                 case MotivoRechazo.SinDinero:
                     return "SIN_DINERO";
+                case MotivoRechazo.CaminoIntransitable:
+                    return "CAMINO_INTRANSITABLE";
                 default:
                     throw new ArgumentOutOfRangeException("motivoRechazo");
             }
@@ -62,12 +65,93 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             Notificado = 2,
             Alertado = 3,
             Resuelto = 4,
-            Anulada = 5,
+            Anulado = 5,
             Avisado = 6,
             Entregado = 7,
-            SinAviso = 77,
-            NoResuelta = 8,
-            AltaErronea = 9
+            SinAviso = 8,
+            NoResuelta = 9,
+            AltaErronea = 10,
+            Duplicado = 11,
+        }
+
+
+        public enum EstadoFinal
+        {
+            SolucionPendiente = 1,
+            RechazoDuplicado = 2,
+            RechazoErroneo = 3,
+            ResueltoEntregado = 4,
+            ResueltoSinEntrega = 5
+        }
+
+        public static Estado[] Next(Estado actual)
+        {
+            switch (actual)
+            {
+                case Estado.Pendiente:
+                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado };
+                case Estado.Notificado:
+                    return new[] { Estado.Alertado, };
+                case Estado.Alertado:
+                    return new[] { Estado.Resuelto, Estado.Anulado, };
+                case Estado.Resuelto:
+                    return new[] { Estado.Avisado, };
+                case Estado.Anulado:
+                    return new Estado[] { };
+                case Estado.Avisado:
+                    return new[] { Estado.Entregado, Estado.NoResuelta, };
+                case Estado.Entregado:
+                    return new Estado[] { };
+                case Estado.SinAviso:
+                    return new Estado[] { };
+                case Estado.NoResuelta:
+                    return new Estado[] { };
+                case Estado.AltaErronea:
+                    return new Estado[] { };
+            }
+            return new Estado[] { };
+        }
+
+
+        protected TicketRechazo()
+        {
+
+        }
+
+        public TicketRechazo(string observacion, Usuario usuario, DateTime fechaHora)
+        {
+            Final = EstadoFinal.SolucionPendiente;
+
+            var detalle = new DetalleTicketRechazo()
+            {
+                Estado = this.UltimoEstado = Estado.Pendiente,
+                FechaHora = fechaHora,
+                Observacion = observacion,
+                Ticket = this,
+                Usuario = usuario
+            };
+
+            FechaHora = fechaHora;
+
+            Detalle.Add(detalle);
+        }
+
+        public virtual void ChangeEstado(Estado nuevoEstado, string observacion, Usuario usuario)
+        {
+            if (!Next(UltimoEstado).Any(e => e == nuevoEstado))
+                throw new Exception(string.Format("Cambio de estado invalido {0} -> {1}", UltimoEstado, nuevoEstado));
+
+            var detalle = new DetalleTicketRechazo
+            {
+                Estado = this.UltimoEstado = nuevoEstado,
+                FechaHora = DateTime.UtcNow,
+                Observacion = observacion,
+                Ticket = this,
+                Usuario = usuario
+            };
+
+            Detalle.Add(detalle);
+
         }
 
         public static string GetEstadoLabelVariableName(Estado estado)
@@ -82,7 +166,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return "ALERTADO";
                 case Estado.Resuelto:
                     return "RESUELTO";
-                case Estado.Anulada:
+                case Estado.Anulado:
                     return "ANULADO";
                 case Estado.Avisado:
                     return "AVISADO";
@@ -94,6 +178,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return "NO_RESUELTA";
                 case Estado.AltaErronea:
                     return "ALTA_ERRONEA";
+                case Estado.Duplicado:
+                    return "DUPLICADO";
                 default:
                     throw new ArgumentOutOfRangeException("estado");
             }
@@ -115,23 +201,26 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual Empleado SupervisorRuta { get; set; }
 
         public virtual Empleado SupervisorVenta { get; set; }
-
         public virtual string Territorio { get; set; }
 
         public virtual MotivoRechazo Motivo { get; set; }
 
-        public virtual Estado UltimoEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().Estado; } }
+        public virtual Estado UltimoEstado { get; protected set; }
 
         public virtual int Bultos { get; set; }
 
-        private ISet<DetalleTicketRechazo> _detalle;
+        private ISet<DetalleTicketRechazo> _detalles;
 
-        public Type TypeOf() { return GetType(); }
+        public virtual Type TypeOf() { return GetType(); }
 
         public virtual ISet<DetalleTicketRechazo> Detalle
         {
-            get { return _detalle ?? (_detalle = new HashSet<DetalleTicketRechazo>()); }
+            get { return _detalles ?? (_detalles = new HashSet<DetalleTicketRechazo>()); }
         }
 
+        public virtual EstadoFinal Final { get; set; }
+        public virtual bool EnHorario { get; set; }
+        public virtual PuntoEntrega  Entrega { get; set; }
+        public virtual Transportista Transportista { get; set; }
     }
 }

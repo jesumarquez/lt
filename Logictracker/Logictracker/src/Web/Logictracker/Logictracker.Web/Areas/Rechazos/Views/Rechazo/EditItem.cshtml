@@ -1,0 +1,93 @@
+﻿@using Logictracker.Web
+@{
+    Layout = null;
+}
+
+<div ng-controller="RechazoEditItemController">
+    <form kendo-validator="validator" ng-submit="onSave($event)">
+        <div class="InputContainer">
+            <div class="InputContainer-column">
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Motivo"):</span>
+                    <span class="InputGroup__control">{{ticketItem.MotivoDesc}}</span>
+                </div>
+
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Estado"):</span>
+                    <lt-rechazo-estado class="InputGroup__control" />
+                </div>
+
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
+                    <span class="InputGroup__control">{{ticketItem.CodigoDistribucion}}</span>
+                </div>
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
+                    <div class="InputGroup__control">{{ticketItem.EntregaCodigo}} {{ticketItem.EntregaDesc}}</div>
+                </div>
+            </div>
+            <div class="InputContainer-column">
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Transportista"):</span>
+                    <span class="InputGroup__control">{{ticketItem.TransportistaDesc}}</span>
+                </div>
+
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
+                    <span class="InputGroup__control">{{ticketItem.ClienteCodigo}}</span>
+                </div>
+
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
+                    <span class="InputGroup__control">{{ticketItem.Territorio}}</span>
+                </div>
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Bultos"):</span>
+                    <span class="InputGroup__control">{{ticketItem.Bultos}}</span>
+                </div>
+            </div>
+            <div class="InputContainer-column">
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Vendedor"):</span>
+                    <span class="InputGroup__control">{{ticketItem.VendedorDesc}}</span>
+                </div>
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
+                    <span class="InputGroup__control">{{ticketItem.SupVenDesc}}</span>
+                </div>
+                <div class="InputGroup" style="max-height: 5em">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
+                    <div class="InputGroup__control">{{ticketItem.SupRutDesc}}</div>
+                </div>
+                <div class="InputGroup">
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
+                    <span class="InputGroup__control">{{ticketItem.EnHorario ? 'Si' : 'No'}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="InputContainer">
+            <div class="InputGroup">
+                <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Observaciones"):</span>
+                <div class="InputGroup__control">
+                    <textarea class="form-control"
+                              kendo-editor
+                              k-ng-model="ticketItem.Observacion"></textarea>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <button kendo-button type="button" ng-click="onClose()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Cerrar")</button>
+            <button kendo-button type="submit" ng-disabled="!estadoSelected" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Guardar")</button>
+        </div>
+
+        <br />
+        <br />
+        <div class="form-group">
+            <span>@Html.ResourceLabel("Labels", "Información del Ticket:")</span>
+            <div kendo-grid k-options="gridDetalleOptions" k-data-source="ticketItem.Detalle"></div>
+        </div>
+    </form>
+</div>

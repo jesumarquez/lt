@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External.Libs", "External.Libs", "{1C3B03E3-47DF-4499-9666-CC4B72A70C09}"
 EndProject
@@ -49,9 +49,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reportes", "Reportes", "{79E32482-5665-4F7C-AFCE-5A0CBE0F1A96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{F8C52E81-C7ED-47EC-948A-BF5E39B4A70D}"
-	ProjectSection(SolutionItems) = preProject
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Process", "Process", "{7F3DE5FE-D9C4-45AD-A33F-6FAB91097CEE}"
 EndProject
@@ -247,8 +244,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicOut.Server", "Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicOut.Test", "Applications\LogicOut\LogicOut.Test\LogicOut.Test.csproj", "{499BE3FB-F379-42DA-85BD-FAB2552DFF07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Testing", "UnitTesting\Testing\Logictracker.Testing.csproj", "{0F0D785D-F360-40E9-8602-0449B50A2420}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Dispatcher.Core", "BackEnd\Dispatcher\Logictracker.Dispatcher.Core\Logictracker.Dispatcher.Core.csproj", "{1592DBEB-D4B5-40AE-9DA9-E7875CBF2024}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Dispatcher.Handlers", "BackEnd\Dispatcher\Logictracker.Dispatcher.Handlers\Logictracker.Dispatcher.Handlers.csproj", "{F8248D20-9E88-4AD5-BD8C-3FE06C0DF9EE}"
@@ -400,6 +395,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Routing", "Routing", "{B9982D11-DF56-4D4C-AF71-A9180412953B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Routing.Client", "Routing\logictracker.routing.client\logictracker.routing.client\Logictracker.Routing.Client.csproj", "{4046E8B4-9317-48F6-85D8-B123EC3655F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Testing", "UnitTesting\Testing\Logictracker.Testing.csproj", "{0F0D785D-F360-40E9-8602-0449B50A2420}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1898,21 +1895,6 @@ Global
 		{499BE3FB-F379-42DA-85BD-FAB2552DFF07}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{499BE3FB-F379-42DA-85BD-FAB2552DFF07}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{499BE3FB-F379-42DA-85BD-FAB2552DFF07}.Release|Win32.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|.NET.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Any CPU.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Any CPU.Build.0 = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Win32.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|.NET.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Win32.ActiveCfg = Release|Any CPU
 		{1592DBEB-D4B5-40AE-9DA9-E7875CBF2024}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{1592DBEB-D4B5-40AE-9DA9-E7875CBF2024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1592DBEB-D4B5-40AE-9DA9-E7875CBF2024}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -3065,6 +3047,24 @@ Global
 		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4046E8B4-9317-48F6-85D8-B123EC3655F9}.Release|Win32.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|.NET.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3183,7 +3183,6 @@ Global
 		{0016D0F4-C4D4-4469-B217-31EA55C759B3} = {69BF992F-E900-4A87-B514-CC7A43594DA1}
 		{DB06B613-C477-4AB6-B90F-93A2C50CDF11} = {69BF992F-E900-4A87-B514-CC7A43594DA1}
 		{499BE3FB-F379-42DA-85BD-FAB2552DFF07} = {69BF992F-E900-4A87-B514-CC7A43594DA1}
-		{0F0D785D-F360-40E9-8602-0449B50A2420} = {F8C52E81-C7ED-47EC-948A-BF5E39B4A70D}
 		{1592DBEB-D4B5-40AE-9DA9-E7875CBF2024} = {91221283-A695-4610-BDE0-914353ACE9CC}
 		{F8248D20-9E88-4AD5-BD8C-3FE06C0DF9EE} = {91221283-A695-4610-BDE0-914353ACE9CC}
 		{AD351BF8-69A7-4F09-91A3-78D40DD2CC53} = {29268ACB-5497-450B-9FF4-F1710F9600B5}
@@ -3255,5 +3254,6 @@ Global
 		{5CFB3EA9-5552-4421-9ACE-96F07EA417E0} = {F113C330-3BE8-4B47-AA50-29094B1EF5FA}
 		{B4103F7F-7B2E-41AA-AB82-96171076C7C6} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
 		{4046E8B4-9317-48F6-85D8-B123EC3655F9} = {B9982D11-DF56-4D4C-AF71-A9180412953B}
+		{0F0D785D-F360-40E9-8602-0449B50A2420} = {F8C52E81-C7ED-47EC-948A-BF5E39B4A70D}
 	EndGlobalSection
 EndGlobal
