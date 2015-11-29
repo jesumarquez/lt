@@ -379,6 +379,7 @@ function EntitiesService($resource, $http) {
                  parse: function (data) {
                     $.each(data.Data, function (i, val) {
                         val.FechaHora = kendo.parseDate(val.FechaHora);
+                        val.FechaHoraEstado = kendo.parseDate(val.FechaHoraEstado);
                     });
                     return data;
                 }

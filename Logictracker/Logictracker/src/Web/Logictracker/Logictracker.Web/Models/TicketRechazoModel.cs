@@ -48,6 +48,7 @@ namespace Logictracker.Web.Controllers.api
         public string TransportistaDesc { get; set; }
         public string EntregaCodigo { get; set; }
         public string VendedorDesc { get; set; }
+        public DateTime FechaHoraEstado { get; set; }
     }
 
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
@@ -115,6 +116,8 @@ namespace Logictracker.Web.Controllers.api
                 model.VendedorId = entity.Vendedor.Id;
                 model.VendedorDesc = entity.Vendedor.Entidad.Descripcion;
             }
+
+            model.FechaHoraEstado = entity.FechaHoraEstado;
             return model;
         }
 
