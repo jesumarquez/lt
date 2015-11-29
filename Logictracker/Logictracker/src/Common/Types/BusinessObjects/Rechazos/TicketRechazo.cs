@@ -124,7 +124,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
             var detalle = new DetalleTicketRechazo()
             {
-                Estado = this.UltimoEstado = Estado.Pendiente,
+                Estado = UltimoEstado = Estado.Pendiente,
                 FechaHora = fechaHora,
                 Observacion = observacion,
                 Ticket = this,
@@ -143,7 +143,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
             var detalle = new DetalleTicketRechazo
             {
-                Estado = this.UltimoEstado = nuevoEstado,
+                // Ultimo estado es calculado solo se actualiza en memoria 
+                Estado = UltimoEstado = nuevoEstado,
                 FechaHora = DateTime.UtcNow,
                 Observacion = observacion,
                 Ticket = this,
