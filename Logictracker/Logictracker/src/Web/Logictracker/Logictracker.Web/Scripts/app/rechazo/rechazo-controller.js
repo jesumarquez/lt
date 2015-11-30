@@ -214,6 +214,12 @@ function RechazoController($scope, EntitiesService, $filter) {
             filterList.push({ logic: "or", filters: estadoFilters });
         }
 
+        if ($scope.transportistaSelected.length > 0) {
+            var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
+            filterList.push({ logic: "or", filters: transportistaFilter });
+        }
+
+
         var filters = {
             logic: "and",
             filters: filterList
