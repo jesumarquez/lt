@@ -12,7 +12,6 @@ function RechazoController($scope, EntitiesService, $filter) {
 
     $scope.distritoSelected = {};
 
-    $scope.baseDS = [];
     $scope.baseSelected = {};
 
     $scope.departamentoDS = [];
@@ -150,7 +149,7 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.gridOptions = {
         sortable: true,
         groupable: true,
-        scrollable:false,
+        scrollable: false,
         pageable: {
             refresh: true,
             pageSizes: true,
@@ -519,17 +518,119 @@ function RechazoEditItemController($scope, EntitiesService) {
 }
 
 function RechazoEstadisticasController($scope, EntitiesService) {
+
+    $scope.UserData = EntitiesService.resources.userData.get();
+
+
+    function onDistritoDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            try {
+                if ($scope.UserData.DistritoSelected) {
+                    $scope.distritoSelected = $filter("filter")(e.response, { Key: $scope.UserData.DistritoSelected }, true)[0];
+                    if ($scope.distritoSelected) return;
+                }
+            } catch (ex) {
+            }
+            $scope.distritoSelected = e.response[0];
+        }
+    };
+
+    function onBaseDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            try {
+                if ($scope.UserData.BaseSelected) {
+                    $scope.baseSelected = $filter("filter")(e.response, { Key: $scope.UserData.BaseSelected }, true)[0];
+                    if ($scope.baseSelected) return;
+                }
+            } catch (ex) {
+            }
+            $scope.baseSelected = e.response[0];
+        }
+
+    }
+
+    function onFail(error) {
+        try {
+            if (error.data.ExceptionMessage) {
+                $scope.notify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) {
+        }
+        $scope.notify.show(error.errorThrown, "error");
+    };
+
+    function onDistritoSelected(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key });
+        }
+    };
+
+    function onBasesDSChange(newValue, oldValue) {
+        if (newValue !== oldValue) {
+        }
+    }
+
+    function onBaseSelected(newValue, oldValue) {
+        if (newValue != null && newValue !== oldValue) {
+
+            $scope.UserData.DistritoSelected = $scope.distritoSelected.Key;
+            $scope.UserData.BaseSelected = $scope.baseSelected.Key;
+
+            $scope.UserData.$save();
+
+            $scope.transportistaDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key
+            });
+
+
+        }
+    };
+
+    function ontransportistaDSLoad(e) {
+        if (e.type === "read" && e.response) {
+            $scope.transportistaSelected = [];
+        }
+    }
+
+
+    $scope.transportistaDS = EntitiesService.distrito.transportista(ontransportistaDSLoad, onFail);
+
+
+
+    $scope.distritoSelected = {};
+    $scope.distritoDS = EntitiesService.distrito.items(onDistritoDSLoad, onFail);
+
+    $scope.baseDS = EntitiesService.distrito.bases(onBaseDSLoad, onFail);
+    $scope.baseSelected = {};
+
+    $scope.$watch("distritoSelected", onDistritoSelected);
+
+    $scope.$watch("basesDS", onBasesDSChange);
+
+    $scope.$watch("baseSelected", onBaseSelected);
+
+    $scope.onAutoRefreshClick = function () {
+    }
+
+    $scope.autoRefesh = true;
+
     $scope.gridOptions = {
         columns: [
-        { field: "Vendedor", title: "Vendedores" },
-        { field: "Promedio", title: "Promedio (min)" },
-        { field: "Estado", title: "Estado" },
-        { field: "Pendiente", title: "Pend" },
-        { field: "Pendiente14", title: "Pend > 14" }]
+            { field: "Usuario", title: "Usuario" },
+            { field: "EstadoIngreso", title: "De estado" },
+            { field: "EstadoEgreso", title: "A estado" },
+            { field: "Intervinio", title: "Intervinio en" },
+            { field: "Promedio", title: "Promedio (min)" },
+        ]
     };
-    $scope.statsDS = [{
-        Vendedor: "Giacomo Guillizani"
-    }];
+    $scope.statsDS = [
+        {
+            Vendedor: "Giacomo Guillizani"
+        }
+    ];
+
 
     $scope.averageScale = { min: 0, max: 100 };
     $scope.averageOL = 50;
