@@ -10,17 +10,34 @@ function EntitiesService($resource, $http) {
             departamento: getDepartamentosDS,
             centroDeCostos: getCentroDeCostosDS,
             transportista: getTransportistaDS,
-            clientes: getCliente
+            clientes: {
+                models: getClientes
+            },
+            distribuciones: {
+                models: getDistribuciones
+            },
+            puntoEntrega: getPuntoEntrega
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
             departamentos: $resource("/api/distrito/:distritoId/base/:baseId/departamento/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId", deptoId: "@deptoId" }),
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
+            empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/items"),
+            empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items"),
+            empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/item"),
+            ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
+            userData: $resource("/api/UserData"),
+            parametros: $resource("/api/Distrito/{distritoId}/parametros/items", { distritoId: "@distritoId" }),
         },
         ticketrechazo: {
-            estados: getEstados, //$resource("/api/ticketrechazo/estado/items"),
-            motivos: getMotivos, // $resource("/api/ticketrechazo/motivo/items")
+            estados: getEstados,
+            motivos: getMotivos,
+            empleadoReporta: getEmpleadoReportaDS,
+            empleado: getEmpleadosDS,
+            items: getRechazoItems,
+            nextEstado: getNextEstado
         }
     };
 
@@ -145,6 +162,97 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
+    function getPuntoEntrega(data_, onEnd, onFail) {
+
+        var url = data_.distribucionId != null ? "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/viajeDistribucion/" + data_.distribucionId + "/PuntoEntrega/items" :
+            "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/PuntoEntrega/items";
+
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return url;
+                    },
+
+                },
+
+            },
+            schema: {
+                data: "Data"
+            },
+            serverFiltering: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+
+    }
+
+    function getEmpleadoReportaDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "" &&
+                        op.data.empleadoId !== undefined && op.data.empleadoId !== "") {
+
+                        getData(_service.resources.empleadoReporta,
+                            op,
+                            { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
+
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+    };
+
+    function getEmpleadosDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+
+                        if (op.data.tipoEmpleadoCodigo != null && op.data.tipoEmpleadoCodigo !== "") {
+                            getData(_service.resources.empleadoByTipo,
+                                op,
+                                { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo });
+                        }
+                        else if (op.data.empleadoId != null && op.data.empleadoId !== "") {
+                            getData(_service.resources.empleado,
+                                op,
+                                { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
+                        }
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+    };
+
     function getData(res, option, params) {
         res.query(params,
             function (data) {
@@ -193,20 +301,20 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-    function getCliente(data_,onEnd, onFail) {
+    function getClientes(data_, onEnd, onFail) {
 
         var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
             transport: {
                 read: {
+                    type: "GET",
                     dataType: "json",
-                    url: function(op) {
+                    url: function (op) {
                         return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/cliente/models";
                     },
-                    
+
                 },
-                //parameterMap: function(data, operation) {
-                //    return JSON.stringify(data);
-                //}
+
             },
             schema: {
                 data: "Data"
@@ -218,6 +326,99 @@ function EntitiesService($resource, $http) {
             ds.bind("requestEnd", onEnd);
         if (angular.isFunction(onFail))
             ds.bind("error", onFail);
+        return ds;
+    }
+
+
+
+    function getDistribuciones(data_, onEnd, onFail) {
+
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/distrito/" + data_.distritoId + "/base/" + data_.baseId + "/distribucion/models";
+                    },
+
+                },
+
+            },
+            schema: {
+                data: "Data"
+            },
+            serverFiltering: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+        return ds;
+    }
+
+    function getRechazoItems(filters, onEnd, onFail) {
+
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ticketrechazo/datasource";
+                    },
+                },
+            },
+            schema: {
+                total: "Total",
+                data: "Data",
+                errors: "Errors",
+                 parse: function (data) {
+                    $.each(data.Data, function (i, val) {
+                        val.FechaHora = kendo.parseDate(val.FechaHora);
+                        val.FechaHoraEstado = kendo.parseDate(val.FechaHoraEstado);
+                    });
+                    return data;
+                }
+            },
+            pageSize: 25,
+            filter: filters,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: true,
+            group: {
+                field: "Estado",
+                dir: "asc"
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+    function getNextEstado(data_, onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: "/api/ticketrechazo/" + data_.ticketId + "/estado/next/",
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
         return ds;
     }
 

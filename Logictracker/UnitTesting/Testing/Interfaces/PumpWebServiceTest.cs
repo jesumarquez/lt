@@ -10,8 +10,8 @@ namespace Logictracker.Testing.Interfaces
         [DeploymentItem("Logictracker.Scheduler.Tasks.PumpControl.dll")]
         public void OnExecuteTest()
         {
-            var target = new Task_Accessor();
-            target.OnExecute(null);
+            //var target = new Task_Accessor();
+            //target.OnExecute(null);
         }
     }
 }

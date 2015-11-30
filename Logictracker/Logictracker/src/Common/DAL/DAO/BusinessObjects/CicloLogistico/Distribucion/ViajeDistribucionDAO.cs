@@ -1,13 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Logictracker.Cache;
 using Logictracker.DAL.DAO.BaseClasses;
+using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using NHibernate.SqlCommand;
 
 namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
@@ -19,7 +20,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
     /// </remarks>
     public class ViajeDistribucionDAO : GenericDAO<ViajeDistribucion>
     {
-//        public ViajeDistribucionDAO(ISession session) : base(session) { }
+        //        public ViajeDistribucionDAO(ISession session) : base(session) { }
 
         #region Private Methods
         private DetachedCriteria GetDetachedCriteria(int[] coches, short[] estados)
@@ -49,7 +50,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
 
             return dc;
         }
-        
+
         private DetachedCriteria GetDetachedCriteria(int[] coches, short[] estados, bool excludeEstados)
         {
             return GetDetachedCriteria(false, coches, estados, excludeEstados);
@@ -64,7 +65,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
             if (cocheMandatory || coches.Length > 0)
                 dc.CreateAlias("Vehiculo", "c", JoinType.InnerJoin);
 
-            if (coches.Length > 0) 
+            if (coches.Length > 0)
                 dc.Add(Restrictions.In("c.Id", coches));
 
             if (estados.Length > 0)
@@ -100,10 +101,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
                 return key == null ? null : FindById((int)key);
             }
 
-            var dc = GetDetachedCriteria(new[] { coche.Id }, new[] {ViajeDistribucion.Estados.EnCurso });
+            var dc = GetDetachedCriteria(new[] { coche.Id }, new[] { ViajeDistribucion.Estados.EnCurso });
 
             var current = GetCriteria(1, dc, Order.Asc("Inicio")).UniqueResult<ViajeDistribucion>();
-               
+
             StoreInCache(coche, current);
 
             return current;
@@ -111,8 +112,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
 
         public ViajeDistribucion FindByCodigo(int empresa, int linea, string codigo)
         {
-            return Query.FilterEmpresa(Session, new[]{empresa}, null)
-                .FilterLinea(Session, new[]{empresa}, new[]{linea}, null)
+            return Query.FilterEmpresa(Session, new[] { empresa }, null)
+                .FilterLinea(Session, new[] { empresa }, new[] { linea }, null)
                 .Where(t => t.Estado != ViajeDistribucion.Estados.Eliminado)
                 .FirstOrDefault(t => t.Codigo == codigo);
         }
@@ -129,7 +130,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
         public IList<ViajeDistribucion> FindList(int vehicleId, DateTime desde, DateTime hasta)
         {
 
-            var dc = GetDetachedCriteria(new [] {vehicleId}, new [] { ViajeDistribucion.Estados.Eliminado}, true, desde, hasta);
+            var dc = GetDetachedCriteria(new[] { vehicleId }, new[] { ViajeDistribucion.Estados.Eliminado }, true, desde, hasta);
 
             var c = GetCriteria(1, dc, Order.Asc("Inicio"));
 
@@ -140,9 +141,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
         {
             return Session.Query<ViajeDistribucion>()
                           .FilterLinea(Session, empresas, lineas)
-                          .FilterVehiculo(Session, empresas, lineas, new[] {-1}, new[] {-1}, new[] {-1}, new[] {-1}, vehiculos)
+                          .FilterVehiculo(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, vehiculos)
                           .Where(t => t.Estado == ViajeDistribucion.Estados.Pendiente
-                                   && t.Inicio >= desde 
+                                   && t.Inicio >= desde
                                    && t.Inicio <= hasta)
                           .OrderBy(t => t.Inicio)
                           .Take(1)
@@ -161,8 +162,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
             if (!QueryExtensions.IncludesAll(transportistas) || !QueryExtensions.IncludesAll(coches))
                 q = q.FilterVehiculo(Session, empresas, lineas, transportistas, new[] { -1 }, new[] { -1 }, new[] { -1 }, coches);
 
-            q = q.Where(t => t.Inicio >= fechaDesde 
-                          && t.Inicio < fechaHasta 
+            q = q.Where(t => t.Inicio >= fechaDesde
+                          && t.Inicio < fechaHasta
                           && t.Estado != ViajeDistribucion.Estados.Eliminado);
 
             var viajes = q.ToList();
@@ -187,7 +188,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
 
         public List<ViajeDistribucion> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> centrosDeCosto, IEnumerable<int> subCentrosDeCosto, IEnumerable<int> vehiculos, IEnumerable<int> empleados, IEnumerable<int> estados, DateTime? desde, DateTime? hasta)
         {
-            return GetList(empresas, lineas, transportistas, departamentos, centrosDeCosto, subCentrosDeCosto, vehiculos, empleados, estados, new[] {-1}, desde, hasta);
+            return GetList(empresas, lineas, transportistas, departamentos, centrosDeCosto, subCentrosDeCosto, vehiculos, empleados, estados, new[] { -1 }, desde, hasta);
         }
 
         public List<ViajeDistribucion> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> centrosDeCosto, IEnumerable<int> subCentrosDeCosto, IEnumerable<int> vehiculos, IEnumerable<int> empleados, IEnumerable<int> estados, IEnumerable<int> tiposDistribucion, DateTime? desde, DateTime? hasta)
@@ -226,7 +227,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
         public List<ViajeDistribucion> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> vehiculos, IEnumerable<int> empleados)
         {
             var departamentos = new[] { -1 };
-            var transportistas = new[] {-1};
+            var transportistas = new[] { -1 };
             var centrosDeCosto = new[] { -1 };
             var tiposVehiculo = new[] { -1 };
             var tiposEmpleado = new[] { -1 };
@@ -238,16 +239,16 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
              || !QueryExtensions.IncludesAll(tiposVehiculo) || !QueryExtensions.IncludesAll(vehiculos))
                 q = q.FilterVehiculo(Session, empresas, lineas, transportistas, departamentos, centrosDeCosto, tiposVehiculo, vehiculos);
 
-            if (!QueryExtensions.IncludesAll(transportistas) || !QueryExtensions.IncludesAll(tiposEmpleado) 
-              ||!QueryExtensions.IncludesAll(empleados))
+            if (!QueryExtensions.IncludesAll(transportistas) || !QueryExtensions.IncludesAll(tiposEmpleado)
+              || !QueryExtensions.IncludesAll(empleados))
                 q = q.FilterEmpleado(Session, empresas, lineas, transportistas, tiposEmpleado, empleados);
-            
+
             return q.ToList();
         }
 
         public IList<ViajeDistribucion> GetListForDatamart(IEnumerable<int> empresas, DateTime desde, DateTime hasta)
         {
-            var dc = GetDetachedCriteria(true, new int[] {}, new short[] {}, desde, hasta);
+            var dc = GetDetachedCriteria(true, new int[] { }, new short[] { }, desde, hasta);
 
             if (!QueryExtensions.IncludesAll(empresas))
                 dc.CreateAlias("Empresa", "e", JoinType.InnerJoin)
@@ -255,9 +256,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
 
 
             var c = GetCriteria(0, dc, Order.Asc("Inicio"));
-            
+
             return c.List<ViajeDistribucion>();
         }
+
+        //public ViajeDistribucion GetById(IEnumerable<int> empresas, IEnumerable<int> lineas, int id)
+        //{
+        //    return Query.FilterEmpresa(Session, empresas).FilterLinea(Session, empresas, lineas).FirstOrDefault(v => v.Id.Equals(id));
+        //}
 
         public IList<ViajeDistribucion> FindByIds(IEnumerable<int> ids)
         {
@@ -266,7 +272,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
 
         public IList<ViajeDistribucion> GetListActivos(int empresa, int linea, DateTime desde, DateTime hasta)
         {
-            var dc = GetDetachedCriteria(new int[] {}, new [] { ViajeDistribucion.Estados.EnCurso, ViajeDistribucion.Estados.Pendiente }, desde, hasta);
+            var dc = GetDetachedCriteria(new int[] { }, new[] { ViajeDistribucion.Estados.EnCurso, ViajeDistribucion.Estados.Pendiente }, desde, hasta);
 
             if (empresa > 0)
             {
@@ -278,15 +284,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
             {
                 dc.CreateAlias("Linea", "l", JoinType.InnerJoin)
                     .Add(Restrictions.Eq("l.Id", linea));
-            }            
-
+            }
+            
             var c = GetCriteria(0, dc, Order.Asc("Inicio"));
-                
+
             return c.List<ViajeDistribucion>();
         }
-        
-        #endregion
 
+        #endregion
         #region Override Methods
 
         public override void Delete(ViajeDistribucion obj)
@@ -319,8 +324,25 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
         {
             if (coche == null) return;
             coche.Store(ViajeDistribucion.CurrentCacheKey, distribucion == null ? null : (object)distribucion.Id, DateTime.Now.AddHours(1));
-        } 
+        }
 
         #endregion
+
+        public IEnumerable<ViajeDistribucion> FindByCodeLike(int empresa, int linea, string codigo)
+        {
+            Empresa e = null;
+            Linea l = null;
+            var q= Session.QueryOver<ViajeDistribucion>()
+                .JoinAlias(v => v.Empresa, () => e)
+                .JoinAlias(w => w.Linea, () => l)
+                .Where(() => e.Id == empresa)
+                .Where(() => l.Id == linea)
+                .WhereRestrictionOn(x=>x.Codigo).IsLike(codigo+"%")
+                .WhereRestrictionOn(x => x.Estado).IsIn(new[] { ViajeDistribucion.Estados.EnCurso , ViajeDistribucion.Estados.Pendiente})
+                .Fetch(v => v.Vehiculo).Eager
+                .Future();
+           
+            return q;
+        }
     }
 }

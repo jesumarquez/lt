@@ -7,11 +7,21 @@ using Kendo.Mvc.UI;
 using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
+using System;
 
 namespace Logictracker.Web.Controllers.api
 {
     public class TicketRechazoController : EntityController<TicketRechazo, TicketRechazoDAO, TicketRechazoModel, TicketRechazoMapper>
     {
+        [Route("api/ticketrechazo/{ticketId}/estado/next")]
+        public IEnumerable<ItemModel> GetNextEstado(int ticketId)
+        {
+            var ticket = EntityDao.FindById(ticketId);
+            var estados = TicketRechazo.Next(ticket.UltimoEstado);
+            
+            return estados.Select(e => new ItemModel { Key = (int)e, Value = Culture.CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(e)) });
+        }
+
         [Route("api/ticketrechazo/estado/items")]
         public IEnumerable<ItemModel> GetEstado()
         {
@@ -27,8 +37,47 @@ namespace Logictracker.Web.Controllers.api
         public DataSourceResult GetDataSource(
                 [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
+            
             return EntityDao.FindAll().ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
         }
+
+        [Route("api/ticketrechazo/item/{id}")]
+        public IHttpActionResult GetItem(int id)
+        {
+            var rechazo = EntityDao.FindById(id);
+            var rechazoModel = new TicketRechazoModel();
+            Mapper.EntityToModel(rechazo, rechazoModel);
+
+            return Json(rechazoModel);
+        }
+        [Route("api/ticketrechazo/item")]
+        public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
+        {
+            var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario, DateTime.UtcNow);
+
+            Mapper.ModelToEntity(rechazoModel, rechazoEntity);
+
+            EntityDao.Save(rechazoEntity);
+
+            Mapper.EntityToModel(rechazoEntity, rechazoModel);
+
+            return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
+        }
+        [Route("api/ticketrechazo/item/{id}")]
+        public IHttpActionResult PutItem(int id, TicketRechazoModel rechazoModel)
+        {
+            var ticketEntity = EntityDao.FindById(id);
+            
+            ticketEntity.ChangeEstado((TicketRechazo.Estado)Enum.Parse(typeof(TicketRechazo.Estado), rechazoModel.Estado), rechazoModel.Observacion, this.Usuario);
+            EntityDao.SaveOrUpdate(ticketEntity);
+
+            return Ok();
+        }
+        //[Route("api/ticketrechazo/cantidadesporestado/items")]
+        //public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
+        //{
+        //    return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
+        //}
     }
 
 }
