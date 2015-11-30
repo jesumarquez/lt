@@ -13,6 +13,7 @@ using Logictracker.Types.BusinessObjects;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
 using Logictracker.DAL.DAO.BaseClasses;
+
 namespace Logictracker.Organizacion
 {
     public partial class AltaUsuario : SecuredAbmPage<Usuario>
@@ -139,6 +140,8 @@ namespace Logictracker.Organizacion
             EditObject.InhabilitadoCambiarPass = EditObject.Tipo <= 2 && chkNoCambioPass.Checked;
             EditObject.InhabilitadoCambiarUso = EditObject.Tipo <= 2 && chkNoCambioUso.Checked;
 
+            EditObject.Empleado = cbEmpleado.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbEmpleado.Selected) : null;
+
             #region Parametros
             var parametros = new List<ParametroUsuario>();
             foreach (C1GridViewRow row in gridParametros.Rows)
@@ -225,6 +228,8 @@ namespace Logictracker.Organizacion
 
             list = EditObject.TiposMensaje.OfType<TipoMensaje>().Select(p => p.Id).ToList();
             cbTipoMensaje.SetSelectedIndexes(list);
+
+            cbEmpleado.SetSelectedValue(EditObject.Empleado != null ? EditObject.Empleado.Id : cbEmpleado.NoneValue);
 
             gridParametros.DataSource = EditObject.Parametros;
             gridParametros.DataBind();

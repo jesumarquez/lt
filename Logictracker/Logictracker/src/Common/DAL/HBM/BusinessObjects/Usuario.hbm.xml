@@ -31,8 +31,10 @@
     <property column="socus01_portipomensaje" type="Boolean" name="PorTipoMensaje" />
     <property column="socus01_inhabilitado_cambiar_pass" type="Boolean" name="InhabilitadoCambiarPass" not-null="true" />
     <property column="socu01_inhabilitado_cambiar_uso" type="Boolean" name="InhabilitadoCambiarUso" not-null="true" />
-
+    
     <many-to-one name="Entidad" column="rela_socusua05" cascade="all-delete-orphan" lazy="proxy" />
+
+    <many-to-one column="rela_parenti09" name="Empleado" lazy="proxy" />
 
     <set name="_perfiles" access="field" table="socusua06" lazy="true">
       <cache usage="read-write" />
