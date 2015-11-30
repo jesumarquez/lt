@@ -279,6 +279,10 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.movimientosDS = {};
 
+    $scope.codigoVendedor = "V";
+    $scope.codigoSupervisorRutas = "SR";
+    $scope.supervisorRutasRead = false;
+
     $scope.$watch("vendedorSelected", onVendedorSelected);
     $scope.$watch("distribucionSelected", onDistribucionSelected);
     $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
@@ -288,22 +292,6 @@ function RechazoItemController($scope, EntitiesService) {
         { Key: true, Value: "Si" },
         { Key: false, Value: "No" },
     ];
-
-    function onVendedorSelected(newValue, oldValue) {
-
-        if (newValue !== undefined && newValue !== oldValue) {
-
-            $scope.supervisorVentasDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                empleadoId: $scope.vendedorSelected.Key
-            });
-        }
-        else {
-            $scope.supervisorVentasDS.data([]);
-            $scope.supervisorVentasDS.read();
-        }
-    };
 
     function onDistribucionSelected(newValue, oldValue) {
 
@@ -340,16 +328,36 @@ function RechazoItemController($scope, EntitiesService) {
                 $scope.vendedorDS.read({
                     distritoId: $scope.distritoSelected.Key,
                     baseId: $scope.baseSelected.Key,
-                    tipoEmpleadoCodigo: !responsable ? "V" : null,
+                    tipoEmpleadoCodigo: !responsable ? $scope.codigoVendedor : null,
                     empleadoId: responsable ? $scope.puntoEntregaSelected[0].ResponsableId : null,
                 });
             }
         }
     };
 
+
+    function onVendedorSelected(newValue, oldValue) {
+
+        if (newValue !== undefined && newValue !== oldValue) {
+
+            $scope.supervisorVentasDS.read({
+                distritoId: $scope.distritoSelected.Key,
+                baseId: $scope.baseSelected.Key,
+                empleadoId: $scope.vendedorSelected.Key
+            });
+        }
+        else {
+            $scope.supervisorVentasDS.data([]);
+            $scope.supervisorVentasDS.read();
+        }
+    };
+    
+
     function onSupervisorVentasSelected(newValue, oldValue) {
 
         if (newValue !== undefined && newValue !== oldValue) {
+            $scope.supervisorRutasRead = true;
+
             $scope.supervisorRutaDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
@@ -370,6 +378,17 @@ function RechazoItemController($scope, EntitiesService) {
 
     function onSupervisorRutaDSLoad(e) {
         if (e.type === "read" && e.response) {
+            if (e.response.length == 0)
+                if ($scope.supervisorRutasRead) {
+                        $scope.supervisorRutaDS.read({
+                            distritoId: $scope.distritoSelected.Key,
+                            baseId: $scope.baseSelected.Key,
+                            empleadoId: $scope.supervisorVentasSelected.Key,
+                            tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
+                        });
+                }
+
+            $scope.supervisorRutasRead = false;
             $scope.supervisorRutaSelected = e.response[0];
         }
     }

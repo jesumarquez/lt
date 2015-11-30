@@ -29,7 +29,7 @@ function EntitiesService($resource, $http) {
             empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/item"),
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData"),
-            parametros: $resource("/api/Distrito/{distritoId}/parametros/items", { distritoId: "@distritoId" }),
+            parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
         },
         ticketrechazo: {
             estados: getEstados,
@@ -200,12 +200,18 @@ function EntitiesService($resource, $http) {
                 read: function (op) {
                     if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
                         op.data.baseId !== undefined && op.data.baseId !== "" &&
-                        op.data.empleadoId !== undefined && op.data.empleadoId !== "") {
-
-                        getData(_service.resources.empleadoReporta,
-                            op,
-                            { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
-
+                        op.data.empleadoId !== undefined && op.data.empleadoId !== "")
+                        {
+                            if (op.data.tipoEmpleadoCodigo !== undefined) {
+                                getData(_service.resources.empleadoByTipo,
+                                   op,
+                                   { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo });
+                            }
+                            else {
+                                getData(_service.resources.empleadoReporta,
+                                    op,
+                                    { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
+                        }
                     }
                     else {
                         op.success([]);
