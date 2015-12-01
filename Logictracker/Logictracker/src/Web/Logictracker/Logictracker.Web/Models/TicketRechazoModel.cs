@@ -9,7 +9,7 @@ using Logictracker.Web.Models;
 
 namespace Logictracker.Web.Controllers.api
 {
-  
+
     public class TicketRechazoDetalleModel
     {
         public int TicketRechazoDetalleId { get; set; }
@@ -26,7 +26,8 @@ namespace Logictracker.Web.Controllers.api
         public int TicketRechazoId { get; set; }
         public int ClienteId { get; set; }
         public string ClienteCodigo { get; set; }
-      public int SupVenId { get; set; }
+        public string ClienteDesc { get; set; }
+        public int SupVenId { get; set; }
         public string SupVenDesc { get; set; }
         public int SupRutId { get; set; }
         public string SupRutDesc { get; set; }
@@ -55,11 +56,11 @@ namespace Logictracker.Web.Controllers.api
             TicketRechazoDetalleModel model)
         {
             model.TicketRechazoDetalleId = entity.Id;
-            model.FechaHora = DateTime.SpecifyKind(entity.FechaHora,DateTimeKind.Utc);
+            model.FechaHora = DateTime.SpecifyKind(entity.FechaHora, DateTimeKind.Utc);
             model.EmpleadoDesc = entity.Empleado.Entidad.Descripcion;
             model.Observacion = entity.Observacion;
             model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Estado));
-            
+
             return model;
         }
 
@@ -81,9 +82,10 @@ namespace Logictracker.Web.Controllers.api
             model.TicketRechazoId = entity.Id;
             model.DistritoId = entity.Empresa.Id;
             model.LineaId = entity.Linea.Id;
-            model.FechaHora = DateTime.SpecifyKind(entity.FechaHora,DateTimeKind.Utc);
+            model.FechaHora = DateTime.SpecifyKind(entity.FechaHora, DateTimeKind.Utc);
             model.ClienteId = entity.Cliente.Id;
             model.ClienteCodigo = entity.Cliente.Codigo;
+            model.ClienteDesc = entity.Cliente.Descripcion;
             model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
             model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
             model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
@@ -95,15 +97,15 @@ namespace Logictracker.Web.Controllers.api
             model.EnHorario = entity.EnHorario;
             var mt = new TicketRechazoDetalleMapper();
             model.Detalle = new List<TicketRechazoDetalleModel>(entity.Detalle.Select(d => mt.EntityToModel(d, new TicketRechazoDetalleModel())));
-            if (entity.Entrega != null )
+            if (entity.Entrega != null)
             {
                 model.EntregaId = entity.Entrega.Id;
                 model.EntregaDesc = entity.Entrega.Descripcion;
                 model.EntregaCodigo = entity.Entrega.Codigo;
-              
+
             }
 
-            if (entity.Transportista != null )
+            if (entity.Transportista != null)
             {
                 model.TransportistaId = entity.Transportista.Id;
                 model.TransportistaDesc = entity.Transportista.Descripcion;
@@ -115,7 +117,7 @@ namespace Logictracker.Web.Controllers.api
                 model.VendedorDesc = entity.Vendedor.Entidad.Descripcion;
             }
 
-            model.FechaHoraEstado =  DateTime.SpecifyKind(entity.FechaHoraEstado,DateTimeKind.Utc);
+            model.FechaHoraEstado = DateTime.SpecifyKind(entity.FechaHoraEstado, DateTimeKind.Utc);
             return model;
         }
 

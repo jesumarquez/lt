@@ -200,7 +200,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         if ($scope.desde != undefined) {
             var fDesde = new Date($scope.desde);
             fDesde.setHours(0, 0, 0, 0);
-            filterList.push({ field: "FechaHoraEstado", operator: "gte", value: new Date( fDesde.getTime() + msOffset) });
+            filterList.push({ field: "FechaHoraEstado", operator: "gte", value: new Date(fDesde.getTime() + msOffset) });
         }
 
         if ($scope.hasta != undefined) {
@@ -336,7 +336,7 @@ function RechazoItemController($scope, EntitiesService) {
 
             if ($scope.puntoEntregaSelected[0] !== undefined) {
 
-                $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteCodigo;
+                $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteDesc;
 
                 var responsable = ($scope.puntoEntregaSelected[0] !== undefined && $scope.puntoEntregaSelected[0].ResponsableId != 0);
 
