@@ -23,13 +23,13 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI04"):
-                    <lt-rechazo-departamento/>
+                    <lt-ms-departamento lt-ng-model="departamentoSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Labels", "Estado"):
-                    <lt-rechazo-estado-multiselect/>
+                    <lt-ms-estado lt-ng-model="estadoSelected" />
                 </div>
             </div>
         </div>
@@ -38,20 +38,20 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI37"):
-                    <lt-rechazo-centro-de-costos />
+                    <lt-ms-centro-de-costos lt-ng-model="centroDeCostosSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" lt-depends-on-departamento="departamentoSelected" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Labels", "Motivo"):
-                    <lt-rechazo-motivo-multiselect/>
+                    <lt-ms-motivo lt-ng-model="motivoSelected" />
                 </div>
             </div>
         </div>
 
         <div class="col-md-2">
             @Html.ResourceLabel("Entities", "PARENTI07"):
-            <lt-rechazo-transportista />
+            <lt-ms-transportista lt-ng-model="transportistaSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" />
         </div>
 
         <div class="col-md-2">

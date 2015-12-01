@@ -8,7 +8,6 @@ angular
 
 function RechazoController($scope, EntitiesService, $filter) {
 
-
     $scope.UserData = EntitiesService.resources.userData.get();
     $scope.UserData.$promise.then(function () {
         if ($scope.UserData.EmpleadoId === 0) {
@@ -34,55 +33,13 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.hasta = new Date();
 
     $scope.estadoSelected = [];
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados(null, onFail);
-
+   
     $scope.motivoSelected = [];
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(null, onFail);
-
-    $scope.departamentoDS = EntitiesService.distrito.departamento(onDepartamentoDSLoad, onFail);
-
-    $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad, onFail);
-
-    $scope.transportistaDS = EntitiesService.distrito.transportista(ontransportistaDSLoad, onFail);
-
+    
     $scope.$watch("baseSelected", onBaseSelected);
-
-    $scope.$watchGroup(["departamentoSelected", "baseSelected"],
-        onDepartamentoAndBaseChange);
 
     $scope.$on('errorEvent', function (event, data)
     { onFail(data); });
-
-    function onDistritoDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            try {
-                if ($scope.UserData.DistritoSelected) {
-                    $scope.distritoSelected = $filter("filter")(e.response, { Key: $scope.UserData.DistritoSelected }, true)[0];
-                    if ($scope.distritoSelected) return;
-                }
-            } catch (ex) { }
-            $scope.distritoSelected = e.response[0];
-        }
-    };
-
-    function onBaseDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            try {
-                if ($scope.UserData.BaseSelected) {
-                    $scope.baseSelected = $filter("filter")(e.response, { Key: $scope.UserData.BaseSelected }, true)[0];
-                    if ($scope.baseSelected) return;
-                }
-            } catch (ex) { }
-            $scope.baseSelected = e.response[0];
-        }
-
-    };
-
-    function onDepartamentoDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.departamentoSelected = [];
-        }
-    }
 
     function onCentroDeCostosDSLoad(e) {
         if (e.type === "read" && e.response) {
@@ -103,29 +60,8 @@ function RechazoController($scope, EntitiesService, $filter) {
             $scope.UserData.BaseSelected = $scope.baseSelected.Key;
 
             $scope.UserData.$save();
-
-            $scope.departamentoDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key
-            });
-
-            $scope.transportistaDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key
-            });
-
-
         }
     };
-
-    function onDepartamentoAndBaseChange(newValue, oldValue) {
-        if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
-            $scope.centroDeCostosDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                departamentoId: $scope.departamentoSelected.map(function (o) { return o.Key; })
-            });
-    }
 
     function onRechazosDSLoad() {
 

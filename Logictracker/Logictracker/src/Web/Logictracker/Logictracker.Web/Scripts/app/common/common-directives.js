@@ -34,7 +34,7 @@
         },
         controller: ['$scope', '$filter', 'EntitiesService', DistritoController],
         template: [
-			'<input kendo-drop-down-list ',
+			'<input class="form-control" kendo-drop-down-list ',
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
@@ -86,7 +86,7 @@
         },
         controller: ['$scope', '$filter', 'EntitiesService', BaseController],
         template: [
-			'<input kendo-drop-down-list ',
+			'<input class="form-control" kendo-drop-down-list ',
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
@@ -95,3 +95,190 @@
         ].join('')
     };
 })
+
+.directive('ltMsDepartamento', function () {
+
+    function DepartamentoController($scope, EntitiesService) {
+        $scope.dataSource = EntitiesService.distrito.departamento(onDSLoad, onFail);
+
+        $scope.$watch("dependsOn", onSelected);
+
+        function onDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.model = [];
+            }
+        };
+
+        function onSelected(newValue, oldValue) {
+            if (newValue != null && newValue !== oldValue) {
+                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });                
+            }
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel",
+            dependsOn: "=ltDependsOnBase",
+            distrito: "=ltDataDistrito"
+        },
+        controller: ['$scope', 'EntitiesService', DepartamentoController],
+        template: [
+			'<input class="form-control" kendo-multi-select ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
+})
+
+.directive('ltMsEstado', function () {
+
+    function EstadoController($scope, EntitiesService) {
+        $scope.dataSource = EntitiesService.ticketrechazo.estados(null, onFail);
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel"
+        },
+        controller: ['$scope', 'EntitiesService', EstadoController],
+        template: [
+			'<input class="form-control" kendo-multi-select ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
+})
+
+.directive('ltMsCentroDeCostos', function () {
+
+    function CentroDeCostosController($scope, EntitiesService) {
+        $scope.dataSource = EntitiesService.distrito.centroDeCostos(onDSLoad, onFail);
+
+        $scope.$watchGroup(["dependsOnDepartamento", "dependsOnBase"], onSelected);
+  
+        function onDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.model = [];
+            }
+        };
+
+        function onSelected(newValue, oldValue) {
+           if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
+                $scope.dataSource.read({
+                    distritoId: $scope.distrito.Key,
+                    baseId: $scope.dependsOnBase.Key,
+                    departamentoId: $scope.dependsOnDepartamento.map(function (o) { return o.Key; })
+                });
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel",
+            dependsOnBase: "=ltDependsOnBase",
+            dependsOnDepartamento: "=ltDependsOnDepartamento",
+            distrito: "=ltDataDistrito"
+        },
+        controller: ['$scope', 'EntitiesService', CentroDeCostosController],
+        template: [
+			'<input class="form-control" kendo-multi-select ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
+})
+
+.directive('ltMsMotivo', function () {
+
+    function MotivoController($scope, EntitiesService) {
+        $scope.dataSource = EntitiesService.ticketrechazo.motivos(null, onFail);
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel"
+        },
+        controller: ['$scope', 'EntitiesService', MotivoController],
+        template: [
+			'<input class="form-control" kendo-multi-select ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
+})
+
+.directive('ltMsTransportista', function () {
+
+    function TransportistaController($scope, EntitiesService) {
+        $scope.dataSource = EntitiesService.distrito.transportista(onDSLoad, onFail);
+
+        $scope.$watch("dependsOn", onSelected);
+
+        function onDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.model = [];
+            }
+        };
+
+        function onSelected(newValue, oldValue) {
+            if (newValue != null && newValue !== oldValue) {
+                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });
+            }
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel",
+            dependsOn: "=ltDependsOnBase",
+            distrito: "=ltDataDistrito"
+        },
+        controller: ['$scope', 'EntitiesService', TransportistaController],
+        template: [
+			'<input class="form-control" kendo-multi-select ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
+});
