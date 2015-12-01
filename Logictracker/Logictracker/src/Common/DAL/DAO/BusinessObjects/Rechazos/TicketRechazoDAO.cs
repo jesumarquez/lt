@@ -23,6 +23,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
                 .Select(k => new KeyValuePair<TicketRechazo.Estado, string>(k, CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(k))));
         }
         
+        public TicketRechazo GetByPuntoEntregaYFecha(int idPuntoEntrega, DateTime desde, DateTime hasta)
+        {
+            var q = Query.Where(t => t.Entrega.Id == idPuntoEntrega && t.FechaHora > desde && t.FechaHora < hasta);
 
+            return q.FirstOrDefault();
+        }
     }
 }

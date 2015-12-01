@@ -4738,6 +4738,12 @@
   <data name="NOTIFICADO" xml:space="preserve">
     <value>Notificado</value>
   </data>
+  <data name="NOTIFICADO_AUTOMATICO" xml:space="preserve">
+    <value>Notificado Automático</value>
+  </data>
+  <data name="ALERTADO_AUTOMATICO" xml:space="preserve">
+    <value>Alertado Automático</value>
+  </data>
   <data name="NO_ENCONTRO_DOMICILIO" xml:space="preserve">
     <value>No encontro domicilio</value>
   </data>

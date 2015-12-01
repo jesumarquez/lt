@@ -71,6 +71,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             NoResuelta = 9,
             AltaErronea = 10,
             Duplicado = 11,
+            NotificadoAutomatico = 12,
+            AlertadoAutomatico = 13
         }
 
 
@@ -88,10 +90,13 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             switch (actual)
             {
                 case Estado.Pendiente:
-                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado };
+                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado, Estado.NotificadoAutomatico };
                 case Estado.Notificado:
                     return new[] { Estado.Alertado, };
+                case Estado.NotificadoAutomatico:
+                    return new[] { Estado.AlertadoAutomatico };
                 case Estado.Alertado:
+                case Estado.AlertadoAutomatico:
                     return new[] { Estado.Resuelto, Estado.Anulado, };
                 case Estado.Resuelto:
                     return new[] { Estado.Avisado, };
@@ -155,37 +160,26 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             };
 
             Detalle.Add(detalle);
-
         }
 
         public static string GetEstadoLabelVariableName(Estado estado)
         {
             switch (estado)
             {
-                case Estado.Pendiente:
-                    return "PENDIENTE";
-                case Estado.Notificado:
-                    return "NOTIFICADO";
-                case Estado.Alertado:
-                    return "ALERTADO";
-                case Estado.Resuelto:
-                    return "RESUELTO";
-                case Estado.Anulado:
-                    return "ANULADO";
-                case Estado.Avisado:
-                    return "AVISADO";
-                case Estado.Entregado:
-                    return "ENTREGADO";
-                case Estado.SinAviso:
-                    return "SIN_AVISO";
-                case Estado.NoResuelta:
-                    return "NO_RESUELTA";
-                case Estado.AltaErronea:
-                    return "ALTA_ERRONEA";
-                case Estado.Duplicado:
-                    return "DUPLICADO";
-                default:
-                    throw new ArgumentOutOfRangeException("estado");
+                case Estado.Pendiente: return "PENDIENTE";
+                case Estado.Notificado: return "NOTIFICADO";
+                case Estado.NotificadoAutomatico: return "NOTIFICADO_AUTOMATICO";
+                case Estado.Alertado: return "ALERTADO";
+                case Estado.AlertadoAutomatico: return "ALERTADO_AUTOMATICO";
+                case Estado.Resuelto: return "RESUELTO";
+                case Estado.Anulado: return "ANULADO";
+                case Estado.Avisado: return "AVISADO";
+                case Estado.Entregado: return "ENTREGADO";
+                case Estado.SinAviso: return "SIN_AVISO";
+                case Estado.NoResuelta: return "NO_RESUELTA";
+                case Estado.AltaErronea: return "ALTA_ERRONEA";
+                case Estado.Duplicado: return "DUPLICADO";
+                default: throw new ArgumentOutOfRangeException("estado");
             }
         }
 
