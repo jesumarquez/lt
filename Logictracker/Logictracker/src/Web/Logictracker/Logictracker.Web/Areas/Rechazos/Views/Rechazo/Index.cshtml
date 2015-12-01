@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI02"):
-                    <lt-rechazo-base/>
+                    <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected"/>
                 </div>
             </div>
         </div>

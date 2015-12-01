@@ -30,8 +30,6 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
 
-    $scope.distritoDS = EntitiesService.distrito.items(onDistritoDSLoad, onFail);
-
     $scope.desde = new Date();
     $scope.hasta = new Date();
 
@@ -41,17 +39,11 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.motivoSelected = [];
     $scope.motivoDS = EntitiesService.ticketrechazo.motivos(null, onFail);
 
-    $scope.baseDS = EntitiesService.distrito.bases(onBaseDSLoad, onFail);
-
     $scope.departamentoDS = EntitiesService.distrito.departamento(onDepartamentoDSLoad, onFail);
 
     $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad, onFail);
 
     $scope.transportistaDS = EntitiesService.distrito.transportista(ontransportistaDSLoad, onFail);
-
-    $scope.$watch("distritoSelected", onDistritoSelected);
-
-    $scope.$watch("basesDS", onBasesDSChange);
 
     $scope.$watch("baseSelected", onBaseSelected);
 
@@ -84,19 +76,6 @@ function RechazoController($scope, EntitiesService, $filter) {
             $scope.baseSelected = e.response[0];
         }
 
-    };
-
-    function onDistritoSelected(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key });
-        }
-    };
-
-    function onBasesDSChange(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.departamentoSelected = [];
-            $scope.centroDeCostosSelected = [];
-        }
     };
 
     function onDepartamentoDSLoad(e) {
