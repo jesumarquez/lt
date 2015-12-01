@@ -34,9 +34,7 @@ namespace Logictracker.CicloLogistico
                     lblViaje.Text = entrega.Viaje.Codigo;
                     lblVehiculo.Text = entrega.Viaje.Vehiculo != null ? entrega.Viaje.Vehiculo.Interno : CultureManager.GetError("NO_VEHICLE_ASSIGNED");
                     lblEstado.Text = CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado));
-                    if (entrega.PuntoEntrega != null && entrega.PuntoEntrega.DireccionNomenclada != string.Empty)
-                        lblDireccion.Text = entrega.PuntoEntrega.DireccionNomenclada;
-                    else if (entrega.ReferenciaGeografica != null)
+                    if (entrega.ReferenciaGeografica != null)
                         lblDireccion.Text = GeocoderHelper.GetDescripcionEsquinaMasCercana(entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude);
                     lblEntrada.Text = (entrega.Entrada.HasValue ? entrega.Entrada.Value.ToDisplayDateTime().ToString("yyyy/MM/dd HH:mm") : string.Empty);
                     lblManual.Text = (entrega.Manual.HasValue ? entrega.Manual.Value.ToDisplayDateTime().ToString("yyyy/MM/dd HH:mm") : string.Empty);

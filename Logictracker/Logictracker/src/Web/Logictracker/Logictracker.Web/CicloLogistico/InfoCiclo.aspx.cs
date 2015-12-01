@@ -33,13 +33,7 @@ namespace Logictracker.CicloLogistico
                     var icono = entrega.PuntoEntrega.ReferenciaGeografica.Icono != null ? Path.Combine(IconDir, entrega.PuntoEntrega.ReferenciaGeografica.Icono.PathIcono) : ResolveUrl("~/point.png");
 
                     imgIcono.Src = icono;
-                    var direccion = string.Empty;
-                    if (entrega.PuntoEntrega != null && entrega.PuntoEntrega.DireccionNomenclada != string.Empty)
-                        direccion = entrega.PuntoEntrega.DireccionNomenclada;
-                    else
-                        direccion = GeocoderHelper.GetDescripcionEsquinaMasCercana(entrega.PuntoEntrega.ReferenciaGeografica.Latitude, entrega.PuntoEntrega.ReferenciaGeografica.Longitude);
-
-                    lblCodigo.Text = string.Format("{0} - {1}<br>{2}", entrega.PuntoEntrega.Codigo, entrega.PuntoEntrega.Descripcion, direccion);
+                    lblCodigo.Text = string.Format("{0} - {1}<br>{2}", entrega.PuntoEntrega.Codigo, entrega.PuntoEntrega.Descripcion, GeocoderHelper.GetDescripcionEsquinaMasCercana(entrega.PuntoEntrega.ReferenciaGeografica.Latitude, entrega.PuntoEntrega.ReferenciaGeografica.Longitude));
                     lblDescripcion.Text = entrega.Descripcion;
                     lblProgramado.Text = entrega.Programado.ToDisplayDateTime().ToString("HH:mm");
                     //lblGps.Text = entrega.KmGps.HasValue ? entrega.KmGps.Value.ToString(CultureInfo.InvariantCulture) : "N/D";
