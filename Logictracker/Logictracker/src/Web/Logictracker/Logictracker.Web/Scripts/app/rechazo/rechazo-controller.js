@@ -8,9 +8,6 @@
 
 function RechazoController($scope, EntitiesService, $filter) {
 
-    function onFail(error) {
-        $scope.notify.show(error.errorThrown, "error");
-    }
 
     $scope.UserData = EntitiesService.resources.userData.get();
     $scope.UserData.$promise.then(function () {
@@ -200,13 +197,13 @@ function RechazoController($scope, EntitiesService, $filter) {
 
         if ($scope.desde != undefined) {
             var fDesde = new Date($scope.desde);
-            fDesde.setHours(0, 0, 0, 0);
+            fDesde.setUTCHours(0, 0, 0, 0);
             filterList.push({ field: "FechaHora", operator: "gte", value: fDesde });
         }
 
         if ($scope.hasta != undefined) {
             var fHasta = new Date($scope.hasta);
-            fHasta.setHours(23, 59, 0, 0);
+            fHasta.setUTCHours(23, 59, 59, 999);
             filterList.push({ field: "FechaHora", operator: "lte", value: fHasta });
         }
 
@@ -238,6 +235,18 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.onRefreshWindow = function () {
         $scope.rechazoWin.center();
     }
+
+    function onFail(error) {
+        if (!$scope.notify) return;
+        try {
+            if (error.data.ExceptionMessage) {
+                $scope.notify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) { }
+        $scope.notify.show(error.errorThrown, "error");
+    }
+
 }
 
 function RechazoItemController($scope, EntitiesService) {
@@ -357,7 +366,7 @@ function RechazoItemController($scope, EntitiesService) {
             $scope.supervisorVentasDS.read();
         }
     };
-    
+
 
     function onSupervisorVentasSelected(newValue, oldValue) {
 
@@ -386,12 +395,12 @@ function RechazoItemController($scope, EntitiesService) {
         if (e.type === "read" && e.response) {
             if (e.response.length == 0)
                 if ($scope.supervisorRutasRead) {
-                        $scope.supervisorRutaDS.read({
-                            distritoId: $scope.distritoSelected.Key,
-                            baseId: $scope.baseSelected.Key,
-                            empleadoId: $scope.supervisorVentasSelected.Key,
-                            tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
-                        });
+                    $scope.supervisorRutaDS.read({
+                        distritoId: $scope.distritoSelected.Key,
+                        baseId: $scope.baseSelected.Key,
+                        empleadoId: $scope.supervisorVentasSelected.Key,
+                        tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
+                    });
                 }
 
             $scope.supervisorRutasRead = false;
