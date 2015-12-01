@@ -562,6 +562,33 @@ namespace Logictracker.Organizacion {
         protected global::Logictracker.Web.CustomWebControls.DropDownCheckLists.TipoMensajeDropDownCheckList cbTipoMensaje;
         
         /// <summary>
+        /// lblEmpleado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblEmpleado;
+        
+        /// <summary>
+        /// updEmpleado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updEmpleado;
+        
+        /// <summary>
+        /// cbEmpleado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.EmpleadoDropDownList cbEmpleado;
+        
+        /// <summary>
         /// upd13 control.
         /// </summary>
         /// <remarks>

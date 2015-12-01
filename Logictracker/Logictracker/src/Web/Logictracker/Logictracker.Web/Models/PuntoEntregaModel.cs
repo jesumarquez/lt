@@ -11,6 +11,7 @@ namespace Logictracker.Web.Models
         public int ResponsableId { get; set; }
         public string ClienteCodigo { get; set; }
         public int ClienteId { get; set; }
+        public string ClienteDesc { get; set; }
     }
 
     public class PuntoEntregaMapper : EntityModelMapper<PuntoEntrega, PuntoEntregaModel>
@@ -21,7 +22,12 @@ namespace Logictracker.Web.Models
             model.PuntoEntregaId = entity.Id;
             model.Descripcion = entity.Descripcion;
             if (entity.Responsable != null) model.ResponsableId = entity.Responsable.Id;
-            if (entity.Cliente != null) { model.ClienteCodigo = entity.Cliente.Codigo; model.ClienteId = entity.Cliente.Id; }
+            if (entity.Cliente != null)
+            {
+                model.ClienteCodigo = entity.Cliente.Codigo;
+                model.ClienteId = entity.Cliente.Id;
+                model.ClienteDesc = entity.Cliente.Descripcion;
+            }
             return model;
         }
 

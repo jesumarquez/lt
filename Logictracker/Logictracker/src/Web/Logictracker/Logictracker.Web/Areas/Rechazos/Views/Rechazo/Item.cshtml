@@ -16,15 +16,6 @@
     </div>
 </script>
 
-<script id="tCliente" type="text/x-kendo-template">
-    <div>
-        <span>#= data.Codigo #</span>
-        <br />
-        <span style="font-size:xx-small;"> #= data.DescripcionCorta #</span>
-        <span style="font-size:xx-small">#= data.DireccionNomenclada #</span>
-    </div>
-</script>
-
 <script id="tPuntoEntrega" type="text/x-kendo-template">
     <div>
         <span>#= data.Codigo #</span>
@@ -94,7 +85,7 @@
                     </div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Código Cliente"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Cadena"):</span>
                     <div class="InputGroup__control">
                         {{clienteSelected}}
                     </div>

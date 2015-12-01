@@ -35,7 +35,7 @@ namespace Logictracker.Types.SecurityObjects
             _securables = new Dictionary<string, bool>();
 
             Id = user.Id;
-            
+
             Update(user);
 
             IdPerfiles = perfIds;
@@ -54,6 +54,7 @@ namespace Logictracker.Types.SecurityObjects
             Culture = !string.IsNullOrEmpty(user.Culture) ? CultureInfo.GetCultureInfo(user.Culture) : Thread.CurrentThread.CurrentCulture;
             ExcelFolder = user.ExcelFolder;
             Fantasia = user.Fantasia;
+            EmpleadoId = user.Empleado != null ? user.Empleado.Id : 0;
 
             try
             {
@@ -65,6 +66,8 @@ namespace Logictracker.Types.SecurityObjects
                 //Si no existe el TimeZoneId Explota t_odo (por ejemplo cuando se instala en otro windows)
             }
         }
+
+        public int EmpleadoId { get; set; }
 
         #endregion
 
@@ -157,7 +160,7 @@ namespace Logictracker.Types.SecurityObjects
         public void SetSecurables(IEnumerable<Asegurable> items)
         {
             _securables.Clear();
-            items.ToList().ForEach( i=> _securables.Add(i.Referencia,true));
+            items.ToList().ForEach(i => _securables.Add(i.Referencia, true));
         }
 
         /// <summary>

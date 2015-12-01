@@ -810,6 +810,9 @@ namespace Logictracker.Process.CicloLogistico
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, Distribucion.Vehiculo.Dispositivo.Id, "Error generando pregunta: No se han encontrado Canned Responses (" + destDetail + ")");
                     }
+
+
+
                     break;
                 default:
                     return;

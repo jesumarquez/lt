@@ -56,7 +56,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             var employee = empleado.FindEmpleadoByDevice(device);
             List<int> empresas = new List<int>();
             empresas.Add(employee.Empresa.Id);
-            var lineas = new int[] { };
+            var lineas = new int[] { employee.Linea.Id };
             List<TipoDocumento> lista = documentos.GetList(empresas, lineas).Where(x => x.Id > id).ToList();
 
             foreach (var item in lista)
@@ -73,39 +73,31 @@ namespace LogicTracker.App.Web.Api.Controllers
                             case "coche":
                                 {
                                     CocheDAO cocheDAO = new CocheDAO();
-                                    var coches = cocheDAO.GetList(empresas, lineas);
+                                    var coches = cocheDAO.GetList(empresas, new int[]{});
                                     foreach (var itemcoche in coches)
                                     {
-                                        spinnerMobile.Add(new FormulariosSpinnerList()
-                                            {
-                                                id = Convert.ToString(itemcoche.Id),
-                                                descripcion = itemcoche.CompleteDescripcion()
-                                            });
+
+                                        if (itemcoche.Linea != null && itemcoche.Linea.Id.Equals(lineas[0]))
+                                        {
+                                            spinnerMobile.Add(new FormulariosSpinnerList()
+                                                {
+                                                    id = Convert.ToString(itemcoche.Id),
+                                                    descripcion = itemcoche.CompleteDescripcion()
+                                                });
+                                        }
                                     }
                                     spinnerlist = spinnerMobile.ToArray();
                                 }
                                 break;
                             case "chofer":
                                 {
-                                    List<TipoEmpleado> tipo = new TipoEmpleadoDAO().GetList(empresas, lineas);
-                                    List<int> tipoempleados = new List<int>();
-                                    foreach (var itemTipo in tipo)
-                                    {
-                                        tipoempleados.Add(itemTipo.Id);
-                                    }
-                                    List<Transportista> transpo = new TransportistaDAO().GetList(empresas, lineas);
-                                    List<int> transportistas = new List<int>();
-                                    foreach (var itemTranspo in transpo)
-                                    {
-                                        transportistas.Add(itemTranspo.Id);
-                                    }
-                                    var empleados = empleado.GetList(empresas, lineas, tipoempleados, transportistas);
+                                    var empleados = empleado.GetList(empresas, lineas, new int[]{},  new int[]{});
                                     foreach (var itemempleado in empleados)
                                     {
                                         spinnerMobile.Add(new FormulariosSpinnerList()
                                         {
                                             id = Convert.ToString(itemempleado.Id),
-                                            descripcion = itemempleado.ToString()
+                                            descripcion = itemempleado.Entidad.Descripcion
                                         });
                                     }
                                     spinnerlist = spinnerMobile.ToArray();
@@ -114,7 +106,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                             case "aseguradora":
                                 {
 
-                                    List<Transportista> transportistas = new TransportistaDAO().GetList(empresas, lineas);
+                                    List<Transportista> transportistas = new TransportistaDAO().GetList(empresas, new int[]{});
                                     foreach (var itemtransportista in transportistas)
                                     {
                                         spinnerMobile.Add(new FormulariosSpinnerList()
@@ -229,22 +221,27 @@ namespace LogicTracker.App.Web.Api.Controllers
 
             foreach (var item in records)
             {
-                Documento doc = new Documento();
+                Documento doc = new Documento();      
                 doc.TipoDocumento = tipodocumentoDAO.FindById(int.Parse(item.idFormulario));
                 doc.Empresa = employee.Empresa;
                 doc.FechaAlta = DateTime.Now;
-                doc.Linea = employee.Linea;   
+                doc.Linea = employee.Linea;
+                bool firstfechafield = false;
                 foreach (var itemParametro in item.campoFormulario)
                 {
                     switch (itemParametro.datatypecampo)
                     {
+                        case "stringbarcode":
                         case "string":
                             {
                                 switch (itemParametro.nombrecampo)
                                 {
                                     case "Codigo":
-                                        {
+                                        {                                           
                                             doc.Codigo = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo); 
+                                            var finddoc = documentoDAO.FindByCodigo(doc.TipoDocumento.Id, doc.Codigo);
+                                            if (finddoc != null)
+                                                doc = finddoc;
                                             break;
                                         }
                                     case "Descripcion":
@@ -277,36 +274,81 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             break;
                                         }
                                     default:
-                                        break;
+                                        {
+                                            var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                      where p.Nombre == itemParametro.nombrecampo
+                                                      select p;
+                                            var val = new DocumentoValor
+                                            {
+                                                Documento = doc,
+                                                Parametro = par.ToList()[0],
+                                                Repeticion = ((short)1),
+                                                Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                            };
+                                            doc.Parametros.Add(val);
+                                            break;
+                                        }
+
                                 }
                                 break;
                             }
                         case "datetime":
                             {
-                                switch (itemParametro.nombrecampo)
+                                switch (itemParametro.nombrecampo.ToUpper())
                                 {
-                                    case "Fecha":
+                                    case "FECHA":
                                         {
-                                            doc.Fecha = DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                            if (!firstfechafield)
+                                            {
+                                                firstfechafield = true;
+                                                doc.Fecha = DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                            }
+                                            else
+                                            {
+                                                var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                          where p.Nombre == itemParametro.nombrecampo
+                                                          select p;
+                                                var val = new DocumentoValor
+                                                {
+                                                    Documento = doc,
+                                                    Parametro = par.ToList()[0],
+                                                    Repeticion = ((short)1),
+                                                    Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                                };
+                                                doc.Parametros.Add(val);
+                                            }
                                             break;
                                         }
-                                    case "Presentacion":
+                                    case "PRESENTACION":
                                         {
                                             doc.Presentacion = DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                                             break;
                                         }
-                                    case "Vencimiento":
+                                    case "VENCIMIENTO":
                                         {
                                             doc.Vencimiento = DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                                             break;
                                         }
-                                    case "Cierre":
+                                    case "CIERRE":
                                         {
                                             doc.FechaCierre = DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                                             break;
-                                        }                                        
+                                        }
                                     default:
-                                        break;
+                                        {
+                                            var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                      where p.Nombre == itemParametro.nombrecampo
+                                                      select p;
+                                            var val = new DocumentoValor
+                                            {
+                                                Documento = doc,
+                                                Parametro = par.ToList()[0],
+                                                Repeticion = ((short)1),
+                                                Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                            };
+                                            doc.Parametros.Add(val);
+                                            break;
+                                        }
                                 }
                                 break;
                             }
@@ -490,7 +532,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                         default:
                             break;
                     }                   
-                }
+                }                 
                 documentoDAO.SaveOrUpdate(doc);
             }
             return Ok("finalized");

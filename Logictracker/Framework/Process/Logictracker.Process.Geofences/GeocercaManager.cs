@@ -344,6 +344,62 @@ namespace Logictracker.Process.Geofences
             }
             else
             {
+                var entered = false;
+
+                if (Monitor.IsEntered(_qtrees))
+                {
+                    entered = true;
+                }
+                else
+                {
+                    Monitor.TryEnter(_qtrees, 10, ref entered);
+                }
+                
+                if (entered)
+                {
+                    STrace.Trace("DispatcherLock", string.Format("qtree UPDATE ---> {0} | {1}", empresa, linea));
+                        
+                    using (var transaction = SmartTransaction.BeginTransaction())
+                    {
+                        var daoFactory = new DAOFactory();
+                        var geocercas = daoFactory.ReferenciaGeograficaDAO.GetGeocercasFor(empresa, linea);
+                        transaction.Commit();
+
+                        var keyToRemove = string.Empty;
+                        if (root != null) keyToRemove = key;
+                        root = new QtreeNode();
+
+                        foreach (var geocerca in geocercas)
+                        {
+                            root.AddValue(geocerca);
+                        }
+
+                        if (keyToRemove != string.Empty) _qtrees.Remove(keyToRemove);
+                        _qtrees.Add(key, root);
+                    }
+
+                    Monitor.Exit(_qtrees);
+                    STrace.Trace("DispatcherLock", string.Format("qtree NEW ---> {0} | {1}", empresa, linea));
+                }
+                else
+                {
+                    STrace.Trace("DispatcherLock", string.Format("qtree OLD ---> {0} | {1}", empresa, linea));
+                }
+
+                return root;
+            }
+
+            /*var lastMod = ReferenciaGeograficaDAO.GetLastUpdate(empresa, linea);
+            var key = GetQtreeKey(empresa, linea);
+
+            var root = _qtrees.ContainsKey(key) ? _qtrees[key] : null;
+
+            if (root != null && lastMod < root.LastUpdate)
+            {
+                return root;
+            }
+            else
+            {
                 if (Monitor.IsEntered(_qtrees))
                 {
                     // ESTA TOMADO => SE ESTA REGENERANDO
@@ -386,7 +442,7 @@ namespace Logictracker.Process.Geofences
                 }
 
                 return root;
-            }
+            }*/
         }
 
         public static string GetQtreeKey(int empresa, int linea)

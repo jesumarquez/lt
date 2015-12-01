@@ -8,17 +8,19 @@ using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
 using System;
+using NHibernate.Criterion;
 
 namespace Logictracker.Web.Controllers.api
 {
     public class TicketRechazoController : EntityController<TicketRechazo, TicketRechazoDAO, TicketRechazoModel, TicketRechazoMapper>
     {
+
         [Route("api/ticketrechazo/{ticketId}/estado/next")]
         public IEnumerable<ItemModel> GetNextEstado(int ticketId)
         {
             var ticket = EntityDao.FindById(ticketId);
             var estados = TicketRechazo.Next(ticket.UltimoEstado);
-            
+
             return estados.Select(e => new ItemModel { Key = (int)e, Value = Culture.CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(e)) });
         }
 
@@ -37,8 +39,24 @@ namespace Logictracker.Web.Controllers.api
         public DataSourceResult GetDataSource(
                 [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
+            var tickets = EntityDao.FindAll();
             
-            return EntityDao.FindAll().ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+            if (Usuario.Empleado == null|| Usuario.Empleado.TipoEmpleado == null)
+                return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+            
+            switch (Usuario.Empleado.TipoEmpleado.Codigo)
+            {
+                case "SR":
+                    tickets = tickets.Where(t => t.SupervisorRuta.Id == Usuario.Empleado.Id);
+                    break;
+                case "JF":
+                    tickets = tickets.Where(t => t.SupervisorVenta.Id == Usuario.Empleado.Id);
+                    break;
+                case "V":
+                    tickets = tickets.Where(t => t.Vendedor.Id == Usuario.Empleado.Id);
+                    break;
+            }
+            return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
         }
 
         [Route("api/ticketrechazo/item/{id}")]
@@ -53,7 +71,7 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/item")]
         public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
         {
-            var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario, DateTime.UtcNow);
+            var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario.Empleado, DateTime.UtcNow);
 
             Mapper.ModelToEntity(rechazoModel, rechazoEntity);
 
@@ -67,8 +85,8 @@ namespace Logictracker.Web.Controllers.api
         public IHttpActionResult PutItem(int id, TicketRechazoModel rechazoModel)
         {
             var ticketEntity = EntityDao.FindById(id);
-            
-            ticketEntity.ChangeEstado((TicketRechazo.Estado)Enum.Parse(typeof(TicketRechazo.Estado), rechazoModel.Estado), rechazoModel.Observacion, this.Usuario);
+
+            ticketEntity.ChangeEstado((TicketRechazo.Estado)Enum.Parse(typeof(TicketRechazo.Estado), rechazoModel.Estado), rechazoModel.Observacion, Usuario.Empleado);
             EntityDao.SaveOrUpdate(ticketEntity);
 
             return Ok();

@@ -6,6 +6,7 @@ using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Positions;
+using Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -189,6 +190,10 @@ namespace LogicTracker.App.Web.Api.Controllers
                 case "START":
                     { 
                         commandStatus = RouteService.StartRoute(id);
+                        ViajeDistribucionDAO vd = new ViajeDistribucionDAO();
+                        var trip = RouteService.GetDistributionRouteById(id);
+                        trip.Recepcion = DateTime.UtcNow;
+                        vd.SaveOrUpdate(trip);
                     }
                     break;
                 case "FINALIZE":

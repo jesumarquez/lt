@@ -1,4 +1,4 @@
-﻿angular
+angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
     .controller('RechazoController', ['$scope', 'EntitiesService', '$filter', RechazoController])
     .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController])
@@ -8,7 +8,14 @@
 
 function RechazoController($scope, EntitiesService, $filter) {
 
+
     $scope.UserData = EntitiesService.resources.userData.get();
+    $scope.UserData.$promise.then(function () {
+        if ($scope.UserData.EmpleadoId === 0) {
+
+            onFail({ errorThrown: "Usuario sin empleado asociado" });
+        }
+    });
 
     $scope.distritoSelected = {};
 
@@ -74,10 +81,6 @@ function RechazoController($scope, EntitiesService, $filter) {
             $scope.baseSelected = e.response[0];
         }
 
-    }
-
-    function onFail(error) {
-        $scope.notify.show(error.errorThrown, "error");
     };
 
     function onDistritoSelected(newValue, oldValue) {
@@ -157,7 +160,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
-        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:ss}", sortable: true },
+        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
         { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Estado", title: "Estado" },
         { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
@@ -192,16 +195,18 @@ function RechazoController($scope, EntitiesService, $filter) {
         if ($scope.baseSelected != undefined)
             filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
 
+        var msOffset = new Date().getTimezoneOffset() * 60000;
+
         if ($scope.desde != undefined) {
             var fDesde = new Date($scope.desde);
             fDesde.setHours(0, 0, 0, 0);
-            filterList.push({ field: "FechaHora", operator: "gte", value: fDesde });
+            filterList.push({ field: "FechaHoraEstado", operator: "gte", value: new Date(fDesde.getTime() + msOffset) });
         }
 
         if ($scope.hasta != undefined) {
             var fHasta = new Date($scope.hasta);
-            fHasta.setHours(23, 59, 0, 0);
-            filterList.push({ field: "FechaHora", operator: "lte", value: fHasta });
+            fHasta.setHours(23, 59, 59, 999);
+            filterList.push({ field: "FechaHoraEstado", operator: "lte", value: new Date(fHasta.getTime() + msOffset) });
         }
 
         if ($scope.motivoSelected.length > 0) {
@@ -230,8 +235,20 @@ function RechazoController($scope, EntitiesService, $filter) {
     };
 
     $scope.onRefreshWindow = function () {
-        $scope.rechazoWin.open();
+        $scope.rechazoWin.center();
     }
+
+    function onFail(error) {
+        if (!$scope.notify) return;
+        try {
+            if (error.data.ExceptionMessage) {
+                $scope.notify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) { }
+        $scope.notify.show(error.errorThrown, "error");
+    }
+
 }
 
 function RechazoItemController($scope, EntitiesService) {
@@ -319,7 +336,7 @@ function RechazoItemController($scope, EntitiesService) {
 
             if ($scope.puntoEntregaSelected[0] !== undefined) {
 
-                $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteCodigo;
+                $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteDesc;
 
                 var responsable = ($scope.puntoEntregaSelected[0] !== undefined && $scope.puntoEntregaSelected[0].ResponsableId != 0);
 
@@ -351,7 +368,7 @@ function RechazoItemController($scope, EntitiesService) {
             $scope.supervisorVentasDS.read();
         }
     };
-    
+
 
     function onSupervisorVentasSelected(newValue, oldValue) {
 
@@ -380,12 +397,12 @@ function RechazoItemController($scope, EntitiesService) {
         if (e.type === "read" && e.response) {
             if (e.response.length == 0)
                 if ($scope.supervisorRutasRead) {
-                        $scope.supervisorRutaDS.read({
-                            distritoId: $scope.distritoSelected.Key,
-                            baseId: $scope.baseSelected.Key,
-                            empleadoId: $scope.supervisorVentasSelected.Key,
-                            tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
-                        });
+                    $scope.supervisorRutaDS.read({
+                        distritoId: $scope.distritoSelected.Key,
+                        baseId: $scope.baseSelected.Key,
+                        empleadoId: $scope.supervisorVentasSelected.Key,
+                        tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
+                    });
                 }
 
             $scope.supervisorRutasRead = false;
@@ -419,7 +436,6 @@ function RechazoItemController($scope, EntitiesService) {
     function isNew() { return $scope.operation === "A"; }
 
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
-    $scope.tCliente = kendo.template($("#tCliente").html());
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
 
@@ -428,7 +444,7 @@ function RechazoItemController($scope, EntitiesService) {
         [
             { field: "TicketRechazoDetalleId", title: "Id" },
             { field: "FechaHora", title: "Fecha Hora" },
-            { field: "UsuarioNombre", title: "Usuario" },
+            { field: "EmpleadoDesc", title: "Empleado" },
             { field: "Estado", title: "Estado" },
             { field: "Observacion", title: "Observacion", encoded: false },
         ]
@@ -495,7 +511,7 @@ function RechazoEditItemController($scope, EntitiesService) {
         [
             { field: "TicketRechazoDetalleId", title: "Id", width: "5em" },
             { field: "FechaHora", title: "Fecha Hora", width: "13em", template: "#: kendo.toString(kendo.parseDate(FechaHora),'G') #" },
-            { field: "UsuarioNombre", title: "Usuario", width: "8em" },
+            { field: "EmpleadoDesc", title: "Empleado", width: "8em" },
             { field: "Estado", title: "Estado", width: "10em" },
             { field: "Observacion", title: "Observacion" },
         ]
