@@ -1,4 +1,4 @@
-﻿angular
+angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
     .controller('RechazoController', ['$scope', 'EntitiesService', '$filter', RechazoController])
     .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController])
@@ -157,7 +157,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
-        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:ss}", sortable: true },
+        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
         { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Estado", title: "Estado" },
         { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
