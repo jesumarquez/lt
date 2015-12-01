@@ -1740,6 +1740,7 @@
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\common\common-directives.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\app\EntitiesService.js" />

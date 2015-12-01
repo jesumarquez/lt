@@ -58,6 +58,9 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.$watchGroup(["departamentoSelected", "baseSelected"],
         onDepartamentoAndBaseChange);
 
+    $scope.$on('errorEvent', function (event, data)
+    { onFail(data); });
+
     function onDistritoDSLoad(e) {
         if (e.type === "read" && e.response) {
             try {
@@ -246,7 +249,11 @@ function RechazoController($scope, EntitiesService, $filter) {
                 return;
             }
         } catch (x) { }
-        $scope.notify.show(error.errorThrown, "error");
+
+        if (error.errorThrown !== undefined)
+            $scope.notify.show(error.errorThrown, "error");
+        else
+            $scope.notify.show(error, "error");
     }
 
 }
