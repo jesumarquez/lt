@@ -20,6 +20,7 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
 using Logictracker.AVL.Messages;
+using Logictracker.Types.BusinessObjects.Rechazos;
 
 namespace Logictracker.Process.CicloLogistico
 {
@@ -811,7 +812,29 @@ namespace Logictracker.Process.CicloLogistico
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, Distribucion.Vehiculo.Dispositivo.Id, "Error generando pregunta: No se han encontrado Canned Responses (" + destDetail + ")");
                     }
 
-
+                    if (detalle.Viaje.Empresa.DistribucionGeneraRechazo)
+                    {
+                        var chofer = detalle.Viaje.Vehiculo.Chofer;
+                        if (chofer != null)
+                        {
+                            var rechazo = new TicketRechazo(textMessageDesc, chofer, data.Date);
+                            rechazo.Empresa = detalle.Viaje.Empresa;
+                            rechazo.Linea = detalle.Viaje.Linea;
+                            rechazo.Transportista = detalle.Viaje.Transportista ?? detalle.Viaje.Vehiculo.Transportista;
+                            rechazo.Cliente = detalle.PuntoEntrega.Cliente;
+                            rechazo.Entrega = detalle.PuntoEntrega;
+                            rechazo.Bultos = detalle.Bultos;
+                            var vendedor = detalle.PuntoEntrega.Responsable;
+                            rechazo.Vendedor = vendedor;
+                            var supervisorVenta = vendedor != null ? vendedor.Reporta1 : null;
+                            rechazo.SupervisorVenta = supervisorVenta;
+                            var supervisorRuta = supervisorVenta != null ? supervisorVenta.Reporta1 : null;
+                            rechazo.SupervisorRuta = supervisorRuta;
+                            rechazo.Motivo = (TicketRechazo.MotivoRechazo) data.MessageId;
+                            
+                            DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                        }                        
+                    }
 
                     break;
                 default:
