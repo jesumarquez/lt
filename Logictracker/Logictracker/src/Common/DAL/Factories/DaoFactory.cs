@@ -17,6 +17,7 @@ using Logictracker.DAL.DAO.BusinessObjects.Ordenes;
 using Logictracker.DAL.DAO.BusinessObjects.Organizacion;
 using Logictracker.DAL.DAO.BusinessObjects.Positions;
 using Logictracker.DAL.DAO.BusinessObjects.Postal;
+using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
 using Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.DAL.DAO.BusinessObjects.Support;
 using Logictracker.DAL.DAO.BusinessObjects.Sync;
@@ -287,6 +288,9 @@ namespace Logictracker.DAL.Factories
         private LastVehicleEventDAO _lastVehicleEventDao;
         public LastVehicleEventDAO LastVehicleEventDAO { get { return _lastVehicleEventDao ?? (_lastVehicleEventDao = GetDao<LastVehicleEventDAO>()); } }
 
+        private TicketRechazoDAO _ticketRechazoDao;
+        public TicketRechazoDAO TicketRechazoDAO { get { return _ticketRechazoDao ?? (_ticketRechazoDao = GetDao<TicketRechazoDAO>()); } }
+
         #endregion
 
         #region Ciclo Logístico
@@ -296,6 +300,7 @@ namespace Logictracker.DAL.Factories
 
         private TipoCicloLogisticoDAO _tipoCicloLogisticoDao;
         public TipoCicloLogisticoDAO TipoCicloLogisticoDAO { get { return _tipoCicloLogisticoDao ?? (_tipoCicloLogisticoDao = GetDao<TipoCicloLogisticoDAO>()); } }
+
 
         #endregion
 
