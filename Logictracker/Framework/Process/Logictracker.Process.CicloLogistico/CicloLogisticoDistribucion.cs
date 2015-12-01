@@ -814,6 +814,7 @@ namespace Logictracker.Process.CicloLogistico
 
                     if (detalle.Viaje.Empresa.DistribucionGeneraRechazo)
                     {
+                        STrace.Error("RECHAZO", "DistribucionGeneraRechazo");
                         var chofer = detalle.Viaje.Vehiculo.Chofer;
                         if (chofer != null)
                         {
@@ -831,9 +832,21 @@ namespace Logictracker.Process.CicloLogistico
                             var supervisorRuta = supervisorVenta != null ? supervisorVenta.Reporta1 : null;
                             rechazo.SupervisorRuta = supervisorRuta;
                             rechazo.Motivo = (TicketRechazo.MotivoRechazo) data.MessageId;
-                            
-                            DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+
+                            STrace.Error("RECHAZO", "Guardando");
+                            try
+                            {
+                                DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                            }
+                            catch (Exception ex)
+                            {
+                                STrace.Exception("RECHAZO", ex);
+                            }
                         }                        
+                        else
+                        {
+                            STrace.Error("RECHAZO", "chofer == null");
+                        }
                     }
 
                     break;
