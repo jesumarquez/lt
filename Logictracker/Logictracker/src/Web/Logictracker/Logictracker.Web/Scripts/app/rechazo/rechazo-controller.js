@@ -195,16 +195,18 @@ function RechazoController($scope, EntitiesService, $filter) {
         if ($scope.baseSelected != undefined)
             filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
 
+        var msOffset = new Date().getTimezoneOffset() * 60000;
+
         if ($scope.desde != undefined) {
             var fDesde = new Date($scope.desde);
-            fDesde.setUTCHours(0, 0, 0, 0);
-            filterList.push({ field: "FechaHora", operator: "gte", value: fDesde });
+            fDesde.setHours(0, 0, 0, 0);
+            filterList.push({ field: "FechaHoraEstado", operator: "gte", value: new Date( fDesde.getTime() + msOffset) });
         }
 
         if ($scope.hasta != undefined) {
             var fHasta = new Date($scope.hasta);
-            fHasta.setUTCHours(23, 59, 59, 999);
-            filterList.push({ field: "FechaHora", operator: "lte", value: fHasta });
+            fHasta.setHours(23, 59, 59, 999);
+            filterList.push({ field: "FechaHoraEstado", operator: "lte", value: new Date(fHasta.getTime() + msOffset) });
         }
 
         if ($scope.motivoSelected.length > 0) {
@@ -442,7 +444,7 @@ function RechazoItemController($scope, EntitiesService) {
         [
             { field: "TicketRechazoDetalleId", title: "Id" },
             { field: "FechaHora", title: "Fecha Hora" },
-            { field: "UsuarioNombre", title: "Usuario" },
+            { field: "EmpleadoDesc", title: "Empleado" },
             { field: "Estado", title: "Estado" },
             { field: "Observacion", title: "Observacion", encoded: false },
         ]
@@ -509,7 +511,7 @@ function RechazoEditItemController($scope, EntitiesService) {
         [
             { field: "TicketRechazoDetalleId", title: "Id", width: "5em" },
             { field: "FechaHora", title: "Fecha Hora", width: "13em", template: "#: kendo.toString(kendo.parseDate(FechaHora),'G') #" },
-            { field: "UsuarioNombre", title: "Usuario", width: "8em" },
+            { field: "EmpleadoDesc", title: "Empleado", width: "8em" },
             { field: "Estado", title: "Estado", width: "10em" },
             { field: "Observacion", title: "Observacion" },
         ]

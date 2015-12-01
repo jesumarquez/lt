@@ -14,7 +14,7 @@ namespace Logictracker.Web.Controllers.api
     {
         public int TicketRechazoDetalleId { get; set; }
         public string Observacion { get; set; }
-        public string UsuarioNombre { get; set; }
+        public string EmpleadoDesc { get; set; }
         public DateTime FechaHora { get; set; }
         public string Estado { get; set; }
     }
@@ -56,7 +56,7 @@ namespace Logictracker.Web.Controllers.api
         {
             model.TicketRechazoDetalleId = entity.Id;
             model.FechaHora = DateTime.SpecifyKind(entity.FechaHora,DateTimeKind.Utc);
-            model.UsuarioNombre = entity.Usuario.NombreUsuario;
+            model.EmpleadoDesc = entity.Empleado.Entidad.Descripcion;
             model.Observacion = entity.Observacion;
             model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Estado));
             

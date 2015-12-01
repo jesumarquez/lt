@@ -53,7 +53,7 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/item")]
         public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
         {
-            var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario, DateTime.UtcNow);
+            var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario.Empleado, DateTime.UtcNow);
 
             Mapper.ModelToEntity(rechazoModel, rechazoEntity);
 
@@ -68,7 +68,7 @@ namespace Logictracker.Web.Controllers.api
         {
             var ticketEntity = EntityDao.FindById(id);
             
-            ticketEntity.ChangeEstado((TicketRechazo.Estado)Enum.Parse(typeof(TicketRechazo.Estado), rechazoModel.Estado), rechazoModel.Observacion, this.Usuario);
+            ticketEntity.ChangeEstado((TicketRechazo.Estado)Enum.Parse(typeof(TicketRechazo.Estado), rechazoModel.Estado), rechazoModel.Observacion, Usuario.Empleado);
             EntityDao.SaveOrUpdate(ticketEntity);
 
             return Ok();

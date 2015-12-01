@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.InterfacesAndBaseClasses;
 
 namespace Logictracker.Types.BusinessObjects.Rechazos
@@ -118,8 +117,10 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         }
 
-        public TicketRechazo(string observacion, Usuario usuario, DateTime fechaHora)
+        public TicketRechazo(string observacion, Empleado empleado, DateTime fechaHora)
         {
+            if (empleado == null) throw new ArgumentNullException("empleado");
+
             Final = EstadoFinal.SolucionPendiente;
 
             var detalle = new DetalleTicketRechazo()
@@ -128,7 +129,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                 FechaHora = fechaHora,
                 Observacion = observacion,
                 Ticket = this,
-                Usuario = usuario
+                Empleado = empleado
             };
 
             FechaHora = fechaHora;
@@ -136,8 +137,10 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             Detalle.Add(detalle);
         }
 
-        public virtual void ChangeEstado(Estado nuevoEstado, string observacion, Usuario usuario)
+        public virtual void ChangeEstado(Estado nuevoEstado, string observacion, Empleado empleado)
         {
+            if (empleado == null) throw new ArgumentNullException("empleado");
+
             if (!Next(UltimoEstado).Any(e => e == nuevoEstado))
                 throw new Exception(string.Format("Cambio de estado invalido {0} -> {1}", UltimoEstado, nuevoEstado));
 
@@ -148,7 +151,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                 FechaHora = DateTime.UtcNow,
                 Observacion = observacion,
                 Ticket = this,
-                Usuario = usuario
+                Empleado = empleado
             };
 
             Detalle.Add(detalle);
