@@ -14,12 +14,15 @@ namespace Logictracker.Web.Controllers.api
         public int? DistritoSelected { get; set; }
         public int? BaseSelected { get; set; }
 
+        public int EmpleadoId { get; set; }
+
         public static UserDataModel Create(HttpSessionState session)
         {
             var rv = new UserDataModel
             {
                 DistritoSelected = GetSessionInt(session, distritoKey),
-                BaseSelected = GetSessionInt(session, baseKey)
+                BaseSelected = GetSessionInt(session, baseKey),
+                EmpleadoId = Security.WebSecurity.AuthenticatedUser.EmpleadoId
             };
             return rv;
         }

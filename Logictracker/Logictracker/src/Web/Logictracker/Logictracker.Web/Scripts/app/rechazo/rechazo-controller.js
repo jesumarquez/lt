@@ -8,7 +8,17 @@
 
 function RechazoController($scope, EntitiesService, $filter) {
 
+    function onFail(error) {
+        $scope.notify.show(error.errorThrown, "error");
+    }
+
     $scope.UserData = EntitiesService.resources.userData.get();
+    $scope.UserData.$promise.then(function () {
+        if ($scope.UserData.EmpleadoId === 0) {
+
+            onFail({ errorThrown: "Usuario sin empleado asociado" });
+        }
+    });
 
     $scope.distritoSelected = {};
 
@@ -74,10 +84,6 @@ function RechazoController($scope, EntitiesService, $filter) {
             $scope.baseSelected = e.response[0];
         }
 
-    }
-
-    function onFail(error) {
-        $scope.notify.show(error.errorThrown, "error");
     };
 
     function onDistritoSelected(newValue, oldValue) {
@@ -157,7 +163,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
-        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:ss}", sortable: true },
+        { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
         { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Estado", title: "Estado" },
         { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
@@ -230,7 +236,7 @@ function RechazoController($scope, EntitiesService, $filter) {
     };
 
     $scope.onRefreshWindow = function () {
-        $scope.rechazoWin.open();
+        $scope.rechazoWin.center();
     }
 }
 
