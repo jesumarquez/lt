@@ -1,4 +1,4 @@
-﻿angular
+angular
     .module('logictracker.rechazo.controller', ['kendo.directives'])
     .controller('RechazoController', ['$scope', 'EntitiesService', '$filter', RechazoController])
     .controller('RechazoItemController', ['$scope', 'EntitiesService', RechazoItemController])
