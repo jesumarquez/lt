@@ -403,7 +403,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         Telefono = string.Empty,
                         Baja = false,
                         ReferenciaGeografica = puntoDeInteres,
-                        Nomenclado = true,
+                        Nomenclado = false,
                         DireccionNomenclada = string.Empty,
                         Nombre = nombre
                     };

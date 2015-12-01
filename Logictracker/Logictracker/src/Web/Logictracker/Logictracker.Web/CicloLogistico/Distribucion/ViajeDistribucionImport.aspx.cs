@@ -562,7 +562,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                                Telefono = string.Empty,
                                                Baja = false,
                                                ReferenciaGeografica = puntoDeInteres,
-                                               Nomenclado = true,
+                                               Nomenclado = false,
                                                DireccionNomenclada = string.Empty,
                                                Mail = mail,
                                                Importe = importe,
@@ -890,7 +890,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 Telefono = string.Empty,
                                 Baja = false,
                                 ReferenciaGeografica = puntoDeInteres,
-                                Nomenclado = true,
+                                Nomenclado = false,
                                 DireccionNomenclada = string.Empty,
                                 Nombre = nombre
                             };
@@ -1339,7 +1339,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                                Telefono = string.Empty,
                                                Baja = false,
                                                ReferenciaGeografica = puntoDeInteres,
-                                               Nomenclado = true,
+                                               Nomenclado = false,
                                                DireccionNomenclada = string.Empty,
                                                Nombre = nombre
                                            };
@@ -1637,7 +1637,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                                Telefono = string.Empty,
                                                Baja = false,
                                                ReferenciaGeografica = puntoDeInteres,
-                                               Nomenclado = true,
+                                               Nomenclado = false,
                                                DireccionNomenclada = string.Empty,
                                                Nombre = nombre
                                            };
@@ -2085,7 +2085,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                                Telefono = string.Empty,
                                                Baja = false,
                                                ReferenciaGeografica = puntoDeInteres,
-                                               Nomenclado = true,
+                                               Nomenclado = false,
                                                DireccionNomenclada = string.Empty,
                                                Nombre = nombre
                                            };
@@ -2525,7 +2525,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 Pais = string.Empty,
                                 Calle = string.Empty,
                                 Descripcion = direccion != string.Empty ? direccion : string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
-                                Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+                                Vigencia = new Vigencia { Inicio = DateTime.UtcNow }                                
                             };
 
                             #endregion
@@ -3041,7 +3041,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                                Telefono = string.Empty,
                                                Baja = false,
                                                ReferenciaGeografica = puntoDeInteres,
-                                               Nomenclado = direccion != null,
+                                               Nomenclado = false,
                                                DireccionNomenclada = string.Empty,
                                                Nombre = codigoEntrega
                                            };
