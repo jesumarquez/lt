@@ -9,12 +9,16 @@ using System.Web.Http;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.Messages;
+using Logictracker.DAL.Factories;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
     public class MessagesController : BaseController
     {
         public IRouteService RouteService { get; set; }
+
+        public DAOFactory DaoFactory { get; set; }
+
 
         // GET: api/Messages
         public IHttpActionResult Get()
@@ -65,7 +69,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 var message = new CustomMessage
                 {
                     Id = logMensaje.Id,
-                    Description = logMensaje.Texto.Split(':')[1].Trim(),
+                    Description = logMensaje.Texto,//.Split(':')[1].Trim(),
                     DateTime = logMensaje.Fecha,
                     Latitude = logMensaje.Latitud,
                     Longitude = logMensaje.Longitud
@@ -97,6 +101,26 @@ namespace LogicTracker.App.Web.Api.Controllers
  
                 mensajes.Add(logMensaje);
             }
+
+       /*   //  if (item.Entrega != null &&
+          //         item.Entrega.PuntoEntrega != null)
+          //  {
+
+            var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
+            if (device == null) return null;
+
+            var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
+            if (employee == null) return null;
+
+            var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
+            if (vehicle == null) return null;
+
+            var rechazo = DaoFactory.TicketRechazoDAO.GetByPuntoEntregaYFecha(item.Entrega.PuntoEntrega.Id, message.DateTime, DateTime.UtcNow);
+                if (rechazo != null)
+                {
+                    rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.AlertadoAutomatico, "Mensaje leído", employee);
+                }
+           // }*/
 
             var value = RouteService.SendMessagesMobile(deviceId, mensajes);
 
