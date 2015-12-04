@@ -25,9 +25,17 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
         
         public TicketRechazo GetByPuntoEntregaYFecha(int idPuntoEntrega, DateTime desde, DateTime hasta)
         {
-            var q = Query.Where(t => t.Entrega.Id == idPuntoEntrega && t.FechaHora > desde && t.FechaHora < hasta);
+            return Query.Where(t => t.Entrega.Id == idPuntoEntrega 
+                                 && t.FechaHora > desde 
+                                 && t.FechaHora < hasta)
+                        .FirstOrDefault();
+        }
 
-            return q.FirstOrDefault();
+        public IEnumerable<TicketRechazo> GetActivos(int idEmpresa)
+        {
+            var estadosActivos = new List<TicketRechazo.Estado> { TicketRechazo.Estado.Notificado1, TicketRechazo.Estado.Notificado2 };
+
+            return Query.Where(t => t.Empresa.Id == idEmpresa && estadosActivos.Contains(t.UltimoEstado)).ToList();
         }
     }
 }

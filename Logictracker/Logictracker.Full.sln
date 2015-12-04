@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External.Libs", "External.Libs", "{1C3B03E3-47DF-4499-9666-CC4B72A70C09}"
 EndProject
@@ -397,6 +397,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Routing.Client", "Routing\logictracker.routing.client\logictracker.routing.client\Logictracker.Routing.Client.csproj", "{4046E8B4-9317-48F6-85D8-B123EC3655F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Testing", "UnitTesting\Testing\Logictracker.Testing.csproj", "{0F0D785D-F360-40E9-8602-0449B50A2420}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Scheduler.Tasks.MonitoreoRechazos", "BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.MonitoreoRechazos\Logictracker.Scheduler.Tasks.MonitoreoRechazos.csproj", "{01D2B01F-8415-4A07-82D5-499ADEB37B3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3065,6 +3067,24 @@ Global
 		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0F0D785D-F360-40E9-8602-0449B50A2420}.Release|Win32.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Release|.NET.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3255,5 +3275,6 @@ Global
 		{B4103F7F-7B2E-41AA-AB82-96171076C7C6} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
 		{4046E8B4-9317-48F6-85D8-B123EC3655F9} = {B9982D11-DF56-4D4C-AF71-A9180412953B}
 		{0F0D785D-F360-40E9-8602-0449B50A2420} = {F8C52E81-C7ED-47EC-948A-BF5E39B4A70D}
+		{01D2B01F-8415-4A07-82D5-499ADEB37B3C} = {E5EDB989-A124-4468-8BB9-A5E572C1EB83}
 	EndGlobalSection
 EndGlobal
