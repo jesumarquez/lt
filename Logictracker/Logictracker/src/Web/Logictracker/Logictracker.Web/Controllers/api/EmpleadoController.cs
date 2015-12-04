@@ -18,12 +18,12 @@ namespace Logictracker.Web.Controllers.api
             return l;
         }
 
-        [Route("api/Distrito/{distritoId}/empleado/{empleadoId}/item")]
-        public IEnumerable<ItemModel> GetEmpleadoDistrito(int distritoId,  int empleadoId)
+        [Route("api/Distrito/{distritoId}/base/{baseId}/empleado/{empleadoId}/model")]
+        public IEnumerable<EmpleadoModel> GetEmpleadoModel(int distritoId, int baseId, int empleadoId)
         {
             var empleado = EntityDao.GetById(distritoId, -1, empleadoId);
-            if (empleado == null) return Enumerable.Empty<ItemModel>();
-            var l = new List<ItemModel> { Mapper.ToItem(empleado) };
+            if (empleado == null) return Enumerable.Empty<EmpleadoModel>();
+            var l = new List<EmpleadoModel> { Mapper.EntityToModel(empleado, new EmpleadoModel()) };
             return l;
         }
 
@@ -44,5 +44,16 @@ namespace Logictracker.Web.Controllers.api
             //var tp = DAOFactory.GetDao<TipoEmpleadoDAO>().FindByCodigo(distritoId, baseId, tipoEmpleadoCodigo);
             //return tp != null ? EntityDao.GetList(new[] { distritoId }, new[] { baseId }, new[] { tp.Id}, new int[] { }).Select(e => Mapper.ToItem(e)).ToList() : new List<ItemModel>();
         }
+
+
+        [Route("api/Distrito/{distritoId}/base/{baseId}/tipoEmpleadoCodigo/{tipoEmpleadoCodigo}/models")]
+        public IEnumerable<EmpleadoModel> GetEmpleadosModel(int distritoId, int baseId, string tipoEmpleadoCodigo)
+        {
+            return
+                EntityDao.GetByCodigoTipoEmpleado(new[] { distritoId }, new[] { baseId }, tipoEmpleadoCodigo)
+                    .Select(e => Mapper.EntityToModel(e,new EmpleadoModel()))
+                    .ToList();
+        }
+
     }
 }
