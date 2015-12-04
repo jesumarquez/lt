@@ -152,9 +152,6 @@ function RechazoItemController($scope, EntitiesService) {
 
 
     $scope.motivoSelected = {};
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(onMotivoDSLoad, $scope.onFail);
-    // El motivo es editable solo si es un alta
-    $scope.motivoRO = function () { return !isNew(); };
 
     $scope.estadoSelected = {};
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(onEstadoDSLoad, $scope.onFail);
@@ -314,12 +311,6 @@ function RechazoItemController($scope, EntitiesService) {
     function onVendedorDSLoad(e) {
         if (e.type === "read" && e.response) {
             $scope.vendedorSelected = e.response[0];
-        }
-    }
-
-    function onMotivoDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.motivoSelected = e.response[0];
         }
     }
 
