@@ -42,10 +42,6 @@ function RechazoController($scope, EntitiesService, $filter) {
         }
     };
 
-    function onRechazosDSLoad() {
-
-    }
-
     $scope.gridOptions = {
         sortable: true,
         groupable: true,
@@ -127,7 +123,7 @@ function RechazoController($scope, EntitiesService, $filter) {
             filters: filterList
         };
 
-        $scope.rechazosDS = EntitiesService.ticketrechazo.items(filters, onRechazosDSLoad, onFail);
+        $scope.rechazosDS = EntitiesService.ticketrechazo.items(filters, null, onFail);
 
     };
 
