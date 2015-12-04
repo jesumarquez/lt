@@ -71,8 +71,16 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             NoResuelta = 9,
             AltaErronea = 10,
             Duplicado = 11,
+            NotificadoAutomatico = 12,
+            AlertadoAutomatico = 13,            
+            
+            Notificado1 = 14,
+            Notificado2 = 15,
+            Notificado3 = 16,
+            RespuestaExitosa = 17,
+            RespuestaConRechazo = 18,            
+            Rechazado = 19
         }
-
 
         public enum EstadoFinal
         {
@@ -87,15 +95,19 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         {
             switch (actual)
             {
-                case Estado.Pendiente:
-                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado };
-                case Estado.Notificado:
+                case Estado.Pendiente: 
+                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado, Estado.NotificadoAutomatico, Estado.Notificado1 };
+                case Estado.Notificado: 
                     return new[] { Estado.Alertado, };
-                case Estado.Alertado:
+                case Estado.NotificadoAutomatico: 
+                    return new[] { Estado.AlertadoAutomatico };                
+                case Estado.Alertado: 
                     return new[] { Estado.Resuelto, Estado.Anulado, };
-                case Estado.Resuelto:
+                case Estado.AlertadoAutomatico: 
+                    return new[] { Estado.Resuelto, Estado.Anulado, };
+                case Estado.Resuelto: 
                     return new[] { Estado.Avisado, };
-                case Estado.Anulado:
+                case Estado.Anulado: 
                     return new Estado[] { };
                 case Estado.Avisado:
                     return new[] { Estado.Entregado, Estado.NoResuelta, };
@@ -107,15 +119,24 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return new Estado[] { };
                 case Estado.AltaErronea:
                     return new Estado[] { };
+
+                case Estado.Notificado1: 
+                    return new[] { Estado.Notificado2, Estado.RespuestaExitosa, Estado.RespuestaConRechazo };
+                case Estado.Notificado2: 
+                    return new[] { Estado.Notificado3, Estado.RespuestaExitosa, Estado.RespuestaConRechazo };
+                case Estado.Notificado3: 
+                    return new[] { Estado.RespuestaExitosa, Estado.RespuestaConRechazo };
+                case Estado.RespuestaExitosa: 
+                    return new[] { Estado.Entregado, Estado.NoResuelta };
+                case Estado.RespuestaConRechazo: 
+                    return new[] { Estado.Rechazado };
+                case Estado.Rechazado: 
+                    return new Estado[] { };
             }
             return new Estado[] { };
         }
 
-
-        protected TicketRechazo()
-        {
-
-        }
+        protected TicketRechazo() { }
 
         public TicketRechazo(string observacion, Empleado empleado, DateTime fechaHora)
         {
@@ -155,37 +176,33 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             };
 
             Detalle.Add(detalle);
-
         }
 
         public static string GetEstadoLabelVariableName(Estado estado)
         {
             switch (estado)
             {
-                case Estado.Pendiente:
-                    return "PENDIENTE";
-                case Estado.Notificado:
-                    return "NOTIFICADO";
-                case Estado.Alertado:
-                    return "ALERTADO";
-                case Estado.Resuelto:
-                    return "RESUELTO";
-                case Estado.Anulado:
-                    return "ANULADO";
-                case Estado.Avisado:
-                    return "AVISADO";
-                case Estado.Entregado:
-                    return "ENTREGADO";
-                case Estado.SinAviso:
-                    return "SIN_AVISO";
-                case Estado.NoResuelta:
-                    return "NO_RESUELTA";
-                case Estado.AltaErronea:
-                    return "ALTA_ERRONEA";
-                case Estado.Duplicado:
-                    return "DUPLICADO";
-                default:
-                    throw new ArgumentOutOfRangeException("estado");
+                case Estado.Pendiente: return "PENDIENTE";
+                case Estado.Notificado: return "NOTIFICADO";
+                case Estado.NotificadoAutomatico: return "NOTIFICADO_AUTOMATICO";
+                case Estado.Alertado: return "ALERTADO";
+                case Estado.AlertadoAutomatico: return "ALERTADO_AUTOMATICO";
+                case Estado.Resuelto: return "RESUELTO";
+                case Estado.Anulado: return "ANULADO";
+                case Estado.Avisado: return "AVISADO";
+                case Estado.Entregado: return "ENTREGADO";
+                case Estado.SinAviso: return "SIN_AVISO";
+                case Estado.NoResuelta: return "NO_RESUELTA";
+                case Estado.AltaErronea: return "ALTA_ERRONEA";
+                case Estado.Duplicado: return "DUPLICADO";
+
+                case Estado.Notificado1: return "NOTIFICADO_1";
+                case Estado.Notificado2: return "NOTIFICADO_2";
+                case Estado.Notificado3: return "NOTIFICADO_3";
+                case Estado.RespuestaExitosa: return "RESPUESTA_EXITOSA";
+                case Estado.RespuestaConRechazo: return "RESPUESTA_CON_RECHAZO";
+                case Estado.Rechazado: return "RECHAZADO";                
+                default: throw new ArgumentOutOfRangeException("estado");
             }
         }
 
@@ -193,24 +210,15 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
         public virtual int Id { get; set; }
         public virtual Empresa Empresa { get; set; }
-
         public virtual Linea Linea { get; set; }
-
         public virtual DateTime FechaHora { get; set; }
-
         public virtual Cliente Cliente { get; set; }
-
         public virtual Empleado Vendedor { get; set; }
-
         public virtual Empleado SupervisorRuta { get; set; }
-
         public virtual Empleado SupervisorVenta { get; set; }
         public virtual string Territorio { get; set; }
-
         public virtual MotivoRechazo Motivo { get; set; }
-
         public virtual Estado UltimoEstado { get; protected set; }
-
         public virtual int Bultos { get; set; }
 
         private ISet<DetalleTicketRechazo> _detalles;

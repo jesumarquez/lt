@@ -58,6 +58,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string ProductKey = "product.key";
             public const string OrdenRutaGarmin = "orden.ruta.garmin";
             public const string MonitoreoGarmin = "monitoreo.garmin";
+            public const string MonitoreoRechazos = "monitoreo.rechazos";
             public const string Totalizadores = "totalizadores.lista";
             public const string IconoPorCentroDeCosto = "icono.por.cc";
             public const string Icono = "icono.";
@@ -544,6 +545,17 @@ namespace Logictracker.Types.BusinessObjects
             get
             {
                 var valor = GetParameter(Params.MonitoreoGarmin);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool MonitoreoRechazos
+        {
+            get
+            {
+                var valor = GetParameter(Params.MonitoreoRechazos);
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;

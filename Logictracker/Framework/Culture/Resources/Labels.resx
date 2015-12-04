@@ -4738,6 +4738,12 @@
   <data name="NOTIFICADO" xml:space="preserve">
     <value>Notificado</value>
   </data>
+  <data name="NOTIFICADO_AUTOMATICO" xml:space="preserve">
+    <value>Notificado Automático</value>
+  </data>
+  <data name="ALERTADO_AUTOMATICO" xml:space="preserve">
+    <value>Alertado Automático</value>
+  </data>
   <data name="NO_ENCONTRO_DOMICILIO" xml:space="preserve">
     <value>No encontro domicilio</value>
   </data>
@@ -4779,5 +4785,56 @@
   </data>
   <data name="CAMINO_INTRANSITABLE" xml:space="preserve">
     <value>Camino intransitable</value>
+  </data>
+  <data name="MOTIVO" xml:space="preserve">
+    <value>Motivo</value>
+  </data>
+  <data name="TERRITORIO" xml:space="preserve">
+    <value>Territorio</value>
+  </data>
+  <data name="BULTOS" xml:space="preserve">
+    <value>Bultos</value>
+  </data>
+  <data name="EN_HORARIO" xml:space="preserve">
+    <value>En horario</value>
+  </data>
+  <data name="CODIGO_DISTRIBUCION" xml:space="preserve">
+    <value>Código Distribución</value>
+  </data>
+  <data name="INFORMACION_DEL_TICKET" xml:space="preserve">
+    <value>Información del Ticket</value>
+  </data>
+  <data name="VENDEDOR" xml:space="preserve">
+    <value>Vendedor</value>
+  </data>
+  <data name="SUPERVISOR_VENTAS" xml:space="preserve">
+    <value>Supervisor Ventas</value>
+  </data>
+  <data name="SUPERVISOR_RUTA" xml:space="preserve">
+    <value>Supervisor Ruta</value>
+  </data>
+  <data name="GUARDAR" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="CERRAR" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="NOTIFICADO_1" xml:space="preserve">
+    <value>Notificado 1</value>
+  </data>
+  <data name="NOTIFICADO_2" xml:space="preserve">
+    <value>Notificado 2</value>
+  </data>
+  <data name="NOTIFICADO_3" xml:space="preserve">
+    <value>Notificado 3</value>
+  </data>
+  <data name="RESPUESTA_EXITOSA" xml:space="preserve">
+    <value>Respuesta Exitosa</value>
+  </data>
+  <data name="RESPUESTA_CON_RECHAZO" xml:space="preserve">
+    <value>Respuesta con Rechazo</value>
+  </data>
+  <data name="RECHAZADO" xml:space="preserve">
+    <value>Rechazado</value>
   </data>
 </root>

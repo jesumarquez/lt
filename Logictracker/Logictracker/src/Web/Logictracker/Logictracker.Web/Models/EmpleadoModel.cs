@@ -6,8 +6,9 @@ namespace Logictracker.Web.Models
     public class EmpleadoModel
     {
         public int EmpleadoId { get; set; }
-        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
         public string Legajo { get; set; }
+        public int? BaseId { get; set; }
     }
 
     public class EmpleadoMapper : EntityModelMapper<Empleado, EmpleadoModel>
@@ -15,8 +16,9 @@ namespace Logictracker.Web.Models
         public override EmpleadoModel EntityToModel(Empleado entity, EmpleadoModel model)
         {
             model.EmpleadoId = entity.Id;
-            model.Nombre = entity.Entidad.Nombre;
+            model.Descripcion = entity.Entidad.Descripcion;
             model.Legajo = entity.Legajo;
+            model.BaseId = entity.Linea != null? entity.Linea.Id:(int?) null;
             return model;
         }
 
