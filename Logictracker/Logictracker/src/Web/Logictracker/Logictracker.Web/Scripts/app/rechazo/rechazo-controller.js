@@ -16,42 +16,21 @@ function RechazoController($scope, EntitiesService, $filter) {
         }
     });
 
-    $scope.distritoSelected = {};
-
-    $scope.baseSelected = {};
-
-    $scope.departamentoDS = [];
+    $scope.distritoSelected = [];
+    $scope.baseSelected = [];
     $scope.departamentoSelected = [];
-
-    $scope.centroDeCostosDS = [];
     $scope.centroDeCostosSelected = [];
-
     $scope.transportistaSelected = [];
-    $scope.transportistaDS = [];
-
+    $scope.estadoSelected = [];
+    $scope.motivoSelected = [];
+   
     $scope.desde = new Date();
     $scope.hasta = new Date();
 
-    $scope.estadoSelected = [];
-   
-    $scope.motivoSelected = [];
-    
     $scope.$watch("baseSelected", onBaseSelected);
 
     $scope.$on('errorEvent', function (event, data)
     { onFail(data); });
-
-    function onCentroDeCostosDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.centroDeCostosSelected = [];
-        }
-    }
-
-    function ontransportistaDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.transportistaSelected = [];
-        }
-    }
 
     function onBaseSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
