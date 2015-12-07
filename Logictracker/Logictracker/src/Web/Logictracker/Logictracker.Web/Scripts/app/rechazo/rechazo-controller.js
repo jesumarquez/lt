@@ -382,7 +382,7 @@ function RechazoItemController($scope, EntitiesService) {
             $scope.supervisorRutaDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                empleadoId: $scope.supervisorVentasSelected.Key
+                empleadoId: $scope.supervisorVentasSelected.EmpleadoId
             });
         }
         else {
@@ -404,7 +404,7 @@ function RechazoItemController($scope, EntitiesService) {
                     $scope.supervisorRutaDS.read({
                         distritoId: $scope.distritoSelected.Key,
                         baseId: $scope.baseSelected.Key,
-                        empleadoId: $scope.supervisorVentasSelected.Key,
+                        empleadoId: $scope.supervisorVentasSelected.EmpleadoId,
                         tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
                     });
                 }
@@ -472,10 +472,10 @@ function RechazoItemController($scope, EntitiesService) {
                 Territorio: $scope.territorio,
                 Bultos: $scope.bultos,
                 VendedorId: $scope.vendedorSelected.EmpleadoId,
-                SupRutDesc: $scope.supervisorRutaSelected ? $scope.supervisorRutaSelected.Value : "",
-                SupVenDesc: $scope.supervisorVentasSelected ? $scope.supervisorVentasSelected.Value : "",
-                SupVenId: $scope.supervisorVentasSelected.Key,
-                SupRutId: $scope.supervisorRutaSelected.Key,
+                SupRutDesc: $scope.supervisorRutaSelected ? $scope.supervisorRutaSelected.Descripcion : "",
+                SupVenDesc: $scope.supervisorVentasSelected ? $scope.supervisorVentasSelected.Descripcion : "",
+                SupVenId: $scope.supervisorVentasSelected.EmpleadoId,
+                SupRutId: $scope.supervisorRutaSelected.EmpleadoId,
                 Motivo: $scope.motivoSelected.Key,
                 Estado: $scope.estadoSelected.Key,
                 Observacion: $scope.observacion,
