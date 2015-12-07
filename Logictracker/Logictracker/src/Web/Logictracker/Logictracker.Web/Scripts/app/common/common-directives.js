@@ -166,6 +166,38 @@
     };
 })
 
+.directive('ltDdlEstado', function () {
+
+    function EstadoController($scope, EntitiesService) {
+        $scope.dataSource = EntitiesService.ticketrechazo.estados(onLoad, onFail);
+        function onLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.model = e.response[0];
+            }
+        }
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel"
+        },
+        controller: ['$scope', 'EntitiesService', EstadoController],
+        template: [
+			'<input class="form-control" kendo-drop-down-list ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
+})
+
 .directive('ltMsCentroDeCostos', function () {
 
     function CentroDeCostosController($scope, EntitiesService) {
