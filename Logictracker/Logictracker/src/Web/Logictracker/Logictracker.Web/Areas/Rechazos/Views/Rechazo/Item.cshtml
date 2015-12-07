@@ -43,16 +43,11 @@
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
                     <div class="InputGroup__control">
-
-                        <input class="form-control k-textbox"
-                               kendo-auto-complete
-                               k-ng-model="distribucionSelected"
-                               k-data-source="distribucionDS"
-                               k-readonly="distribucionRO"
-                               k-data-text-field="'Codigo'"
-                               k-filter="'contains'"
-                               k-min-length="3"
-                               k-template="tDistribucion"/>
+                        <lt-ac-distribucion 
+                            lt-ng-model="distritoSelected"
+                            lt-data-distrito="distritoSelected"
+                            lt-depends-on-base="baseSelected"
+                            lt-template="tDistribucion" />
                     </div>
                 </div>
                 <div class="InputGroup">

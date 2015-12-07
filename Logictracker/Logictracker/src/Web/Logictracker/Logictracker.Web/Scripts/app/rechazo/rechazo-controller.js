@@ -150,11 +150,9 @@ function RechazoController($scope, EntitiesService, $filter) {
 
 function RechazoItemController($scope, EntitiesService) {
 
-
     $scope.motivoSelected = {};
 
     $scope.estadoSelected = {};
-    //$scope.estadoDS = EntitiesService.ticketrechazo.estados(onEstadoDSLoad, $scope.onFail);
     $scope.estadoRO = true;
 
     // $scope.parametros = EntitiesService.resources.parametros.get({ distritoId: $scope.distritoSelected.Key });
@@ -166,9 +164,7 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.puntoEntregaRO = true;
     $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, onPuntoEntregaDSLoad, $scope.onFail);
 
-    $scope.distribucionDS = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onFail);
     $scope.distribucionSelected = {};
-    $scope.distribucionRO = true;
 
     $scope.supervisorRutaSelected = {};
     $scope.supervisorRutaRO = true;

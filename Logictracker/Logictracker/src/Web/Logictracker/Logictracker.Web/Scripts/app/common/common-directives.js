@@ -346,4 +346,42 @@
 			'</input>'
         ].join('')
     };
+})
+
+.directive('ltAcDistribucion', function(){
+    function DistribucionController($scope, EntitiesService){
+        $scope.dataSource = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key }, null, $scope.onFail);
+        $scope.$watch("dependsOn", onSelected);
+
+        function onSelected(newValue, oldValue) {
+            if (newValue != null && newValue !== oldValue) {
+                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });
+            }
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope:{
+            model: '=ltNgModel',
+            dependsOn: "=ltDependsOnBase",
+            distrito: "=ltDataDistrito",
+            kTemplate: "=ltTemplate"
+        },
+        controller: ['$scope', 'EntitiesService', DistribucionController],
+        template: [
+            '<input class="form-control k-textbox" ',
+                'kendo-auto-complete ',
+                'k-ng-model="model" ',
+                'k-data-source="dataSource" ',
+                'k-data-text-field="\'Codigo\'" ',
+                'k-filter="\'contains\'" ',
+                'k-min-length="3" ',
+                'k-template="kTemplate"/> ',
+        ].join('')
+    }
 });
