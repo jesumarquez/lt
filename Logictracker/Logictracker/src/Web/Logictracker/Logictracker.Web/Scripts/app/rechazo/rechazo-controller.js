@@ -160,6 +160,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
+        { template:  kendo.template($("#rechazo-sem").html()) , width : "10px"},
         { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
         { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Estado", title: "Estado" },
@@ -170,6 +171,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         { field: "SupRutDesc", title: "Sup. Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Territorio", title: "Territorio", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
+
         ]
     }
 

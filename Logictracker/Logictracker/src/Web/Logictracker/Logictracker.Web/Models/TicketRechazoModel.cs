@@ -88,7 +88,7 @@ namespace Logictracker.Web.Controllers.api
             model.ClienteDesc = entity.Cliente.Descripcion;
             model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
             model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
-            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.UltimoEstado));
+            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Detalle.First().Estado));
             model.Territorio = entity.Territorio;
             model.Motivo = entity.Motivo;
             model.MotivoDesc = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
@@ -117,7 +117,7 @@ namespace Logictracker.Web.Controllers.api
                 model.VendedorDesc = entity.Vendedor.Entidad.Descripcion;
             }
 
-            model.FechaHoraEstado = DateTime.SpecifyKind(entity.FechaHoraEstado, DateTimeKind.Utc);
+            model.FechaHoraEstado = DateTime.SpecifyKind(entity.Detalle.First().FechaHora, DateTimeKind.Utc);
             return model;
         }
 

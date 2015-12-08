@@ -162,3 +162,23 @@ textarea {
 .grid-colVisible{
 
 }
+
+.sem-red {
+    height: 12px;
+    width: 12px;
+    background-color: red;
+    border-radius: 6px;
+}
+.sem-green {
+    height: 12px;
+    width: 12px;
+    background-color: green;
+    border-radius: 6px;
+}
+
+.sem-yellow {
+    height: 12px;
+    width: 12px;
+    background-color: yellow;
+    border-radius: 6px;
+}
