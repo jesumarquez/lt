@@ -357,10 +357,14 @@ function RechazoItemController($scope, EntitiesService) {
 
         if (newValue !== undefined && newValue !== oldValue) {
 
+            if (newValue && (newValue.baseId !== $scope.baseSelected.Key)) {
+                $scope.notify.show("El vendedor  "+newValue.Descripcion + " pertenece a otra base", "warning");
+            }
+
             $scope.supervisorVentasDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                empleadoId: $scope.vendedorSelected.Key
+                empleadoId: $scope.vendedorSelected.EmpleadoId
             });
         }
         else {
@@ -467,7 +471,7 @@ function RechazoItemController($scope, EntitiesService) {
                 ClienteId: $scope.puntoEntregaSelected != null && $scope.puntoEntregaSelected[0] !== undefined ? $scope.puntoEntregaSelected[0].ClienteId : "",
                 Territorio: $scope.territorio,
                 Bultos: $scope.bultos,
-                VendedorId: $scope.vendedorSelected.Key,
+                VendedorId: $scope.vendedorSelected.EmpleadoId,
                 SupRutDesc: $scope.supervisorRutaSelected ? $scope.supervisorRutaSelected.Value : "",
                 SupVenDesc: $scope.supervisorVentasSelected ? $scope.supervisorVentasSelected.Value : "",
                 SupVenId: $scope.supervisorVentasSelected.Key,
