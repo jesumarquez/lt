@@ -4831,8 +4831,8 @@
   <data name="RESPUESTA_EXITOSA" xml:space="preserve">
     <value>Respuesta Exitosa</value>
   </data>
-  <data name="RESPUESTA_CON_RECHAZO" xml:space="preserve">
-    <value>Respuesta con Rechazo</value>
+  <data name="RESPUESTA_NO_EXITOSA" xml:space="preserve">
+    <value>Respuesta No Exitosa</value>
   </data>
   <data name="RECHAZADO" xml:space="preserve">
     <value>Rechazado</value>
