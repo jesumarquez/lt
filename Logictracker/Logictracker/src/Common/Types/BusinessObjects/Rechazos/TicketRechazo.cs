@@ -78,7 +78,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             Notificado2 = 15,
             Notificado3 = 16,
             RespuestaExitosa = 17,
-            RespuestaNoExitosa = 18,            
+            RespuestaConRechazo = 18,            
             Rechazado = 19
         }
 
@@ -96,13 +96,13 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             switch (actual)
             {
                 case Estado.Pendiente:
-                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado1, Estado.NoResuelta, Estado.Anulado };
+                    return new[] { Estado.Duplicado, Estado.AltaErronea, Estado.Notificado1, Estado.Anulado };
                 case Estado.Notificado: 
                     return new[] { Estado.Alertado };
                 case Estado.NotificadoAutomatico: 
                     return new[] { Estado.AlertadoAutomatico };                
                 case Estado.Alertado: 
-                    return new[] { Estado.RespuestaExitosa, Estado.RespuestaNoExitosa, Estado.NoResuelta, Estado.Anulado };
+                    return new[] { Estado.RespuestaExitosa, Estado.RespuestaConRechazo, Estado.Anulado };
                 case Estado.AlertadoAutomatico: 
                     return new[] { Estado.Resuelto, Estado.Anulado, };
                 case Estado.Resuelto: 
@@ -121,14 +121,14 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return new Estado[] { };
 
                 case Estado.Notificado1:
-                    return new[] { Estado.Notificado2, Estado.Alertado, Estado.NoResuelta, Estado.Anulado };
+                    return new[] { Estado.Notificado2, Estado.Alertado, Estado.Anulado };
                 case Estado.Notificado2:
-                    return new[] { Estado.Notificado3, Estado.Alertado, Estado.NoResuelta, Estado.Anulado };
+                    return new[] { Estado.Notificado3, Estado.Alertado, Estado.Anulado };
                 case Estado.Notificado3:
                     return new[] { Estado.Alertado, Estado.NoResuelta, Estado.Anulado };
                 case Estado.RespuestaExitosa:
                     return new[] { Estado.Avisado, Estado.NoResuelta, Estado.Anulado };
-                case Estado.RespuestaNoExitosa: 
+                case Estado.RespuestaConRechazo: 
                     return new Estado[] { };
                 case Estado.Rechazado: 
                     return new Estado[] { };
@@ -200,7 +200,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                 case Estado.Notificado2: return "NOTIFICADO_2";
                 case Estado.Notificado3: return "NOTIFICADO_3";
                 case Estado.RespuestaExitosa: return "RESPUESTA_EXITOSA";
-                case Estado.RespuestaNoExitosa: return "RESPUESTA_CON_RECHAZO";
+                case Estado.RespuestaConRechazo: return "RESPUESTA_CON_RECHAZO";
                 case Estado.Rechazado: return "RECHAZADO";                
                 default: throw new ArgumentOutOfRangeException("estado");
             }

@@ -33,7 +33,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
 
         public IEnumerable<TicketRechazo> GetActivos(int idEmpresa)
         {
-            var estadosActivos = new List<TicketRechazo.Estado> { TicketRechazo.Estado.Notificado1, TicketRechazo.Estado.Notificado2 };
+            var estadosActivos = new List<TicketRechazo.Estado> { TicketRechazo.Estado.Notificado1, TicketRechazo.Estado.Notificado2, TicketRechazo.Estado.Notificado3 };
 
             return Query.Where(t => t.Empresa.Id == idEmpresa && estadosActivos.Contains(t.UltimoEstado)).ToList();
         }
