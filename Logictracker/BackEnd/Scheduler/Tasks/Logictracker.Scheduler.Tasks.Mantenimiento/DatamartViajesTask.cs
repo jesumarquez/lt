@@ -228,6 +228,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             var noCompletadas = detalles.Count(d => d.Estado == EntregaDistribucion.Estados.NoCompletado);
             var visitadas = detalles.Count(d => d.Estado == EntregaDistribucion.Estados.Visitado);
             var sinVisitar = detalles.Count(d => d.Estado == EntregaDistribucion.Estados.SinVisitar);
+            var enSitio = detalles.Count(d => d.Estado == EntregaDistribucion.Estados.EnSitio);
+            var enZona = detalles.Count(d => d.Estado == EntregaDistribucion.Estados.EnZona);
 
             var entregas = detalles.Where(d => d.Entrada.HasValue && d.Salida.HasValue)
                                    .Select(d => d.Salida.Value.Subtract(d.Entrada.Value));
@@ -265,6 +267,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                   EntregasNoCompletadas = noCompletadas,
                                   EntregasNoVisitadas = sinVisitar,
                                   EntregasVisitadas = visitadas,
+                                  EntregasEnSitio = enSitio,
+                                  EntregasEnZona = enZona,
                                   HorasDetenido = hsDetenido,
                                   HorasEnEntrega = totalEntregas,
                                   Costo = costoViaje
