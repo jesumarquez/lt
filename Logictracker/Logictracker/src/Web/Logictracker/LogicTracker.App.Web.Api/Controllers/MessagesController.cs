@@ -121,41 +121,35 @@ namespace LogicTracker.App.Web.Api.Controllers
                                 esMensajeOculto = true;
                                 var messageLog = DaoFactory.LogMensajeDAO.FindById(message.Id);
 
-                                List<EvenDistri> distri = DaoFactory.EvenDistriDAO.GetByMensajes(new List<LogMensaje>() { messageLog });
                                 var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
                                 if (device == null) continue;
 
                                 var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
                                 if (employee == null) continue;
-
-                                foreach (var item in distri)
+                                
+                                var idRechazo = Convert.ToInt32(messageLog.Texto.Split(':')[0].Split(' ').Last());
+                                var rechazo = DaoFactory.TicketRechazoDAO.FindById(idRechazo);
+                                        
+                                if (rechazo != null)
                                 {
-                                    if (item.Entrega != null &&
-                                        item.Entrega.PuntoEntrega != null)
+                                    try
                                     {
-                                        var rechazo = DaoFactory.TicketRechazoDAO.GetByPuntoEntregaYFecha(item.Entrega.PuntoEntrega.Id, DateTime.Today, DateTime.UtcNow);
-                                        if (rechazo != null)
+                                        if (rechazo.UltimoEstado == TicketRechazo.Estado.Notificado1 ||
+                                            rechazo.UltimoEstado == TicketRechazo.Estado.Notificado2 ||
+                                            rechazo.UltimoEstado == TicketRechazo.Estado.Notificado3)
                                         {
-                                            try
-                                            {
-                                                if (rechazo.UltimoEstado == TicketRechazo.Estado.Notificado1 ||
-                                                    rechazo.UltimoEstado == TicketRechazo.Estado.Notificado2 ||
-                                                    rechazo.UltimoEstado == TicketRechazo.Estado.Notificado3)
-                                                {
-                                                    rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Alertado, "Confirma atención", employee);
-                                                    DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
-                                                }
-                                                else
-                                                {
-                                                    //El usuario ya fue alertado
-                                                }
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
-                                                    throw ex;
-                                            }
+                                            rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Alertado, "Confirma atención", employee);
+                                            DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
                                         }
+                                        else
+                                        {
+                                            //El usuario ya fue alertado
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
+                                            throw ex;
                                     }
                                 }
                                 break;
