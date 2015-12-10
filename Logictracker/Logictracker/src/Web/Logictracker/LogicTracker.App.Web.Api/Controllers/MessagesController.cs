@@ -138,8 +138,17 @@ namespace LogicTracker.App.Web.Api.Controllers
                                         {
                                             try
                                             {
-                                                rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.AlertadoAutomatico, "Mensaje leído", employee);
-                                                DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                                                if (rechazo.UltimoEstado == TicketRechazo.Estado.Notificado1 ||
+                                                    rechazo.UltimoEstado == TicketRechazo.Estado.Notificado2 ||
+                                                    rechazo.UltimoEstado == TicketRechazo.Estado.Notificado3)
+                                                {
+                                                    rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Alertado, "Confirma atención", employee);
+                                                    DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                                                }
+                                                else
+                                                {
+                                                    //El usuario ya fue alertado
+                                                }
                                             }
                                             catch (Exception ex)
                                             {

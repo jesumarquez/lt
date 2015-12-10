@@ -66,7 +66,7 @@ namespace Logictracker.Tracker.Application.Services
             if (employee == null) return null;
 
             // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
-            //if (vehicle == null) return null;
+            //if (vehicle == null) return null; 
 
             var companies = new[] { employee.Empresa.Id };
             var lineas = new int[] { };
@@ -214,8 +214,11 @@ namespace Logictracker.Tracker.Application.Services
                     {
                         try
                         {
-                            rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.NotificadoAutomatico, "Recepción OK", employee);
-                            DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                            if (rechazo.Vendedor.Id == employee.Id)
+                            {
+                                rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Notificado1, "Recepción OK", employee);
+                                DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                            }
                         }
                         catch (Exception ex)
                         {

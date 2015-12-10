@@ -300,6 +300,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReceptionController.cs" />
+    <Compile Include="Controllers\RejectionController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
@@ -331,6 +332,8 @@
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Geocerca.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\Rechazo.cs" />
     <Compile Include="Models\RouteEvent.cs" />
     <Compile Include="Models\FormulariosParametro.cs" />
     <Compile Include="Models\RouteItem.cs" />
@@ -488,7 +491,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>58615</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
