@@ -16,6 +16,7 @@
     </div>
 </script>
 
+
 <script id="tPuntoEntrega" type="text/x-kendo-template">
     <div>
         <span>#= data.Codigo #</span>
@@ -23,7 +24,6 @@
         <span style="font-size:xx-small;"> #= data.Descripcion #</span>
     </div>
 </script>
-
 <div ng-controller="RechazoItemController">
     <form kendo-validator="validator" ng-submit="onSave($event)">
 
@@ -118,8 +118,8 @@
                         <input class="form-control" kendo-combo-box
                                required
                                k-data-source="supervisorVentasDS"
-                               k-data-text-field="'Value'"
-                               k-data-value-field="'Key'"
+                               k-data-text-field="'Descripcion'"
+                               k-data-value-field="'EmpleadoId'"
                                k-ng-model="supervisorVentasSelected" />
                     </div>
                 </div>
@@ -129,8 +129,8 @@
                         <input class="form-control" kendo-combo-box
                                required
                                k-data-source="supervisorRutaDS"
-                               k-data-text-field="'Value'"
-                               k-data-value-field="'Key'"
+                               k-data-text-field="'Descripcion'"
+                               k-data-value-field="'EmpleadoId'"
                                k-ng-model="supervisorRutaSelected" />
                     </div>
                 </div>

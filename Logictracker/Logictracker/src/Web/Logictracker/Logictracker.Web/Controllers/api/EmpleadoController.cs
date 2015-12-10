@@ -28,6 +28,13 @@ namespace Logictracker.Web.Controllers.api
         }
 
 
+        [Route("api/Distrito/{distritoId}/base/{baseId}/empleado/{id}/reporta/models")]
+        public IEnumerable<EmpleadoModel> GetReportaModel(int distritoId, int baseId, int id)
+        {
+            return EntityDao.GetReporta(distritoId, baseId, id).Select(e => Mapper.EntityToModel(e,new EmpleadoModel())).ToList();
+        }
+
+
         [Route("api/Distrito/{distritoId}/base/{baseId}/empleado/{id}/reporta/items")]
         public IEnumerable<ItemModel> GetReporta(int distritoId, int baseId, int id)
         {

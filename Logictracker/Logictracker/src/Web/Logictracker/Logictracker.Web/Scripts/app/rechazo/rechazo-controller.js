@@ -53,6 +53,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
+        { template:  kendo.template($("#rechazo-sem").html()) , width : "10px"},
         { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
         { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Estado", title: "Estado" },
@@ -63,6 +64,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         { field: "SupRutDesc", title: "Sup. Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Territorio", title: "Territorio", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
+
         ]
     }
 
@@ -272,7 +274,7 @@ function RechazoItemController($scope, EntitiesService) {
             $scope.supervisorRutaDS.read({
                 distritoId: $scope.distritoSelected.Key,
                 baseId: $scope.baseSelected.Key,
-                empleadoId: $scope.supervisorVentasSelected.Key
+                empleadoId: $scope.supervisorVentasSelected.EmpleadoId
             });
         }
         else {
@@ -294,7 +296,7 @@ function RechazoItemController($scope, EntitiesService) {
                     $scope.supervisorRutaDS.read({
                         distritoId: $scope.distritoSelected.Key,
                         baseId: $scope.baseSelected.Key,
-                        empleadoId: $scope.supervisorVentasSelected.Key,
+                        empleadoId: $scope.supervisorVentasSelected.EmpleadoId,
                         tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
                     });
                 }
@@ -350,10 +352,10 @@ function RechazoItemController($scope, EntitiesService) {
                 Territorio: $scope.territorio,
                 Bultos: $scope.bultos,
                 VendedorId: $scope.vendedorSelected.EmpleadoId,
-                SupRutDesc: $scope.supervisorRutaSelected ? $scope.supervisorRutaSelected.Value : "",
-                SupVenDesc: $scope.supervisorVentasSelected ? $scope.supervisorVentasSelected.Value : "",
-                SupVenId: $scope.supervisorVentasSelected.Key,
-                SupRutId: $scope.supervisorRutaSelected.Key,
+                SupRutDesc: $scope.supervisorRutaSelected ? $scope.supervisorRutaSelected.Descripcion : "",
+                SupVenDesc: $scope.supervisorVentasSelected ? $scope.supervisorVentasSelected.Descripcion : "",
+                SupVenId: $scope.supervisorVentasSelected.EmpleadoId,
+                SupRutId: $scope.supervisorRutaSelected.EmpleadoId,
                 Motivo: $scope.motivoSelected.Key,
                 Estado: $scope.estadoSelected.Key,
                 Observacion: $scope.observacion,
