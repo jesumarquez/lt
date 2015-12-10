@@ -11,4 +11,5 @@
     "logictracker.rechazo.directives",
     "logictracker.ordenes.service",
     "logictracker.ordenes.controller",
-    "logictracker.ordenes.directives"]);
+    "logictracker.ordenes.directives",
+    "logictracker.common.directives"]);
