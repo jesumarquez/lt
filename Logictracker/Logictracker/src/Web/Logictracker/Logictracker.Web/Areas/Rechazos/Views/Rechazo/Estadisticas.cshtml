@@ -7,16 +7,15 @@
     <div class="row nl-filterpanel">
         <div class="col-md-2">
             @Html.ResourceLabel("Entities", "PARENTI01"):
-            <lt-rechazo-distrito />
-
+            <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
         </div>
         <div class="col-md-2">
             @Html.ResourceLabel("Entities", "PARENTI02"):
-            <lt-rechazo-base />
+            <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
         </div>
         <div class="col-md-4">
             @Html.ResourceLabel("Entities", "PARENTI07"):
-            <lt-rechazo-transportista/>
+            <lt-ms-transportista lt-ng-model="transportistaSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" />
         </div>
         <div class="col-md-2">
             <br/>
