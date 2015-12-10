@@ -27,22 +27,32 @@ namespace Logictracker.Scheduler.Tasks.MonitoreoRechazos
 
                     var activos = DaoFactory.TicketRechazoDAO.GetActivos(empresa.Id);
                     foreach (var rechazo in activos)
-                    {
-                        if (rechazo.FechaHoraEstado.AddMinutes(15) > DateTime.UtcNow)
+                    {                        
+                        switch (rechazo.UltimoEstado)
                         {
-                            switch (rechazo.UltimoEstado)
-                            {
-                                case TicketRechazo.Estado.Notificado1:
-                                    rechazo.ChangeEstado(TicketRechazo.Estado.Notificado2, "Informe a Supervisor de Ventas", rechazo.Vendedor.Reporta1);
+                            case TicketRechazo.Estado.Notificado1:
+                                if (rechazo.FechaHoraEstado.AddMinutes(15) < DateTime.UtcNow)
+                                {
+                                    rechazo.ChangeEstado(TicketRechazo.Estado.Notificado2, "Informe a Supervisor de Ventas", rechazo.SupervisorVenta);
                                     DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
-                                    break;
-                                case TicketRechazo.Estado.Notificado2:
-                                    rechazo.ChangeEstado(TicketRechazo.Estado.Notificado3, "Informe a Jefe de Ventas", rechazo.Vendedor.Reporta2);
+                                }
+                                break;
+                            case TicketRechazo.Estado.Notificado2:
+                                if (rechazo.FechaHoraEstado.AddMinutes(15) < DateTime.UtcNow)
+                                {
+                                    rechazo.ChangeEstado(TicketRechazo.Estado.Notificado3, "Informe a Jefe de Ventas", rechazo.SupervisorRuta);
                                     DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
-                                    break;
-                                default:
-                                    break;
-                            }
+                                }
+                                break;
+                            case TicketRechazo.Estado.Notificado3:
+                                if (rechazo.FechaHoraEstado.AddHours(6) < DateTime.UtcNow)
+                                {
+                                    rechazo.ChangeEstado(TicketRechazo.Estado.NoResuelta, "Rechazo no resuelto", rechazo.SupervisorRuta);
+                                    DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }

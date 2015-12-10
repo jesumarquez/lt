@@ -27,6 +27,8 @@ namespace Logictracker.Types.ReportObjects.Datamart
         public virtual int EntregasNoCompletadas { get; set; }
         public virtual int EntregasVisitadas { get; set; }
         public virtual int EntregasNoVisitadas { get; set; }
+        public virtual int EntregasEnSitio { get; set; }
+        public virtual int EntregasEnZona { get; set; }
         
         public virtual double EntregaMaxima { get; set; }
         public virtual double EntregaMinima { get; set; }
