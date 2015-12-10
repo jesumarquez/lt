@@ -146,7 +146,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
             var detalle = new DetalleTicketRechazo()
             {
-                Estado = UltimoEstado = Estado.Pendiente,
+                Estado =   Estado.Pendiente,
                 FechaHora = fechaHora,
                 Observacion = observacion,
                 Ticket = this,
@@ -168,7 +168,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             var detalle = new DetalleTicketRechazo
             {
                 // Ultimo estado es calculado solo se actualiza en memoria 
-                Estado = UltimoEstado = nuevoEstado,
+                Estado = nuevoEstado,
                 FechaHora = DateTime.UtcNow,
                 Observacion = observacion,
                 Ticket = this,
@@ -218,7 +218,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual Empleado SupervisorVenta { get; set; }
         public virtual string Territorio { get; set; }
         public virtual MotivoRechazo Motivo { get; set; }
-        public virtual Estado UltimoEstado { get; protected set; }
+        public virtual Estado UltimoEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().Estado; } }
         public virtual int Bultos { get; set; }
 
         private ISet<DetalleTicketRechazo> _detalles;
@@ -234,6 +234,6 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual bool EnHorario { get; set; }
         public virtual PuntoEntrega  Entrega { get; set; }
         public virtual Transportista Transportista { get; set; }
-        public virtual DateTime FechaHoraEstado { get; set; }
+        public virtual DateTime FechaHoraEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().FechaHora; } }
     }
 }
