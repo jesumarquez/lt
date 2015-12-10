@@ -9,6 +9,11 @@ using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
 using System;
 using NHibernate.Criterion;
+using Logictracker.DAL.Factories;
+using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
+using Logictracker.Types.BusinessObjects.Messages;
+using Logictracker.DAL.DAO.BusinessObjects.Messages;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -78,6 +83,42 @@ namespace Logictracker.Web.Controllers.api
             EntityDao.Save(rechazoEntity);
 
             Mapper.EntityToModel(rechazoEntity, rechazoModel);
+
+            var empleado = rechazoEntity.Entrega.Responsable;
+            if (empleado != null)
+            {
+                var cocheDao = DAOFactory.GetDao<CocheDAO>();
+                var mensajeDao = DAOFactory.GetDao<MensajeDAO>();
+                var logMensajeDao = DAOFactory.GetDao<LogMensajeDAO>();
+
+                var coche = cocheDao.FindByChofer(empleado.Id);
+                var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo), coche.Empresa, coche.Linea);
+                var mensaje = mensajeDao.FindById(mensajeVO.Id);
+                if (coche != null && mensaje != null)
+                {
+                    var newEvent = new LogMensaje
+                    {
+                        Coche = coche,
+                        Chofer = empleado,
+                        CodigoMensaje = mensaje.Codigo,
+                        Dispositivo = coche.Dispositivo,
+                        Expiracion = DateTime.UtcNow.AddDays(1),
+                        Fecha = DateTime.UtcNow,
+                        FechaAlta = DateTime.UtcNow,
+                        FechaFin = DateTime.UtcNow,
+                        IdCoche = coche.Id,
+                        Latitud = 0,
+                        LatitudFin = 0,
+                        Longitud = 0,
+                        LongitudFin = 0,
+                        Mensaje = mensaje,
+                        Texto = "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " + rechazoEntity.Entrega.Descripcion,
+                        Usuario = Usuario                        
+                    };
+
+                    logMensajeDao.Save(newEvent);
+                }
+            }
 
             return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
         }
