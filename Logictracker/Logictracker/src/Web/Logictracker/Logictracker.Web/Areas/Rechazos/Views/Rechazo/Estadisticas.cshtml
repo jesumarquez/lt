@@ -29,27 +29,43 @@
     <div class="row">
         <div class="col-md-2">
             <div class="row">
-                <div class="col-md-12 k-content GaugeContainer">
-                    <label>Promedio OL</label>
+                <div class="col-md-12 GaugeContainer">
+                    <div>Promedio Vendedor</div>
                     <span kendo-radialgauge
                           k-scale="averageScale"
-                          ng-model="averageOL"></span>
+                          ng-model="promedioVendedor"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 GaugeContainer">
-                    <label>Promedio Vendedores</label>
+                    <div>Promedio Sup. Ventas</div>
                     <span kendo-radialgauge
                           k-scale="averageScale"
-                          ng-model="averageVendedores"></span>
+                          ng-model="promedioSupervisorVentas"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 GaugeContainer">
+                    <div>Promedio Jefe Ventas</div>
+                    <span kendo-radialgauge
+                          k-scale="averageScale"
+                          ng-model="promedioJefeVentas"></span>
                 </div>
             </div>
         </div>
         <div class="col-md-10">
-            <div class="row">
-                <div class="col-md-8 StatsContent-top">
-                    <div kendo-grid k-options="gridOptions" k-data-source="statsDS"></div>
+            <div class="row StatsContent-top">
+                <div class="col-md-8 ">
+                    <div>Promedio de atención por Vendedor</div>
+                    <div kendo-grid k-options="opcionesGrillaVendedor" k-data-source="datosGrillaVendedor"></div>
                 </div>
+                <div class="col-md-4 ">
+                    <div>Promedio de atención por estados</div>
+                    <div kendo-grid k-options="opcionesGrillaEstados" k-data-source="datosGrillaEstados"></div>
+                </div>
+            </div>
+            <div class="row StatsContent-bottom">
+                <div class="col-md-8 ">data3</div>
                 <div class="col-md-4 GaugeContainer">
                     <div kendo-chart
                          k-series-defaults="{ type: 'pie' }"
@@ -61,9 +77,6 @@
                          k-data-source="screenResolution">
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 StatsContent-bottom">data3</div>
             </div>
         </div>
 

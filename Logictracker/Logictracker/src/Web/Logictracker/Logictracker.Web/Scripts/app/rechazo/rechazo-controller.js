@@ -466,25 +466,41 @@ function RechazoEstadisticasController($scope, EntitiesService) {
 
     $scope.autoRefesh = true;
 
-    $scope.gridOptions = {
+    $scope.opcionesGrillaVendedor = {
         columns: [
             { field: "Usuario", title: "Usuario" },
             { field: "EstadoIngreso", title: "De estado" },
             { field: "EstadoEgreso", title: "A estado" },
             { field: "Intervinio", title: "Intervinio en" },
-            { field: "Promedio", title: "Promedio (min)" },
+            { field: "Promedio", title: "Promedio (min)" }
         ]
     };
-    $scope.statsDS = [
+
+    $scope.opcionesGrillaEstados = {
+        columns: [
+            { field: "Estado", title: "Estado" },
+            { field: "Promedio", title: "Promedio (min)" }
+        ]
+    };
+
+    $scope.datosGrillaVendedor = [
         {
             Usuario: "Giacomo Guillizani"
         }
     ];
 
+    $scope.datosGrillaEstados = [
+        {
+            Estado: "Pediente",
+            Promedio: 5
+        }
+    ];
+
 
     $scope.averageScale = { min: 0, max: 100 };
-    $scope.averageOL = 50;
-    $scope.averageVendedores = 25;
+    $scope.promedioVendedor = 54;
+    $scope.promedioSupervisorVentas = 25;
+    $scope.promedioJefeVentas = 25;
 
     $scope.screenResolution = new kendo.data.DataSource({
         transport: {
