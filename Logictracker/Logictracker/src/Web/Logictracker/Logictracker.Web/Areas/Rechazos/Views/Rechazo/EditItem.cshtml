@@ -8,59 +8,59 @@
         <div class="InputContainer">
             <div class="InputContainer-column">
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Motivo"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "MOTIVO"):</span>
                     <span class="InputGroup__control">{{ticketItem.MotivoDesc}}</span>
                 </div>
 
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Estado"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "ESTADO"):</span>
                     <lt-rechazo-estado class="InputGroup__control" />
                 </div>
 
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "CODIGO_DISTRIBUCION"):</span>
                     <span class="InputGroup__control">{{ticketItem.CodigoDistribucion}}</span>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Entities", "PARENTI44"):</span>
                     <div class="InputGroup__control">{{ticketItem.EntregaCodigo}} {{ticketItem.EntregaDesc}}</div>
                 </div>
             </div>
             <div class="InputContainer-column">
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Transportista"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Entities", "PARENTI07"):</span>
                     <span class="InputGroup__control">{{ticketItem.TransportistaDesc}}</span>
                 </div>
 
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Cadena"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Entities", "PARENTI18"):</span>
                     <span class="InputGroup__control">{{ticketItem.ClienteDesc}}</span>
                 </div>
 
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "TERRITORIO"):</span>
                     <span class="InputGroup__control">{{ticketItem.Territorio}}</span>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Bultos"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "BULTOS"):</span>
                     <span class="InputGroup__control">{{ticketItem.Bultos}}</span>
                 </div>
             </div>
             <div class="InputContainer-column">
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Vendedor"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "VENDEDOR"):</span>
                     <span class="InputGroup__control">{{ticketItem.VendedorDesc}}</span>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "SUPERVISOR_VENTAS"):</span>
                     <span class="InputGroup__control">{{ticketItem.SupVenDesc}}</span>
                 </div>
                 <div class="InputGroup" style="max-height: 5em">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "SUPERVISOR_RUTA"):</span>
                     <div class="InputGroup__control">{{ticketItem.SupRutDesc}}</div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "EN_HORARIO"):</span>
                     <span class="InputGroup__control">{{ticketItem.EnHorario ? 'Si' : 'No'}}</span>
                 </div>
             </div>
@@ -68,7 +68,7 @@
 
         <div class="InputContainer">
             <div class="InputGroup">
-                <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Observaciones"):</span>
+                <span class="InputGroup__label">@Html.ResourceLabel("Labels", "OBSERVACIONES"):</span>
                 <div class="InputGroup__control">
                     <textarea class="form-control"
                               kendo-editor
@@ -79,14 +79,14 @@
         <br />
 
         <div class="form-group">
-            <button kendo-button type="button" ng-click="onClose()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Cerrar")</button>
-            <button kendo-button type="submit" ng-disabled="!estadoSelected" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "Guardar")</button>
+            <button kendo-button type="button" ng-click="onClose()" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "CERRAR")</button>
+            <button kendo-button type="submit" ng-disabled="!estadoSelected" style="float: right; margin-left: 3em; min-width: 10em;">@Html.ResourceLabel("Labels", "GUARDAR")</button>
         </div>
 
         <br />
         <br />
         <div class="form-group">
-            <span>@Html.ResourceLabel("Labels", "Información del Ticket:")</span>
+            <span>@Html.ResourceLabel("Labels", "INFORMACION_DEL_TICKET"):</span>
             <div kendo-grid k-options="gridDetalleOptions" k-data-source="ticketItem.Detalle"></div>
         </div>
     </form>

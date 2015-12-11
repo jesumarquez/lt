@@ -24,9 +24,9 @@ function EntitiesService($resource, $http) {
             centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId", deptoId: "@deptoId" }),
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
-            empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/items"),
-            empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items"),
-            empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/item"),
+            empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/models"),
+            empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/models"),
+            empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/model"),
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData"),
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
@@ -235,14 +235,16 @@ function EntitiesService($resource, $http) {
                         op.data.baseId !== undefined && op.data.baseId !== "") {
 
                         if (op.data.tipoEmpleadoCodigo != null && op.data.tipoEmpleadoCodigo !== "") {
+                            // No se filtra por base
                             getData(_service.resources.empleadoByTipo,
                                 op,
-                                { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo });
+                                { distritoId: op.data.distritoId, baseId: -1, tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo });
                         }
                         else if (op.data.empleadoId != null && op.data.empleadoId !== "") {
+                            // No se filtra por base
                             getData(_service.resources.empleado,
                                 op,
-                                { distritoId: op.data.distritoId, baseId: op.data.baseId, empleadoId: op.data.empleadoId });
+                                { distritoId: op.data.distritoId, baseId: -1, empleadoId: op.data.empleadoId });
                         }
                     }
                     else {

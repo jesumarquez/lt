@@ -196,7 +196,39 @@ namespace Logictracker.Tracker.Application.Services
             var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             if (vehicle == null) return null;
 
-            return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1);
+            List<int> vehicles = new List<int>();
+            vehicles.Add(vehicle.Id);
+
+            List<LogMensaje> lista = new List<LogMensaje>();
+            List<string> listacodigosrechazos = (List<string>)DaoFactory.MensajeDAO.FindByEmpresaYLineaAndUser(employee.Empresa, employee.Linea, null).Where(x=> x.TipoMensaje.DeRechazo).Select(x => x.Codigo).ToList();
+
+            lista.AddRange(DaoFactory.LogMensajeDAO.GetByVehiclesAndCodes(vehicles, listacodigosrechazos, dt, DateTime.UtcNow, 1).Where(x=> x.Texto.ToUpper().Contains("INFORME")));
+            
+            foreach (var item in DaoFactory.EvenDistriDAO.GetByMensajes(lista))
+            {
+                if (item.Entrega != null &&
+                    item.Entrega.PuntoEntrega != null)
+                {
+                    var rechazo = DaoFactory.TicketRechazoDAO.GetByPuntoEntregaYFecha(item.Entrega.PuntoEntrega.Id, dt, DateTime.UtcNow);
+                    if (rechazo != null)
+                    {
+                        try
+                        {
+                            rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.NotificadoAutomatico, "Recepción OK", employee);
+                            DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                        }
+                        catch (Exception ex)
+                        {
+                            if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
+                            throw ex;
+                        }
+                    }
+                }
+            }
+            
+           lista.AddRange(DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1));
+           return lista;
+            //return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1);
 
         }
 
