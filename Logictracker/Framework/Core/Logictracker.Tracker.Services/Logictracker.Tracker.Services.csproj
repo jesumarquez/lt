@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Logictracker.Tracker.Application.Services">
+      <HintPath>..\..\..\Logictracker\src\Web\Logictracker\LogicTracker.App.Web.Api\Bin\Logictracker.Tracker.Application.Services.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,7 +49,7 @@
     <Compile Include="IReportService.cs" />
     <Compile Include="IRouteService.cs" />
     <Compile Include="IRoutingService.cs" />
-    <Compile Include="IWebServiceClient.cs" />
+    <Compile Include="IIntegrationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

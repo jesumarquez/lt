@@ -1,5 +1,8 @@
-﻿namespace Logictracker.Tracker.Application.WebServiceConsumer
+﻿using System;
+
+namespace Logictracker.Types.BusinessObjects.CicloLogistico
 {
+    [Serializable]
     public class LocationSos
     {
         public LocationSos(string lat, string lon, string dir, string loc)

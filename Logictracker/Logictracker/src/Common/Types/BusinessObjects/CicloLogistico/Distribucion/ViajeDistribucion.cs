@@ -76,7 +76,6 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 
         public virtual DateTime? MinTiempoProgramado { get; set; }
         public virtual DateTime? MaxTiempoProgramado { get; set; }
-
         public virtual int EntregasTotalCount { get; set; }
         public virtual int EntregasTotalCountConBases { get; set; }
 
@@ -87,7 +86,14 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual int EntregasNoCompletadosCount { get; set; }
         public virtual int EntregasNoVisitadosCount { get; set; }
         public virtual int EntregasPendientesCount { get; set; }
-        
+
+        //private IList<ParametroDistribucion> _parametros;
+        //public virtual IList<ParametroDistribucion> Parametros
+        //{
+        //    get { return _parametros ?? (_parametros = new List<ParametroDistribucion>()); }
+        //    set { _parametros = value; }
+        //}
+
         public virtual int EntregasNomencladasCount { get; set; }
 
         private IList<EntregaDistribucion> _detalles;
@@ -102,13 +108,6 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         {
             get { return _estadosCumplidos ?? (_estadosCumplidos = new List<EstadoDistribucion>()); }
             set { _estadosCumplidos = value; }
-        }
-
-        private IList<ParametroDistribucion> _parametros;
-        public virtual IList<ParametroDistribucion> Parametros
-        {
-            get { return _parametros ?? (_parametros = new List<ParametroDistribucion>()); }
-            set { _parametros = value; }
         }
 
         private IList<RecorridoDistribucion> _recorrido;

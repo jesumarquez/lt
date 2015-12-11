@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Logictracker.Tracker.Application.WebServiceConsumer")]
+[assembly: AssemblyTitle("Logictracker.Tracker.Application.SosAlertsProcessor.Host")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Logictracker.Tracker.Application.WebServiceConsumer")]
+[assembly: AssemblyProduct("Logictracker.Tracker.Application.SosAlertsProcessor.Host")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("66379840-0a5d-4af6-b1e3-cf6927efe36f")]
+[assembly: Guid("90d736a7-39bf-426b-910f-37a6e444e025")]
 
 // Version information for an assembly consists of the following four values:
 //
