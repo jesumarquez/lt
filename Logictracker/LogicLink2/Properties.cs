@@ -154,7 +154,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             public const int GasoilPremium = 17;
             public const int GasoilMayor500 = 18;
             public const int Observaciones = 19;
+        }
 
+        public class AsignacionClienteEmpleado
+        {
+            public const int CodigoCliente = 0;
+            public const int Legajo = 2;
         }
     }
 }

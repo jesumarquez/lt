@@ -7,6 +7,7 @@ namespace Logictracker.Web.Controllers
 {
     public interface IFunctionController
     {
-        string ReferenceName { get; }
+        string VariableName { get; }
+        string GetRefference();
     }
 }

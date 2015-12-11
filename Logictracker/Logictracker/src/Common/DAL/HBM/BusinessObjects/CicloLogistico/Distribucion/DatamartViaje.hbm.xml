@@ -22,6 +22,8 @@
     <property column="opetick07_entregas_no_completadas" name="EntregasNoCompletadas" />
     <property column="opetick07_entregas_visitadas" name="EntregasVisitadas" />
     <property column="opetick07_entregas_no_visitadas" name="EntregasNoVisitadas" />
+    <property column="opetick07_entregas_en_sitio" name="EntregasEnSitio" />
+    <property column="opetick07_entregas_en_zona" name="EntregasEnZona" />
     
     <property column="opetick07_horas_detenido" name="HorasDetenido" />    
     <property column="opetick07_horas_en_entrega" name="HorasEnEntrega" />

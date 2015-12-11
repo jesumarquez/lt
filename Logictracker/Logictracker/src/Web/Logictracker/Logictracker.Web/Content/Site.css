@@ -68,9 +68,14 @@ textarea {
  
 .InputContainer{
 	display: flex;
+    flex-direction: row;
 	justify-content: space-between;
+    flex-wrap: wrap;
 }
-
+    .InputContainer-column{
+        display: flex;
+        flex-direction: column;
+    }
 	.InputGroup{
 		display: flex;
 		justify-content: space-between;
@@ -95,3 +100,65 @@ textarea {
     width:50%;
 }
 
+/*
+    TextArea
+*/
+.InputGroup__control table.k-editor {
+    height:5em;
+    table-layout: auto;
+}
+
+.InputGroup__control .k-editor .k-editable-area{
+    height:5em;
+}
+
+
+/**/
+.GaugeContainer{
+	height: 260px;
+	border: 1px lightgray solid;
+	padding: 0;
+	text-align: center;
+}
+
+.GaugeContainer > span[kendo-radialgauge] {
+    height: 80%;
+    display: block;
+} 
+
+.GaugeContainer > div[kendo-chart] {
+	height: 180px;
+}
+
+.StatsContent-top{
+	border: 1px lightgray solid;
+	text-align: center;
+	height: 320px;
+}
+
+.StatsContent-bottom{
+	border: 1px lightgray solid;
+	text-align: center;
+	height: 200px;
+}
+
+.k-invalid, .k-invalid>span:first-child{
+    border-color : red !important;
+}
+
+.k-widget.k-tooltip-validation {
+  display: none !important;
+}
+
+.k-grid {
+    font-size: .8em;
+}
+
+@media (max-width: 700px){
+  .grid-colVisible {
+    display: none;
+  }
+}
+.grid-colVisible{
+
+}

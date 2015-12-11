@@ -180,6 +180,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             result = string.Format("Archivo procesado exitosamente. Pedidos: {0}", pedidos);
                             if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
+                        case LogicLinkFile.Estrategias.AsignacionClienteEmpleado:
+                            var asignados = 0;
+                            AsignacionClienteEmpleado.Parse(archivo, out asignados, out observaciones);
+                            result = string.Format("Archivo procesado exitosamente. Asignados: {0}", asignados);
+                            if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
+                            break;
                     }
 
                     archivo.Status = LogicLinkFile.Estados.Procesado;

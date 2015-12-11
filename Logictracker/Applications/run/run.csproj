@@ -236,6 +236,10 @@
       <Project>{9353DB7D-85AB-49F2-BA17-5D54AA0D480B}</Project>
       <Name>Logictracker.Scheduler.Tasks.Mantenimiento</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.MonitoreoRechazos\Logictracker.Scheduler.Tasks.MonitoreoRechazos.csproj">
+      <Project>{01d2b01f-8415-4a07-82d5-499adeb37b3c}</Project>
+      <Name>Logictracker.Scheduler.Tasks.MonitoreoRechazos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.OrbComm\Logictracker.Scheduler.Tasks.OrbComm.csproj">
       <Project>{F892AC8A-2521-460A-8581-997F7D8100A7}</Project>
       <Name>Logictracker.Scheduler.Tasks.OrbComm</Name>

@@ -26,6 +26,7 @@ namespace Logictracker.Types.ValueObjects.Mensajes
         public const int IndexEvaluaGeocerca = 13;
         public const int IndexReportaAssistCargo = 14;
         public const int IndexEnviaReporte = 15;
+        public const int IndexReportaResponsable = 16;
 
         public int Id { get; set; }
 
@@ -77,6 +78,9 @@ namespace Logictracker.Types.ValueObjects.Mensajes
         [GridMapping(Index = IndexEnviaReporte, IsTemplate = true, ResourceName = "Labels", VariableName = "ENVIA_REPORTE", Width = "60px", AllowGroup = false)]
         public bool EnviaReporte { get; set; }
 
+        [GridMapping(Index = IndexReportaResponsable, IsTemplate = true, ResourceName = "Labels", VariableName = "REPORTA_RESPONSABLE_CUENTA", Width = "60px", AllowGroup = false)]
+        public bool ReportaResponsable { get; set; }
+
         public byte Alpha { get; set; }
         public byte Red { get; set; }
         public byte Green { get; set; }
@@ -103,6 +107,7 @@ namespace Logictracker.Types.ValueObjects.Mensajes
             PideFoto = accion.PideFoto;
             ReportaAssistCargo = accion.ReportarAssistCargo;
             EnviaReporte = accion.EnviaReporte;
+            ReportaResponsable = accion.ReportaResponsableCuenta;
 
             Alpha = accion.Alfa;
             Red = accion.Red;

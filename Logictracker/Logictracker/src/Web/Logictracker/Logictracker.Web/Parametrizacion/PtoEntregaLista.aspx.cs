@@ -44,6 +44,8 @@ namespace Logictracker.Parametrizacion
                     Session["Base"] = Base;
                 if (Session["totalVirtualRows"] == null)
                     Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;                
                 Grid.AllowPaging = true;
                 Grid.AllowCustomPaging = true;
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
@@ -60,6 +62,8 @@ namespace Logictracker.Parametrizacion
                     Session["Base"] = Base;
                 if (Session["totalVirtualRows"] == null)
                     Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;
                 Grid.AllowPaging = true;
                 Grid.AllowCustomPaging = false;
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
@@ -76,6 +80,7 @@ namespace Logictracker.Parametrizacion
             Session["SelectedClient"] = null;
             Session["Distrito"] = null;
             Session["Base"] = null;
+            Session["SearchString"] = null;
             if (CheckBoxActivarPaginacion.Checked)
             {
                 if (Session["SelectedClient"] == null)
@@ -86,6 +91,8 @@ namespace Logictracker.Parametrizacion
                     Session["Base"] = Base;
                 if (Session["totalVirtualRows"] == null)
                     Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;
                 Grid.AllowPaging = true;
                 Grid.AllowCustomPaging = true;
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
@@ -102,6 +109,8 @@ namespace Logictracker.Parametrizacion
                     Session["Base"] = Base;
                 if (Session["totalVirtualRows"] == null)
                     Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;
                 Grid.AllowPaging = true;
                 Grid.AllowCustomPaging = false;
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
@@ -118,7 +127,7 @@ namespace Logictracker.Parametrizacion
              
         protected override List<PuntoEntregaVo> GetListData()
         {
-
+            string TEXT = SearchString;
             var puntos = new List<PuntoEntrega>();
             if (ddlCliente.Selected > 0)
             {
@@ -140,7 +149,7 @@ namespace Logictracker.Parametrizacion
                     else
                     {
                         if (SelectedClient.Equals(ddlCliente.Selected))
-                        {
+                        {                            
                             recount = false;
                             SelectedClient = ddlCliente.Selected;
                             Session["SelectedClient"] = ddlCliente.Selected;
@@ -148,17 +157,23 @@ namespace Logictracker.Parametrizacion
                             Session["Base"] = ddlBase.Selected;
                         }
                     }
-
-                    puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected, Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount);
-                    if (recount)
+                    if (Session["SearchString"] != null && 
+                        !Session["SearchString"].ToString().Equals(SearchString))                       
                     {
+                        recount = true;
+                        Session["SearchString"] = SearchString;
+                    }
+
+                    puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected, Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount, SearchString);
+                    //if (recount)
+                    //{
                         Session["totalVirtualRows"] = totalVirtualRows;
                         Grid.VirtualItemCount = totalVirtualRows;
-                    }
+                   // }
                 }
                 else
-                { 
-                    puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected);                   
+                {
+                    puntos = DAOFactory.PuntoEntregaDAO.GetByCliente(ddlCliente.Selected, SearchString);                   
                 }               
             }
             

@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Http;
-using log4net;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Positions;
-using Newtonsoft.Json;
+using Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
     public class RoutesController : BaseController
     {
         public IRouteService RouteService { get; set; }
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(RoutesController));
 
         public static string ROUTE_STATUS_PENDING = "0";
         public static string ROUTE_STATUS_ACTIVE = "1";
         public static string ROUTE_STATUS_FINALIZE = "9";
 
+
         // GET: api/Routes/
+       // [LogicTracker.App.Web.Api.Providers.CompressContent]
         public IHttpActionResult Get()
         {
             var deviceId = GetDeviceId(Request);
@@ -43,7 +43,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             {
                 if (!viajeDistribucion.Estado.ToString().Equals(ROUTE_STATUS_FINALIZE))
                 {
-                    items.Add(new RouteItem()
+                   RouteItem element = new RouteItem()
                     {
                         Code = viajeDistribucion.Codigo,
                         DeliveriesNumber = viajeDistribucion.Detalles.Count - 1,
@@ -51,15 +51,21 @@ namespace LogicTracker.App.Web.Api.Controllers
                         Places = PlacesToDescription(viajeDistribucion),
                         Status = viajeDistribucion.Estado.ToString(),
                         StartDateTime = viajeDistribucion.Inicio
-                    });
+
+                    };
+                   if (viajeDistribucion.Vehiculo != null)
+                   { 
+                       element.patente = viajeDistribucion.Vehiculo.Patente;
+                       element.interno = viajeDistribucion.Vehiculo.Interno;
+                   }
+                   items.Add(element);
                 }
             }
 
             listRoute.RouteItems = items.ToArray();
-            Logger.Info(JsonConvert.SerializeObject(listRoute));
             return Ok(listRoute);
         }
-
+        
         private string PlacesToDescription(ViajeDistribucion viajeDistribucion)
         {
             var places = new StringBuilder();
@@ -107,10 +113,26 @@ namespace LogicTracker.App.Web.Api.Controllers
                         job.Code = detail.Cliente.Codigo;
                     }
                 }
+                if (detail.ReferenciaGeografica != null &&
+                    detail.ReferenciaGeografica.Direccion != null &&
+                    detail.ReferenciaGeografica.Direccion.Descripcion != null &&
+                    !String.IsNullOrEmpty(detail.ReferenciaGeografica.Direccion.Calle))
+                {
+                    if (detail.ReferenciaGeografica.Direccion.Altura > 0)
+                        job.direccionreal = detail.ReferenciaGeografica.Direccion.Calle.ToString() + " "
+                            + detail.ReferenciaGeografica.Direccion.Altura + " , " + detail.ReferenciaGeografica.Direccion.Partido;
+                    else
+                        job.direccionreal = detail.ReferenciaGeografica.Direccion.Descripcion;
+                }
                 job.Description = detail.Descripcion;
 
                 job.Order = detail.Orden;
                 job.Location = new Location();
+
+                job.Volumen = (float)detail.Volumen;
+                job.Quantity = detail.Bultos;
+                job.Value = (float)detail.Valor;
+                job.Weight = (float)detail.Peso;
 
                 if (detail.PuntoEntrega != null)
                 {
@@ -126,9 +148,16 @@ namespace LogicTracker.App.Web.Api.Controllers
                 if (detail.PuntoEntrega != null)
                     jobs.Add(job);
             }
-
+            
             route.Jobs = jobs.ToArray();
-            Logger.Info(JsonConvert.SerializeObject(route));
+            
+            if (trip.Recepcion == null)
+            {
+                ViajeDistribucionDAO vd = new ViajeDistribucionDAO();
+                trip.Recepcion = DateTime.UtcNow;
+                vd.SaveOrUpdate(trip);
+            }
+
             return Ok(route);
         }
         
@@ -156,6 +185,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = routeState.RouteId }, content: routeState);
         }
 
+
         // POST: api/Routes
         public IHttpActionResult Post(int id, [FromBody]RouteEvent routeEvent)
         {
@@ -166,7 +196,9 @@ namespace LogicTracker.App.Web.Api.Controllers
             switch (routeEvent.RouteCommand.ToUpper())
             {
                 case "START":
-                    commandStatus = RouteService.StartRoute(id);
+                    { 
+                        commandStatus = RouteService.StartRoute(id);                       
+                    }
                     break;
                 case "FINALIZE":
                     commandStatus = RouteService.FinalizeRoute(id);

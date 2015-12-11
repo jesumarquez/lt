@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
-  <class name="Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo,Logictracker.Types" table="opetick10" lazy="true">
+  <class name="Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo,Logictracker.Types" table="opetick10" lazy="true" dynamic-update="true">
     <cache usage="read-write" />
     <id name="Id" column="id_opetick10" type="Int32" unsaved-value="0">
       <generator class="native" />
@@ -13,17 +13,29 @@
     <many-to-one name="Vendedor" column="rela_parenti09_vendedor" lazy="proxy" />
     <many-to-one name="SupervisorVenta" column="rela_parenti09_supervisor_ventas" lazy="proxy" />
     <many-to-one name="SupervisorRuta" column="rela_parenti09_supervisor_ruta" lazy="proxy" />
-
+    <many-to-one name="Entrega" column="rela_parenti44" lazy="proxy"/>
+    <many-to-one name="Transportista" column="rela_parenti07" lazy="proxy"/>
+    
     <property column="opetick10_fecha" type="DateTime" not-null="true"  name="FechaHora" />
     <property column="opetick10_territorio" type="string" name="Territorio" />
-    <property column="opetick10_motivo" type="int" name="Motivo" />
+    <property column="opetick10_motivo" name="Motivo" />
     <property column="opetick10_bultos" type="int" name="Bultos" />
+    <property column="opetick10_estado_final"  name="Final" />
 
+    <property column="opetick10_ultimo_estado_fecha" type="DateTime" name="FechaHoraEstado" 
+              formula="(select top 1 td.opetick11_fecha from opetick11 td where td.rela_opetick10 =  id_opetick10 order by td.opetick11_fecha desc)"
+               />
+
+    <property column="opetick10_ultimo_estado" name="UltimoEstado"
+             formula="(select top 1 td.opetick11_estado from opetick11 td where td.rela_opetick10 =  id_opetick10 order by td.opetick11_fecha desc)"
+               />
+     
     <set name="_detalles" access="field" lazy="true" inverse="true"
          cascade="all-delete-orphan" order-by="opetick11_fecha DESC">
       <cache usage="read-write" />
       <key column="rela_opetick10" />
       <one-to-many class="Logictracker.Types.BusinessObjects.Rechazos.DetalleTicketRechazo,Logictracker.Types" />
     </set>
+    
   </class>
 </hibernate-mapping>

@@ -14,12 +14,7 @@ namespace Logictracker.Web.Controllers
             return View("OrdersList");
         }
 
-        public string ReferenceName
-        {
-            get
-            {
-                return "Orders";
-            }
-        }
+        public string VariableName { get { return "Orders"; } }
+        public string GetRefference() { return "Orders"; }
     }
 }
