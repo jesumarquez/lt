@@ -96,6 +96,19 @@ namespace Logictracker.Web.Controllers.api
         //{
         //    return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
         //}
+
+        [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/rol")]
+        public IHttpActionResult GetPromedioPorRol(int distritoId, int baseId)
+        {
+            var promedios = new
+            {
+                vendedor = 62,
+                supervisorVentas = 25,
+                jefeVentas = 20
+            };
+
+            return Json(promedios);
+        }
     }
 
 }

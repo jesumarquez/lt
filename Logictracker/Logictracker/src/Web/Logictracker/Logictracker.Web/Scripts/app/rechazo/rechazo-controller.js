@@ -300,11 +300,25 @@ function RechazoEditItemController($scope, EntitiesService) {
 
 function RechazoEstadisticasController($scope, EntitiesService) {
 
-    $scope.UserData = EntitiesService.resources.userData.get();
+    $scope.UserData = EntitiesService.resources.userData.get({}, function (user) {
+        if (user.DistritoSelected && user.BaseSelected) {
+            $scope.promediosPorRol = EntitiesService.resources.estadisticasPorRol.get({
+                                        distritoId: user.DistritoSelected,
+                                        baseId: user.BaseSelected
+                                    },
+                                    onPromediosPorRolLoad);
+        }
+    });
 
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.transportistaSelected = [];
+
+    function onPromediosPorRolLoad() {
+        $scope.promedioVendedor = $scope.promediosPorRol.vendedor;
+        $scope.promedioSupervisorVentas = $scope.promediosPorRol.supervisorVentas;
+        $scope.promedioJefeVentas = $scope.promediosPorRol.jefeVentas;
+    }
 
     function onFail(error) {
         try {
@@ -354,9 +368,6 @@ function RechazoEstadisticasController($scope, EntitiesService) {
 
 
     $scope.averageScale = { min: 0, max: 100 };
-    $scope.promedioVendedor = 54;
-    $scope.promedioSupervisorVentas = 25;
-    $scope.promedioJefeVentas = 25;
 
 
     $scope.chartTotalSerieDefault = {
