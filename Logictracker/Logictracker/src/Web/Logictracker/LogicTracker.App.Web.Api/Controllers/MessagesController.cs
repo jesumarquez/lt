@@ -10,6 +10,7 @@ using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.DAL.Factories;
+using Logictracker.Types.BusinessObjects.Rechazos;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -72,7 +73,8 @@ namespace LogicTracker.App.Web.Api.Controllers
                     Description = logMensaje.Texto,//.Split(':')[1].Trim(),
                     DateTime = logMensaje.Fecha,
                     Latitude = logMensaje.Latitud,
-                    Longitude = logMensaje.Longitud
+                    Longitude = logMensaje.Longitud,
+                    codigomensaje = logMensaje.Mensaje.Codigo
                 };
                 customMessageList.Add(message);
             }
@@ -98,29 +100,68 @@ namespace LogicTracker.App.Web.Api.Controllers
                     Latitud = message.Latitude,
                     Longitud = message.Longitude
                 };
- 
-                mensajes.Add(logMensaje);
-            }
-
-       /*   //  if (item.Entrega != null &&
-          //         item.Entrega.PuntoEntrega != null)
-          //  {
-
-            var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
-            if (device == null) return null;
-
-            var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
-            if (employee == null) return null;
-
-            var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
-            if (vehicle == null) return null;
-
-            var rechazo = DaoFactory.TicketRechazoDAO.GetByPuntoEntregaYFecha(item.Entrega.PuntoEntrega.Id, message.DateTime, DateTime.UtcNow);
-                if (rechazo != null)
+                bool esMensajeOculto = false;
+                if (!String.IsNullOrEmpty(message.codigomensaje))
                 {
-                    rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.AlertadoAutomatico, "Mensaje leído", employee);
+                    TicketRechazo.MotivoRechazo rechazoEnum = (TicketRechazo.MotivoRechazo)int.Parse(message.codigomensaje.ToString());
+                    switch (rechazoEnum)
+                    {
+                        case TicketRechazo.MotivoRechazo.MalFacturado:
+                        case TicketRechazo.MotivoRechazo.MalPedido:
+                        case TicketRechazo.MotivoRechazo.NoEncontroDomicilio:
+                        case TicketRechazo.MotivoRechazo.NoPedido:
+                        case TicketRechazo.MotivoRechazo.Cerrado:
+                        case TicketRechazo.MotivoRechazo.CaminoIntransitable:
+                        case TicketRechazo.MotivoRechazo.FaltaSinCargo:
+                        case TicketRechazo.MotivoRechazo.FueraDeHorario:
+                        case TicketRechazo.MotivoRechazo.FueraDeZona:
+                        case TicketRechazo.MotivoRechazo.ProductoNoApto:
+                        case TicketRechazo.MotivoRechazo.SinDinero:
+                            {
+                                esMensajeOculto = true;
+                                var messageLog = DaoFactory.LogMensajeDAO.FindById(message.Id);
+
+                                var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
+                                if (device == null) continue;
+
+                                var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
+                                if (employee == null) continue;
+                                
+                                var idRechazo = Convert.ToInt32(messageLog.Texto.Split(':')[0].Split(' ').Last());
+                                var rechazo = DaoFactory.TicketRechazoDAO.FindById(idRechazo);
+                                        
+                                if (rechazo != null)
+                                {
+                                    try
+                                    {
+                                        if (rechazo.UltimoEstado == TicketRechazo.Estado.Notificado1 ||
+                                            rechazo.UltimoEstado == TicketRechazo.Estado.Notificado2 ||
+                                            rechazo.UltimoEstado == TicketRechazo.Estado.Notificado3)
+                                        {
+                                            rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Alertado, "Confirma atención", employee);
+                                            DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                                        }
+                                        else
+                                        {
+                                            //El usuario ya fue alertado
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
+                                            throw ex;
+                                    }
+                                }
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                 }
-           // }*/
+                if (!esMensajeOculto)
+                    mensajes.Add(logMensaje);
+            }            
+           
 
             var value = RouteService.SendMessagesMobile(deviceId, mensajes);
 

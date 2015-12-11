@@ -4,6 +4,7 @@ using System.Linq;
 using Logictracker.Culture;
 using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.Types.BusinessObjects.Rechazos;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
 {
@@ -25,9 +26,39 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
         
         public TicketRechazo GetByPuntoEntregaYFecha(int idPuntoEntrega, DateTime desde, DateTime hasta)
         {
-            var q = Query.Where(t => t.Entrega.Id == idPuntoEntrega && t.FechaHora > desde && t.FechaHora < hasta);
+            return Query.Where(t => t.Entrega.Id == idPuntoEntrega 
+                                 && t.FechaHora > desde 
+                                 && t.FechaHora < hasta)
+                        .FirstOrDefault();
+        }
 
-            return q.FirstOrDefault();
+        public IEnumerable<TicketRechazo> GetActivos(int idEmpresa)
+        {
+            var estadosActivos = new List<TicketRechazo.Estado> { TicketRechazo.Estado.Notificado1, TicketRechazo.Estado.Notificado2, TicketRechazo.Estado.Notificado3 };
+
+            return Query.Where(t => t.Empresa.Id == idEmpresa && estadosActivos.Contains(t.UltimoEstado)).ToList();
+        }
+
+        public IEnumerable<TicketRechazo> GetByEmpleadoAndFecha(Empleado empleado, DateTime desde, DateTime hasta)
+        {
+            var q = Query.Where(t => t.Empresa.Id == empleado.Empresa.Id 
+                                 && t.FechaHora > desde 
+                                 && t.FechaHora < hasta);
+
+            switch (empleado.TipoEmpleado.Codigo)
+            {
+                case "SR":
+                    q = q.Where(t => t.SupervisorRuta.Id == empleado.Id);
+                    break;
+                case "JF":
+                    q = q.Where(t => t.SupervisorVenta.Id == empleado.Id);
+                    break;
+                case "V":
+                    q = q.Where(t => t.Vendedor.Id == empleado.Id);
+                    break;
+            }
+
+            return q.ToList();
         }
     }
 }

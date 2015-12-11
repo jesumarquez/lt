@@ -42,6 +42,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string InicioDistribucionIdTipoGeocerca = "distribucion.inicio.id.tipo.geocerca";
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
+            public const string InicioDistribucionCodigoMensajeRechazo = "distribucion.inicio.mensaje.codigo.rechazo";            
             public const string InicioDistribucionSiguienteAlCerrar = "distribucion.inicio.siguiente";
             public const string DistribucionReportaEmpleado = "distribucion.reporta.empleado";
             public const string DistribucionGeneraRechazo = "distribucion.genera.rechazo";
@@ -58,6 +59,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string ProductKey = "product.key";
             public const string OrdenRutaGarmin = "orden.ruta.garmin";
             public const string MonitoreoGarmin = "monitoreo.garmin";
+            public const string MonitoreoRechazos = "monitoreo.rechazos";
             public const string Totalizadores = "totalizadores.lista";
             public const string IconoPorCentroDeCosto = "icono.por.cc";
             public const string Icono = "icono.";
@@ -362,6 +364,15 @@ namespace Logictracker.Types.BusinessObjects
                 return valor.ToLowerInvariant();
             }
         }
+        public virtual string InicioDistribucionCodigoMensajeRechazo
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionCodigoMensajeRechazo);
+                if (valor == null || valor.Trim() == string.Empty) return "0";
+                return valor.ToLowerInvariant();
+            }
+        }
         public virtual bool CierreDistribucionPorMensaje
         {
             get
@@ -544,6 +555,17 @@ namespace Logictracker.Types.BusinessObjects
             get
             {
                 var valor = GetParameter(Params.MonitoreoGarmin);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool MonitoreoRechazos
+        {
+            get
+            {
+                var valor = GetParameter(Params.MonitoreoRechazos);
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;
