@@ -184,6 +184,24 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
+    $scope.parametros = EntitiesService.resources.parametros.query({ distritoId: $scope.distritoSelected.Key }, paramOnLoad);
+
+    function paramOnLoad(e)
+    {
+        if (e !== undefined && e.length > 0) {
+            angular.forEach(e, function (value) {
+                switch (value.Key)
+                {
+                    case "CodigoSupervisorRutas":
+                        $scope.codigoSupervisorRutas = value.Value;
+                        break;
+                    case "CodigoVendedor":
+                        $scope.codigoVendedor = value.Value;
+                        break;
+                }
+            });
+        }
+    }
 
     $scope.gridDetalleOptions = {
         columns:
