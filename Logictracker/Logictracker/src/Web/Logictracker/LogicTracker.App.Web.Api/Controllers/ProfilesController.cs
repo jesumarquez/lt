@@ -17,14 +17,14 @@ namespace LogicTracker.App.Web.Api.Controllers
         public IHttpActionResult Get()
         {
             var deviceId = GetDeviceId(Request);
-            if (deviceId == null) return BadRequest();          
+            if (deviceId == null) return BadRequest();
 
             var mobileId = RouteService.GetMobileIdByImei(deviceId);
             DetalleDispositivoDAO detalle = new DetalleDispositivoDAO();
             IList<DetalleDispositivo> lista = detalle.GetDeviceDetails(mobileId);
             var routeMessages = RouteService.GetProfileMessages(deviceId);
 
-            if (routeMessages == null) return Unauthorized();   
+            if (routeMessages == null) return Unauthorized();
 
             var messages = new List<MessageType>();
 
@@ -89,12 +89,55 @@ namespace LogicTracker.App.Web.Api.Controllers
                             else
                                 profile.modocamionvendedor = Convert.ToInt32(false);
                         }
-                        break;                        
+                        break;
                     default:
                         break;
                 }
             }
             return Ok(profile);
+        }
+
+        // POST: api/Routes
+        public IHttpActionResult Post(int id, [FromBody]String version)
+        {
+            var deviceId = GetDeviceId(Request);
+            if (deviceId == null) return BadRequest();
+
+            var mobileId = RouteService.GetMobileIdByImei(deviceId);
+            DetalleDispositivoDAO detalle = new DetalleDispositivoDAO();
+            TipoParametroDispositivoDAO tipo = new TipoParametroDispositivoDAO();
+           DispositivoDAO dispositivodao = new DispositivoDAO();
+           var dispositivo = dispositivodao.FindByImei(deviceId);
+            IList<DetalleDispositivo> lista = dispositivo.DetallesDispositivo.ToList();
+            DetalleDispositivo setVersion = null;
+            foreach (var item in lista)
+            {
+                if (item.TipoParametro.Nombre.Equals("Version_Software") &&
+                   item.TipoParametro.TipoDato == "string")
+                {
+                   // dispositivo.DetallesDispositivo.Remove(item);
+                    //detalle.Delete(item);
+                    setVersion = item;
+                    setVersion.Valor = version;
+                   // dispositivodao.SaveOrUpdate(dispositivo);
+                    break;
+                }
+            }
+            
+            if (setVersion == null)
+            {
+                setVersion = new DetalleDispositivo();
+                TipoParametroDispositivoDAO tp = new TipoParametroDispositivoDAO();
+                setVersion.Dispositivo = dispositivo;
+                setVersion.TipoParametro = tp.FindByTipoDispositivo(dispositivo.TipoDispositivo.Id).Where(x => x.Nombre.Equals("Version_Software")).FirstOrDefault();                
+               
+                setVersion.Valor = version;
+                tp.SaveOrUpdate(setVersion.TipoParametro);
+                dispositivo.DetallesDispositivo.Add(setVersion);
+            }
+            detalle.SaveOrUpdate(setVersion);
+            dispositivodao.SaveOrUpdate(dispositivo);
+            return Ok("ok");
         }
     }
 }

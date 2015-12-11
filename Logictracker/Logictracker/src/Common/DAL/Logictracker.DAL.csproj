@@ -826,8 +826,8 @@
     <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\SosTicket.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="HBM\BusinessObjects\Rechazos\DetalleTicketRechazo.xml" />
-    <Content Include="HBM\BusinessObjects\Rechazos\TicketRechazo.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\DetalleTicketRechazo.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\TicketRechazo.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

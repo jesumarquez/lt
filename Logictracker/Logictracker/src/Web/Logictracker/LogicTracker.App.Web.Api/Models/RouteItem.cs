@@ -4,6 +4,8 @@ namespace LogicTracker.App.Web.Api.Models
 {
     public class RouteItem
     {
+        public string patente;
+        public string interno;
         public string Code { get; set; }
         public int DeliveriesNumber { get; set; }
         public int Id { get; set; }

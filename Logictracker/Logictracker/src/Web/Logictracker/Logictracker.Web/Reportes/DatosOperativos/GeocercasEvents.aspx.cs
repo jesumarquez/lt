@@ -109,8 +109,9 @@ namespace Logictracker.Reportes.DatosOperativos
         protected void LbTipoDomicilioOnSelecteIndexChanged(object sender, EventArgs e)
         {
             lbGeocerca.Items.Clear();
-            var geocercas = DAOFactory.ReferenciaGeograficaDAO.GetListByEmpresaLineaTipos(ddlLocacion.Selected, ddlPlanta.Selected, lbTipoDomicilio.SelectedValues);
-            foreach (var geocerca in geocercas) lbGeocerca.Items.Add(new ListItem(geocerca.Descripcion, geocerca.Id.ToString("#0")));
+            var geocercas = DAOFactory.ReferenciaGeograficaDAO.GetListByEmpresaLineaTipos(ddlLocacion.Selected, ddlPlanta.Selected, lbTipoDomicilio.SelectedValues)
+                                                              .OrderBy(g => g.Codigo);
+            foreach (var geocerca in geocercas) lbGeocerca.Items.Add(new ListItem(geocerca.Codigo + " - "+ geocerca.Descripcion, geocerca.Id.ToString("#0")));
         }
 
         protected override void OnLoad(EventArgs e)

@@ -110,6 +110,8 @@ namespace Logictracker.Parametrizacion
             cbReporte.SetSelectedValue(ProgramacionReporte.Reportes.GetDropDownListIndex(EditObject.Reporte));
                 
             panelReporte.Visible = chkReporte.Checked;
+
+            chkReportaResponsable.Checked = EditObject.ReportaResponsableCuenta;
         }
 
         protected override void OnDelete() { DAOFactory.AccionDAO.Delete(EditObject); }
@@ -133,6 +135,8 @@ namespace Logictracker.Parametrizacion
                     EditObject.EvaluaGeocerca = chkEvaluaGeocerca.Checked;
                     EditObject.DentroGeocerca = !EditObject.EvaluaGeocerca || radDentro.Checked;
                     EditObject.TipoGeocerca = EditObject.EvaluaGeocerca ? DAOFactory.TipoReferenciaGeograficaDAO.FindById(cbTipoGeocerca.Selected) : null;
+
+                    EditObject.ReportaResponsableCuenta = chkReportaResponsable.Checked;
 
                     if (cpColor.Color != string.Empty) EditObject.RGB = cpColor.Color;
 

@@ -299,6 +299,7 @@ namespace Logictracker.Messages.Saver
                 if (accion.Inhabilita) InhabilitarUsuario(log.Accion);
                 if (accion.ReportarAssistCargo) ReportarAssistCargo(log, accion.CodigoAssistCargo);
                 if (accion.EnviaReporte) EnviarReporte(log);
+                //if (accion.ReportaResponsableCuenta) GenerarEventoResponsable(log);
             }
             totalSeconds = t.getTimeElapsed().TotalSeconds;
             if (totalSeconds > 1)
@@ -309,6 +310,57 @@ namespace Logictracker.Messages.Saver
             totalSeconds = t.getTimeElapsed().TotalSeconds;
             if (totalSeconds > 1)
                 STrace.Debug("DispatcherLock", log.Dispositivo.Id, String.Format("ProcessActions/GuardarEvento ({0} secs)", totalSeconds));
+        }
+
+        private void GenerarEventoResponsable(LogMensaje log)
+        {
+            if (log.Entrega == null || log.Entrega.PuntoEntrega == null) return;
+            var empleado = log.Entrega.PuntoEntrega.Responsable;
+            if (empleado == null) return;
+            var coche = DaoFactory.CocheDAO.FindByChofer(empleado.Id);
+            if (coche == null) return;
+
+            var newEvent = new LogMensaje
+                               {
+                                   Coche = coche,
+                                   Chofer = empleado,
+                                   CodigoMensaje = log.CodigoMensaje,
+                                   Dispositivo = coche.Dispositivo,
+                                   Entrega = log.Entrega,
+                                   Estado = log.Estado,
+                                   Expiracion = log.Expiracion,
+                                   Fecha = log.Fecha,
+                                   FechaAlta = DateTime.UtcNow,
+                                   FechaFin = log.FechaFin,
+                                   IdCoche = coche.Id,
+                                   IdPuntoDeInteres = log.IdPuntoDeInteres,
+                                   Latitud = log.Latitud,
+                                   LatitudFin = log.LatitudFin,
+                                   Longitud = log.Longitud,
+                                   LongitudFin = log.LongitudFin,
+                                   Mensaje = log.Mensaje,
+                                   Texto = "INFORME DE: " + log.Texto,
+                                   TieneFoto = log.TieneFoto,
+                                   Usuario = log.Usuario,
+                                   VelocidadAlcanzada = log.VelocidadAlcanzada,
+                                   VelocidadPermitida = log.VelocidadPermitida,
+                                   Viaje = log.Viaje,
+                                   Zona = log.Zona
+                               };
+            
+            DaoFactory.LogMensajeDAO.Save(newEvent);
+
+            if (newEvent.Viaje == null && newEvent.Entrega == null) return;
+
+            var evenDistri = new EvenDistri
+            {
+                LogMensaje = newEvent,
+                Fecha = newEvent.Fecha,
+                Entrega = newEvent.Entrega,
+                Viaje = newEvent.Viaje ?? newEvent.Entrega.Viaje
+            };
+
+            DaoFactory.EvenDistriDAO.Save(evenDistri);
         }
 
         private void ProcessActions(LogMensajeAdmin log)

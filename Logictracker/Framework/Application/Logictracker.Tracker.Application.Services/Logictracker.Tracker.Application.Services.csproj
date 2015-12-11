@@ -135,6 +135,10 @@
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Services.Helpers\Logictracker.Services.Helpers.csproj">
+      <Project>{335550d5-f4a2-4ad0-a22f-c4ab705c6606}</Project>
+      <Name>Logictracker.Services.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
       <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
       <Name>Logictracker.Types</Name>

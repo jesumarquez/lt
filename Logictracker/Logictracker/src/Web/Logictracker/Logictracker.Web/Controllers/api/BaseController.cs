@@ -13,8 +13,10 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/Distrito/{distritoId}/base/items")]
         public IEnumerable<ItemModel> GetBases(int distritoId)
         {
-            var mapper = new LineaMapper();
-            return ItemModel.All.Union(EntityDao.GetLineasPermitidasPorUsuario(new []{distritoId}).Select(l=>mapper.ToItem(l)));
+            return EntityDao.GetLineasPermitidasPorUsuario(new[] {distritoId}).Select(e => Mapper.ToItem(e));
+            //var mapper = new LineaMapper();
+            ////
+            //return ItemModel.All.Union(EntityDao.GetLineasPermitidasPorUsuario(new []{distritoId}).Select(l=>mapper.ToItem(l)));
         }
 
     }

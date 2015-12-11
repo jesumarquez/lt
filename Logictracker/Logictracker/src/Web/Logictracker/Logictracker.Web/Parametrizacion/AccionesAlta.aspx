@@ -311,7 +311,10 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </asp:Panel> 
+                            </asp:Panel>
+                            
+                            <cwc:ResourceCheckBox ID="chkReportaResponsable" runat="server" Checked="false" ResourceName="Labels" VariableName="REPORTA_RESPONSABLE_CUENTA" />
+                            <div></div>
                                          
                         </cwc:AbmTitledPanel>
                     </ContentTemplate>

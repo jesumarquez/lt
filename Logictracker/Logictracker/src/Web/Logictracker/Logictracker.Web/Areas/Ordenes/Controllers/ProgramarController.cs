@@ -15,9 +15,7 @@ namespace Logictracker.Web.Areas.Ordenes.Controllers
             return View();
         }
 
-        public string ReferenceName
-        {
-            get { return "PAR_ORDENES"; }
-        }
+        public string VariableName { get { return "PAR_ORDENES"; } }
+        public string GetRefference() { return "PAR_ORDENES"; }
     }
 }

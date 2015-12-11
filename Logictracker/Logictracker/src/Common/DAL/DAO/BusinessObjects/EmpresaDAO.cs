@@ -61,7 +61,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return result;
         }
 
-
+        public Empresa GetById(int id)
+        {
+            return Query.FilterEmpresa(Session)
+                .Where(empresa => !empresa.Baja)
+                .Where(e => e.Id.Equals(id))
+                .Cacheable()
+                .SafeFirstOrDefault();           
+        }
+        
         public IEnumerable<Empresa> GetEmpresasPermitidas()
         {
             var sessionUser = WebSecurity.AuthenticatedUser;

@@ -31,7 +31,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         private const string LoggedInDriverCacheKey = "LoggedInDriver";
         private const string LastLogCacheKey = "LastLog";
 
-//        public EmpleadoDAO(ISession session) : base(session) { }
+        //        public EmpleadoDAO(ISession session) : base(session) { }
 
         #region Find Methods
 
@@ -55,11 +55,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// <returns>The associated employee or null if any.</returns>
         public Empleado FindByRfid(int empresa, string rfid)
         {
-            return Query.FilterEmpresa(Session, new[]{empresa}, null)
+            return Query.FilterEmpresa(Session, new[] { empresa }, null)
                         .Where(e => e.Tarjeta != null && e.Tarjeta.Pin == rfid)
                         .Cacheable()
                         .SafeFirstOrDefault()
-                   ?? 
+                   ??
                    Query.FilterEmpresa(Session, new[] { empresa }, null)
                         .Where(e => e.Tarjeta != null && e.Tarjeta.PinHexa == rfid)
                         .Cacheable()
@@ -70,14 +70,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             return Query.Where(e => e.Tarjeta != null && e.Tarjeta.Id == idTarjeta)
                         .Cacheable()
-						.SafeFirstOrDefault();
+                        .SafeFirstOrDefault();
         }
 
         public Empleado FindByCodigoAcceso(int accessCode)
         {
             return Query.Where(e => e.Tarjeta != null && e.Tarjeta.CodigoAcceso != null && e.Tarjeta.CodigoAcceso == accessCode)
                         .Cacheable()
-						.SafeFirstOrDefault();
+                        .SafeFirstOrDefault();
         }
 
         public Empleado FindByLegajo(int empresa, int linea, string legajo)
@@ -86,7 +86,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                         .FilterLinea(Session, new[] { empresa }, new[] { linea }, null)
                         .Where(q => !q.Baja)
                         .Where(q => q.Legajo == legajo)
-						.SafeFirstOrDefault();
+                        .SafeFirstOrDefault();
         }
 
         public List<Empleado> FindByLegajos(int empresa, int linea, IEnumerable<string> legajos)
@@ -106,8 +106,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// <returns></returns>
         public Empleado FindByUpcode(string upcode)
         {
-            return Query.Where( e => e.Tarjeta != null && e.Tarjeta.Numero == upcode.Replace(" ", "").Replace(",", ""))
-						.SafeFirstOrDefault();
+            return Query.Where(e => e.Tarjeta != null && e.Tarjeta.Numero == upcode.Replace(" ", "").Replace(",", ""))
+                        .SafeFirstOrDefault();
         }
 
         #endregion
@@ -116,11 +116,35 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         public Empleado GetByLegajo(int empresa, int linea, string legajo)
         {
-            return Query.FilterEmpresa(Session, new[]{empresa})
+            return Query.FilterEmpresa(Session, new[] { empresa })
                         .FilterLinea(Session, new[] { empresa }, new[] { linea })
                         .Where(q => !q.Baja)
                         .Where(q => q.Legajo == legajo)
-						.SafeFirstOrDefault();
+                        .SafeFirstOrDefault();
+        }
+
+        public Empleado GetById(int empresa, int linea, int id)
+        {
+            return Query.FilterEmpresa(Session, new[] { empresa })
+                        .FilterLinea(Session, new[] { empresa }, new[] { linea })
+                        .Where(q => !q.Baja)
+                        .Where(q => q.Id == id)
+                        .SafeFirstOrDefault();
+        }
+
+        public List<Empleado> GetReporta(int empresa, int linea, int id)
+        {
+            var reporta = new List<Empleado>();
+            var empleado = GetById(empresa, linea, id);
+
+            if (empleado == null)
+                return reporta;
+
+            if (empleado.Reporta1 != null) reporta.Add(empleado.Reporta1);
+            if (empleado.Reporta2 != null) reporta.Add(empleado.Reporta2);
+            if (empleado.Reporta3 != null) reporta.Add(empleado.Reporta3);
+
+            return reporta;
         }
 
         public List<Empleado> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tiposEmpleado, IEnumerable<int> transportistas)
@@ -170,6 +194,37 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return q.ToList();
         }
 
+
+        public IQueryable<Empleado> GetByCodigoTipoEmpleado(IEnumerable<int> empresas, IEnumerable<int> lineas, string codigo)
+        {
+            Empresa jEmpresa = null;
+            Linea jLinea = null;
+
+            var q = Session.QueryOver<Empleado>()
+                .Left.JoinAlias(empleado => empleado.Empresa, () => jEmpresa)
+                .Left.JoinAlias(empleado => empleado.Linea, () => jLinea)
+                 
+                ;
+
+
+            if (!QueryExtensions.IncludesAll(empresas))
+            {
+                q = q.Where(Restrictions.Or(
+                        Restrictions.Where<Empleado>(empleado => empleado.Empresa == null) ,
+                        Restrictions.On(() => jEmpresa.Id).IsIn(empresas.ToArray())));
+            }
+
+            if (!QueryExtensions.IncludesAll(lineas))
+            {
+                q = q.Where(Restrictions.Or(
+                    Restrictions.Where<Empleado>(empleado =>empleado.Linea == null),
+                    Restrictions.On(() => jLinea.Id).IsIn(lineas.ToArray())));
+            }
+
+            var w = q.JoinQueryOver(empleado => empleado.TipoEmpleado).Where(empleado => empleado.Codigo == codigo);  
+            return w.Future().AsQueryable();
+        }
+
         #endregion
 
         #region Current Driver Cache Methods
@@ -205,7 +260,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             coche.Store(LoggedInDriverCacheKey, chofer != null ? (object)chofer.Id : null);
 
             return chofer;
-        } 
+        }
 
         #endregion
 
@@ -226,9 +281,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 var verificadorEmpleado = empleado.Retrieve<object>(LastLogCacheKey);
                 if (verificadorEmpleado != null) return (Empleado.VerificadorEmpleado)verificadorEmpleado;
             }
-            
+
             var mensajes = Session.Query<Mensaje>()
-                                  .Where(msg => msg.Codigo == MessageCode.RfidEmployeeLogin.GetMessageCode() 
+                                  .Where(msg => msg.Codigo == MessageCode.RfidEmployeeLogin.GetMessageCode()
                                              || msg.Codigo == MessageCode.RfidEmployeeLogout.GetMessageCode())
                                   .Select(msg => msg.Id)
                                   .ToList();
@@ -257,7 +312,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                         if (lastLog.Mensaje.Codigo == MessageCode.RfidEmployeeLogin.GetMessageCode())
                         {
                             verif.TipoFichada = Empleado.VerificadorEmpleado.TipoDeFichada.Entrada;
-                            if (puerta.ZonaAccesoEntrada != null) verif.ZonaAcceso = puerta.ZonaAccesoEntrada; 
+                            if (puerta.ZonaAccesoEntrada != null) verif.ZonaAcceso = puerta.ZonaAccesoEntrada;
                         }
                         else if (lastLog.Mensaje.Codigo == MessageCode.RfidEmployeeLogout.GetMessageCode())
                         {
@@ -272,7 +327,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
             return verif;
         }
-        
+
         // TODO: Devuelve 1? es el correcto?
         public virtual Empleado FindEmpleadoByDevice(Dispositivo dispositivo)
         {
@@ -295,7 +350,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         public override void Delete(Empleado chofer)
         {
             if (chofer == null) return;
-            
+
             chofer.Baja = true;
             chofer.Tarjeta = null;
             SaveOrUpdate(chofer);

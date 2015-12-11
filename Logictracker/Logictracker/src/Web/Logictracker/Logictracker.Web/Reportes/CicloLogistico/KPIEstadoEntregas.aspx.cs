@@ -86,11 +86,11 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                                                                    new[] { -1 },
                                                                    desde,
                                                                    hasta)
-                                                          .Where(v => v.Vehiculo != null && v.Vehiculo.Transportista != null);
+                                                          .Where(v => v.Vehiculo != null);
 
             foreach (var transportista in transportistas)
             {
-                var viajes = buscados.Where(v => v.Vehiculo.Transportista.Id == transportista.Id);
+                var viajes = buscados.Where(v => v.Vehiculo.Transportista != null && v.Vehiculo.Transportista.Id == transportista.Id);
 
                 if (!viajes.Any()) continue;
 
@@ -114,6 +114,35 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                     NoCompletados = viajes.Sum(v => v.EntregasNoCompletadosCount),
                     NoVisitados = viajes.Sum(v => v.EntregasNoVisitadosCount),
                     Pendientes = viajes.Sum(v => v.EntregasPendientesCount)
+                };
+
+                resultados.Add(result);
+            }
+
+            var sinTransportista = buscados.Where(v => v.Vehiculo.Transportista == null);
+
+            if (sinTransportista.Any())
+            {
+                var completados = sinTransportista.Sum(v => v.EntregasCompletadosCount);
+                var visitados = sinTransportista.Sum(v => v.EntregasVisitadosCount);
+                var realizados = completados + visitados;
+                var total = sinTransportista.Sum(v => v.EntregasTotalCount);
+                var porc = total > 0 && realizados > 0 ? (double)realizados / (double)total * 100 : 0.00;
+
+                var result = new KpiEstado
+                {
+                    Transportista = "Sin transportista",
+                    Rutas = sinTransportista.Count(),
+                    Entregas = total,
+                    Realizados = realizados,
+                    Porc = porc,
+                    Completados = completados,
+                    Visitados = visitados,
+                    EnSitio = sinTransportista.Sum(v => v.EntregasEnSitioCount),
+                    EnZona = sinTransportista.Sum(v => v.EntregasEnZonaCount),
+                    NoCompletados = sinTransportista.Sum(v => v.EntregasNoCompletadosCount),
+                    NoVisitados = sinTransportista.Sum(v => v.EntregasNoVisitadosCount),
+                    Pendientes = sinTransportista.Sum(v => v.EntregasPendientesCount)
                 };
 
                 resultados.Add(result);

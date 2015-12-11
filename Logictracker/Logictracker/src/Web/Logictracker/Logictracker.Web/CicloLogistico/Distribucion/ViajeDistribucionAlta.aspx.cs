@@ -447,16 +447,21 @@ namespace Logictracker.CicloLogistico.Distribucion
 
             foreach (var detalle in ruta.Detalles)
             {
-                detalle.Estado = EntregaDistribucion.Estados.Pendiente;
-                detalle.Entrada = null;
-                detalle.Manual = null;
-                detalle.Salida = null;
+                if (detalle.Estado != EntregaDistribucion.Estados.Completado && detalle.Estado != EntregaDistribucion.Estados.Cancelado)
+                {
+                    detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                    detalle.Entrada = null;
+                    detalle.Manual = null;
+                    detalle.Salida = null;
 
-                DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
+                    DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);    
+                }
+
             }
             
             ruta.InicioReal = desde;
             if (cerrar) ruta.Fin = hasta;
+
             ruta.Estado = ViajeDistribucion.Estados.EnCurso;
             DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
 

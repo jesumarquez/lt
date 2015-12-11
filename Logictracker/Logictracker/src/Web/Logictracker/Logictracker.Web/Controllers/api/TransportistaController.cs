@@ -13,7 +13,7 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/distrito/{distritoId}/base/{baseId}/transportista/items")]
         public IEnumerable<ItemModel> GetComboItem(int distritoId, int baseId)
         {
-            return EntityDao.GetList(new[] { distritoId }, new[] { baseId }).Select(d => Mapper.ToItem(d)).ToList();
+            return EntityDao.GetTransportistasPermitidosPorUsuario(new[] { distritoId }, new[] { baseId }).Select(d => Mapper.ToItem(d)).ToList();
         }
     }
 

@@ -4558,4 +4558,10 @@
   <data name="CONTROL_INVERSO" xml:space="preserve">
     <value>Controle Inverso</value>
   </data>
+  <data name="REPORTA_RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Reporta Responsável do Conta</value>
+  </data>
+  <data name="RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Responsável do Conta</value>
+  </data>
 </root>

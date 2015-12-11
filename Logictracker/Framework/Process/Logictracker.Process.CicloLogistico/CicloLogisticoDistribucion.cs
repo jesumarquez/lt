@@ -20,6 +20,7 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
 using Logictracker.AVL.Messages;
+using Logictracker.Types.BusinessObjects.Rechazos;
 
 namespace Logictracker.Process.CicloLogistico
 {
@@ -744,6 +745,27 @@ namespace Logictracker.Process.CicloLogistico
                     msg.Send();
 
                     break;
+                case EntregaDistribucion.Estados.Pendiente:
+                    detalle.Manual = null;
+                    detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                    DaoFactory.ViajeDistribucionDAO.Update(detalle.Viaje);
+
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), ", <b>reactivada y pendiente<b>: " + destDetail, data);
+
+                    descripcion = "-> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
+                    SaveMessageAtraso(data, detalle);
+
+                    destiny = new Destination(detalle.Id,
+                                               gpsPoint,
+                                               detalle.Descripcion,
+                                               detalle.PuntoEntrega.Descripcion,
+                                               detalle.ReferenciaGeografica.Direccion.Descripcion);
+
+                    msg = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver).AddDestinations(new[] { destiny });
+                    msg.Send();
+
+                    break;
                 case EntregaDistribucion.Estados.Cancelado:
                 case EntregaDistribucion.Estados.NoCompletado:
                     if (detalle.Manual.HasValue)
@@ -788,6 +810,76 @@ namespace Logictracker.Process.CicloLogistico
                     else
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, Distribucion.Vehiculo.Dispositivo.Id, "Error generando pregunta: No se han encontrado Canned Responses (" + destDetail + ")");
+                    }
+
+                    if (detalle.Viaje.Empresa.DistribucionGeneraRechazo)
+                    {
+                        STrace.Error("RECHAZO", "DistribucionGeneraRechazo");
+                        var chofer = detalle.Viaje.Vehiculo.Chofer;
+                        if (chofer != null)
+                        {
+                            try
+                            {
+                                var rechazo = new TicketRechazo(textMessageDesc, chofer, data.Date);
+                                rechazo.Empresa = detalle.Viaje.Empresa;
+                                rechazo.Linea = detalle.Viaje.Linea;
+                                rechazo.Transportista = detalle.Viaje.Transportista ?? detalle.Viaje.Vehiculo.Transportista;
+                                rechazo.Cliente = detalle.PuntoEntrega.Cliente;
+                                rechazo.Entrega = detalle.PuntoEntrega;
+                                rechazo.Bultos = detalle.Bultos;
+                                var vendedor = detalle.PuntoEntrega.Responsable;
+                                rechazo.Vendedor = vendedor;
+                                var supervisorVenta = vendedor != null ? vendedor.Reporta1 : null;
+                                rechazo.SupervisorVenta = supervisorVenta;
+                                var supervisorRuta = supervisorVenta != null ? supervisorVenta.Reporta1 : null;
+                                rechazo.SupervisorRuta = supervisorRuta;
+                                rechazo.Motivo = (TicketRechazo.MotivoRechazo) data.MessageId;
+
+                                STrace.Error("RECHAZO", "Guardando");                            
+                                DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+
+                                if (vendedor != null)
+                                {
+                                    var coche = DaoFactory.CocheDAO.FindByChofer(vendedor.Id);
+                                    if (coche != null)
+                                    {
+                                        var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(data.MessageId.ToString(), coche.Empresa, coche.Linea);
+                                        if (mensajeVo != null)
+                                        {
+                                            var mensaje = DaoFactory.MensajeDAO.FindById(mensajeVo.Id);
+
+                                            var newEvent = new LogMensaje
+                                            {
+                                                Coche = coche,
+                                                Chofer = vendedor,
+                                                Dispositivo = coche.Dispositivo,
+                                                Expiracion = data.Date.AddDays(1),
+                                                Fecha = data.Date,
+                                                FechaAlta = DateTime.UtcNow,
+                                                FechaFin = data.Date,
+                                                IdCoche = coche.Id,
+                                                Latitud = data.Latitud,
+                                                LatitudFin = data.Latitud,
+                                                Longitud = data.Longitud,
+                                                LongitudFin = data.Longitud,
+                                                Mensaje = mensaje,
+                                                Texto = "INFORME DE RECHAZO NRO " + rechazo.Id + ": " + mensaje.Descripcion + " -> " + rechazo.Entrega.Descripcion
+                                            };
+
+                                            DaoFactory.LogMensajeDAO.Save(newEvent);
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                STrace.Exception("RECHAZO", ex);
+                            }
+                        }                        
+                        else
+                        {
+                            STrace.Error("RECHAZO", "chofer == null");
+                        }
                     }
                     break;
                 default:

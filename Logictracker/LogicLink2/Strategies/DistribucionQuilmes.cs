@@ -47,7 +47,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             DaoFactory = new DAOFactory();
             Empresa = file.Empresa;
             Linea = file.Linea;
-            Cliente = DaoFactory.ClienteDAO.GetList(new[] { Empresa.Id }, new[] { -1 }).FirstOrDefault();
+            Cliente = DaoFactory.ClienteDAO.FindById(4162); // MINORISTAS
         }
 
         public void Parse(out int rutas, out int entregas, out string observaciones)

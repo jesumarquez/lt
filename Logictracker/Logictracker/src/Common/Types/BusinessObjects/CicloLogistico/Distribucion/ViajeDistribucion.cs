@@ -4,6 +4,7 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using System.Collections.Generic;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 {
@@ -199,18 +200,6 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 
         public virtual void AgregarBaseFinal()
         {
-            var baseFinal = new EntregaDistribucion()
-            {             
-                Linea = Detalles[0].Linea,
-                Descripcion = Detalles[0].Descripcion,
-                Estado = EntregaDistribucion.Estados.Pendiente,
-                Programado = Detalles[0].Programado,
-                ProgramadoHasta = Detalles[0].ProgramadoHasta,
-                Orden = Detalles.Count,
-                Viaje = Detalles[0].Viaje,
-                KmCalculado = 0
-            };
-
             for (var i = 1; i < Detalles.Count; i++)
             {
                 if (Detalles[i].Descripcion.Equals(Detalles[0].Descripcion))
@@ -218,6 +207,32 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
                     Detalles.RemoveAt(i);
                 }
             }
+
+            var baseFinal = new EntregaDistribucion()
+            {             
+                Linea = Detalles[0].Linea,
+                Descripcion = Detalles[0].Descripcion,
+                Estado = EntregaDistribucion.Estados.Pendiente,
+                Orden = Detalles.Count,
+                Viaje = Detalles[0].Viaje
+            };
+
+            var ultimo = Detalles.Last().ReferenciaGeografica;
+            var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
+            var destino = new LatLon(baseFinal.ReferenciaGeografica.Latitude, baseFinal.ReferenciaGeografica.Longitude);
+            var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
+
+            if (directions != null)
+            {
+                var distancia = directions.Distance / 1000.0;
+                var duracion = directions.Duration;
+                var fecha = Detalles.Last().Programado.Add(duracion);
+
+                baseFinal.Programado = fecha;
+                baseFinal.ProgramadoHasta = fecha;
+                baseFinal.KmCalculado = distancia;                
+            }
+            
             Detalles.Add(baseFinal);
         }
     }

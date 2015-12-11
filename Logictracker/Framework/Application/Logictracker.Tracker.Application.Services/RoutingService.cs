@@ -9,6 +9,7 @@ using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Types.BusinessObjects.Tickets;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.Tracker.Application.Services
 {
@@ -118,15 +119,15 @@ namespace Logictracker.Tracker.Application.Services
             var viaje = DaoFactory.ViajeDistribucionDAO.FindByCodigo(order.Empresa.Id, -1, routeCode);
             
             Linea linea = null;
-            if(order.Linea.Id>1)
+            if (order.Linea.Id > 1)
                 linea = DaoFactory.LineaDAO.FindById(order.Linea.Id);
 
             if (viaje == null)
             {
                 viaje = new ViajeDistribucion();
                 viaje.Empresa = DaoFactory.EmpresaDAO.FindById(order.Empresa.Id);
-                viaje.Estado = 0;
-                viaje.Tipo = 1;
+                viaje.Estado = ViajeDistribucion.Estados.Pendiente;
+                viaje.Tipo = ViajeDistribucion.Tipos.Desordenado;
                 viaje.Linea = order.Linea;
                 //viaje.CentroDeCostos = DaoFactory.CentroDeCostosDAO.FindById();
                 viaje.Vehiculo = null;//DaoFactory.CocheDAO.FindById(idVehicle);
@@ -134,8 +135,7 @@ namespace Logictracker.Tracker.Application.Services
                 viaje.Empleado = null;//DaoFactory.EmpleadoDAO.FindById(idEmpleado);
                 viaje.Codigo = routeCode;
                 viaje.Inicio = startDateTime;
-                viaje.RegresoABase = true;
-                viaje.Fin = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 18, 0, 0);
+                viaje.RegresoABase = true;                
                 viaje.Transportista = DaoFactory.TransportistaDAO.FindById(order.Transportista.Id);
 
                 //base al inicio
@@ -153,31 +153,33 @@ namespace Logictracker.Tracker.Application.Services
                 viaje.Detalles.Add(entregaBase);
             }
 
-            //transportista?
             var entrega = new EntregaDistribucion();
             entrega.Viaje = viaje;
-            entrega.Estado = 0;
-            entrega.Linea = linea;
+            entrega.Estado = EntregaDistribucion.Estados.Pendiente;
             entrega.Orden = viaje.Detalles.Count;
             entrega.Descripcion = order.CodigoPedido;
             entrega.PuntoEntrega = DaoFactory.PuntoEntregaDAO.FindById(order.PuntoEntrega.Id);
-            entrega.Programado = startDateTime;
 
-            var tipoCiclo = DaoFactory.TipoCicloLogisticoDAO.FindByCodigo(order.Empresa.Id, "01");
-            viaje.TipoCicloLogistico = tipoCiclo;
+            var ultimo = viaje.Detalles.Count == 1 ? viaje.Detalles.Last().ReferenciaGeografica : viaje.Detalles[viaje.Detalles.Count-2].ReferenciaGeografica;
+            var origen = new LatLon(ultimo.Latitude, ultimo.Longitude);
+            var destino = new LatLon(entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude);
+            var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
 
-            if (order.FechaEntrega!= null)
-                entrega.ProgramadoHasta = (DateTime)order.FechaEntrega;
-            else
+            if (directions != null)
             {
-                entrega.ProgramadoHasta = new DateTime(startDateTime.Year, startDateTime.Month, startDateTime.Day, 19, 0,
-                    0);
+                var distancia = directions.Distance / 1000.0;
+                var duracion = directions.Duration;
+                var fecha = viaje.Detalles.Last().Programado.Add(duracion);
+
+                entrega.Programado = fecha;
+                entrega.ProgramadoHasta = fecha;
+                entrega.KmCalculado = distancia;
             }
 
             viaje.Detalles.Add(entrega);
-
-            //se agrega la base al final
             viaje.AgregarBaseFinal();
+
+            viaje.Fin = viaje.Detalles.LastOrDefault().ProgramadoHasta;            
 
             DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
 

@@ -147,6 +147,9 @@ namespace Logictracker.Documentos
             var li = cbTipoParam.Items.FindByValue(param.TipoDato??TipoParametroDocumento.String);
             if (li != null) li.Selected = true;
 
+            var li2 = cbTipoParam.Items.FindByValue(param.TipoDato ?? TipoParametroDocumento.StringBarcode);
+            if (li2 != null) li2.Selected = true;
+
             txtLargo.Text = param.Largo.ToString();
             txtPrecision.Text = param.Precision.ToString();
 
@@ -202,6 +205,7 @@ namespace Logictracker.Documentos
         {
             combo.Items.Clear();
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_TEXT"), TipoParametroDocumento.String));
+            combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_TEXTBARCODE"), TipoParametroDocumento.StringBarcode));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_INTEGER"), TipoParametroDocumento.Integer));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_FLOAT"), TipoParametroDocumento.Float));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_DATETIME"), TipoParametroDocumento.DateTime));
@@ -280,6 +284,7 @@ namespace Logictracker.Documentos
                         txtLargo.Enabled = txtPrecision.Enabled = txtDefault.Enabled = true;
                         break;
                     case TipoParametroDocumento.String:
+                    case TipoParametroDocumento.StringBarcode:
                         txtLargo.Enabled = txtDefault.Enabled = true;
                         txtPrecision.Enabled = false;
                         break;

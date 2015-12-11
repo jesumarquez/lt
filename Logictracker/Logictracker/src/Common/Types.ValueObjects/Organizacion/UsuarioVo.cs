@@ -11,6 +11,7 @@ namespace Logictracker.Types.ValueObjects.Organizacion
         public const int IndexTipo = 1;
         public const int IndexClient = 2;
         public const int IndexPerfiles = 3;
+        public const int IndexEmpleado = 4;
 
         public int Id { get; set; }
 
@@ -25,6 +26,9 @@ namespace Logictracker.Types.ValueObjects.Organizacion
 
         [GridMapping(Index = IndexPerfiles, ResourceName = "Labels", VariableName = "PERFILES", IncludeInSearch = true, Width = "50%")]
         public string Perfiles { get; set; }
+
+        [GridMapping(Index = IndexEmpleado, ResourceName = "Entities", VariableName = "PARENTI09", IncludeInSearch = true)]
+        public string Empleado { get; set; }
 
         public bool Inhabilitado { get; set; }
 
@@ -42,6 +46,7 @@ namespace Logictracker.Types.ValueObjects.Organizacion
                 perfiles = perfiles + perfil.Descripcion;
             }
             Perfiles = perfiles;
+            Empleado = usuario.Empleado != null && usuario.Empleado.Entidad != null ? usuario.Empleado.Entidad.Descripcion : string.Empty;
             Inhabilitado = usuario.Inhabilitado;
         }
 
