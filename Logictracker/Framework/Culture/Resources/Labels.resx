@@ -4832,7 +4832,7 @@
     <value>Respuesta Exitosa</value>
   </data>
   <data name="RESPUESTA_CON_RECHAZO" xml:space="preserve">
-    <value>Respuesta con Rechazo</value>
+    <value>Respuesta con rechazo</value>
   </data>
   <data name="RECHAZADO" xml:space="preserve">
     <value>Rechazado</value>
