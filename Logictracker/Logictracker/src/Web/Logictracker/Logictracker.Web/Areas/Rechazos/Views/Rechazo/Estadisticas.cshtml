@@ -65,16 +65,19 @@
                 </div>
             </div>
             <div class="row StatsContent-bottom">
-                <div class="col-md-8 ">data3</div>
-                <div class="col-md-4 GaugeContainer">
+                <div class="col-md-7 ">
+                    
+                </div>
+                <div class="col-md-5 GaugeContainer">
                     <div kendo-chart
-                         k-series-defaults="{ type: 'pie' }"
+                         k-title="{text: 'Cantidad por Estado'}"
+                         k-series-defaults="chartTotalSerieDefault"
                          k-series="[{
-	                                field: 'share',
-	                                categoryField: 'resolution',
+	                                field: 'cantidad',
+	                                categoryField: 'estado',
 	                                padding: 0
 	                              }]"
-                         k-data-source="screenResolution">
+                         k-data-source="chartTotalData">
                     </div>
                 </div>
             </div>
