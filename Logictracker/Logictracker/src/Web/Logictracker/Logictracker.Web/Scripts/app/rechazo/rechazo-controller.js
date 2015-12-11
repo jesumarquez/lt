@@ -358,17 +358,21 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     $scope.promedioSupervisorVentas = 25;
     $scope.promedioJefeVentas = 25;
 
-    $scope.screenResolution = new kendo.data.DataSource({
-        transport: {
-            read: {
-                url: "/js/rechazos/screen_resolution.json",
-                dataType: "json"
-            }
+
+    $scope.chartTotalSerieDefault = {
+        labels: {
+            visible: true
         },
-        filter: {
-            field: "year",
-            operator: "eq",
-            value: 2009
-        }
+        type: "pie"
+    };
+
+    $scope.chartTotalData = new kendo.data.DataSource({
+        data: [{
+            "estado": "pendiente",
+            "cantidad": 25
+        },{
+            "estado": "cerrado",
+            "cantidad": 40
+        }]
     });
 }
