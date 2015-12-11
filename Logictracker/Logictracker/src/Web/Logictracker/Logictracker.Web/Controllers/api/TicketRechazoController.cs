@@ -96,6 +96,37 @@ namespace Logictracker.Web.Controllers.api
         //{
         //    return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
         //}
+
+        [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/rol")]
+        public IHttpActionResult GetPromedioPorRol(int distritoId, int baseId)
+        {
+            var promedios = new
+            {
+                vendedor = 62,
+                supervisorVentas = 25,
+                jefeVentas = 20
+            };
+
+            return Json(promedios);
+        }
+
+        [Route("api/ticketrechazo/estadisticas/promedio/porvendedor")]
+        public DataSourceResult GetPromedioPorVendedor([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
+        {
+            var list = new List<PromedioPorVendedorModel>()
+            {
+                new PromedioPorVendedorModel
+                {
+                    Usuario = "Jose Gutierrez",
+                    EstadoIngreso = "Pendiente",
+                    EstadoEgreso = "Avisado",
+                    Promedio = (float)5.2
+                }
+            };
+            DataSourceResult r = new DataSourceResult();
+            r.Data = list.ToArray();
+            return r;
+        }
     }
 
 }

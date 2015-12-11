@@ -30,6 +30,7 @@ function EntitiesService($resource, $http) {
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData"),
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
+            estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -37,7 +38,8 @@ function EntitiesService($resource, $http) {
             empleadoReporta: getEmpleadoReportaDS,
             empleado: getEmpleadosDS,
             items: getRechazoItems,
-            nextEstado: getNextEstado
+            nextEstado: getNextEstado,
+            promedioPorVendedor: getPromedioPorVendedor
         }
     };
 
@@ -420,6 +422,38 @@ function EntitiesService($resource, $http) {
                     url: "/api/ticketrechazo/" + data_.ticketId + "/estado/next/",
                 }
             }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    }
+
+    function getPromedioPorVendedor(filters, onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ticketrechazo/estadisticas/promedio/porvendedor";
+                    },
+                },
+            },
+            schema: {
+                total: "Total",
+                data: "Data",
+                errors: "Errors"
+            },
+            pageSize: 25,
+            filter: filters,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: true
         });
 
         if (angular.isFunction(onEnd))
