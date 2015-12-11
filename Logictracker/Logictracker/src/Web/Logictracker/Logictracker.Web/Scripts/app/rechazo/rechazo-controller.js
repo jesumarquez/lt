@@ -153,169 +153,29 @@ function RechazoController($scope, EntitiesService, $filter) {
 function RechazoItemController($scope, EntitiesService) {
 
     $scope.motivoSelected = {};
-
     $scope.estadoSelected = {};
-    $scope.estadoRO = true;
-
-    // $scope.parametros = EntitiesService.resources.parametros.get({ distritoId: $scope.distritoSelected.Key });
-
     $scope.clienteSelected = "";
-    $scope.clienteRO = false;
-
     $scope.puntoEntregaSelected = {};
-    $scope.puntoEntregaRO = true;
-    $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, onPuntoEntregaDSLoad, $scope.onFail);
-
     $scope.distribucionSelected = {};
-
+    $scope.transportistaSelected = {};
     $scope.supervisorRutaSelected = {};
-    $scope.supervisorRutaRO = true;
-    $scope.supervisorRutaDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorRutaDSLoad, onFail);
-
     $scope.supervisorVentasSelected = {};
-    $scope.supervisorVentasRO = true;
-    $scope.supervisorVentasDS = EntitiesService.ticketrechazo.empleadoReporta(onSupervisorVentasDSLoad, onFail);
-
     $scope.vendedorSelected = {};
-    $scope.vendedorRO = true;
-    $scope.vendedorDS = EntitiesService.ticketrechazo.empleado(onVendedorDSLoad, onFail);
-
     $scope.territorio = "";
-    $scope.territorioRO = true;
-
     $scope.enHorarioSelected = {};
-    $scope.enHorarioRO = true;
-
     $scope.movimientosDS = {};
 
     $scope.codigoVendedor = "V";
     $scope.codigoSupervisorRutas = "SR";
-    $scope.supervisorRutasRead = false;
-
-    $scope.$watch("vendedorSelected", onVendedorSelected);
-    $scope.$watch("distribucionSelected", onDistribucionSelected);
-    $scope.$watch("puntoEntregaSelected", onPuntoEntregaSelected);
-    $scope.$watch("supervisorVentasSelected", onSupervisorVentasSelected);
 
     $scope.enHorarioDS = [
         { Key: true, Value: "Si" },
         { Key: false, Value: "No" },
     ];
 
-    function onDistribucionSelected(newValue, oldValue) {
-
-        $scope.puntoEntregaSelected = [];
-
-        if (newValue != null && newValue !== oldValue) {
-            $scope.puntoEntregaDS = EntitiesService.distrito.puntoEntrega({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                distribucionId: $scope.distribucionSelected[0] !== undefined ? $scope.distribucionSelected[0].Id : null,
-            }, null, $scope.onFail);
-        }
+    $scope.notifyShow = function (message, type) {
+        $scope.notify.show(message, type);
     };
-
-    function onPuntoEntregaSelected(newValue, oldValue) {
-
-        if (newValue !== oldValue) {
-
-            if (newValue.length == 0) {
-                $scope.clienteSelected = "";
-                $scope.vendedorDS.data([]);
-                $scope.vendedorDS.read();
-                return;
-            }
-
-            if ($scope.puntoEntregaSelected[0] !== undefined) {
-
-                $scope.clienteSelected = $scope.puntoEntregaSelected[0].ClienteDesc;
-
-                var responsable = ($scope.puntoEntregaSelected[0] !== undefined && $scope.puntoEntregaSelected[0].ResponsableId != 0);
-
-                // Si el punto de entrega no tiene responsable por el momento en el combo de vendedores se van a listar
-                // todos los empleados que tengan asignado el tipo de empleado "V".
-                $scope.vendedorDS.read({
-                    distritoId: $scope.distritoSelected.Key,
-                    baseId: $scope.baseSelected.Key,
-                    tipoEmpleadoCodigo: !responsable ? $scope.codigoVendedor : null,
-                    empleadoId: responsable ? $scope.puntoEntregaSelected[0].ResponsableId : null,
-                });
-            }
-        }
-    };
-
-
-    function onVendedorSelected(newValue, oldValue) {
-
-        if (newValue !== undefined && newValue !== oldValue) {
-
-            if (newValue && (newValue.baseId !== $scope.baseSelected.Key)) {
-                $scope.notify.show("El vendedor  "+newValue.Descripcion + " pertenece a otra base", "warning");
-            }
-
-            $scope.supervisorVentasDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                empleadoId: $scope.vendedorSelected.EmpleadoId
-            });
-        }
-        else {
-            $scope.supervisorVentasDS.data([]);
-            $scope.supervisorVentasDS.read();
-        }
-    };
-
-
-    function onSupervisorVentasSelected(newValue, oldValue) {
-
-        if (newValue !== undefined && newValue !== oldValue) {
-            $scope.supervisorRutasRead = true;
-
-            $scope.supervisorRutaDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                empleadoId: $scope.supervisorVentasSelected.EmpleadoId
-            });
-        }
-        else {
-            $scope.supervisorRutaDS.data([]);
-            $scope.supervisorRutaDS.read();
-        }
-    };
-
-    function onSupervisorVentasDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.supervisorVentasSelected = e.response[0];
-        }
-    }
-
-    function onSupervisorRutaDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            if (e.response.length == 0)
-                if ($scope.supervisorRutasRead) {
-                    $scope.supervisorRutaDS.read({
-                        distritoId: $scope.distritoSelected.Key,
-                        baseId: $scope.baseSelected.Key,
-                        empleadoId: $scope.supervisorVentasSelected.EmpleadoId,
-                        tipoEmpleadoCodigo: $scope.codigoSupervisorRutas
-                    });
-                }
-
-            $scope.supervisorRutasRead = false;
-            $scope.supervisorRutaSelected = e.response[0];
-        }
-    }
-
-    function onVendedorDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.vendedorSelected = e.response[0];
-        }
-    }
-
-    function onPuntoEntregaDSLoad(e) {
-        if (e.type === "read" && e.response) {
-        }
-    }
 
     function isNew() { return $scope.operation === "A"; }
 
@@ -334,11 +194,9 @@ function RechazoItemController($scope, EntitiesService) {
         ]
     };
 
-
     $scope.onClose = function () {
         $scope.rechazoWin.close();
     };
-
 
     $scope.onSave = function (event) {
         event.preventDefault();
@@ -371,8 +229,6 @@ function RechazoItemController($scope, EntitiesService) {
                     $scope.mainGrid.refresh();
                     $scope.rechazoWin.close();
                 }, onFail);
-
-
         }
     };
 

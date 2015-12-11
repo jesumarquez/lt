@@ -44,7 +44,7 @@
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Codigo distribucion"):</span>
                     <div class="InputGroup__control">
                         <lt-ac-distribucion 
-                            lt-ng-model="distritoSelected"
+                            lt-ng-model="distribucionSelected"
                             lt-data-distrito="distritoSelected"
                             lt-depends-on-base="baseSelected"
                             lt-template="tDistribucion" />
@@ -53,30 +53,21 @@
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
                     <div class="InputGroup__control">
-                        <input class="form-control"
-                               kendo-auto-complete
-                               required
-                               k-data-source="puntoEntregaDS"
-                               k-readonly="puntoEntregaRO"
-                               k-data-text-field="'Codigo'"
-                               k-filter="'contains'"
-                               k-min-length="3"
-                               k-ng-model="puntoEntregaSelected"
-                               k-template="tPuntoEntrega" />
+                        <lt-ac-punto-entrega lt-ng-model="puntoEntregaSelected"
+                                            lt-data-distrito="distritoSelected"
+                                            lt-data-base="baseSelected"
+                                            lt-template="tPuntoEntrega"
+                                            lt-depends-on-distribucion="distribucionSelected" />
                     </div>
                 </div>
             </div>
             <div class="InputContainer-column">
-
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Transportista"):</span>
                     <div class="InputGroup__control">
-                        <input class="form-control" kendo-combo-box
-                               required
-                               k-data-source="transportistaDS"
-                               k-data-text-field="'Value'"
-                               k-data-value-field="'Key'"
-                               k-ng-model="transportistaSelected" />
+                        <lt-cb-transportista lt-ng-model="transportistaSelected"
+                                             lt-data-distrito="distritoSelected"
+                                             lt-data-base="baseSelected" />
                     </div>
                 </div>
                 <div class="InputGroup">
@@ -104,34 +95,32 @@
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Vendedor"):</span>
                     <div class="InputGroup__control">
-                        <input class="form-control" kendo-combo-box
-                               required
-                               k-data-source="vendedorDS"
-                               k-data-text-field="'Descripcion'"
-                               k-data-value-field="'EmpleadoId'"
-                               k-ng-model="vendedorSelected" />
+                        <lt-cb-vendedor lt-ng-model="vendedorSelected"
+                                        lt-data-distrito="distritoSelected"
+                                        lt-data-base="baseSelected" 
+                                        lt-data-cliente="clienteSelected" 
+                                        lt-data-codigo-vendedor="{{codigoVendedor}}" 
+                                        lt-depends-on-punto-entrega="puntoEntregaSelected" />
                     </div>
                 </div>
                 <div class="InputGroup">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
                     <div class="InputGroup__control">
-                        <input class="form-control" kendo-combo-box
-                               required
-                               k-data-source="supervisorVentasDS"
-                               k-data-text-field="'Descripcion'"
-                               k-data-value-field="'EmpleadoId'"
-                               k-ng-model="supervisorVentasSelected" />
+                        <lt-cb-supervisor-venta lt-ng-model="supervisorVentasSelected" 
+                                                lt-data-distrito="distritoSelected" 
+                                                lt-data-base="baseSelected" 
+                                                lt-depends-on-vendedor="vendedorSelected" 
+                                                lt-notify-show="notifyShow" />
                     </div>
                 </div>
                 <div class="InputGroup" style="max-height: 5em">
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ruta"):</span>
                     <div class="InputGroup__control">
-                        <input class="form-control" kendo-combo-box
-                               required
-                               k-data-source="supervisorRutaDS"
-                               k-data-text-field="'Descripcion'"
-                               k-data-value-field="'EmpleadoId'"
-                               k-ng-model="supervisorRutaSelected" />
+                        <lt-cb-supervisor-ruta lt-ng-model="supervisorRutaSelected" 
+                                               lt-data-distrito="distritoSelected" 
+                                               lt-data-base="baseSelected" 
+                                               lt-data-codigo-supervisor-rutas="{{codigoSupervisorRutas}}" 
+                                               lt-depends-on-supervisor-ventas="supervisorVentasSelected" />
                     </div>
                 </div>
                 <div class="InputGroup">
