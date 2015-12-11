@@ -165,6 +165,8 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.enHorarioSelected = {};
     $scope.movimientosDS = {};
 
+    $scope.disabledButton = false;
+
     $scope.codigoVendedor = "V";
     $scope.codigoSupervisorRutas = "SR";
 
@@ -203,6 +205,8 @@ function RechazoItemController($scope, EntitiesService) {
 
         if ($scope.validator.validate()) {
 
+            $scope.disabledButton = true;
+
             var ticketRechazo = {
                 DistritoId: $scope.distritoSelected.Key,
                 LineaId: $scope.baseSelected.Key,
@@ -226,6 +230,7 @@ function RechazoItemController($scope, EntitiesService) {
             EntitiesService.resources.ticketRechazo.save(ticketRechazo).$promise.then(
                 function () {
 
+                    $scope.disabledButton = false;
                     $scope.mainGrid.refresh();
                     $scope.rechazoWin.close();
                 }, onFail);
@@ -234,6 +239,7 @@ function RechazoItemController($scope, EntitiesService) {
 
     function onFail(error) {
         try {
+            $scope.disabledButton = false;
             if (error.data.ExceptionMessage) {
                 $scope.notify.show(error.data.ExceptionMessage, "error");
                 return;
