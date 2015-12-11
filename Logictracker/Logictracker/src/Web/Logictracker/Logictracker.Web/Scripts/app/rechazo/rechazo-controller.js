@@ -313,6 +313,15 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.transportistaSelected = [];
+    $scope.opcionesGrillaVendedor = {
+        columns: [
+            { field: "Usuario", title: "Usuario" },
+            { field: "EstadoIngreso", title: "De estado" },
+            { field: "EstadoEgreso", title: "A estado" },
+            { field: "Intervinio", title: "Intervinio en" },
+            { field: "Promedio", title: "Promedio (min)" }
+        ]
+    };
 
     function onPromediosPorRolLoad() {
         $scope.promedioVendedor = $scope.promediosPorRol.vendedor;
@@ -331,20 +340,35 @@ function RechazoEstadisticasController($scope, EntitiesService) {
         $scope.notify.show(error.errorThrown, "error");
     };
 
+    $scope.onBuscar = function () {
+
+        var filterList = [];
+
+        if ($scope.distritoSelected != undefined)
+            filterList.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key });
+
+        if ($scope.baseSelected != undefined)
+            filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
+
+        if ($scope.transportistaSelected.length > 0) {
+            var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
+            filterList.push({ logic: "or", filters: transportistaFilter });
+        }
+
+        var filter = {
+            logic: "and",
+            filters: filterList
+        };
+
+        $scope.datosGrillaVendedor = EntitiesService.ticketrechazo.promedioPorVendedor(filter, null, onFail);
+
+    };
+
     $scope.onAutoRefreshClick = function () {
-    }
+    };
 
     $scope.autoRefesh = true;
 
-    $scope.opcionesGrillaVendedor = {
-        columns: [
-            { field: "Usuario", title: "Usuario" },
-            { field: "EstadoIngreso", title: "De estado" },
-            { field: "EstadoEgreso", title: "A estado" },
-            { field: "Intervinio", title: "Intervinio en" },
-            { field: "Promedio", title: "Promedio (min)" }
-        ]
-    };
 
     $scope.opcionesGrillaEstados = {
         columns: [
@@ -352,12 +376,6 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             { field: "Promedio", title: "Promedio (min)" }
         ]
     };
-
-    $scope.datosGrillaVendedor = [
-        {
-            Usuario: "Giacomo Guillizani"
-        }
-    ];
 
     $scope.datosGrillaEstados = [
         {
