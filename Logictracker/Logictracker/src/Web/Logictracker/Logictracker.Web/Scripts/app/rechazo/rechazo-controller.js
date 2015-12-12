@@ -362,8 +362,8 @@ function RechazoEstadisticasController($scope, EntitiesService) {
 
     $scope.onBuscar = function () {
         $scope.promediosPorRol = EntitiesService.resources.estadisticasPorRol.get({
-            distritoId: $scope.UserData.DistritoSelected,
-            baseId: $scope.UserData.BaseSelected
+            distritoId: $scope.distritoSelected.Key,
+            baseId: $scope.baseSelected.Key
         }, onPromediosPorRolLoad);
 
         var filterList = [];
