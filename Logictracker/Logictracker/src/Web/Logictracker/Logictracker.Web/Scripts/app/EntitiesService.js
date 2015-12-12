@@ -30,7 +30,8 @@ function EntitiesService($resource, $http) {
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData"),
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
-            estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" })
+            estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" }),
+            cantidadPorEstado: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/estado", { distritoId: "@distritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,

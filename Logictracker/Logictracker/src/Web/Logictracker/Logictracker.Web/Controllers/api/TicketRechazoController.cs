@@ -110,6 +110,19 @@ namespace Logictracker.Web.Controllers.api
             return Json(promedios);
         }
 
+        [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/estado")]
+        public IHttpActionResult GetCantidadPorEstado(int distritoId, int baseId)
+        {
+            var list = new List<CantidadPorEstadoModel>()
+            {
+                new CantidadPorEstadoModel { Estado = "Pendiente", Cantidad = 6 },
+                new CantidadPorEstadoModel { Estado = "Avisado", Cantidad = 11 },
+                new CantidadPorEstadoModel { Estado = "Notificado", Cantidad = 20 }
+            };
+
+            return Json(list.ToArray());
+        }
+
         [Route("api/ticketrechazo/estadisticas/promedio/porvendedor")]
         public DataSourceResult GetPromedioPorVendedor([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {

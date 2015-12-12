@@ -332,6 +332,12 @@ function RechazoEstadisticasController($scope, EntitiesService) {
 
     $scope.autoRefesh = true;
     $scope.averageScale = { min: 0, max: 100 };
+    $scope.chartCantitdadPorEstadoSerieDefault = {
+        labels: {
+            visible: true
+        },
+        type: "pie"
+    };
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.transportistaSelected = [];
@@ -395,25 +401,15 @@ function RechazoEstadisticasController($scope, EntitiesService) {
         $scope.datosGrillaVendedor = EntitiesService.ticketrechazo.promedioPorVendedor(filter, null, onFail);
 
         $scope.datosGrillaEstados = EntitiesService.ticketrechazo.promedioPorEstado(filter, null, onFail);
+
+        EntitiesService.resources.cantidadPorEstado.query({
+            distritoId: $scope.distritoSelected.Key,
+            baseId: $scope.baseSelected.Key
+        }, function (data) {
+            $scope.chartCantitdadPorEstado = data;
+        });
     };
 
     $scope.onAutoRefreshClick = function () {
     };
-
-    $scope.chartTotalSerieDefault = {
-        labels: {
-            visible: true
-        },
-        type: "pie"
-    };
-
-    $scope.chartTotalData = new kendo.data.DataSource({
-        data: [{
-            "estado": "pendiente",
-            "cantidad": 25
-        },{
-            "estado": "cerrado",
-            "cantidad": 40
-        }]
-    });
 }
