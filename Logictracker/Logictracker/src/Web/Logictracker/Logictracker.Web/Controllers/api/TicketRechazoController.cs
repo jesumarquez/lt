@@ -127,6 +127,32 @@ namespace Logictracker.Web.Controllers.api
             r.Data = list.ToArray();
             return r;
         }
-    }
 
+        [Route("api/ticketrechazo/estadisticas/promedio/porestado")]
+        public DataSourceResult GetPromedioPorEstado([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
+        {
+            var list = new List<PromedioPorEstadoModel>()
+            {
+                new PromedioPorEstadoModel
+                {
+                    Estado = "Pendiente",
+                    Promedio = (float)4.2
+                },
+                new PromedioPorEstadoModel
+                {
+                    Estado = "Avisado",
+                    Promedio = (float)10
+                },
+                new PromedioPorEstadoModel
+                {
+                    Estado = "Notificado",
+                    Promedio = (float)10
+                }
+
+            };
+            DataSourceResult r = new DataSourceResult();
+            r.Data = list.ToArray();
+            return r;
+        }
+    }
 }

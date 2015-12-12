@@ -330,6 +330,8 @@ function RechazoEstadisticasController($scope, EntitiesService) {
         }
     });
 
+    $scope.autoRefesh = true;
+    $scope.averageScale = { min: 0, max: 100 };
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.transportistaSelected = [];
@@ -339,6 +341,12 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             { field: "EstadoIngreso", title: "De estado" },
             { field: "EstadoEgreso", title: "A estado" },
             { field: "Intervinio", title: "Intervinio en" },
+            { field: "Promedio", title: "Promedio (min)" }
+        ]
+    };
+    $scope.opcionesGrillaEstados = {
+        columns: [
+            { field: "Estado", title: "Estado" },
             { field: "Promedio", title: "Promedio (min)" }
         ]
     };
@@ -386,31 +394,11 @@ function RechazoEstadisticasController($scope, EntitiesService) {
 
         $scope.datosGrillaVendedor = EntitiesService.ticketrechazo.promedioPorVendedor(filter, null, onFail);
 
+        $scope.datosGrillaEstados = EntitiesService.ticketrechazo.promedioPorEstado(filter, null, onFail);
     };
 
     $scope.onAutoRefreshClick = function () {
     };
-
-    $scope.autoRefesh = true;
-
-
-    $scope.opcionesGrillaEstados = {
-        columns: [
-            { field: "Estado", title: "Estado" },
-            { field: "Promedio", title: "Promedio (min)" }
-        ]
-    };
-
-    $scope.datosGrillaEstados = [
-        {
-            Estado: "Pediente",
-            Promedio: 5
-        }
-    ];
-
-
-    $scope.averageScale = { min: 0, max: 100 };
-
 
     $scope.chartTotalSerieDefault = {
         labels: {
