@@ -165,6 +165,8 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.enHorarioSelected = {};
     $scope.movimientosDS = {};
 
+    $scope.disabledButton = false;
+
     $scope.codigoVendedor = "V";
     $scope.codigoSupervisorRutas = "SR";
 
@@ -182,6 +184,24 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
+    $scope.parametros = EntitiesService.resources.parametros.query({ distritoId: $scope.distritoSelected.Key }, paramOnLoad);
+
+    function paramOnLoad(e)
+    {
+        if (e !== undefined && e.length > 0) {
+            angular.forEach(e, function (value) {
+                switch (value.Key)
+                {
+                    case "CodigoSupervisorRutas":
+                        $scope.codigoSupervisorRutas = value.Value;
+                        break;
+                    case "CodigoVendedor":
+                        $scope.codigoVendedor = value.Value;
+                        break;
+                }
+            });
+        }
+    }
 
     $scope.gridDetalleOptions = {
         columns:
@@ -202,6 +222,8 @@ function RechazoItemController($scope, EntitiesService) {
         event.preventDefault();
 
         if ($scope.validator.validate()) {
+
+            $scope.disabledButton = true;
 
             var ticketRechazo = {
                 DistritoId: $scope.distritoSelected.Key,
@@ -226,6 +248,7 @@ function RechazoItemController($scope, EntitiesService) {
             EntitiesService.resources.ticketRechazo.save(ticketRechazo).$promise.then(
                 function () {
 
+                    $scope.disabledButton = false;
                     $scope.mainGrid.refresh();
                     $scope.rechazoWin.close();
                 }, onFail);
@@ -234,6 +257,7 @@ function RechazoItemController($scope, EntitiesService) {
 
     function onFail(error) {
         try {
+            $scope.disabledButton = false;
             if (error.data.ExceptionMessage) {
                 $scope.notify.show(error.data.ExceptionMessage, "error");
                 return;
