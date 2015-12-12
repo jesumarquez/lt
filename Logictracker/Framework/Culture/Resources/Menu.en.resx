@@ -921,4 +921,7 @@
   <data name="ORDERS" xml:space="preserve">
     <value>Orders</value>
   </data>
+  <data name="CLOG_RECHAZO_ESTADISTICAS" xml:space="preserve">
+    <value>Rejections Statistics</value>
+  </data>
 </root>
