@@ -22,13 +22,13 @@
     <property column="opetick10_bultos" type="int" name="Bultos" />
     <property column="opetick10_estado_final"  name="Final" />
 
-    <!--<property column="opetick10_ultimo_estado_fecha" type="DateTime" name="FechaHoraEstado" 
+    <property column="opetick10_ultimo_estado_fecha" type="DateTime" name="FechaHoraEstado" 
               formula="(select top 1 td.opetick11_fecha from opetick11 td where td.rela_opetick10 =  id_opetick10 order by td.opetick11_fecha desc)"
                />
 
     <property column="opetick10_ultimo_estado" name="UltimoEstado"
              formula="(select top 1 td.opetick11_estado from opetick11 td where td.rela_opetick10 =  id_opetick10 order by td.opetick11_fecha desc)"
-               />-->
+               />
      
     <set name="_detalles" access="field" lazy="true" inverse="true"
          cascade="all-delete-orphan" order-by="opetick11_fecha DESC">
