@@ -39,7 +39,8 @@ function EntitiesService($resource, $http) {
             empleado: getEmpleadosDS,
             items: getRechazoItems,
             nextEstado: getNextEstado,
-            promedioPorVendedor: getPromedioPorVendedor
+            promedioPorVendedor: getPromedioPorVendedor,
+            promedioPorEstado: getPromeioPorEstado
         }
     };
 
@@ -339,8 +340,6 @@ function EntitiesService($resource, $http) {
         return ds;
     }
 
-
-
     function getDistribuciones(data_, onEnd, onFail) {
 
         var ds = new kendo.data.DataSource({
@@ -463,6 +462,38 @@ function EntitiesService($resource, $http) {
 
         return ds;
     }
+
+    function getPromeioPorEstado(filters, onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ticketrechazo/estadisticas/promedio/porestado";
+                    },
+                },
+            },
+            schema: {
+                total: "Total",
+                data: "Data",
+                errors: "Errors"
+            },
+            pageSize: 25,
+            filter: filters,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
 
     return _service;
 }

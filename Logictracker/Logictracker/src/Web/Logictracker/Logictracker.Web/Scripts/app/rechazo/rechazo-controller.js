@@ -324,16 +324,14 @@ function RechazoEditItemController($scope, EntitiesService) {
 
 function RechazoEstadisticasController($scope, EntitiesService) {
 
-    $scope.UserData = EntitiesService.resources.userData.get({}, function (user) {
-        if (user.DistritoSelected && user.BaseSelected) {
-            $scope.promediosPorRol = EntitiesService.resources.estadisticasPorRol.get({
-                                        distritoId: user.DistritoSelected,
-                                        baseId: user.BaseSelected
-                                    },
-                                    onPromediosPorRolLoad);
+    $scope.UserData = EntitiesService.resources.userData.get({}, function () {
+        if ($scope.UserData.EmpleadoId === 0) {
+            onFail({ errorThrown: "Usuario sin empleado asociado" });
         }
     });
 
+    $scope.autoRefesh = true;
+    $scope.averageScale = { min: 0, max: 100 };
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.transportistaSelected = [];
@@ -343,6 +341,12 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             { field: "EstadoIngreso", title: "De estado" },
             { field: "EstadoEgreso", title: "A estado" },
             { field: "Intervinio", title: "Intervinio en" },
+            { field: "Promedio", title: "Promedio (min)" }
+        ]
+    };
+    $scope.opcionesGrillaEstados = {
+        columns: [
+            { field: "Estado", title: "Estado" },
             { field: "Promedio", title: "Promedio (min)" }
         ]
     };
@@ -365,6 +369,10 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     };
 
     $scope.onBuscar = function () {
+        $scope.promediosPorRol = EntitiesService.resources.estadisticasPorRol.get({
+            distritoId: $scope.distritoSelected.Key,
+            baseId: $scope.baseSelected.Key
+        }, onPromediosPorRolLoad);
 
         var filterList = [];
 
@@ -386,31 +394,11 @@ function RechazoEstadisticasController($scope, EntitiesService) {
 
         $scope.datosGrillaVendedor = EntitiesService.ticketrechazo.promedioPorVendedor(filter, null, onFail);
 
+        $scope.datosGrillaEstados = EntitiesService.ticketrechazo.promedioPorEstado(filter, null, onFail);
     };
 
     $scope.onAutoRefreshClick = function () {
     };
-
-    $scope.autoRefesh = true;
-
-
-    $scope.opcionesGrillaEstados = {
-        columns: [
-            { field: "Estado", title: "Estado" },
-            { field: "Promedio", title: "Promedio (min)" }
-        ]
-    };
-
-    $scope.datosGrillaEstados = [
-        {
-            Estado: "Pediente",
-            Promedio: 5
-        }
-    ];
-
-
-    $scope.averageScale = { min: 0, max: 100 };
-
 
     $scope.chartTotalSerieDefault = {
         labels: {
