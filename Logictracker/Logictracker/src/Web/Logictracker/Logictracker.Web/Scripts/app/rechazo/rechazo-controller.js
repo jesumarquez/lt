@@ -331,7 +331,10 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     });
 
     $scope.autoRefesh = true;
-    $scope.averageScale = { min: 0, max: 100 };
+    $scope.averageScale = {
+        min: 0, max: 100, ranges: [{ from: 0, to: 30, color: "green" },
+                                   { from: 30, to: 60, color: "yellow" },
+                                   { from: 60, to: 100, color: "red" }]};
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.transportistaSelected = [];
