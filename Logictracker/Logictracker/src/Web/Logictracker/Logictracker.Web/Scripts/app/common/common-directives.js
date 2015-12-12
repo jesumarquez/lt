@@ -560,19 +560,22 @@
     };
 });
 
+/// ltCbSupervisorVenta
 (function () {
 
     var directive = function () {
 
         var controller = function ($scope, EntitiesService) {
 
-            $scope.ds = EntitiesService.ticketrechazo.empleadoReporta(onDSLoad, onFail);
+            var vm = this;
 
-            $scope.$watch("dependsOn", onSelected);
+            vm.ds = EntitiesService.ticketrechazo.empleadoReporta(onDSLoad, onFail);
+
+            $scope.$watch("vm.dependsOn", onSelected);
 
             function onDSLoad(e) {
                 if (e.type === "read" && e.response) {
-                    $scope.model = e.response[0];
+                    vm.model = e.response[0];
                 }
             };
 
@@ -584,19 +587,19 @@
 
                 if (newValue !== undefined && newValue !== oldValue) {
 
-                    if (newValue && (newValue.baseId !== $scope.base.Key)) {
-                        $scope.notifyShow()("El vendedor  " + newValue.Descripcion + " pertenece a otra base", "warning");
+                    if (newValue && (newValue.baseId !== vm.base.Key)) {
+                        vm.notifyShow()("El vendedor  " + newValue.Descripcion + " pertenece a otra base", "warning");
                     }
 
-                    $scope.ds.read({
-                        distritoId: $scope.distrito.Key,
-                        baseId: $scope.base.Key,
-                        empleadoId: $scope.dependsOn.EmpleadoId
+                    vm.ds.read({
+                        distritoId: vm.distrito.Key,
+                        baseId: vm.base.Key,
+                        empleadoId: vm.dependsOn.EmpleadoId
                     });
                 }
                 else {
-                    $scope.ds.data([]);
-                    $scope.ds.read();
+                    vm.ds.data([]);
+                    vm.ds.read();
                 }
             }
         };
@@ -611,12 +614,14 @@
                 notifyShow: "&ltNotifyShow"
             },
             controller: ['$scope', 'EntitiesService', controller],
+            controllerAs: 'vm',
+            bindToController: true,
             template: [
                 '<input class="form-control" kendo-combo-box ',
                     'k-data-text-field="\'Descripcion\'" ',
                     'k-data-value-field="\'EmpleadoId\'" ',
-                    'k-data-source="ds" ',
-                    'k-ng-model="model" ',
+                    'k-data-source="vm.ds" ',
+                    'k-ng-model="vm.model" ',
                     'required >',
                 '</input>'
             ].join('')
@@ -628,31 +633,34 @@
 
 }());
 
+/// ltCbSupervisorRuta
 (function () {
 
     var directive = function () {
 
         var controller = function ($scope, EntitiesService) {
 
-            $scope.ds = EntitiesService.ticketrechazo.empleadoReporta(onDSLoad, onFail);
-            $scope.supervisorRutasRead = false;
+            var vm = this;
 
-            $scope.$watch("dependsOn", onSelected);
+            vm.ds = EntitiesService.ticketrechazo.empleadoReporta(onDSLoad, onFail);
+            vm.supervisorRutasRead = false;
+
+            $scope.$watch("vm.dependsOn", onSelected);
 
             function onDSLoad(e) {
                 if (e.type === "read" && e.response) {
                     if (e.response.length == 0)
-                        if ($scope.supervisorRutasRead) {
-                            $scope.ds.read({
-                                distritoId: $scope.distrito.Key,
-                                baseId: $scope.base.Key,
-                                empleadoId: $scope.dependsOn.EmpleadoId,
-                                tipoEmpleadoCodigo: $scope.codigo
+                        if (vm.supervisorRutasRead) {
+                            vm.ds.read({
+                                distritoId: vm.distrito.Key,
+                                baseId: vm.base.Key,
+                                empleadoId: vm.dependsOn.EmpleadoId,
+                                tipoEmpleadoCodigo: vm.codigo
                             });
                         }
 
-                    $scope.supervisorRutasRead = false;
-                    $scope.model = e.response[0];
+                    vm.supervisorRutasRead = false;
+                    vm.model = e.response[0];
                 }
             };
 
@@ -663,17 +671,17 @@
             function onSelected(newValue, oldValue) {
 
                 if (newValue !== undefined && newValue !== oldValue) {
-                    $scope.supervisorRutasRead = true;
+                    vm.supervisorRutasRead = true;
 
-                    $scope.ds.read({
-                        distritoId: $scope.distrito.Key,
-                        baseId: $scope.base.Key,
-                        empleadoId: $scope.dependsOn.EmpleadoId
+                    vm.ds.read({
+                        distritoId: vm.distrito.Key,
+                        baseId: vm.base.Key,
+                        empleadoId: vm.dependsOn.EmpleadoId
                     });
                 }
                 else {
-                    $scope.ds.data([]);
-                    $scope.ds.read();
+                    vm.ds.data([]);
+                    vm.ds.read();
                 }
             }
         };
@@ -688,12 +696,14 @@
                 codigo: "@ltDataCodigoSupervisorRutas"
             },
             controller: ['$scope', 'EntitiesService', controller],
+            controllerAs: 'vm',
+            bindToController: true,
             template: [
                 '<input class="form-control" kendo-combo-box ',
                     'k-data-text-field="\'Descripcion\'" ',
                     'k-data-value-field="\'EmpleadoId\'" ',
-                    'k-data-source="ds" ',
-                    'k-ng-model="model" ',
+                    'k-data-source="vm.ds" ',
+                    'k-ng-model="vm.model" ',
                     'required >',
                 '</input>'
             ].join('')
