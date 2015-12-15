@@ -101,8 +101,10 @@ namespace LogicTracker.App.Web.Api.Controllers
                     Longitud = message.Longitude
                 };
                 bool esMensajeOculto = false;
-                if (!String.IsNullOrEmpty(message.codigomensaje))
+                if (!String.IsNullOrEmpty(message.codigomensaje) &&
+                    message.codigomensaje.StartsWith("R"))
                 {
+                    message.codigomensaje = message.codigomensaje.Substring(1, message.codigomensaje.Length - 1);
                     TicketRechazo.MotivoRechazo rechazoEnum = (TicketRechazo.MotivoRechazo)int.Parse(message.codigomensaje.ToString());
                     switch (rechazoEnum)
                     {
@@ -126,10 +128,10 @@ namespace LogicTracker.App.Web.Api.Controllers
 
                                 var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
                                 if (employee == null) continue;
-                                
+
                                 var idRechazo = Convert.ToInt32(messageLog.Texto.Split(':')[0].Split(' ').Last());
                                 var rechazo = DaoFactory.TicketRechazoDAO.FindById(idRechazo);
-                                        
+
                                 if (rechazo != null)
                                 {
                                     try
@@ -155,8 +157,74 @@ namespace LogicTracker.App.Web.Api.Controllers
                                 break;
                             }
                         default:
-                            break;
+                            {
+                                TicketRechazo.Estado rechazoEstadoEnum = (TicketRechazo.Estado)int.Parse(message.codigomensaje.ToString());
+                                switch (rechazoEstadoEnum)
+                                {
+                                    case TicketRechazo.Estado.RespuestaExitosa:
+                                        {
+                                            esMensajeOculto = true;
+                                            var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
+                                            if (device == null) continue;
+                                            var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
+                                            if (employee == null) continue;
+                                            var rechazo = DaoFactory.TicketRechazoDAO.FindById(message.Id);
+
+                                            if (rechazo != null)
+                                            {
+                                                try
+                                                {
+
+                                                    if (rechazo.UltimoEstado != TicketRechazo.Estado.RespuestaExitosa)
+                                                    {
+                                                        rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.RespuestaExitosa, message.Description, employee);
+                                                        DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                                                    }
+
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
+                                                        throw ex;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    case TicketRechazo.Estado.RespuestaConRechazo:
+                                        {
+                                            esMensajeOculto = true;
+
+                                            var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);                                            
+                                            if (device == null) continue;
+                                            var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
+                                            if (employee == null) continue;
+                                            var rechazo = DaoFactory.TicketRechazoDAO.FindById(message.Id);
+                                            if (rechazo != null)
+                                            {
+                                                try
+                                                {
+                                                    if (rechazo.UltimoEstado != TicketRechazo.Estado.RespuestaConRechazo)
+                                                    {
+                                                        rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.RespuestaConRechazo, message.Description, employee);
+                                                        DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                                                    }
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
+                                                        throw ex;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        break;
+                                }
+                                break;
+                            }
                     }
+
+
                 }
                 if (!esMensajeOculto)
                     mensajes.Add(logMensaje);
