@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace Logictracker.Tracker.Application.Services.wsRedSos {
+namespace Logictracker.Tracker.Application.Integration.WebServiceSos {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -53,7 +53,7 @@ namespace Logictracker.Tracker.Application.Services.wsRedSos {
         
         /// <remarks/>
         public Service() {
-            this.Url = global::Logictracker.Tracker.Application.Services.Properties.Settings.Default.Logictracker_Tracker_Application_Services_wsRedSos_Service;
+            this.Url = global::Logictracker.Tracker.Application.Integration.Properties.Settings.Default.Logictracker_Tracker_Application_Integration_WebServiceSos_Service;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

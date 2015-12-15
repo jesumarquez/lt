@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Logictracker.Tracker.Application.Services">
-      <HintPath>..\..\..\Logictracker\src\Web\Logictracker\LogicTracker.App.Web.Api\Bin\Logictracker.Tracker.Application.Services.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

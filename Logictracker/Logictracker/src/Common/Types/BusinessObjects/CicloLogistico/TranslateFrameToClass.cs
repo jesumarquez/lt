@@ -18,16 +18,17 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
             OrigenLocalidad=8, 
             DestinoDireccion=9, 
             DestinoLocalidad=10, 
-            Operador=11, 
-            Diagnostico=12, 
-            Color=13, 
-            Tipo=14, 
-            HoraPedido=15, 
-            OrigenLatitud=16, 
-            OrigenLongitud=17, 
-            DestinoLatitud=18, 
-            DestinoLongitud=19, 
-            Estado=20
+            Operador=11,
+            CodDiagnostico = 12,
+            Diagnostico = 13, 
+            Color=14, 
+            Tipo=15, 
+            HoraPedido=16, 
+            OrigenLatitud=17, 
+            OrigenLongitud=18, 
+            DestinoLatitud=19, 
+            DestinoLongitud=20, 
+            Estado=21
         }
 
         //20151119303926,1271,IAZ 581,CITROEN C 4 2.0 I BVA EXCLUSIV,NORMAL,290.4,SOBRE MANO DERECHA FRENTE CONCESIONARIA,SAN MARTIN  500,CORDOBA,COLON   1000,CORDOBA,PALACIO HEREDIA FERNANDO JAVIE,CORREA DE DISTRIBUCION,AMARILLO,TRASLADO,19/11/2015 09:00,-31.3241410993924,-63.9724202099609,-31.3101359203789,-63.8783077646484,1
@@ -39,7 +40,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
 
             novelty.NumeroServicio = fields[(int)SosFields.Servicio];
             novelty.Movil = int.Parse(fields[(int)SosFields.Movil]);
-            novelty.Diagnostico = fields[(int)SosFields.Diagnostico];
+            novelty.Diagnostico = fields[(int)SosFields.CodDiagnostico] + "-" +fields[(int)SosFields.Diagnostico];
             novelty.Prioridad = fields[(int)SosFields.Prioridad];
             novelty.HoraServicio = DateTime.Parse(fields[(int) SosFields.HoraPedido]);
             novelty.CobroAdicional = fields[(int) SosFields.Adicional];

@@ -92,9 +92,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.Services\Logictracker.Tracker.Application.Services.csproj">
-      <Project>{AC30A8F9-E1B3-4B49-A63F-488538F2A2BF}</Project>
-      <Name>Logictracker.Tracker.Application.Services</Name>
+    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.Integration\Logictracker.Tracker.Application.Integration.csproj">
+      <Project>{b01581a4-65a8-4822-8782-d3830e48dd34}</Project>
+      <Name>Logictracker.Tracker.Application.Integration</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
       <Project>{7f58dcb5-6d76-4882-8610-74929b5df8ed}</Project>

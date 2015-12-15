@@ -13,8 +13,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
         {
             return GetType();
         }
-
-        private ITicketState TicketState;
+        
         public virtual string NumeroServicio { get; set; }
         public virtual int Movil { get; set; }
         public virtual string Patente { get; set; }
@@ -37,69 +36,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
         public virtual DateTime? Preasignado { get; set; }
         public virtual DateTime? Asignado { get; set; }
         public virtual DateTime? Cancelado { get; set; }
-        public virtual ViajeDistribucion Distribucion { get; set; }
+        public virtual ViajeDistribucion Distribucion { get; set; }     
 
-        public virtual string NotifyDriver()
-        {
-            return TicketState.NotifyDriver();
-        }
-
-        public virtual int NotifyServer(int respuestaGarmin)
-        {
-            return TicketState.NotifyServer(respuestaGarmin);
-        }
-
-        public virtual void DriverReject()
-        {
-            TicketState.DriverReject();
-        }
-
-        public virtual void DriverAccept()
-        {
-            TicketState.DriverAccept();
-        }
-
-        public virtual void CancelService()
-        {
-            TicketState.CancelService();
-        }
-
-        public virtual void SetStatus()
-        {
-            switch (EstadoServicio)
-            {
-                case 1: //servicio asignado 
-                    //if()
-                    TicketState = new AssignedTicketState(this);
-                    break;
-                case 2: //servicio prea asignado 
-                    TicketState = new PreassignedTicketState();
-                    break;
-                case 3: //asignación cancelada 
-                case 4: //pre asignado cancelado
-                case 5: //asignación y pre asignado canceladas
-                default:
-                    TicketState = new CanceledTicketState();
-                    break;
-            }
-        }
-
-        //public virtual ITicketState SetStatus(int oldStatus)
-        //{
-        //    if (oldStatus == 0) return SetStatus();
-
-        //    switch (EstadoServicio)
-        //    {
-        //        case 1: //servicio asignado 
-        //            return new AssignedTicketState(this);
-        //        case 2: //servicio prea asignado 
-        //            return new PreassignedTicketState();
-        //        case 3: //asignación cancelada 
-        //        case 4: //pre asignado cancelado
-        //        case 5: //asignación y pre asignado canceladas
-        //        default:
-        //            return new CanceledTicketState();
-        //    }
-        //}
     }
 }

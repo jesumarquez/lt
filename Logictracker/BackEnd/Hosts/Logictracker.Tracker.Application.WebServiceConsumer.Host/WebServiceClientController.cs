@@ -1,9 +1,5 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-using System.Threading;
-using System.Timers;
+﻿using System.Timers;
 using log4net;
-using Logictracker.Tracker.Application.Services;
 using Logictracker.Tracker.Services;
 
 namespace Logictracker.Tracker.Application.WebServiceConsumer.Host

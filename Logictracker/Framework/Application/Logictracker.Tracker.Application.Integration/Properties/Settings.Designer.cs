@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logictracker.Tracker.Application.Services.Properties {
+namespace Logictracker.Tracker.Application.Integration.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,16 @@ namespace Logictracker.Tracker.Application.Services.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://wsderivacionservicios.redsos.com.ar/Service.asmx")]
+        public string Logictracker_Tracker_Application_Integration_WebServiceSos_Service {
+            get {
+                return ((string)(this["Logictracker_Tracker_Application_Integration_WebServiceSos_Service"]));
             }
         }
     }
