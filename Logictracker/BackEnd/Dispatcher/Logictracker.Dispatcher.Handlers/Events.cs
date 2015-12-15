@@ -94,33 +94,9 @@ namespace Logictracker.Dispatcher.Handlers
 			string applicationCode;
 		    var esConfirmacionUbox = false;
 
-            if (Coche.Empresa.InicioDistribucionPorMensaje &&
-                code == Coche.Empresa.InicioDistribucionCodigoMensaje &&
-                DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche) == null)
-            {
-                var distribucion = DaoFactory.ViajeDistribucionDAO.FindPendiente(new[] {Coche.Empresa.Id},
-                                                                                 new[] {-1}, new[] {Coche.Id},
-                                                                                 DateTime.Today,
-                                                                                 DateTime.Today.AddDays(1));
-                if (distribucion != null)
-                {
-                    var evento = new InitEvent(generico.Tiempo);
-                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
-                    ciclo.ProcessEvent(evento);
-                }
-            }
+            ControlarInicioDistribucionPorMensaje(code, generico);
 
-            if (Coche.Empresa.CierreDistribucionPorMensaje &&
-                code == Coche.Empresa.CierreDistribucionCodigoMensaje)
-            {
-                var distribucion = DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche);
-                if (distribucion != null)
-                {
-                    var evento = new CloseEvent(generico.Tiempo);
-                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
-                    ciclo.ProcessEvent(evento);
-                }
-            }
+            ControlarCierreDistribucionPorMensaje(code, generico);
 
 		    if (MessageIdentifierX.IsRfidEvent(generico.Code)) applicationCode = ProcessRfidEvent(code, generico);
             else if (MessageIdentifierX.IsEstadoLogistico(generico.GetData())) applicationCode = ProcessEstadoLogistico(code, generico);
@@ -159,6 +135,40 @@ namespace Logictracker.Dispatcher.Handlers
                 else if (esConfirmacionUbox) ProcessGenericEvent(generico, code);
 			}
 		}
+
+        private void ControlarInicioDistribucionPorMensaje(string code, Event generico)
+        {
+            if (Coche.Empresa.InicioDistribucionPorMensaje &&
+                code == Coche.Empresa.InicioDistribucionCodigoMensaje &&
+                DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche) == null)
+            {
+                var distribucion = DaoFactory.ViajeDistribucionDAO.FindPendiente(new[] { Coche.Empresa.Id },
+                                                                                 new[] { -1 }, new[] { Coche.Id },
+                                                                                 DateTime.Today,
+                                                                                 DateTime.Today.AddDays(1));
+                if (distribucion != null)
+                {
+                    var evento = new InitEvent(generico.Tiempo);
+                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
+                    ciclo.ProcessEvent(evento);
+                }
+            }
+        }
+
+        private void ControlarCierreDistribucionPorMensaje(string code, Event generico)
+        {
+            if (Coche.Empresa.CierreDistribucionPorMensaje &&
+                code == Coche.Empresa.CierreDistribucionCodigoMensaje)
+            {
+                var distribucion = DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche);
+                if (distribucion != null)
+                {
+                    var evento = new CloseEvent(generico.Tiempo);
+                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
+                    ciclo.ProcessEvent(evento);
+                }
+            }
+        }
 
 	    private void ProcessEntityEvent(Event evento, string code)
 		{

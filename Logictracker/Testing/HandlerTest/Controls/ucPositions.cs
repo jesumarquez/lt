@@ -11,6 +11,9 @@ using Compumap.Controls.Geometries;
 using Compumap.Controls.BaseTypes;
 using Logictracker.Types.ValueObject.Positions;
 using Point = Compumap.Controls.Geometries.Point;
+using Logictracker.DAL.Factories;
+using Logictracker.DAL.DAO.BusinessObjects.Positions;
+using Logictracker.DAL.DAO.BusinessObjects.Dispositivos;
 
 namespace HandlerTest.Controls
 {
@@ -169,6 +172,22 @@ namespace HandlerTest.Controls
         {
             if (!Initialized) return;
             mapControl1.SetLayerVisibility(LayerBase, chkMostrarBase.Checked);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var dao = DAOFactory.GetDao<LogPosicionDAO>();
+
+            var posiciones = dao.GetPositionsBetweenDates(10289, new DateTime(2015, 12, 04, 3, 0, 0), new DateTime(2015, 12, 04, 21, 0, 0));
+            var dispo = DAOFactory.GetDao<DispositivoDAO>().FindById(4753);
+
+            foreach (var aux in posiciones)
+            {
+                var posicion = Sender.CreatePosition(dispo, aux.FechaMensaje, aux.Latitud, aux.Longitud, aux.Velocidad);
+                Sender.Enqueue(TestApp.Config.Queue, posicion, TestApp.Config.QueueType);
+            }
+
+            
         }
     }
 }
