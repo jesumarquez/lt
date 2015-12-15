@@ -11,6 +11,10 @@ using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects.Rechazos;
+using Logictracker.Messages.Sender;
+using Logictracker.Messages.Saver;
+using Logictracker.Types.BusinessObjects.Dispositivos;
+using Logictracker.Messaging;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -123,7 +127,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                                 esMensajeOculto = true;
                                 var messageLog = DaoFactory.LogMensajeDAO.FindById(message.Id);
 
-                                var device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
+                                Dispositivo device = DaoFactory.DispositivoDAO.FindByImei(deviceId);
                                 if (device == null) continue;
 
                                 var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
@@ -146,6 +150,10 @@ namespace LogicTracker.App.Web.Api.Controllers
                                         else
                                         {
                                             //El usuario ya fue alertado
+                                            IMessageSaver saver = new MessageSaver(DaoFactory);
+                                            var messagetEXT = MessageSender.CreateSubmitTextMessage(device, saver);
+                                            messagetEXT.AddMessageText("INFORME DE RECHAZO NRO "+idRechazo+" EL USUARIO YA FUE ALERTADO");
+                                            messagetEXT.Send();
                                         }
                                     }
                                     catch (Exception ex)
