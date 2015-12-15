@@ -210,7 +210,8 @@ namespace Logictracker.Tracker.Application.Services
                 {
                     try
                     {
-                        if (rechazo.Vendedor.Id == employee.Id)
+                        if (rechazo.Vendedor.Id == employee.Id &&
+                            rechazo.UltimoEstado == Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Pendiente)
                         {
                             rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Notificado1, "Recepción OK", employee);
                             DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);

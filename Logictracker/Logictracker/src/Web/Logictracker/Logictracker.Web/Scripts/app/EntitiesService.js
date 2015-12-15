@@ -24,12 +24,14 @@ function EntitiesService($resource, $http) {
             centroDeCostos: $resource("/api/distrito/:distritoId/base/:baseId/centrodecostos/items", { distritoId: "@distritoId", baseId: "@baseId", deptoId: "@deptoId" }),
             transportista: $resource("/api/distrito/:distritoId/base/:baseId/transportista/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             puntoEntrega: $resource("/api/distrito/:distritoId/base/:baseId/cliente/:clienteId/PuntoEntrega/items", { distritoId: "@distritoId", baseId: "@baseId", clienteId: "@clienteId" }),
-            empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/items"),
+            empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/models"),
             empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/models"),
             empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/model"),
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData"),
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
+            estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" }),
+            cantidadPorEstado: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/estado", { distritoId: "@distritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -37,7 +39,9 @@ function EntitiesService($resource, $http) {
             empleadoReporta: getEmpleadoReportaDS,
             empleado: getEmpleadosDS,
             items: getRechazoItems,
-            nextEstado: getNextEstado
+            nextEstado: getNextEstado,
+            promedioPorVendedor: getPromedioPorVendedor,
+            promedioPorEstado: getPromeioPorEstado
         }
     };
 
@@ -337,8 +341,6 @@ function EntitiesService($resource, $http) {
         return ds;
     }
 
-
-
     function getDistribuciones(data_, onEnd, onFail) {
 
         var ds = new kendo.data.DataSource({
@@ -429,6 +431,70 @@ function EntitiesService($resource, $http) {
 
         return ds;
     }
+
+    function getPromedioPorVendedor(filters, onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ticketrechazo/estadisticas/promedio/porvendedor";
+                    },
+                },
+            },
+            schema: {
+                total: "Total",
+                data: "Data",
+                errors: "Errors"
+            },
+            pageSize: 25,
+            filter: filters,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    }
+
+    function getPromeioPorEstado(filters, onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ticketrechazo/estadisticas/promedio/porestado";
+                    },
+                },
+            },
+            schema: {
+                total: "Total",
+                data: "Data",
+                errors: "Errors"
+            },
+            pageSize: 8,
+            filter: filters,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
 
     return _service;
 }

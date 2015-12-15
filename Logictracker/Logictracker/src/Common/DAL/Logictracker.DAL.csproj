@@ -821,7 +821,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\RechazoMov.hbm.xml" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\SosTicket.hbm.xml">
       <SubType>Designer</SubType>

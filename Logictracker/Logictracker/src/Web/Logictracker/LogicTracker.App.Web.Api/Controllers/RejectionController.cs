@@ -43,7 +43,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             var hasta = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59);
             var activos = dao.GetByEmpleadoAndFecha(empleado, desde, hasta).AsQueryable();
             List<TicketRechazo> list = activos.Where(x => !x.UltimoEstado.Equals(TicketRechazo.Estado.Resuelto) &&
-                                 x.Id >= id).ToList();
+                                 x.Id > id).ToList();
 
             foreach (TicketRechazo item in list)
             {
@@ -52,6 +52,9 @@ namespace LogicTracker.App.Web.Api.Controllers
 
                 foreach (var itemEstado in item.Detalle)
                 {
+                    string transportista = "";
+                    if (item.Transportista != null)
+                        transportista = item.Transportista.Descripcion.ToString();
                     estadosmodel.Add(new Estado()
                     {
                         id = (int)itemEstado.Id,
@@ -59,7 +62,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                         empleado = itemEstado.Empleado.Entidad.Descripcion.ToString(),
                         estado = itemEstado.Estado.ToString(),
                         observacion = itemEstado.Observacion,
-                        transportista = item.Transportista.Descripcion.ToString(),
+                        transportista = transportista,
                         enhorario = item.EnHorario.ToString(),
                         cliente = item.Cliente.ToString(),
                     });
@@ -78,7 +81,8 @@ namespace LogicTracker.App.Web.Api.Controllers
                         supventa = item.SupervisorVenta.Entidad.Descripcion.ToString(),
                         supruta = item.SupervisorRuta.Entidad.Descripcion.ToString(),
                         territorio = item.Territorio,
-                        estados = estadosmodel.ToArray()
+                        estados = estadosmodel.ToArray(),
+                        usuariomobile = empleado.Entidad.Descripcion
                     });
             }
             return Ok(retorno.ToArray());

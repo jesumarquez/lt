@@ -7,16 +7,15 @@
     <div class="row nl-filterpanel">
         <div class="col-md-2">
             @Html.ResourceLabel("Entities", "PARENTI01"):
-            <lt-rechazo-distrito />
-
+            <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
         </div>
         <div class="col-md-2">
             @Html.ResourceLabel("Entities", "PARENTI02"):
-            <lt-rechazo-base />
+            <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
         </div>
         <div class="col-md-4">
             @Html.ResourceLabel("Entities", "PARENTI07"):
-            <lt-rechazo-transportista/>
+            <lt-ms-transportista lt-ng-model="transportistaSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" />
         </div>
         <div class="col-md-2">
             <br/>
@@ -30,41 +29,57 @@
     <div class="row">
         <div class="col-md-2">
             <div class="row">
-                <div class="col-md-12 k-content GaugeContainer">
-                    <label>Promedio OL</label>
+                <div class="col-md-12 GaugeContainer">
+                    <div>Promedio Vendedor</div>
                     <span kendo-radialgauge
                           k-scale="averageScale"
-                          ng-model="averageOL"></span>
+                          ng-model="promedioVendedor"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 GaugeContainer">
-                    <label>Promedio Vendedores</label>
+                    <div>Promedio Sup. Ventas</div>
                     <span kendo-radialgauge
                           k-scale="averageScale"
-                          ng-model="averageVendedores"></span>
+                          ng-model="promedioSupervisorVentas"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 GaugeContainer">
+                    <div>Promedio Jefe Ventas</div>
+                    <span kendo-radialgauge
+                          k-scale="averageScale"
+                          ng-model="promedioJefeVentas"></span>
                 </div>
             </div>
         </div>
         <div class="col-md-10">
-            <div class="row">
-                <div class="col-md-8 StatsContent-top">
-                    <div kendo-grid k-options="gridOptions" k-data-source="statsDS"></div>
+            <div class="row StatsContent-top">
+                <div class="col-md-8 ">
+                    <div>Promedio de atención por Vendedor</div>
+                    <div kendo-grid k-options="opcionesGrillaVendedor" k-data-source="datosGrillaVendedor"></div>
                 </div>
-                <div class="col-md-4 GaugeContainer">
-                    <div kendo-chart
-                         k-series-defaults="{ type: 'pie' }"
-                         k-series="[{
-	                                field: 'share',
-	                                categoryField: 'resolution',
-	                                padding: 0
-	                              }]"
-                         k-data-source="screenResolution">
-                    </div>
+                <div class="col-md-4 ">
+                    <div>Promedio de atención por estados</div>
+                    <div kendo-grid k-options="opcionesGrillaEstados" k-data-source="datosGrillaEstados"></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 StatsContent-bottom">data3</div>
+            <div class="row StatsContent-bottom">
+                <div class="col-md-7 ">
+                    
+                </div>
+                <div class="col-md-5 GaugeContainer">
+                    <div kendo-chart
+                         k-title="{text: 'Cantidad por Estado'}"
+                         k-series-defaults="chartCantitdadPorEstadoSerieDefault"
+                         k-series="[{
+	                                field: 'Cantidad',
+	                                categoryField: 'Estado',
+	                                padding: 0
+	                              }]"
+                         k-data-source="chartCantitdadPorEstado">
+                    </div>
+                </div>
             </div>
         </div>
 

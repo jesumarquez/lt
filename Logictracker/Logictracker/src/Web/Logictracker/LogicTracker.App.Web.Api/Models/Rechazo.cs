@@ -27,5 +27,7 @@ namespace LogicTracker.App.Web.Api.Models
         public Estado[] estados { get; set; }
 
         public string nombre { get; set; }
+
+        public string usuariomobile { get; set; }
     }
 }
