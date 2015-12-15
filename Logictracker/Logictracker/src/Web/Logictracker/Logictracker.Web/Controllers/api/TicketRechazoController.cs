@@ -152,10 +152,10 @@ namespace Logictracker.Web.Controllers.api
 
             var promedios = new
             {
-                vendedor = vend == null ? 0 : vend.Promedio / 60,
-                supervisorVentas = sup == null ? 0 : sup.Promedio / 60,
-                jefeVentas = jef == null ? 0 : jef.Promedio / 60,
-                otros = (otr.Sum(e=>e.Promedio)/60) / Math.Min(1,otr.Count())
+                vendedor = (vend == null ? 0 : vend.Promedio) / 60,
+                supervisorVentas = (sup == null ? 0 : sup.Promedio) / 60,
+                jefeVentas = (jef == null ? 0 : jef.Promedio) / 60,
+                otros = (otr.Sum(e=>e.Promedio)/60) / Math.Max(1,otr.Count())
             };
 
             return Json(promedios);

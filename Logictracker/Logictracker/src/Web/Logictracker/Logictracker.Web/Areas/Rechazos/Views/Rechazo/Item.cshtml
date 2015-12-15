@@ -63,7 +63,7 @@
             </div>
             <div class="InputContainer-column">
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Transportista"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Cadena"):</span>
                     <div class="InputGroup__control">
                         <lt-cb-transportista lt-ng-model="transportistaSelected"
                                              lt-data-distrito="distritoSelected"
@@ -71,20 +71,20 @@
                     </div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Cadena"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Entities", "PARENTI18"):</span>
                     <div class="InputGroup__control">
                         {{clienteSelected}}
                     </div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Territorio"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "TERRITORIO"):</span>
                     <div class="InputGroup__control">
                         <input class="form-control k-textbox" type="text"
                                ng-model="territorio"/>
                     </div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Bultos"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "BULTOS"):</span>
                     <div class="InputGroup__control">
                         <input class="form-control k-textbox" required type="number"
                                ng-model="bultos" min="0" value="0" />
@@ -93,7 +93,7 @@
             </div>
             <div class="InputContainer-column">
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Vendedor"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "VENDEDOR"):</span>
                     <div class="InputGroup__control">
                         <lt-cb-vendedor lt-ng-model="vendedorSelected"
                                         lt-data-distrito="distritoSelected"
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Supervisor Ventas"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "SUPERVISOR_RUTA"):</span>
                     <div class="InputGroup__control">
                         <lt-cb-supervisor-venta lt-ng-model="supervisorVentasSelected" 
                                                 lt-data-distrito="distritoSelected" 
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="InputGroup" style="max-height: 5em">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Jefe de Ventas"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "SUPERVISOR_VENTAS"):</span>
                     <div class="InputGroup__control">
                         <lt-cb-supervisor-ruta lt-ng-model="supervisorRutaSelected" 
                                                lt-data-distrito="distritoSelected" 
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "En horario"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "EN_HORARIO"):</span>
                     <div class="InputGroup__control">
                         <input class="form-control" kendo-combo-box
                                required
@@ -141,7 +141,7 @@
 
         <div class="InputContainer">
             <div class="InputGroup">
-                <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Observaciones"):</span>
+                <span class="InputGroup__label">@Html.ResourceLabel("Labels", "OBSERVACIONES"):</span>
                 <div class="InputGroup__control">
                     <textarea class="form-control"
                               kendo-editor
