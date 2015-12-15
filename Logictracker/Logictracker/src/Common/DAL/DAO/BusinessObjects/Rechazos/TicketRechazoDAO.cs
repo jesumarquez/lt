@@ -40,6 +40,28 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
             return Query.Where(t => t.Empresa.Id == idEmpresa && estadosActivos.Contains(t.UltimoEstado)).ToList();
         }
 
+        public IEnumerable<TicketRechazo> GetByEmpleadoAndFecha(Empleado empleado, DateTime desde, DateTime hasta)
+        {
+            var q = Query.Where(t => t.Empresa.Id == empleado.Empresa.Id 
+                                 && t.FechaHora > desde 
+                                 && t.FechaHora < hasta);
+
+            switch (empleado.TipoEmpleado.Codigo)
+            {
+                case "SR":
+                    q = q.Where(t => t.SupervisorRuta.Id == empleado.Id);
+                    break;
+                case "JF":
+                    q = q.Where(t => t.SupervisorVenta.Id == empleado.Id);
+                    break;
+                case "V":
+                    q = q.Where(t => t.Vendedor.Id == empleado.Id);
+                    break;
+            }
+
+            return q.ToList();
+        }
+
         public IEnumerable<RechazoPromedioRolModel> GetPromedioPorRol(int distritoId, int baseId)
         {
             RechazoMov mov = null;

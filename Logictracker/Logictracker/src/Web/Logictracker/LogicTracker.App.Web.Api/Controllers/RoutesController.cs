@@ -98,7 +98,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 job.Id = detail.Id;
                 job.StartDate = detail.Programado.ToString("yyyy-MM-ddTHH:mm:ss");
                 job.EndDate = detail.ProgramadoHasta.ToString("yyyy-MM-ddTHH:mm:ss");
-                job.State = detail.Estado==3 ? 0 : detail.Estado;
+                job.State = detail.Estado == 3 ? 0 : detail.Estado;
                 if (detail.PuntoEntrega != null && detail.PuntoEntrega.Descripcion != null)
                 {
                     job.Code = detail.PuntoEntrega.Codigo;
@@ -108,7 +108,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 else
                 {
                     if (detail.Cliente != null)
-                    { 
+                    {
                         job.ClientName = detail.Cliente.Descripcion;
                         job.Code = detail.Cliente.Codigo;
                     }
@@ -125,7 +125,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                         job.direccionreal = detail.ReferenciaGeografica.Direccion.Descripcion;
                 }
                 job.Description = detail.Descripcion;
-                
+
                 job.Order = detail.Orden;
                 job.Location = new Location();
 
@@ -136,20 +136,28 @@ namespace LogicTracker.App.Web.Api.Controllers
 
                 if (detail.PuntoEntrega != null)
                 {
-                    job.Location.Latitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Latitude;
-                    job.Location.Longitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Longitude;
+                    job.Location.Latitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Latitude;
+                    job.Location.Longitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Longitude;
                 }
                 else
                 {
-                    job.Location.Latitude = (float) detail.Linea.ReferenciaGeografica.Latitude;
-                    job.Location.Longitude = (float) detail.Linea.ReferenciaGeografica.Longitude;
+                    job.Location.Latitude = (float)detail.Linea.ReferenciaGeografica.Latitude;
+                    job.Location.Longitude = (float)detail.Linea.ReferenciaGeografica.Longitude;
                 }
 
-                if (detail.PuntoEntrega!=null)
+                if (detail.PuntoEntrega != null)
                     jobs.Add(job);
             }
-
+            
             route.Jobs = jobs.ToArray();
+            
+            if (trip.Recepcion == null)
+            {
+                ViajeDistribucionDAO vd = new ViajeDistribucionDAO();
+                trip.Recepcion = DateTime.UtcNow;
+                vd.SaveOrUpdate(trip);
+            }
+
             return Ok(route);
         }
         
@@ -189,11 +197,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             {
                 case "START":
                     { 
-                        commandStatus = RouteService.StartRoute(id);
-                        ViajeDistribucionDAO vd = new ViajeDistribucionDAO();
-                        var trip = RouteService.GetDistributionRouteById(id);
-                        trip.Recepcion = DateTime.UtcNow;
-                        vd.SaveOrUpdate(trip);
+                        commandStatus = RouteService.StartRoute(id);                       
                     }
                     break;
                 case "FINALIZE":

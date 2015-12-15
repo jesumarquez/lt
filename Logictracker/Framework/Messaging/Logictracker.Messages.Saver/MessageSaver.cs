@@ -299,7 +299,7 @@ namespace Logictracker.Messages.Saver
                 if (accion.Inhabilita) InhabilitarUsuario(log.Accion);
                 if (accion.ReportarAssistCargo) ReportarAssistCargo(log, accion.CodigoAssistCargo);
                 if (accion.EnviaReporte) EnviarReporte(log);
-                if (accion.ReportaResponsableCuenta) GenerarEventoResponsable(log);
+                //if (accion.ReportaResponsableCuenta) GenerarEventoResponsable(log);
             }
             totalSeconds = t.getTimeElapsed().TotalSeconds;
             if (totalSeconds > 1)
