@@ -276,7 +276,11 @@ function RechazoEditItemController($scope, EntitiesService) {
             { field: "EmpleadoDesc", title: "Empleado", width: "8em" },
             { field: "Estado", title: "Estado", width: "10em" },
             { field: "Observacion", title: "Observacion" },
-        ]
+        ],
+        sortable: {
+            mode: "single",
+            allowUnsort: false
+        },
     };
 
     $scope.estadoSelected = {};
@@ -347,6 +351,11 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             { field: "Intervinio", title: "Intervinio en" },
             { field: "Promedio", title: "Promedio (min)" }
         ],
+        
+        sortable: {
+            mode: "single",
+            allowUnsort: false
+        },
         pageable: true
     };
     $scope.opcionesGrillaEstados = {
@@ -354,6 +363,10 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             { field: "Estado", title: "Estado" },
             { field: "Promedio", title: "Promedio (min)", format: "{0:0}" }
         ],
+        sortable: {
+            mode: "single",
+            allowUnsort: false
+        },
         pageable: true
     };
 
@@ -406,7 +419,7 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             distritoId: $scope.distritoSelected.Key,
             baseId: $scope.baseSelected.Key
         }, function (data) {
-            debugger;
+            //debugger;
             $scope.chartCantitdadPorEstado = data;
         });
     };
