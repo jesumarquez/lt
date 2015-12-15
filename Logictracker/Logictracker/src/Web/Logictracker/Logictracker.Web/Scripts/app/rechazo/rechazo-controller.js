@@ -23,7 +23,7 @@ function RechazoController($scope, EntitiesService, $filter) {
     $scope.transportistaSelected = [];
     $scope.estadoSelected = [];
     $scope.motivoSelected = [];
-   
+
     $scope.desde = new Date();
     $scope.hasta = new Date();
 
@@ -53,7 +53,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         },
         columns:
         [
-        { template:  kendo.template($("#rechazo-sem").html()) , width : "10px"},
+        { template: kendo.template($("#rechazo-sem").html()), width: "10px" },
         { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
         { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "Estado", title: "Estado" },
@@ -186,12 +186,10 @@ function RechazoItemController($scope, EntitiesService) {
 
     $scope.parametros = EntitiesService.resources.parametros.query({ distritoId: $scope.distritoSelected.Key }, paramOnLoad);
 
-    function paramOnLoad(e)
-    {
+    function paramOnLoad(e) {
         if (e !== undefined && e.length > 0) {
             angular.forEach(e, function (value) {
-                switch (value.Key)
-                {
+                switch (value.Key) {
                     case "CodigoSupervisorRutas":
                         $scope.codigoSupervisorRutas = value.Value;
                         break;
@@ -324,11 +322,7 @@ function RechazoEditItemController($scope, EntitiesService) {
 
 function RechazoEstadisticasController($scope, EntitiesService) {
 
-    $scope.UserData = EntitiesService.resources.userData.get({}, function () {
-        if ($scope.UserData.EmpleadoId === 0) {
-            onFail({ errorThrown: "Usuario sin empleado asociado" });
-        }
-    });
+    $scope.UserData = EntitiesService.resources.userData.get({}, function () { });
 
     $scope.autoRefesh = true;
     $scope.averageScale = {
@@ -352,13 +346,15 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             { field: "EstadoEgreso", title: "A estado" },
             { field: "Intervinio", title: "Intervinio en" },
             { field: "Promedio", title: "Promedio (min)" }
-        ]
+        ],
+        pageable: true
     };
     $scope.opcionesGrillaEstados = {
         columns: [
             { field: "Estado", title: "Estado" },
-            { field: "Promedio", title: "Promedio (min)" }
-        ]
+            { field: "Promedio", title: "Promedio (min)", format: "{0:0}" }
+        ],
+        pageable: true
     };
 
     function onPromediosPorRolLoad() {
@@ -387,10 +383,10 @@ function RechazoEstadisticasController($scope, EntitiesService) {
         var filterList = [];
 
         if ($scope.distritoSelected != undefined)
-            filterList.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key });
+            filterList.push({ field: "EmpresaId", operator: "eq", value: $scope.distritoSelected.Key });
 
         if ($scope.baseSelected != undefined)
-            filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
+            filterList.push({ field: "BaseId", operator: "eq", value: $scope.baseSelected.Key });
 
         if ($scope.transportistaSelected.length > 0) {
             var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
@@ -410,6 +406,7 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             distritoId: $scope.distritoSelected.Key,
             baseId: $scope.baseSelected.Key
         }, function (data) {
+            debugger;
             $scope.chartCantitdadPorEstado = data;
         });
     };

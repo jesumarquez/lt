@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Logictracker.Culture;
 using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
-using System;
-using NHibernate.Criterion;
+using WebGrease.Css.Extensions;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -21,7 +22,7 @@ namespace Logictracker.Web.Controllers.api
             var ticket = EntityDao.FindById(ticketId);
             var estados = TicketRechazo.Next(ticket.UltimoEstado);
 
-            return estados.Select(e => new ItemModel { Key = (int)e, Value = Culture.CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(e)) });
+            return estados.Select(e => new ItemModel { Key = (int)e, Value = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(e)) });
         }
 
         [Route("api/ticketrechazo/estado/items")]
@@ -40,10 +41,10 @@ namespace Logictracker.Web.Controllers.api
                 [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
             var tickets = EntityDao.FindAll();
-            
-            if (Usuario.Empleado == null|| Usuario.Empleado.TipoEmpleado == null)
+
+            if (Usuario.Empleado == null || Usuario.Empleado.TipoEmpleado == null)
                 return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
-            
+
             switch (Usuario.Empleado.TipoEmpleado.Codigo)
             {
                 case "SR":
@@ -100,11 +101,20 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/rol")]
         public IHttpActionResult GetPromedioPorRol(int distritoId, int baseId)
         {
+            var w = EntityDao.GetPromedioPorRol(distritoId, baseId);
+
+
+            var vend = w.FirstOrDefault(e => e.TipoEmpleado == "V");
+            var sup = w.FirstOrDefault(e => e.TipoEmpleado == "SR");
+            var jef = w.FirstOrDefault(e => e.TipoEmpleado == "JF");
+            var otr = w.Where(e => e.TipoEmpleado != "V" && e.TipoEmpleado != "SR" && e.TipoEmpleado != "JF");
+
             var promedios = new
             {
-                vendedor = 62,
-                supervisorVentas = 25,
-                jefeVentas = 20
+                vendedor = vend == null ? 0 : vend.Promedio / 60,
+                supervisorVentas = sup == null ? 0 : sup.Promedio / 60,
+                jefeVentas = jef == null ? 0 : jef.Promedio / 60,
+                otros = (otr.Sum(e=>e.Promedio)/60) / Math.Min(1,otr.Count())
             };
 
             return Json(promedios);
@@ -113,12 +123,30 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/estado")]
         public IHttpActionResult GetCantidadPorEstado(int distritoId, int baseId)
         {
-            var list = new List<CantidadPorEstadoModel>()
-            {
-                new CantidadPorEstadoModel { Estado = "Pendiente", Cantidad = 6 },
-                new CantidadPorEstadoModel { Estado = "Avisado", Cantidad = 11 },
-                new CantidadPorEstadoModel { Estado = "Notificado", Cantidad = 20 }
-            };
+            var w = EntityDao.FindAll();
+
+            if (distritoId != -1)
+                w = w.Where(t => t.Empresa.Id == distritoId);
+            if (baseId != -1)
+                w = w.Where(t => t.Linea.Id == baseId);
+
+            w = w.Where(t => t.FechaHoraEstado >= DateTime.UtcNow.AddHours(-24));
+
+            var list = w.ToList().GroupBy(t => t.UltimoEstado)
+                 .Select(
+                     g =>
+                         new CantidadPorEstadoModel
+                         {
+                             Cantidad = g.Count(),
+                             Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(g.Key))
+                         });
+
+            //var list = new List<CantidadPorEstadoModel>()
+            //{
+            //    new CantidadPorEstadoModel { Estado = "Pendiente", Cantidad = 6 },
+            //    new CantidadPorEstadoModel { Estado = "Avisado", Cantidad = 11 },
+            //    new CantidadPorEstadoModel { Estado = "Notificado", Cantidad = 20 }
+            //};
 
             return Json(list.ToArray());
         }
@@ -144,28 +172,14 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/estadisticas/promedio/porestado")]
         public DataSourceResult GetPromedioPorEstado([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
-            var list = new List<PromedioPorEstadoModel>()
-            {
-                new PromedioPorEstadoModel
-                {
-                    Estado = "Pendiente",
-                    Promedio = (float)4.2
-                },
-                new PromedioPorEstadoModel
-                {
-                    Estado = "Avisado",
-                    Promedio = (float)10
-                },
-                new PromedioPorEstadoModel
-                {
-                    Estado = "Notificado",
-                    Promedio = (float)10
-                }
 
-            };
-            DataSourceResult r = new DataSourceResult();
-            r.Data = list.ToArray();
-            return r;
+
+            var list = EntityDao.GetPromedioPorEstado(-1, -1);
+            list.ForEach(e => e.Promedio = e.Promedio/60);
+
+
+            //var r = new DataSourceResult {Data = list.ToArray()};
+            return list.ToDataSourceResult(request);
         }
     }
 }

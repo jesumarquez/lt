@@ -481,7 +481,7 @@ function EntitiesService($resource, $http) {
                 data: "Data",
                 errors: "Errors"
             },
-            pageSize: 25,
+            pageSize: 8,
             filter: filters,
             serverFiltering: true,
             serverSorting: false,

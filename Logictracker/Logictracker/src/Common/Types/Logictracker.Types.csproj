@@ -88,6 +88,7 @@
     <Compile Include="BusinessObjects\ParametroReportesProg.cs" />
     <Compile Include="BusinessObjects\Positions\Coordinate.cs" />
     <Compile Include="BusinessObjects\Rechazos\DetalleTicketRechazo.cs" />
+    <Compile Include="BusinessObjects\Rechazos\RechazoMov.cs" />
     <Compile Include="BusinessObjects\SubCentroDeCostos.cs" />
     <Compile Include="BusinessObjects\Messages\Infraccion.cs" />
     <Compile Include="BusinessObjects\ReferenciasGeograficas\TipoZona.cs" />
