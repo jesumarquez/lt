@@ -66,7 +66,7 @@ namespace Logictracker.Tracker.Application.Services
             if (employee == null) return null;
 
             // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
-            //if (vehicle == null) return null;
+            //if (vehicle == null) return null; 
 
             var companies = new[] { employee.Empresa.Id };
             var lineas = new int[] { };
@@ -202,26 +202,28 @@ namespace Logictracker.Tracker.Application.Services
             List<LogMensaje> lista = new List<LogMensaje>();
             List<string> listacodigosrechazos = (List<string>)DaoFactory.MensajeDAO.FindByEmpresaYLineaAndUser(employee.Empresa, employee.Linea, null).Where(x=> x.TipoMensaje.DeRechazo).Select(x => x.Codigo).ToList();
 
-            lista.AddRange(DaoFactory.LogMensajeDAO.GetByVehiclesAndCodes(vehicles, listacodigosrechazos, dt, DateTime.UtcNow, 1).Where(x=> x.Texto.ToUpper().Contains("INFORME")));
+            lista.AddRange(DaoFactory.LogMensajeDAO.GetByVehiclesAndCodes(vehicles, listacodigosrechazos, dt, DateTime.UtcNow, 1).Where(x => x.Texto.ToUpper().Contains("INFORME")));
             
-            foreach (var item in DaoFactory.EvenDistriDAO.GetByMensajes(lista))
+            foreach (var item in lista)
             {
-                if (item.Entrega != null &&
-                    item.Entrega.PuntoEntrega != null)
+                var idRechazo = Convert.ToInt32(item.Texto.Split(':')[0].Split(' ').Last());
+                var rechazo = DaoFactory.TicketRechazoDAO.FindById(idRechazo);
+
+                if (rechazo != null)
                 {
-                    var rechazo = DaoFactory.TicketRechazoDAO.GetByPuntoEntregaYFecha(item.Entrega.PuntoEntrega.Id, dt, DateTime.UtcNow);
-                    if (rechazo != null)
+                    try
                     {
-                        try
+                        if (rechazo.Vendedor.Id == employee.Id &&
+                            rechazo.UltimoEstado == Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Pendiente)
                         {
-                            rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.NotificadoAutomatico, "Recepción OK", employee);
+                            rechazo.ChangeEstado(Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Notificado1, "Recepción OK", employee);
                             DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
                         }
-                        catch (Exception ex)
-                        {
-                            if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
-                            throw ex;
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (!ex.Message.ToString().Contains("Cambio de estado invalido"))
+                        throw ex;
                     }
                 }
             }

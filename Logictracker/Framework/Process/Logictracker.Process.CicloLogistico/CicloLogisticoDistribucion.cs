@@ -818,25 +818,58 @@ namespace Logictracker.Process.CicloLogistico
                         var chofer = detalle.Viaje.Vehiculo.Chofer;
                         if (chofer != null)
                         {
-                            var rechazo = new TicketRechazo(textMessageDesc, chofer, data.Date);
-                            rechazo.Empresa = detalle.Viaje.Empresa;
-                            rechazo.Linea = detalle.Viaje.Linea;
-                            rechazo.Transportista = detalle.Viaje.Transportista ?? detalle.Viaje.Vehiculo.Transportista;
-                            rechazo.Cliente = detalle.PuntoEntrega.Cliente;
-                            rechazo.Entrega = detalle.PuntoEntrega;
-                            rechazo.Bultos = detalle.Bultos;
-                            var vendedor = detalle.PuntoEntrega.Responsable;
-                            rechazo.Vendedor = vendedor;
-                            var supervisorVenta = vendedor != null ? vendedor.Reporta1 : null;
-                            rechazo.SupervisorVenta = supervisorVenta;
-                            var supervisorRuta = supervisorVenta != null ? supervisorVenta.Reporta1 : null;
-                            rechazo.SupervisorRuta = supervisorRuta;
-                            rechazo.Motivo = (TicketRechazo.MotivoRechazo) data.MessageId;
-
-                            STrace.Error("RECHAZO", "Guardando");
                             try
                             {
+                                var rechazo = new TicketRechazo(textMessageDesc, chofer, data.Date);
+                                rechazo.Empresa = detalle.Viaje.Empresa;
+                                rechazo.Linea = detalle.Viaje.Linea;
+                                rechazo.Transportista = detalle.Viaje.Transportista ?? detalle.Viaje.Vehiculo.Transportista;
+                                rechazo.Cliente = detalle.PuntoEntrega.Cliente;
+                                rechazo.Entrega = detalle.PuntoEntrega;
+                                rechazo.Bultos = detalle.Bultos;
+                                var vendedor = detalle.PuntoEntrega.Responsable;
+                                rechazo.Vendedor = vendedor;
+                                var supervisorVenta = vendedor != null ? vendedor.Reporta1 : null;
+                                rechazo.SupervisorVenta = supervisorVenta;
+                                var supervisorRuta = supervisorVenta != null ? supervisorVenta.Reporta1 : null;
+                                rechazo.SupervisorRuta = supervisorRuta;
+                                rechazo.Motivo = (TicketRechazo.MotivoRechazo) data.MessageId;
+
+                                STrace.Error("RECHAZO", "Guardando");                            
                                 DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+
+                                if (vendedor != null)
+                                {
+                                    var coche = DaoFactory.CocheDAO.FindByChofer(vendedor.Id);
+                                    if (coche != null)
+                                    {
+                                        var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(data.MessageId.ToString(), coche.Empresa, coche.Linea);
+                                        if (mensajeVo != null)
+                                        {
+                                            var mensaje = DaoFactory.MensajeDAO.FindById(mensajeVo.Id);
+
+                                            var newEvent = new LogMensaje
+                                            {
+                                                Coche = coche,
+                                                Chofer = vendedor,
+                                                Dispositivo = coche.Dispositivo,
+                                                Expiracion = data.Date.AddDays(1),
+                                                Fecha = data.Date,
+                                                FechaAlta = DateTime.UtcNow,
+                                                FechaFin = data.Date,
+                                                IdCoche = coche.Id,
+                                                Latitud = data.Latitud,
+                                                LatitudFin = data.Latitud,
+                                                Longitud = data.Longitud,
+                                                LongitudFin = data.Longitud,
+                                                Mensaje = mensaje,
+                                                Texto = "INFORME DE RECHAZO NRO " + rechazo.Id + ": " + mensaje.Descripcion + " -> " + rechazo.Entrega.Descripcion
+                                            };
+
+                                            DaoFactory.LogMensajeDAO.Save(newEvent);
+                                        }
+                                    }
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -848,7 +881,6 @@ namespace Logictracker.Process.CicloLogistico
                             STrace.Error("RECHAZO", "chofer == null");
                         }
                     }
-
                     break;
                 default:
                     return;
