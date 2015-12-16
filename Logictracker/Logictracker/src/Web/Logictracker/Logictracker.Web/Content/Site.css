@@ -140,7 +140,6 @@ textarea {
 .StatsContent-bottom{
 	border: 1px lightgray solid;
 	text-align: center;
-	height: 200px;
 }
 
 .k-invalid, .k-invalid>span:first-child{
