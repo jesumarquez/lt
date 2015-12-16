@@ -379,8 +379,10 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     $scope.chartDataSource = new kendo.data.DataSource({ data: chartData });
 
     $(window).bind("resize", function () {
-        var gridElement = $("#grid");
-        gridElement.data("kendoChart").refresh();
+
+        $("div[kendo-chart]").each(function () {
+            $(this).data("kendoChart").refresh();
+        });
 
         $("span[kendo-radialgauge]").each(function () {
             $(this).data("kendoRadialGauge").redraw();
