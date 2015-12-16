@@ -107,7 +107,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             RechazoDuplicado = 2,
             RechazoErroneo = 3,
             ResueltoEntregado = 4,
-            ResueltoSinEntrega = 5
+            ResueltoSinEntrega = 5,
+            Anulado = 6,
         }
 
         public static Estado[] Next(Estado actual)
@@ -138,7 +139,6 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return new Estado[] { };
                 case Estado.AltaErronea:
                     return new Estado[] { };
-
                 case Estado.Notificado1:
                     return new[] { Estado.Notificado2, Estado.Alertado, Estado.Anulado };
                 case Estado.Notificado2:
@@ -155,6 +155,25 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             return new Estado[] { };
         }
 
+        public static EstadoFinal GetEstadoFinal(Estado actual)
+        {
+            switch (actual)
+            {
+                case Estado.Anulado:
+                    return EstadoFinal.Anulado;
+                case Estado.Entregado:
+                    return EstadoFinal.ResueltoEntregado;
+                case Estado.SinAviso:
+                    return EstadoFinal.RechazoErroneo;
+                case Estado.NoResuelta:
+                    return EstadoFinal.ResueltoSinEntrega;
+                case Estado.AltaErronea:
+                    return EstadoFinal.RechazoErroneo;
+            }
+
+            return EstadoFinal.SolucionPendiente;
+        }
+
         protected TicketRechazo() { }
 
         public TicketRechazo(string observacion, Empleado empleado, DateTime fechaHora)
@@ -165,7 +184,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
 
             var detalle = new DetalleTicketRechazo()
             {
-                Estado = UltimoEstado = Estado.Pendiente,
+                Estado =   Estado.Pendiente,
                 FechaHora = fechaHora,
                 Observacion = observacion,
                 Ticket = this,
@@ -184,10 +203,12 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             if (!Next(UltimoEstado).Any(e => e == nuevoEstado))
                 throw new Exception(string.Format("Cambio de estado invalido {0} -> {1}", UltimoEstado, nuevoEstado));
 
+            Final = GetEstadoFinal(nuevoEstado);
+
             var detalle = new DetalleTicketRechazo
             {
                 // Ultimo estado es calculado solo se actualiza en memoria 
-                Estado = UltimoEstado = nuevoEstado,
+                Estado = nuevoEstado,
                 FechaHora = DateTime.UtcNow,
                 Observacion = observacion,
                 Ticket = this,
@@ -237,7 +258,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual Empleado SupervisorVenta { get; set; }
         public virtual string Territorio { get; set; }
         public virtual MotivoRechazo Motivo { get; set; }
-        public virtual Estado UltimoEstado { get; protected set; }
+        public virtual Estado UltimoEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().Estado; } set {} }
         public virtual int Bultos { get; set; }
 
         private ISet<DetalleTicketRechazo> _detalles;
@@ -253,6 +274,6 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual bool EnHorario { get; set; }
         public virtual PuntoEntrega  Entrega { get; set; }
         public virtual Transportista Transportista { get; set; }
-        public virtual DateTime FechaHoraEstado { get; set; }
+        public virtual DateTime FechaHoraEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().FechaHora; } set {} }
     }
 }

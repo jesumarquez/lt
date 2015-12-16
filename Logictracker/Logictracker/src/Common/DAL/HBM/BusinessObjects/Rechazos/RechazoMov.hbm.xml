@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Rechazos.RechazoMov,Logictracker.Types" table="vw_opetick11_mov_24h" mutable="false" >
+    <cache usage="read-write" />
+    <id name="Id" column="id_vwopetick11" type="Int32" unsaved-value="0"/>
+
+    <many-to-one name="Ticket" column="rela_opetick10" lazy="proxy" />
+
+    <!--<property column="opetick11_fechora_ingreso" type="DateTime" not-null="true"  name="Ingreso" />-->
+    <property column="opetick11_fechora_egreso" type="DateTime" not-null="true"  name="Egreso" />
+
+    <!--<many-to-one name="EmpledoIngreso" column="parenti09_ingreso" lazy="proxy" />-->
+    <many-to-one name="EmpledoEgreso" column="parenti09_egreso" lazy="proxy" />
+
+    <property column="opetick11_estado_egreso" name="EstadoEgreso" />
+
+    <property column="opetick11_elap_seg" name="Lapso" />
+  </class>
+</hibernate-mapping>

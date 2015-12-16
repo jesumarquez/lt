@@ -115,15 +115,16 @@ textarea {
 
 /**/
 .GaugeContainer{
-	height: 260px;
 	border: 1px lightgray solid;
 	padding: 0;
 	text-align: center;
+	height: 175px;
 }
 
 .GaugeContainer > span[kendo-radialgauge] {
     height: 80%;
-    display: block;
+    width: 100%;
+    display: inline-block;
 } 
 
 .GaugeContainer > div[kendo-chart] {
@@ -161,4 +162,24 @@ textarea {
 }
 .grid-colVisible{
 
+}
+
+.sem-red {
+    height: 12px;
+    width: 12px;
+    background-color: red;
+    border-radius: 6px;
+}
+.sem-green {
+    height: 12px;
+    width: 12px;
+    background-color: green;
+    border-radius: 6px;
+}
+
+.sem-yellow {
+    height: 12px;
+    width: 12px;
+    background-color: yellow;
+    border-radius: 6px;
 }

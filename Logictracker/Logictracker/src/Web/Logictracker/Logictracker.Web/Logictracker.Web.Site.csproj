@@ -1740,6 +1740,7 @@
     <Content Include="perfil.aspx" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\common\common-directives.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\app\EntitiesService.js" />
@@ -2686,7 +2687,9 @@
     <Compile Include="Controllers\api\DistribucionController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
     <Compile Include="Controllers\api\UserDataController.cs" />
+    <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
+    <Compile Include="Models\PromedioPorVendedorModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />
