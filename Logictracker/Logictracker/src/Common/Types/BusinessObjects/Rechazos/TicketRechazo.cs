@@ -169,6 +169,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return EstadoFinal.ResueltoSinEntrega;
                 case Estado.AltaErronea:
                     return EstadoFinal.RechazoErroneo;
+                case Estado.Duplicado:
+                    return EstadoFinal.RechazoDuplicado;
             }
 
             return EstadoFinal.SolucionPendiente;

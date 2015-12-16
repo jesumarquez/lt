@@ -336,8 +336,10 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     };
     $scope.chartCantitdadPorEstadoSerieDefault = {
         labels: {
-            visible: true
-        },
+            visible: true,
+            position: "insideEnd",
+            background:"transparent"
+        },        
         type: "pie"
     };
     $scope.distritoSelected = {};
@@ -370,6 +372,15 @@ function RechazoEstadisticasController($scope, EntitiesService) {
         pageable: true
     };
 
+    var chartData = [{ "name": "cantidad", "value": 1, "time": "07:00" }, { "name": "cantidad", "value": 2, "time": "08:00" }, { "name": "cantidad", "value": 1, "time": "09:00" }, { "name": "cantidad", "value": 1, "time": "10:00" }, { "name": "cantidad", "value": 4, "time": "11:00" }, { "name": "cantidad", "value": 5, "time": "12:00" }, { "name": "cantidad", "value": 4, "time": "13:00" }, { "name": "cantidad", "value": 4, "time": "14:00" }, { "name": "cantidad", "value": 4, "time": "15:00" }, { "name": "cantidad", "value": 4, "time": "16:00" }, { "name": "cantidad", "value": 4, "time": "17:00" }, { "name": "cantidad", "value": 4, "time": "18:00" }, { "name": "cantidad", "value": 3, "time": "19:00" }];
+
+    $scope.chartDataSource = new kendo.data.DataSource({ data: chartData });
+
+    $(window).bind("resize", function () {
+        var gridElement = $("#grid");
+        gridElement.data("kendoChart").refresh();
+    });
+   
     function onPromediosPorRolLoad() {
         $scope.promedioVendedor = $scope.promediosPorRol.vendedor;
         $scope.promedioSupervisorVentas = $scope.promediosPorRol.supervisorVentas;
