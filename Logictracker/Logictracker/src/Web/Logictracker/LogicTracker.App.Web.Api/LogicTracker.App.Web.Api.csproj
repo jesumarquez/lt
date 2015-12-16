@@ -15,7 +15,7 @@
     <AssemblyName>LogicTracker.App.Web.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -300,6 +300,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReceptionController.cs" />
+    <Compile Include="Controllers\RejectionController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
@@ -331,6 +332,8 @@
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Geocerca.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\Rechazo.cs" />
     <Compile Include="Models\RouteEvent.cs" />
     <Compile Include="Models\FormulariosParametro.cs" />
     <Compile Include="Models\RouteItem.cs" />
@@ -449,6 +452,10 @@
       <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
       <Name>Logictracker.Cache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{a5c107d7-cc1b-4d48-9275-0c6ee216ba61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Framework\Messaging\Logictracker.Messages.Saver\Logictracker.Messages.Saver.csproj">
       <Project>{3811e3c9-e240-46fc-a2b2-3fcc0f31f7fa}</Project>
       <Name>Logictracker.Messages.Saver</Name>
@@ -488,11 +495,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>58615</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/</IISUrl>
+          <IISUrl>http://localhost:58615/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

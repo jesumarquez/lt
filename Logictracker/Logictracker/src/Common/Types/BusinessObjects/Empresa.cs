@@ -42,6 +42,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string InicioDistribucionIdTipoGeocerca = "distribucion.inicio.id.tipo.geocerca";
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
+            public const string InicioDistribucionCodigoMensajeRechazo = "distribucion.inicio.mensaje.codigo.rechazo";            
             public const string InicioDistribucionSiguienteAlCerrar = "distribucion.inicio.siguiente";
             public const string DistribucionReportaEmpleado = "distribucion.reporta.empleado";
             public const string DistribucionGeneraRechazo = "distribucion.genera.rechazo";
@@ -360,6 +361,15 @@ namespace Logictracker.Types.BusinessObjects
             {
                 var valor = GetParameter(Params.InicioDistribucionCodigoMensaje);
                 if (valor == null || valor.Trim() == string.Empty) return "21";
+                return valor.ToLowerInvariant();
+            }
+        }
+        public virtual string InicioDistribucionCodigoMensajeRechazo
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionCodigoMensajeRechazo);
+                if (valor == null || valor.Trim() == string.Empty) return "0";
                 return valor.ToLowerInvariant();
             }
         }

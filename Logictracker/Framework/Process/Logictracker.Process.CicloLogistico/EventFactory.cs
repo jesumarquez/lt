@@ -122,10 +122,39 @@ namespace Logictracker.Process.CicloLogistico
             else if (codigo == MessageCode.GarminTextMessageCannedResponse.GetMessageCode())
             {
                 // extraData = ID Device
-                // extraData2 = ID Entrega
+                // extraData2 = ID Entrega / ID Ruta
                 // extraData3 = Codigo Mensaje
                 STrace.Debug(typeof(EventFactory).FullName, Convert.ToInt32(extraData), "extraData=" + extraData + " extraData2=" + extraData2 + " extraData3=" + extraData3);
                 var veh = daoFactory.CocheDAO.FindMobileByDevice(Convert.ToInt32(extraData));
+                
+                if (veh != null && veh.Empresa.InicioDistribucionPorMensaje)
+                {
+                    if (veh.Empresa.InicioDistribucionCodigoMensaje == extraData3.ToString())
+                    {
+                        var distribucion = daoFactory.ViajeDistribucionDAO.FindById(Convert.ToInt32(extraData2));
+                        if (distribucion != null)
+                        {
+                            var enCurso = daoFactory.ViajeDistribucionDAO.FindEnCurso(veh);
+                            if (enCurso == null)
+                            {
+                                var eventoInicio = new InitEvent(inicio.Date);
+                                var ciclo = new CicloLogisticoDistribucion(distribucion, daoFactory, new MessageSaver(daoFactory));
+                                ciclo.ProcessEvent(eventoInicio);
+                            }
+                        }
+
+                        return null;
+                    }
+                    else if (veh.Empresa.InicioDistribucionCodigoMensajeRechazo == extraData3.ToString())
+                    {
+                        var distribucion = daoFactory.ViajeDistribucionDAO.FindById(Convert.ToInt32(extraData2));
+                        distribucion.Vehiculo = null;
+                        daoFactory.ViajeDistribucionDAO.SaveOrUpdate(distribucion);
+
+                        return null;
+                    }
+                }
+                
                 if (extraData2 == 0) return null;
                 var entrega = daoFactory.EntregaDistribucionDAO.FindById(Convert.ToInt32(extraData2));
                 var mensajeVo = daoFactory.MensajeDAO.GetByCodigo(extraData3.ToString("#0"), veh.Empresa, veh.Linea);

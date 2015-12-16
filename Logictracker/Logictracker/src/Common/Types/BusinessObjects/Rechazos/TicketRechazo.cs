@@ -23,6 +23,25 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
             SinDinero = 6061
         }
 
+        public static string GetCodigoMotivo(MotivoRechazo motivoRechazo)
+        {
+            switch (motivoRechazo)
+            {
+                case MotivoRechazo.MalFacturado: return "6051";
+                case MotivoRechazo.MalPedido: return "6052";
+                case MotivoRechazo.NoEncontroDomicilio: return "6053";
+                case MotivoRechazo.NoPedido: return "6054";
+                case MotivoRechazo.Cerrado: return "6055";
+                case MotivoRechazo.CaminoIntransitable: return "6056";
+                case MotivoRechazo.FaltaSinCargo: return "6057";
+                case MotivoRechazo.FueraDeHorario: return "6058";
+                case MotivoRechazo.FueraDeZona: return "6059";
+                case MotivoRechazo.ProductoNoApto: return "6060";
+                case MotivoRechazo.SinDinero: return "6061";                
+                default: throw new ArgumentOutOfRangeException("motivoRechazo");
+            }
+        }
+
         public static string GetMotivoLabelVariableName(MotivoRechazo motivoRechazo)
         {
             switch (motivoRechazo)
@@ -150,6 +169,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return EstadoFinal.ResueltoSinEntrega;
                 case Estado.AltaErronea:
                     return EstadoFinal.RechazoErroneo;
+                case Estado.Duplicado:
+                    return EstadoFinal.RechazoDuplicado;
             }
 
             return EstadoFinal.SolucionPendiente;

@@ -60,29 +60,43 @@
                     <div kendo-grid k-options="opcionesGrillaVendedor" k-data-source="datosGrillaVendedor"></div>
                 </div>
                 <div class="col-md-4 ">
-                    <div>Promedio de atención por estados</div>
-                    <div kendo-grid k-options="opcionesGrillaEstados" k-data-source="datosGrillaEstados"></div>
-                </div>
-            </div>
-            <div class="row StatsContent-bottom">
-                <div class="col-md-7 ">
-                    
-                </div>
-                <div class="col-md-5 GaugeContainer">
-                    <div kendo-chart
-                         k-title="{text: 'Cantidad por Estado'}"
-                         k-series-defaults="chartCantitdadPorEstadoSerieDefault"
-                         k-series="[{
-	                                field: 'Cantidad',
-	                                categoryField: 'Estado',
-	                                padding: 0
-	                              }]"
-                         k-data-source="chartCantitdadPorEstado">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>Promedio de atención por estados</div>
+                            <div kendo-grid k-options="opcionesGrillaEstados" k-data-source="datosGrillaEstados"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>Cantidad por Estado</div>
+                                <div kendo-chart
+                                     k-series-defaults="chartCantitdadPorEstadoSerieDefault"
+                                     k-series="[{
+	                                    field: 'Cantidad',
+	                                    categoryField: 'Estado',
+	                                    padding: 0}]"
+                                     k-legend="{ visible:true, position:'bottom' }"
+                                     k-chart-area="{background:''}"
+                                     k-data-source="chartCantitdadPorEstado"
+                                     style="height: 150px;">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row StatsContent-bottom">      
+                <div class="col-md-12">
+                   <div id="grid" kendo-chart
+                         k-title="{text: 'Tiempos de respuesta [min]'}"
+                         k-legend="{ position: 'bottom' }"
+                         k-series-defaults="{type: 'line'}"
+                         k-series="[{field: 'value' }]"
+                         k-category-axis="{field: 'time'}"
+                         k-data-source="chartDataSource"
+                        style="height: 190px;"></div>
+                </div>
+            </div>
         </div>
-
     </div>
     <span kendo-notification="notify"></span>
 </div>
