@@ -336,8 +336,10 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     };
     $scope.chartCantitdadPorEstadoSerieDefault = {
         labels: {
-            visible: true
-        },
+            visible: true,
+            position: "insideEnd",
+            background:"transparent"
+        },        
         type: "pie"
     };
     $scope.distritoSelected = {};
@@ -375,18 +377,8 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     $scope.chartDataSource = new kendo.data.DataSource({ data: chartData });
 
     $(window).bind("resize", function () {
-        var gridElement = $("#grid"),
-		newHeight = gridElement.innerHeight(),
-		otherElements = gridElement.children().not(".k-grid-content"),
-		otherElementsHeight = 0;
-
-        otherElements.each(function () {
-            otherElementsHeight += $(this).outerHeight();
-        });
-
-        gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);
+        var gridElement = $("#grid");
         gridElement.data("kendoChart").refresh();
-
     });
    
     function onPromediosPorRolLoad() {
