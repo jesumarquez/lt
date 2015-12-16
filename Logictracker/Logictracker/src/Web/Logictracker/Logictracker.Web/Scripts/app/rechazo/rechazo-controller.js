@@ -378,6 +378,11 @@ function RechazoEstadisticasController($scope, EntitiesService) {
 
     $(window).bind("resize", function () {
         var gridElement = $("#grid");
+
+        $("span[kendo-radialgauge]").each(function () {
+            $(this).data("kendoRadialGauge").redraw();
+        });
+
         gridElement.data("kendoChart").refresh();
     });
    
