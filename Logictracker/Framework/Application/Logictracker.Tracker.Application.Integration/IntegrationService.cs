@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using log4net;
-using log4net.Util;
 using Logictracker.DAL.Factories;
 using Logictracker.Messages.Saver;
 using Logictracker.Messages.Sender;
@@ -9,8 +8,6 @@ using Logictracker.Messaging;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
-using Logictracker.Types.BusinessObjects.Messages;
-using Logictracker.Types.BusinessObjects.Tickets;
 using Spring.Messaging.Core;
 
 namespace Logictracker.Tracker.Application.Integration
@@ -70,8 +67,11 @@ namespace Logictracker.Tracker.Application.Integration
             
             if (response != "")
             {
+                Logger.DebugFormat("WebService response: {0}", response);
+
                 var alerts = response.Split('#');
-                Logger.InfoFormat("Found {0} services", alerts.Length);
+                Logger.InfoFormat("Found {0} services", alerts.Length-1);
+
                 foreach (var alert in alerts)
                 {
                     if (alert == "") continue;
@@ -175,8 +175,9 @@ namespace Logictracker.Tracker.Application.Integration
 
         private void SendMessageToGarmin(string msgText, ViajeDistribucion distribucion)
         {
-            var message = MessageSender.CreateSubmitCannedMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
-            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id).AddAckEvent(MessageCode.GarminCannedMessageReceived.GetMessageCode());
+            var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+            //var message = MessageSender.CreateSubmitCannedMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+1);
 
             message.Send();
             Logger.InfoFormat("Se notifico servicio {0} al vehiculo {1} [{2}]", distribucion.Codigo, distribucion.Vehiculo.Patente, msgText);
@@ -364,6 +365,7 @@ namespace Logictracker.Tracker.Application.Integration
             {
                 ticket.Asignado = DateTime.Now;
                 ticket.AsignacionNotificada = true;
+                ticket.EstadoServicio = (int) CodigoEstado.AsignadoAceptado;
 
                 //envio de informacion del servicio
                 var mensaje = string.Format("S:{0}<br>V:{1}<br>Di:{2}",
@@ -379,15 +381,20 @@ namespace Logictracker.Tracker.Application.Integration
             {
                 ticket.Cancelado = DateTime.Now;
                 ticket.CancelacionNotificada = true;
+                ticket.EstadoServicio = (int)CodigoEstado.AsignadoRechazado;
             }
             DaoFactory.SosTicketDAO.SaveOrUpdate(ticket); 
 
-            var idMovil = dist.Vehiculo.Id;
-            var idTicket = dist.Codigo;
-            var serviceStatus = ticket.EstadoServicio;
-            var data = "0";
+            UpdateToSos(dist.Vehiculo.Interno, dist.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
+        }
 
-            WebServiceSos.ActualizarSvc(idMovil.ToString(), idTicket, serviceStatus, data);
+        private void UpdateToSos(string interno, string codigo, int estadoServicio, string diagnostico)
+        {
+            if (WebServiceSos == null)
+                WebServiceSos = new WebServiceSos.Service();
+
+            var res=WebServiceSos.ActualizarSvc(interno, codigo, estadoServicio, diagnostico.Split('-')[0]);
+            Logger.Info("Webservice response: " + res);
         }
 
         public void ArrivalReport(ViajeDistribucion dist)
@@ -399,12 +406,7 @@ namespace Logictracker.Tracker.Application.Integration
             ticket.EstadoServicio = (int)CodigoEstado.Llegada;
             DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
 
-            var idMovil = dist.Vehiculo.Id;
-            var idTicket = dist.Codigo;
-            var serviceStatus = ticket.EstadoServicio;
-            var data = "0";
-
-            WebServiceSos.ActualizarSvc(idMovil.ToString(), idTicket, serviceStatus, data);
+            UpdateToSos(dist.Vehiculo.Interno, dist.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
         }
     }
 }

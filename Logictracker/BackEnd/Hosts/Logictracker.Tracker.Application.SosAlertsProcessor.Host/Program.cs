@@ -23,9 +23,9 @@ namespace Logictracker.Tracker.Application.SosAlertsProcessor.Host
                 });
                 x.RunAsLocalSystem();
 
-                x.SetDescription("LogicTracker Webservice Sos Host");
-                x.SetDisplayName("LogicTracker WebService Sos");
-                x.SetServiceName("LogicTracker.Ws.Sos");
+                x.SetDescription("LogicTracker Sos Alert Processor Host");
+                x.SetDisplayName("LogicTracker Sos Alert Processor ");
+                x.SetServiceName("Lt.Sos.Alert.Processor");
                 x.DependsOnMsmq();
                 x.DependsOnEventLog();
             });
