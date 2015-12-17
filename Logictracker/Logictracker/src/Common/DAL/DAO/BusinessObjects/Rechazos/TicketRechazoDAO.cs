@@ -46,17 +46,24 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
                                  && t.FechaHora > desde 
                                  && t.FechaHora < hasta);
 
-            switch (empleado.TipoEmpleado.Codigo)
+
+            if (empleado == null || empleado.TipoEmpleado == null)
+                return q.ToList();
+
+            if (empleado.TipoEmpleado != null)
             {
-                case "SR":
-                    q = q.Where(t => t.SupervisorRuta.Id == empleado.Id);
-                    break;
-                case "JF":
-                    q = q.Where(t => t.SupervisorVenta.Id == empleado.Id);
-                    break;
-                case "V":
-                    q = q.Where(t => t.Vendedor.Id == empleado.Id);
-                    break;
+                switch (empleado.TipoEmpleado.Codigo)
+                {
+                    case "SR":
+                        q = q.Where(t => t.SupervisorRuta.Id == empleado.Id);
+                        break;
+                    case "JF":
+                        q = q.Where(t => t.SupervisorVenta.Id == empleado.Id);
+                        break;
+                    case "V":
+                        q = q.Where(t => t.Vendedor.Id == empleado.Id);
+                        break;
+                }
             }
 
             return q.ToList();

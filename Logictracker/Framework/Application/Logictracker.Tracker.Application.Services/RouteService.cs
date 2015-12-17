@@ -203,7 +203,12 @@ namespace Logictracker.Tracker.Application.Services
             
             foreach (var item in lista)
             {
-                var idRechazo = Convert.ToInt32(item.Texto.Split(':')[0].Split(' ').Last());
+
+                int start = item.Texto.ToString().IndexOf("NRO ");
+                start = start + 4;
+                int end = item.Texto.ToString().IndexOf(":");
+                string numero = item.Texto.Substring(start, end - start);
+                var idRechazo = Convert.ToInt32(numero);
                 var rechazo = DaoFactory.TicketRechazoDAO.FindById(idRechazo);
 
                 if (rechazo != null)
