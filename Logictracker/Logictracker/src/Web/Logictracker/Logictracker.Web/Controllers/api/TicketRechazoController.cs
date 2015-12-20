@@ -6,15 +6,15 @@ using System.Web.Http.ModelBinding;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Logictracker.Culture;
+using Logictracker.DAL.DAO.BusinessObjects.Messages;
 using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
+using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
+using Logictracker.DAL.Factories;
+using Logictracker.DAL.NHibernate;
+using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
 using WebGrease.Css.Extensions;
-using Logictracker.DAL.Factories;
-using Logictracker.Types.BusinessObjects.Vehiculos;
-using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
-using Logictracker.Types.BusinessObjects.Messages;
-using Logictracker.DAL.DAO.BusinessObjects.Messages;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -45,24 +45,33 @@ namespace Logictracker.Web.Controllers.api
         public DataSourceResult GetDataSource(
                 [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
-            var tickets = EntityDao.FindAll();
+            var transaction = SessionHelper.Current.BeginTransaction();
+            try
+            {
+                var tickets = EntityDao.FindAll();
 
-            if (Usuario.Empleado == null || Usuario.Empleado.TipoEmpleado == null)
+                if (Usuario.Empleado == null || Usuario.Empleado.TipoEmpleado == null)
+                    return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+
+                switch (Usuario.Empleado.TipoEmpleado.Codigo)
+                {
+                    case "SR":
+                        tickets = tickets.Where(t => t.SupervisorRuta.Id == Usuario.Empleado.Id);
+                        break;
+                    case "JF":
+                        tickets = tickets.Where(t => t.SupervisorVenta.Id == Usuario.Empleado.Id);
+                        break;
+                    case "V":
+                        tickets = tickets.Where(t => t.Vendedor.Id == Usuario.Empleado.Id);
+                        break;
+                }
                 return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
 
-            switch (Usuario.Empleado.TipoEmpleado.Codigo)
-            {
-                case "SR":
-                    tickets = tickets.Where(t => t.SupervisorRuta.Id == Usuario.Empleado.Id);
-                    break;
-                case "JF":
-                    tickets = tickets.Where(t => t.SupervisorVenta.Id == Usuario.Empleado.Id);
-                    break;
-                case "V":
-                    tickets = tickets.Where(t => t.Vendedor.Id == Usuario.Empleado.Id);
-                    break;
             }
-            return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+            finally
+            {
+                transaction.Rollback();
+            }
         }
 
         [Route("api/ticketrechazo/item/{id}")]
@@ -114,7 +123,7 @@ namespace Logictracker.Web.Controllers.api
                         LongitudFin = 0,
                         Mensaje = mensaje,
                         Texto = "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " + rechazoEntity.Entrega.Descripcion,
-                        Usuario = Usuario                        
+                        Usuario = Usuario
                     };
 
                     logMensajeDao.Save(newEvent);
@@ -155,7 +164,7 @@ namespace Logictracker.Web.Controllers.api
                 vendedor = (vend == null ? 0 : vend.Promedio) / 60,
                 supervisorVentas = (sup == null ? 0 : sup.Promedio) / 60,
                 jefeVentas = (jef == null ? 0 : jef.Promedio) / 60,
-                otros = (otr.Sum(e=>e.Promedio)/60) / Math.Max(1,otr.Count())
+                otros = (otr.Sum(e => e.Promedio) / 60) / Math.Max(1, otr.Count())
             };
 
             return Json(promedios);
@@ -216,7 +225,7 @@ namespace Logictracker.Web.Controllers.api
 
 
             var list = EntityDao.GetPromedioPorEstado(-1, -1);
-            list.ForEach(e => e.Promedio = e.Promedio/60);
+            list.ForEach(e => e.Promedio = e.Promedio / 60);
 
 
             //var r = new DataSourceResult {Data = list.ToArray()};
