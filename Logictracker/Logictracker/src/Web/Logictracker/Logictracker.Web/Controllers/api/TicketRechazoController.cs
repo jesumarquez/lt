@@ -158,12 +158,7 @@ namespace Logictracker.Web.Controllers.api
 
             return Ok();
         }
-        //[Route("api/ticketrechazo/cantidadesporestado/items")]
-        //public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
-        //{
-        //    return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
-        //}
-
+        
         [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/rol")]
         public IHttpActionResult GetPromedioPorRol(int distritoId, int baseId)
         {
@@ -207,12 +202,6 @@ namespace Logictracker.Web.Controllers.api
                              Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(g.Key))
                          });
 
-            //var list = new List<CantidadPorEstadoModel>()
-            //{
-            //    new CantidadPorEstadoModel { Estado = "Pendiente", Cantidad = 6 },
-            //    new CantidadPorEstadoModel { Estado = "Avisado", Cantidad = 11 },
-            //    new CantidadPorEstadoModel { Estado = "Notificado", Cantidad = 20 }
-            //};
 
             return Json(list.ToArray());
         }
