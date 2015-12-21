@@ -6,6 +6,7 @@ using System.Web.Http.ModelBinding;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
 using Logictracker.DAL.DAO.BusinessObjects.Messages;
 using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
 using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
@@ -86,51 +87,66 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/item")]
         public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
         {
-            var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario.Empleado, DateTime.UtcNow);
 
-            Mapper.ModelToEntity(rechazoModel, rechazoEntity);
+            var transacion = SessionHelper.Current.BeginTransaction();
 
-            EntityDao.Save(rechazoEntity);
-
-            Mapper.EntityToModel(rechazoEntity, rechazoModel);
-
-            var empleado = rechazoEntity.Entrega.Responsable;
-            if (empleado != null)
+            try
             {
-                var cocheDao = DAOFactory.GetDao<CocheDAO>();
-                var mensajeDao = DAOFactory.GetDao<MensajeDAO>();
-                var logMensajeDao = DAOFactory.GetDao<LogMensajeDAO>();
+                var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario.Empleado, DateTime.UtcNow);
 
-                var coche = cocheDao.FindByChofer(empleado.Id);
-                var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo), coche.Empresa, coche.Linea);
-                var mensaje = mensajeDao.FindById(mensajeVO.Id);
-                if (coche != null && mensaje != null)
+                Mapper.ModelToEntity(rechazoModel, rechazoEntity);
+
+                EntityDao.Save(rechazoEntity);
+
+                Mapper.EntityToModel(rechazoEntity, rechazoModel);
+
+                var empleado = rechazoEntity.Entrega.Responsable;
+                if (empleado != null)
                 {
-                    var newEvent = new LogMensaje
+                    var cocheDao = DAOFactory.GetDao<CocheDAO>();
+                    var mensajeDao = DAOFactory.GetDao<MensajeDAO>();
+                    var logMensajeDao = DAOFactory.GetDao<LogMensajeDAO>();
+
+                    var coche = cocheDao.FindByChofer(empleado.Id);
+                    var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo), coche.Empresa, coche.Linea);
+                    var mensaje = mensajeDao.FindById(mensajeVO.Id);
+                    if (coche != null && mensaje != null)
                     {
-                        Coche = coche,
-                        Chofer = empleado,
-                        CodigoMensaje = mensaje.Codigo,
-                        Dispositivo = coche.Dispositivo,
-                        Expiracion = DateTime.UtcNow.AddDays(1),
-                        Fecha = DateTime.UtcNow,
-                        FechaAlta = DateTime.UtcNow,
-                        FechaFin = DateTime.UtcNow,
-                        IdCoche = coche.Id,
-                        Latitud = 0,
-                        LatitudFin = 0,
-                        Longitud = 0,
-                        LongitudFin = 0,
-                        Mensaje = mensaje,
-                        Texto = "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " + rechazoEntity.Entrega.Descripcion,
-                        Usuario = Usuario
-                    };
+                        var newEvent = new LogMensaje
+                        {
+                            Coche = coche,
+                            Chofer = empleado,
+                            CodigoMensaje = mensaje.Codigo,
+                            Dispositivo = coche.Dispositivo,
+                            Expiracion = DateTime.UtcNow.AddDays(1),
+                            Fecha = DateTime.UtcNow,
+                            FechaAlta = DateTime.UtcNow,
+                            FechaFin = DateTime.UtcNow,
+                            IdCoche = coche.Id,
+                            Latitud = 0,
+                            LatitudFin = 0,
+                            Longitud = 0,
+                            LongitudFin = 0,
+                            Mensaje = mensaje,
+                            Texto = "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " + rechazoEntity.Entrega.Descripcion,
+                            Usuario = Usuario
+                        };
 
-                    logMensajeDao.Save(newEvent);
+                        logMensajeDao.Save(newEvent);
+                    }
                 }
-            }
 
-            return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
+                transacion.Commit();
+
+                return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
+
+            }
+            catch (Exception ex)
+            {
+                STrace.Exception(STrace.Module, ex);
+                transacion.Rollback();
+                return InternalServerError(ex);
+            }
         }
         [Route("api/ticketrechazo/item/{id}")]
         public IHttpActionResult PutItem(int id, TicketRechazoModel rechazoModel)
