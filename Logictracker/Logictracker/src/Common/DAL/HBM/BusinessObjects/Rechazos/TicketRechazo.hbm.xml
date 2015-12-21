@@ -29,7 +29,9 @@
     <property column="opetick10_ultimo_estado" name="UltimoEstado"
              formula="(select top 1 td.opetick11_estado from opetick11 td where td.rela_opetick10 =  id_opetick10 order by td.opetick11_fecha desc)"
                />
-     
+    
+    <many-to-one name="Chofer" column="rela_parenti09_chofer" lazy="proxy" />
+    
     <set name="_detalles" access="field" lazy="true" inverse="true"
          cascade="all-delete-orphan" order-by="opetick11_fecha DESC">
       <cache usage="read-write" />

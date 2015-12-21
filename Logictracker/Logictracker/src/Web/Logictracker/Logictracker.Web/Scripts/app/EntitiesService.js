@@ -9,14 +9,18 @@ function EntitiesService($resource, $http) {
             bases: getBasesDS,
             departamento: getDepartamentosDS,
             centroDeCostos: getCentroDeCostosDS,
-            transportista: getTransportistaDS,
+            transportista: {
+                models: getTransportistaDS,
+                empleados: getEmpleadosDS,
+            },
             clientes: {
                 models: getClientes
             },
             distribuciones: {
                 models: getDistribuciones
             },
-            puntoEntrega: getPuntoEntrega
+            puntoEntrega: getPuntoEntrega,
+            
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -31,7 +35,9 @@ function EntitiesService($resource, $http) {
             userData: $resource("/api/UserData"),
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
             estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" }),
-            cantidadPorEstado: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/estado", { distritoId: "@distritoId", baseId: "@baseId" })
+            cantidadPorEstado: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/estado", { distritoId: "@distritoId", baseId: "@baseId" }),
+            chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" })
+
         },
         ticketrechazo: {
             estados: getEstados,
@@ -242,13 +248,23 @@ function EntitiesService($resource, $http) {
                             // No se filtra por base
                             getData(_service.resources.empleadoByTipo,
                                 op,
-                                { distritoId: op.data.distritoId, baseId: -1, tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo });
+                                {   
+                                    distritoId: op.data.distritoId, 
+                                    baseId: -1, 
+                                    tipoEmpleadoCodigo: op.data.tipoEmpleadoCodigo , 
+                                    transportistaId: (op.data.transportistaId) ? op.data.transportistaId : -1
+                                });
                         }
                         else if (op.data.empleadoId != null && op.data.empleadoId !== "") {
                             // No se filtra por base
                             getData(_service.resources.empleado,
                                 op,
-                                { distritoId: op.data.distritoId, baseId: -1, empleadoId: op.data.empleadoId });
+                            {
+                                distritoId: op.data.distritoId,
+                                baseId: -1,
+                                empleadoId: op.data.empleadoId,
+                                transportistaId: (op.data.transportistaId) ? op.data.transportistaId : -1
+                            });
                         }
                     }
                     else {

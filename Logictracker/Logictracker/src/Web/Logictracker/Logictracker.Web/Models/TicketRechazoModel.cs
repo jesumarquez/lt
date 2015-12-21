@@ -48,8 +48,11 @@ namespace Logictracker.Web.Controllers.api
         public string EntregaCodigo { get; set; }
         public string VendedorDesc { get; set; }
         public DateTime FechaHoraEstado { get; set; }
-    }
 
+        public int ChoferId { get; set; }
+        public string ChoferDesc { get; set; }
+    }
+    
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
     {
         public override TicketRechazoDetalleModel EntityToModel(DetalleTicketRechazo entity,
@@ -118,6 +121,13 @@ namespace Logictracker.Web.Controllers.api
             }
 
             model.FechaHoraEstado = DateTime.SpecifyKind(entity.Detalle.First().FechaHora, DateTimeKind.Utc);
+
+            if (entity.Chofer != null)
+            {
+                model.ChoferId = entity.Chofer.Id;
+                model.ChoferDesc = entity.Chofer.Entidad.Descripcion;
+            }
+
             return model;
         }
 
@@ -136,6 +146,7 @@ namespace Logictracker.Web.Controllers.api
             entity.EnHorario = model.EnHorario;
             entity.Entrega = DAOFactory.GetDao<PuntoEntregaDAO>().FindById(model.EntregaId);
             entity.Transportista = DAOFactory.GetDao<TransportistaDAO>().FindById(model.TransportistaId);
+            entity.Chofer = DAOFactory.GetDao<EmpleadoDAO>().FindById(model.ChoferId);
             return entity;
         }
 

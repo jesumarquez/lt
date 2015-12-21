@@ -77,10 +77,13 @@
                     </div>
                 </div>
                 <div class="InputGroup">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "TERRITORIO"):</span>
+                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "CHOFER"):</span>
                     <div class="InputGroup__control">
-                        <input class="form-control k-textbox" type="text"
-                               ng-model="territorio"/>
+                        <lt-cb-chofer lt-ng-model="choferSelected"
+                                      lt-data-distrito="distritoSelected"
+                                      lt-data-codigo-chofer="{{codigoChofer}}"
+                                      lt-data-base="baseSelected"
+                                      lt-depends-on-transportista="transportistaSelected" />
                     </div>
                 </div>
                 <div class="InputGroup">

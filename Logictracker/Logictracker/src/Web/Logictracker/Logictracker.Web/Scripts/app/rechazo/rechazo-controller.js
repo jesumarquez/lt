@@ -61,8 +61,8 @@ function RechazoController($scope, EntitiesService, $filter) {
         { field: "EntregaCodigo", title: "Cod. Entrega", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "VendedorDesc", title: "Vendedor" },
         { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "SupRutDesc", title: "Sup. Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "Territorio", title: "Territorio", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "SupRutDesc", title: "Jefe de Ventas", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "ChoferDesc", title: "Chofer", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
 
         ]
@@ -164,11 +164,13 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.territorio = "";
     $scope.enHorarioSelected = {};
     $scope.movimientosDS = {};
+    $scope.choferSelected = {};
 
     $scope.disabledButton = false;
 
     $scope.codigoVendedor = "V";
     $scope.codigoSupervisorRutas = "SR";
+    $scope.codigoChofer = "Cho";
 
     $scope.enHorarioDS = [
         { Key: true, Value: "Si" },
@@ -179,8 +181,7 @@ function RechazoItemController($scope, EntitiesService) {
         $scope.notify.show(message, type);
     };
 
-    function isNew() { return $scope.operation === "A"; }
-
+    
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
@@ -239,8 +240,9 @@ function RechazoItemController($scope, EntitiesService) {
                 Observacion: $scope.observacion,
                 EnHorario: $scope.enHorarioSelected.Key,
                 EntregaId: $scope.puntoEntregaSelected[0] ? $scope.puntoEntregaSelected[0].PuntoEntregaId : 0,
-                TransportistaId: $scope.transportistaSelected.Key
-
+                TransportistaId: $scope.transportistaSelected.Key,
+                ChoferId: $scope.choferSelected.EmpleadoId,
+                ChoferDesc: $scope.choferSelected ? $scope.choferSelected.Descripcion : "",
             };
 
             EntitiesService.resources.ticketRechazo.save(ticketRechazo).$promise.then(
