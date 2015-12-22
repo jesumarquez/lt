@@ -152,7 +152,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             //El usuario ya fue alertado
                                             IMessageSaver saver = new MessageSaver(DaoFactory);
                                             var messagetEXT = MessageSender.CreateSubmitTextMessage(device, saver);
-                                            messagetEXT.AddMessageText("INFORME DE RECHAZO NRO "+idRechazo+" EL USUARIO YA FUE ALERTADO");
+                                            messagetEXT.AddMessageText("INFORME DE RECHAZO NRO "+idRechazo+" EL USUARIO YA FUE ALERTADO. Estado actual:" + rechazo.UltimoEstado.ToString());
                                             messagetEXT.Send();
                                         }
                                     }
@@ -178,7 +178,8 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             if (employee == null) continue;
                                             var rechazo = DaoFactory.TicketRechazoDAO.FindById(message.Id);
 
-                                            if (rechazo != null)
+                                            if (rechazo != null &&
+                                                message.Id > 0)
                                             {
                                                 try
                                                 {
@@ -207,7 +208,8 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             var employee = DaoFactory.EmpleadoDAO.FindEmpleadoByDevice(device);
                                             if (employee == null) continue;
                                             var rechazo = DaoFactory.TicketRechazoDAO.FindById(message.Id);
-                                            if (rechazo != null)
+                                            if (rechazo != null &&
+                                                rechazo.Id != 0)
                                             {
                                                 try
                                                 {

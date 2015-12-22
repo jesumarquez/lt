@@ -308,6 +308,7 @@ namespace Logictracker.Layers.CommanderReader
 
                                     switch (subCommand)
                                     {
+                                        case "RebootSolicitation":
                                         case "Reboot":
                                             if (iPowerBoot == null || testMode)
                                                 return RejectCommand(iPoint, messageId, trackingExtraData, iDispatcher, request);
