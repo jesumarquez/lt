@@ -21,7 +21,6 @@ namespace Logictracker.Web.Controllers.api
 {
     public class TicketRechazoController : EntityController<TicketRechazo, TicketRechazoDAO, TicketRechazoModel, TicketRechazoMapper>
     {
-
         [Route("api/ticketrechazo/{ticketId}/estado/next")]
         public IEnumerable<ItemModel> GetNextEstado(int ticketId)
         {
@@ -36,6 +35,7 @@ namespace Logictracker.Web.Controllers.api
         {
             return EntityDao.GetEstados().Select(e => new ItemModel { Key = (int)e.Key, Value = e.Value });
         }
+
         [Route("api/ticketrechazo/motivo/items")]
         public IEnumerable<ItemModel> GetMotivo()
         {
@@ -84,10 +84,10 @@ namespace Logictracker.Web.Controllers.api
 
             return Json(rechazoModel);
         }
+
         [Route("api/ticketrechazo/item")]
         public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
         {
-
             var transacion = SessionHelper.Current.BeginTransaction();
 
             try
@@ -108,31 +108,41 @@ namespace Logictracker.Web.Controllers.api
                     var logMensajeDao = DAOFactory.GetDao<LogMensajeDAO>();
 
                     var coche = cocheDao.FindByChofer(empleado.Id);
-                    var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo), coche.Empresa, coche.Linea);
-                    var mensaje = mensajeDao.FindById(mensajeVO.Id);
-                    if (coche != null && mensaje != null)
+                    if (coche != null)
                     {
-                        var newEvent = new LogMensaje
+                        var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo),
+                            coche.Empresa, coche.Linea);
+                        var mensaje = mensajeDao.FindById(mensajeVO.Id);
+                        if (mensaje != null)
                         {
-                            Coche = coche,
-                            Chofer = empleado,
-                            CodigoMensaje = mensaje.Codigo,
-                            Dispositivo = coche.Dispositivo,
-                            Expiracion = DateTime.UtcNow.AddDays(1),
-                            Fecha = DateTime.UtcNow,
-                            FechaAlta = DateTime.UtcNow,
-                            FechaFin = DateTime.UtcNow,
-                            IdCoche = coche.Id,
-                            Latitud = 0,
-                            LatitudFin = 0,
-                            Longitud = 0,
-                            LongitudFin = 0,
-                            Mensaje = mensaje,
-                            Texto = "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " + rechazoEntity.Entrega.Descripcion,
-                            Usuario = Usuario
-                        };
+                            var newEvent = new LogMensaje
+                            {
+                                Coche = coche,
+                                Chofer = empleado,
+                                CodigoMensaje = mensaje.Codigo,
+                                Dispositivo = coche.Dispositivo,
+                                Expiracion = DateTime.UtcNow.AddDays(1),
+                                Fecha = DateTime.UtcNow,
+                                FechaAlta = DateTime.UtcNow,
+                                FechaFin = DateTime.UtcNow,
+                                IdCoche = coche.Id,
+                                Latitud = 0,
+                                LatitudFin = 0,
+                                Longitud = 0,
+                                LongitudFin = 0,
+                                Mensaje = mensaje,
+                                Texto =
+                                    "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " +
+                                    rechazoEntity.Entrega.Descripcion,
+                                Usuario = Usuario
+                            };
 
-                        logMensajeDao.Save(newEvent);
+                            logMensajeDao.Save(newEvent);
+                        }
+                    }
+                    else
+                    {
+                        STrace.Warning(STrace.Module, new Exception("Vendedor sin choche asociado"));
                     }
                 }
 
@@ -148,6 +158,7 @@ namespace Logictracker.Web.Controllers.api
                 return InternalServerError(ex);
             }
         }
+
         [Route("api/ticketrechazo/item/{id}")]
         public IHttpActionResult PutItem(int id, TicketRechazoModel rechazoModel)
         {
@@ -158,13 +169,12 @@ namespace Logictracker.Web.Controllers.api
 
             return Ok();
         }
-        
+
         [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/rol")]
         public IHttpActionResult GetPromedioPorRol(int distritoId, int baseId)
         {
             var w = EntityDao.GetPromedioPorRol(distritoId, baseId);
-
-
+            
             var vend = w.FirstOrDefault(e => e.TipoEmpleado == "V");
             var sup = w.FirstOrDefault(e => e.TipoEmpleado == "SR");
             var jef = w.FirstOrDefault(e => e.TipoEmpleado == "JF");
@@ -216,23 +226,18 @@ namespace Logictracker.Web.Controllers.api
                     Usuario = "Jose Gutierrez",
                     EstadoIngreso = "Pendiente",
                     EstadoEgreso = "Avisado",
-                    Promedio = (float)5.2
+                    Promedio = 5.2f
                 }
             };
-            DataSourceResult r = new DataSourceResult();
-            r.Data = list.ToArray();
+            var r = new DataSourceResult { Data = list.ToArray() };
             return r;
         }
 
         [Route("api/ticketrechazo/estadisticas/promedio/porestado")]
         public DataSourceResult GetPromedioPorEstado([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
-
-
             var list = EntityDao.GetPromedioPorEstado(-1, -1);
             list.ForEach(e => e.Promedio = e.Promedio / 60);
-
-
             //var r = new DataSourceResult {Data = list.ToArray()};
             return list.ToDataSourceResult(request);
         }

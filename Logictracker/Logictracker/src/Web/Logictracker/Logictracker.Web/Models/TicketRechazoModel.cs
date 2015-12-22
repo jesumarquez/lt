@@ -18,6 +18,7 @@ namespace Logictracker.Web.Controllers.api
         public DateTime FechaHora { get; set; }
         public string Estado { get; set; }
     }
+
     public class TicketRechazoModel
     {
         public int DistritoId { get; set; }
@@ -51,6 +52,7 @@ namespace Logictracker.Web.Controllers.api
 
         public int ChoferId { get; set; }
         public string ChoferDesc { get; set; }
+        public TicketRechazo.EstadoFinal EstadoFinal { get; set; }
     }
     
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
@@ -91,13 +93,14 @@ namespace Logictracker.Web.Controllers.api
             model.ClienteDesc = entity.Cliente.Descripcion;
             model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
             model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
-            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Detalle.First().Estado));
+            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Detalle.OrderByDescending(e=>e.FechaHora).First().Estado));
             model.Territorio = entity.Territorio;
             model.Motivo = entity.Motivo;
             model.MotivoDesc = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
             model.Bultos = entity.Bultos;
             model.Observacion = entity.Detalle.First().Observacion;
             model.EnHorario = entity.EnHorario;
+            model.EstadoFinal = entity.Final;
             var mt = new TicketRechazoDetalleMapper();
             model.Detalle = new List<TicketRechazoDetalleModel>(entity.Detalle.Select(d => mt.EntityToModel(d, new TicketRechazoDetalleModel())));
             if (entity.Entrega != null)
@@ -120,7 +123,7 @@ namespace Logictracker.Web.Controllers.api
                 model.VendedorDesc = entity.Vendedor.Entidad.Descripcion;
             }
 
-            model.FechaHoraEstado = DateTime.SpecifyKind(entity.Detalle.First().FechaHora, DateTimeKind.Utc);
+            model.FechaHoraEstado = DateTime.SpecifyKind(entity.Detalle.OrderByDescending(e=>e.FechaHora).First().FechaHora, DateTimeKind.Utc);
 
             if (entity.Chofer != null)
             {
