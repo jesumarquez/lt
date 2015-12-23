@@ -55,18 +55,19 @@ function RechazoController($scope, EntitiesService, $filter) {
         [
         { template: kendo.template($("#rechazo-sem").html()), width: "10px" },
         { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
-        { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "Estado", title: "Estado" },
+        { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Motivo #= '' # " },
+        { field: "Estado", title: "Estado", groupHeaderTemplate: "Estado #= '' # " },
         { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "EntregaCodigo", title: "Cod. Entrega", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "VendedorDesc", title: "Vendedor" },
-        { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "SupRutDesc", title: "Jefe de Ventas", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "ChoferDesc", title: "Chofer", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "VendedorDesc", title: "Vendedor", groupHeaderTemplate: "Vendedor #= '' # " },
+        { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Sup. Venta #= '' # " },
+        { field: "SupRutDesc", title: "Jefe de Ventas", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Jefe de Ventas #= '' # " },
+        { field: "ChoferDesc", title: "Chofer", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Chofer #= '' # " },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
-
         ]
     }
+
+
 
     $scope.onNuevo = function () {
         $scope.operacion = "A";
@@ -181,7 +182,7 @@ function RechazoItemController($scope, EntitiesService) {
         $scope.notify.show(message, type);
     };
 
-    
+
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
@@ -390,7 +391,7 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             $(this).data("kendoRadialGauge").redraw();
         });
     });
-
+   
     function onBaseSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
 
