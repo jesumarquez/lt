@@ -55,18 +55,19 @@ function RechazoController($scope, EntitiesService, $filter) {
         [
         { template: kendo.template($("#rechazo-sem").html()), width: "10px" },
         { field: "FechaHoraEstado", title: "Fecha Hora", format: "{0: dd/MM HH:mm}", sortable: true },
-        { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "Estado", title: "Estado" },
+        { field: "MotivoDesc", title: "Motivo", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Motivo #= '' # " },
+        { field: "Estado", title: "Estado", groupHeaderTemplate: "Estado #= '' # " },
         { field: "Bultos", title: "Bultos", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "EntregaCodigo", title: "Cod. Entrega", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "VendedorDesc", title: "Vendedor" },
-        { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
-        { field: "SupRutDesc", title: "Sup. Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "VendedorDesc", title: "Vendedor", groupHeaderTemplate: "Vendedor #= '' # " },
+        { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Sup. Venta #= '' # " },
+        { field: "SupRutDesc", title: "Jefe de Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Jefe de Ruta #= '' # " },
         { field: "Territorio", title: "Territorio", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
-
         ]
     }
+
+
 
     $scope.onNuevo = function () {
         $scope.operacion = "A";

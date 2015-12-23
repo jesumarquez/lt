@@ -369,6 +369,41 @@ function EntitiesService($resource, $http) {
         return ds;
     }
 
+    var dictMappingGroup = [];
+    dictMappingGroup["UltimoEstado"] = "Estado";
+    dictMappingGroup["Estado"] = "UltimoEstado";
+    dictMappingGroup["MotivoDesc"] = "Motivo";
+    dictMappingGroup["Motivo"] = "MotivoDesc";
+    dictMappingGroup["EntregaCodigo"] = "Entrega.Id";
+    dictMappingGroup["Entrega.Id"] = "EntregaCodigo";
+    dictMappingGroup["VendedorDesc"] = "Vendedor.Id";
+    dictMappingGroup["Vendedor.Id"] = "VendedorDesc";
+    dictMappingGroup["SupVenDesc"] = "SupervisorVenta.Id";
+    dictMappingGroup["SupervisorVenta.Id"] = "SupVenDesc";
+    dictMappingGroup["SupRutDesc"] = "SupervisorRuta.Id";
+    dictMappingGroup["SupervisorRuta.Id"] = "SupRutDesc";
+
+    function mappingGroupFields(e)
+    {
+        $.each(e.sender._group, function (i, val) {
+            if (dictMappingGroup[val.field] !== undefined)
+                val.field = dictMappingGroup[val.field];
+        });
+    }
+    
+    function reverseMappingGroupFields(val) {
+        if (val.Items !== undefined && val.Items.length > 0)
+        { 
+            $.each(val.Items, function (i, val) {
+                reverseMappingGroupFields(val);
+            });
+        }
+
+        if (val.Member !== undefined && dictMappingGroup[val.Member] !== undefined)
+            val.Member = dictMappingGroup[val.Member];
+            
+     }
+
     function getRechazoItems(filters, onEnd, onFail) {
 
         var ds = new kendo.data.DataSource({
@@ -379,30 +414,35 @@ function EntitiesService($resource, $http) {
                     dataType: "json",
                     url: function (op) {
                         return "/api/ticketrechazo/datasource";
-                    },
-                },
+                    }             
+                }
             },
+            requestStart: mappingGroupFields,
+            requestEnd: mappingGroupFields,
             schema: {
                 total: "Total",
                 data: "Data",
                 errors: "Errors",
-                 parse: function (data) {
+                parse: function (data) {
                     $.each(data.Data, function (i, val) {
                         val.FechaHora = kendo.parseDate(val.FechaHora);
                         val.FechaHoraEstado = kendo.parseDate(val.FechaHoraEstado);
+                        reverseMappingGroupFields(val);
+
                     });
                     return data;
-                }
-            },
+                },
+               },
             pageSize: 25,
             filter: filters,
+            serverGrouping: true,
             serverFiltering: true,
             serverSorting: false,
             serverPaging: true,
             group: {
                 field: "Estado",
                 dir: "asc"
-            }
+            },
         });
 
         if (angular.isFunction(onEnd))

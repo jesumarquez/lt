@@ -15,6 +15,7 @@ using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.DAL.DAO.BusinessObjects.Messages;
+using Kendo.Mvc;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -48,7 +49,7 @@ namespace Logictracker.Web.Controllers.api
             var tickets = EntityDao.FindAll();
 
             if (Usuario.Empleado == null || Usuario.Empleado.TipoEmpleado == null)
-                return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+                 return GetResult(tickets, request);
 
             switch (Usuario.Empleado.TipoEmpleado.Codigo)
             {
@@ -62,9 +63,64 @@ namespace Logictracker.Web.Controllers.api
                     tickets = tickets.Where(t => t.Vendedor.Id == Usuario.Empleado.Id);
                     break;
             }
-            return tickets.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+
+            return GetResult(tickets, request);
         }
 
+        private DataSourceResult GetResult(IQueryable<TicketRechazo> data, DataSourceRequest r)
+        {
+            if(r.Groups == null)
+                return data.ToDataSourceResult(r, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+
+            // Workaround por como resuelve linq y nhibernate con los filter y haciendo el group del lado del server
+            // Guardo valores originales
+            var grouping = r.Groups;
+            var page = r.Page;
+            var pageSize = r.PageSize;
+
+            // Limpio Group y Paging
+            r.Page = 0;
+            r.PageSize = 0;
+            r.Groups = null;
+
+            var result = data.ToDataSourceResult(r);
+
+            // Reanudo los valores originales
+            r.Groups = grouping;
+            r.PageSize = pageSize;
+            r.Page = page;
+
+            //// Se acomodan los nombres de los members
+            //r.Groups.ForEach(gd => ReplaceGroupDescriptorMember(gd));
+
+            return result.Data.Cast<TicketRechazo>().ToDataSourceResult(r, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+        }
+
+        //private void ReplaceGroupDescriptorMember(GroupDescriptor gd)
+        //{
+        //    switch (gd.Member)
+        //    {
+        //        case "Estado":
+        //            gd.Member = "UltimoEstado";
+        //             break;
+        //        case "MotivoDesc":
+        //            gd.Member = "Motivo";
+        //            break;
+        //        case "EntregaCodigo":
+        //            gd.Member = "Entrega.Id";
+        //            break;
+        //        case "VendedorDesc":
+        //            gd.Member = "Vendedor.Id";
+        //            break;
+        //        case "SupVenDesc":
+        //            gd.Member = "SupervisorVenta.Id";
+        //            break;
+        //        case "SupRutDesc":
+        //            gd.Member = "SupervisorRuta.Id";
+        //            break;
+        //    }
+        //}
+        
         [Route("api/ticketrechazo/item/{id}")]
         public IHttpActionResult GetItem(int id)
         {
