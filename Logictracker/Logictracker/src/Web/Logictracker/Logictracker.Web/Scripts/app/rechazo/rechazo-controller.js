@@ -62,7 +62,7 @@ function RechazoController($scope, EntitiesService, $filter) {
         { field: "VendedorDesc", title: "Vendedor", groupHeaderTemplate: "Vendedor #= '' # " },
         { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Sup. Venta #= '' # " },
         { field: "SupRutDesc", title: "Jefe de Ventas", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Jefe de Ventas #= '' # " },
-        { field: "ChoferDesc", title: "Chofer", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "ChoferDesc", title: "Chofer", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Chofer #= '' # " },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
         ]
     }

@@ -398,6 +398,9 @@ function EntitiesService($resource, $http) {
     dictMappingGroup["SupervisorVenta.Id"] = "SupVenDesc";
     dictMappingGroup["SupRutDesc"] = "SupervisorRuta.Id";
     dictMappingGroup["SupervisorRuta.Id"] = "SupRutDesc";
+    dictMappingGroup["ChoferDesc"] = "Chofer.Id";
+    dictMappingGroup["Chofer.Id"]= "ChoferDesc";
+    
 
     function mappingGroupFields(e)
     {

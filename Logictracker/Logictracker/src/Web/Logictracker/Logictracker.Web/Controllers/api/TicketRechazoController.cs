@@ -16,11 +16,6 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
 using WebGrease.Css.Extensions;
-using Logictracker.DAL.Factories;
-using Logictracker.Types.BusinessObjects.Vehiculos;
-using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
-using Logictracker.Types.BusinessObjects.Messages;
-using Logictracker.DAL.DAO.BusinessObjects.Messages;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -54,25 +49,25 @@ namespace Logictracker.Web.Controllers.api
             var transaction = SessionHelper.Current.BeginTransaction();
             try
             {
-            var tickets = EntityDao.FindAll();
+                var tickets = EntityDao.FindAll();
 
-            if (Usuario.Empleado == null || Usuario.Empleado.TipoEmpleado == null)
-                 return GetResult(tickets, request);
+                if (Usuario.Empleado == null || Usuario.Empleado.TipoEmpleado == null)
+                    return GetResult(tickets, request);
 
-            switch (Usuario.Empleado.TipoEmpleado.Codigo)
-            {
-                case "SR":
-                    tickets = tickets.Where(t => t.SupervisorRuta.Id == Usuario.Empleado.Id);
-                    break;
-                case "JF":
-                    tickets = tickets.Where(t => t.SupervisorVenta.Id == Usuario.Empleado.Id);
-                    break;
-                case "V":
-                    tickets = tickets.Where(t => t.Vendedor.Id == Usuario.Empleado.Id);
-                    break;
-            }
-
+                switch (Usuario.Empleado.TipoEmpleado.Codigo)
+                {
+                    case "SR":
+                        tickets = tickets.Where(t => t.SupervisorRuta.Id == Usuario.Empleado.Id);
+                        break;
+                    case "JF":
+                        tickets = tickets.Where(t => t.SupervisorVenta.Id == Usuario.Empleado.Id);
+                        break;
+                    case "V":
+                        tickets = tickets.Where(t => t.Vendedor.Id == Usuario.Empleado.Id);
+                        break;
+                }
                 return GetResult(tickets, request);
+
             }
             finally
             {
@@ -82,7 +77,7 @@ namespace Logictracker.Web.Controllers.api
 
         private DataSourceResult GetResult(IQueryable<TicketRechazo> data, DataSourceRequest r)
         {
-            if(r.Groups == null)
+            if (r.Groups == null)
                 return data.ToDataSourceResult(r, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
 
             // Workaround por como resuelve linq y nhibernate con los filter y haciendo el group del lado del server
@@ -108,34 +103,34 @@ namespace Logictracker.Web.Controllers.api
 
             return result.Data.Cast<TicketRechazo>().ToDataSourceResult(r, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
         }
-        }
+    
 
-        //private void ReplaceGroupDescriptorMember(GroupDescriptor gd)
-        //{
-        //    switch (gd.Member)
-        //    {
-        //        case "Estado":
-        //            gd.Member = "UltimoEstado";
-        //             break;
-        //        case "MotivoDesc":
-        //            gd.Member = "Motivo";
-        //            break;
-        //        case "EntregaCodigo":
-        //            gd.Member = "Entrega.Id";
-        //            break;
-        //        case "VendedorDesc":
-        //            gd.Member = "Vendedor.Id";
-        //            break;
-        //        case "SupVenDesc":
-        //            gd.Member = "SupervisorVenta.Id";
-        //            break;
-        //        case "SupRutDesc":
-        //            gd.Member = "SupervisorRuta.Id";
-        //            break;
-        //    }
-        //}
-        
-        [Route("api/ticketrechazo/item/{id}")]
+    //private void ReplaceGroupDescriptorMember(GroupDescriptor gd)
+    //{
+    //    switch (gd.Member)
+    //    {
+    //        case "Estado":
+    //            gd.Member = "UltimoEstado";
+    //             break;
+    //        case "MotivoDesc":
+    //            gd.Member = "Motivo";
+    //            break;
+    //        case "EntregaCodigo":
+    //            gd.Member = "Entrega.Id";
+    //            break;
+    //        case "VendedorDesc":
+    //            gd.Member = "Vendedor.Id";
+    //            break;
+    //        case "SupVenDesc":
+    //            gd.Member = "SupervisorVenta.Id";
+    //            break;
+    //        case "SupRutDesc":
+    //            gd.Member = "SupervisorRuta.Id";
+    //            break;
+    //    }
+    //}
+
+    [Route("api/ticketrechazo/item/{id}")]
         public IHttpActionResult GetItem(int id)
         {
             var rechazo = EntityDao.FindById(id);
@@ -152,54 +147,54 @@ namespace Logictracker.Web.Controllers.api
 
             try
             {
-            var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario.Empleado, DateTime.UtcNow);
+                var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario.Empleado, DateTime.UtcNow);
 
-            Mapper.ModelToEntity(rechazoModel, rechazoEntity);
+                Mapper.ModelToEntity(rechazoModel, rechazoEntity);
 
-            EntityDao.Save(rechazoEntity);
+                EntityDao.Save(rechazoEntity);
 
-            Mapper.EntityToModel(rechazoEntity, rechazoModel);
+                Mapper.EntityToModel(rechazoEntity, rechazoModel);
 
-            var empleado = rechazoEntity.Entrega.Responsable;
-            if (empleado != null)
-            {
-                var cocheDao = DAOFactory.GetDao<CocheDAO>();
-                var mensajeDao = DAOFactory.GetDao<MensajeDAO>();
-                var logMensajeDao = DAOFactory.GetDao<LogMensajeDAO>();
+                var empleado = rechazoEntity.Entrega.Responsable;
+                if (empleado != null)
+                {
+                    var cocheDao = DAOFactory.GetDao<CocheDAO>();
+                    var mensajeDao = DAOFactory.GetDao<MensajeDAO>();
+                    var logMensajeDao = DAOFactory.GetDao<LogMensajeDAO>();
 
-                var coche = cocheDao.FindByChofer(empleado.Id);
+                    var coche = cocheDao.FindByChofer(empleado.Id);
                     if (coche != null)
                     {
                         var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo),
                             coche.Empresa, coche.Linea);
-                var mensaje = mensajeDao.FindById(mensajeVO.Id);
+                        var mensaje = mensajeDao.FindById(mensajeVO.Id);
                         if (mensaje != null)
-                {
-                    var newEvent = new LogMensaje
-                    {
-                        Coche = coche,
-                        Chofer = empleado,
-                        CodigoMensaje = mensaje.Codigo,
-                        Dispositivo = coche.Dispositivo,
-                        Expiracion = DateTime.UtcNow.AddDays(1),
-                        Fecha = DateTime.UtcNow,
-                        FechaAlta = DateTime.UtcNow,
-                        FechaFin = DateTime.UtcNow,
-                        IdCoche = coche.Id,
-                        Latitud = 0,
-                        LatitudFin = 0,
-                        Longitud = 0,
-                        LongitudFin = 0,
-                        Mensaje = mensaje,
+                        {
+                            var newEvent = new LogMensaje
+                            {
+                                Coche = coche,
+                                Chofer = empleado,
+                                CodigoMensaje = mensaje.Codigo,
+                                Dispositivo = coche.Dispositivo,
+                                Expiracion = DateTime.UtcNow.AddDays(1),
+                                Fecha = DateTime.UtcNow,
+                                FechaAlta = DateTime.UtcNow,
+                                FechaFin = DateTime.UtcNow,
+                                IdCoche = coche.Id,
+                                Latitud = 0,
+                                LatitudFin = 0,
+                                Longitud = 0,
+                                LongitudFin = 0,
+                                Mensaje = mensaje,
                                 Texto =
                                     "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " +
                                     rechazoEntity.Entrega.Descripcion,
-                        Usuario = Usuario                        
-                    };
+                                Usuario = Usuario
+                            };
 
-                    logMensajeDao.Save(newEvent);
-                }
-            }
+                            logMensajeDao.Save(newEvent);
+                        }
+                    }
                     else
                     {
                         STrace.Warning(STrace.Module, new Exception("Vendedor sin choche asociado"));
@@ -208,7 +203,7 @@ namespace Logictracker.Web.Controllers.api
 
                 transacion.Commit();
 
-            return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
+                return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
 
             }
             catch (Exception ex)
@@ -216,7 +211,7 @@ namespace Logictracker.Web.Controllers.api
                 STrace.Exception(STrace.Module, ex);
                 transacion.Rollback();
                 return InternalServerError(ex);
-        }
+            }
         }
 
         [Route("api/ticketrechazo/item/{id}")]
