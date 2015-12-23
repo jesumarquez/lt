@@ -6,7 +6,13 @@ using System.Web.Http.ModelBinding;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Logictracker.Culture;
+using Logictracker.DatabaseTracer.Core;
+using Logictracker.DAL.DAO.BusinessObjects.Messages;
 using Logictracker.DAL.DAO.BusinessObjects.Rechazos;
+using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
+using Logictracker.DAL.Factories;
+using Logictracker.DAL.NHibernate;
+using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Rechazos;
 using Logictracker.Web.Models;
 using WebGrease.Css.Extensions;
@@ -15,13 +21,11 @@ using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.DAL.DAO.BusinessObjects.Messages;
-using Kendo.Mvc;
 
 namespace Logictracker.Web.Controllers.api
 {
     public class TicketRechazoController : EntityController<TicketRechazo, TicketRechazoDAO, TicketRechazoModel, TicketRechazoMapper>
     {
-
         [Route("api/ticketrechazo/{ticketId}/estado/next")]
         public IEnumerable<ItemModel> GetNextEstado(int ticketId)
         {
@@ -36,6 +40,7 @@ namespace Logictracker.Web.Controllers.api
         {
             return EntityDao.GetEstados().Select(e => new ItemModel { Key = (int)e.Key, Value = e.Value });
         }
+
         [Route("api/ticketrechazo/motivo/items")]
         public IEnumerable<ItemModel> GetMotivo()
         {
@@ -46,6 +51,9 @@ namespace Logictracker.Web.Controllers.api
         public DataSourceResult GetDataSource(
                 [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
+            var transaction = SessionHelper.Current.BeginTransaction();
+            try
+            {
             var tickets = EntityDao.FindAll();
 
             if (Usuario.Empleado == null || Usuario.Empleado.TipoEmpleado == null)
@@ -64,7 +72,12 @@ namespace Logictracker.Web.Controllers.api
                     break;
             }
 
-            return GetResult(tickets, request);
+                return GetResult(tickets, request);
+            }
+            finally
+            {
+                transaction.Rollback();
+            }
         }
 
         private DataSourceResult GetResult(IQueryable<TicketRechazo> data, DataSourceRequest r)
@@ -94,6 +107,7 @@ namespace Logictracker.Web.Controllers.api
             //r.Groups.ForEach(gd => ReplaceGroupDescriptorMember(gd));
 
             return result.Data.Cast<TicketRechazo>().ToDataSourceResult(r, e => Mapper.EntityToModel(e, new TicketRechazoModel()));
+        }
         }
 
         //private void ReplaceGroupDescriptorMember(GroupDescriptor gd)
@@ -130,9 +144,14 @@ namespace Logictracker.Web.Controllers.api
 
             return Json(rechazoModel);
         }
+
         [Route("api/ticketrechazo/item")]
         public IHttpActionResult PostItem(TicketRechazoModel rechazoModel)
         {
+            var transacion = SessionHelper.Current.BeginTransaction();
+
+            try
+            {
             var rechazoEntity = new TicketRechazo(rechazoModel.Observacion, Usuario.Empleado, DateTime.UtcNow);
 
             Mapper.ModelToEntity(rechazoModel, rechazoEntity);
@@ -149,9 +168,12 @@ namespace Logictracker.Web.Controllers.api
                 var logMensajeDao = DAOFactory.GetDao<LogMensajeDAO>();
 
                 var coche = cocheDao.FindByChofer(empleado.Id);
-                var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo), coche.Empresa, coche.Linea);
+                    if (coche != null)
+                    {
+                        var mensajeVO = mensajeDao.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazoEntity.Motivo),
+                            coche.Empresa, coche.Linea);
                 var mensaje = mensajeDao.FindById(mensajeVO.Id);
-                if (coche != null && mensaje != null)
+                        if (mensaje != null)
                 {
                     var newEvent = new LogMensaje
                     {
@@ -169,16 +191,34 @@ namespace Logictracker.Web.Controllers.api
                         Longitud = 0,
                         LongitudFin = 0,
                         Mensaje = mensaje,
-                        Texto = "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " + rechazoEntity.Entrega.Descripcion,
+                                Texto =
+                                    "INFORME DE RECHAZO NRO " + rechazoEntity.Id + ": " + mensaje.Descripcion + " -> " +
+                                    rechazoEntity.Entrega.Descripcion,
                         Usuario = Usuario                        
                     };
 
                     logMensajeDao.Save(newEvent);
                 }
             }
+                    else
+                    {
+                        STrace.Warning(STrace.Module, new Exception("Vendedor sin choche asociado"));
+                    }
+                }
+
+                transacion.Commit();
 
             return Created(string.Concat("api/ticketrechazo/item/{0}", rechazoEntity.Id), rechazoModel);
+
+            }
+            catch (Exception ex)
+            {
+                STrace.Exception(STrace.Module, ex);
+                transacion.Rollback();
+                return InternalServerError(ex);
         }
+        }
+
         [Route("api/ticketrechazo/item/{id}")]
         public IHttpActionResult PutItem(int id, TicketRechazoModel rechazoModel)
         {
@@ -189,17 +229,11 @@ namespace Logictracker.Web.Controllers.api
 
             return Ok();
         }
-        //[Route("api/ticketrechazo/cantidadesporestado/items")]
-        //public IEnumerable<ItemModel> GetCantidadesPorEstado(int idEmpresa, int idLinea, DateTime desde, DateTime hasta)
-        //{
-        //    return EntityDao.GetCantidadesPorEstado(idEmpresa, idLinea, desde, hasta).Select(e => Mapper.ToItem(e));
-        //}
 
         [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/rol")]
         public IHttpActionResult GetPromedioPorRol(int distritoId, int baseId)
         {
             var w = EntityDao.GetPromedioPorRol(distritoId, baseId);
-
 
             var vend = w.FirstOrDefault(e => e.TipoEmpleado == "V");
             var sup = w.FirstOrDefault(e => e.TipoEmpleado == "SR");
@@ -211,7 +245,7 @@ namespace Logictracker.Web.Controllers.api
                 vendedor = (vend == null ? 0 : vend.Promedio) / 60,
                 supervisorVentas = (sup == null ? 0 : sup.Promedio) / 60,
                 jefeVentas = (jef == null ? 0 : jef.Promedio) / 60,
-                otros = (otr.Sum(e=>e.Promedio)/60) / Math.Max(1,otr.Count())
+                otros = (otr.Sum(e => e.Promedio) / 60) / Math.Max(1, otr.Count())
             };
 
             return Json(promedios);
@@ -238,12 +272,6 @@ namespace Logictracker.Web.Controllers.api
                              Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(g.Key))
                          });
 
-            //var list = new List<CantidadPorEstadoModel>()
-            //{
-            //    new CantidadPorEstadoModel { Estado = "Pendiente", Cantidad = 6 },
-            //    new CantidadPorEstadoModel { Estado = "Avisado", Cantidad = 11 },
-            //    new CantidadPorEstadoModel { Estado = "Notificado", Cantidad = 20 }
-            //};
 
             return Json(list.ToArray());
         }
@@ -258,23 +286,18 @@ namespace Logictracker.Web.Controllers.api
                     Usuario = "Jose Gutierrez",
                     EstadoIngreso = "Pendiente",
                     EstadoEgreso = "Avisado",
-                    Promedio = (float)5.2
+                    Promedio = 5.2f
                 }
             };
-            DataSourceResult r = new DataSourceResult();
-            r.Data = list.ToArray();
+            var r = new DataSourceResult { Data = list.ToArray() };
             return r;
         }
 
         [Route("api/ticketrechazo/estadisticas/promedio/porestado")]
         public DataSourceResult GetPromedioPorEstado([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
-
-
             var list = EntityDao.GetPromedioPorEstado(-1, -1);
-            list.ForEach(e => e.Promedio = e.Promedio/60);
-
-
+            list.ForEach(e => e.Promedio = e.Promedio / 60);
             //var r = new DataSourceResult {Data = list.ToArray()};
             return list.ToDataSourceResult(request);
         }

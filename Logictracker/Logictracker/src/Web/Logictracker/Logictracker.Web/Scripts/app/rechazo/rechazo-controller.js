@@ -61,8 +61,8 @@ function RechazoController($scope, EntitiesService, $filter) {
         { field: "EntregaCodigo", title: "Cod. Entrega", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { field: "VendedorDesc", title: "Vendedor", groupHeaderTemplate: "Vendedor #= '' # " },
         { field: "SupVenDesc", title: "Sup. Venta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Sup. Venta #= '' # " },
-        { field: "SupRutDesc", title: "Jefe de Ruta", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Jefe de Ruta #= '' # " },
-        { field: "Territorio", title: "Territorio", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
+        { field: "SupRutDesc", title: "Jefe de Ventas", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" }, groupHeaderTemplate: "Jefe de Ventas #= '' # " },
+        { field: "ChoferDesc", title: "Chofer", headerAttributes: { "class": "grid-colVisible" }, attributes: { "class": "grid-colVisible" } },
         { template: "<a href='\\#' class='link' ng-click='onEdit(dataItem.TicketRechazoId)'>Editar</a>", title: "", width: "5em" }
         ]
     }
@@ -165,11 +165,13 @@ function RechazoItemController($scope, EntitiesService) {
     $scope.territorio = "";
     $scope.enHorarioSelected = {};
     $scope.movimientosDS = {};
+    $scope.choferSelected = {};
 
     $scope.disabledButton = false;
 
     $scope.codigoVendedor = "V";
     $scope.codigoSupervisorRutas = "SR";
+    $scope.codigoChofer = "Cho";
 
     $scope.enHorarioDS = [
         { Key: true, Value: "Si" },
@@ -180,7 +182,6 @@ function RechazoItemController($scope, EntitiesService) {
         $scope.notify.show(message, type);
     };
 
-    function isNew() { return $scope.operation === "A"; }
 
     $scope.tDistribucion = kendo.template($("#tDistribucion").html());
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
@@ -240,8 +241,9 @@ function RechazoItemController($scope, EntitiesService) {
                 Observacion: $scope.observacion,
                 EnHorario: $scope.enHorarioSelected.Key,
                 EntregaId: $scope.puntoEntregaSelected[0] ? $scope.puntoEntregaSelected[0].PuntoEntregaId : 0,
-                TransportistaId: $scope.transportistaSelected.Key
-
+                TransportistaId: $scope.transportistaSelected.Key,
+                ChoferId: $scope.choferSelected.EmpleadoId,
+                ChoferDesc: $scope.choferSelected ? $scope.choferSelected.Descripcion : "",
             };
 
             EntitiesService.resources.ticketRechazo.save(ticketRechazo).$promise.then(
@@ -373,15 +375,33 @@ function RechazoEstadisticasController($scope, EntitiesService) {
         pageable: true
     };
 
+    $scope.$watch("baseSelected", onBaseSelected);
+
     var chartData = [{ "name": "cantidad", "value": 1, "time": "07:00" }, { "name": "cantidad", "value": 2, "time": "08:00" }, { "name": "cantidad", "value": 1, "time": "09:00" }, { "name": "cantidad", "value": 1, "time": "10:00" }, { "name": "cantidad", "value": 4, "time": "11:00" }, { "name": "cantidad", "value": 5, "time": "12:00" }, { "name": "cantidad", "value": 4, "time": "13:00" }, { "name": "cantidad", "value": 4, "time": "14:00" }, { "name": "cantidad", "value": 4, "time": "15:00" }, { "name": "cantidad", "value": 4, "time": "16:00" }, { "name": "cantidad", "value": 4, "time": "17:00" }, { "name": "cantidad", "value": 4, "time": "18:00" }, { "name": "cantidad", "value": 3, "time": "19:00" }];
 
     $scope.chartDataSource = new kendo.data.DataSource({ data: chartData });
 
     $(window).bind("resize", function () {
-        var gridElement = $("#grid");
-        gridElement.data("kendoChart").refresh();
+
+        $("div[kendo-chart]").each(function () {
+            $(this).data("kendoChart").refresh();
+        });
+
+        $("span[kendo-radialgauge]").each(function () {
+            $(this).data("kendoRadialGauge").redraw();
+        });
     });
    
+    function onBaseSelected(newValue, oldValue) {
+        if (newValue != null && newValue !== oldValue) {
+
+            $scope.UserData.DistritoSelected = $scope.distritoSelected.Key;
+            $scope.UserData.BaseSelected = $scope.baseSelected.Key;
+
+            $scope.UserData.$save();
+        }
+    };
+
     function onPromediosPorRolLoad() {
         $scope.promedioVendedor = $scope.promediosPorRol.vendedor;
         $scope.promedioSupervisorVentas = $scope.promediosPorRol.supervisorVentas;
