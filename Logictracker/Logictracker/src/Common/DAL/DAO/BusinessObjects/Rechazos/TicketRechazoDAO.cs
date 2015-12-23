@@ -124,6 +124,38 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
 
             return q.Future<PromedioPorEstadoModel>();
         }
+
+        public IEnumerable<PromedioPorVendedorModel> GetPromedioPorVendedor(int distritoId, int baseId)
+        {
+            RechazoMov mov = null;
+            TicketRechazo ticket = null;
+            Empleado empEgreso = null;
+            TipoEmpleado tEmpleado = null;
+
+            var q = Session
+                .QueryOver(() => mov)
+                .Inner.JoinAlias(() => mov.EmpledoEgreso, () => empEgreso)
+                .Left.JoinAlias(() => empEgreso.TipoEmpleado, () => tEmpleado)
+                .Inner.JoinAlias(() => mov.Ticket, () => ticket)
+                .Where(() => tEmpleado.Codigo == "V")
+                .Select(Projections.ProjectionList()
+                    .Add(Projections.Count(() => mov.Id).As("Cantidad"))
+                    .Add(Projections.Avg(() => mov.Lapso).As("Promedio"))
+                    .Add(Projections.Group(() => mov.EstadoEgreso).As("EstadoEnum"))
+                    .Add(Projections.Group(() => ticket.Empresa.Id).As("EmpresaId"))
+                    .Add(Projections.Group(() => ticket.Linea.Id).As("BaseId"))
+                ).OrderBy(Projections.Avg(() => mov.Lapso).As("Promedio")).Desc;
+
+            if (distritoId != -1)
+                q = q.Where(m => ticket.Empresa.Id == distritoId);
+
+            if (baseId != -1)
+                q = q.Where(m => ticket.Linea.Id == baseId);
+
+            q = q.TransformUsing(Transformers.AliasToBean<PromedioPorVendedorModel>());
+
+            return q.Future<PromedioPorVendedorModel>();
+        }
     }
 
     public class RechazoPromedioRolModel
@@ -148,5 +180,19 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
         }
 
         public double Promedio { get; set; }
+    }
+
+    public class PromedioPorVendedorModel
+    {
+        public int EmpresaId { get; set; }
+        public int BaseId { get; set; }
+        public string Usuario { get; set; }
+        public int EstadoEnum { get; set; }
+        public string EstadoEgreso
+        {
+            get { return CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName((TicketRechazo.Estado)EstadoEnum)); }
+        }
+        public float Promedio { get; set; }
+        public int Cantidad { get; set; }
     }
 }
