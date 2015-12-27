@@ -274,18 +274,8 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/estadisticas/promedio/porvendedor")]
         public DataSourceResult GetPromedioPorVendedor([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
-            var list = new List<PromedioPorVendedorModel>()
-            {
-                new PromedioPorVendedorModel
-                {
-                    Usuario = "Jose Gutierrez",
-                    EstadoIngreso = "Pendiente",
-                    EstadoEgreso = "Avisado",
-                    Promedio = 5.2f
-                }
-            };
-            var r = new DataSourceResult { Data = list.ToArray() };
-            return r;
+            var list = EntityDao.GetPromedioPorVendedor(-1, -1);
+            return list.ToDataSourceResult(request);
         }
 
         [Route("api/ticketrechazo/estadisticas/promedio/porestado")]
