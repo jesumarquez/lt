@@ -353,7 +353,7 @@ function RechazoEstadisticasController($scope, EntitiesService) {
             { field: "Usuario", title: "Usuario" },
             { field: "EstadoEgreso", title: "Estado" },
             { field: "Cantidad", title: "Intervinio en" },
-            { field: "Promedio", title: "Promedio (min)" }
+            { field: "PromedioMinutos", title: "Promedio (min)" }
         ],
         
         sortable: {

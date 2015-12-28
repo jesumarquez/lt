@@ -207,6 +207,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
             get { return CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName((TicketRechazo.Estado)EstadoEnum)); }
         }
         public double Promedio { get; set; }
+        public double PromedioMinutos
+        {
+            get { return Math.Round( Promedio / 60, 1); }
+        }
         public int Cantidad { get; set; }
     }
 }
