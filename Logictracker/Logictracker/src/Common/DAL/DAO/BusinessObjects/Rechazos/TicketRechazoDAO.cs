@@ -131,12 +131,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
             TicketRechazo ticket = null;
             Empleado empEgreso = null;
             TipoEmpleado tEmpleado = null;
+            Entidad entidad = null;
 
             var q = Session
                 .QueryOver(() => mov)
                 .Inner.JoinAlias(() => mov.EmpledoEgreso, () => empEgreso)
                 .Left.JoinAlias(() => empEgreso.TipoEmpleado, () => tEmpleado)
                 .Inner.JoinAlias(() => mov.Ticket, () => ticket)
+                .Inner.JoinAlias(() => empEgreso.Entidad, () => entidad)
                 .Where(() => tEmpleado.Codigo == "V")
                 .Select(Projections.ProjectionList()
                     .Add(Projections.Count(() => mov.Id).As("Cantidad"))
@@ -144,6 +146,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
                     .Add(Projections.Group(() => mov.EstadoEgreso).As("EstadoEnum"))
                     .Add(Projections.Group(() => ticket.Empresa.Id).As("EmpresaId"))
                     .Add(Projections.Group(() => ticket.Linea.Id).As("BaseId"))
+                    .Add(Projections.Group(() => entidad.Id).As("Usuario"))
                 ).OrderBy(Projections.Avg(() => mov.Lapso).As("Promedio")).Desc;
 
             if (distritoId != -1)
@@ -184,6 +187,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
 
     public class PromedioPorVendedorModel
     {
+        public int EntidadId { get; set; }
         public int EmpresaId { get; set; }
         public int BaseId { get; set; }
         public string Usuario { get; set; }
@@ -192,7 +196,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
         {
             get { return CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName((TicketRechazo.Estado)EstadoEnum)); }
         }
-        public float Promedio { get; set; }
+        public double Promedio { get; set; }
         public int Cantidad { get; set; }
     }
 }
