@@ -146,7 +146,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
                     .Add(Projections.Group(() => mov.EstadoEgreso).As("EstadoEnum"))
                     .Add(Projections.Group(() => ticket.Empresa.Id).As("EmpresaId"))
                     .Add(Projections.Group(() => ticket.Linea.Id).As("BaseId"))
-                    .Add(Projections.Group(() => entidad.Id).As("Usuario"))
+                    .Add(Projections.Group(() => entidad.Nombre).As("EntidadNombre"))
+                    .Add(Projections.Group(() => entidad.Apellido).As("EntidadApellido"))
                 ).OrderBy(Projections.Avg(() => mov.Lapso).As("Promedio")).Desc;
 
             if (distritoId != -1)
@@ -187,16 +188,29 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
 
     public class PromedioPorVendedorModel
     {
-        public int EntidadId { get; set; }
         public int EmpresaId { get; set; }
         public int BaseId { get; set; }
-        public string Usuario { get; set; }
+        public string Usuario
+        {
+            get
+            {
+                if (EntidadNombre == null) return EntidadApellido.Trim();
+
+                return EntidadApellido.Trim() + ", " + EntidadNombre.Trim();
+            }
+        }
         public int EstadoEnum { get; set; }
+        public string EntidadNombre { get; set; }
+        public string EntidadApellido { get; set; }
         public string EstadoEgreso
         {
             get { return CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName((TicketRechazo.Estado)EstadoEnum)); }
         }
         public double Promedio { get; set; }
+        public double PromedioMinutos
+        {
+            get { return Math.Round( Promedio / 60, 1); }
+        }
         public int Cantidad { get; set; }
     }
 }
