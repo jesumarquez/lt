@@ -351,9 +351,8 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     $scope.opcionesGrillaVendedor = {
         columns: [
             { field: "Usuario", title: "Usuario" },
-            { field: "EstadoIngreso", title: "De estado" },
-            { field: "EstadoEgreso", title: "A estado" },
-            { field: "Intervinio", title: "Intervinio en" },
+            { field: "EstadoEgreso", title: "Estado" },
+            { field: "Cantidad", title: "Intervinio en" },
             { field: "Promedio", title: "Promedio (min)" }
         ],
         
