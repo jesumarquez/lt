@@ -169,6 +169,8 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
                     return EstadoFinal.ResueltoSinEntrega;
                 case Estado.AltaErronea:
                     return EstadoFinal.RechazoErroneo;
+                case Estado.Duplicado:
+                    return EstadoFinal.RechazoDuplicado;
             }
 
             return EstadoFinal.SolucionPendiente;
@@ -275,5 +277,7 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual PuntoEntrega  Entrega { get; set; }
         public virtual Transportista Transportista { get; set; }
         public virtual DateTime FechaHoraEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().FechaHora; } set {} }
+
+        public virtual  Empleado Chofer { get; set; }
     }
 }

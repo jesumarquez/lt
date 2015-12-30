@@ -15,13 +15,12 @@
                 } catch (ex) {
                     onFail(ex);
                 }
-                
+
                 $scope.model = e.response[0];
             }
         };
 
-        function onFail(e)
-        {
+        function onFail(e) {
             $scope.$emit('errorEvent', e);
         }
     };
@@ -111,7 +110,7 @@
 
         function onSelected(newValue, oldValue) {
             if (newValue != null && newValue !== oldValue) {
-                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });                
+                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });
             }
         };
 
@@ -204,7 +203,7 @@
         $scope.dataSource = EntitiesService.distrito.centroDeCostos(onDSLoad, onFail);
 
         $scope.$watchGroup(["dependsOnDepartamento", "dependsOnBase"], onSelected);
-  
+
         function onDSLoad(e) {
             if (e.type === "read" && e.response) {
                 $scope.model = [];
@@ -212,7 +211,7 @@
         };
 
         function onSelected(newValue, oldValue) {
-           if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
+            if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
                 $scope.dataSource.read({
                     distritoId: $scope.distrito.Key,
                     baseId: $scope.dependsOnBase.Key,
@@ -308,10 +307,10 @@
 .directive('ltMsTransportista', function () {
 
     function TransportistaController($scope, EntitiesService) {
-        $scope.ds = EntitiesService.distrito.transportista(onDSLoad, onFail);
+        $scope.ds = EntitiesService.distrito.transportista.models(onDSLoad, onFail);
 
         $scope.$watch("dependsOn", onSelected);
-  
+
         function onDSLoad(e) {
             if (e.type === "read" && e.response) {
                 $scope.model = [];
@@ -329,8 +328,7 @@
         }
     };
 
-    var link = function (scope, element, attrs)
-    {
+    var link = function (scope, element, attrs) {
         //if (scope.required !== undefined && scope.required) element.attr("required", true);
     }
 
@@ -358,7 +356,7 @@
 .directive('ltCbTransportista', function () {
 
     function TransportistaController($scope, EntitiesService) {
-        $scope.ds = EntitiesService.distrito.transportista(onDSLoad, onFail);
+        $scope.ds = EntitiesService.distrito.transportista.models(onDSLoad, onFail);
 
         $scope.ds.read({ distritoId: $scope.distrito.Key, baseId: $scope.base.Key });
 
@@ -394,8 +392,8 @@
     };
 })
 
-.directive('ltAcDistribucion', function(){
-    function DistribucionController($scope, EntitiesService){
+.directive('ltAcDistribucion', function () {
+    function DistribucionController($scope, EntitiesService) {
         $scope.dataSource = EntitiesService.distrito.distribuciones.models({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key }, null, $scope.onFail);
         $scope.$watch("dependsOn", onSelected);
 
@@ -412,7 +410,7 @@
 
     return {
         restrict: 'E',
-        scope:{
+        scope: {
             model: '=ltNgModel',
             dependsOn: "=ltDependsOnBase",
             distrito: "=ltDataDistrito",
@@ -489,10 +487,72 @@
     }
 })
 
+.directive('ltCbChofer', function () {
+
+    function ChoferController($scope, EntitiesService) {
+        $scope.ds = EntitiesService.distrito.transportista.empleados(onDSLoad, onFail);
+
+        $scope.$watch("dependsOn", onSelected);
+        
+        function onSelected(newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if (newValue.length == 0) {
+                    $scope.ds.data([]);
+                    $scope.ds.read();
+                    return;
+                }
+                if ($scope.dependsOn !== undefined) {
+
+                    $scope.ds.read({
+                        distritoId: $scope.distrito.Key,
+                        baseId: $scope.base.Key,
+                        transportistaId: $scope.dependsOn.Key,
+                        tipoEmpleadoCodigo: $scope.codigo
+                    });
+                }
+            }
+        }
+
+        function onDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.model = [];
+            }
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel",
+            distrito: "=ltDataDistrito",
+            base: "=ltDataBase",
+            dependsOn: "=ltDependsOnTransportista",
+            codigo: "@ltDataCodigoChofer",
+        },
+        controller: ['$scope', 'EntitiesService', ChoferController],
+        template: [
+            '<input class="form-control" kendo-combo-box ',
+                'k-data-text-field="\'Descripcion\'" ',
+                'k-data-value-field="\'EmpleadoId\'" ',
+                'k-data-source="ds" ',
+                'k-ng-model="model" ',
+                'required ',
+                'k-auto-bind="false" >',
+            '</input>'
+        ].join('')
+    };
+})
+
+
+
 .directive('ltCbVendedor', function () {
 
     var controller = function ($scope, EntitiesService) {
-        
+
         $scope.ds = EntitiesService.ticketrechazo.empleado(onDSLoad, onFail);
 
         $scope.$watch("dependsOn", onSelected);
