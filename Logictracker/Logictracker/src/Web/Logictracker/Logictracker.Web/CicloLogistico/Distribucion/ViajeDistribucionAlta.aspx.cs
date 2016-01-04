@@ -439,42 +439,53 @@ namespace Logictracker.CicloLogistico.Distribucion
 
         protected void BtRegeneraAceptarClick(object sender, EventArgs e)
         {
-            var desde = dtRegeneraDesde.SelectedDate.Value.ToDataBaseDateTime();
-            var hasta = dtRegeneraHasta.SelectedDate.Value.ToDataBaseDateTime();
-            var cerrar = !chkNoCerrar.Checked;
-
-            var ruta = DAOFactory.ViajeDistribucionDAO.FindById(EditObject.Id);
-
-            foreach (var detalle in ruta.Detalles)
+            using (var transaction = SmartTransaction.BeginTransaction())
             {
-                if (detalle.Estado != EntregaDistribucion.Estados.Completado && detalle.Estado != EntregaDistribucion.Estados.Cancelado)
+                try
                 {
-                    detalle.Estado = EntregaDistribucion.Estados.Pendiente;
-                    detalle.Entrada = null;
-                    detalle.Manual = null;
-                    detalle.Salida = null;
+                    var desde = dtRegeneraDesde.SelectedDate.Value.ToDataBaseDateTime();
+                    var hasta = dtRegeneraHasta.SelectedDate.Value.ToDataBaseDateTime();
+                    var cerrar = !chkNoCerrar.Checked;
 
-                    DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);    
+                    var ruta = DAOFactory.ViajeDistribucionDAO.FindById(EditObject.Id);
+
+                    foreach (var detalle in ruta.Detalles)
+                    {
+                        if (detalle.Estado != EntregaDistribucion.Estados.Completado && detalle.Estado != EntregaDistribucion.Estados.Cancelado)
+                        {
+                            detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                            detalle.Entrada = null;
+                            detalle.Manual = null;
+                            detalle.Salida = null;
+
+                            DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
+                        }
+
+                    }
+
+                    ruta.InicioReal = desde;
+                    ruta.Estado = ViajeDistribucion.Estados.EnCurso;
+                    DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
+
+                    var ciclo = new CicloLogisticoDistribucion(ruta, DAOFactory, null);
+                    ciclo.Regenerar(desde, hasta);
+
+                    if (cerrar)
+                    {
+                        ruta.Fin = hasta;
+                        ruta.Estado = ViajeDistribucion.Estados.Cerrado;
+                        DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
+                    }
+
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
                 }
 
+                Response.Redirect(RedirectUrl);
             }
-            
-            ruta.InicioReal = desde;
-            if (cerrar) ruta.Fin = hasta;
-
-            ruta.Estado = ViajeDistribucion.Estados.EnCurso;
-            DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
-
-            var ciclo = new CicloLogisticoDistribucion(ruta, DAOFactory, null);
-            ciclo.Regenerar(desde, hasta);
-
-            if (cerrar)
-            {
-                ruta.Estado = ViajeDistribucion.Estados.Cerrado;
-                DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
-            }
-
-            Response.Redirect(RedirectUrl);
         }
 
         #endregion
