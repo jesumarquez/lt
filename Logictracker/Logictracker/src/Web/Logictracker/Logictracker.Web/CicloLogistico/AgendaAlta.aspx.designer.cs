@@ -202,13 +202,13 @@ namespace Logictracker.Web.CicloLogistico {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblEmpleados;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// UpdatePanel3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
         
         /// <summary>
         /// cbEmpleado control.
@@ -218,6 +218,15 @@ namespace Logictracker.Web.CicloLogistico {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.EmpleadoDropDownList cbEmpleado;
+        
+        /// <summary>
+        /// auEmpleado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.Controls.AutoCompleteTextBox auEmpleado;
         
         /// <summary>
         /// ResourceLabel2 control.
