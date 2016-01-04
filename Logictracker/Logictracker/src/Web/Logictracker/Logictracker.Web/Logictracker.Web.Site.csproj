@@ -1451,6 +1451,7 @@
     <Content Include="Reportes\CicloLogistico\FlujoDeTareas.aspx" />
     <Content Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\mimicoKpi.js" />
     <Content Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx" />
     <Content Include="Reportes\CicloLogistico\mobilesTickets.aspx" />
