@@ -685,6 +685,21 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return coche.RetrieveLastMessageDate(code);
         }
 
+        public DateTime? GetLastGeoRefferenceEventDate(Coche coche, string codigo, int georeferenceId, DateTime from)
+        {
+            var code = codigo + '-' + georeferenceId;
+
+            if (!coche.HasLastMessageDate(code))
+            {   
+
+                var result = GetUniqueEventDateTime(new[] { coche.Id }, new[] { codigo }, new Byte[] { }, from, null, null, null, null, Order.Desc("Fecha"));
+
+                coche.StoreLastMessageDate(code, result);
+            }
+
+            return coche.RetrieveLastMessageDate(code);
+        }
+
         #endregion
 
         #region Protected Methods
