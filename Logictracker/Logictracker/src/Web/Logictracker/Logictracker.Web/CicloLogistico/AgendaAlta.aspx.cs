@@ -24,6 +24,17 @@ namespace Logictracker.Web.CicloLogistico
             {
                 dtpDesde.SetDate();
                 dtpHasta.SetDate();
+
+                if (EditMode)
+                {
+                    auEmpleado.Visible = false;
+                    cbEmpleado.Visible = true;
+                }
+                else
+                {
+                    auEmpleado.Visible = true;
+                    cbEmpleado.Visible = false;
+                }
             }
         }
 
@@ -59,6 +70,13 @@ namespace Logictracker.Web.CicloLogistico
                 lblDtHasta.Visible = true;
                 btnConsultar.Enabled = false;
                 btnCancelar.Visible = EditObject.Estado != AgendaVehicular.Estados.Cancelado;
+                auEmpleado.Visible = false;
+                cbEmpleado.Visible = true;
+            }
+            else
+            {
+                auEmpleado.Visible = true;
+                cbEmpleado.Visible = false;
             }
         }
 
@@ -106,7 +124,7 @@ namespace Logictracker.Web.CicloLogistico
             EditObject.Linea = DAOFactory.LineaDAO.FindById(cbLinea.Selected);
             EditObject.Departamento = cbDepartamento.Selected > 0 ? DAOFactory.DepartamentoDAO.FindById(cbDepartamento.Selected) : null;
             EditObject.Vehiculo = DAOFactory.CocheDAO.FindById(int.Parse(cbVehiculo.SelectedValue));
-            EditObject.Empleado = DAOFactory.EmpleadoDAO.FindById(int.Parse(cbEmpleado.SelectedValue));
+            EditObject.Empleado = DAOFactory.EmpleadoDAO.FindById(auEmpleado.Selected);
             EditObject.Turno = cbTurno.Selected > 0 ? DAOFactory.ShiftDAO.FindById(cbTurno.Selected) : null;
 
             EditObject.FechaDesde = dtpDesde.SelectedDate.Value.ToDataBaseDateTime();
@@ -119,10 +137,11 @@ namespace Logictracker.Web.CicloLogistico
         {
             var agendas = DAOFactory.AgendaVehicularDAO.GetList(cbEmpresa.SelectedValues,
                                                                 cbLinea.SelectedValues,
-                                                                new[] {-1},
-                                                                new[] {-1},
+                                                                new[] { -1 },
+                                                                new[] { -1 },
                                                                 dtpDesde.SelectedDate.Value.ToDataBaseDateTime(),
-                                                                dtpHasta.SelectedDate.Value.ToDataBaseDateTime());
+                                                                dtpHasta.SelectedDate.Value.ToDataBaseDateTime())
+                                                       .Where(a => a.Estado == AgendaVehicular.Estados.EnCurso || a.Estado == AgendaVehicular.Estados.Reservado);
 
             var asignados = agendas.Select(a => a.Vehiculo).Distinct();
             var vehiculos = DAOFactory.CocheDAO.GetList(cbEmpresa.SelectedValues, cbLinea.SelectedValues, new[]{-1}, new[]{-1}, cbDepartamento.SelectedValues);

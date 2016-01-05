@@ -152,7 +152,16 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             //El usuario ya fue alertado
                                             IMessageSaver saver = new MessageSaver(DaoFactory);
                                             var messagetEXT = MessageSender.CreateSubmitTextMessage(device, saver);
-                                            messagetEXT.AddMessageText("INFORME DE RECHAZO NRO "+idRechazo+" EL USUARIO YA FUE ALERTADO. Estado actual:" + rechazo.UltimoEstado.ToString());
+                                            string usuario = "";
+                                            foreach (var item in rechazo.Detalle)
+                                            {
+                                                if (item.Estado == TicketRechazo.Estado.Alertado)
+                                                {
+                                                    usuario = item.Empleado.Entidad.Descripcion;
+                                                    break;
+                                                }                                                
+                                            }
+                                            messagetEXT.AddMessageText("INFORME DE RECHAZO NRO " + idRechazo + " EL RECHAZO YA FUE TOMADO POR: " + usuario);
                                             messagetEXT.Send();
                                         }
                                     }

@@ -236,8 +236,8 @@ namespace Logictracker.Process.Geofences
                             var entrada = daoFactory.LogMensajeDAO.GetLastGeoRefferenceEventDate(vehiculo, MessageCode.InsideGeoRefference.GetMessageCode(), actual.Geocerca.Id);
                             if (entrada.HasValue)
                             {
-                                var ultimaAlarma = daoFactory.LogMensajeDAO.GetLastGeoRefferenceEventDate(vehiculo, MessageCode.PermanenciaEnGeocercaExcedida.GetMessageCode(), actual.Geocerca.Id);
-                                if (!ultimaAlarma.HasValue || ultimaAlarma.Value < entrada.Value)
+                                var ultimaAlarma = daoFactory.LogMensajeDAO.GetLastGeoRefferenceEventDate(vehiculo, MessageCode.PermanenciaEnGeocercaExcedida.GetMessageCode(), actual.Geocerca.Id, entrada.Value);
+                                if (!ultimaAlarma.HasValue)
                                 {
                                     var tiempoActual = position.Date.Subtract(entrada.Value);
                                     if (tiempoActual.TotalMinutes > actual.Geocerca.MaximaPermanencia)

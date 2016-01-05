@@ -509,7 +509,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
 
             if (!includesAllCostCenters || !includesAllDepartamentos || (user != null && user.PorCentroCostos))
             {
-                dc.CreateAlias("CentroDeCostos", "cdc");
+                
                 //if (!includesAllDepartamentos)
                 //{
                 //    var dcD = DetachedCriteria.For<CentroDeCostos>("dcdc")
@@ -520,7 +520,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
                 //}
 
                 if (!includesAllCostCenters || user.PorCentroCostos)
-                    dc.Add(Restrictions.In("cdc.Id", costCenters.ToArray()));
+                    dc.CreateAlias("CentroDeCostos", "cdc").Add(Restrictions.In("cdc.Id", costCenters.ToArray()));
             }
 
             if (!includesAllCostSubCenters)

@@ -43,11 +43,18 @@ namespace Logictracker.Web.Reportes.CicloLogistico
 
             RegisterExtJsStyleSheet();
             gridTransportistas.Visible = false;
+            btnSiguiente.Visible = false;
         }
 
         protected void FiltersSelectedIndexChanged(object sender, EventArgs e)
         {
             gridTransportistas.Visible = false;
+            btnSiguiente.Visible = false;
+        }
+
+        protected void BtnSiguienteOnClick(object sender, EventArgs e)
+        {
+            OnTick(sender, e);
         }
 
         protected void OnTick(object sender, EventArgs e)
@@ -65,6 +72,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
         private void CargarReporte()
         {
             gridTransportistas.Visible = true;
+            btnSiguiente.Visible = true;
             var desde = DateTime.Today.ToDataBaseDateTime();
             var hasta = desde.AddHours(24);
             CalcularEstadisticas(desde, hasta);
@@ -83,7 +91,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                                                                    new[] { -1 },
                                                                    new[] { -1 },
                                                                    new[] { -1 },
-                                                                   new[] { -1 },
+                                                                   new[] { ddlVehiculo.Selected },
                                                                    desde,
                                                                    hasta)
                                                           .Where(v => v.Vehiculo != null);
@@ -221,7 +229,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                 }
             }
         }
-
+        
         public void ShowInfo(DateTime desde, DateTime hasta)
         {
             ClearMimico();
@@ -232,7 +240,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                                                                          new[] { -1 }, // DEPARTAMENTOS
                                                                          new[] { -1 }, // CC
                                                                          new[] { -1 }, // SUB CC
-                                                                         new[] { -1 }, // COCHES
+                                                                         ddlVehiculo.SelectedValues,
                                                                          desde,
                                                                          hasta)
                                                                 .Where(v => v.Vehiculo != null)
@@ -306,7 +314,7 @@ namespace Logictracker.Web.Reportes.CicloLogistico
                 Id = distribucion.Id;
                 Tipo = "Distribucion";
                 Icono = Path.Combine(IconDir, distribucion.Vehiculo.TipoCoche.IconoDefault.PathIcono);
-                Interno = distribucion.Vehiculo.Interno;
+                Interno = distribucion.Vehiculo.Interno + " - " + distribucion.Codigo;
                 LabelStyle = GetLabelStyle(distribucion.Vehiculo, daoFactory);
                 Detalles = distribucion.Detalles.Where(d => d.PuntoEntrega != null).Select((d, i) => new Detalle(d) { Descripcion = (i + 1).ToString() }).ToList();
                 Completed = GetCompleted(distribucion);
