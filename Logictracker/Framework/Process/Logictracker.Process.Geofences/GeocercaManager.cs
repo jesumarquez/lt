@@ -131,11 +131,11 @@ namespace Logictracker.Process.Geofences
 
             var t = new TimeElapsed();
             var estadoAnterior = GetEstadoVehiculo(vehiculo, daoFactory);
-            if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercaManager.Process/GetEstadoVehiculo ({0} secs)", t.getTimeElapsed().TotalSeconds));
+            if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercaManager.Process/GetEstadoVehiculo ({0} secs)", t.getTimeElapsed().TotalSeconds));
 
             t.Restart();
             var estadoActual = CalcularEstadoVehiculo(vehiculo, position, daoFactory);
-            if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercaManager.Process/CalcularEstadoVehiculo ({0} secs)", t.getTimeElapsed().TotalSeconds));
+            if (t.getTimeElapsed().TotalSeconds > 0.5) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercaManager.Process/CalcularEstadoVehiculo ({0} secs)", t.getTimeElapsed().TotalSeconds));
 
             t.Restart();
             var geocercasAnterior = new Dictionary<int, EstadoGeocerca>();
@@ -236,7 +236,9 @@ namespace Logictracker.Process.Geofences
                             var entrada = daoFactory.LogMensajeDAO.GetLastGeoRefferenceEventDate(vehiculo, MessageCode.InsideGeoRefference.GetMessageCode(), actual.Geocerca.Id);
                             if (entrada.HasValue)
                             {
+                                t.Restart();
                                 var ultimaAlarma = daoFactory.LogMensajeDAO.GetLastGeoRefferenceEventDate(vehiculo, MessageCode.PermanenciaEnGeocercaExcedida.GetMessageCode(), actual.Geocerca.Id, entrada.Value);
+                                if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercaManager.ProcessLogMensajeDAO.GetLastGeoRefferenceEventDate 1 ({0} secs)", t.getTimeElapsed().TotalSeconds));
                                 if (!ultimaAlarma.HasValue)
                                 {
                                     var tiempoActual = position.Date.Subtract(entrada.Value);
@@ -270,8 +272,10 @@ namespace Logictracker.Process.Geofences
                                     if (distri != null && distri.InicioReal.HasValue && distri.InicioReal.Value > inicio)
                                         inicio = distri.InicioReal.Value;
 
-                                    var ultimaAlarma = daoFactory.LogMensajeDAO.GetLastGeoRefferenceEventDate(vehiculo, MessageCode.PermanenciaEnGeocercaExcedidaEnCicloLogistico.GetMessageCode(), actual.Geocerca.Id);
-                                    if (!ultimaAlarma.HasValue || ultimaAlarma.Value < entrada.Value)
+                                    t.Restart();
+                                    var ultimaAlarma = daoFactory.LogMensajeDAO.GetLastGeoRefferenceEventDate(vehiculo, MessageCode.PermanenciaEnGeocercaExcedidaEnCicloLogistico.GetMessageCode(), actual.Geocerca.Id, entrada.Value);
+                                    if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", vehiculo.Dispositivo.Id, String.Format("GeocercaManager.ProcessLogMensajeDAO.GetLastGeoRefferenceEventDate 2 ({0} secs)", t.getTimeElapsed().TotalSeconds));
+                                    if (!ultimaAlarma.HasValue)
                                     {
                                         var tiempoActual = position.Date.Subtract(inicio);
                                         if (tiempoActual.TotalMinutes > actual.Geocerca.MaximaPermanenciaEntrega)
