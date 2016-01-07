@@ -184,6 +184,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
         }
 
         public double Promedio { get; set; }
+
+        public string PromedioMinutos
+        {
+            get
+            {
+                return TimeSpan.FromSeconds(this.Promedio).ToString(@"hh\:mm");
+            }
+        }
     }
 
     public class PromedioPorVendedorModel
@@ -207,9 +215,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
             get { return CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName((TicketRechazo.Estado)EstadoEnum)); }
         }
         public double Promedio { get; set; }
-        public double PromedioMinutos
+        public string PromedioMinutos
         {
-            get { return Math.Round( Promedio / 60, 1); }
+            get
+            {
+                return TimeSpan.FromSeconds(this.Promedio).ToString(@"hh\:mm");
+            }
         }
         public int Cantidad { get; set; }
     }
