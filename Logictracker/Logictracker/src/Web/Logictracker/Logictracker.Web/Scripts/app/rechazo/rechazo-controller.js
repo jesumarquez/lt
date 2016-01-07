@@ -365,7 +365,7 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     $scope.opcionesGrillaEstados = {
         columns: [
             { field: "Estado", title: "Estado" },
-            { field: "Promedio", title: "Promedio (min)", format: "{0:0}" }
+            { field: "PromedioMinutos", title: "Promedio (min)"}
         ],
         sortable: {
             mode: "single",
