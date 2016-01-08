@@ -286,5 +286,13 @@ namespace Logictracker.Web.Controllers.api
             //var r = new DataSourceResult {Data = list.ToArray()};
             return list.ToDataSourceResult(request);
         }
+
+        [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/ticketporhora")]
+        public IHttpActionResult GetCantidadTicketPorHora(int distritoId, int baseId)
+        {
+            var list = EntityDao.GetCantidadTicketPorHora(distritoId, baseId);
+            
+            return Json(list.ToArray());
+        }
     }
 }
