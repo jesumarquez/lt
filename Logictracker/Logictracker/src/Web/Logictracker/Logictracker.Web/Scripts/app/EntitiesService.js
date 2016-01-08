@@ -446,10 +446,11 @@ function EntitiesService($resource, $http) {
                 errors: "Errors",
                 parse: function (data) {
                     $.each(data.Data, function (i, val) {
-                        val.FechaHora = kendo.parseDate(val.FechaHora);
-                        val.FechaHoraEstado = kendo.parseDate(val.FechaHoraEstado);
+                        $.each(val.Items, function (i, item) {
+                            item.FechaHora = kendo.parseDate(item.FechaHora);
+                            item.FechaHoraEstado = kendo.parseDate(item.FechaHoraEstado);
+                        });
                         reverseMappingGroupFields(val);
-
                     });
                     return data;
                 },

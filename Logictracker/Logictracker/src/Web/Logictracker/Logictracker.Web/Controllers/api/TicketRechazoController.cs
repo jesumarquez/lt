@@ -282,8 +282,6 @@ namespace Logictracker.Web.Controllers.api
         public DataSourceResult GetPromedioPorEstado([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
             var list = EntityDao.GetPromedioPorEstado(-1, -1);
-            list.ForEach(e => e.Promedio = e.Promedio / 60);
-            //var r = new DataSourceResult {Data = list.ToArray()};
             return list.ToDataSourceResult(request);
         }
 

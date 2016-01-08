@@ -238,7 +238,7 @@ function RechazoItemController($scope, EntitiesService) {
                 SupRutId: $scope.supervisorRutaSelected.EmpleadoId,
                 Motivo: $scope.motivoSelected.Key,
                 Estado: $scope.estadoSelected.Key,
-                Observacion: $scope.observacion,
+                Observacion: $('<div/>').html($scope.observacion).text(),
                 EnHorario: $scope.enHorarioSelected.Key,
                 EntregaId: $scope.puntoEntregaSelected[0] ? $scope.puntoEntregaSelected[0].PuntoEntregaId : 0,
                 TransportistaId: $scope.transportistaSelected.Key,
@@ -311,7 +311,7 @@ function RechazoEditItemController($scope, EntitiesService) {
             var ticketRechazo = {
                 TicketRechazoId: $scope.ticketItemId,
                 Estado: $scope.estadoSelected.Key,
-                Observacion: $scope.ticketItem.Observacion
+                Observacion: $('<div/>').html($scope.ticketItem.Observacion).text()
             };
 
             EntitiesService.resources.ticketRechazo.update({ id: $scope.ticketItemId }, ticketRechazo).$promise.then(
@@ -365,7 +365,7 @@ function RechazoEstadisticasController($scope, EntitiesService) {
     $scope.opcionesGrillaEstados = {
         columns: [
             { field: "Estado", title: "Estado" },
-            { field: "Promedio", title: "Promedio (min)", format: "{0:0}" }
+            { field: "PromedioMinutos", title: "Promedio (min)"}
         ],
         sortable: {
             mode: "single",
