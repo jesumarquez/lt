@@ -312,7 +312,7 @@ namespace Logictracker.Dispatcher.Handlers
                 if (_fechasOnline)
             	{
                     t.Restart();
-                    AnalizeStoppedEvents(position, correctsHdop);
+                    AnalizeStoppedEvents(position, correctsHdop, estado);
                     ts = t.getTimeElapsed().TotalSeconds;
                     if (ts > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "AnalizeStoppedEvents: " + ts);
 
@@ -427,7 +427,7 @@ namespace Logictracker.Dispatcher.Handlers
         /// </summary>
         /// <param name="position"></param>
         /// <param name="correctsHdop"></param>
-        private void AnalizeStoppedEvents(GPSPoint position, bool correctsHdop)
+        private void AnalizeStoppedEvents(GPSPoint position, bool correctsHdop, EstadoVehiculo estado)
         {
             var wasStopped = Coche.IsStopped();
 
@@ -443,7 +443,7 @@ namespace Logictracker.Dispatcher.Handlers
             else
             {
                 if (!isNowStopped)
-                        EndStoppedEvent(position);
+                        EndStoppedEvent(position, estado);
                 else 
                     if (correctsHdop)
                         UpdateStopInitialPosition(position);
@@ -1016,7 +1016,7 @@ namespace Logictracker.Dispatcher.Handlers
         /// Generates a stopped event if the conditions are fullfiled.
         /// </summary>
         /// <param name="posicion"></param>
-        private void EndStoppedEvent(GPSPoint posicion)
+        private void EndStoppedEvent(GPSPoint posicion, EstadoVehiculo estado)
         {
             var start = GetStoppedEventStart();
 
@@ -1029,7 +1029,15 @@ namespace Logictracker.Dispatcher.Handlers
             var texto = String.Format(" {0} - Duración: {1}", GeocoderHelper.GetDescripcionEsquinaMasCercana(start.Lat, start.Lon), duration);
 
             //No se que poner como texto, no tengo el chofer y tampoco el id de geocerca. Las velocidades no aplican.
-            MessageSaver.Save(_posicion, MessageCode.StoppedEvent.GetMessageCode(), Dispositivo, Coche, DaoFactory.EmpleadoDAO.GetLoggedInDriver(Coche), start.Date, start, posicion, texto);
+
+            int? idReferenciaGeografica = null;
+            var salidas = estado.Eventos.Where(e => e.Evento == GeocercaEventState.Sale);
+            if (salidas.Any())
+                idReferenciaGeografica = salidas.First().Estado.Geocerca.Id;
+            else if (estado.GeocercasDentro.Any())
+                idReferenciaGeografica = estado.GeocercasDentro.First().Geocerca.Id;
+
+            MessageSaver.Save(_posicion, MessageCode.StoppedEvent.GetMessageCode(), Dispositivo, Coche, DaoFactory.EmpleadoDAO.GetLoggedInDriver(Coche), start.Date, start, posicion, texto, null, null, idReferenciaGeografica);
         }
 
         /// <summary>

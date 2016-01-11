@@ -434,6 +434,9 @@ namespace Logictracker.DAL.Factories
         private DatamartDAO _datamartDao;
         public DatamartDAO DatamartDAO { get { return _datamartDao ?? (_datamartDao = GetDao<DatamartDAO>()); } }
 
+        private DatamartTramoDAO _datamartTramoDao;
+        public DatamartTramoDAO DatamartTramoDAO { get { return _datamartTramoDao ?? (_datamartTramoDao = GetDao<DatamartTramoDAO>()); } }
+
         private DatamartDistribucionDAO _datamartDistribucionDao;
         public DatamartDistribucionDAO DatamartDistribucionDAO { get { return _datamartDistribucionDao ?? (_datamartDistribucionDao = GetDao<DatamartDistribucionDAO>()); } }
 

@@ -20,6 +20,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual string Codigo { get; set; }
         public virtual string Descripcion { get; set; }        
         public virtual bool Baja { get; set; }
+        public virtual bool Default { get; set; }
         public virtual ISet<EstadoLogistico> Estados { get { return _estados ?? (_estados = new HashSet<EstadoLogistico>()); } }
     }
 }

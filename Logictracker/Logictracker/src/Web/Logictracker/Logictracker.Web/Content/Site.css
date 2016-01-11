@@ -41,18 +41,125 @@ textarea {
     border-radius: 5px;
 }
 
-.spacer5 { height: 5px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer10 { height: 10px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer15 { height: 15px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer20 { height: 20px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer25 { height: 25px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer30 { height: 30px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer35 { height: 35px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer40 { height: 40px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer45 { height: 45px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer50 { height: 50px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer100 { height: 100px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
-.spacer200 { height: 200px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+.spacer5 {
+    height: 5px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer10 {
+    height: 10px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer15 {
+    height: 15px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer20 {
+    height: 20px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer25 {
+    height: 25px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer30 {
+    height: 30px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer35 {
+    height: 35px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer40 {
+    height: 40px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer45 {
+    height: 45px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer50 {
+    height: 50px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer100 {
+    height: 100px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer200 {
+    height: 200px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
 
 .k-widget .border-box-sizing,
 .k-widget .border-box-sizing * {
@@ -65,121 +172,124 @@ textarea {
 /*
     InputContainer
 */
- 
-.InputContainer{
-	display: flex;
+
+.InputContainer {
+    display: flex;
     flex-direction: row;
-	justify-content: space-between;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
-    .InputContainer-column{
-        display: flex;
-        flex-direction: column;
-    }
-	.InputGroup{
-		display: flex;
-		justify-content: space-between;
-        flex-grow:1;
-        padding:4px;
-	}
 
-        .InputGroup__label {
-	        width: 150px;
-        }
-
-        .InputGroup__control{
-            display:flex;
-            flex-grow:1;
-        }
-
-.InputGroup__control > .form-control {
-	flex-grow:1;
+.InputContainer-column {
+    display: flex;
+    flex-direction: column;
 }
 
-.InputContainer--50{
-    width:50%;
+.InputGroup {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding: 4px;
+}
+
+.InputGroup__label {
+    width: 150px;
+}
+
+.InputGroup__control {
+    display: flex;
+    flex-grow: 1;
+}
+
+    .InputGroup__control > .form-control {
+        flex-grow: 1;
+    }
+
+.InputContainer--50 {
+    width: 50%;
 }
 
 /*
     TextArea
 */
 .InputGroup__control table.k-editor {
-    height:5em;
+    height: 5em;
     table-layout: auto;
 }
 
-.InputGroup__control .k-editor .k-editable-area{
-    height:5em;
+.InputGroup__control .k-editor .k-editable-area {
+    height: 5em;
 }
 
 
 /**/
-.GaugeContainer{
-	border: 1px lightgray solid;
-	padding: 0;
-	text-align: center;
-	height: 175px;
+.GaugeContainer {
+    /*border: 1px lightgray solid;*/
+    padding: 0;
+    text-align: center;
+    height: 175px;
 }
 
-.GaugeContainer > span[kendo-radialgauge] {
-    height: 80%;
-    width: 100%;
-    display: inline-block;
-} 
+    .GaugeContainer > span[kendo-radialgauge] {
+        height: 80%;
+        width: 100%;
+        display: inline-block;
+    }
 
-.GaugeContainer > div[kendo-chart] {
-	height: 180px;
+    .GaugeContainer > div[kendo-chart] {
+        height: 180px;
+    }
+
+.StatsContent-top {
+    /*border: 1px lightgray solid;*/
+    text-align: center;
+    height: 320px;
 }
 
-.StatsContent-top{
-	border: 1px lightgray solid;
-	text-align: center;
-	height: 320px;
+.StatsContent-bottom {
+    /*border: 1px lightgray solid;*/
+    text-align: center;
 }
 
-.StatsContent-bottom{
-	border: 1px lightgray solid;
-	text-align: center;
-	height: 200px;
-}
-
-.k-invalid, .k-invalid>span:first-child{
-    border-color : red !important;
+.k-invalid, .k-invalid > span:first-child {
+    border-color: red !important;
 }
 
 .k-widget.k-tooltip-validation {
-  display: none !important;
+    display: none !important;
 }
 
 .k-grid {
     font-size: .8em;
 }
 
-@media (max-width: 700px){
-  .grid-colVisible {
-    display: none;
-  }
+@media (max-width: 700px) {
+    .grid-colVisible {
+        display: none;
+    }
 }
-.grid-colVisible{
 
+.grid-colVisible {
+}
+
+.sem {
+    height: 12px;
+    width: 12px;
+    border-radius: 6px;
 }
 
 .sem-red {
-    height: 12px;
-    width: 12px;
     background-color: red;
-    border-radius: 6px;
 }
+
 .sem-green {
-    height: 12px;
-    width: 12px;
     background-color: green;
-    border-radius: 6px;
 }
 
 .sem-yellow {
-    height: 12px;
-    width: 12px;
     background-color: yellow;
-    border-radius: 6px;
+}
+
+.sem-grey {
+    background-color: grey;
 }

@@ -64,11 +64,11 @@ namespace Logictracker.Tracker.Application.Services
 
             // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             //if (vehicle == null) return null; 
-
+           
             var companies = new[] { employee.Empresa.Id };
-            var lineas = new int[] { };
+            var lineas = new int[] { employee.Dispositivo.Linea.Id };
             var vehiculos = new int[] { }; //vehicle.Id 
-            var empleados = new[] { employee.Id };
+            var empleados = new int[] {  };
             //var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, new int[] { }, null, null);
             var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados).Where(x => x.Vehiculo != null);
 

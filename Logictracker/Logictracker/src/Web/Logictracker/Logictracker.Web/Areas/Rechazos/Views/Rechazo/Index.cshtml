@@ -4,14 +4,20 @@
 }
 
 <script id="rechazo-sem" type="text/x-kendo-template">
-    # var mt = ((new Date() - data.FechaHoraEstado) / 1000) / 60 ;
-    if (mt <= 5) { #
-    <div class="sem-green" />
-    # } else if ( 5 < mt && mt <= 10 ) { #
-    <div class="sem-yellow" />
+
+    # var mt = ((new Date() - data.FechaHoraEstado) / 1000) / 60 ; #
+    # if ( data.EstadoFinal == 1 ){  #
+        # if (mt <= 5) { #
+        <div class="sem sem-grey" />
+        # } else if ( 5 < mt && mt <= 10 ) { #
+        <div class="sem sem-yellow" />
+        # } else { #
+        <div class="sem sem-red" />
+        # } #
     # } else { #
-    <div class="sem-red" />
+        <div class="sem sem-green" />
     # } #
+
 </script>
 
 <div ng-app="logictracker" class="container" ng-controller="RechazoController">
@@ -26,7 +32,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI02"):
-                    <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected"/>
+                    <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
                 </div>
             </div>
         </div>
