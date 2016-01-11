@@ -10,9 +10,9 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.Host
 
             HostFactory.Run(x =>
             {
-                x.Service<WebConsumerHost>(s =>
+                x.Service<SpringServiceHost>(s =>
                 {
-                    s.ConstructUsing(name => new WebConsumerHost());
+                    s.ConstructUsing(name => new SpringServiceHost());
                     s.WhenStarted(tc => tc.Start());
                     s.WhenStopped(tc => tc.Stop());
                 });

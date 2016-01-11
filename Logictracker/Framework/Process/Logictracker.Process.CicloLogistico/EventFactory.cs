@@ -1,16 +1,13 @@
 ﻿using System;
-using Logictracker.Cache;
 using Logictracker.Culture;
-using Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion;
-using Logictracker.DAL.DAO.BusinessObjects.Dispositivos;
 using Logictracker.DAL.Factories;
 using Logictracker.DAL.NHibernate;
 using Logictracker.DatabaseTracer.Core;
-using Logictracker.DatabaseTracer.Types;
 using Logictracker.Messages.Saver;
 using Logictracker.Messaging;
 using Logictracker.Model;
 using Logictracker.Process.CicloLogistico.Events;
+using Logictracker.Tracker.Application.Integration;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Messages;
@@ -129,9 +126,12 @@ namespace Logictracker.Process.CicloLogistico
                 
                 if (veh != null && veh.Empresa.InicioDistribucionPorMensaje)
                 {
+                    var intService = new IntegrationService(daoFactory);
+
                     if (veh.Empresa.InicioDistribucionCodigoMensaje == extraData3.ToString())
                     {
                         var distribucion = daoFactory.ViajeDistribucionDAO.FindById(Convert.ToInt32(extraData2));
+                        
                         if (distribucion != null)
                         {
                             var enCurso = daoFactory.ViajeDistribucionDAO.FindEnCurso(veh);
@@ -142,14 +142,17 @@ namespace Logictracker.Process.CicloLogistico
                                 ciclo.ProcessEvent(eventoInicio);
                             }
                         }
+                        intService.ResponseTicket(distribucion, true);
 
                         return null;
                     }
-                    else if (veh.Empresa.InicioDistribucionCodigoMensajeRechazo == extraData3.ToString())
+                    if (veh.Empresa.InicioDistribucionCodigoMensajeRechazo == extraData3.ToString())
                     {
                         var distribucion = daoFactory.ViajeDistribucionDAO.FindById(Convert.ToInt32(extraData2));
                         distribucion.Vehiculo = null;
                         daoFactory.ViajeDistribucionDAO.SaveOrUpdate(distribucion);
+
+                        intService.ResponseTicket(distribucion, false);
 
                         return null;
                     }
