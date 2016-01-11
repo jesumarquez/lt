@@ -11,6 +11,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 {
     public class DatamartEstadoVehiculoTask : BaseTask
     {
+        private const int IdTipoDispositivoMobileApps = 32;
+
         protected override void OnExecute(Timer timer)
         {
             var empresas = DaoFactory.EmpresaDAO.GetList().Where(emp => emp.CambiaEstado);
@@ -22,7 +24,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             {
                 var vehiculos = DaoFactory.CocheDAO.FindList(empresas.Select(emp => emp.Id), new[] {-1})
                                                    .Where(c => c.Dispositivo != null
-                                                            && c.Interno.Trim() != "(Generico)");
+                                                            && c.Interno.Trim() != "(Generico)"
+                                                            && c.Dispositivo.TipoDispositivo.Id != IdTipoDispositivoMobileApps);
                 var vehiculosPendientes = vehiculos.Count();
                 STrace.Trace(GetType().FullName, string.Format("Vehículos a procesar: {0}", vehiculosPendientes));
 
