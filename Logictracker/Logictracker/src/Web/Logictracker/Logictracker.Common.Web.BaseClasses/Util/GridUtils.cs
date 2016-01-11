@@ -390,6 +390,8 @@ namespace Logictracker.Web.BaseClasses.Util
             {
                 var groupColumnIndex = Grid.GroupedColumns.IndexOf(e.GroupCol);
                 var listIndex = (Grid.PageIndex*Grid.PageSize) + e.StartItemIndex;
+                if (listIndex > Page.Data.Count - 1)
+                    listIndex = e.StartItemIndex;
                 var refValue = Page.Data[listIndex];
                 var list = Page.Data.ToList();
                 //var key = groupColumnIndex + listIndex;

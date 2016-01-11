@@ -17,7 +17,8 @@
             </td>
             <td>
                 <cwc:ResourceLabel ID="lblActivarPaginacion" Text="Paginar Consulta" runat="server" ResourceName="Entities" VariableName="Paginar Consulta" /><br />
-                <cwc:ResourceCheckBox ID="CheckBoxActivarPaginacion" runat="server" Checked="true" AutoPostBack="true" Width="200px"  OnCheckedChanged="CheckBoxActivarPaginacion_CheckedChanged" />
+                <cwc:ResourceCheckBox ID="CheckBoxActivarPaginacion" runat="server" Checked="true" AutoPostBack="true" Width="200px"  OnCheckedChanged="
+                    " />
             </td>
         </tr>
     </table>
