@@ -432,7 +432,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             dtRegeneraDesde.SelectedDate = EditObject.InicioReal.HasValue
                                                ? EditObject.InicioReal.Value.ToDisplayDateTime()
                                                : EditObject.Inicio.ToDisplayDateTime();
-            dtRegeneraHasta.SelectedDate = EditObject.Fin;
+            dtRegeneraHasta.SelectedDate = EditObject.Fin.ToDisplayDateTime();
 
             mpePanel.Show();
         }
@@ -449,6 +449,9 @@ namespace Logictracker.CicloLogistico.Distribucion
 
                     var ruta = DAOFactory.ViajeDistribucionDAO.FindById(EditObject.Id);
 
+                    ruta.InicioReal = desde;
+                    ruta.Estado = ViajeDistribucion.Estados.EnCurso;
+
                     foreach (var detalle in ruta.Detalles)
                     {
                         if (detalle.Estado != EntregaDistribucion.Estados.Completado && detalle.Estado != EntregaDistribucion.Estados.Cancelado)
@@ -460,11 +463,8 @@ namespace Logictracker.CicloLogistico.Distribucion
 
                             DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
                         }
-
                     }
 
-                    ruta.InicioReal = desde;
-                    ruta.Estado = ViajeDistribucion.Estados.EnCurso;
                     DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
 
                     var ciclo = new CicloLogisticoDistribucion(ruta, DAOFactory, null);
@@ -483,9 +483,8 @@ namespace Logictracker.CicloLogistico.Distribucion
                 {
                     transaction.Rollback();
                 }
-
-                Response.Redirect(RedirectUrl);
             }
+            Response.Redirect(RedirectUrl);
         }
 
         #endregion
