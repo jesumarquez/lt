@@ -26,10 +26,12 @@ namespace LogicTracker.App.Web.Api.Controllers
             }
             catch (NullReferenceException ex)
             {
+                LogicTracker.App.Web.Api.Providers.LogWritter.writeLog(ex);
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
+                LogicTracker.App.Web.Api.Providers.LogWritter.writeLog(ex);
                 return InternalServerError(ex);
                 //throw;
             }

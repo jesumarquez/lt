@@ -4,6 +4,7 @@ using LogicTracker.App.Web.Api.Filters;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.Messages;
+using System;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -22,67 +23,75 @@ namespace LogicTracker.App.Web.Api.Controllers
         [SecureResourceAttribute]
         public IHttpActionResult Get(int id)
         {
-            var trip = RouteService.GetDistributionRouteById(id);
-
-            if (trip == null) return NotFound();
-
-            var order = new Orders
+            try
             {
-                Code = trip.Codigo,
-                Id = trip.Id,
-                Status = trip.Estado,
-                StartDateTime = trip.Inicio,
-                RealStartDateTime= trip.InicioReal,
-                EndDateTime = trip.Fin
-            };
+                var trip = RouteService.GetDistributionRouteById(id);
 
-            var orderJobs = new List<OrderModel>();
-            foreach (var detail in trip.Detalles)
-            {
-                if (detail.PuntoEntrega != null)
+                if (trip == null) return NotFound();
+
+                var order = new Orders
                 {
-                    var orderJob = new OrderModel();
+                    Code = trip.Codigo,
+                    Id = trip.Id,
+                    Status = trip.Estado,
+                    StartDateTime = trip.Inicio,
+                    RealStartDateTime = trip.InicioReal,
+                    EndDateTime = trip.Fin
+                };
 
-                    orderJob.Id = detail.Id;
-                    orderJob.Description = detail.Descripcion;
-                    orderJob.Order = detail.Orden;
-
-                    orderJob.Location = new Location();
+                var orderJobs = new List<OrderModel>();
+                foreach (var detail in trip.Detalles)
+                {
                     if (detail.PuntoEntrega != null)
                     {
-                        orderJob.Location.Latitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Latitude;
-                        orderJob.Location.Longitude = (float) detail.PuntoEntrega.ReferenciaGeografica.Longitude;
-                    }
-                    else
-                    {
-                        orderJob.Location.Latitude = (float) detail.Linea.ReferenciaGeografica.Latitude;
-                        orderJob.Location.Longitude = (float) detail.Linea.ReferenciaGeografica.Longitude;
-                    }
+                        var orderJob = new OrderModel();
 
-                    orderJob.Programmed = detail.Programado;
-                    orderJob.ProgrammedTo = detail.ProgramadoHasta;
-                    orderJob.ManualDayTime = detail.Manual;
-                    orderJob.ManualOrEntrance = detail.ManualOEntrada;
-                    orderJob.ManualOrExit = detail.ManualOSalida;
-                    orderJob.EntranceDateTime = detail.Entrada;
-                    orderJob.ExitDateTime = detail.Salida;
-                    orderJob.State = detail.Estado;
-                    orderJob.ReceptionDateTime = detail.RecepcionConfirmacion;
-                    orderJob.ReadingConfirmationDateTime = detail.LecturaConfirmacion;
-                    orderJob.ConfirmationMessage = ConvertToMessage(detail.MensajeConfirmacion);
-                    orderJob.EntranceOrExclusiveManual = detail.EntradaOManualExclusiva;
-                    orderJob.ExitOrExclusiveManual = detail.SalidaOManualExclusiva;
-                    orderJob.GarminEta = detail.GarminETA;
-                    orderJob.GarminETAInformedAt = detail.GarminETAInformedAt;
-                    orderJob.GarminReadInactiveAt = detail.GarminReadInactiveAt;
-                    orderJob.GarminUnreadInactiveAt = detail.GarminUnreadInactiveAt;
+                        orderJob.Id = detail.Id;
+                        orderJob.Description = detail.Descripcion;
+                        orderJob.Order = detail.Orden;
 
-                    orderJobs.Add(orderJob);
+                        orderJob.Location = new Location();
+                        if (detail.PuntoEntrega != null)
+                        {
+                            orderJob.Location.Latitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Latitude;
+                            orderJob.Location.Longitude = (float)detail.PuntoEntrega.ReferenciaGeografica.Longitude;
+                        }
+                        else
+                        {
+                            orderJob.Location.Latitude = (float)detail.Linea.ReferenciaGeografica.Latitude;
+                            orderJob.Location.Longitude = (float)detail.Linea.ReferenciaGeografica.Longitude;
+                        }
+
+                        orderJob.Programmed = detail.Programado;
+                        orderJob.ProgrammedTo = detail.ProgramadoHasta;
+                        orderJob.ManualDayTime = detail.Manual;
+                        orderJob.ManualOrEntrance = detail.ManualOEntrada;
+                        orderJob.ManualOrExit = detail.ManualOSalida;
+                        orderJob.EntranceDateTime = detail.Entrada;
+                        orderJob.ExitDateTime = detail.Salida;
+                        orderJob.State = detail.Estado;
+                        orderJob.ReceptionDateTime = detail.RecepcionConfirmacion;
+                        orderJob.ReadingConfirmationDateTime = detail.LecturaConfirmacion;
+                        orderJob.ConfirmationMessage = ConvertToMessage(detail.MensajeConfirmacion);
+                        orderJob.EntranceOrExclusiveManual = detail.EntradaOManualExclusiva;
+                        orderJob.ExitOrExclusiveManual = detail.SalidaOManualExclusiva;
+                        orderJob.GarminEta = detail.GarminETA;
+                        orderJob.GarminETAInformedAt = detail.GarminETAInformedAt;
+                        orderJob.GarminReadInactiveAt = detail.GarminReadInactiveAt;
+                        orderJob.GarminUnreadInactiveAt = detail.GarminUnreadInactiveAt;
+
+                        orderJobs.Add(orderJob);
+                    }
                 }
-            }
 
-            order.OrderModels = orderJobs.ToArray();
-            return Ok(order);
+                order.OrderModels = orderJobs.ToArray();
+                return Ok(order);
+            }
+            catch (Exception error)
+            {
+                LogicTracker.App.Web.Api.Providers.LogWritter.writeLog(error);
+                return BadRequest();
+            }
         }
 
         private Message ConvertToMessage(LogMensaje mensajeConfirmacion)

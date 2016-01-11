@@ -348,6 +348,7 @@
     <Compile Include="Providers\CompressContentAttribute.cs" />
     <Compile Include="Providers\CompressionHelper.cs" />
     <Compile Include="Providers\DeflateCompressionAttribute.cs" />
+    <Compile Include="Providers\LogWritter.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

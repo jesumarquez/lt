@@ -1,8 +1,9 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.DatosOperativos.EstadisticaGeocercasEvents"
-    Title="Reporte de Geocercas" Codebehind="GeocercasEvents.aspx.cs" %> 
+    Title="Reporte de Geocercas" CodeBehind="GeocercasEvents.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/Pickers/TimePicker.ascx" TagName="TimePicker" TagPrefix="uc1" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
+
 <asp:Content ContentPlaceHolderID="Filtros" runat="server" ID="cph">
     <%--FILTROS--%>
     <asp:Panel ID="Panel1" runat="server" SkinID="FilterPanel">
@@ -95,16 +96,19 @@
                     <br />
                     <uc1:TimePicker ID="tpEnMarcha" runat="server" IsValidEmpty="false" Width="80" DefaultTimeMode="Start" />
                     <br />
-                    <cwc:ResourceCheckBox ID="chkCalcularKmRecorridos" runat="server" VariableName="CALCULAR_KM_RECORRIDOS" ResourceName="Labels"/>
+                    <cwc:ResourceCheckBox ID="chkCalcularKmRecorridos" runat="server" VariableName="CALCULAR_KM_RECORRIDOS" ResourceName="Labels" />
+                    <br />
+                    <cwc:ResourceCheckBox ID="chkPaginar" runat="server" Checked="true" VariableName="PAGINARGEOCERCAS" ResourceName="Labels" />
                 </td>
             </tr>
-        </table> 
+        </table>
     </asp:Panel>
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="DetalleInferior" runat="Server">
-     <iframe id="ifResumenViaje" runat="server" width="100%" src="GeocercaEvents/RouteDetails.aspx" visible="false" style="border-style: none" />
+    <iframe id="ifResumenViaje" runat="server" width="100%" src="GeocercaEvents/RouteDetails.aspx" visible="false" style="border-style: none" />
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="DetalleInferiorPrint" runat="Server">
-     <iframe id="Iframe1" runat="server" width="100%" src="GeocercaEvents/RouteDetails.aspx" visible="false" style="border-style: none" />
+    <iframe id="Iframe1" runat="server" width="100%" src="GeocercaEvents/RouteDetails.aspx" visible="false" style="border-style: none" />
 </asp:Content>

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External.Libs", "External.Libs", "{1C3B03E3-47DF-4499-9666-CC4B72A70C09}"
 EndProject
@@ -395,6 +395,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Application.SosAlertsProcessor.Host", "BackEnd\Hosts\Logictracker.Tracker.Application.SosAlertsProcessor.Host\Logictracker.Tracker.Application.SosAlertsProcessor.Host.csproj", "{A2E958AB-29F8-4397-B640-6D1F6FF348EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Application.Integration", "Framework\Application\Logictracker.Tracker.Application.Integration\Logictracker.Tracker.Application.Integration.csproj", "{B01581A4-65A8-4822-8782-D3830E48DD34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlSat", "ControlSat\ControlSat.csproj", "{2B61C112-F882-4FA2-A2A9-6BC847B950F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3099,6 +3101,24 @@ Global
 		{B01581A4-65A8-4822-8782-D3830E48DD34}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B01581A4-65A8-4822-8782-D3830E48DD34}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B01581A4-65A8-4822-8782-D3830E48DD34}.Release|Win32.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|.NET.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3291,5 +3311,6 @@ Global
 		{01D2B01F-8415-4A07-82D5-499ADEB37B3C} = {E5EDB989-A124-4468-8BB9-A5E572C1EB83}
 		{A2E958AB-29F8-4397-B640-6D1F6FF348EB} = {F051022F-0EA3-48EF-B6C6-454D44C2113A}
 		{B01581A4-65A8-4822-8782-D3830E48DD34} = {50EFEC20-8C91-4097-B133-4BF41CF2B297}
+		{2B61C112-F882-4FA2-A2A9-6BC847B950F6} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
 	EndGlobalSection
 EndGlobal
