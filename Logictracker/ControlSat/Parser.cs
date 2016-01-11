@@ -464,13 +464,8 @@ namespace ControlSat
                 deviceid = DataProvider.FindByIMEI(parser[0].ToString(), this).Id;
             }
 
-              
             salida = new Event(codeevent, -1, deviceid, msgId,pos, pos.GetDate(), "", new List<long>(),true);
-            
-          //  Logictracker.Types.BusinessObjects.Messages.LogMensaje message = new Logictracker.Types.BusinessObjects.Messages.LogMensaje();
           
-         //   _daoFactory.LogMensajeDAO.Save()
-           // salida = pos.ToPosition(deviceid, msgId);            
             return salida;
         }
 
