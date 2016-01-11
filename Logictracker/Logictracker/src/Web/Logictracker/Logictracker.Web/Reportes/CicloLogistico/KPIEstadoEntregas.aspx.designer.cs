@@ -67,6 +67,51 @@ namespace Logictracker.Web.Reportes.CicloLogistico {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList ddlPlanta;
         
         /// <summary>
+        /// lblVehiculo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblVehiculo;
+        
+        /// <summary>
+        /// upVehiculos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upVehiculos;
+        
+        /// <summary>
+        /// ddlVehiculo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.MovilDropDownList ddlVehiculo;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// btnSiguiente control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btnSiguiente;
+        
+        /// <summary>
         /// CenterPanel control.
         /// </summary>
         /// <remarks>

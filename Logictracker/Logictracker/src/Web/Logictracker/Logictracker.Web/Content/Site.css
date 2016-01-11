@@ -224,7 +224,7 @@ textarea {
 
 /**/
 .GaugeContainer {
-    border: 1px lightgray solid;
+    /*border: 1px lightgray solid;*/
     padding: 0;
     text-align: center;
     height: 175px;
@@ -241,13 +241,13 @@ textarea {
     }
 
 .StatsContent-top {
-    border: 1px lightgray solid;
+    /*border: 1px lightgray solid;*/
     text-align: center;
     height: 320px;
 }
 
 .StatsContent-bottom {
-    border: 1px lightgray solid;
+    /*border: 1px lightgray solid;*/
     text-align: center;
 }
 
