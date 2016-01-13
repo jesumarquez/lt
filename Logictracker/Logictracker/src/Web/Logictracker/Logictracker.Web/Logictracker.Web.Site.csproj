@@ -2689,7 +2689,6 @@
     <Compile Include="Controllers\api\UserDataController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
-    <Compile Include="Models\PromedioPorVendedorModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />

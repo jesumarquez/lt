@@ -36,6 +36,7 @@ function EntitiesService($resource, $http) {
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
             estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" }),
             cantidadPorEstado: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/estado", { distritoId: "@distritoId", baseId: "@baseId" }),
+            cantidadTicketPorHora: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/ticketporhora", { distritoId: "@distritoId", baseId: "@baseId" }),
             chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" })
 
         },
@@ -47,7 +48,8 @@ function EntitiesService($resource, $http) {
             items: getRechazoItems,
             nextEstado: getNextEstado,
             promedioPorVendedor: getPromedioPorVendedor,
-            promedioPorEstado: getPromeioPorEstado
+            promedioPorEstado: getPromeioPorEstado,
+            ticketPorHora: getCantidadTicketPorHora
         }
     };
 
@@ -444,10 +446,11 @@ function EntitiesService($resource, $http) {
                 errors: "Errors",
                 parse: function (data) {
                     $.each(data.Data, function (i, val) {
-                        val.FechaHora = kendo.parseDate(val.FechaHora);
-                        val.FechaHoraEstado = kendo.parseDate(val.FechaHoraEstado);
+                        $.each(val.Items, function (i, item) {
+                            item.FechaHora = kendo.parseDate(item.FechaHora);
+                            item.FechaHoraEstado = kendo.parseDate(item.FechaHoraEstado);
+                        });
                         reverseMappingGroupFields(val);
-
                     });
                     return data;
                 },
@@ -553,7 +556,39 @@ function EntitiesService($resource, $http) {
             ds.bind("error", onFail);
 
         return ds;
+    }
+
+    function getCantidadTicketPorHora(filters, onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ticketrechazo/estadisticas/promedio/porestado";
+                    },
+                },
+            },
+            schema: {
+                total: "Total",
+                data: "Data",
+                errors: "Errors"
+            },
+            pageSize: 8,
+            filter: filters,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: true
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
     };
 
-    return _service;
-}
+        return _service;
+    }

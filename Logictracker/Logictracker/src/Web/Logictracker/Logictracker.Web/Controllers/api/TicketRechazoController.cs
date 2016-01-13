@@ -274,27 +274,23 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ticketrechazo/estadisticas/promedio/porvendedor")]
         public DataSourceResult GetPromedioPorVendedor([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
-            var list = new List<PromedioPorVendedorModel>()
-            {
-                new PromedioPorVendedorModel
-                {
-                    Usuario = "Jose Gutierrez",
-                    EstadoIngreso = "Pendiente",
-                    EstadoEgreso = "Avisado",
-                    Promedio = 5.2f
-                }
-            };
-            var r = new DataSourceResult { Data = list.ToArray() };
-            return r;
+            var list = EntityDao.GetPromedioPorVendedor(-1, -1);
+            return list.ToDataSourceResult(request);
         }
 
         [Route("api/ticketrechazo/estadisticas/promedio/porestado")]
         public DataSourceResult GetPromedioPorEstado([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
             var list = EntityDao.GetPromedioPorEstado(-1, -1);
-            list.ForEach(e => e.Promedio = e.Promedio / 60);
-            //var r = new DataSourceResult {Data = list.ToArray()};
             return list.ToDataSourceResult(request);
+        }
+
+        [Route("api/ticketrechazo/distrito/{distritoId}/base/{baseId}/estadisticas/ticketporhora")]
+        public IHttpActionResult GetCantidadTicketPorHora(int distritoId, int baseId)
+        {
+            var list = EntityDao.GetCantidadTicketPorHora(distritoId, baseId);
+            
+            return Json(list.ToArray());
         }
     }
 }

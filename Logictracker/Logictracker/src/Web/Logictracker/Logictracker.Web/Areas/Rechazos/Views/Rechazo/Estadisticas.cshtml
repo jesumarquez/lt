@@ -70,14 +70,20 @@
             </div>
             <div class="row StatsContent-bottom">      
                 <div class="col-md-8">
-                   <div kendo-chart
-                         k-title="{text: 'Tiempos de respuesta [min]'}"
+                    <div kendo-chart
+                         k-title="{text: 'Cantidad de ticket por estado / hora'}"
                          k-legend="{ position: 'bottom' }"
                          k-series-defaults="{type: 'line'}"
-                         k-series="[{field: 'value' }]"
-                         k-category-axis="{field: 'time', labels: { rotation: -45}}"
+                         k-value-axis="{ majorUnit: 1}"
+                         k-series="[{field: 'CantidadPendiente', name: 'Pendiente' },
+                                     {field: 'CantidadDuplicado', name: 'Duplicado' },
+                                     {field: 'CantidadErroneo', name: 'Erroneo' },
+                                     {field: 'CantidadSinEntrega', name: 'Sin Entrega' },
+                                     {field: 'CantidadAnulado', name: 'Anulado' },
+                                     {field: 'CantidadResueltoEntregado', name: 'Resuelto Entregado' }]"
+                         k-category-axis="{field: 'hora', labels: { rotation: -45}}"
                          k-data-source="chartDataSource"
-                        style="height: 190px;"></div>
+                         style="height: 190px;"></div>
                 </div>
                 <div class="col-md-4">
                     <div>Cantidad por Estado</div>
