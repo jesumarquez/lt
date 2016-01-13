@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.SosTicket,Logictracker.Types" table="[ope.ope_tick_12_sosTicket]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick12" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="opetick12_numeroServicio" name="NumeroServicio" not-null="false" />
+    <property column="opetick12_adicional" name="CobroAdicional" not-null="true" />
+    <property column="opetick12_prioridad" name="Prioridad" not-null="true" />
+    <property column="opetick12_diagnostico" name="Diagnostico" not-null="true" />
+    <property column="opetick12_observacion" name="Observacion" not-null="true" />
+    <property column="opetick12_operador" name="Operador" not-null="true" />
+    <property column="opetick12_movil_patente" name="Patente" not-null="true" />
+    <property column="opetick12_movil_color" name="Color" not-null="true" />
+    <property column="opetick12_movil_marca" name="Marca" not-null="true" />
+    <property column="opetick12_preasignado_notificado" name="PreasignacionNotificada" not-null="true" >
+      <column name="opetick12_preasignado_notificado" default="0"/>
+    </property>
+    <property column="opetick12_asignado_notificado" name="AsignacionNotificada" not-null="true" >
+      <column name="opetick12_asignado_notificado" default="0"/>
+    </property>
+    <property column="opetick12_cancelado_notificado" name="CancelacionNotificada" not-null="true" >
+      <column name="opetick12_cancelado_notificado" default="0"/>
+    </property>
+    <property column="opetick12_preasignado" name="Preasignado" not-null="false" />
+    <property column="opetick12_asignado" name="Asignado" not-null="false" />
+    <property column="opetick12_cancelado" name="Cancelado" not-null="false" />
+    <property column="opetick12_estadoServicio" name="EstadoServicio" not-null="false" />
+    <property column="opetick12_rechazado" name="Rechazado" not-null="false" />
+    
+    <many-to-one name="Distribucion" column="rela_opetick03" cascade ="save-update" lazy="proxy" />
+
+  </class>
+</hibernate-mapping>

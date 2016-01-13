@@ -4654,6 +4654,9 @@
   <data name="CALCULAR_KM_RECORRIDOS" xml:space="preserve">
     <value>Calcular Kms Recorridos</value>
   </data>
+  <data name="PAGINARGEOCERCAS" xml:space="preserve">
+    <value>Paginar</value>
+  </data>
   <data name="AGRUPADOR" xml:space="preserve">
     <value>Agrupador</value>
   </data>

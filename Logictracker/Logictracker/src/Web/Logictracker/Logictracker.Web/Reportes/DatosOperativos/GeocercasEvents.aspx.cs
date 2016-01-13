@@ -21,9 +21,12 @@ namespace Logictracker.Reportes.DatosOperativos
 {
     public partial class EstadisticaGeocercasEvents : SecuredGridReportPage<MobileGeocercaVo>
     {
+        
         #region Protected Properties
 
         public override int PageSize { get { return 25; } }
+        protected int totalVirtualRows;
+        protected bool recount;
 
         protected override string VariableName { get { return "DOP_REP_GEOCERCAS"; } }
         protected override string GetRefference() { return "REP_GEOCERCAS"; }
@@ -52,6 +55,8 @@ namespace Logictracker.Reportes.DatosOperativos
         /// <returns></returns>
         protected override List<MobileGeocercaVo> GetResults()
         {
+            Grid.AllowCustomPaging = true;
+            recount = true;
             ifResumenViaje.Visible = false;
 
             var desde = dpInitDate.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
@@ -70,13 +75,26 @@ namespace Logictracker.Reportes.DatosOperativos
                     return new List<MobileGeocercaVo>();
                 }
 
-                var geocercas = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(GetVehicleList(), selectedGeocercas, desde, hasta, tpEnGeocerca.SelectedTime.TotalSeconds);
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
+                STrace.Trace("Reporte de Geocercas", String.Format("Duración de la consulta: {0} segundos", duracion));
+				
 
-				STrace.Trace("Reporte de Geocercas", String.Format("Duración de la consulta: {0} segundos", duracion));
-				CalculateDurations(geocercas, chkCalcularKmRecorridos.Checked, DAOFactory);
+                var geocercas = ReportFactory.MobileGeocercaDAO.GetGeocercasEvent(GetVehicleList(), selectedGeocercas, desde, hasta, tpEnGeocerca.SelectedTime.TotalSeconds,
+                                                              Grid.PageIndex, this.PageSize, ref totalVirtualRows, recount, SearchString, chkCalcularKmRecorridos.Checked, DAOFactory, tpEnMarcha.SelectedTime);
 
-				return FilterGeocercas(geocercas);
+                              
+
+				//CalculateDurations(geocercas, chkCalcularKmRecorridos.Checked, DAOFactory);
+
+             //   var finalitems = FilterGeocercas(geocercas);
+
+                if (recount)
+                {
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                    Grid.VirtualItemCount = totalVirtualRows;
+                }
+
+                return geocercas.Select(geo => new MobileGeocercaVo(geo)).ToList();
             }
             catch (Exception e)
             {
@@ -117,11 +135,73 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            if (chkPaginar.Checked)
+            {
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging; 
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {               
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+            chkPaginar.CheckedChanged += chkPaginar_CheckedChanged;
+
+
 
             if (IsPostBack) return;
 
             dpInitDate.SetDate();
             dpEndDate.SetDate();
+        }
+        
+        void chkPaginar_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["SelectedClient"] = null;
+            Session["Distrito"] = null;
+            Session["Base"] = null;
+            Session["SearchString"] = null;
+            if (chkPaginar.Checked)
+            {                
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+            }
+            else
+            {
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                if (Session["SearchString"] == null)
+                    Session["SearchString"] = SearchString;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+        }
+
+        void Grid_PageIndexChanging(object sender, C1GridViewPageEventArgs e)
+        {
+            Grid.PageIndex = e.NewPageIndex;
         }
 
         protected override Dictionary<string, string> GetFilterValues()

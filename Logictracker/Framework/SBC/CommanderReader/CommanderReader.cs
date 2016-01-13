@@ -965,31 +965,21 @@ namespace Logictracker.Layers.CommanderReader
                 return () => iFeature.SubmitTextMessage(MessageId, entrega, text, responses, ackEvent);
             }
             
-            private static Action GetActionDeviceSubmitCannedMessage(Uri request, ulong MessageId, IShortMessage iFeature)
+            private static Action GetActionDeviceSubmitCannedMessage(Uri request, ulong MessageId, IShortMessage iFeature) 
             {
-                return
-                    () =>
-                    iFeature.SubmitCannedMessage(MessageId, Convert.ToInt32(request.GetQueryField("msgCode", "0")), null);
+                return () => iFeature.SubmitCannedMessage(MessageId, Convert.ToInt32(request.GetQueryField("msgCode", "0")), null);
             }
 
-            private static Action GetActionDeviceSetWorkflowState(
-                Uri request, WorkflowMessage[] WorkflowList,
-                IWorkflow iFeature, ulong MessageId)
+            private static Action GetActionDeviceSetWorkflowState(Uri request, WorkflowMessage[] WorkflowList,IWorkflow iFeature, ulong MessageId)
             {
-                return
-                    () =>
-                    iFeature.SetWorkflowState(MessageId, Convert.ToInt32(request.GetQueryField("newState", "0")),
-                                              WorkflowList);
+                return() =>iFeature.SetWorkflowState(MessageId, Convert.ToInt32(request.GetQueryField("newState", "0")),WorkflowList);
             }
 
-            private static Action GetActionDeviceSyncronizeQuadtree(
-                bool fullQt, int baserev, IQuadtree iFeature,
-                ulong MessageId)
+            private static Action GetActionDeviceSyncronizeQuadtree(bool fullQt, int baserev, IQuadtree iFeature, ulong MessageId)
             {
                 return () => iFeature.SyncronizeQuadtree(MessageId, fullQt, baserev);
             }
-
-
+            
             private static Action GetActionDeviceLoadRoute(
                 Destination[] route, bool sort, IRoutable iFeature,
                 ulong MessageId, int routeId)

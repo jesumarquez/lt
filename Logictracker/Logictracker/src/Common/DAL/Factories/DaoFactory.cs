@@ -25,6 +25,7 @@ using Logictracker.DAL.DAO.BusinessObjects.Tickets;
 using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
 using Logictracker.DAL.DAO.ReportObjects;
 using Logictracker.DAL.NHibernate;
+using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using NHibernate;
 using System;
@@ -291,6 +292,9 @@ namespace Logictracker.DAL.Factories
         private TicketRechazoDAO _ticketRechazoDao;
         public TicketRechazoDAO TicketRechazoDAO { get { return _ticketRechazoDao ?? (_ticketRechazoDao = GetDao<TicketRechazoDAO>()); } }
 
+        private SosTicketDAO _sosTicketDAO;
+        public SosTicketDAO SosTicketDAO { get { return _sosTicketDAO ?? (_sosTicketDAO = GetDao<SosTicketDAO>()); } }
+
         #endregion
 
         #region Ciclo Logístico
@@ -429,6 +433,9 @@ namespace Logictracker.DAL.Factories
 
         private DatamartDAO _datamartDao;
         public DatamartDAO DatamartDAO { get { return _datamartDao ?? (_datamartDao = GetDao<DatamartDAO>()); } }
+
+        private DatamartTramoDAO _datamartTramoDao;
+        public DatamartTramoDAO DatamartTramoDAO { get { return _datamartTramoDao ?? (_datamartTramoDao = GetDao<DatamartTramoDAO>()); } }
 
         private DatamartDistribucionDAO _datamartDistribucionDao;
         public DatamartDistribucionDAO DatamartDistribucionDAO { get { return _datamartDistribucionDao ?? (_datamartDistribucionDao = GetDao<DatamartDistribucionDAO>()); } }
@@ -616,7 +623,5 @@ namespace Logictracker.DAL.Factories
         //    //    nativeResource = IntPtr.Zero;
         //    //}
         //}
-
-
     }
 }

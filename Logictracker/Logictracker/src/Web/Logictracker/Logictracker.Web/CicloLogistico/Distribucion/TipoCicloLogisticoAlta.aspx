@@ -15,6 +15,9 @@
                     <cwc:ResourceLabel ID="lblDescripcion" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" />
                     <asp:TextBox ID="txtDescripcion" runat="server" Width="80%" MaxLength="255" />
 
+                    <cwc:ResourceLabel ID="lblDefault" runat="server" ResourceName="Labels" VariableName="DEFAULT" />
+                    <asp:CheckBox runat="server" ID="chkDefault" />
+
                 </cwc:AbmTitledPanel> 
             </td>
             <td style="width: 50%; vertical-align: top;">       

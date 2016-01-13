@@ -91,13 +91,5 @@
       <one-to-many class="Logictracker.Types.BusinessObjects.Messages.EvenDistri, Logictracker.Types" />
     </bag>
 
-    <bag name="Parametros" order-by="opetick10_parametro ASC"
-                inverse="true"
-                cascade="all-delete-orphan">
-      <cache usage="read-write" />
-      <key column="rela_opetick03" />
-      <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.ParametroDistribucion, Logictracker.Types" />
-    </bag>
-
   </class>
 </hibernate-mapping>

@@ -1404,7 +1404,7 @@ namespace Logictracker.Process.CicloLogistico
                 }
                 var evento = EventFactory.GetEvent(DaoFactory, logMensaje);
                 if (evento == null) continue;
-                ProcessEvent(evento);
+                ProcessEvent(evento, true);
                 
                 if (Distribucion.Estado == ViajeDistribucion.Estados.Cerrado) break;
             }

@@ -133,6 +133,7 @@
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogisticoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EstadoLogisticoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\SosTicketDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\TipoServicioCicloDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucionDAO.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="DAO\BusinessObjects\CicloLogistico\TimeTracking\EventoViajeDAO.cs" />
     <Compile Include="DAO\BusinessObjects\ControlAcceso\CategoriaAccesoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\ControlDeCombustible\EventoCombustibleDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\DatamartTramoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\DataMartsLogDAO.cs" />
     <Compile Include="DAO\BusinessObjects\LogicLinkFileDAO.cs" />
     <Compile Include="DAO\BusinessObjects\DatamartViajeDAO.cs" />
@@ -824,9 +826,14 @@
     <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\RechazoMov.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\ParametroDistribucion.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\SosTicket.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\DetalleTicketRechazo.hbm.xml" />
     <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\TicketRechazo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\DatamartTramo.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

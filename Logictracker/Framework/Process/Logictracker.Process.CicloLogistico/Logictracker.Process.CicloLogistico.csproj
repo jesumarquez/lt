@@ -107,6 +107,10 @@
       <Project>{74067696-FD4B-460A-931B-6A3B4D4EEF5C}</Project>
       <Name>Logictracker.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Application\Logictracker.Tracker.Application.Integration\Logictracker.Tracker.Application.Integration.csproj">
+      <Project>{b01581a4-65a8-4822-8782-d3830e48dd34}</Project>
+      <Name>Logictracker.Tracker.Application.Integration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\AVL\Logictracker.AVL.csproj">
       <Project>{0fd2623e-2379-410d-81e3-c8749bc014de}</Project>
       <Name>Logictracker.AVL</Name>
@@ -114,6 +118,10 @@
     <ProjectReference Include="..\..\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
+      <Project>{7F58DCB5-6D76-4882-8610-74929B5DF8ED}</Project>
+      <Name>Logictracker.Tracker.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Culture\Logictracker.Culture.csproj">
       <Project>{BD82E1CC-3AF6-4D02-9425-30EDEB3742F2}</Project>
@@ -149,6 +157,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

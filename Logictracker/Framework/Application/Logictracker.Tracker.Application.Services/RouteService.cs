@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Common.Logging;
 using Logictracker.DAL.Factories;
 using Logictracker.Messages.Saver;
 using Logictracker.Messaging;
@@ -67,13 +64,19 @@ namespace Logictracker.Tracker.Application.Services
 
             // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
             //if (vehicle == null) return null; 
-
+           
             var companies = new[] { employee.Empresa.Id };
+
             var lineas = new int[] { };
+
+            if (employee.Dispositivo.Linea != null)
+            {
+                lineas = new int[] { employee.Dispositivo.Linea.Id };
+            }
             var vehiculos = new int[] { }; //vehicle.Id 
-            var empleados = new[] { employee.Id };
+            var empleados = new int[] {  };
             //var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, new int[] { }, null, null);
-            var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados).Where(x => x.Vehiculo != null);
+            var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados).Where(x => x.Vehiculo != null && x.Vehiculo.Dispositivo != null);
 
             return routes.Where(viajeDistribucion => viajeDistribucion.Inicio.Date.Equals(DateTime.Now.Date)).ToList();
         }
@@ -200,6 +203,7 @@ namespace Logictracker.Tracker.Application.Services
             vehicles.Add(vehicle.Id);
 
             List<LogMensaje> lista = new List<LogMensaje>();
+            List<LogMensaje> remover = new List<LogMensaje>();
             List<string> listacodigosrechazos = (List<string>)DaoFactory.MensajeDAO.FindByEmpresaYLineaAndUser(employee.Empresa, employee.Linea, null).Where(x=> x.TipoMensaje.DeRechazo).Select(x => x.Codigo).ToList();
 
             lista.AddRange(DaoFactory.LogMensajeDAO.GetByVehiclesAndCodes(vehicles, listacodigosrechazos, dt, DateTime.UtcNow, 1).Where(x => x.Texto.ToUpper().Contains("INFORME")));
@@ -213,6 +217,12 @@ namespace Logictracker.Tracker.Application.Services
                 string numero = item.Texto.Substring(start, end - start);
                 var idRechazo = Convert.ToInt32(numero);
                 var rechazo = DaoFactory.TicketRechazoDAO.FindById(idRechazo);
+                if (!(!rechazo.UltimoEstado.Equals("Notificado1") ||
+                    !rechazo.UltimoEstado.Equals("Notificado2") ||
+                    !rechazo.UltimoEstado.Equals("Notificado3")))
+                {
+                    remover.Add(item);
+                }
 
                 if (rechazo != null)
                 {
@@ -232,8 +242,19 @@ namespace Logictracker.Tracker.Application.Services
                     }
                 }
             }
+
+            foreach (var item in remover)
+            {
+                lista.Remove(item);
+            }
             
            lista.AddRange(DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1));
+
+           foreach (var item in remover)
+           {
+               string texto = item.Texto.Split(new String[] { ":" }, StringSplitOptions.None)[0].ToString();
+               lista.RemoveAll(x => x.Texto.Contains(texto));
+           }            
            return lista;
             //return DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehicle.Id, MessageCode.SubmitTextMessage.GetMessageCode(), dt, DateTime.UtcNow, 1);
 

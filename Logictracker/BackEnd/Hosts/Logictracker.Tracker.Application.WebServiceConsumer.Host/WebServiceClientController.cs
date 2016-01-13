@@ -1,38 +1,40 @@
-﻿using System.Runtime.Remoting.Messaging;
+﻿using System.Timers;
 using log4net;
-using Spring.Messaging.Core;
 using Logictracker.Tracker.Services;
 
 namespace Logictracker.Tracker.Application.WebServiceConsumer.Host
 {
-    class WebServiceClientController
+    public class WebServiceClientController
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(WebServiceClientController));
+        public IIntegrationService IntegrationService { get; set; }
 
-        public IWebServiceClient WebServiceClient { get; set; }
-        public MessageQueueTemplate TrackMessageQueueTemplate { get; set; }
+        public System.Timers.Timer Timer4Services;
+        public const double Time = 00.1;
 
         public void Start()
         {
-            Logger.Warn("Starting WebService Consumer Host...");
+            Timer4Services = new System.Timers.Timer(Time * 60000);
+            Timer4Services.Elapsed += OnTimedEvent;
+            Timer4Services.AutoReset = true;
+            Timer4Services.Enabled = true;
 
-            WebServiceClient.StartService();
+            Logger.Warn("Starting WebService Consumer Host...");
+            IntegrationService.CheckServices();
         }
 
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            IntegrationService.CheckServices();
+        }
 
         public void Stop()
         {
-            Logger.Info("Parser caesat stopped");
-        }
-
-        private void SendtrackReport(IMessage msg)
-        {
-            if (msg != null)
-            {
-                Logger.InfoFormat("Message sent {0} ", msg);
-                TrackMessageQueueTemplate.ConvertAndSend(msg);
-            }
-            Logger.InfoFormat("SendtrackReport");
+            IntegrationService.Close();
+            Timer4Services.Stop();
+            Timer4Services.Dispose();
+            
+            Logger.Info("WebService Consumer Host Stopped");
         }
     }
 }

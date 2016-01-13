@@ -147,6 +147,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="Applications\DispatcherControlSat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Applications\GatewayControlSat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Geocoder.NHibernate.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -247,6 +253,10 @@
     <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ReportsScheduler\Logictracker.Scheduler.Tasks.ReportsScheduler.csproj">
       <Project>{E50B84D3-EBDC-4BAC-91E7-892A73418017}</Project>
       <Name>Logictracker.Scheduler.Tasks.ReportsScheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ControlSat\ControlSat.csproj">
+      <Project>{2b61c112-f882-4fa2-a2a9-6bc847b950f6}</Project>
+      <Name>ControlSat</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\DDL\Logictracker.DDL.csproj">
       <Project>{C28913BF-9CB0-4B7D-BA27-4CC7259AF83E}</Project>

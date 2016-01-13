@@ -30,6 +30,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbEmpresa.SetSelectedValue(EditObject.Empresa.Id);
             txtCodigo.Text = EditObject.Codigo;
             txtDescripcion.Text = EditObject.Descripcion;
+            chkDefault.Checked = EditObject.Default;
 
             BindNoAsignados();
             lstAsignados.Items.Clear();
@@ -62,6 +63,18 @@ namespace Logictracker.CicloLogistico.Distribucion
             EditObject.Empresa = DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected);
             EditObject.Codigo = txtCodigo.Text;
             EditObject.Descripcion = txtDescripcion.Text;
+            EditObject.Default = chkDefault.Checked;
+
+            if (EditObject.Default)
+            {
+                var list = DAOFactory.TipoCicloLogisticoDAO.GetByEmpresa(cbEmpresa.Selected);
+                foreach (var tipoCiclo in list)
+                {
+                    if (tipoCiclo.Id == EditObject.Id) continue;
+                    tipoCiclo.Default = false;
+                    DAOFactory.TipoCicloLogisticoDAO.SaveOrUpdate(tipoCiclo);
+                }
+            }
 
             EditObject.Estados.Clear();
             foreach (ListItem item in lstAsignados.Items)
