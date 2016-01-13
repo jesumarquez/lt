@@ -36,7 +36,7 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
 
     $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad,onFail);
     
-    $scope.transportistaDS = EntitiesService.distrito.transportista(ontransportistaDSLoad,onFail);
+    $scope.transportistaDS = EntitiesService.distrito.transportista.models(ontransportistaDSLoad,onFail);
 
     $scope.$watch("distritoSelected", onDistritoSelected);
 
