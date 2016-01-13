@@ -51,7 +51,6 @@
     <h1>@ViewBag.Title</h1>
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
-            {{mydata}}
             <div class="table-responsive">
                 <table ng-show="OrderList.length" class="table table-striped">
                     <tr>
@@ -136,6 +135,12 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div cass="row" style="margin-top: 1em;">
+        <div class="col-md-12">
+            <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
         </div>
     </div>
 
