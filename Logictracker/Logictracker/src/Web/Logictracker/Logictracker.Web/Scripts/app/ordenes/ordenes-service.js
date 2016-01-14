@@ -24,6 +24,14 @@ function OrdenesService($resource) {
             schema: {
                 total: function (response) {
                     return response.length;
+                },
+                parse: function (data) {
+                    $.each(data, function (i, item) {
+                        item.FechaAlta = kendo.parseDate(item.FechaAlta);
+                        item.FechaPedido = kendo.parseDate(item.FechaPedido);
+                        item.FechaEntrega = kendo.parseDate(item.FechaEntrega);
+                    });
+                    return data;
                 }
             },
             pageSize: 25,
