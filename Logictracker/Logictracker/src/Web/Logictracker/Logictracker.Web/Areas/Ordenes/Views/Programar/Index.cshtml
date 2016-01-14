@@ -51,41 +51,7 @@
     <h1>@ViewBag.Title</h1>
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
-            <div class="table-responsive">
-                <table ng-show="OrderList.length" class="table table-striped">
-                    <tr>
-                        <td></td>
-                        <td>Empresa</td>
-                        <td>Empleado</td>
-                        <td>Transportista</td>
-                        <td>Entrega</td>
-                        <td>Codigo</td>
-                        <td>Registrado</td>
-                        <td>Pedido</td>
-                        <td>Entrega</td>
-                        <td>Inicio</td>
-                        <td>Fin</td>
-                        <td></td>
-                    </tr>
-                    <tr ng-repeat="orderDet in OrderList">
-                        <td><input type="checkbox" ng-model="orderDet.Selected"></td>
-                        <td>{{orderDet.Empresa}}</td>
-                        <td>{{orderDet.Empleado}}</td>
-                        <td>{{orderDet.Transportista}}</td>
-                        <td>{{orderDet.PuntoEntrega}}</td>
-                        <td>{{orderDet.CodigoPedido}}</td>
-                        <td>{{orderDet.FechaAlta | date:'medium'}}</td>
-                        <td>{{orderDet.FechaPedido | date:'medium'}}</td>
-                        <td>{{orderDet.FechaEntrega | date:'medium'}}</td>
-                        <td>{{orderDet.InicioVentana}}</td>
-                        <td>{{orderDet.FinVentana}}</td>
-                        @*<td>
-                            <a class="btn btn-primary" ui-sref="viewMovie({id:order._id})">Detalles</a>
-                        </td>*@
-                    </tr>
-                </table>
-            </div>
-
+            
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
