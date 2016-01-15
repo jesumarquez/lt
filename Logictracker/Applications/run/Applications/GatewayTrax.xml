@@ -21,7 +21,7 @@
 		<UDPNetworkServer>
 			<ReplicationClient></ReplicationClient>
 		</UDPNetworkServer>
-		<TraxParser	Port="2645" CheckIMEI="true"  />
+		<TraxParser	Port="6066" CheckIMEI="true"  />
 	</Resources>
 
 	<StackChannel>

@@ -7,6 +7,15 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
     [Serializable]
     public class SosTicket : IAuditable
     {
+        public static class EstadosServicio
+        {
+            public const short Asignado = 1;
+            public const short Preasignado = 2;
+            public const short AsignacionCancelada = 3;
+            public const short PreAsignacionCancelada = 4;
+            public const short AsignacionYPreAsignacionCancelada = 5;
+        }
+
         public virtual int Id { get; set; }
 
         Type IAuditable.TypeOf()

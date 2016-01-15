@@ -21,6 +21,7 @@ using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
 using Logictracker.AVL.Messages;
 using Logictracker.Types.BusinessObjects.Rechazos;
+using Logictracker.Tracker.Application.Integration;
 
 namespace Logictracker.Process.CicloLogistico
 {
@@ -184,6 +185,9 @@ namespace Logictracker.Process.CicloLogistico
             SaveMessage(MessageCode.CicloLogisticoCerrado.GetMessageCode(), data.Date, Distribucion, null);
             ClearGeocercasCache();
 
+            var iService = new IntegrationService(DaoFactory);
+            iService.FinishReport(Distribucion);
+
             if (Distribucion.Empresa.InicioDistribucionSiguienteAlCerrar)
             {
                 var nuevaDistribucion = DaoFactory.ViajeDistribucionDAO.FindPendiente(new[] { Distribucion.Empresa.Id },
@@ -232,6 +236,7 @@ namespace Logictracker.Process.CicloLogistico
                                     {
                                         detalle.Estado = EntregaDistribucion.Estados.Pendiente;
                                         detalle.Entrada = null;
+                                        detalle.Salida = null;
                                         var viaje = detalle.Viaje;                                        
                                         viaje.Estado = ViajeDistribucion.Estados.Pendiente;                                        
                                         viaje.InicioReal = null;
@@ -589,6 +594,9 @@ namespace Logictracker.Process.CicloLogistico
                     var ms = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver)
                                           .AddDestinations(new[] { dest });
                     ms.Send();
+
+                    var intService = new IntegrationService(DaoFactory);
+                    intService.ArrivalReport(Distribucion);
                     break;
                 case EntregaDistribucion.Estados.Completado:
                 case EntregaDistribucion.Estados.Cancelado:
