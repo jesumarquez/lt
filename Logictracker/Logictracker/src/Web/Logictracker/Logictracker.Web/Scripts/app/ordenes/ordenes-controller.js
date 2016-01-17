@@ -16,15 +16,15 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         },
         columns:
         [
-            { template: '<input type="checkbox">', width: "10px" },
+            { template: '<input type="checkbox" ng-model="dataItem.Selected">', width: "10px" },
             { field: "Empresa", title: "Empresa"},
             { field: "Empleado", title: "Empleado"},
             { field: "Transportista", title: "Transportista"},
             { field: "PuntoEntrega", title: "Entrega"},
             { field: "CodigoPedido", title: "Codigo"},
-            { field: "FechaAlta", title: "Registrado"},
-            { field: "FechaPedido", title: "Pedido"},
-            { field: "FechaEntrega", title: "Entrega"},
+            { field: "FechaAlta", title: "Registrado", format: "{0: dd/MM HH:mm}" },
+            { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
+            { field: "FechaEntrega", title: "Entrega", format: "{0: dd/MM HH:mm}" },
             { field: "InicioVentana", title: "Inicio"},
             { field: "FinVentana", title: "Fin"}
         ]
@@ -177,8 +177,8 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.programOrders = function (order) {
-            $scope.newOrder = new OrdenesService();
-            $scope.newOrder.OrderList = $scope.OrderList;
+            $scope.newOrder = new OrdenesService.list();
+            $scope.newOrder.OrderList = $scope.Orders.data();
             $scope.newOrder.RouteCode = order.RouteCode;
             $scope.newOrder.Vehicle = order.IdVehicle;
             $scope.newOrder.StartDateTime = order.StartDateTime;
