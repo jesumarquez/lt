@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Logictracker.Tracker.Application.WebServiceConsumer.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="Logictracker_Tracker_Application_WebServiceConsumer_WsSosService_Service" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://wsderivacionservicios.redsos.com.ar/Service.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>

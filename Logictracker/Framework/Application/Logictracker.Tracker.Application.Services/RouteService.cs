@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Common.Logging;
 using Logictracker.DAL.Factories;
 using Logictracker.Messages.Saver;
 using Logictracker.Messaging;

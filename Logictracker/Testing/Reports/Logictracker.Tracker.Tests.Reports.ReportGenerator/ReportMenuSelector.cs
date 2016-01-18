@@ -9,7 +9,6 @@ namespace Logictracker.Tracker.Tests.Reports.ReportGenerator
     public class ReportMenuSelector
     {
         public IReportService ReportService { get; set; }
-        public IWebServiceClient WebServiceConsumerService { get; set; }
 
         public ReportMenuSelector()
         {

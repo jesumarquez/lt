@@ -4,9 +4,9 @@ using Spring.Context.Support;
 
 namespace Logictracker.Tracker.Application.WebServiceConsumer.Host
 {
-    public class WebConsumerHost
+    public class SpringServiceHost
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof (WebConsumerHost));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof (SpringServiceHost));
         private IApplicationContext _ioc;
 
         public void Start()
