@@ -9,6 +9,8 @@ using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Spring.Messaging.Core;
+using Logictracker.Model;
+using Logictracker.Utils;
 
 namespace Logictracker.Tracker.Application.Integration
 {
@@ -38,7 +40,7 @@ namespace Logictracker.Tracker.Application.Integration
             FinalizadoAsistencia = 55,
             Finalizado = 60,
             Preasignado = 100,
-            PreasignadoRehazado = 105,
+            PreasignadoRechazado = 105,
             PreasignadoAceptado = 110,
             PreasignadoCancelado = 115
         }
@@ -86,19 +88,20 @@ namespace Logictracker.Tracker.Application.Integration
         {
             switch (ticket.EstadoServicio)
             {
-                case 1: //servicio asignado
+                case SosTicket.EstadosServicio.Asignado: //servicio asignado
                     Asignar(ticket);
                     break;
-                case 2: //servicio prea asignado
+                case SosTicket.EstadosServicio.Preasignado: //servicio prea asignado
                     Preasignar(ticket);
                     break;
-                case 3: //asignación cancelada
+                case SosTicket.EstadosServicio.AsignacionCancelada: //asignación cancelada
                     CancelarAsignacion(ticket);
                     break;
-                case 4: //pre asignado cancelado
+                case SosTicket.EstadosServicio.PreAsignacionCancelada: //pre asignado cancelado
                     CancelarPreasignacion(ticket);
                     break;
-                default: //asignación y pre asignado canceladas
+                case SosTicket.EstadosServicio.AsignacionYPreAsignacionCancelada: //asignación y pre asignado canceladas
+                default: 
                     Cancelar(ticket);
                     break;
             }
@@ -175,12 +178,27 @@ namespace Logictracker.Tracker.Application.Integration
 
         private void SendMessageToGarmin(string msgText, ViajeDistribucion distribucion)
         {
-            var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
-            //var message = MessageSender.CreateSubmitCannedMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+            var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));            
             message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+1);
-
             message.Send();
             Logger.InfoFormat("Se notifico servicio {0} al vehiculo {1} [{2}]", distribucion.Codigo, distribucion.Vehiculo.Patente, msgText);
+
+            var destinations = distribucion.Detalles.Where(d => d.PuntoEntrega != null
+                                                                 && d.ReferenciaGeografica != null
+                                                                 && Math.Abs(d.ReferenciaGeografica.Latitude) < 90
+                                                                 && Math.Abs(d.ReferenciaGeografica.Longitude) < 180)
+                                                    .Select(d => new Destination(d.Id, new GPSPoint(DateTime.UtcNow,
+                                                                                                    (float)d.ReferenciaGeografica.Latitude,
+                                                                                                    (float)d.ReferenciaGeografica.Longitude),
+                                                                                 d.Descripcion,
+                                                                                 d.PuntoEntrega.Descripcion,
+                                                                                 d.ReferenciaGeografica.Direccion.Descripcion))
+                                                    .ToArray();
+
+            var msg = MessageSender.CreateUnloadRoute(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory))
+                                   .AddRouteId(distribucion.Id)
+                                   .AddDestinations(destinations);
+            msg.Send();
         }
 
         private void SendQuestionToGarmin(string msgText, ViajeDistribucion distribucion)
@@ -201,6 +219,13 @@ namespace Logictracker.Tracker.Application.Integration
             else
                 Logger.Error("Error generando pregunta: Canned Responses not found (" + distribucion.Codigo + ")");
         }
+
+        private void SendQuestionPatenteToGarmin(string msgText, ViajeDistribucion distribucion)
+        {   
+            var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
+            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id);
+            message.Send();
+        }        
 
         private SosTicket GetTicket(SosTicket ticket)
         {
@@ -321,7 +346,9 @@ namespace Logictracker.Tracker.Application.Integration
             var viaje = ticket.Distribucion ?? DaoFactory.ViajeDistribucionDAO.FindByCodigo(ticket.NumeroServicio);
 
             //si el servicio fue asignado cancelado, preasignado cancelado o ambos cancelados
-            if ((ticket.EstadoServicio == 3) || (ticket.EstadoServicio == 4) || (ticket.EstadoServicio == 5))
+            if (ticket.EstadoServicio == SosTicket.EstadosServicio.AsignacionCancelada
+             || ticket.EstadoServicio == SosTicket.EstadosServicio.PreAsignacionCancelada
+             || ticket.EstadoServicio == SosTicket.EstadosServicio.AsignacionYPreAsignacionCancelada)
             {
                 viaje.Estado = ViajeDistribucion.Estados.Anulado;
             }
@@ -357,7 +384,7 @@ namespace Logictracker.Tracker.Application.Integration
             WebServiceSos.Dispose();
         }
 
-        public void ResponseTicket(ViajeDistribucion dist, bool accepted)
+        public void ResponseAsigno(ViajeDistribucion dist, bool accepted)
         {
             var ticket = DaoFactory.SosTicketDAO.FindByCodigo(dist.Codigo);
 
@@ -370,7 +397,7 @@ namespace Logictracker.Tracker.Application.Integration
                 //envio de informacion del servicio
                 var mensaje = string.Format("S:{0}<br>V:{1}<br>Di:{2}",
                    ticket.NumeroServicio + " P:" + ticket.Prioridad,
-                   ticket.Patente.Substring(0,3) + "_xXx " + ticket.Marca + " " + ticket.Color,
+                   ticket.Patente.Substring(0,3) + "XXX " + ticket.Marca + " " + ticket.Color,
                    ticket.Tipo + " por "+ ticket.Diagnostico + " $: " + ticket.CobroAdicional);
                 SendMessageToGarmin(mensaje, dist);
 
@@ -379,11 +406,44 @@ namespace Logictracker.Tracker.Application.Integration
             }
             else
             {
+                ticket.Rechazado = true;
                 ticket.Cancelado = DateTime.Now;
                 ticket.CancelacionNotificada = true;
                 ticket.EstadoServicio = (int)CodigoEstado.AsignadoRechazado;
             }
             DaoFactory.SosTicketDAO.SaveOrUpdate(ticket); 
+
+            UpdateToSos(dist.Vehiculo.Interno, dist.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
+        }
+
+        public void ResponsePreasigno(ViajeDistribucion dist, bool accepted)
+        {
+            var ticket = DaoFactory.SosTicketDAO.FindByCodigo(dist.Codigo);
+
+            if (accepted)
+            {
+                ticket.Preasignado = DateTime.Now;
+                ticket.PreasignacionNotificada = true;
+                ticket.EstadoServicio = (int)CodigoEstado.PreasignadoAceptado;
+
+                //envio de informacion del servicio
+                var mensaje = string.Format("S:{0}<br>V:{1}<br>Di:{2}",
+                   ticket.NumeroServicio + " P:" + ticket.Prioridad,
+                   ticket.Patente.Substring(0, 3) + "XXX " + ticket.Marca + " " + ticket.Color,
+                   ticket.Tipo + " por " + ticket.Diagnostico + " $: " + ticket.CobroAdicional);
+                SendMessageToGarmin(mensaje, dist);
+
+                //envio de ruta al garmin
+                //SendRouteToGarmin();
+            }
+            else
+            {
+                ticket.Rechazado = true;
+                ticket.Cancelado = DateTime.Now;
+                ticket.CancelacionNotificada = true;
+                ticket.EstadoServicio = (int)CodigoEstado.PreasignadoRechazado;
+            }
+            DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
 
             UpdateToSos(dist.Vehiculo.Interno, dist.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
         }
@@ -397,16 +457,50 @@ namespace Logictracker.Tracker.Application.Integration
             Logger.Info("Webservice response: " + res);
         }
 
-        public void ArrivalReport(ViajeDistribucion dist)
+        public void ArrivalReport(ViajeDistribucion viaje)
         {
-            var ticket = DaoFactory.SosTicketDAO.FindByCodigo(dist.Codigo);
-            var viaje = ticket.Distribucion ?? DaoFactory.ViajeDistribucionDAO.FindByCodigo(ticket.NumeroServicio);
-            viaje.Estado = ViajeDistribucion.Estados.Cerrado;
-            ticket.Distribucion = viaje;
-            ticket.EstadoServicio = (int)CodigoEstado.Llegada;
-            DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
+            var ticket = DaoFactory.SosTicketDAO.FindByCodigo(viaje.Codigo);
+            if (ticket != null)
+            {
+                /*
+                ticket.Distribucion = viaje;
+                ticket.EstadoServicio = (int)CodigoEstado.Llegada;
+                DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
 
-            UpdateToSos(dist.Vehiculo.Interno, dist.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
+                UpdateToSos(viaje.Vehiculo.Interno, viaje.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
+                */
+                var msgText = "Por favor, informe los 3 dígitos de la patente del vehículo correspondiente al servicio " + viaje.Codigo;
+                SendQuestionPatenteToGarmin(msgText, viaje);
+            }
+        }
+
+        public void ConfirmaPatente(SosTicket ticket, bool confirmacionOk)
+        {
+            if (confirmacionOk)
+            {
+                ticket.EstadoServicio = (int)CodigoEstado.Llegada;
+                DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
+
+                UpdateToSos(ticket.Distribucion.Vehiculo.Interno, ticket.Distribucion.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
+            }
+            else
+            {
+                var msgText = "Patente errónea. Por favor, informe los 3 dígitos de la patente del vehículo correspondiente al servicio " + ticket.Distribucion.Codigo;
+                SendQuestionPatenteToGarmin(msgText, ticket.Distribucion);
+            }
+        }
+
+        public void FinishReport(ViajeDistribucion viaje)
+        {
+            var ticket = DaoFactory.SosTicketDAO.FindByCodigo(viaje.Codigo);
+            if (ticket != null)
+            {
+                ticket.Distribucion = viaje;
+                ticket.EstadoServicio = (int)CodigoEstado.Finalizado;
+                DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
+
+                UpdateToSos(viaje.Vehiculo.Interno, viaje.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
+            }
         }
     }
 }

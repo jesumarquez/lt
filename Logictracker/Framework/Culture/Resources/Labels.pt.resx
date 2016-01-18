@@ -4567,4 +4567,25 @@
   <data name="RESPONSABLE_CUENTA" xml:space="preserve">
     <value>Responsável do Conta</value>
   </data>
+  <data name="EXCESO_VELOCIDAD" xml:space="preserve">
+    <value>Excesso de velocidade</value>
+  </data>
+  <data name="EXCESO_RPM" xml:space="preserve">
+    <value>Excesso de RPM</value>
+  </data>
+  <data name="FRENADA_BRUSCA" xml:space="preserve">
+    <value>Travagens bruscas</value>
+  </data>
+  <data name="ACELERACION_BRUSCA" xml:space="preserve">
+    <value>Aceleração brusca</value>
+  </data>
+  <data name="BATERIA_DESCONECTADA" xml:space="preserve">
+    <value>Bateria desconectada</value>
+  </data>
+  <data name="PANICO" xml:space="preserve">
+    <value>Pânico</value>
+  </data>
+  <data name="TIPO_INFRACCION" xml:space="preserve">
+    <value>Tipo do violação</value>
+  </data>
 </root>

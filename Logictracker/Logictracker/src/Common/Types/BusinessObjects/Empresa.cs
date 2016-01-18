@@ -42,7 +42,6 @@ namespace Logictracker.Types.BusinessObjects
             public const string InicioDistribucionIdTipoGeocerca = "distribucion.inicio.id.tipo.geocerca";
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
-            public const string InicioDistribucionCodigoMensajeRechazo = "distribucion.inicio.mensaje.codigo.rechazo";            
             public const string InicioDistribucionSiguienteAlCerrar = "distribucion.inicio.siguiente";
             public const string DistribucionReportaEmpleado = "distribucion.reporta.empleado";
             public const string DistribucionGeneraRechazo = "distribucion.genera.rechazo";
@@ -80,6 +79,10 @@ namespace Logictracker.Types.BusinessObjects
             public const string MonitorHistoricoDiaEntero = "monitor.historico.dia.entero";
 
             public const string LogiclinkMinutosUpdate = "logiclink.minutos.update";
+
+            public const string IntegrationServiceEnabled = "integration.service.enabled";
+            public const string IntegrationServiceCodigoMensajeAceptacion = "integration.service.codigo.aceptacion";
+            public const string IntegrationServiceCodigoMensajeRechazo = "integration.service.codigo.rechazo";            
         }
         public static class OrdenRuta
         {
@@ -361,15 +364,6 @@ namespace Logictracker.Types.BusinessObjects
             {
                 var valor = GetParameter(Params.InicioDistribucionCodigoMensaje);
                 if (valor == null || valor.Trim() == string.Empty) return "21";
-                return valor.ToLowerInvariant();
-            }
-        }
-        public virtual string InicioDistribucionCodigoMensajeRechazo
-        {
-            get
-            {
-                var valor = GetParameter(Params.InicioDistribucionCodigoMensajeRechazo);
-                if (valor == null || valor.Trim() == string.Empty) return "0";
                 return valor.ToLowerInvariant();
             }
         }
@@ -704,6 +698,36 @@ namespace Logictracker.Types.BusinessObjects
                 return v;
             }
         }
+
+        public virtual bool IntegrationServiceEnabled
+        {
+            get
+            {
+                var valor = GetParameter(Params.IntegrationServiceEnabled);
+                bool enabled;
+                if (valor == null || !bool.TryParse(valor, out enabled)) return false;
+                return enabled;
+            }
+        }
+        public virtual string IntegrationServiceCodigoMensajeAceptacion
+        {
+            get
+            {
+                var valor = GetParameter(Params.IntegrationServiceCodigoMensajeAceptacion);
+                if (valor == null || valor.Trim() == string.Empty) return "21";
+                return valor.ToLowerInvariant();
+            }
+        }
+        public virtual string IntegrationServiceCodigoMensajeRechazo
+        {
+            get
+            {
+                var valor = GetParameter(Params.IntegrationServiceCodigoMensajeRechazo);
+                if (valor == null || valor.Trim() == string.Empty) return "0";
+                return valor.ToLowerInvariant();
+            }
+        }
+
 
         #endregion
     }
