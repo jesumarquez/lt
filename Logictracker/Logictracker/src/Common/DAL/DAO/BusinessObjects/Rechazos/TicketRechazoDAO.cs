@@ -160,6 +160,98 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
 
             return q.Future<PromedioPorVendedorModel>();
         }
+
+        public IEnumerable<TicketPorHoraModel> GetCantidadTicketPorHora(int distritoId, int baseId)
+        {
+            RechazoMov mov = null;
+            TicketRechazo ticket = null;
+            List<TicketPorHoraModel> result = new List<TicketPorHoraModel>();
+
+            TicketPorHoraModel item = null;
+
+            var hourNow = DateTime.UtcNow.Hour;
+
+            for (int hour = 0; hour <= hourNow; hour++)
+            {
+                // Obtengo un subQuery con la lista de id de movimientos para una hora agrupados por idTicket
+                var subQ = Session
+                    .QueryOver<RechazoMov>(() => mov)
+                    .Inner.JoinAlias(() => mov.Ticket, () => ticket)
+                    .Where(() => mov.Egreso.Hour < hour)
+                    .Select(Projections.ProjectionList()
+                        .Add(Projections.Max(() => mov.Id))
+                        .Add(Projections.Group(() => ticket.Id)));
+
+                var l = subQ.List<object[]>().Select(i => i[0]).ToArray();
+
+                var q = Session
+                .QueryOver(() => mov)
+                .Inner.JoinAlias(() => mov.Ticket, () => ticket)
+                .Where(() => mov.Id.IsIn(l))
+                .Select(Projections.ProjectionList()
+                    .Add(Projections.Count(() => mov.Ticket.Id).As("Cantidad"))
+                    .Add(Projections.Group(() => ticket.Final).As("Estado"))
+                     );
+
+                if (distritoId != -1)
+                    q = q.Where(m => ticket.Empresa.Id == distritoId);
+
+                if (baseId != -1)
+                    q = q.Where(m => ticket.Linea.Id == baseId);
+
+                q = q.TransformUsing(Transformers.AliasToBean<TicketEstadoPorHoraModel>());
+
+                item = new TicketPorHoraModel();
+                item.Hora = hour;
+
+                var ticketEstado = q.Future<TicketEstadoPorHoraModel>().ToList();
+                ticketEstado.ForEach(t =>
+                {
+                    switch (t.Estado)
+                    {
+                        case TicketRechazo.EstadoFinal.Anulado:
+                            item.CantidadAnulado = t.Cantidad;
+                            break;
+                        case TicketRechazo.EstadoFinal.RechazoDuplicado:
+                            item.CantidadDuplicado = t.Cantidad;
+                            break;
+                        case TicketRechazo.EstadoFinal.RechazoErroneo:
+                            item.CantidadErroneo = t.Cantidad;
+                            break;
+                        case TicketRechazo.EstadoFinal.ResueltoEntregado:
+                            item.CantidadResueltoEntregado = t.Cantidad;
+                            break;
+                        case TicketRechazo.EstadoFinal.ResueltoSinEntrega:
+                            item.CantidadSinEntrega = t.Cantidad;
+                            break;
+                        case TicketRechazo.EstadoFinal.SolucionPendiente:
+                            item.CantidadPendiente = t.Cantidad;
+                            break;
+                    }
+                });
+
+                result.Add(item);
+            }
+
+            return result;
+        }
+    }
+
+    public class TicketEstadoPorHoraModel
+    {
+        public int Cantidad { get; set; }
+        public TicketRechazo.EstadoFinal Estado { get; set; }
+    }
+
+    public class TicketPorHoraModel
+    {
+        public int CantidadPendiente { get; set; }
+        public int CantidadDuplicado { get; set; }
+        public int CantidadErroneo { get; set; }
+        public int CantidadSinEntrega { get; set; }
+        public int CantidadAnulado { get; set; }
+        public int CantidadResueltoEntregado { get; set; }
+        public int Hora { get; set; }
     }
 
     public class RechazoPromedioRolModel
@@ -184,6 +276,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
         }
 
         public double Promedio { get; set; }
+
+        public string PromedioMinutos
+        {
+            get
+            {
+                return TimeSpan.FromSeconds(this.Promedio).ToString(@"hh\:mm");
+            }
+        }
     }
 
     public class PromedioPorVendedorModel
@@ -207,9 +307,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
             get { return CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName((TicketRechazo.Estado)EstadoEnum)); }
         }
         public double Promedio { get; set; }
-        public double PromedioMinutos
+        public string PromedioMinutos
         {
-            get { return Math.Round( Promedio / 60, 1); }
+            get
+            {
+                return TimeSpan.FromSeconds(this.Promedio).ToString(@"hh\:mm");
+            }
         }
         public int Cantidad { get; set; }
     }
