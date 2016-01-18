@@ -11,7 +11,7 @@
     <script type="text/javascript">
         function getPuntoEntrega(id)
         {
-            return "<iframe width=\"250\" height=\"145\" style=\"border:none;\" src=\"InfoCiclo.aspx?id=" + id + "\" />";
+            return "<iframe width=\"300\" height=\"145\" style=\"border:none;\" src=\"InfoCiclo.aspx?id=" + id + "\" />";
         }
         function getDetencion(idEvento, idViaje) {
             return "<iframe width=\"500\" height=\"300\" style=\"border:none;\" src=\"InfoDetencion.aspx?idEvento=" + idEvento + "&idViaje=" + idViaje + "\" />";

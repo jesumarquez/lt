@@ -984,6 +984,9 @@
   <data name="VOLUMEN" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="PESO" xml:space="preserve">
+    <value>Peso</value>
+  </data>
   <data name="FECHA" xml:space="preserve">
     <value>Data</value>
   </data>
