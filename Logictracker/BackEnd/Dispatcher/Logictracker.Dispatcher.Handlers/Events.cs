@@ -100,13 +100,14 @@ namespace Logictracker.Dispatcher.Handlers
 
 		    if (MessageIdentifierX.IsRfidEvent(generico.Code)) applicationCode = ProcessRfidEvent(code, generico);
             else if (MessageIdentifierX.IsEstadoLogistico(generico.GetData())) applicationCode = ProcessEstadoLogistico(code, generico);
+            else if (MessageIdentifierX.IsPanicEvent(code)) applicationCode = ProcessPanicEvent(generico, code);
             else if (code.Equals(MessageCode.SpeedingTicket.GetMessageCode())) applicationCode = ProcessVelocidadExcedidaGenericEvent(generico);
             else if (MessageIdentifierX.IsConfirmacionUbox(generico.GetData())) 
             {
                 applicationCode = code;
                 esConfirmacionUbox = true;
                 // DEFINE EL PROCESAMIENTO CUANDO SABE SI TIENE UN PUNTO
-            }
+            }            
             else applicationCode = ProcessGenericEvent(generico, code);
             
             if (DaoFactory.DetalleDispositivoDAO.GetProcesarCicloLogisticoFlagValue(generico.DeviceId))
@@ -302,6 +303,35 @@ namespace Logictracker.Dispatcher.Handlers
 
 		    return MessageCode.SpeedingTicket.GetMessageCode();
 		}
+
+        private string ProcessPanicEvent(Event generico, string code)
+        {
+            var text = ExtraText.GetExtraText(generico, code).Trim().ToUpperInvariant();
+            var chofer = GetChofer(generico.GetRiderId());
+            var fecha = generico.GetDateTime();
+            var evento = MessageSaver.Save(generico, code, Dispositivo, Coche, chofer, fecha, generico.GeoPoint, text, ZonaManejo);
+
+            var infraccion = new Infraccion
+            {
+                Vehiculo = Coche,
+                Alcanzado = generico.GeoPoint.Speed.Unpack(),
+                CodigoInfraccion = Infraccion.Codigos.Panico,
+                Empleado = evento.Chofer,
+                Fecha = fecha,
+                Latitud = generico.GeoPoint.Lat,
+                Longitud = generico.GeoPoint.Lon,
+                FechaFin = null,
+                LatitudFin = 0,
+                LongitudFin = 0,
+                Permitido = 0,
+                Zona = ZonaManejo,
+                FechaAlta = DateTime.UtcNow
+            };
+
+            DaoFactory.InfraccionDAO.Save(infraccion);
+
+            return code;
+        }
 
 		private string ProcessGenericEvent(Event generico, string code)
 		{

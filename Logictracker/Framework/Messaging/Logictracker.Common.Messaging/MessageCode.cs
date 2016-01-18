@@ -150,6 +150,9 @@ namespace Logictracker.Messaging
 
         UnloadRouteSuccess,
         GarminCannedMessageReceived,
+
+        PanicButtonOn,
+        SirenOn,
 	}
 
 	public static class MessageCodeX
@@ -210,8 +213,11 @@ namespace Logictracker.Messaging
                 case MessageCode.DesaccelerationEvent:return "3002";
                 case MessageCode.RpmEvent: return "90";
                     
+                // mensajes de pánico
+                case MessageCode.PanicButtonOn: return "513";
+                case MessageCode.SirenOn: return "2311";
 
-				//mensajes generados por el dispatcher
+				// mensajes generados por el dispatcher
 				case MessageCode.StoppedEvent: return "100";
 				case MessageCode.KilometersExceded: return "101";
 				case MessageCode.OutOfShiftActivity: return "102";
@@ -227,7 +233,7 @@ namespace Logictracker.Messaging
 				case MessageCode.DocumentSecondWarning: return "302";
 				case MessageCode.OdometerExpired: return "310";
 				case MessageCode.OdometerFirstWarning: return "311";
-				case MessageCode.OdometerSecondWarning: return "312";
+				case MessageCode.OdometerSecondWarning: return "312";                
 				case MessageCode.InsideGeoRefference: return "910";
 				case MessageCode.OutsideGeoRefference: return "920";
 				case MessageCode.TextEvent: return "999";
@@ -263,7 +269,7 @@ namespace Logictracker.Messaging
                 // Mensajes Garmin
                 case MessageCode.GarminStopStatus: return "145"; 
                 case MessageCode.GarminOff: return "2305";
-                case MessageCode.GarminOn: return "2306";
+                case MessageCode.GarminOn: return "2306";                
                 case MessageCode.GarminStopStatusActive: return "3010";
                 case MessageCode.GarminStopStatusDone: return "3011";
 		        case MessageCode.GarminStopStatusUnreadInactive: return "3012";
