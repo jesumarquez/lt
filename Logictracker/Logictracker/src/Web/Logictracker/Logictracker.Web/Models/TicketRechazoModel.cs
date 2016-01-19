@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Logictracker.Culture;
 using Logictracker.DAL.DAO.BusinessObjects;
 using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects.Rechazos;
-using Logictracker.Web.Models;
 
-namespace Logictracker.Web.Controllers.api
+namespace Logictracker.Web.Models
 {
 
     public class TicketRechazoDetalleModel
@@ -53,8 +53,86 @@ namespace Logictracker.Web.Controllers.api
         public int ChoferId { get; set; }
         public string ChoferDesc { get; set; }
         public TicketRechazo.EstadoFinal EstadoFinal { get; set; }
+        public TicketRechazo.Estado UltimoEstado { get; set; }
+
+        private String GetSemaforoGyo(double transcurrido)
+        {
+            return transcurrido < 5 ? ColorTranslator.ToHtml(Color.Gray) : ColorTranslator.ToHtml(transcurrido < 10 ? Color.Yellow : Color.Orange);
+        }
+
+        public string Semaforo
+        {
+
+            get
+            {
+                switch (EstadoFinal)
+                {
+                    case TicketRechazo.EstadoFinal.SolucionPendiente:
+
+                        var transcurrido = DateTime.UtcNow.Subtract(FechaHoraEstado).TotalMinutes;
+
+                        switch (UltimoEstado)
+                        {
+                            case TicketRechazo.Estado.Pendiente:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.Notificado:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.Alertado:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.Resuelto:
+                                return ColorTranslator.ToHtml(Color.Green);
+                            case TicketRechazo.Estado.Anulado:
+                                return ColorTranslator.ToHtml(Color.Black);
+                            case TicketRechazo.Estado.Avisado:
+                                return ColorTranslator.ToHtml(Color.Purple);
+                            case TicketRechazo.Estado.Entregado:
+                                return ColorTranslator.ToHtml(Color.Green);
+                            case TicketRechazo.Estado.SinAviso:
+                                return ColorTranslator.ToHtml(Color.Red);
+                            case TicketRechazo.Estado.NoResuelta:
+                                return ColorTranslator.ToHtml(Color.Red);
+                            case TicketRechazo.Estado.AltaErronea:
+                                return ColorTranslator.ToHtml(Color.Green);
+                            case TicketRechazo.Estado.Duplicado:
+                                return ColorTranslator.ToHtml(Color.Black);
+                            case TicketRechazo.Estado.NotificadoAutomatico:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.AlertadoAutomatico:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.Notificado1:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.Notificado2:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.Notificado3:
+                                return GetSemaforoGyo(transcurrido);
+                            case TicketRechazo.Estado.RespuestaExitosa:
+                                return ColorTranslator.ToHtml(Color.LawnGreen);
+                            case TicketRechazo.Estado.RespuestaConRechazo:
+                                return ColorTranslator.ToHtml(Color.Purple);
+                            case TicketRechazo.Estado.Rechazado:
+                                return ColorTranslator.ToHtml(Color.Red);
+                        }
+
+                        return ColorTranslator.ToHtml(Color.Red);
+                    case TicketRechazo.EstadoFinal.RechazoDuplicado:
+                        return ColorTranslator.ToHtml(Color.Black);
+                    case TicketRechazo.EstadoFinal.RechazoErroneo:
+                        return ColorTranslator.ToHtml(Color.Red);
+                    case TicketRechazo.EstadoFinal.ResueltoEntregado:
+                        return ColorTranslator.ToHtml(Color.Green);
+                    case TicketRechazo.EstadoFinal.ResueltoSinEntrega:
+                        return ColorTranslator.ToHtml(Color.Red);
+                    case TicketRechazo.EstadoFinal.Anulado:
+                        return ColorTranslator.ToHtml(Color.Black);
+                    default:
+                        return ColorTranslator.ToHtml(Color.Red);
+                }
+            }
+        }
+
+        public string UltimoEstadoDesc { get; set; }
     }
-    
+
     public class TicketRechazoDetalleMapper : EntityModelMapper<DetalleTicketRechazo, TicketRechazoDetalleModel>
     {
         public override TicketRechazoDetalleModel EntityToModel(DetalleTicketRechazo entity,
@@ -93,7 +171,7 @@ namespace Logictracker.Web.Controllers.api
             model.ClienteDesc = entity.Cliente.Descripcion;
             model.SupVenDesc = entity.SupervisorVenta.Entidad.Descripcion;
             model.SupRutDesc = entity.SupervisorRuta.Entidad.Descripcion;
-            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Detalle.OrderByDescending(e=>e.FechaHora).First().Estado));
+            model.Estado = CultureManager.GetLabel(TicketRechazo.GetEstadoLabelVariableName(entity.Detalle.OrderByDescending(e => e.FechaHora).First().Estado));
             model.Territorio = entity.Territorio;
             model.Motivo = entity.Motivo;
             model.MotivoDesc = CultureManager.GetLabel(TicketRechazo.GetMotivoLabelVariableName(entity.Motivo));
@@ -101,6 +179,9 @@ namespace Logictracker.Web.Controllers.api
             model.Observacion = entity.Detalle.First().Observacion;
             model.EnHorario = entity.EnHorario;
             model.EstadoFinal = entity.Final;
+            model.UltimoEstado = entity.UltimoEstado;
+            model.UltimoEstadoDesc = CultureManager.GetLabel(TicketRechazo.GetEstadoFinalVariableName(entity.Final));
+
             var mt = new TicketRechazoDetalleMapper();
             model.Detalle = new List<TicketRechazoDetalleModel>(entity.Detalle.Select(d => mt.EntityToModel(d, new TicketRechazoDetalleModel())));
             if (entity.Entrega != null)
@@ -123,7 +204,7 @@ namespace Logictracker.Web.Controllers.api
                 model.VendedorDesc = entity.Vendedor.Entidad.Descripcion;
             }
 
-            model.FechaHoraEstado = DateTime.SpecifyKind(entity.Detalle.OrderByDescending(e=>e.FechaHora).First().FechaHora, DateTimeKind.Utc);
+            model.FechaHoraEstado = DateTime.SpecifyKind(entity.Detalle.OrderByDescending(e => e.FechaHora).First().FechaHora, DateTimeKind.Utc);
 
             if (entity.Chofer != null)
             {
