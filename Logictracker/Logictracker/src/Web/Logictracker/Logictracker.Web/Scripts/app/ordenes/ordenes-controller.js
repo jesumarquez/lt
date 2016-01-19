@@ -3,7 +3,33 @@
     .controller('OrdenesController', ['$scope', 'EntitiesService', 'OrdenesService', OrdenesController]);
 
 function OrdenesController($scope, EntitiesService, OrdenesService) {
-    $scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
+    //$scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
+
+    $scope.ordenesGridOptions = {
+        sortable: true,
+        groupable: true,
+        scrollable: false,
+        pageable: {
+            refresh: true,
+            pageSizes: true,
+            info: true
+        },
+        columns:
+        [
+            { template: '<input type="checkbox" ng-model="dataItem.Selected">', width: "10px" },
+            { field: "Empresa", title: "Empresa"},
+            { field: "Empleado", title: "Empleado"},
+            { field: "Transportista", title: "Transportista"},
+            { field: "PuntoEntrega", title: "Entrega"},
+            { field: "CodigoPedido", title: "Codigo"},
+            { field: "FechaAlta", title: "Registrado", format: "{0: dd/MM HH:mm}" },
+            { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
+            { field: "FechaEntrega", title: "Entrega", format: "{0: dd/MM HH:mm}" },
+            { field: "InicioVentana", title: "Inicio"},
+            { field: "FinVentana", title: "Fin"}
+        ]
+    }
+
 
     $scope.distritoSelected = {};
 
@@ -36,7 +62,7 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
 
     $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad,onFail);
     
-    $scope.transportistaDS = EntitiesService.distrito.transportista(ontransportistaDSLoad,onFail);
+    $scope.transportistaDS = EntitiesService.distrito.transportista.models(ontransportistaDSLoad,onFail);
 
     $scope.$watch("distritoSelected", onDistritoSelected);
 
@@ -132,7 +158,7 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.onBuscar = function () {
-            $scope.mydata = "Cargando...";
+            //$scope.mydata = "Cargando...";
 
             //var transportista = {};
             //if ($scope.transportistaSelected.length > 0)
@@ -140,17 +166,19 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             //else
             //    transportista = -1;
             //alert(transportista);
-            $scope.OrderList = OrdenesService.query({
-                    distritoId: $scope.distritoSelected.Key,
-                    baseId: $scope.baseSelected.Key
-                }, function (s, o) {
-                $scope.mydata = $scope.OrderList.length + " registros";
-            });
+            //$scope.OrderList = OrdenesService.list.query({
+            //        distritoId: $scope.distritoSelected.Key,
+            //        baseId: $scope.baseSelected.Key
+            //    }, function (s, o) {
+            //    $scope.mydata = $scope.OrderList.length + " registros";
+            //});
+
+            $scope.Orders = OrdenesService.items({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onerror);
         };
 
         $scope.programOrders = function (order) {
-            $scope.newOrder = new OrdenesService();
-            $scope.newOrder.OrderList = $scope.OrderList;
+            $scope.newOrder = new OrdenesService.list();
+            $scope.newOrder.OrderList = $scope.Orders.data();
             $scope.newOrder.RouteCode = order.RouteCode;
             $scope.newOrder.Vehicle = order.IdVehicle;
             $scope.newOrder.StartDateTime = order.StartDateTime;

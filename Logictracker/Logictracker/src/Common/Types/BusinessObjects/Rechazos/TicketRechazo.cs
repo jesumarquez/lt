@@ -279,5 +279,27 @@ namespace Logictracker.Types.BusinessObjects.Rechazos
         public virtual DateTime FechaHoraEstado { get { return Detalle.OrderByDescending(e => e.FechaHora).First().FechaHora; } set {} }
 
         public virtual  Empleado Chofer { get; set; }
+
+        public static string GetEstadoFinalVariableName(EstadoFinal estado)
+        {
+            switch (estado)
+            {
+                case EstadoFinal.SolucionPendiente:
+                    return "PENDIENTE";
+                case EstadoFinal.RechazoDuplicado:
+                    return "DUPLICADO";
+                case EstadoFinal.RechazoErroneo:
+                    return "ALTA_ERRONEA";
+                case EstadoFinal.ResueltoEntregado:
+                    return "ENTREGADO";
+                case EstadoFinal.ResueltoSinEntrega:
+                    return "NO_ENTEGADO";
+                case EstadoFinal.Anulado:
+                    return "ANULADO";
+                default:
+                    throw new ArgumentOutOfRangeException("estado");
+            }
+        }
+    
     }
 }
