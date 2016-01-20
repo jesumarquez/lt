@@ -183,9 +183,13 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             $scope.newOrder.Vehicle = order.IdVehicle;
             $scope.newOrder.StartDateTime = order.StartDateTime;
             $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType;
-            $scope.newOrder.$save({ customerId: $scope.distritoSelected.Key }, function () {
-                $scope.onBuscar();
-            });
+            $scope.newOrder.$save(
+                { customerId: $scope.distritoSelected.Key },
+                function () {
+                    $scope.onBuscar();
+                },
+                onFail
+            );
         };
     }
 
