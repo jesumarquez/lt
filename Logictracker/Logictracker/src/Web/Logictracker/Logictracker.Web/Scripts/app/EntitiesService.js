@@ -20,7 +20,7 @@ function EntitiesService($resource, $http) {
                 models: getDistribuciones
             },
             puntoEntrega: getPuntoEntrega,
-            
+            tipoCicloLogistico: getTipoCicloLogisticoDS
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -37,8 +37,8 @@ function EntitiesService($resource, $http) {
             estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" }),
             cantidadPorEstado: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/estado", { distritoId: "@distritoId", baseId: "@baseId" }),
             cantidadTicketPorHora: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/ticketporhora", { distritoId: "@distritoId", baseId: "@baseId" }),
-            chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" })
-
+            chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            tipoCicloLogistico: $resource("/api/distrito/:distritoId/tipociclologistico/items", { distritoId: "@distritoId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -590,5 +590,26 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-        return _service;
-    }
+    function getTipoCicloLogisticoDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "") {
+                        getData(_service.resources.tipoCicloLogistico, op, { distritoId: op.data.distritoId });
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+    return _service;
+}
