@@ -6,6 +6,7 @@ using log4net;
 using LogicTracker.App.Web.Api.Models;
 using Logictracker.Tracker.Services;
 using Logitracker.Codecs.Sitrack;
+using System.Web;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -22,7 +23,7 @@ namespace LogicTracker.App.Web.Api.Controllers
             try
             {
                 var frameList = SitrackModelToFrame(positions);
-                ReceptionService.ParseSitrackPositions(frameList);
+                ReceptionService.ParseSitrackPositions(frameList, HttpContext.Current.Server.MapPath("~"));
             }
             catch (NullReferenceException ex)
             {
@@ -49,7 +50,10 @@ namespace LogicTracker.App.Web.Api.Controllers
                 sitrackFrame.DeviceId = position.device_id;              
                 sitrackFrame.EventDesc = position.event_desc;
                 sitrackFrame.EventId = position.event_id;
-                sitrackFrame.HolderDomain = position.holder_domain.Replace("*","");
+                if (position.holder_domain != null) {
+                    sitrackFrame.HolderDomain = position.holder_domain.Replace("*", "");
+                }
+                
                 sitrackFrame.HolderId = position.holder_id;
                 sitrackFrame.HolderName = position.holder_name;
                 sitrackFrame.Id = position.id;
@@ -58,6 +62,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 sitrackFrame.Location = position.location;
                 sitrackFrame.ReportDate = Convert.ToDateTime(position.reportDate);
                 sitrackFrame.Speed = position.speed;
+                sitrackFrame.InputDate = Convert.ToDateTime(position.reportDate);
 
                 frameReport.AppendFormat("Course : {0}, ", sitrackFrame.Course);
                 frameReport.AppendFormat("DeviceId : {0}, ", sitrackFrame.DeviceId);
@@ -72,6 +77,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                 frameReport.AppendFormat("Location : {0}, ", sitrackFrame.Location);
                 frameReport.AppendFormat("ReportDate : {0}, ", sitrackFrame.ReportDate);
                 frameReport.AppendFormat("Speed : {0} ", sitrackFrame.Speed);
+                frameReport.AppendFormat("InputDate : {0} ", sitrackFrame.InputDate);
 
                 Logger.InfoFormat("[ {0} ]", frameReport);
                 //sitrackFrame.Validity = position.validity;
