@@ -618,6 +618,58 @@
 			'</input>'
         ].join('')
     };
+})
+
+.directive('ltDdlTipoCicloLogistico', function () {
+
+    function TipoCicloLogisticoController($scope, $filter, EntitiesService) {
+        $scope.dataSource = EntitiesService.distrito.tipoCicloLogistico(onDSLoad, onFail);
+
+        $scope.$watch("dependentOn", onSelected);
+
+        function onDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                try {
+                    if ($scope.defaultValue) {
+                        $scope.model = $filter("filter")(e.response, { Key: $scope.defaultValue }, true)[0];
+                        if ($scope.model) return;
+                    }
+                } catch (ex) {
+                    onFail(ex);
+                }
+
+                $scope.model = e.response[0];
+            }
+        };
+
+        function onSelected(newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.dataSource.read({ distritoId: $scope.dependentOn.Key });
+            }
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel",
+            defaultValue: "=ltDefaultValue",
+            dependentOn: "=ltDependentOn"
+        },
+        controller: ['$scope', '$filter', 'EntitiesService', TipoCicloLogisticoController],
+        template: [
+			'<input class="form-control" kendo-drop-down-list ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
 });
 
 /// ltCbSupervisorVenta

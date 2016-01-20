@@ -182,10 +182,14 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             $scope.newOrder.RouteCode = order.RouteCode;
             $scope.newOrder.Vehicle = order.IdVehicle;
             $scope.newOrder.StartDateTime = order.StartDateTime;
-            $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType;
-            $scope.newOrder.$save({ customerId: $scope.distritoSelected.Key }, function () {
-                $scope.onBuscar();
-            });
+            $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
+            $scope.newOrder.$save(
+                { customerId: $scope.distritoSelected.Key },
+                function () {
+                    $scope.onBuscar();
+                },
+                onFail
+            );
         };
     }
 
