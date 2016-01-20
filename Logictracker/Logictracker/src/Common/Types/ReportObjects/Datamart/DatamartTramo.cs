@@ -1,6 +1,7 @@
 using System;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Types.ReportObjects.Datamart
 {
@@ -14,6 +15,8 @@ namespace Logictracker.Types.ReportObjects.Datamart
 
         #endregion
 
+        public virtual Empresa Empresa { get; set; }
+        public virtual Linea Linea { get; set; }
         public virtual Coche Vehicle { get; set; }
         public virtual DateTime Inicio { get; set; }
         public virtual DateTime Fin { get; set; }

@@ -595,8 +595,11 @@ namespace Logictracker.Process.CicloLogistico
                                           .AddDestinations(new[] { dest });
                     ms.Send();
 
-                    var intService = new IntegrationService(DaoFactory);
-                    intService.ArrivalReport(Distribucion);
+                    if (Distribucion.Vehiculo.Empresa.IntegrationServiceEnabled)
+                    {
+                        var intService = new IntegrationService(DaoFactory);
+                        intService.ArrivalReport(Distribucion);                        
+                    }
                     break;
                 case EntregaDistribucion.Estados.Completado:
                 case EntregaDistribucion.Estados.Cancelado:
@@ -626,6 +629,12 @@ namespace Logictracker.Process.CicloLogistico
                     catch (Exception ex)
                     {
                         STrace.Exception(GetType().FullName, ex);
+                    }
+
+                    if (Distribucion.Vehiculo.Empresa.IntegrationServiceEnabled)
+                    {
+                        var intService = new IntegrationService(DaoFactory);
+                        intService.ArrivalReport(Distribucion);
                     }
                     break;
                 default:

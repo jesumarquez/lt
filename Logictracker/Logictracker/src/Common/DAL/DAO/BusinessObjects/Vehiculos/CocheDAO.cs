@@ -453,6 +453,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
             var includesAllLineas = QueryExtensions.IncludesAll(lineas);
             var includesAllCostCenters = QueryExtensions.IncludesAll(costCenters);
             var includesAllDepartamentos = QueryExtensions.IncludesAll(departamentos);
+            var includesNoneDepartamentos = QueryExtensions.IncludesNone(departamentos);
             var includesAllCostSubCenters = QueryExtensions.IncludesAll(costSubCenters);
             var includesAllTransportistas = QueryExtensions.IncludesAll(transportistas);
             var includesAllTipoEmpleados = QueryExtensions.IncludesAll(tipoEmpleados);
@@ -504,9 +505,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
             if (!includesAllTipoVehiculo)
                 dc.CreateAlias("TipoCoche", "tc").Add(Restrictions.In("tc.Id", tipoVehiculo.ToArray()));
 
-            if (!includesAllDepartamentos)
+            if (includesNoneDepartamentos)
+                dc.Add(Restrictions.IsNull("Departamento"));
+            else if (!includesAllDepartamentos)
                 dc.CreateAlias("Departamento", "dep").Add(Restrictions.In("dep.Id", departamentos.ToArray()));
-
+            
             if (!includesAllCostCenters || !includesAllDepartamentos || (user != null && user.PorCentroCostos))
             {
                 

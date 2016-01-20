@@ -2,6 +2,7 @@
 
 using System;
 using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Culture;
 
 #endregion
 
@@ -16,11 +17,11 @@ namespace Logictracker.Types.ValueObjects.Vehiculos
         public const int IndexInterno = 3;
         public const int IndexPatente = 4;
         public const int IndexResponsable = 5;
-        public const int IndexTransportista = 6;
-        public const int IndexDispositivo = 7;
-        public const int IndexCentroDeCostos = 8;
-        public const int IndexSubCentroDeCostos = 9;
-        public const int IndexDepartamento = 10;
+        public const int IndexDispositivo = 6;
+        public const int IndexTransportista = 7;
+        public const int IndexDepartamento = 8;
+        public const int IndexCentroDeCostos = 9;
+        public const int IndexSubCentroDeCostos = 10;
         public const int IndexReferencia = 11;
         public const int IndexRendimiento = 12;
         public const int IndexCostoKm = 13;
@@ -49,7 +50,7 @@ namespace Logictracker.Types.ValueObjects.Vehiculos
 
         [GridMapping(Index = IndexTransportista, ResourceName = "Entities", VariableName = "PARENTI07")]
         public string Transportista { get; set; }
-
+        
         [GridMapping(Index = IndexDispositivo, ResourceName = "Entities", VariableName = "PARENTI08", AllowGroup = false, IncludeInSearch = true)]
         public string Dispositivo { get; set; }
 
@@ -59,7 +60,7 @@ namespace Logictracker.Types.ValueObjects.Vehiculos
         [GridMapping(Index = IndexSubCentroDeCostos, ResourceName = "Entities", VariableName = "PARENTI99",Visible=false)]
         public string SubCentroDeCostos { get; set; }
 
-        [GridMapping(Index = IndexDepartamento, ResourceName = "Entities", VariableName = "PARENTI04",Visible=false)]
+        [GridMapping(Index = IndexDepartamento, ResourceName = "Entities", VariableName = "PARENTI04")]
         public string Departamento { get; set; }
 
         [GridMapping(Index = IndexReferencia, ResourceName = "Labels", VariableName = "REFFERENCE", IncludeInSearch = true)]
@@ -86,7 +87,7 @@ namespace Logictracker.Types.ValueObjects.Vehiculos
             Patente = coche.Patente;
             CentroDeCostos = coche.CentroDeCostos != null ? coche.CentroDeCostos.Descripcion : string.Empty;
             SubCentroDeCostos = coche.SubCentroDeCostos != null ? coche.SubCentroDeCostos.Descripcion : string.Empty;
-            Departamento = coche.Departamento != null ? coche.Departamento.Descripcion : string.Empty;
+            Departamento = coche.Departamento != null ? coche.Departamento.Descripcion : CultureManager.GetLabel("NINGUNO");
             Responsable = coche.Chofer != null ? coche.Chofer.Entidad.Descripcion : string.Empty;
             Referencia = coche.Referencia;
             Rendimiento = coche.CocheOperacion != null && coche.CocheOperacion.Rendimiento > 0.0
