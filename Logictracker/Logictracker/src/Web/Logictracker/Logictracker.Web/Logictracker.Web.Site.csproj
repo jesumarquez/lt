@@ -2680,6 +2680,7 @@
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\api\EmpleadoController.cs" />
+    <Compile Include="Controllers\api\Models\CocheModel.cs" />
     <Compile Include="Controllers\api\PuntoEntregaController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
@@ -2689,6 +2690,7 @@
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
     <Compile Include="Controllers\api\TipoCicloLogisticoController.cs" />
     <Compile Include="Controllers\api\UserDataController.cs" />
+    <Compile Include="Controllers\api\CocheController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
