@@ -508,6 +508,12 @@ namespace Logictracker.Messaging
                 || msg.Codigo == MessageCode.PrivacyOff.GetMessageCode();
         }
 
+        public static bool IsPanicEvent(string code)
+        {
+            return code == MessageCode.PanicButtonOn.GetMessageCode()
+                || code == MessageCode.SirenOn.GetMessageCode();
+        }
+
 		#endregion
     }
 }

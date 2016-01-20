@@ -135,7 +135,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         public IEnumerable<Coche> FindAllAssigned()
         {
             var dc = GetDetachedCriteria(true);
-            dc.Add(Restrictions.Lt("Estado", Coche.Estados.Inactivo));
+            dc.Add(Restrictions.Not(Restrictions.Eq("Estado", Coche.Estados.Inactivo)));
             var c = GetCriteria(dc, null);
             return c.List<Coche>();
         }

@@ -169,7 +169,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Rechazos
 
             TicketPorHoraModel item = null;
 
-            for (int hour = 0; hour < 24; hour++)
+            var hourNow = DateTime.UtcNow.Hour;
+
+            for (int hour = 0; hour <= hourNow; hour++)
             {
                 // Obtengo un subQuery con la lista de id de movimientos para una hora agrupados por idTicket
                 var subQ = Session

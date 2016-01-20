@@ -100,6 +100,10 @@
       <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
       <Name>Logictracker.Types</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-fd4b-460a-931b-6a3b4d4eef5c}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\AVL\Logictracker.AVL.csproj">
       <Project>{0fd2623e-2379-410d-81e3-c8749bc014de}</Project>
       <Name>Logictracker.AVL</Name>
@@ -123,6 +127,10 @@
     <ProjectReference Include="..\..\Messaging\Logictracker.Messages.Sender\Logictracker.Messages.Sender.csproj">
       <Project>{CC8A4E06-EC41-4705-AA17-0649564F05BA}</Project>
       <Name>Logictracker.Messages.Sender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Logictracker.Model.csproj">
+      <Project>{9f45020b-8b93-4962-89b6-4591c385e68d}</Project>
+      <Name>Logictracker.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
