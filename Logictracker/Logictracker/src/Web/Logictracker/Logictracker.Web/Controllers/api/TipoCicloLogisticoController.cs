@@ -16,7 +16,11 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/distrito/{distritoId}/tipociclologistico/items")]
         public IEnumerable<ItemModel> GetComboItem(int distritoId)
         {
-            return EntityDao.GetByEmpresa(distritoId).Select(t => Mapper.ToItem(t)).ToList();
+            var list = ItemModel.None.ToList();
+
+            list.AddRange(EntityDao.GetByEmpresa(distritoId).Select(t => Mapper.ToItem(t)));
+
+            return list;
         }
     }
 }

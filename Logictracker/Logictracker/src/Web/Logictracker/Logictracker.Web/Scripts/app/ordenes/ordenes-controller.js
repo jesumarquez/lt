@@ -177,14 +177,13 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.programOrders = function (order) {
-            $scope.newOrder = new OrdenesService.list();
+            $scope.newOrder = new OrdenesService.ordenes();
             $scope.newOrder.OrderList = $scope.Orders.data();
-            $scope.newOrder.RouteCode = order.RouteCode;
             $scope.newOrder.IdVehicle = order.Vehicle.Key;
             $scope.newOrder.StartDateTime = order.StartDateTime;
             $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
             $scope.newOrder.$save(
-                { customerId: $scope.distritoSelected.Key },
+                { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key},
                 function () {
                     $scope.onBuscar();
                 },
