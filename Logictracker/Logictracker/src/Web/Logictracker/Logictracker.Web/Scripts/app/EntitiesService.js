@@ -438,29 +438,32 @@ function EntitiesService($resource, $http) {
                     }             
                 }
             },
-            requestStart: mappingGroupFields,
-            requestEnd: mappingGroupFields,
+            //requestStart: mappingGroupFields,
+            //requestEnd: mappingGroupFields,
             schema: {
                 total: "Total",
                 data: "Data",
                 errors: "Errors",
                 parse: function (data) {
                     $.each(data.Data, function (i, val) {
-                        $.each(val.Items, function (i, item) {
-                            item.FechaHora = kendo.parseDate(item.FechaHora);
-                            item.FechaHoraEstado = kendo.parseDate(item.FechaHoraEstado);
-                        });
-                        reverseMappingGroupFields(val);
+                        val.FechaHora = kendo.parseDate(val.FechaHora);
+                        val.FechaHoraEstado = kendo.parseDate(val.FechaHoraEstado);
+                    //$.each(data.Data, function (i, val) {
+                    //    $.each(val.Items, function (i, item) {
+                    //        item.FechaHora = kendo.parseDate(item.FechaHora);
+                    //        item.FechaHoraEstado = kendo.parseDate(item.FechaHoraEstado);
+                    //    });
+                        //reverseMappingGroupFields(val);
                     });
                     return data;
                 },
                },
             pageSize: 25,
             filter: filters,
-            serverGrouping: true,
+            serverGrouping: false,
             serverFiltering: true,
             serverSorting: false,
-            serverPaging: true,
+            serverPaging: false,
             group: {
                 field: "Estado",
                 dir: "asc"
