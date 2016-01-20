@@ -130,7 +130,7 @@ namespace Logictracker.Tracker.Application.Services
                 viaje.Tipo = ViajeDistribucion.Tipos.Desordenado;
                 viaje.Linea = order.Linea;
                 //viaje.CentroDeCostos = DaoFactory.CentroDeCostosDAO.FindById();
-                viaje.Vehiculo = null;//DaoFactory.CocheDAO.FindById(idVehicle);
+                viaje.Vehiculo = DaoFactory.CocheDAO.FindById(idVehicle);
                 viaje.TipoCicloLogistico = DaoFactory.TipoCicloLogisticoDAO.FindById(cycleType);
                 viaje.Empleado = null;//DaoFactory.EmpleadoDAO.FindById(idEmpleado);
                 viaje.Codigo = routeCode;

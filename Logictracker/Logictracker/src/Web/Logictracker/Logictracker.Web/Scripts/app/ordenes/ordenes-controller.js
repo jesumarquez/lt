@@ -180,7 +180,7 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             $scope.newOrder = new OrdenesService.list();
             $scope.newOrder.OrderList = $scope.Orders.data();
             $scope.newOrder.RouteCode = order.RouteCode;
-            $scope.newOrder.Vehicle = order.IdVehicle;
+            $scope.newOrder.IdVehicle = order.Vehicle.Key;
             $scope.newOrder.StartDateTime = order.StartDateTime;
             $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
             $scope.newOrder.$save(
