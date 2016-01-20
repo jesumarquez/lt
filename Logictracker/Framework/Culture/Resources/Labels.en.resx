@@ -4576,4 +4576,25 @@
   <data name="RESPONSABLE_CUENTA" xml:space="preserve">
     <value>Account Manager</value>
   </data>
+  <data name="EXCESO_VELOCIDAD" xml:space="preserve">
+    <value>Speeding</value>
+  </data>
+  <data name="EXCESO_RPM" xml:space="preserve">
+    <value>RPM limit exceeded</value>
+  </data>
+  <data name="FRENADA_BRUSCA" xml:space="preserve">
+    <value>Hard braking</value>
+  </data>
+  <data name="ACELERACION_BRUSCA" xml:space="preserve">
+    <value>Hard acceleration</value>
+  </data>
+  <data name="BATERIA_DESCONECTADA" xml:space="preserve">
+    <value>Battery disconnection</value>
+  </data>
+  <data name="PANICO" xml:space="preserve">
+    <value>Panic</value>
+  </data>
+  <data name="TIPO_INFRACCION" xml:space="preserve">
+    <value>Infraction type</value>
+  </data>
 </root>

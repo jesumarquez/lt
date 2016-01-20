@@ -92,6 +92,8 @@ namespace Logictracker.Types.ReportObjects.RankingDeOperadores
         /// </summary>
         public int DuracionSegundos { get; set; }
 
+        public string TipoInfraccion { get; set; }
+
         #endregion
     }
 }

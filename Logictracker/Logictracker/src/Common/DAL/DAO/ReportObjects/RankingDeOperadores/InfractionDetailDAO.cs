@@ -10,6 +10,7 @@ using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.ReportObjects.RankingDeOperadores;
 using NHibernate.Linq;
+using Logictracker.Culture;
 
 namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
 {
@@ -72,7 +73,8 @@ namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
                                            Exceso = (int)(infraction.Alcanzado - infraction.Permitido),
                                            Inicio = infraction.Fecha.ToDisplayDateTime(),
                                            Pico = (int)infraction.Alcanzado,
-                                           DuracionSegundos = (int)(infraction.FechaFin.HasValue ? ((DateTime)infraction.FechaFin).Subtract(infraction.Fecha).TotalSeconds : 0)
+                                           DuracionSegundos = (int)(infraction.FechaFin.HasValue ? ((DateTime)infraction.FechaFin).Subtract(infraction.Fecha).TotalSeconds : 0),
+                                           TipoInfraccion = CultureManager.GetLabel(Infraccion.Codigos.GetLabelVariableName(infraction.CodigoInfraccion))
                                        });
         }
 
