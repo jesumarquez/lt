@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Web.Http;
 using Logictracker.Tracker.Application.Services;
@@ -6,6 +7,8 @@ using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Web.Models;
+using Logictracker.DAL.Factories;
+using Logictracker.Culture;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -78,10 +81,16 @@ namespace Logictracker.Web.Controllers.api
         }
 
         // POST: api/Orders/91/Orders
-        [Route("api/distrito/{distritoId}/ordenes")]
+        [Route("api/distrito/{distritoId}/base/{baseId}/ordenes")]
         [HttpPost]
-        public IHttpActionResult Post(int customerId, [FromBody] OrderSelectionModel orderSelectionModel)
+        public IHttpActionResult Post(int distritoId, int baseId, [FromBody] OrderSelectionModel orderSelectionModel)
         {
+            var routeCode = BuildRouteCode(orderSelectionModel.StartDateTime, 
+                orderSelectionModel.IdVehicle, 
+                orderSelectionModel.LogisticsCycleType, 
+                distritoId,
+                baseId);
+                
             foreach (var orderModel in orderSelectionModel.OrderList)
             {
                 if (!orderModel.Selected) continue;
@@ -101,11 +110,39 @@ namespace Logictracker.Web.Controllers.api
                 order.PuntoEntrega = new PuntoEntrega { Id = orderModel.IdPuntoEntrega};
                 order.Transportista = new Transportista {Id = orderModel.IdTransportista};
                     
-                RoutingService.Programming(order,orderSelectionModel.RouteCode,orderSelectionModel.IdVehicle,
+                RoutingService.Programming(order,routeCode,orderSelectionModel.IdVehicle,
                     orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType);
             }
             
             return Ok();
+        }
+
+        private string BuildRouteCode(DateTime date, int vehicleId, int logisticCycleTypeId, int distritoId, int baseId)
+        {
+            var daoF = new DAOFactory();
+
+            var patente = vehicleId >= 0
+                ? daoF.CocheDAO.FindById(vehicleId).Patente
+                : CultureManager.GetControl("DDL_NONE");
+
+            var tipoCiclo = logisticCycleTypeId >= 0
+                ? daoF.TipoCicloLogisticoDAO.FindById(logisticCycleTypeId).Codigo
+                : CultureManager.GetControl("DDL_NONE");
+
+            //YYYYMMDD_DOMINIO_TIPO_CICLO_{N} 
+            var routeCode = string.Format("{0}_{1}_{2}",
+                    date.ToString("yyyyMMdd"),
+                    patente,
+                    tipoCiclo);
+
+            var cantViajes = daoF.ViajeDistribucionDAO.FindByCodeLike(distritoId, baseId, routeCode).Count();
+
+            if(cantViajes > 0)
+            {
+                routeCode += "_" + cantViajes;
+            }
+            
+            return routeCode;
         }
 
         // PUT: api/Orders/5
