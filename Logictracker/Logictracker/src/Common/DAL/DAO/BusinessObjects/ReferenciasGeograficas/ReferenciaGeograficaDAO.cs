@@ -480,8 +480,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
             if (empresasLineas.Count > 0)
             {
                 foreach (var k in empresasLineas.Keys)
+                {
                     foreach (var v in empresasLineas[k])
+                    {
                         ResetLastModQtree(k, v);
+                        STrace.Error("ResetQtree", "qtree RESET ---> Empresa: " + k + " - Linea: " + v);
+                    }
+                }
             }           
         }
 

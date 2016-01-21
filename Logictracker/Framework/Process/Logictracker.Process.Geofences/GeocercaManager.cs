@@ -78,6 +78,7 @@ namespace Logictracker.Process.Geofences
                         var faltantes = idsEntregas.Where(id => !idGeocercas.Contains(id));
                         if (faltantes.Any())
                         {
+                            if (vehiculo.Empresa.Id == 92) STrace.Error("ResetQtree", string.Format("Actual: {0} - Faltantes: {1}", geocercas.Count, faltantes.Count()));
                             foreach (var idGeocerca in faltantes)
                             {
                                 try
@@ -87,6 +88,7 @@ namespace Logictracker.Process.Geofences
                                 }
                                 catch { }
                             }
+                            if (vehiculo.Empresa.Id == 92) STrace.Error("ResetQtree", "Total: " + geocercas.Count);
                         }
 
                         geocercas = geocercas.Where(g => idGeocercas.Contains(g.Id)).ToList();
@@ -351,7 +353,7 @@ namespace Logictracker.Process.Geofences
             {
                 try
                 {
-                    STrace.Trace("DispatcherLock", string.Format("qtree UPDATE ---> {0} | {1}", empresa, linea));
+                    STrace.Error("ResetQtree", string.Format("qtree UPDATE ---> Empresa: {0} - Linea: {1}", empresa, linea));
                
                     using (var transaction = SmartTransaction.BeginTransaction())
                     {
@@ -371,7 +373,6 @@ namespace Logictracker.Process.Geofences
                         if (keyToRemove != string.Empty) Qtrees.Remove(keyToRemove);
                         Qtrees.Add(key, root);
                     }
-
 
                     STrace.Trace("DispatcherLock", string.Format("qtree NEW ---> {0} | {1}", empresa, linea));
                 }
