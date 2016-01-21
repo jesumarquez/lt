@@ -2687,6 +2687,7 @@
     <Compile Include="Controllers\api\ClienteController.cs" />
     <Compile Include="Controllers\api\DistribucionController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
+    <Compile Include="Controllers\api\TipoCicloLogisticoController.cs" />
     <Compile Include="Controllers\api\UserDataController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
@@ -3017,6 +3018,7 @@
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\SelectionOrderModel.cs" />
+    <Compile Include="Models\TipoCicloLogisticoModel.cs" />
     <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.cs">
       <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
