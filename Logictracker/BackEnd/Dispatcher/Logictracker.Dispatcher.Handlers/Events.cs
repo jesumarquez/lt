@@ -22,6 +22,7 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ValueObject.Messages;
 using Logictracker.Utils;
+using System.Collections.Generic;
 
 namespace Logictracker.Dispatcher.Handlers
 {
@@ -93,6 +94,13 @@ namespace Logictracker.Dispatcher.Handlers
 		{
 			string applicationCode;
 		    var esConfirmacionUbox = false;
+
+            //if (Coche.Empresa.TranslateMessage)
+            //{
+            //    short newCode = DaoFactory.MensajeDAO.GetTranslation;
+            //    code = newCode.ToString();
+            //    generico = new Event(newCode, newCode, generico.DeviceId, generico.UniqueIdentifier, generico.GeoPoint, generico.Tiempo, generico.UserIdentifier, null, false);
+            //}
 
             ControlarInicioDistribucionPorMensaje(code, generico);
 

@@ -84,11 +84,9 @@
                                 <div class="form-group">
                                     <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" ng-model="order.LogisticsCycleType" id="tipoCiclo" name="tipoCiclo">
-                                                <option value="0" />Seleccione
-                                                <option value="2" />Larga Distancia
-                                                <option value="1" selected="selected" />Urbana
-                                        </select>
+                                        <lt-ddl-tipo-ciclo-logistico 
+                                                lt-ng-model="order.LogisticsCycleType" 
+                                                lt-dependent-on="distritoSelected"  />
                                     </div>
                                 </div>
                             </form>
