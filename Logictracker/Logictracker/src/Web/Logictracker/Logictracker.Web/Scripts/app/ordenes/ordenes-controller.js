@@ -4,6 +4,18 @@
 
 function OrdenesController($scope, EntitiesService, OrdenesService) {
     //$scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
+    $scope.UserData = EntitiesService.resources.userData.get();
+    $scope.UserData.$promise.then(function () {
+        if ($scope.UserData.EmpleadoId === 0) {
+
+            onFail({ errorThrown: "Usuario sin empleado asociado" });
+        }
+    });
+
+    $scope.order = {
+        StartDateTime: new Date()
+    };
+    $scope.order.StartDateTime.setDate($scope.order.StartDateTime.getDate() + 1);
 
     $scope.ordenesGridOptions = {
         sortable: true,
@@ -45,8 +57,6 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
 
-    $scope.distritoDS = EntitiesService.distrito.items(onDistritoDSLoad, onFail);
-
     $scope.desde = new Date();
     $scope.hasta = new Date();
 
@@ -56,36 +66,21 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
     $scope.motivoSelected = {};
     $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; },onFail);
 
-    $scope.baseDS = EntitiesService.distrito.bases(onBaseDSLoad, onFail);
-
     $scope.departamentoDS = EntitiesService.distrito.departamento(onDepartamentoDSLoad, onFail);
 
     $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad,onFail);
     
     $scope.transportistaDS = EntitiesService.distrito.transportista.models(ontransportistaDSLoad,onFail);
 
-    $scope.$watch("distritoSelected", onDistritoSelected);
-
-    $scope.$watch("basesDS", onBasesDSChange);
-
     $scope.$watch("baseSelected", onBaseSelected);
 
     $scope.$watchGroup(["departamentoSelected", "baseSelected"],onDepartamentoAndBaseChange);
 
-    function onDistritoDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.distritoSelected = e.response[0];
-        }
-    };
-
-    function onBaseDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.baseSelected = e.response[0];
-        }
-    }
-
     function onFail(error) {
-        $scope.notify.show(error.errorThrown, "error");
+        if(error.errorThrown)
+            $scope.notify.show(error.errorThrown, "error");
+        else
+            $scope.notify.show(error.statusText, "error");
     };
 
     function onDistritoSelected(newValue, oldValue) {
@@ -121,15 +116,11 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
 
     function onBaseSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
-            $scope.departamentoDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key
-            });
 
-            $scope.transportistaDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key
-            });
+            $scope.UserData.DistritoSelected = $scope.distritoSelected.Key;
+            $scope.UserData.BaseSelected = $scope.baseSelected.Key;
+
+            $scope.UserData.$save();
         }
     };
 
@@ -142,10 +133,10 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             });
     }
 
-    $scope.onNuevo = function () {
-        $scope.operacion = "A";
-        $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
-    };
+    //$scope.onNuevo = function () {
+    //    $scope.operacion = "A";
+    //    $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
+    //};
 
         $scope.onerror = function (error) {
             $scope.notify.show(error.statusText, "error");
@@ -158,21 +149,6 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.onBuscar = function () {
-            //$scope.mydata = "Cargando...";
-
-            //var transportista = {};
-            //if ($scope.transportistaSelected.length > 0)
-            //    transportista = $scope.transportistaSelected[0].Key;
-            //else
-            //    transportista = -1;
-            //alert(transportista);
-            //$scope.OrderList = OrdenesService.list.query({
-            //        distritoId: $scope.distritoSelected.Key,
-            //        baseId: $scope.baseSelected.Key
-            //    }, function (s, o) {
-            //    $scope.mydata = $scope.OrderList.length + " registros";
-            //});
-
             $scope.Orders = OrdenesService.items({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onerror);
         };
 
