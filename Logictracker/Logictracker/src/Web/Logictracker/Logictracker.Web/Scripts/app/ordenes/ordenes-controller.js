@@ -5,6 +5,11 @@
 function OrdenesController($scope, EntitiesService, OrdenesService) {
     //$scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
 
+    $scope.order = {
+        StartDateTime: new Date()
+    };
+    $scope.order.StartDateTime.setDate($scope.order.StartDateTime.getDate() + 1);
+
     $scope.ordenesGridOptions = {
         sortable: true,
         groupable: true,
@@ -142,10 +147,10 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             });
     }
 
-    $scope.onNuevo = function () {
-        $scope.operacion = "A";
-        $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
-    };
+    //$scope.onNuevo = function () {
+    //    $scope.operacion = "A";
+    //    $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
+    //};
 
         $scope.onerror = function (error) {
             $scope.notify.show(error.statusText, "error");
@@ -158,21 +163,6 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.onBuscar = function () {
-            //$scope.mydata = "Cargando...";
-
-            //var transportista = {};
-            //if ($scope.transportistaSelected.length > 0)
-            //    transportista = $scope.transportistaSelected[0].Key;
-            //else
-            //    transportista = -1;
-            //alert(transportista);
-            //$scope.OrderList = OrdenesService.list.query({
-            //        distritoId: $scope.distritoSelected.Key,
-            //        baseId: $scope.baseSelected.Key
-            //    }, function (s, o) {
-            //    $scope.mydata = $scope.OrderList.length + " registros";
-            //});
-
             $scope.Orders = OrdenesService.items({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onerror);
         };
 
