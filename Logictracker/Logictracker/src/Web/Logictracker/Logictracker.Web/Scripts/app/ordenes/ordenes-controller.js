@@ -77,7 +77,10 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
     $scope.$watchGroup(["departamentoSelected", "baseSelected"],onDepartamentoAndBaseChange);
 
     function onFail(error) {
-        $scope.notify.show(error.errorThrown, "error");
+        if(error.errorThrown)
+            $scope.notify.show(error.errorThrown, "error");
+        else
+            $scope.notify.show(error.statusText, "error");
     };
 
     function onDistritoSelected(newValue, oldValue) {
