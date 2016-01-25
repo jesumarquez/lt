@@ -188,6 +188,9 @@ namespace Logictracker.DAL.Factories
         private MensajeIgnoradoDAO _mensajeIgnoradoDAO;
         public MensajeIgnoradoDAO MensajeIgnoradoDAO { get { return _mensajeIgnoradoDAO ?? (_mensajeIgnoradoDAO = GetDao<MensajeIgnoradoDAO>()); } }
 
+        private MensajeTraducidoDAO _mensajeTraducidoDAO;
+        public MensajeTraducidoDAO MensajeTraducidoDAO { get { return _mensajeTraducidoDAO ?? (_mensajeTraducidoDAO = GetDao<MensajeTraducidoDAO>()); } }
+
         #endregion
 
         #region Ordenes
