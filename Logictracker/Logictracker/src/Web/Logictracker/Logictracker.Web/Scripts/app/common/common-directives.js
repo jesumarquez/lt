@@ -670,6 +670,48 @@
 			'</input>'
         ].join('')
     };
+})
+.directive('ltDdlCoche', function () {
+
+    function CocheController($scope, $filter, EntitiesService) {
+        $scope.dataSource = EntitiesService.distrito.coche(onDSLoad, onFail);
+
+        $scope.$watch("dependsOn", onSelected);
+
+        function onDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.model = e.response[0];
+            }
+        };
+
+        function onSelected(newValue, oldValue) {
+            if (newValue != null && newValue !== oldValue) {
+                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });
+            }
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        }
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            model: "=ltNgModel",
+            dependsOn: "=ltDependsOnBase",
+            distrito: "=ltDataDistrito"
+        },
+        controller: ['$scope', '$filter', 'EntitiesService', CocheController],
+        template: [
+			'<input class="form-control" kendo-drop-down-list ',
+				'k-data-text-field="\'Value\'" ',
+		        'k-data-value-field="\'Key\'" ',
+		        'k-data-source="dataSource" ',
+		        'k-ng-model="model" ',
+			'</input>'
+        ].join('')
+    };
 });
 
 /// ltCbSupervisorVenta
