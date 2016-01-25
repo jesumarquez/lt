@@ -22,6 +22,7 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ValueObject.Messages;
 using Logictracker.Utils;
+using System.Collections.Generic;
 
 namespace Logictracker.Dispatcher.Handlers
 {

@@ -35,7 +35,7 @@ namespace Logictracker.Parametrizacion
                                                cbLinea.SelectedValues, 
                                                ddlTipoVehiculo.SelectedValues, 
                                                ddlTransportista.SelectedValues, 
-                                               new[] {-1}, // DEPARTAMENTOS
+                                               cbDepartamento.SelectedValues,
                                                ddlCentroCostos.SelectedValues)
                             .Where(c => !ocultarConDispo || c.Dispositivo == null)
                             .Where(c => !ocultarSinDispo || c.Dispositivo != null)

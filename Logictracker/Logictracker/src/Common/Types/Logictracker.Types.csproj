@@ -81,6 +81,7 @@
     <Compile Include="BusinessObjects\Mantenimiento\HistoriaTicketMantenimiento.cs" />
     <Compile Include="BusinessObjects\Mantenimiento\TicketMantenimiento.cs" />
     <Compile Include="BusinessObjects\Messages\AtencionEvento.cs" />
+    <Compile Include="BusinessObjects\Messages\MensajeTraducido.cs" />
     <Compile Include="BusinessObjects\Messages\MensajeIgnorado.cs" />
     <Compile Include="BusinessObjects\Messages\LogMensajeAdmin.cs" />
     <Compile Include="BusinessObjects\Messages\LastVehicleEvent.cs" />

@@ -178,8 +178,8 @@ namespace HandlerTest.Controls
         {
             var dao = DAOFactory.GetDao<LogPosicionDAO>();
 
-            var posiciones = dao.GetPositionsBetweenDates(10289, new DateTime(2015, 12, 04, 3, 0, 0), new DateTime(2015, 12, 04, 21, 0, 0));
-            var dispo = DAOFactory.GetDao<DispositivoDAO>().FindById(4753);
+            var posiciones = dao.GetPositionsBetweenDates(10288, new DateTime(2016, 01, 19, 15, 25, 0), new DateTime(2016, 01, 19, 15, 36, 0));
+            var dispo = DAOFactory.GetDao<DispositivoDAO>().FindById(6314);
 
             foreach (var aux in posiciones)
             {

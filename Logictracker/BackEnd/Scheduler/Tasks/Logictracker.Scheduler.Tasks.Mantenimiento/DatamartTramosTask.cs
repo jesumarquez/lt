@@ -242,6 +242,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private DatamartTramo CalcularTramo(Coche vehiculo, DateTime fechaInicio, DateTime fechaFin, bool motorOn, IEnumerable<LogMensaje> entradas, IEnumerable<LogMensaje> detenciones, IEnumerable<Linea> bases, IEnumerable<EntregaDistribucion> entregas)
         {
             var datamartTramo = new DatamartTramo();
+            datamartTramo.Empresa = vehiculo.Empresa;
+            datamartTramo.Linea = vehiculo.Linea;
             datamartTramo.Vehicle = vehiculo;
             datamartTramo.Inicio = fechaInicio;
             datamartTramo.Fin = fechaFin;

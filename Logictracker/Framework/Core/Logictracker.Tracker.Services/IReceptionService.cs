@@ -10,5 +10,7 @@ namespace Logictracker.Tracker.Services
     public interface IReceptionService
     {
         void ParseSitrackPositions(List<SitrackFrame> positions);
+        
+        void ParseSitrackPositions(List<SitrackFrame> positions, String path);
     }
 }

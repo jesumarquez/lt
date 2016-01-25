@@ -388,7 +388,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
                     if (direcciones.ContainsKey(geo.DireccionId.Value))
                         direccion = direcciones[geo.DireccionId.Value];
                     else
-                        STrace.Debug("DispatcherLock", string.Format("ERROR DIRECCION NO ENCONTRADA EN CACHE !!! {0} ({1},{2}) ", geo.DireccionId.Value, empresaId, lineaId));
+                        STrace.Error("DispatcherLock", string.Format("ERROR DIRECCION NO ENCONTRADA EN CACHE !!! {0} ({1},{2}) ", geo.DireccionId.Value, empresaId, lineaId));
                 }
 
                 Poligono poligono = null;
@@ -397,7 +397,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
                     if (poligonos.ContainsKey(geo.PoligonoId.Value))
                         poligono = poligonos[geo.PoligonoId.Value];
                     else
-                        STrace.Debug("DispatcherLock", string.Format("ERROR POLIGONO NO ENCONTRADO EN CACHE !!! {0} ({1},{2}) ", geo.PoligonoId.Value, empresaId, lineaId));
+                        STrace.Error("DispatcherLock", string.Format("ERROR POLIGONO NO ENCONTRADO EN CACHE !!! {0} ({1},{2}) ", geo.PoligonoId.Value, empresaId, lineaId));
                 }
                 
                 if (direccion != null || poligono != null)
@@ -480,8 +480,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
             if (empresasLineas.Count > 0)
             {
                 foreach (var k in empresasLineas.Keys)
+                {
                     foreach (var v in empresasLineas[k])
+                    {
                         ResetLastModQtree(k, v);
+                        STrace.Error("ResetQtree", "qtree RESET ---> Empresa: " + k + " - Linea: " + v);
+                    }
+                }
             }           
         }
 

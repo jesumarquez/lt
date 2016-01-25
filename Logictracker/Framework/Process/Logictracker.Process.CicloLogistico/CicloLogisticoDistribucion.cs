@@ -185,8 +185,11 @@ namespace Logictracker.Process.CicloLogistico
             SaveMessage(MessageCode.CicloLogisticoCerrado.GetMessageCode(), data.Date, Distribucion, null);
             ClearGeocercasCache();
 
-            var iService = new IntegrationService(DaoFactory);
-            iService.FinishReport(Distribucion);
+            if (Distribucion.Vehiculo.Empresa.IntegrationServiceEnabled)
+            {
+                var iService = new IntegrationService(DaoFactory);
+                iService.FinishReport(Distribucion);
+            }
 
             if (Distribucion.Empresa.InicioDistribucionSiguienteAlCerrar)
             {

@@ -162,8 +162,32 @@ namespace LogicTracker.App.Web.Api.Controllers
                                                 rechazo.UltimoEstado == TicketRechazo.Estado.Notificado2 ||
                                                 rechazo.UltimoEstado == TicketRechazo.Estado.Notificado3)
                                             {
-                                                rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Alertado, "Confirma atención", employee);
-                                                DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+                                                IMessageSaver saver = new MessageSaver(DaoFactory);
+                                                var messagetEXT = MessageSender.CreateSubmitTextMessage(device, saver);
+                                                string usuario = "";
+                                                try
+                                                {
+                                                    rechazo.ChangeEstado(Logictracker.Types.BusinessObjects.Rechazos.TicketRechazo.Estado.Alertado, "Confirma atención", employee);
+                                                    DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+
+                                                    //El usuario tomo existosamente el rechazo                                                    
+                                                    foreach (var item in rechazo.Detalle)
+                                                    {
+                                                        if (item.Estado == TicketRechazo.Estado.Alertado)
+                                                        {
+                                                            usuario = item.Empleado.Entidad.Descripcion;
+                                                            break;
+                                                        }
+                                                    }
+                                                    messagetEXT.AddMessageText("INFORME DE RECHAZO NRO " + idRechazo + " SE CONFIRMA LA ASISTENCIA PARA: " + usuario);
+                                                    messagetEXT.Send();
+                                                }
+                                                catch (Exception ex)
+                                                {                                                    
+                                                    messagetEXT.AddMessageText("INFORME DE RECHAZO NRO " + idRechazo + " HA OCURRIDO UN ERROR, POR FAVOR INTENTE NUEVAMENTE ASISTIR EL RECHAZO");
+                                                    messagetEXT.Send();
+                                                    throw ex;
+                                                }                                                
                                             }
                                             else
                                             {
