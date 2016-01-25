@@ -76,7 +76,7 @@ namespace Logictracker.Tracker.Application.Services
             var vehiculos = new int[] { }; //vehicle.Id 
             var empleados = new int[] {  };
             //var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, new int[] { }, null, null);
-            var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados).Where(x => x.Vehiculo != null && x.Vehiculo.Dispositivo != null);
+            var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados).Where(x => x.Vehiculo != null && x.Vehiculo.Dispositivo != null && x.Recepcion == null);
 
             return routes.Where(viajeDistribucion => viajeDistribucion.Inicio.Date.Equals(DateTime.Now.Date)).ToList();
         }
