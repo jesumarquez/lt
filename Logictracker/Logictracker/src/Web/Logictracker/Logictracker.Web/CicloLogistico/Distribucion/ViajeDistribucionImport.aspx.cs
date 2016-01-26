@@ -2490,7 +2490,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 Vigencia =
                                     new Vigencia
                                     {
-                                        Inicio = DateTime.UtcNow,
+                                        Inicio = DateTime.UtcNow.AddHours(-3),
                                         Fin = fecha.AddHours(vigencia).ToDataBaseDateTime()
                                     },
                                 Icono = cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
@@ -2514,19 +2514,19 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 Pais = string.Empty,
                                 Calle = string.Empty,
                                 Descripcion = direccion != string.Empty ? direccion : string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
-                                Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+                                Vigencia = new Vigencia { Inicio = DateTime.UtcNow.AddHours(-3) }
                             };
 
                             #endregion
 
                             #region var poligono = new Poligono()
 
-                            var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                            var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow.AddHours(-3) } };
                             poligono.AddPoints(new[] { new PointF((float)longitud, (float)latitud) });
 
                             #endregion
 
-                            puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
+                            puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow.AddHours(-3));
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
                             

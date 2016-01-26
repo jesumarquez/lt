@@ -95,13 +95,6 @@ namespace Logictracker.Dispatcher.Handlers
 			string applicationCode;
 		    var esConfirmacionUbox = false;
 
-            //if (Coche.Empresa.TranslateMessage)
-            //{
-            //    short newCode = DaoFactory.MensajeDAO.GetTranslation;
-            //    code = newCode.ToString();
-            //    generico = new Event(newCode, newCode, generico.DeviceId, generico.UniqueIdentifier, generico.GeoPoint, generico.Tiempo, generico.UserIdentifier, null, false);
-            //}
-
             ControlarInicioDistribucionPorMensaje(code, generico);
 
             ControlarCierreDistribucionPorMensaje(code, generico);

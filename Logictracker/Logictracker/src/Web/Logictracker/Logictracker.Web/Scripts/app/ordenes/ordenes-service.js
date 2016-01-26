@@ -5,11 +5,7 @@
 function OrdenesService($resource) {
     var _service = {
         items: getItems,
-        list: $resource("/api/distrito/:distritoId/base/:baseId/ordenes/:id",
-            { distritoId: "@distritoId", baseId: "@baseId", id: "@id" },
-            {
-                query: { method: 'GET', isArray: true }
-            })
+        ordenes: $resource("/api/distrito/:distritoId/base/:baseId/ordenes", { distritoId: "@distritoId", baseId: "@baseId" })
     }
     
     function getItems(data_, onEnd, onFail) {
