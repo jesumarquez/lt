@@ -712,7 +712,7 @@ namespace Logictracker.Operacion
                     if (distribucion != null)
                     {
                         coche = distribucion.Vehiculo;
-                        var georefs = distribucion.Detalles.Select(d => d.ReferenciaGeografica);
+                        var georefs = distribucion.Detalles.Select(d => d.ReferenciaGeografica).ToList();
                         foreach (var georef in georefs)
                         {
                             AddReferenciaGeografica(LayerPoi, LayerAreasPoi, georef, GetPoiPopupContent(georef));
