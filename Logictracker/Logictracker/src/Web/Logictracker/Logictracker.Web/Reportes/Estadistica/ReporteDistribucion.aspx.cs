@@ -86,8 +86,73 @@ namespace Logictracker.Reportes.Estadistica
             var desde = dpDesde.SelectedDate.Value.ToDataBaseDateTime();
             var hasta = dpHasta.SelectedDate.Value.ToDataBaseDateTime();
 
-            var results = reportService.DeliverStatusRepor(empresa, linea, selectedVehicles, puntoEntrega,
-                estadosEntrega, transportista, desde, hasta, ruta, confirmation, orden);
+            var results = new List<ReporteDistribucionVo>();
+
+            if (hasta < DateTime.Today.ToDataBaseDateTime())
+            {
+                results = reportService.DeliverStatusRepor(empresa, linea, selectedVehicles, puntoEntrega,
+                                estadosEntrega, transportista, desde, hasta, ruta, confirmation, orden);
+            }
+            else
+            {
+                if (desde < DateTime.Today.ToDataBaseDateTime())
+                {
+                    results = reportService.DeliverStatusRepor(empresa, linea, selectedVehicles, puntoEntrega,
+                                estadosEntrega, transportista, desde, DateTime.Today.ToDataBaseDateTime(), ruta, confirmation, orden);
+                }
+
+                var viajesDeHoy = DAOFactory.ViajeDistribucionDAO.GetList(ddlLocacion.SelectedValues,
+                                                                          ddlPlanta.SelectedValues,
+                                                                          ddlTransportista.SelectedValues,
+                                                                          new[] { -1 }, // DEPARTAMENTOS
+                                                                          new[] { -1 }, // CENTROS DE COSTO
+                                                                          new[] { -1 }, // SUB CENTROS DE COSTO
+                                                                          ddlVehiculo.SelectedValues,
+                                                                          new[] { -1 }, // EMPLEADOS
+                                                                          new[] { -1 }, // ESTADOS
+                                                                          DateTime.Today.ToDataBaseDateTime(),
+                                                                          hasta)
+                                                                 .Where(e => e.Id == ddlRuta.Selected || ddlRuta.Selected == 0);
+
+                foreach (var viaje in viajesDeHoy)
+                {
+                    EntregaDistribucion anterior = null;
+
+                    var estados = ddlEstados.SelectedValues;
+                    var detalles = viaje.Detalles;
+
+                    if (chkVerOrdenManual.Checked)
+                        detalles = viaje.GetEntregasPorOrdenManual();
+                    else if (viaje.Tipo == ViajeDistribucion.Tipos.Desordenado)
+                        detalles = viaje.GetEntregasPorOrdenReal();
+
+                    detalles = detalles.Where(e => ddlPuntoEntrega.Selected == 0 ||
+                                                  (e.PuntoEntrega != null && e.PuntoEntrega.Id == ddlPuntoEntrega.Selected))
+                                       .Where(e => estados.Contains(e.Estado))
+                                       .ToList();
+                    var nroOrden = 0;
+                    foreach (var entrega in detalles)
+                    {
+                        var kms = 0.0;
+
+                        if (anterior != null && !entrega.Estado.Equals(EntregaDistribucion.Estados.Cancelado)
+                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
+                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar)
+                         && entrega.Viaje.Vehiculo != null 
+                         && anterior.FechaMin < entrega.FechaMin 
+                         && entrega.FechaMin < DateTime.MaxValue)
+                            kms = DAOFactory.CocheDAO.GetDistance(entrega.Viaje.Vehiculo.Id, anterior.FechaMin, entrega.FechaMin);
+
+                        results.Add(new ReporteDistribucionVo(entrega, anterior, nroOrden, kms, chkVerConfirmacion.Checked));
+                        nroOrden++;
+                        
+                        if (!entrega.Estado.Equals(EntregaDistribucion.Estados.Cancelado)
+                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.NoCompletado)
+                         && !entrega.Estado.Equals(EntregaDistribucion.Estados.SinVisitar))
+                            anterior = entrega;
+                    }
+                }
+            }
 
             return results;
         }
