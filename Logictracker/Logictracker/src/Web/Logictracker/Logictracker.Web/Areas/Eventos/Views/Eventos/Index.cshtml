@@ -1,8 +1,10 @@
 ﻿
 @{
     ViewBag.Title = "Logictracker - " + @Html.ResourceLabel("Labels", "EventsReport");
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@Html.ResourceLabel("Labels", "EventsReport")</h2>
 
+<div ng-controller="EventosController">
+    <label>{{name}}</label>
+</div>

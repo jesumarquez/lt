@@ -1738,6 +1738,7 @@
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
     <Content Include="Areas\Eventos\Views\web.config" />
     <Content Include="Areas\Eventos\Views\Eventos\Index.cshtml" />
+    <Content Include="Areas\Eventos\Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
@@ -1747,6 +1748,7 @@
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\app\EntitiesService.js" />
+    <Content Include="Scripts\app\eventos\eventos-controller.js" />
     <Content Include="Scripts\app\ordenes\ordenes-controller.js" />
     <Content Include="Scripts\app\ordenes\ordenes-directives.js" />
     <Content Include="Scripts\app\ordenes\ordenes-service.js" />
