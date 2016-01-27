@@ -1736,6 +1736,8 @@
     <Content Include="Areas\Rechazos\Views\Rechazo\EditItem.cshtml" />
     <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
+    <Content Include="Areas\Eventos\Views\web.config" />
+    <Content Include="Areas\Eventos\Views\Eventos\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
@@ -2360,6 +2362,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Eventos\Controllers\EventosController.cs" />
+    <Compile Include="Areas\Eventos\EventosAreaRegistration.cs" />
     <Compile Include="Areas\Ordenes\Controllers\ProgramarController.cs" />
     <Compile Include="Areas\Ordenes\OrdenesAreaRegistration.cs" />
     <Compile Include="Areas\Rechazos\Controllers\RechazoController.cs" />
@@ -5049,6 +5053,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Eventos\Models\" />
+    <Folder Include="Areas\Eventos\Views\Shared\" />
     <Folder Include="Areas\Ordenes\Models\" />
     <Folder Include="Areas\Rechazos\Models\" />
     <Folder Include="Areas\Rechazos\Views\Shared\" />
