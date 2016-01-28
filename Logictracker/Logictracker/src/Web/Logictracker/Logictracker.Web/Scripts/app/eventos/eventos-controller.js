@@ -1,14 +1,12 @@
 ﻿angular.module('logictracker.eventos')
-.controller('EventosController', ['EntitiesService', 'ErrorHelper', EventosController]);
+.controller('EventosController', ['$scope', 'UserDataInfo', EventosController]);
 
-function EventosController(EntitiesService, ErrorHelper) {
-    var self = this;
-    this.distritoSelected = null;
+function EventosController($scope, UserDataInfo) {
+    var vm = this;
+    vm.distritoSelected = null;
+    vm.baseSelected = null;
 
-    this.UserData = EntitiesService.resources.userData.get();
-    this.UserData.$promise.then(function () {
-        if (self.UserData.EmpleadoId === 0) {
-            ErrorHelper.onFail(self.notify, { errorThrown: "Usuario sin empleado asociado" });
-        }
-    });
+    vm.UserData = UserDataInfo.get($scope, vm);
 }
+
+
