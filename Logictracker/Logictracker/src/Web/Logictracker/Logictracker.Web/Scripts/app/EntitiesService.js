@@ -21,7 +21,9 @@ function EntitiesService($resource, $http) {
             },
             puntoEntrega: getPuntoEntrega,
             tipoCicloLogistico: getTipoCicloLogisticoDS,
-            coche: getCocheDS
+            coche: getCocheDS,
+            tipoCoche: getTipoCocheDS,
+            tipoMensaje: getTipoMensajeDS
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -40,7 +42,9 @@ function EntitiesService($resource, $http) {
             cantidadTicketPorHora: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/ticketporhora", { distritoId: "@distritoId", baseId: "@baseId" }),
             chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             tipoCicloLogistico: $resource("/api/distrito/:distritoId/tipociclologistico/items", { distritoId: "@distritoId" }),
-            coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId"})
+            coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId"}),
+            tipoCoche: $resource("/api/distrito/:distritoId/base/:baseId/tipocoche/items", { distritoId: "@distritoId", baseId: "@baseId"}),
+            tipoMensaje: $resource("/api/distrito/:distritoId/base/:baseId/tipomensaje/items", { distritoId: "@distritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -640,6 +644,56 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
+    function getTipoCocheDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.tipoCoche);
+    }
+
+
+    /* Helper para cargar datasource que depende de distrito y base */
+    function getDSByDistritoBase(onEnd, onFail, resource) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+                        getData(resource, op, { distritoId: op.data.distritoId, baseId: op.data.baseId });
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+    function getSimpleKeyValueItems(onEnd, onFail, resource) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    getData(resource, op, {});
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+    function getTipoMensajeDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.tipoMensaje);
+    }
+    
 
     return _service;
 }
