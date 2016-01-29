@@ -25,7 +25,15 @@
                     @Html.ResourceLabel("Entities", "PARENTI17"):
                     <lt-ddl-tipo-coche lt-ng-model="eventos.tipoCocheSelected"
                                        lt-data-base="eventos.baseSelected"
-                                       lt-data-distrito="eventos.distritoSelected"/>
+                                       lt-data-distrito="eventos.distritoSelected" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Entities", "PARENTI16"):
+                    <lt-ddl-tipo-mensaje lt-ng-model="eventos.tipoMensajeSelected"
+                                         lt-data-base="eventos.baseSelected"
+                                         lt-data-distrito="eventos.distritoSelected" />
                 </div>
             </div>
         </div>

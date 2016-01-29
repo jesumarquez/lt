@@ -22,7 +22,8 @@ function EntitiesService($resource, $http) {
             puntoEntrega: getPuntoEntrega,
             tipoCicloLogistico: getTipoCicloLogisticoDS,
             coche: getCocheDS,
-            tipoCoche: getTipoCocheDS
+            tipoCoche: getTipoCocheDS,
+            tipoMensaje: getTipoMensajeDS
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -42,7 +43,8 @@ function EntitiesService($resource, $http) {
             chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             tipoCicloLogistico: $resource("/api/distrito/:distritoId/tipociclologistico/items", { distritoId: "@distritoId" }),
             coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId"}),
-            tipoCoche: $resource("/api/distrito/:distritoId/base/:baseId/tipocoche/items", { distritoId: "@distritoId", baseId: "@baseId"})
+            tipoCoche: $resource("/api/distrito/:distritoId/base/:baseId/tipocoche/items", { distritoId: "@distritoId", baseId: "@baseId"}),
+            tipoMensaje: $resource("/api/distrito/:distritoId/base/:baseId/tipomensaje/items", { distritoId: "@distritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -671,6 +673,26 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
+    function getSimpleKeyValueItems(onEnd, onFail, resource) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    getData(resource, op, {});
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+    function getTipoMensajeDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.tipoMensaje);
+    }
     
 
     return _service;

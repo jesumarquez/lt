@@ -6,6 +6,7 @@ function EventosController($scope, UserDataInfo) {
     vm.distritoSelected = null;
     vm.baseSelected = null;
     vm.tipoCocheSelected = null;
+    vm.tipoMensajeSelected = null;
 
     vm.UserData = UserDataInfo.get($scope, vm);
 }
