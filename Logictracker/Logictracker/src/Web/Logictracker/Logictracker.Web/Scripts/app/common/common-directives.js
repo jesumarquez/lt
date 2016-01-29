@@ -868,3 +868,56 @@
         .directive('ltCbSupervisorRuta', directive);
 
 }());
+
+/// ltDdlTipoCoche
+(function () {
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+
+            vm.ds = EntitiesService.distrito.tipoCoche(onDSLoad, onFail);
+
+            $scope.$watch(function() { return vm.base; }, onBaseChange);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = e.response[0];
+                }
+            };
+
+            function onBaseChange(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito"
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'tipoCoche',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-drop-down-list ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="tipoCoche.ds" ',
+                    'k-ng-model="tipoCoche.model" ',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltDdlTipoCoche', directive);
+})();

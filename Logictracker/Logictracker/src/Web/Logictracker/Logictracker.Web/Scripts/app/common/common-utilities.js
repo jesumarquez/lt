@@ -61,7 +61,6 @@ function UserDataInfo(EntitiesService, ErrorHelper) {
 
             self.UserData.$save();
         }
-        console.log("self.baseSelected: ", newValue);
     };
 
     return service;
