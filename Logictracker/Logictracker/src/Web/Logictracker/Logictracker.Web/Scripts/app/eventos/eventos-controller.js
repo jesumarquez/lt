@@ -7,6 +7,8 @@ function EventosController($scope, UserDataInfo) {
     vm.baseSelected = null;
     vm.tipoCocheSelected = null;
     vm.tipoMensajeSelected = null;
+    vm.desde = null;
+    vm.hasta = null;
 
     vm.UserData = UserDataInfo.get($scope, vm);
 }
