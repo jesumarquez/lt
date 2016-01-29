@@ -398,6 +398,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logictracker.Tracker.Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlSat", "ControlSat\ControlSat.csproj", "{2B61C112-F882-4FA2-A2A9-6BC847B950F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Siac", "BackEnd\Codecs\Siac\Siac.csproj", "{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -3119,6 +3121,24 @@ Global
 		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2B61C112-F882-4FA2-A2A9-6BC847B950F6}.Release|Win32.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Part1|.NET.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Part1|Any CPU.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Part1|Any CPU.Build.0 = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Part1|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Part1|Mixed Platforms.Build.0 = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Part1|Win32.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Release|.NET.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3312,5 +3332,6 @@ Global
 		{A2E958AB-29F8-4397-B640-6D1F6FF348EB} = {F051022F-0EA3-48EF-B6C6-454D44C2113A}
 		{B01581A4-65A8-4822-8782-D3830E48DD34} = {50EFEC20-8C91-4097-B133-4BF41CF2B297}
 		{2B61C112-F882-4FA2-A2A9-6BC847B950F6} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
+		{868F6750-BE88-40D4-9FDC-4C1CAFF876A4} = {701C059C-8CF1-4798-A4DC-31168372CCD9}
 	EndGlobalSection
 EndGlobal
