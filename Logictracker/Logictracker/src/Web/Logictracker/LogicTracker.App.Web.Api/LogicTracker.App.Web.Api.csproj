@@ -55,10 +55,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Commons.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\..\..\packages\Lt.ICSharpCode.SharpZipLib.0.86.0.518\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\..\..\packages\Ionic.Zip.dll</HintPath>
@@ -348,6 +347,7 @@
     <Compile Include="Providers\CompressContentAttribute.cs" />
     <Compile Include="Providers\CompressionHelper.cs" />
     <Compile Include="Providers\DeflateCompressionAttribute.cs" />
+    <Compile Include="Providers\LogWritter.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -499,9 +499,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>58615</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58615/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:58615/</IISAppRootUrl>
+          <IISUrl>http://localhost</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

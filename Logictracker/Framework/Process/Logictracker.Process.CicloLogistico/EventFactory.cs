@@ -1,16 +1,13 @@
 ﻿using System;
-using Logictracker.Cache;
 using Logictracker.Culture;
-using Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion;
-using Logictracker.DAL.DAO.BusinessObjects.Dispositivos;
 using Logictracker.DAL.Factories;
 using Logictracker.DAL.NHibernate;
 using Logictracker.DatabaseTracer.Core;
-using Logictracker.DatabaseTracer.Types;
 using Logictracker.Messages.Saver;
 using Logictracker.Messaging;
 using Logictracker.Model;
 using Logictracker.Process.CicloLogistico.Events;
+using Logictracker.Tracker.Application.Integration;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Messages;
@@ -49,7 +46,7 @@ namespace Logictracker.Process.CicloLogistico
         }
 
         public static IEvent GetEvent(DAOFactory daoFactory, GPSPoint inicio, string codigo, Int32? idPuntoDeInteres, IMessage message, Coche vehiculo, Empleado chofer)
-        {
+        {   
             var extra = (message as IExtraData);
             var extraData = extra != null && extra.Data.Count > 1 ? extra.Data[1] : -1;
             var extraData2 = extra != null && extra.Data.Count > 2 ? extra.Data[2] : -1;
@@ -127,30 +124,44 @@ namespace Logictracker.Process.CicloLogistico
                 STrace.Debug(typeof(EventFactory).FullName, Convert.ToInt32(extraData), "extraData=" + extraData + " extraData2=" + extraData2 + " extraData3=" + extraData3);
                 var veh = daoFactory.CocheDAO.FindMobileByDevice(Convert.ToInt32(extraData));
                 
-                if (veh != null && veh.Empresa.InicioDistribucionPorMensaje)
+                if (veh != null && veh.Empresa.IntegrationServiceEnabled)
                 {
-                    if (veh.Empresa.InicioDistribucionCodigoMensaje == extraData3.ToString())
+                    var intService = new IntegrationService(daoFactory);
+
+                    if (veh.Empresa.IntegrationServiceCodigoMensajeAceptacion == extraData3.ToString())
                     {
-                        var distribucion = daoFactory.ViajeDistribucionDAO.FindById(Convert.ToInt32(extraData2));
+                        var distribucion = daoFactory.ViajeDistribucionDAO.FindById(Convert.ToInt32(extraData2));                        
+                        
                         if (distribucion != null)
                         {
                             var enCurso = daoFactory.ViajeDistribucionDAO.FindEnCurso(veh);
                             if (enCurso == null)
                             {
+                                intService.ResponseAsigno(distribucion, true);
                                 var eventoInicio = new InitEvent(inicio.Date);
                                 var ciclo = new CicloLogisticoDistribucion(distribucion, daoFactory, new MessageSaver(daoFactory));
                                 ciclo.ProcessEvent(eventoInicio);
+                            }
+                            else
+                            {
+                                intService.ResponsePreasigno(distribucion, true);
                             }
                         }
 
                         return null;
                     }
-                    else if (veh.Empresa.InicioDistribucionCodigoMensajeRechazo == extraData3.ToString())
+                    else if (veh.Empresa.IntegrationServiceCodigoMensajeRechazo == extraData3.ToString())
                     {
                         var distribucion = daoFactory.ViajeDistribucionDAO.FindById(Convert.ToInt32(extraData2));
                         distribucion.Vehiculo = null;
                         daoFactory.ViajeDistribucionDAO.SaveOrUpdate(distribucion);
 
+                        var enCurso = daoFactory.ViajeDistribucionDAO.FindEnCurso(veh);
+                        if (enCurso == null)
+                            intService.ResponseAsigno(distribucion, false);
+                        else
+                            intService.ResponsePreasigno(distribucion, false);
+                        
                         return null;
                     }
                 }

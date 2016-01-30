@@ -22,6 +22,24 @@ namespace Logictracker.CicloLogistico {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// CustomScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Ajax.CustomScriptManager CustomScriptManager1;
+        
+        /// <summary>
+        /// updInfoMovil control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updInfoMovil;
+        
+        /// <summary>
         /// imgIcono control.
         /// </summary>
         /// <remarks>
@@ -47,6 +65,51 @@ namespace Logictracker.CicloLogistico {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDescripcion;
+        
+        /// <summary>
+        /// panelTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelTab;
+        
+        /// <summary>
+        /// btInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btInfo;
+        
+        /// <summary>
+        /// btPedidos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btPedidos;
+        
+        /// <summary>
+        /// MultiView1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.MultiView MultiView1;
+        
+        /// <summary>
+        /// View1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View View1;
         
         /// <summary>
         /// ResourceLabel19 control.
@@ -146,5 +209,86 @@ namespace Logictracker.CicloLogistico {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceLinkButton lnkEditarPunto;
+        
+        /// <summary>
+        /// View2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View View2;
+        
+        /// <summary>
+        /// ResourceLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel1;
+        
+        /// <summary>
+        /// lblBultos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBultos;
+        
+        /// <summary>
+        /// ResourceLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
+        
+        /// <summary>
+        /// lblPeso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPeso;
+        
+        /// <summary>
+        /// ResourceLabel5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel5;
+        
+        /// <summary>
+        /// lblVolumen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVolumen;
+        
+        /// <summary>
+        /// ResourceLabel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel3;
+        
+        /// <summary>
+        /// lblValor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblValor;
     }
 }

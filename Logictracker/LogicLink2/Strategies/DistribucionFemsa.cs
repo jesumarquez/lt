@@ -214,6 +214,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         if (asig != null) vehiculo = asig.Vehiculo;
                     }
 
+
                     Empleado empleado = null;
                     var legajo = row.Cells[Properties.DistribucionFemsa.Legajo].ToString().Trim();
                     if (!string.IsNullOrEmpty(legajo)) empleado = _empleadosBuffer.SingleOrDefault(e => e.Legajo == legajo);
@@ -221,6 +222,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     item.Empresa = Empresa;
                     item.Linea = oLinea;
                     item.Vehiculo = vehiculo;
+                    item.Transportista = vehiculo != null ? vehiculo.Transportista : null;
                     item.Empleado = empleado;
                     item.Inicio = date;
                     item.Fin = date;

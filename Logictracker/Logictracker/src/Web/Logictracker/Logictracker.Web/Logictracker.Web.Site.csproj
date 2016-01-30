@@ -1451,6 +1451,7 @@
     <Content Include="Reportes\CicloLogistico\FlujoDeTareas.aspx" />
     <Content Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\mimicoKpi.js" />
     <Content Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx" />
     <Content Include="Reportes\CicloLogistico\mobilesTickets.aspx" />
@@ -2679,6 +2680,7 @@
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\api\EmpleadoController.cs" />
+    <Compile Include="Controllers\api\Models\CocheModel.cs" />
     <Compile Include="Controllers\api\PuntoEntregaController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\CentroCostosController.cs" />
@@ -2686,7 +2688,9 @@
     <Compile Include="Controllers\api\ClienteController.cs" />
     <Compile Include="Controllers\api\DistribucionController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
+    <Compile Include="Controllers\api\TipoCicloLogisticoController.cs" />
     <Compile Include="Controllers\api\UserDataController.cs" />
+    <Compile Include="Controllers\api\CocheController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
@@ -3016,6 +3020,7 @@
     <Compile Include="Models\OrderDetailModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\SelectionOrderModel.cs" />
+    <Compile Include="Models\TipoCicloLogisticoModel.cs" />
     <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.cs">
       <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

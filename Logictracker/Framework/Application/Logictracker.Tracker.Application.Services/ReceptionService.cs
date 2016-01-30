@@ -7,15 +7,17 @@ using Logictracker.Tracker.Services;
 using Logictracker.Utils;
 using Logitracker.Codecs.Sitrack;
 using Spring.Messaging.Core;
+using System;
 
 namespace Logictracker.Tracker.Application.Services
 {
     public class ReceptionService : IReceptionService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ReceptionService));
 
         public MessageQueueTemplate TrackMessageQueueTemplate { get; set; }
         public DAOFactory DaoFactory { get; set; }
+        public String _path { get; set; }
+
 
         public void ParseSitrackPositions(List<SitrackFrame> positions)
         {
@@ -25,18 +27,26 @@ namespace Logictracker.Tracker.Application.Services
                 if (ltframe != null)
                 {
                     TrackMessageQueueTemplate.ConvertAndSend(ltframe);
-                    Logger.InfoFormat("Message sent {0} ", ltframe.DeviceId);
                 }
             }
         }
 
-        private IMessage Translate(SitrackFrame frame)
+        public void ParseSitrackPositions(List<SitrackFrame> positions, String path)
         {
-            Logger.DebugFormat("ToIMessage : {0}", frame.HolderDomain);
+            _path = path;
+            ParseSitrackPositions(positions);
+        }
 
-            var deviceId = FindDeviceId(frame.HolderDomain);
+        private IMessage Translate(SitrackFrame frame)
+        {          
+            var deviceId = 0;
 
-            if (deviceId > 0)
+            if (frame.HolderDomain != null)
+            {
+               deviceId = FindDeviceId(frame.HolderDomain);
+            }
+            
+            if (deviceId != 0)
             {
                 var pos = new GPSPoint
                 {
@@ -46,14 +56,22 @@ namespace Logictracker.Tracker.Application.Services
                     Speed = new Speed(frame.Speed),
                     Course = new Course(frame.Course)
                 };
+                if (frame.EventDesc != null)
+                {
+                    var codeEvent = frame.EventId + 9000;
+                    var evento = new Event((short)codeEvent, -1, deviceId, (ulong)frame.EventId, pos, pos.GetDate(), "", null, true);
 
-                var message = pos.ToPosition(deviceId, 0);
-                Logger.InfoFormat("ToIMessage success: {0} for {1}", message.DeviceId, frame.HolderDomain);
+                    return evento;
+                }
+                
+                var message = pos.ToPosition(deviceId, 0);         
 
                 return message;
             }
-
-            Logger.WarnFormat("ToIMessage : LicensePlate not found {0}", frame.HolderDomain);
+            if (frame.HolderDomain != null) 
+            {
+                LogWritter.writeLog(new Exception(string.Format("Patente inexistente {0}", frame.HolderDomain)), _path);
+            }
             return null;
         }
 
@@ -63,12 +81,10 @@ namespace Logictracker.Tracker.Application.Services
             var coche = cocheDao.FindByPatente(-1, licensePlate);
             if (coche != null && coche.Dispositivo != null)
             {
-                Logger.DebugFormat("FindDeviceId : {0}, for {1} success", coche.Dispositivo.Id, licensePlate);
-
                 return coche.Dispositivo.Id;
             }
 
-            Logger.ErrorFormat("FindDeviceId : Device or vehicle not found {0}", licensePlate);
+            LogWritter.writeLog(new Exception(string.Format("FindDeviceId : El vehiculo no existe o no tiene dispositivo asociado --> {0}", licensePlate)), _path);
 
             return -1;
         }

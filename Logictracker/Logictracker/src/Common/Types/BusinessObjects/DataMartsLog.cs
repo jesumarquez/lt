@@ -11,6 +11,7 @@ namespace Logictracker.Types.BusinessObjects
             public const short DatamartRecorridos = 0;
             public const short DatamartEntregas = 1;
             public const short DatamartRutas = 2;
+            public const short DatamartTramos = 3;
 
             public static string GetString(short modulo)
             {
@@ -19,6 +20,7 @@ namespace Logictracker.Types.BusinessObjects
                     case DatamartRecorridos: return "Datamart Recorridos";
                     case DatamartEntregas: return "Datamart Entregas";
                     case DatamartRutas: return "Datamart Rutas";
+                    case DatamartTramos: return "Datamart Tramos";
                     default: return string.Empty;
                 }
             }

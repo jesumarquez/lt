@@ -24,6 +24,26 @@
                             </Triggers>
                         </asp:UpdatePanel>
                     </td>
+                    <td>
+                        <cwc:ResourceLabel ID="lblVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
+                        <br />
+                        <asp:UpdatePanel ID="upVehiculos" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:MovilDropDownList id="ddlVehiculo" runat="server" Width="200px" ParentControls="ddlEmpresa,ddlPlanta" AddAllItem="true" OnSelectedIndexChanged="FiltersSelectedIndexChanged" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:ResourceButton id="btnSiguiente" runat="server" ResourceName="Labels" VariableName="SIGUIENTE" OnClick="BtnSiguienteOnClick" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </td>
                 </tr>
             </table>
         </ContentTemplate>

@@ -44,6 +44,12 @@
       <HintPath>..\..\..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\..\packages\Lt.ICSharpCode.SharpZipLib.0.86.0.518\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -75,19 +81,20 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebConsumerHost.cs" />
+    <Compile Include="SpringServiceHost.cs" />
     <Compile Include="WebServiceClientController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.WebServiceConsumer\Logictracker.Tracker.Application.WebServiceConsumer.csproj">
-      <Project>{9fb77d23-8767-4fba-acd5-abfe40025ca2}</Project>
-      <Name>Logictracker.Tracker.Application.WebServiceConsumer</Name>
+    <ProjectReference Include="..\..\..\Framework\Application\Logictracker.Tracker.Application.Integration\Logictracker.Tracker.Application.Integration.csproj">
+      <Project>{b01581a4-65a8-4822-8782-d3830e48dd34}</Project>
+      <Name>Logictracker.Tracker.Application.Integration</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Framework\Core\Logictracker.Tracker.Services\Logictracker.Tracker.Services.csproj">
       <Project>{7f58dcb5-6d76-4882-8610-74929b5df8ed}</Project>

@@ -988,6 +988,9 @@
   <data name="VOLUMEN" xml:space="preserve">
     <value>Volumen</value>
   </data>
+  <data name="PESO" xml:space="preserve">
+    <value>Peso</value>
+  </data>
   <data name="FECHA" xml:space="preserve">
     <value>Fecha</value>
   </data>
@@ -4654,6 +4657,9 @@
   <data name="CALCULAR_KM_RECORRIDOS" xml:space="preserve">
     <value>Calcular Kms Recorridos</value>
   </data>
+  <data name="PAGINARGEOCERCAS" xml:space="preserve">
+    <value>Paginar</value>
+  </data>
   <data name="AGRUPADOR" xml:space="preserve">
     <value>Agrupador</value>
   </data>
@@ -4836,5 +4842,26 @@
   </data>
   <data name="RECHAZADO" xml:space="preserve">
     <value>Rechazado</value>
+  </data>
+  <data name="EXCESO_VELOCIDAD" xml:space="preserve">
+    <value>Exceso de velocidad</value>
+  </data>
+  <data name="EXCESO_RPM" xml:space="preserve">
+    <value>Exceso de RPM</value>
+  </data>
+  <data name="FRENADA_BRUSCA" xml:space="preserve">
+    <value>Frenada brusca</value>
+  </data>
+  <data name="ACELERACION_BRUSCA" xml:space="preserve">
+    <value>Aceleración brusca</value>
+  </data>
+  <data name="BATERIA_DESCONECTADA" xml:space="preserve">
+    <value>Batería desconectada</value>
+  </data>
+  <data name="PANICO" xml:space="preserve">
+    <value>Pánico</value>
+  </data>
+  <data name="TIPO_INFRACCION" xml:space="preserve">
+    <value>Tipo de infracción</value>
   </data>
 </root>

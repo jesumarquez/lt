@@ -49,6 +49,24 @@ namespace Logictracker.Parametrizacion {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList cbLinea;
         
         /// <summary>
+        /// lblParenti04 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblParenti04;
+        
+        /// <summary>
+        /// cbDepartamento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.DepartamentoDropDownList cbDepartamento;
+        
+        /// <summary>
         /// TipoVehiculo control.
         /// </summary>
         /// <remarks>

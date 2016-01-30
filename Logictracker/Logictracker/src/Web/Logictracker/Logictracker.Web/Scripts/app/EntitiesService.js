@@ -20,7 +20,8 @@ function EntitiesService($resource, $http) {
                 models: getDistribuciones
             },
             puntoEntrega: getPuntoEntrega,
-            
+            tipoCicloLogistico: getTipoCicloLogisticoDS,
+            coche: getCocheDS
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -37,8 +38,9 @@ function EntitiesService($resource, $http) {
             estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" }),
             cantidadPorEstado: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/estado", { distritoId: "@distritoId", baseId: "@baseId" }),
             cantidadTicketPorHora: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/ticketporhora", { distritoId: "@distritoId", baseId: "@baseId" }),
-            chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" })
-
+            chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            tipoCicloLogistico: $resource("/api/distrito/:distritoId/tipociclologistico/items", { distritoId: "@distritoId" }),
+            coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId"})
         },
         ticketrechazo: {
             estados: getEstados,
@@ -438,29 +440,32 @@ function EntitiesService($resource, $http) {
                     }             
                 }
             },
-            requestStart: mappingGroupFields,
-            requestEnd: mappingGroupFields,
+            //requestStart: mappingGroupFields,
+            //requestEnd: mappingGroupFields,
             schema: {
                 total: "Total",
                 data: "Data",
                 errors: "Errors",
                 parse: function (data) {
                     $.each(data.Data, function (i, val) {
-                        $.each(val.Items, function (i, item) {
-                            item.FechaHora = kendo.parseDate(item.FechaHora);
-                            item.FechaHoraEstado = kendo.parseDate(item.FechaHoraEstado);
-                        });
-                        reverseMappingGroupFields(val);
+                        val.FechaHora = kendo.parseDate(val.FechaHora);
+                        val.FechaHoraEstado = kendo.parseDate(val.FechaHoraEstado);
+                    //$.each(data.Data, function (i, val) {
+                    //    $.each(val.Items, function (i, item) {
+                    //        item.FechaHora = kendo.parseDate(item.FechaHora);
+                    //        item.FechaHoraEstado = kendo.parseDate(item.FechaHoraEstado);
+                    //    });
+                        //reverseMappingGroupFields(val);
                     });
                     return data;
                 },
                },
             pageSize: 25,
             filter: filters,
-            serverGrouping: true,
+            serverGrouping: false,
             serverFiltering: true,
             serverSorting: false,
-            serverPaging: true,
+            serverPaging: false,
             group: {
                 field: "Estado",
                 dir: "asc"
@@ -590,5 +595,51 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
-        return _service;
-    }
+    function getTipoCicloLogisticoDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "") {
+                        getData(_service.resources.tipoCicloLogistico, op, { distritoId: op.data.distritoId });
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+    function getCocheDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+                        getData(_service.resources.coche, op, { distritoId: op.data.distritoId, baseId: op.data.baseId });
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+
+    return _service;
+}

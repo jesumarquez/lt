@@ -256,6 +256,15 @@ namespace Logictracker.Reportes.DatosOperativos {
         protected global::Logictracker.Web.CustomWebControls.CheckBoxs.ResourceCheckBox chkCalcularKmRecorridos;
         
         /// <summary>
+        /// chkPaginar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.CheckBoxs.ResourceCheckBox chkPaginar;
+        
+        /// <summary>
         /// ifResumenViaje control.
         /// </summary>
         /// <remarks>

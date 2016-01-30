@@ -1,5 +1,4 @@
-﻿@using Logictracker.Web.App_Code
-@{
+﻿@{
     ViewBag.Title = "Ordenes para Programar";
 }
 
@@ -9,7 +8,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI01"):
-                    <lt-ordenes-distrito />
+                    <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
                 </div>
             </div>
         </div>
@@ -18,7 +17,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI02"):
-                    <lt-ordenes-base />
+                    <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
                 </div>
             </div>
         </div>
@@ -52,42 +51,7 @@
     <h1>@ViewBag.Title</h1>
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
-            {{mydata}}
-            <div class="table-responsive">
-                <table ng-show="OrderList.length" class="table table-striped">
-                    <tr>
-                        <td></td>
-                        <td>Empresa</td>
-                        <td>Empleado</td>
-                        <td>Transportista</td>
-                        <td>Entrega</td>
-                        <td>Codigo</td>
-                        <td>Registrado</td>
-                        <td>Pedido</td>
-                        <td>Entrega</td>
-                        <td>Inicio</td>
-                        <td>Fin</td>
-                        <td></td>
-                    </tr>
-                    <tr ng-repeat="orderDet in OrderList">
-                        <td><input type="checkbox" ng-model="orderDet.Selected"></td>
-                        <td>{{orderDet.Empresa}}</td>
-                        <td>{{orderDet.Empleado}}</td>
-                        <td>{{orderDet.Transportista}}</td>
-                        <td>{{orderDet.PuntoEntrega}}</td>
-                        <td>{{orderDet.CodigoPedido}}</td>
-                        <td>{{orderDet.FechaAlta | date:'medium'}}</td>
-                        <td>{{orderDet.FechaPedido | date:'medium'}}</td>
-                        <td>{{orderDet.FechaEntrega | date:'medium'}}</td>
-                        <td>{{orderDet.InicioVentana}}</td>
-                        <td>{{orderDet.FinVentana}}</td>
-                        @*<td>
-                            <a class="btn btn-primary" ui-sref="viewMovie({id:order._id})">Detalles</a>
-                        </td>*@
-                    </tr>
-                </table>
-            </div>
-
+            
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -98,15 +62,12 @@
                         <div style="height: 200px" class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="title" class="col-sm-4 control-label">Ruta</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="order.RouteCode" class="form-control" id="title" placeholder="Cual es el Código de la Ruta?" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="year" class="col-sm-4 control-label">Camión</label>
                                     <div class="col-sm-8">
-                                        <input type="text" ng-model="order.Vehicle" class="form-control" readonly="true" id="year" placeholder="No disponible" />
+                                        <lt-ddl-coche 
+                                                lt-ng-model="order.Vehicle"
+                                                lt-depends-on-base="baseSelected"
+                                                lt-data-distrito="distritoSelected"/>
                                     </div>
                                 </div>
 
@@ -120,11 +81,9 @@
                                 <div class="form-group">
                                     <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" ng-model="order.LogisticsCycleType" id="tipoCiclo" name="tipoCiclo">
-                                                <option value="0" />Seleccione
-                                                <option value="2" />Larga Distancia
-                                                <option value="1" selected="selected" />Urbana
-                                        </select>
+                                        <lt-ddl-tipo-ciclo-logistico 
+                                                lt-ng-model="order.LogisticsCycleType" 
+                                                lt-dependent-on="distritoSelected"  />
                                     </div>
                                 </div>
                             </form>
@@ -137,6 +96,12 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div cass="row" style="margin-top: 1em;">
+        <div class="col-md-12">
+            <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
         </div>
     </div>
 

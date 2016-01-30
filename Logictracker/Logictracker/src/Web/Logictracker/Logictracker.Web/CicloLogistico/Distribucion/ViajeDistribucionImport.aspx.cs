@@ -30,7 +30,6 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
         private List<Coche> _cochesBuffer = new List<Coche>();
         private List<ViajeDistribucion> _viajesBuffer = new List<ViajeDistribucion>();
         private List<PuntoEntrega> _puntosBuffer = new List<PuntoEntrega>();
-        private Dictionary<int, List<int>> _empresasLineas = new Dictionary<int, List<int>>();
 
         private static class Modes
         {
@@ -319,8 +318,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -550,8 +549,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -627,8 +625,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
 
                             puntoEntrega.ReferenciaGeografica.Linea = linea;
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             puntoEntrega.Nombre = nombre;
                             puntoEntrega.Importe = importe;
 
@@ -694,8 +691,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -878,8 +875,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -951,8 +947,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             puntoEntrega.Nombre = nombre;
 
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
@@ -1008,8 +1003,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -1327,8 +1322,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -1402,8 +1396,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -1432,8 +1425,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -1625,8 +1618,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -1700,8 +1692,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -1731,8 +1722,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -2073,8 +2064,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -2147,8 +2137,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -2195,8 +2184,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -2501,7 +2490,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 Vigencia =
                                     new Vigencia
                                     {
-                                        Inicio = DateTime.UtcNow,
+                                        Inicio = DateTime.UtcNow.AddHours(-3),
                                         Fin = fecha.AddHours(vigencia).ToDataBaseDateTime()
                                     },
                                 Icono = cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
@@ -2525,23 +2514,22 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 Pais = string.Empty,
                                 Calle = string.Empty,
                                 Descripcion = direccion != string.Empty ? direccion : string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
-                                Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+                                Vigencia = new Vigencia { Inicio = DateTime.UtcNow.AddHours(-3) }
                             };
 
                             #endregion
 
                             #region var poligono = new Poligono()
 
-                            var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                            var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow.AddHours(-3) } };
                             poligono.AddPoints(new[] { new PointF((float)longitud, (float)latitud) });
 
                             #endregion
 
-                            puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
+                            puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow.AddHours(-3));
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -2612,8 +2600,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             puntoEntrega.DireccionNomenclada = direccion + ", " + localidad;
 
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
@@ -2665,8 +2652,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -2788,8 +2775,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
                         DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                        AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                        
                         #region var entrega = new EntregaDistribucion()
 
                         var entrega = new EntregaDistribucion
@@ -2829,8 +2815,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -3029,8 +3015,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -3057,8 +3042,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -3102,8 +3086,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -3112,33 +3096,16 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 }
             }
         }
-
-        private void AddReferenciasGeograficas(ReferenciaGeografica rg)
+        
+        private void UpdateGeocercas()
         {
-            if (rg == null)
-                STrace.Error(GetType().FullName, "AddReferenciasGeograficas: rg is null");
-            else if (rg.Empresa == null)
-                STrace.Error(GetType().FullName, "AddReferenciasGeograficas: rg.Empresa is null");
-            else
-            {
-                if (!_empresasLineas.ContainsKey(rg.Empresa.Id))
-                    _empresasLineas.Add(rg.Empresa.Id, new List<int> { -1 });
-
-                if (rg.Linea != null)
-                {
-                    if (!_empresasLineas[rg.Empresa.Id].Contains(rg.Linea.Id))
-                        _empresasLineas[rg.Empresa.Id].Add(rg.Linea.Id);
-                }
-                else
-                {
-                    var todaslaslineas = DAOFactory.LineaDAO.GetList(new[] { rg.Empresa.Id });
-                    foreach (var linea in todaslaslineas)
-                    {
-                        if (!_empresasLineas.ContainsKey(linea.Id))
-                            _empresasLineas[rg.Empresa.Id].Add(linea.Id);
-                    }
-                }
-            }
+            var lineas = new List<int>();
+            var dict = new Dictionary<int, List<int>>();
+            var todaslaslineas = DAOFactory.LineaDAO.GetList(new[] { cbEmpresa.Selected });
+            lineas.Add(-1);
+            lineas.AddRange(todaslaslineas.Select(l => l.Id));
+            dict.Add(cbEmpresa.Selected, lineas);
+            DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(dict);
         }
 
         #region SubClasses
