@@ -23,11 +23,10 @@
         </div>
 
         <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select class="form-control"
-                                                                 k-data-source="transportistaDS"
-                                                                 k-data-text-field="'Value'"
-                                                                 k-data-value-field="'Key'"
-                                                                 k-ng-model="transportistaSelected" />
+            @Html.ResourceLabel("Entities", "PARENTI07"): <lt-ms-transportista lt-ng-model="transportistaSelected"
+                                                                                lt-data-distrito="distritoSelected"
+                                                                                lt-depends-on-base="baseSelected" />
+
         </div>
         
         <div class="col-md-2">

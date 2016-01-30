@@ -9,20 +9,24 @@ using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Web.Models;
 using Logictracker.DAL.Factories;
 using Logictracker.Culture;
+using Kendo.Mvc.UI;
+using System.Web.Http.ModelBinding;
+using Logictracker.DAL.DAO.BusinessObjects.Ordenes;
+using Kendo.Mvc.Extensions;
 
 namespace Logictracker.Web.Controllers.api
 {
-    public class OrdersController : ApiController
+    public class OrdenesController : EntityController<Order, OrderDAO, OrderModel, OrdenesMapper>
     {
         IRoutingService RoutingService { get; set; }
-        
-        public OrdersController()
+
+        public OrdenesController()
         {
             RoutingService = new RoutingService();
         }
 
         //GET: api/distrito/91/Orders/base/321/ordenes
-         [Route("api/distrito/{distritoId}/base/{baseId}/ordenes")]
+        [Route("api/distrito/{distritoId}/base/{baseId}/ordenes")]
         public IHttpActionResult Get(int distritoId, int baseId, [FromUri] int[] transportistaId)
         {
             var orders = RoutingService.GetOrders(distritoId, baseId, transportistaId);
@@ -36,7 +40,7 @@ namespace Logictracker.Web.Controllers.api
                 if (order.Empleado != null) orderModel.IdEmpleado = order.Empleado.Entidad.Id;
                 if (order.Empresa != null) orderModel.Empresa = order.Empresa.RazonSocial;
                 if (order.Empresa != null) orderModel.IdEmpresa = order.Empresa.Id;
-                
+
                 orderModel.BaseId = order.Linea.Id;
                 orderModel.FechaAlta = order.FechaAlta;
                 if (order.FechaEntrega != null)
@@ -70,12 +74,12 @@ namespace Logictracker.Web.Controllers.api
                 var orderDetailModel = new OrderDetailModel();
                 orderDetailModel.Id = orderDetail.Id;
                 orderDetailModel.OrderId = orderId;
-                if (orderDetail.Insumo != null) orderDetailModel.Insumo= orderDetail.Insumo.Descripcion;
+                if (orderDetail.Insumo != null) orderDetailModel.Insumo = orderDetail.Insumo.Descripcion;
                 orderDetailModel.PrecioUnitario = orderDetail.PrecioUnitario;
                 orderDetailModel.Cantidad = orderDetail.Cantidad;
-                orderDetailModel.Descuento= orderDetail.Descuento;
-                
-                orderDetailList.Add(orderDetailModel);                           
+                orderDetailModel.Descuento = orderDetail.Descuento;
+
+                orderDetailList.Add(orderDetailModel);
             }
             return Ok(orderDetailList);
         }
@@ -85,36 +89,45 @@ namespace Logictracker.Web.Controllers.api
         [HttpPost]
         public IHttpActionResult Post(int distritoId, int baseId, [FromBody] OrderSelectionModel orderSelectionModel)
         {
-            var routeCode = BuildRouteCode(orderSelectionModel.StartDateTime, 
-                orderSelectionModel.IdVehicle, 
-                orderSelectionModel.LogisticsCycleType, 
+            var routeCode = BuildRouteCode(orderSelectionModel.StartDateTime,
+                orderSelectionModel.IdVehicle,
+                orderSelectionModel.LogisticsCycleType,
                 distritoId,
                 baseId);
-                
+
             foreach (var orderModel in orderSelectionModel.OrderList)
             {
                 if (!orderModel.Selected) continue;
 
                 var order = new Order();
                 order.CodigoPedido = orderModel.CodigoPedido;
-                order.Empleado = new Empleado {Id = orderModel.IdEmpleado};
-                order.Empresa = new Empresa {Id = orderModel.IdEmpresa};
-                order.Linea = new Linea {Id = orderModel.BaseId};
-                order.Transportista = new Transportista {Id = orderModel.IdTransportista};
+                order.Empleado = new Empleado { Id = orderModel.IdEmpleado };
+                order.Empresa = new Empresa { Id = orderModel.IdEmpresa };
+                order.Linea = new Linea { Id = orderModel.BaseId };
+                order.Transportista = new Transportista { Id = orderModel.IdTransportista };
                 order.FechaAlta = orderModel.FechaAlta;
                 order.FechaEntrega = orderModel.FechaEntrega;
                 order.FechaPedido = orderModel.FechaPedido;
                 order.FinVentana = orderModel.FinVentana;
                 order.InicioVentana = orderModel.InicioVentana;
                 order.Id = orderModel.Id;
-                order.PuntoEntrega = new PuntoEntrega { Id = orderModel.IdPuntoEntrega};
-                order.Transportista = new Transportista {Id = orderModel.IdTransportista};
-                    
-                RoutingService.Programming(order,routeCode,orderSelectionModel.IdVehicle,
+                order.PuntoEntrega = new PuntoEntrega { Id = orderModel.IdPuntoEntrega };
+                order.Transportista = new Transportista { Id = orderModel.IdTransportista };
+
+                RoutingService.Programming(order, routeCode, orderSelectionModel.IdVehicle,
                     orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType);
             }
-            
+
             return Ok();
+        }
+
+        [Route("api/ordenes/datasource")]
+        public DataSourceResult GetDataSource(
+               [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
+        {
+            IQueryable<Order> ordenes = EntityDao.FindAll();
+
+            return ordenes.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new OrderModel()));
         }
 
         private string BuildRouteCode(DateTime date, int vehicleId, int logisticCycleTypeId, int distritoId, int baseId)
@@ -137,11 +150,11 @@ namespace Logictracker.Web.Controllers.api
 
             var cantViajes = daoF.ViajeDistribucionDAO.FindByCodeLike(distritoId, baseId, routeCode).Count();
 
-            if(cantViajes > 0)
+            if (cantViajes > 0)
             {
                 routeCode += "_" + cantViajes;
             }
-            
+
             return routeCode;
         }
 

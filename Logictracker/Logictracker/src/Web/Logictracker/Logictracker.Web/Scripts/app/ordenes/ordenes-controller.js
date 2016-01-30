@@ -149,7 +149,25 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.onBuscar = function () {
-            $scope.Orders = OrdenesService.items({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onerror);
+            var filterList = [];
+
+            if ($scope.distritoSelected != undefined)
+                filterList.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key });
+
+            if ($scope.baseSelected != undefined)
+                filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
+
+            if ($scope.transportistaSelected.length > 0) {
+                var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
+                filterList.push({ logic: "or", filters: transportistaFilter });
+            }
+
+            var filters = {
+                logic: "and",
+                filters: filterList
+            };
+
+            $scope.Orders = OrdenesService.items(filters, null, onFail);
         };
 
         $scope.programOrders = function (order) {
