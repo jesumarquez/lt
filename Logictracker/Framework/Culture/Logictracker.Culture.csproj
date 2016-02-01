@@ -196,6 +196,7 @@
     <Content Include="Resources\MenuImages\ANALIZADOR_MEDICIONES.png" />
     <Content Include="Resources\MenuImages\CLOG_CONSOLA_TICKETS.png" />
     <Content Include="Resources\MenuImages\CLOG_CONTROL_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\PAR_VIAJE_PROGRAMADO.png" />
     <Content Include="Resources\MenuImages\CLOG_INTERCALADOR.png" />
     <Content Include="Resources\MenuImages\CLOG_RECHAZO.png" />
     <Content Include="Resources\MenuImages\CLOG_TIMETRACKING.png" />
