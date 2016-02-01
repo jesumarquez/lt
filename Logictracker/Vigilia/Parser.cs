@@ -20,18 +20,20 @@ using Logictracker.Utils;
 using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 
-namespace Logictracker.Siac
+namespace Vigilia
 {
-    [FrameworkElement(XName = "SiacParser", IsContainer = false)]
+    [FrameworkElement(XName = "VigiliaParser", IsContainer = false)]
     public partial class Parser : BaseCodec
     {
         private static DAOFactory _daoFactory = new DAOFactory();
         public override NodeTypes NodeType
         {
-            get { return NodeTypes.Siac; }
+            get { return NodeTypes.Vigilia; }
         }
 
         private static readonly Dictionary<int, object> LocksByDevice = new Dictionary<int, object>();
+
+        #region Code Rels
 
         private static Dictionary<int, MessageIdentifier> codeRels = new Dictionary<int, MessageIdentifier>()
                                                                          {
@@ -226,6 +228,8 @@ namespace Logictracker.Siac
                                                                              }
                                                                          };
 
+        #endregion
+        
         #region Attributes
 
         private Boolean? _isGarminConnected;
@@ -358,147 +362,7 @@ namespace Logictracker.Siac
         }
 
 
-        public IMessage Decode(IFrame frame, bool online)
-        {
-            IMessage salida = null;
-            string buffer = AsString(frame);
-            if (buffer == null) return null;
-            string[] parser = buffer.Split(new string[] { "|" }, StringSplitOptions.None);
-            
-            /*
-             <encabezado: PC>
-             <fecha: DDMMYYHHMMSS> --13
-             <dominio: XXXXXX> --19
-             <latitud: 00.00000> --27
-             <longitud: 000.00000> --36
-             <velocidad: 000> --39
-             <grados: 000> --42
-             <validez: 1>
-             <evento: 00>
-             <sensores temp.: +00+00+00>
-             <fin: |> 
-
-             Ejemplo: PC 050114 184012 ABC123 -31.05932 -060.45102 025 090 1 02 +00+00+00| 
-           
-             
-             */
-            
-            ulong msgId = ulong.Parse(buffer.Substring(46,2));
-            var patente = buffer.Substring(14, 6);
-            var evento = buffer.Substring(46, 2);
-            
-            GPSPoint pos;
-            var code = EventCodes.Position;
-            var fechaString = buffer.Substring(2,12);
-            var time = DateTime.ParseExact(fechaString, "ddMMyyHHmmss", CultureInfo.InvariantCulture);
-            var lat = float.Parse(buffer.Substring(20,9), CultureInfo.InvariantCulture);
-            var lon = float.Parse(buffer.Substring(29, 11), CultureInfo.InvariantCulture);
-            var vel = float.Parse(buffer.Substring(39,3));
-            var dir = float.Parse(buffer.Substring(42,3));
-            
-            short codeevent = (short)0;
-            switch (evento)
-            {
-                case "02":
-                {
-                    codeevent = 6002;
-                }
-                    break;
-                case "03":
-                {
-                    codeevent = 6003;
-                }
-                    break;
-                case "05":
-                {
-                    codeevent = 6005;
-                }
-                    break;
-                case "06":
-                {
-                    codeevent = 6006;
-                }
-                    break;
-                case "08":
-                {
-                    codeevent = 6008;
-                }
-                    break;
-                case "20":
-                {
-                    codeevent = 6020;
-                }
-                    break;
-                case "00":
-                {
-                    break;
-                }
-                default:
-                    break;
-            }
-
-
-
-            var hdop = 0;
-            pos = GPSPoint.Factory(time, lat, lon, vel, dir, 0, hdop);
-            var device = DataProvider.FindByIMEI(patente, this);
-            var deviceid = 0;
-            if (device == null)
-            {
-                var empresa = _daoFactory.EmpresaDAO.FindByCodigo("LA");
-                var tipodispositivo = _daoFactory.TipoDispositivoDAO.FindByModelo("SIAC");
-                Dispositivo newdispo = new Dispositivo
-                {
-                    Empresa = empresa,
-                    TipoDispositivo = tipodispositivo,
-                    Clave = patente,
-                    Tablas = "",
-                    Port = 6066,
-                    Imei = patente,
-                    Codigo = patente
-                };
-                //  newdispo.Linea = _daoFactory.LineaDAO.FindByNombre(empresa.Id, "Generica");
-                //  newdispo.Firmware = _daoFactory.FirmwareDAO.FindById(5);
-                _daoFactory.DispositivoDAO.Save(newdispo);
-                if (_daoFactory.CocheDAO.FindByPatente(empresa.Id, patente) == null)
-                {
-                    var modeloDao = new ModeloDAO();
-                    var marcaDao = new MarcaDAO();
-                    var tipoVehiculoDao = new TipoCocheDAO();
-                    var modelo = modeloDao.FindByCodigo(empresa.Id, -1, "Generico");
-                    var marca = marcaDao.GetByDescripcion(empresa.Id, -1, "Generica");
-
-                    Coche newcoche = new Coche();
-
-                    newcoche.Patente = patente;
-                    newcoche.Interno = patente + "-SIAC";
-                    newcoche.Empresa = empresa;
-                    newcoche.Dispositivo = newdispo;
-                    newcoche.ModeloDescripcion = modelo.Descripcion;
-                    newcoche.Poliza = patente;
-                    newcoche.TipoCoche = tipoVehiculoDao.FindByCodigo(empresa.Id, -1, "CM");
-                    
-                    _daoFactory.CocheDAO.Save(newcoche);
-                
-                }
-                else
-                {
-                    Coche coche = _daoFactory.CocheDAO.FindByPatente(empresa.Id, patente);
-                    coche.Dispositivo = newdispo;
-                    _daoFactory.CocheDAO.Save(coche);
-                }
-                deviceid = newdispo.Id;
-            }
-            else
-            {
-                deviceid = DataProvider.FindByIMEI(patente, this).Id;
-            }
-
-            salida = new Event(codeevent, -1, deviceid, msgId,pos, pos.GetDate(), "", new List<long>(),true);
-          
-            return salida;
-        }
-
+        
         public override String AsString(IFrame frame)
         {
             if (frame.PayloadAsString == null)
@@ -519,6 +383,137 @@ namespace Logictracker.Siac
         }
 
         #endregion
+
+
+        public IMessage Decode(IFrame frame, bool online)
+        {
+            IMessage salida = null;
+            string buffer = AsString(frame);
+            if (buffer == null) return null;
+            string[] parser = buffer.Split(new string[] { "|" }, StringSplitOptions.None);
+            /*
+             patente|Fecha|latitud|longitud|velocidad|sentido|evento 
+            Ejemplo : XXX111|2015-12-29 10:01:32|-33.95115|-59.40005|90|150|01|            
+             
+             */
+            ulong msgId = ulong.Parse(buffer.Substring(58,2));
+            GPSPoint pos;
+            var code = EventCodes.Position;
+            var time = DateTime.ParseExact(buffer.Substring(9,19), "yyyy-MM-dd HH:mm:ss",
+                           System.Globalization.CultureInfo.InvariantCulture);
+            var lat = float.Parse(buffer.Substring(29, 9), CultureInfo.InvariantCulture);
+            var lon = float.Parse(buffer.Substring(39,10),CultureInfo.InvariantCulture);
+            var vel = float.Parse(buffer.Substring(50,3));
+            var dir = float.Parse(buffer.Substring(54,3));
+            var patente = buffer.Substring(2,6);
+            
+            short codeevent = (short)0;
+            switch (buffer.Substring(58, 2))
+            {
+                case "1":
+                    {
+                        codeevent = 5001;
+                    }
+                    break;
+                case "3":
+                    {
+                        codeevent = 5003;
+                    }
+                    break;
+                case "4":
+                    {
+                        codeevent = 5004;
+                    }
+                    break;
+                case "5":
+                    {
+                        codeevent = 5005;
+                    }
+                    break;
+                case "50":
+                    {
+                        codeevent = 5050;
+                    }
+                    break;
+                case "51":
+                    {
+                        codeevent = 5051;
+                    }
+                    break;
+                case "53":
+                    {
+                        codeevent = 5053;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            var hdop = 0;
+            pos = GPSPoint.Factory(time, lat, lon, vel, dir, 0, hdop);
+            var device = DataProvider.FindByIMEI(patente, this);
+            var deviceid = 0;
+            if (device == null)
+            {
+                var empresa = _daoFactory.EmpresaDAO.FindByCodigo("LA");
+                var tipodispositivo = _daoFactory.TipoDispositivoDAO.FindByModelo("VIGILIA");
+                
+
+                Dispositivo newdispo = new Dispositivo();
+                newdispo.Empresa = empresa;
+                newdispo.TipoDispositivo = tipodispositivo;
+                newdispo.Clave = patente;
+                newdispo.Tablas = "";
+                newdispo.Port = 6068;
+                newdispo.Imei = patente;
+                newdispo.Codigo = patente;
+                _daoFactory.DispositivoDAO.Save(newdispo);
+
+                if (_daoFactory.CocheDAO.FindByPatente(empresa.Id, parser[0].ToString()) == null)
+                {
+                    var modeloDao = new ModeloDAO();
+                    var marcaDao = new MarcaDAO();
+                    var modelo = modeloDao.FindByCodigo(empresa.Id,-1,"Generico");
+                    var marca = marcaDao.GetByDescripcion(empresa.Id, -1, "Generica");
+
+                    var tipoVehiculoDao = new TipoCocheDAO();
+
+                    Coche newcoche = new Coche();
+                    newcoche.Patente = patente;
+
+                    var interno = patente + "-VIGILIA"; 
+                    newcoche.Interno = interno;
+                    newcoche.Empresa = empresa;
+                    newcoche.Dispositivo = newdispo;
+                    newcoche.Marca = marca;
+                    newcoche.Modelo = modelo;
+                    newcoche.ModeloDescripcion = modelo.Descripcion;
+                    newcoche.Poliza = patente;
+                    newcoche.TipoCoche = tipoVehiculoDao.FindByCodigo(empresa.Id, -1, "CM");
+                    
+                    _daoFactory.CocheDAO.Save(newcoche);
+                }
+                else
+                {
+                    Coche coche = _daoFactory.CocheDAO.FindByPatente(empresa.Id, patente);
+                    coche.Dispositivo = newdispo;
+                    _daoFactory.CocheDAO.Save(coche);
+                }
+                deviceid = newdispo.Id;
+            }
+            else
+            {
+                deviceid = DataProvider.FindByIMEI(patente, this).Id;
+            }
+
+            salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
+                      
+            return salida;
+        }
+
+
+
+        #region config
 
         private DateTime _lastConfigSentTimestamp = DateTime.MinValue;
 
@@ -900,6 +895,8 @@ namespace Logictracker.Siac
                 return null;
             }
         }
+        #endregion
+
 
         #region Nested type: CacheVar
 
@@ -1123,32 +1120,5 @@ namespace Logictracker.Siac
         }
 
         #endregion
-        public override bool IsPacketCompleted(byte[] payload, int start, int count, out int detectedCount, out bool ignoreNoise)
-        {
-            ignoreNoise = false;
-            detectedCount = 0;
-            if (count < 6) return false;
-            if (payload[start] == 'P' && payload[start + 1] == 'C')
-            {
-                detectedCount = payload[start + 5] + 9;
-                return count >= detectedCount;
-            }
-
-            //hay basura
-            ignoreNoise = true;
-            var limit = start + count - 1;
-            var newStart = start;
-            while (payload[newStart] != '|')
-            {
-                newStart = Array.IndexOf(payload, 'P', newStart, limit);
-                if (newStart != -1) continue;
-                detectedCount = count;
-                return true;
-            }
-
-            detectedCount = newStart - start;
-            return true;
-        }
-    
     }
 }
