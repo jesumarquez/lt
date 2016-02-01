@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.ViajeProgramado,Logictracker.Types" table="opetick13" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opetick13" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
+    <many-to-one name="Transportista" column="rela_parenti07" lazy="proxy" />
+    <many-to-one name="TipoCoche" column="rela_parenti17" lazy="proxy" />
+
+    <property column="opetick13_codigo" name="Codigo" />
+    <property column="opetick13_horas" name="Horas" />
+    <property column="opetick13_km" name="Km" />
+
+    <bag name="Detalles"
+          table="opetick14"
+          order-by="opetick14_orden ASC"
+          inverse="true"
+          cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_opetick13" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EntregaProgramada, Logictracker.Types" />
+    </bag>
+    
+  </class>
+</hibernate-mapping>
