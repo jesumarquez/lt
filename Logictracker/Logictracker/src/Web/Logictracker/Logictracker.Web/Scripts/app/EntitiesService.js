@@ -42,7 +42,7 @@ function EntitiesService($resource, $http) {
             cantidadTicketPorHora: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/ticketporhora", { distritoId: "@distritoId", baseId: "@baseId" }),
             chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             tipoCicloLogistico: $resource("/api/distrito/:distritoId/tipociclologistico/items", { distritoId: "@distritoId" }),
-            coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId"}),
+            coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId", excludeNone: "@excludeNone" }),
             tipoCoche: $resource("/api/distrito/:distritoId/base/:baseId/tipocoche/items", { distritoId: "@distritoId", baseId: "@baseId"}),
             tipoMensaje: $resource("/api/distrito/:distritoId/base/:baseId/tipomensaje/items", { distritoId: "@distritoId", baseId: "@baseId" })
         },
@@ -627,7 +627,7 @@ function EntitiesService($resource, $http) {
                 read: function (op) {
                     if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
                         op.data.baseId !== undefined && op.data.baseId !== "") {
-                        getData(_service.resources.coche, op, { distritoId: op.data.distritoId, baseId: op.data.baseId });
+                        getData(_service.resources.coche, op, { distritoId: op.data.distritoId, baseId: op.data.baseId, excludeNone: op.data.excludeNone });
                     }
                     else {
                         op.success([]);
