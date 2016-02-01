@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Logictracker.Types.BusinessObjects.CicloLogistico
 {
@@ -7,8 +8,8 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
     {
         public LocationSos(string lat, string lon, string dir, string loc)
         {
-            Latitud = double.Parse(lat);
-            Longitud = double.Parse(lon);
+            Latitud = double.Parse(lat, CultureInfo.InvariantCulture);
+            Longitud = double.Parse(lon, CultureInfo.InvariantCulture);
             Direccion = dir;
             Localidad = loc;
         }
