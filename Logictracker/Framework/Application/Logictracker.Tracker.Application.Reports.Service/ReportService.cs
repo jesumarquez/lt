@@ -969,13 +969,10 @@ namespace Logictracker.Tracker.Application.Reports
                     foreach (var route in rutas)
                     {
                         var dms = DaoFactory.DatamartDistribucionDAO.GetRecords(route.Id);
-                        foreach (var dm in dms)
-                        {
-                            results.Add(new ReporteDistribucionVo(dm, confirmation));
-                        }
-
-                        return results;
+                        var items = dms.Select(d => new ReporteDistribucionVo(d, confirmation));
+                        results.AddRange(items);
                     }
+                    return results;
                 }
 
                 var sql = DaoFactory.DatamartDistribucionDAO.GetReporteDistribucion(empresa, 
