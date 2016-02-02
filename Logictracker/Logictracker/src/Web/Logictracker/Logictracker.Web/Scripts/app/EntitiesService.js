@@ -23,7 +23,8 @@ function EntitiesService($resource, $http) {
             tipoCicloLogistico: getTipoCicloLogisticoDS,
             coche: getCocheDS,
             tipoCoche: getTipoCocheDS,
-            tipoMensaje: getTipoMensajeDS
+            tipoMensaje: getTipoMensajeDS,
+            mensaje: getMensajeDS
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -44,7 +45,8 @@ function EntitiesService($resource, $http) {
             tipoCicloLogistico: $resource("/api/distrito/:distritoId/tipociclologistico/items", { distritoId: "@distritoId" }),
             coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId", excludeNone: "@excludeNone" }),
             tipoCoche: $resource("/api/distrito/:distritoId/base/:baseId/tipocoche/items", { distritoId: "@distritoId", baseId: "@baseId"}),
-            tipoMensaje: $resource("/api/distrito/:distritoId/base/:baseId/tipomensaje/items", { distritoId: "@distritoId", baseId: "@baseId" })
+            tipoMensaje: $resource("/api/distrito/:distritoId/base/:baseId/tipomensaje/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            mensaje: $resource("/api/distrito/:distritoId/base/:baseId/mensaje/items", { distritoId: "@distritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -694,6 +696,9 @@ function EntitiesService($resource, $http) {
         return getDSByDistritoBase(onEnd, onFail, _service.resources.tipoMensaje);
     }
     
+    function getMensajeDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.mensaje);
+    }
 
     return _service;
 }

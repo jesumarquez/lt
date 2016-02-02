@@ -2686,6 +2686,7 @@
     <Compile Include="ControlAcceso\Fichada.aspx.designer.cs">
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\api\MensajeController.cs" />
     <Compile Include="Controllers\api\EmpleadoController.cs" />
     <Compile Include="Controllers\api\Models\CocheModel.cs" />
     <Compile Include="Controllers\api\PuntoEntregaController.cs" />
@@ -2702,6 +2703,7 @@
     <Compile Include="Controllers\api\CocheController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
+    <Compile Include="Models\MensajeModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />

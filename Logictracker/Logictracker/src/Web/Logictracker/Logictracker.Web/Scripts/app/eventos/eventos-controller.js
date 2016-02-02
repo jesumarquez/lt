@@ -10,6 +10,7 @@ function EventosController($scope, UserDataInfo) {
     vm.desde = null;
     vm.hasta = null;
     vm.cocheSelected = [];
+    vm.mensajeSelected = [];
 
     vm.UserData = UserDataInfo.get($scope, vm);
 }
