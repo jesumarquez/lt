@@ -4,41 +4,62 @@
 
 <div ng-app="logictracker" class="container" ng-controller="OrdenesController">
     <div class="row nl-filterpanel">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
-                    @Html.ResourceLabel("Entities", "PARENTI01"):
+                   @Html.ResourceLabel("Entities", "PARENTI01"):
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">                    
                     <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
                 </div>
             </div>
-        </div>
-       
-        <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI02"):
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">                   
                     <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
+                </div>
+            </div>
+        </div>       
+        <div class="col-md-3">
+            @Html.ResourceLabel("Entities", "PARENTI07"): <lt-ms-transportista lt-ng-model="transportistaSelected"
+                                                                                lt-data-distrito="distritoSelected"
+                                                                                lt-depends-on-base="baseSelected" />
+        </div>        
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Labels", "Desde"):
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" kendo-date-picker k-ng-model="desde" />
+                </div>
+            </div>            
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.ResourceLabel("Labels", "Hasta"):
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input class="form-control" kendo-date-picker k-ng-model="hasta" />
                 </div>
             </div>
         </div>
 
-        <div class="col-md-2">
-            @Html.ResourceLabel("Entities", "PARENTI07"): <input kendo-multi-select class="form-control"
-                                                                 k-data-source="transportistaDS"
-                                                                 k-data-text-field="'Value'"
-                                                                 k-data-value-field="'Key'"
-                                                                 k-ng-model="transportistaSelected" />
-        </div>
-        
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
                     <button type="button" class="form-control" kendo-button style="margin-top: 1.5em;min-width: 10em" ng-click="onBuscar()">@Html.ResourceLabel("Labels", "Buscar")</button>
                 </div>
             </div>
-        </div>
-        
-        <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
                     <button type="button" class="form-control" kendo-button style="margin-top: 1.5em; min-width: 10em" data-toggle="modal" data-target="#myModal">
@@ -47,6 +68,7 @@
                 </div>
             </div>
         </div>
+    
     </div>
     <h1>@ViewBag.Title</h1>
     <div cass="row" style="margin-top: 1em;">
