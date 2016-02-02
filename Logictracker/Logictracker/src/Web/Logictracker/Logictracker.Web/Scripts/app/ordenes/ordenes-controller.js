@@ -21,6 +21,7 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         sortable: true,
         groupable: true,
         scrollable: false,
+        selectable: "multiple",
         pageable: {
             refresh: true,
             pageSizes: true,
@@ -28,7 +29,6 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         },
         columns:
         [
-            { template: '<input type="checkbox" ng-model="dataItem.Selected">', width: "10px" },
             { field: "Empresa", title: "Empresa"},
             { field: "Empleado", title: "Empleado"},
             { field: "Transportista", title: "Transportista"},
@@ -185,8 +185,14 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.programOrders = function (order) {
+
+            var selectOrders = [];
+            $scope.ordenesGrid.select().each(function(index, row) {
+                selectOrders.push($scope.ordenesGrid.dataItem(row));
+            });
+
             $scope.newOrder = new OrdenesService.ordenes();
-            $scope.newOrder.OrderList = $scope.Orders.data();
+            $scope.newOrder.OrderList = selectOrders;
             $scope.newOrder.IdVehicle = order.Vehicle.Key;
             $scope.newOrder.StartDateTime = order.StartDateTime;
             $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
