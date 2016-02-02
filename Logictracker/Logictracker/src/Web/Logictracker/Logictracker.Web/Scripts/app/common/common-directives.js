@@ -975,6 +975,7 @@
         .directive('ltDdlTipoMensaje', directive);
 })();
 
+//ltMsCoche
 (function () {
 
     var directive = function () {
@@ -1026,6 +1027,118 @@
 
     angular.module('logictracker.common.directives')
         .directive('ltMsCoche', directive);
+
+
+})();
+
+//ltMsMensaje
+(function () {
+
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+            vm.ds = EntitiesService.distrito.mensaje(onDSLoad, onFail);
+
+            $scope.$watch(function () { return vm.base; }, onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = [];
+                }
+            };
+
+            function onSelected(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key});
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito",
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'mensaje',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-multi-select ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="mensaje.ds" ',
+                    'k-ng-model="mensaje.model" ',
+                    'k-auto-bind="false" >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltMsMensaje', directive);
+
+
+})();
+
+//ltMsEmpleado
+(function () {
+
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+            vm.ds = EntitiesService.distrito.empleados(onDSLoad, onFail);
+
+            $scope.$watch(function () { return vm.base; }, onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = [];
+                }
+            };
+
+            function onSelected(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito",
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'empleado',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-multi-select ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="empleado.ds" ',
+                    'k-ng-model="empleado.model" ',
+                    'k-auto-bind="false" >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltMsEmpleado', directive);
 
 
 })();
