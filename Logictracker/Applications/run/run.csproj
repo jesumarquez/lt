@@ -147,10 +147,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="Applications\00DispatcherHAWK.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Applications\DispatcherControlSat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Applications\GatewayControlSat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Applications\00-GatewayHawk.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Geocoder.NHibernate.config">
@@ -189,6 +195,10 @@
     <ProjectReference Include="..\..\BackEnd\Codecs\PumpControl\PumpControl.csproj">
       <Project>{E06AA9E5-BBF6-42BD-BAC6-2F7C5478CB77}</Project>
       <Name>PumpControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Siac\Siac.csproj">
+      <Project>{868f6750-be88-40d4-9fdc-4c1caff876a4}</Project>
+      <Name>Siac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\SkyPatrol\SkyPatrol.csproj">
       <Project>{EA1DABAA-B52D-4FC0-A636-A315ED216710}</Project>
@@ -322,6 +332,10 @@
       <Project>{71A47BE2-1A18-4628-B66A-120640D22AF0}</Project>
       <Name>Logictracker.XSynq</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Hawk\Hawk.csproj">
+      <Project>{0dcc7407-03c7-4226-9507-1fd677aa781d}</Project>
+      <Name>Hawk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\LogicLink2\Logictracker.Scheduler.Tasks.Logiclink2.csproj">
       <Project>{812CCB47-FB25-4DFB-8B20-313C6C3E8E6E}</Project>
       <Name>Logictracker.Scheduler.Tasks.Logiclink2</Name>
@@ -381,6 +395,10 @@
     <ProjectReference Include="..\..\Logictracker\src\Scheduler\Tasks\Soporte\Logictracker.Scheduler.Tasks.ServiceStatus\Logictracker.Scheduler.Tasks.ServiceStatus.csproj">
       <Project>{6F5126F4-A682-4DBA-A270-5DF2B113852B}</Project>
       <Name>Logictracker.Scheduler.Tasks.ServiceStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vigilia\Vigilia.csproj">
+      <Project>{14e9e531-14d7-497c-8066-5b86928d00cb}</Project>
+      <Name>Vigilia</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
