@@ -11,6 +11,7 @@ function EventosController($scope, UserDataInfo) {
     vm.hasta = null;
     vm.cocheSelected = [];
     vm.mensajeSelected = [];
+    vm.empleadoSelected = [];
 
     vm.UserData = UserDataInfo.get($scope, vm);
 }

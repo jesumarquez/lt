@@ -24,7 +24,8 @@ function EntitiesService($resource, $http) {
             coche: getCocheDS,
             tipoCoche: getTipoCocheDS,
             tipoMensaje: getTipoMensajeDS,
-            mensaje: getMensajeDS
+            mensaje: getMensajeDS,
+            empleados: getListEmpleadoDS
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -35,7 +36,8 @@ function EntitiesService($resource, $http) {
             empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/models"),
             empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/models"),
             empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/model"),
-            ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
+            empleados: $resource("/api/distrito/:distritoId/base/:baseId/empleado/items"),
+            ticketRechaszo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData"),
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
             estadisticasPorRol: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/rol", { distritoId: "@distritoId", baseId: "@baseId" }),
@@ -698,6 +700,10 @@ function EntitiesService($resource, $http) {
     
     function getMensajeDS(onEnd, onFail) {
         return getDSByDistritoBase(onEnd, onFail, _service.resources.mensaje);
+    }
+
+    function getListEmpleadoDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.empleados);
     }
 
     return _service;

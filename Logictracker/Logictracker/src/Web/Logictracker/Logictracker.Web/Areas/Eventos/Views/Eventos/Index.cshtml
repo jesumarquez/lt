@@ -55,8 +55,14 @@
             <div class="row">
                 <div>@Html.ResourceLabel("Entities", "PAREVEN01"):</div>
                 <lt-ms-mensaje lt-ng-model="eventos.mensajeSelected"
-                             lt-data-base="eventos.baseSelected"
-                             lt-data-distrito="eventos.distritoSelected" />
+                               lt-data-base="eventos.baseSelected"
+                               lt-data-distrito="eventos.distritoSelected" />
+            </div>
+            <div class="row">
+                <div>@Html.ResourceLabel("Labels", "OPERADORES"):</div>
+                <lt-ms-empleado lt-ng-model="eventos.empleadoSelected"
+                               lt-data-base="eventos.baseSelected"
+                               lt-data-distrito="eventos.distritoSelected" />
             </div>
         </div>
         
