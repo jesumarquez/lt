@@ -4,9 +4,51 @@
 
 function OrdenesService($resource) {
     var _service = {
-        items: getItems,
+        items: getOrdenesItems,
         ordenes: $resource("/api/distrito/:distritoId/base/:baseId/ordenes", { distritoId: "@distritoId", baseId: "@baseId" })
     }
+
+    function getOrdenesItems(filters, onEnd, onFail) {
+
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ordenes/datasource";
+                    }
+                }
+            },
+            schema: {
+                total: "Total",
+                data: "Data",
+                errors: "Errors",
+                parse: function (data) {
+                    $.each(data.Data, function (i, val) {
+                        val.FechaAlta = kendo.parseDate(val.FechaAlta);
+                        val.FechaPedido = kendo.parseDate(val.FechaPedido);
+                        val.FechaEntrega = kendo.parseDate(val.FechaEntrega);
+                       });
+                    return data;
+                },
+            },
+            pageSize: 25,
+            filter: filters,
+            serverGrouping: false,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: false,            
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
     
     function getItems(data_, onEnd, onFail) {
         var ds = new kendo.data.DataSource({
