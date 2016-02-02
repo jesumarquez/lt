@@ -463,7 +463,7 @@ namespace Hawk
             }
             else
             {
-                deviceid = DataProvider.FindByIMEI(parser[0].ToString(), this).Id;
+                deviceid = DataProvider.FindByIMEI(parser[1].ToString(), this).Id;
             }
 
             salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
