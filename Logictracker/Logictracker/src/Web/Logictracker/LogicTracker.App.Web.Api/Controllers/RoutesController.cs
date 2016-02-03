@@ -196,7 +196,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                     };
 
                     //RouteService.CreateGarminMessage(jobState.JobId, coord, jobState.MessageId, jobState.JobStatus);
-                    jobState.JobStatus = RouteService.ReportDelivery(routeState.RouteId, jobState.JobId, coord, jobState.MessageId, jobState.JobStatus, deviceId);
+                    jobState.JobStatus = RouteService.ReportDelivery(routeState.RouteId, jobState.JobId, coord, jobState.MessageId, jobState.JobStatus, deviceId, routeState.dateTime);
                 }
                 //syncList.RouteStatus   = RouteStatus.Completed; 
                 return CreatedAtRoute("DefaultApi", new { id = routeState.RouteId }, content: routeState);

@@ -714,11 +714,11 @@ namespace Logictracker.Process.CicloLogistico
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, Distribucion.Vehiculo.Dispositivo.Id, "Error generando pregunta: Ya se ha confirmado la realización de la entrega(" + destDetail + ")");
                         return;
                     }
-                    if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado)
+                  /*  if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado && detalle.Viaje.Fin < data.Date)
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: El viaje " + detalle.Viaje.Codigo + " se encuentra cerrado.");
                         return;
-                    }
+                    }*/
 
                     detalle.Manual = data.Date;
                     detalle.Estado = EntregaDistribucion.Estados.Completado;
@@ -793,11 +793,11 @@ namespace Logictracker.Process.CicloLogistico
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: Ya se ha confirmado la realización de la entrega(" + destDetail + ")");
                         return;
                     }
-                    if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado)
+                   /* if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado)
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: El viaje " + detalle.Viaje.Codigo + " se encuentra cerrado.");
                         return;
-                    }
+                    }*/
 
                     detalle.Manual = data.Date;
                     detalle.Estado = EntregaDistribucion.Estados.NoCompletado;

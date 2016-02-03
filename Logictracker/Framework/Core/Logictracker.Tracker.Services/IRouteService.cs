@@ -17,7 +17,7 @@ namespace Logictracker.Tracker.Services
         IList<ViajeDistribucion> GetAvailableRoutes(string deviceId);
         string StartRoute(int routeId);
         string FinalizeRoute(int id);
-        short ReportDelivery(int routeId, long jobId, Coordinate coord, int messageId, short jobStatus, string deviceId);
+        short ReportDelivery(int routeId, long jobId, Coordinate coord, int messageId, short jobStatus, string deviceId, DateTime dateTime);
 
         //void CreateGarminMessage(int jobId, Coordinate coordinate, int messageId, short status);
         string SendMessageByRouteAndDelivery(int routeId, string messageCode, string text, DateTime dateTime,

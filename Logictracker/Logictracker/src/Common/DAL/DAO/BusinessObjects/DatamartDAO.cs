@@ -590,26 +590,37 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         /// <returns></returns>
         public IEnumerable<MobilesTime> GetMobilesTimes(DateTime desde, DateTime hasta, List<Int32> ids)
         {
-            MobilesTime mt = null;
+            var table = Ids2DataTable(ids);
 
-            DetachedCriteria dc = GetDatamartDetachedCriteria(ids.ToArray()).FilterBeginEndBetween(desde, hasta);
-
-            ProjectionList pl = Projections.ProjectionList();
-            pl.Add(Projections.Sum<Datamart>(dm => dm.MovementHours).WithAlias(() => mt.ElapsedTime));
-            pl.Add(Projections.Group<Datamart>(dm => dm.Vehicle.Id).WithAlias(() => mt.Movil));
-//            pl.Add(Projections.Group<Datamart>(dm => dm.Vehicle.Interno).WithAlias(() => mt.Intern));
-
-            ICriteria crit = GetDatamartCriteria(0, dc, pl, null, typeof (MobilesTime));
-            IList<MobilesTime> results = crit.List<MobilesTime>();
-
-            var cocheDAO = new CocheDAO();
-            foreach (MobilesTime r in results)
-            {
-                Coche coche = cocheDAO.FindById(r.Movil);
-                r.Intern = coche.Interno;
-            }
-
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_DatamartDAO_GetMobilesTimes] :ids, :dateFrom, :dateTo;");
+            sqlQ.SetStructured("ids", table);
+            sqlQ.SetDateTime("dateFrom", desde);
+            sqlQ.SetDateTime("dateTo", hasta);
+            sqlQ.SetResultTransformer(Transformers.AliasToBean(typeof(MobilesTime)));
+            var results = sqlQ.List<MobilesTime>();
             return results;
+
+
+//            MobilesTime mt = null;
+
+//            DetachedCriteria dc = GetDatamartDetachedCriteria(ids.ToArray()).FilterBeginEndBetween(desde, hasta);
+
+//            ProjectionList pl = Projections.ProjectionList();
+//            pl.Add(Projections.Sum<Datamart>(dm => dm.MovementHours).WithAlias(() => mt.ElapsedTime));
+//            pl.Add(Projections.Group<Datamart>(dm => dm.Vehicle.Id).WithAlias(() => mt.Movil));
+////            pl.Add(Projections.Group<Datamart>(dm => dm.Vehicle.Interno).WithAlias(() => mt.Intern));
+
+//            ICriteria crit = GetDatamartCriteria(0, dc, pl, null, typeof (MobilesTime));
+//            IList<MobilesTime> results = crit.List<MobilesTime>();
+
+//            var cocheDAO = new CocheDAO();
+//            foreach (MobilesTime r in results)
+//            {
+//                Coche coche = cocheDAO.FindById(r.Movil);
+//                r.Intern = coche.Interno;
+//            }
+
+//            return results;
         }
 
         /// <summary>

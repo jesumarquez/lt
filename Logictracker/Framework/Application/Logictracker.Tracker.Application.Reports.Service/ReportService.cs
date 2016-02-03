@@ -963,6 +963,17 @@ namespace Logictracker.Tracker.Application.Reports
                     return results;
                 }
 
+                var rutas = DaoFactory.ViajeDistribucionDAO.GetList(new[] { empresa }, new[] { linea }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, selectedVehicles, desde, hasta);
+                if (rutas.Any())
+                {
+                    foreach (var route in rutas)
+                    {
+                        var dms = DaoFactory.DatamartDistribucionDAO.GetRecords(route.Id);
+                        var items = dms.Select(d => new ReporteDistribucionVo(d, confirmation));
+                        results.AddRange(items);
+                    }
+                    return results;
+                }
 
                 var sql = DaoFactory.DatamartDistribucionDAO.GetReporteDistribucion(empresa, 
                                                                                        linea,
