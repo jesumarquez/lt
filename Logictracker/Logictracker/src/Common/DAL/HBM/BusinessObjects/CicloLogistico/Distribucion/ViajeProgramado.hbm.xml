@@ -10,7 +10,6 @@
 
     <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
     <many-to-one name="Transportista" column="rela_parenti07" lazy="proxy" />
-    <many-to-one name="TipoCoche" column="rela_parenti17" lazy="proxy" />
 
     <property column="opetick13_codigo" name="Codigo" />
     <property column="opetick13_horas" name="Horas" />

@@ -16,8 +16,7 @@ namespace Logictracker.CicloLogistico.Distribucion
         protected override List<ViajeProgramadoVo> GetListData()
         {
             return DAOFactory.ViajeProgramadoDAO.GetList(cbEmpresa.SelectedValues,
-                                                         cbTransportista.SelectedValues,
-                                                         cbTipoVehiculo.SelectedValues)
+                                                         cbTransportista.SelectedValues)
                                                 .Select(v => new ViajeProgramadoVo(v)).ToList();
         }
 
@@ -29,14 +28,12 @@ namespace Logictracker.CicloLogistico.Distribucion
         {
             data.LoadStaticFilter(FilterData.StaticDistrito, cbEmpresa);
             data.LoadStaticFilter(FilterData.StaticTransportista, cbTransportista);
-            data.LoadStaticFilter(FilterData.StaticTipoVehiculo, cbTipoVehiculo);
         }
 
         protected override FilterData GetFilters(FilterData data)
         {
             data.AddStatic(FilterData.StaticDistrito, cbEmpresa.Selected);
             data.AddStatic(FilterData.StaticTransportista, cbTransportista.Selected);
-            data.AddStatic(FilterData.StaticTipoVehiculo, cbTipoVehiculo.Selected);
             return data;
         }
 

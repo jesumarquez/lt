@@ -1738,6 +1738,7 @@
     <Content Include="Areas\Rechazos\Views\Rechazo\EditItem.cshtml" />
     <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
+    <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />

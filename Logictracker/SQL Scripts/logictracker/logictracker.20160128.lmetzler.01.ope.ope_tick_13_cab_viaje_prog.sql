@@ -18,7 +18,6 @@ CREATE TABLE [dbo].[ope.ope_tick_13_cab_viaje_prog](
 	[opetick13_km] [float] NULL,
 	[rela_parenti01] [int] NOT NULL,
 	[rela_parenti07] [int] NULL,
-	[rela_parenti17] [int] NULL,
  CONSTRAINT [PK_ope.ope_tick_13_cab_viaje_prog] PRIMARY KEY CLUSTERED 
 (
 	[id_opetick13] ASC
@@ -44,12 +43,6 @@ GO
 ALTER TABLE [dbo].[ope.ope_tick_13_cab_viaje_prog] CHECK CONSTRAINT [FK_ope.ope_tick_13_cab_viaje_prog_par.par_enti_07_tbl_transportistas]
 GO
 
-ALTER TABLE [dbo].[ope.ope_tick_13_cab_viaje_prog]  WITH CHECK ADD  CONSTRAINT [FK_ope.ope_tick_13_cab_viaje_prog_par.par_enti_17_tbl_tipocoche] FOREIGN KEY([rela_parenti17])
-REFERENCES [dbo].[par.par_enti_17_tbl_tipocoche] ([id_parenti17])
-GO
-
-ALTER TABLE [dbo].[ope.ope_tick_13_cab_viaje_prog] CHECK CONSTRAINT [FK_ope.ope_tick_13_cab_viaje_prog_par.par_enti_17_tbl_tipocoche]
-GO
 
 CREATE SYNONYM [dbo].[opetick13] FOR [dbo].[ope.ope_tick_13_cab_viaje_prog]
 GO

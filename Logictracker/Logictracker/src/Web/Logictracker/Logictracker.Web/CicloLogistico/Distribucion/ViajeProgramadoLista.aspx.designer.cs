@@ -56,32 +56,5 @@ namespace Logictracker.CicloLogistico.Distribucion {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.TransportistaDropDownList cbTransportista;
-        
-        /// <summary>
-        /// lblParenti17 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblParenti17;
-        
-        /// <summary>
-        /// updTipoMovil control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updTipoMovil;
-        
-        /// <summary>
-        /// cbTipoVehiculo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoVehiculoDropDownList cbTipoVehiculo;
     }
 }

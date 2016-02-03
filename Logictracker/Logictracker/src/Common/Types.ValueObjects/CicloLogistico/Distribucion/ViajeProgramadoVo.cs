@@ -11,7 +11,7 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico.Distribucion
     {
         public const int IndexCodigo = 0;
         public const int IndexTransportista = 1;
-        public const int IndexTipoCoche = 2;        
+        public const int IndexClientes = 2;
         public const int IndexHoras = 3;
         public const int IndexKm = 4;
 
@@ -23,11 +23,11 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico.Distribucion
         [GridMapping(Index = IndexTransportista, ResourceName = "Entities", VariableName = "PARENTI07", AllowGroup = true)]
         public string Transportista { get; set; }
 
-        [GridMapping(Index = IndexTipoCoche, ResourceName = "Entities", VariableName = "PARENTI17", AllowGroup = true)]
-        public string TipoCoche { get; set; }
+        [GridMapping(Index = IndexClientes, ResourceName = "Menu", VariableName = "PTOS_ENTREGA", AllowGroup = false)]
+        public int Clientes { get; set; }
 
         [GridMapping(Index = IndexHoras, ResourceName = "Labels", VariableName = "HORAS", AllowGroup = false)]
-        public double Horas { get; set; }
+        public string Horas { get; set; }
 
         [GridMapping(Index = IndexKm, ResourceName = "Labels", VariableName = "KM", AllowGroup = false)]
         public double Km { get; set; }
@@ -37,9 +37,10 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico.Distribucion
             Id = viaje.Id;
             Codigo = viaje.Codigo;
             Transportista = viaje.Transportista != null ? viaje.Transportista.Descripcion : string.Empty;
-            TipoCoche = viaje.TipoCoche != null ? viaje.TipoCoche.Descripcion : string.Empty;
-            Horas = viaje.Horas;
+            Clientes = viaje.Detalles.Count;
             Km = viaje.Km;
+            var ts = new TimeSpan(0, 0, (int)(viaje.Horas * 3600));
+            Horas = ((int)Math.Truncate(ts.TotalHours)).ToString("00") + ":" + ((int)(ts.Minutes)).ToString("00") + ":" + ((int)(ts.Seconds)).ToString("00");
         }
     }
 }
