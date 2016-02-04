@@ -55,7 +55,6 @@ namespace Logictracker.Web.Controllers.api
                 if (order.PuntoEntrega != null) orderModel.IdPuntoEntrega = order.PuntoEntrega.Id;
                 if (order.Transportista != null) orderModel.Transportista = order.Transportista.Descripcion;
                 if (order.Transportista != null) orderModel.IdTransportista = order.Transportista.Id;
-                orderModel.Selected = false;
                 orderList.Add(orderModel);
             }
 
@@ -97,8 +96,6 @@ namespace Logictracker.Web.Controllers.api
 
             foreach (var orderModel in orderSelectionModel.OrderList)
             {
-                if (!orderModel.Selected) continue;
-
                 var order = new Order();
                 order.CodigoPedido = orderModel.CodigoPedido;
                 order.Empleado = new Empleado { Id = orderModel.IdEmpleado };
@@ -126,6 +123,7 @@ namespace Logictracker.Web.Controllers.api
                [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
             IQueryable<Order> ordenes = EntityDao.FindAll();
+            ordenes = ordenes.Where(o => !o.Programado);
 
             return ordenes.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new OrderModel()));
         }

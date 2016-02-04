@@ -26,7 +26,6 @@ namespace Logictracker.Web.Models
         public DateTime? FechaEntrega { get; set; }
         public string InicioVentana { get; set; }
         public string FinVentana { get; set; }
-        public bool Selected { get; set; }
     }
 
     public class OrdenesMapper : EntityModelMapper<Order, OrderModel>
@@ -54,7 +53,6 @@ namespace Logictracker.Web.Models
             if (entity.PuntoEntrega != null) model.IdPuntoEntrega = entity.PuntoEntrega.Id;
             if (entity.Transportista != null) model.Transportista = entity.Transportista.Descripcion;
             if (entity.Transportista != null) model.IdTransportista = entity.Transportista.Id;
-            model.Selected = false;
             
             return model;
         }

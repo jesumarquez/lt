@@ -21,6 +21,7 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         sortable: true,
         groupable: true,
         scrollable: false,
+        selectable: "multiple",
         pageable: {
             refresh: true,
             pageSizes: true,
@@ -28,7 +29,6 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         },
         columns:
         [
-            { template: '<input type="checkbox" ng-model="dataItem.Selected">', width: "10px" },
             { field: "Empresa", title: "Empresa"},
             { field: "Empleado", title: "Empleado"},
             { field: "Transportista", title: "Transportista"},
@@ -162,6 +162,20 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
                 filterList.push({ logic: "or", filters: transportistaFilter });
             }
 
+            var msOffset = new Date().getTimezoneOffset() * 60000;
+
+            if ($scope.desde != undefined) {
+                var fDesde = new Date($scope.desde);
+                fDesde.setHours(0, 0, 0, 0);
+                filterList.push({ field: "FechaAlta", operator: "gte", value: new Date(fDesde.getTime() + msOffset) });
+            }
+
+            if ($scope.hasta != undefined) {
+                var fHasta = new Date($scope.hasta);
+                fHasta.setHours(23, 59, 59, 999);
+                filterList.push({ field: "FechaAlta", operator: "lte", value: new Date(fHasta.getTime() + msOffset) });
+            }
+
             var filters = {
                 logic: "and",
                 filters: filterList
@@ -171,8 +185,14 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.programOrders = function (order) {
+
+            var selectOrders = [];
+            $scope.ordenesGrid.select().each(function(index, row) {
+                selectOrders.push($scope.ordenesGrid.dataItem(row));
+            });
+
             $scope.newOrder = new OrdenesService.ordenes();
-            $scope.newOrder.OrderList = $scope.Orders.data();
+            $scope.newOrder.OrderList = selectOrders;
             $scope.newOrder.IdVehicle = order.Vehicle.Key;
             $scope.newOrder.StartDateTime = order.StartDateTime;
             $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
