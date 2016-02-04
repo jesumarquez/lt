@@ -113,6 +113,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                 if (!EditMode)
                 {
                     dtFecha.SetDate();
+                    dtFechaProgramada.SetDate();
                     dtRegeneraDesde.SetDate();
                     dtRegeneraHasta.SetDate();
                     BindEntregas();
@@ -672,6 +673,16 @@ namespace Logictracker.CicloLogistico.Distribucion
             }
         }
 
+        protected void CbViajeProgramadoSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void CbVehiculoProgramadoSelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbVehiculo.SetSelectedValue(cbVehiculoProgramado.Selected);
+        }
+
         private void SetFechaInicio(CentroDeCostos cc)
         {
             if (cc.HorarioInicio.HasValue)
@@ -882,6 +893,12 @@ namespace Logictracker.CicloLogistico.Distribucion
             Hasta.Set(hasta);
 
             BindEntregas();
+        }
+
+        protected void DtFechaProgramadaDateChanged(object sender, EventArgs e)
+        {
+            dtFecha.SelectedDate = dtFechaProgramada.SelectedDate;
+            DtFechaDateChanged(sender, e);
         }
 
         private static Direccion DireccionFromVo(DireccionVO direccion)
