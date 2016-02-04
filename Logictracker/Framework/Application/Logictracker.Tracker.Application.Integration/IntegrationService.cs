@@ -68,7 +68,7 @@ namespace Logictracker.Tracker.Application.Integration
 
             Logger.Info("Searching for a new alarm in S.O.S. service...");
 
-            var rollback = WebServiceSos._alertasRollback("20160201304200");
+            var rollback = WebServiceSos._alertasRollback("20160203304219");
 
             var response = WebServiceSos.ObtenerAlertas();
             //var fecha = DateTime.Now;
@@ -157,12 +157,16 @@ namespace Logictracker.Tracker.Application.Integration
             //O:	SAN MARTIN  500, CORDOBA
             //D:	COLON 1000, CORDOBA
             //Di:	CORREA DE DISTRIBUCION
-            var mensaje = string.Format("Asignado: {0}<br>O:{1}<br>D:{2}<br>Di:{3}",
+            var mensaje = string.Format("Asignado: {0}<br>De {1}<br>a {2}<br>{3}",
                 ticket.NumeroServicio,
                 ticket.Origen.Direccion + ", " + ticket.Origen.Localidad,
                 ticket.Destino.Direccion + ", " + ticket.Destino.Localidad,
-                ticket.Diagnostico);
+                ticket.Diagnostico.Split('-')[1]);
 
+            var ms = new MessageSaver(DaoFactory);
+            var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+            var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+            ms.Save(MessageCode.ServicioAsignado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, "Servicio " + ticket.NumeroServicio + " asignado");
             SendQuestionToGarmin(mensaje, ticket.Distribucion);
         }
 
@@ -305,8 +309,8 @@ namespace Logictracker.Tracker.Application.Integration
                 entregaBase.KmCalculado = 0;
                 viaje.Detalles.Add(entregaBase);
 
-                var nombreOrigen = service.NumeroServicio + " - O";
-                var nombreDestino = service.NumeroServicio + " - D";
+                var nombreOrigen = service.NumeroServicio + " - A";
+                var nombreDestino = service.NumeroServicio + " - B";
                 
                 TipoServicioCiclo tipoServicio = null;
                 var tipoServ = DaoFactory.TipoServicioCicloDAO.FindDefault(new[] { empresa.Id }, new[] { -1 });
@@ -550,28 +554,26 @@ namespace Logictracker.Tracker.Application.Integration
                 viaje.Estado = ViajeDistribucion.Estados.Anulado;
             }
             
-            var empresaId = DaoFactory.EmpresaDAO.FindByCodigo(CodigoEmpresa).Id;
-            var lineaId = DaoFactory.LineaDAO.FindByNombre(empresaId, NombreLinea).Id;
             viaje.Inicio = ticket.HoraServicio;
-            viaje.Vehiculo = DaoFactory.CocheDAO.FindByInterno(new[] {empresaId}, new[] {lineaId} ,ticket.Movil.ToString());
-  
-            foreach (var entrega in viaje.Detalles)
+            viaje.Vehiculo = DaoFactory.CocheDAO.FindByInterno(new[] {viaje.Empresa.Id}, new[] {-1} ,ticket.Movil.ToString());
+
+            var origen = viaje.Detalles.FirstOrDefault(e => e.Descripcion.Contains("O"));
+            var destino = viaje.Detalles.FirstOrDefault(e => e.Descripcion.Contains("D"));
+
+            origen.Programado = ticket.HoraServicio;
+            origen.ProgramadoHasta = ticket.HoraServicio.AddHours(1);
+            
+            var o = new LatLon(origen.ReferenciaGeografica.Latitude, origen.ReferenciaGeografica.Longitude);
+            var d = new LatLon(destino.ReferenciaGeografica.Latitude, destino.ReferenciaGeografica.Longitude);
+            var directions = GoogleDirections.GetDirections(o, d, GoogleDirections.Modes.Driving, string.Empty, null);
+
+            if (directions != null)
             {
-                if (entrega.Descripcion.Equals("Origen"))
-                {
-                    //entrega.Estado = EntregaDistribucion.Estados.Pendiente;
-                    entrega.Programado = ticket.HoraServicio;
-                    entrega.ProgramadoHasta = new DateTime(ticket.HoraServicio.Year, ticket.HoraServicio.Month, ticket.HoraServicio.Day,
-                        ticket.HoraServicio.AddHours(1).Hour, ticket.HoraServicio.Minute, ticket.HoraServicio.Second);
-                }
-                if (entrega.Descripcion.Equals("Destino"))
-                {
-                    //entrega.Estado = EntregaDistribucion.Estados.Pendiente;
-                    entrega.Programado = ticket.HoraServicio;
-                    entrega.ProgramadoHasta = new DateTime(ticket.HoraServicio.Year, ticket.HoraServicio.Month, ticket.HoraServicio.Day,
-                        ticket.HoraServicio.AddHours(1).Hour, ticket.HoraServicio.Minute, ticket.HoraServicio.Second);
-                }
+                var duracion = directions.Duration;
+                destino.Programado = destino.Programado.Add(duracion);
+                destino.ProgramadoHasta = destino.ProgramadoHasta.Add(duracion);
             }
+
             return viaje;
         }
 
@@ -592,10 +594,11 @@ namespace Logictracker.Tracker.Application.Integration
                 ticket.EstadoServicio = (int) CodigoEstado.AsignadoAceptado;
 
                 //envio de informacion del servicio
-                var mensaje = string.Format("S:{0}<br>V:{1}<br>Di:{2}",
-                   ticket.NumeroServicio + " P:" + ticket.Prioridad,
+                var mensaje = string.Format("{0}<br>{1}<br>{2}<br>{3}",
+                   ticket.NumeroServicio + " (" + ticket.Prioridad + ")",
                    ticket.Patente.Substring(0,3) + "XXX " + ticket.Marca + " " + ticket.Color,
-                   ticket.Tipo + " por "+ ticket.Diagnostico + " $: " + ticket.CobroAdicional);
+                   ticket.Observacion,
+                   ticket.Diagnostico.Split('-')[1] + " $" + ticket.CobroAdicional);
                 SendMessageToGarmin(mensaje, dist);
 
                 //envio de ruta al garmin
@@ -624,10 +627,11 @@ namespace Logictracker.Tracker.Application.Integration
                 ticket.EstadoServicio = (int)CodigoEstado.PreasignadoAceptado;
 
                 //envio de informacion del servicio
-                var mensaje = string.Format("S:{0}<br>V:{1}<br>Di:{2}",
-                   ticket.NumeroServicio + " P:" + ticket.Prioridad,
+                var mensaje = string.Format("{0}<br>{1}<br>{2}<br>{3}",
+                   ticket.NumeroServicio + " (" + ticket.Prioridad + ")",
                    ticket.Patente.Substring(0, 3) + "XXX " + ticket.Marca + " " + ticket.Color,
-                   ticket.Tipo + " por " + ticket.Diagnostico + " $: " + ticket.CobroAdicional);
+                   ticket.Observacion,
+                   ticket.Diagnostico.Split('-')[1] + " $" + ticket.CobroAdicional);
                 SendMessageToGarmin(mensaje, dist);
 
                 //envio de ruta al garmin
@@ -647,11 +651,11 @@ namespace Logictracker.Tracker.Application.Integration
 
         private void UpdateToSos(string interno, string codigo, int estadoServicio, string diagnostico)
         {
-            if (WebServiceSos == null)
-                WebServiceSos = new WebServiceSos.Service();
+            //if (WebServiceSos == null)
+            //    WebServiceSos = new WebServiceSos.Service();
 
-            var res=WebServiceSos.ActualizarSvc(interno, codigo, estadoServicio, diagnostico.Split('-')[0]);
-            Logger.Info("Webservice response: " + res);
+            //var res=WebServiceSos.ActualizarSvc(interno, codigo, estadoServicio, diagnostico.Split('-')[0]);
+            //Logger.Info("Webservice response: " + res);
         }
 
         public void ArrivalReport(ViajeDistribucion viaje)

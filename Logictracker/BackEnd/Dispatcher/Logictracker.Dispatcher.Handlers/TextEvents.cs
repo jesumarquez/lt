@@ -46,7 +46,7 @@ namespace Logictracker.Dispatcher.Handlers
                 if (ruta != null)
                 {
                     var sosTicket = DaoFactory.SosTicketDAO.FindByCodigo(ruta.Codigo);
-                    if (sosTicket != null)                        
+                    if (sosTicket != null)
                     {
                         var intService = new IntegrationService(DaoFactory);
                         if (sosTicket.Patente.ToUpperInvariant().Contains(text))
