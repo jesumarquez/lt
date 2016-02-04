@@ -130,13 +130,13 @@ namespace Logictracker.Tracker.Application.Services
                 viaje.Tipo = ViajeDistribucion.Tipos.Desordenado;
                 viaje.Linea = order.Linea;
                 //viaje.CentroDeCostos = DaoFactory.CentroDeCostosDAO.FindById();
-                viaje.Vehiculo = DaoFactory.CocheDAO.FindById(idVehicle);
-                viaje.TipoCicloLogistico = DaoFactory.TipoCicloLogisticoDAO.FindById(cycleType);
+                viaje.Vehiculo = (idVehicle != -2)? DaoFactory.CocheDAO.FindById(idVehicle) : null;
+                viaje.TipoCicloLogistico = (cycleType != -2) ? DaoFactory.TipoCicloLogisticoDAO.FindById(cycleType) : null;
                 viaje.Empleado = null;//DaoFactory.EmpleadoDAO.FindById(idEmpleado);
                 viaje.Codigo = routeCode;
                 viaje.Inicio = startDateTime;
-                viaje.RegresoABase = true;                
-                viaje.Transportista = DaoFactory.TransportistaDAO.FindById(order.Transportista.Id);
+                viaje.RegresoABase = true;
+                viaje.Transportista = (order.Transportista.Id != 0) ? DaoFactory.TransportistaDAO.FindById(order.Transportista.Id) : null;
 
                 //base al inicio
                 var entregaBase = new EntregaDistribucion
@@ -185,6 +185,7 @@ namespace Logictracker.Tracker.Application.Services
 
             var order2Remove = DaoFactory.OrderDAO.FindById(order.Id);
             order2Remove.Programado = true;
+                      
             DaoFactory.OrderDAO.SaveOrUpdate(order2Remove);
         }
     }
