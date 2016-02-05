@@ -298,6 +298,9 @@ namespace Logictracker.DAL.Factories
         private SosTicketDAO _sosTicketDAO;
         public SosTicketDAO SosTicketDAO { get { return _sosTicketDAO ?? (_sosTicketDAO = GetDao<SosTicketDAO>()); } }
 
+        private ViajeProgramadoDAO _viajeProgramadoDAO;
+        public ViajeProgramadoDAO ViajeProgramadoDAO { get { return _viajeProgramadoDAO ?? (_viajeProgramadoDAO = GetDao<ViajeProgramadoDAO>()); } }
+
         #endregion
 
         #region Ciclo Logístico

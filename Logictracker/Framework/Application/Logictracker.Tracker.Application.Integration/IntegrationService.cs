@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Drawing;
 using log4net;
 using Logictracker.DAL.Factories;
 using Logictracker.Messages.Saver;
@@ -11,6 +12,11 @@ using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Spring.Messaging.Core;
 using Logictracker.Model;
 using Logictracker.Utils;
+using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
+using Logictracker.Types.BusinessObjects.Components;
+using Logictracker.Types.BusinessObjects;
+using System.Globalization;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.Tracker.Application.Integration
 {
@@ -61,6 +67,8 @@ namespace Logictracker.Tracker.Application.Integration
                 WebServiceSos = new WebServiceSos.Service();
 
             Logger.Info("Searching for a new alarm in S.O.S. service...");
+
+            var rollback = WebServiceSos._alertasRollback("20160201304200");
 
             var response = WebServiceSos.ObtenerAlertas();
             //var fecha = DateTime.Now;
@@ -207,7 +215,7 @@ namespace Logictracker.Tracker.Application.Integration
             if ((cmt != null) && (cmt.Count > 0))
             {
                // var msgText = "Por favor informe estado: " + destDetail;
-                var mensajes = cmt.Where(m => !m.TipoMensaje.DeEstadoLogistico).OrderBy(m => m.Codigo);
+                var mensajes = cmt.Where(m => m.TipoMensaje.DeEstadoLogistico).OrderBy(m => m.Codigo);
                 var replies = mensajes.Select(m => Convert.ToUInt32(m.Codigo)).ToArray();
                // var replies = new uint[] { 6000, 6058 };
                 var message = MessageSender.CreateSubmitCannedResponsesTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
@@ -266,6 +274,9 @@ namespace Logictracker.Tracker.Application.Integration
         {
             var empresa = DaoFactory.EmpresaDAO.FindByCodigo(CodigoEmpresa);
             var linea = DaoFactory.LineaDAO.FindByNombre(empresa.Id, NombreLinea);
+            var cliente = DaoFactory.ClienteDAO.FindByCode(new[] { empresa.Id }, new[] { -1 }, "1");
+            const int vigencia = 12;
+            var fecha = service.HoraServicio;
 
             var viaje = new ViajeDistribucion();
 
@@ -274,71 +285,257 @@ namespace Logictracker.Tracker.Application.Integration
                 //viaje
                 viaje.Codigo = service.NumeroServicio;
                 viaje.Empresa = empresa;
-                viaje.Estado = 0;
-                viaje.Tipo = 1;
                 viaje.Linea = linea;
-                viaje.Inicio = service.HoraServicio;
-                viaje.RegresoABase = true;
-                viaje.Fin = new DateTime(service.HoraServicio.Year, service.HoraServicio.Month, service.HoraServicio.Day,
-                    service.HoraServicio.AddHours(1).Hour, service.HoraServicio.Minute, service.HoraServicio.Second);
-                viaje.Vehiculo = DaoFactory.CocheDAO.FindByInterno(new[] {empresa.Id}, new[] {linea.Id} ,service.Movil.ToString());
-                //viaje.TipoCicloLogistico = DaoFactory.TipoCicloLogisticoDAO.FindById(cycleType);            
-                //viaje.CentroDeCostos = DaoFactory.CentroDeCostosDAO.FindById();            
-                //viaje.Transportista = DaoFactory.TransportistaDAO.FindById(order.Transportista.Id);
-                //viaje.Vehiculo = null;//DaoFactory.CocheDAO.FindById(idVehicle);
-                //viaje.Empleado = null;//DaoFactory.EmpleadoDAO.FindById(idEmpleado);
-
+                viaje.Estado = ViajeDistribucion.Estados.Pendiente;
+                viaje.Tipo = ViajeDistribucion.Tipos.Desordenado;
+                viaje.Inicio = fecha;
+                viaje.RegresoABase = false;
+                viaje.Fin = fecha.AddHours(1);
+                viaje.Vehiculo = DaoFactory.CocheDAO.FindByInterno(new[] {empresa.Id}, new[] {-1}, service.Movil.ToString());
+                
                 //base al inicio
                 var entregaBase = new EntregaDistribucion();
                 entregaBase.Linea = linea;
-                entregaBase.Descripcion = "Base";
+                entregaBase.Descripcion = linea.Descripcion;
                 entregaBase.Estado = EntregaDistribucion.Estados.Pendiente;
-                entregaBase.Programado = service.HoraServicio;
-                entregaBase.ProgramadoHasta = new DateTime(service.HoraServicio.Year, service.HoraServicio.Month,
-                    service.HoraServicio.Day,
-                    service.HoraServicio.AddHours(1).Hour, service.HoraServicio.Minute, service.HoraServicio.Second);
+                entregaBase.Programado = fecha;
+                entregaBase.ProgramadoHasta = fecha.AddHours(1);
                 entregaBase.Orden = viaje.Detalles.Count;
                 entregaBase.Viaje = viaje;
                 entregaBase.KmCalculado = 0;
                 viaje.Detalles.Add(entregaBase);
 
-                //origen
-                var origen = new EntregaDistribucion
-                {
-                    Linea = linea,
-                    Descripcion = "Origen",
-                    Estado = EntregaDistribucion.Estados.Pendiente,
-                    Programado = service.HoraServicio,
-                    ProgramadoHasta =
-                        new DateTime(service.HoraServicio.Year, service.HoraServicio.Month, service.HoraServicio.Day,
-                            service.HoraServicio.AddHours(1).Hour, service.HoraServicio.Minute,
-                            service.HoraServicio.Second),
-                    Orden = viaje.Detalles.Count,
-                    Viaje = viaje,
-                    KmCalculado = 0
-                };
-                viaje.Detalles.Add(origen);
+                var nombreOrigen = service.NumeroServicio + " - O";
+                var nombreDestino = service.NumeroServicio + " - D";
+                
+                TipoServicioCiclo tipoServicio = null;
+                var tipoServ = DaoFactory.TipoServicioCicloDAO.FindDefault(new[] { empresa.Id }, new[] { -1 });
+                if (tipoServ != null && tipoServ.Id > 0) tipoServicio = tipoServ;
 
-                //destino
-                var destino = new EntregaDistribucion
+                #region Origen
+
+                var puntoEntregaO = DaoFactory.PuntoEntregaDAO.FindByCode(new[] { empresa.Id },
+                                                                          new[] { -1 },
+                                                                          new[] { cliente.Id },
+                                                                          nombreOrigen);
+
+                if (puntoEntregaO == null)
                 {
-                    Linea = linea,
-                    Descripcion = "Destino",
+                    var empresaGeoRef = empresa;
+                    var lineaGeoRef = linea;
+
+                    var puntoDeInteres = new ReferenciaGeografica
+                    {
+                        Codigo = nombreOrigen,
+                        Descripcion = nombreOrigen,
+                        Empresa = empresaGeoRef,
+                        Linea = lineaGeoRef,
+                        EsFin = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsFin,
+                        EsInicio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsInicio,
+                        EsIntermedio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsIntermedio,
+                        InhibeAlarma = cliente.ReferenciaGeografica.TipoReferenciaGeografica.InhibeAlarma,
+                        TipoReferenciaGeografica = cliente.ReferenciaGeografica.TipoReferenciaGeografica,
+                        Vigencia = new Vigencia { Inicio = DateTime.UtcNow, Fin = fecha.AddHours(vigencia) },
+                        Icono = cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
+                    };
+
+                    var posicion = GetNewDireccion(service.Origen.Latitud, service.Origen.Longitud);
+                    var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                    poligono.AddPoints(new[] { new PointF((float)service.Origen.Longitud, (float)service.Origen.Latitud) });
+
+                    puntoDeInteres.Historia.Add(new HistoriaGeoRef
+                    {
+                        ReferenciaGeografica = puntoDeInteres,
+                        Direccion = posicion,
+                        Poligono = poligono,
+                        Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+                    });
+
+                    DaoFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
+
+                    puntoEntregaO = new PuntoEntrega
+                    {
+                        Cliente = cliente,
+                        Codigo = nombreOrigen,
+                        Descripcion = nombreOrigen,
+                        Telefono = string.Empty,
+                        Baja = false,
+                        ReferenciaGeografica = puntoDeInteres,
+                        Nomenclado = true,
+                        DireccionNomenclada = service.Origen.Direccion + ", " +service.Origen.Localidad,
+                        Nombre = nombreOrigen
+                    };
+                }
+                else
+                {
+                    if (!puntoEntregaO.ReferenciaGeografica.IgnoraLogiclink && (puntoEntregaO.ReferenciaGeografica.Latitude != service.Origen.Latitud || puntoEntregaO.ReferenciaGeografica.Longitude != service.Origen.Longitud))
+                    {
+                        puntoEntregaO.ReferenciaGeografica.Direccion.Vigencia.Fin = DateTime.UtcNow;
+                        puntoEntregaO.ReferenciaGeografica.Poligono.Vigencia.Fin = DateTime.UtcNow;
+
+                        var posicion = GetNewDireccion(service.Origen.Latitud, service.Origen.Longitud);
+                        var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                        poligono.AddPoints(new[] { new PointF((float)service.Origen.Longitud, (float)service.Origen.Latitud) });
+
+                        puntoEntregaO.ReferenciaGeografica.AddHistoria(posicion, poligono, DateTime.UtcNow);
+                    }
+
+                    var end = fecha.AddHours(vigencia);
+                    if (puntoEntregaO.ReferenciaGeografica.Vigencia.Fin < end)
+                        puntoEntregaO.ReferenciaGeografica.Vigencia.Fin = end;
+
+                    DaoFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntregaO.ReferenciaGeografica);
+                }
+
+                DaoFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntregaO);
+
+                var entregaO = new EntregaDistribucion
+                {
+                    Cliente = cliente,
+                    PuntoEntrega = puntoEntregaO,
+                    Descripcion = nombreOrigen,
                     Estado = EntregaDistribucion.Estados.Pendiente,
-                    Programado = service.HoraServicio,
-                    ProgramadoHasta =
-                        new DateTime(service.HoraServicio.Year, service.HoraServicio.Month, service.HoraServicio.Day,
-                            service.HoraServicio.AddHours(1).Hour, service.HoraServicio.Minute,
-                            service.HoraServicio.Second),
                     Orden = viaje.Detalles.Count,
-                    Viaje = viaje,
-                    KmCalculado = 0
+                    Programado = fecha,
+                    ProgramadoHasta = fecha,
+                    TipoServicio = tipoServicio,
+                    Viaje = viaje
                 };
 
-                viaje.Detalles.Add(destino);
-                viaje.AgregarBaseFinal();
+                viaje.Detalles.Add(entregaO);
+                
+                #endregion
+
+                #region Destino
+
+                var puntoEntregaD = DaoFactory.PuntoEntregaDAO.FindByCode(new[] { empresa.Id },
+                                                                          new[] { -1 },
+                                                                          new[] { cliente.Id },
+                                                                          nombreDestino);
+
+                if (puntoEntregaD == null)
+                {
+                    var empresaGeoRef = empresa;
+                    var lineaGeoRef = linea;
+
+                    var puntoDeInteres = new ReferenciaGeografica
+                    {
+                        Codigo = nombreDestino,
+                        Descripcion = nombreDestino,
+                        Empresa = empresaGeoRef,
+                        Linea = lineaGeoRef,
+                        EsFin = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsFin,
+                        EsInicio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsInicio,
+                        EsIntermedio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsIntermedio,
+                        InhibeAlarma = cliente.ReferenciaGeografica.TipoReferenciaGeografica.InhibeAlarma,
+                        TipoReferenciaGeografica = cliente.ReferenciaGeografica.TipoReferenciaGeografica,
+                        Vigencia = new Vigencia { Inicio = DateTime.UtcNow, Fin = fecha.AddHours(vigencia) },
+                        Icono = cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
+                    };
+
+                    var posicion = GetNewDireccion(service.Destino.Latitud, service.Destino.Longitud);
+
+                    var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                    poligono.AddPoints(new[] { new PointF((float)service.Destino.Longitud, (float)service.Destino.Latitud) });
+
+                    puntoDeInteres.Historia.Add(new HistoriaGeoRef
+                    {
+                        ReferenciaGeografica = puntoDeInteres,
+                        Direccion = posicion,
+                        Poligono = poligono,
+                        Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+                    });
+
+                    DaoFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
+
+                    puntoEntregaD = new PuntoEntrega
+                    {
+                        Cliente = cliente,
+                        Codigo = nombreDestino,
+                        Descripcion = nombreDestino,
+                        Telefono = string.Empty,
+                        Baja = false,
+                        ReferenciaGeografica = puntoDeInteres,
+                        Nomenclado = true,
+                        DireccionNomenclada = service.Destino.Direccion + ", " + service.Destino.Localidad,
+                        Nombre = nombreDestino
+                    };
+                }
+                else
+                {
+                    if (!puntoEntregaD.ReferenciaGeografica.IgnoraLogiclink && (puntoEntregaD.ReferenciaGeografica.Latitude != service.Destino.Latitud || puntoEntregaD.ReferenciaGeografica.Longitude != service.Destino.Longitud))
+                    {
+                        puntoEntregaD.ReferenciaGeografica.Direccion.Vigencia.Fin = DateTime.UtcNow;
+                        puntoEntregaD.ReferenciaGeografica.Poligono.Vigencia.Fin = DateTime.UtcNow;
+
+                        var posicion = GetNewDireccion(service.Destino.Latitud, service.Destino.Longitud);
+                        var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                        poligono.AddPoints(new[] { new PointF((float)service.Destino.Longitud, (float)service.Destino.Latitud) });
+
+                        puntoEntregaD.ReferenciaGeografica.AddHistoria(posicion, poligono, DateTime.UtcNow);
+                    }
+
+                    var end = fecha.AddHours(vigencia);
+                    if (puntoEntregaD.ReferenciaGeografica.Vigencia.Fin < end)
+                        puntoEntregaD.ReferenciaGeografica.Vigencia.Fin = end;
+
+                    DaoFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntregaD.ReferenciaGeografica);
+                }
+
+                DaoFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntregaD);
+
+                var anterior = puntoEntregaO.ReferenciaGeografica;
+                var siguiente = puntoEntregaD.ReferenciaGeografica;
+                var o = new LatLon(anterior.Latitude, anterior.Longitude);
+                var d = new LatLon(siguiente.Latitude, siguiente.Longitude);
+                var directions = GoogleDirections.GetDirections(o, d, GoogleDirections.Modes.Driving, string.Empty, null);
+
+                if (directions != null)
+                {
+                    var duracion = directions.Duration;
+                    fecha = entregaO.Programado.Add(duracion);
+                }
+
+                var entregaD = new EntregaDistribucion
+                {
+                    Cliente = cliente,
+                    PuntoEntrega = puntoEntregaD,
+                    Descripcion = nombreDestino,
+                    Estado = EntregaDistribucion.Estados.Pendiente,
+                    Orden = viaje.Detalles.Count,
+                    Programado = fecha,
+                    ProgramadoHasta = fecha,
+                    TipoServicio = tipoServicio,
+                    Viaje = viaje
+                };
+
+                viaje.Detalles.Add(entregaD);
+                viaje.Fin = fecha;
+
+                #endregion             
+
             }
             return viaje;
+        }
+        
+        private static Direccion GetNewDireccion(double latitud, double longitud)
+        {
+            return new Direccion
+            {
+                Altura = -1,
+                IdMapa = -1,
+                Provincia = string.Empty,
+                IdCalle = -1,
+                IdEsquina = -1,
+                IdEntrecalle = -1,
+                Latitud = latitud,
+                Longitud = longitud,
+                Partido = string.Empty,
+                Pais = string.Empty,
+                Calle = string.Empty,
+                Descripcion = string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
+                Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+            };
         }
 
         public virtual ViajeDistribucion UpdateRoute(SosTicket ticket)

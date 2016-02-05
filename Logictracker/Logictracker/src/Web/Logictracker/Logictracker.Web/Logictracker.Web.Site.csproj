@@ -591,6 +591,7 @@
     <Content Include="CicloLogistico\Controls\ServicioDetalle.ascx" />
     <Content Include="CicloLogistico\DistribucionGlobalDespachos.aspx" />
     <Content Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx" />
+    <Content Include="CicloLogistico\Distribucion\ViajeProgramadoAlta.aspx" />
     <Content Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx" />
     <Content Include="CicloLogistico\Distribucion\EstadoLogisticoLista.aspx" />
     <Content Include="CicloLogistico\Distribucion\Intercalar.aspx" />
@@ -600,6 +601,7 @@
     <Content Include="CicloLogistico\Distribucion\TipoCicloLogisticoLista.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionAlta.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionImport.aspx" />
+    <Content Include="CicloLogistico\Distribucion\ViajeProgramadoLista.aspx" />
     <Content Include="CicloLogistico\Distribucion\ViajeDistribucionLista.aspx" />
     <Content Include="CicloLogistico\Hormigon\ConsolaTickets.aspx" />
     <Content Include="CicloLogistico\InfoCiclo.aspx" />
@@ -1739,6 +1741,7 @@
     <Content Include="Areas\Eventos\Views\web.config" />
     <Content Include="Areas\Eventos\Views\Eventos\Index.cshtml" />
     <Content Include="Areas\Eventos\Views\_ViewStart.cshtml" />
+    <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
@@ -2448,6 +2451,13 @@
     <Compile Include="CicloLogistico\Distribucion\ControlarDistribucion.aspx.designer.cs">
       <DependentUpon>ControlarDistribucion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeProgramadoAlta.aspx.cs">
+      <DependentUpon>ViajeProgramadoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeProgramadoAlta.aspx.designer.cs">
+      <DependentUpon>ViajeProgramadoAlta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CicloLogistico\Distribucion\EstadoLogisticoAlta.aspx.cs">
       <DependentUpon>EstadoLogisticoAlta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2510,6 +2520,13 @@
     </Compile>
     <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionImport.aspx.designer.cs">
       <DependentUpon>ViajeDistribucionImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeProgramadoLista.aspx.cs">
+      <DependentUpon>ViajeProgramadoLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\Distribucion\ViajeProgramadoLista.aspx.designer.cs">
+      <DependentUpon>ViajeProgramadoLista.aspx</DependentUpon>
     </Compile>
     <Compile Include="CicloLogistico\Distribucion\ViajeDistribucionLista.aspx.cs">
       <DependentUpon>ViajeDistribucionLista.aspx</DependentUpon>
