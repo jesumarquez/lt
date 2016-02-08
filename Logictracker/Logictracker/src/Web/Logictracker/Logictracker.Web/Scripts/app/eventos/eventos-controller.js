@@ -1,7 +1,7 @@
 ﻿angular.module('logictracker.eventos')
-.controller('EventosController', ['$scope', 'UserDataInfo', EventosController]);
+.controller('EventosController', ['$scope', 'UserDataInfo', 'EntitiesService', EventosController]);
 
-function EventosController($scope, UserDataInfo) {
+function EventosController($scope, UserDataInfo, EntitiesService) {
     var vm = this;
     vm.distritoSelected = null;
     vm.baseSelected = null;
@@ -14,6 +14,10 @@ function EventosController($scope, UserDataInfo) {
     vm.empleadoSelected = [];
 
     vm.UserData = UserDataInfo.get($scope, vm);
+
+    vm.Search = function () {
+        EntitiesService.
+    };
 }
 
 

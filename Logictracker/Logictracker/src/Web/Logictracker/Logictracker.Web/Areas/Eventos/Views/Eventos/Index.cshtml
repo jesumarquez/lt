@@ -65,11 +65,15 @@
                                lt-data-distrito="eventos.distritoSelected" />
             </div>
         </div>
-        
-        
-
-    </div>
-
+        <div class="col-md-3">
+            <div class="row">
+                <button type="button" 
+                        class="form-control" 
+                        kendo-button 
+                        style="margin-top: 1.5em;min-width: 10em" 
+                        ng-click="eventos.Search()">@Html.ResourceLabel("Labels", "Buscar")</button>
+            </div>
+        </div>
     <span kendo-notification="eventos.notify" k-auto-hide-after="10000"></span>
 </div>
 
