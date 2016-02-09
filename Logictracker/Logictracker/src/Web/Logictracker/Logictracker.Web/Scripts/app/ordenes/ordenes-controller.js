@@ -26,22 +26,32 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             refresh: true,
             pageSizes: true,
             info: true
+        },        
+        dataBound: function() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
         },
         columns:
         [
             { field: "Empresa", title: "Empresa"},
-            { field: "Empleado", title: "Empleado"},
             { field: "Transportista", title: "Transportista"},
-            { field: "PuntoEntrega", title: "Entrega"},
-            { field: "CodigoPedido", title: "Codigo"},
-            { field: "FechaAlta", title: "Registrado", format: "{0: dd/MM HH:mm}" },
+            { field: "PuntoEntrega", title: "Razon Social"},
+            { field: "CodigoPedido", title: "Codigo Pedido"},
             { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
-            { field: "FechaEntrega", title: "Entrega", format: "{0: dd/MM HH:mm}" },
-            { field: "InicioVentana", title: "Inicio"},
-            { field: "FinVentana", title: "Fin"}
-        ]
+        ],
+        detailTemplate: '<div kendo-grid k-options="detailGridOptions(dataItem)"></div>',
     }
 
+    $scope.detailGridOptions = function (dataItem) {
+        return {
+            dataSource: OrdenesService.ordenDetalles(dataItem, null, onFail),
+            scrollable: false,
+            sortable: true,
+            columns: [
+                { field: "Insumo", title: "Producto", width: "160px" },
+                { field: "Cantidad", title: "Litros" },
+            ]
+        }
+    };
 
     $scope.distritoSelected = {};
 
