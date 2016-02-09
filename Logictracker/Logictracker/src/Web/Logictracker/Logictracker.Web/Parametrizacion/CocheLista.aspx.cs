@@ -34,7 +34,7 @@ namespace Logictracker.Parametrizacion
             return DAOFactory.CocheDAO.GetList(cbEmpresa.SelectedValues, 
                                                cbLinea.SelectedValues, 
                                                ddlTipoVehiculo.SelectedValues, 
-                                               ddlTransportista.SelectedValues, 
+                                               ddlTransportista.SelectedValues,
                                                cbDepartamento.SelectedValues,
                                                ddlCentroCostos.SelectedValues)
                             .Where(c => !ocultarConDispo || c.Dispositivo == null)
@@ -55,6 +55,7 @@ namespace Logictracker.Parametrizacion
         {
             data.LoadStaticFilter(FilterData.StaticDistrito, cbEmpresa);
             data.LoadStaticFilter(FilterData.StaticBase, cbLinea);
+            data.LoadStaticFilter(FilterData.StaticDepartamento, cbDepartamento);
             data.LoadStaticFilter(FilterData.StaticTransportista, ddlTransportista);
             data.LoadStaticFilter(FilterData.StaticTipoVehiculo, ddlTipoVehiculo);
             data.LoadStaticFilter(FilterData.StaticCentroCostos, ddlCentroCostos);
@@ -64,6 +65,7 @@ namespace Logictracker.Parametrizacion
         {
             data.AddStatic(FilterData.StaticDistrito, cbEmpresa.Selected);
             data.AddStatic(FilterData.StaticBase, cbLinea.Selected);
+            data.AddStatic(FilterData.StaticDepartamento, cbDepartamento.Selected);
             data.AddStatic(FilterData.StaticTransportista, ddlTransportista.Selected);
             data.AddStatic(FilterData.StaticTipoVehiculo, ddlTipoVehiculo.Selected);
             data.AddStatic(FilterData.StaticCentroCostos, ddlCentroCostos.Selected);
