@@ -16,7 +16,6 @@ function EventosController($scope, UserDataInfo, EntitiesService) {
     vm.UserData = UserDataInfo.get($scope, vm);
 
     vm.Search = function () {
-        EntitiesService.
     };
 }
 

@@ -8,6 +8,10 @@ namespace Logictracker.Web.Models
 {
     public class EventoModel
     {
+        public EventoModel()
+        {
+
+        }
         public string Vehiculo { get; set; }
         public string Chofer { get; set; }
         public string Responsable { get; set; }

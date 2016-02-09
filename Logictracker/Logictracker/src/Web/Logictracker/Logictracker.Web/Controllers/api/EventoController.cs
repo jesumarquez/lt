@@ -19,7 +19,7 @@ namespace Logictracker.Web.Controllers.api
     public class EventoController : ReportController<MobileEvent, EventoModel, EventoMapper>
     {
         [Route("api/distrito/{distritoId}/base/{baseId}/evento/datasource")]
-        public DataSourceResult GetDataSource([ModelBinder(typeof(EventoModel))] DataSourceRequest request, int distritoId, int baseId)
+        public DataSourceResult GetDataSource([ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request, int distritoId, int baseId)
         {
             var dao = EntityDao as MobileEventDAO;
 
