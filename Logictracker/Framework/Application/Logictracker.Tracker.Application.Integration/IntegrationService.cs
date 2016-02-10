@@ -27,8 +27,9 @@ namespace Logictracker.Tracker.Application.Integration
         public MessageQueueTemplate ServiceMessageQueueTemplate { get; set; }
         public DAOFactory DaoFactory { get; set; }
 
-        private const string CodigoEmpresa = "LT";
-        private const string NombreLinea = "Headquarters";
+        private const string CodigoEmpresa = "SOS";
+        private const string CodigoLinea = "10541";
+        private const string CodigoCliente = "1";
 
         public IntegrationService()
         {}
@@ -68,7 +69,7 @@ namespace Logictracker.Tracker.Application.Integration
 
             Logger.Info("Searching for a new alarm in S.O.S. service...");
 
-            var rollback = WebServiceSos._alertasRollback("20160203304219");
+            var rollback = WebServiceSos._alertasRollback("20160210304226");
 
             var response = WebServiceSos.ObtenerAlertas();
             //var fecha = DateTime.Now;
@@ -191,7 +192,7 @@ namespace Logictracker.Tracker.Application.Integration
         private void SendMessageToGarmin(string msgText, ViajeDistribucion distribucion)
         {
             var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));            
-            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+1);
+            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+200);
             message.Send();
             Logger.InfoFormat("Se notifico servicio {0} al vehiculo {1} [{2}]", distribucion.Codigo, distribucion.Vehiculo.Patente, msgText);
 
@@ -235,7 +236,7 @@ namespace Logictracker.Tracker.Application.Integration
         private void SendQuestionPatenteToGarmin(string msgText, ViajeDistribucion distribucion)
         {   
             var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
-            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id);
+            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+100);
             message.Send();
         }        
 
@@ -277,8 +278,8 @@ namespace Logictracker.Tracker.Application.Integration
         private ViajeDistribucion BuildRoute(SosTicket service)
         {
             var empresa = DaoFactory.EmpresaDAO.FindByCodigo(CodigoEmpresa);
-            var linea = DaoFactory.LineaDAO.FindByNombre(empresa.Id, NombreLinea);
-            var cliente = DaoFactory.ClienteDAO.FindByCode(new[] { empresa.Id }, new[] { -1 }, "1");
+            var linea = DaoFactory.LineaDAO.FindByCodigo(empresa.Id, CodigoLinea);
+            var cliente = DaoFactory.ClienteDAO.FindByCode(new[] { empresa.Id }, new[] { -1 }, CodigoCliente);
             const int vigencia = 12;
             var fecha = service.HoraServicio;
 
@@ -633,9 +634,6 @@ namespace Logictracker.Tracker.Application.Integration
                    ticket.Observacion,
                    ticket.Diagnostico.Split('-')[1] + " $" + ticket.CobroAdicional);
                 SendMessageToGarmin(mensaje, dist);
-
-                //envio de ruta al garmin
-                //SendRouteToGarmin();
             }
             else
             {
