@@ -35,7 +35,6 @@ namespace Logictracker.DAL.DAO.ReportObjects
 
         public IEnumerable<MobileEvent> GetMobilesEventsByDistritoBase(int distritoId, int baseId)
         {
-            ViajeDistribucion viaje = null;
             LogMensaje log = null;
             Coche coche = null;
             TipoCoche tCoche = null;
@@ -44,9 +43,8 @@ namespace Logictracker.DAL.DAO.ReportObjects
 
             var q = NHibernate.SessionHelper.Current
                 .QueryOver(() => log)
-                .Inner.JoinAlias(() => log.Viaje, () => viaje)
                 .Inner.JoinAlias(() => log.Coche, () => coche)
-                .Inner.JoinAlias(() => coche, () => tCoche)
+                .Inner.JoinAlias(() => coche.TipoCoche, () => tCoche)
                 .Inner.JoinAlias(() => log.Chofer, () => chofer)
                 .Inner.JoinAlias(() => log.Mensaje, () => mensaje)
                 .Where(() => log.Estado > 0)
@@ -74,10 +72,10 @@ namespace Logictracker.DAL.DAO.ReportObjects
                 );
 
             if (distritoId != -1)
-                q = q.Where(m => viaje.Empresa.Id == distritoId);
+                q = q.Where(m => coche.Empresa.Id == distritoId);
 
             if (baseId != -1)
-                q = q.Where(m => viaje.Linea.Id == baseId);
+                q = q.Where(m => coche.Linea.Id == baseId);
 
             q = q.TransformUsing(Transformers.AliasToBean<MobileEvent>());
 
