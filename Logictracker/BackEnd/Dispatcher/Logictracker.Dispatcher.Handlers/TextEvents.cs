@@ -43,7 +43,7 @@ namespace Logictracker.Dispatcher.Handlers
             {
                 var text = message.Text.Trim().ToUpperInvariant();
                 var ruta = DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche);
-                if (ruta != null)
+                if (ruta != null && text.Contains(Coche.Empresa.IntegrationServicePrefixConfirmation))
                 {
                     var sosTicket = DaoFactory.SosTicketDAO.FindByCodigo(ruta.Codigo);
                     if (sosTicket != null)
