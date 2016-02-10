@@ -69,7 +69,7 @@ namespace Logictracker.Tracker.Application.Integration
 
             Logger.Info("Searching for a new alarm in S.O.S. service...");
 
-            var rollback = WebServiceSos._alertasRollback("20160203304219");
+            var rollback = WebServiceSos._alertasRollback("20160210304226");
 
             var response = WebServiceSos.ObtenerAlertas();
             //var fecha = DateTime.Now;
@@ -192,7 +192,7 @@ namespace Logictracker.Tracker.Application.Integration
         private void SendMessageToGarmin(string msgText, ViajeDistribucion distribucion)
         {
             var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));            
-            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+1);
+            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+200);
             message.Send();
             Logger.InfoFormat("Se notifico servicio {0} al vehiculo {1} [{2}]", distribucion.Codigo, distribucion.Vehiculo.Patente, msgText);
 
@@ -236,7 +236,7 @@ namespace Logictracker.Tracker.Application.Integration
         private void SendQuestionPatenteToGarmin(string msgText, ViajeDistribucion distribucion)
         {   
             var message = MessageSender.CreateSubmitTextMessage(distribucion.Vehiculo.Dispositivo, new MessageSaver(DaoFactory));
-            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id);
+            message.AddMessageText(msgText).AddTextMessageId((uint)distribucion.Id+100);
             message.Send();
         }        
 
