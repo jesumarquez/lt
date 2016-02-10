@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14E9E531-14D7-497C-8066-5B86928D00CB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Logictracker.Vigilia</RootNamespace>
+    <AssemblyName>Logictracker.Vigilia.v1</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Features.cs" />
+    <Compile Include="GarminFmi.cs" />
+    <Compile Include="IFoteable.cs" />
+    <Compile Include="IQuadTree.cs" />
+    <Compile Include="Mensaje.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="Posicion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\AVL\Logictracker.AVL.csproj">
+      <Project>{0fd2623e-2379-410d-81e3-c8749bc014de}</Project>
+      <Name>Logictracker.AVL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Configuration\Logictracker.Configuration.csproj">
+      <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Description\Logictracker.Description.csproj">
+      <Project>{f67c8673-0361-41e7-8ec9-a1357bad1ed1}</Project>
+      <Name>Logictracker.Description</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\External Libs\CRC32\CRC32.csproj">
+      <Project>{ff444d2b-525f-49f3-9528-547924344ec1}</Project>
+      <Name>CRC32</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\MemCache\Logictracker.Cache.csproj">
+      <Project>{ec6fd7c5-92f4-4bb2-a805-7564aaba9069}</Project>
+      <Name>Logictracker.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{a5c107d7-cc1b-4d48-9275-0c6ee216ba61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Model\Logictracker.Model.csproj">
+      <Project>{9f45020b-8b93-4962-89b6-4591c385e68d}</Project>
+      <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\QuadTree\QuadTreeSharp\Logictracker.QuadTree.csproj">
+      <Project>{d1b8eaf1-02f3-40fc-9fa1-209cc1b9f96d}</Project>
+      <Name>Logictracker.QuadTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\SBC\Logictracker.Layers.csproj">
+      <Project>{fa528f7b-1fe9-4b7e-b964-eb95730791ab}</Project>
+      <Name>Logictracker.Layers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
+      <Project>{4aefc2c1-47ff-444d-96a1-eb57fba1be7f}</Project>
+      <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
+      <Name>Logictracker.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-fd4b-460a-931b-6a3b4d4eef5c}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

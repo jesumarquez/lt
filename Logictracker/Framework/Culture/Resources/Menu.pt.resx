@@ -921,4 +921,7 @@
   <data name="CLOG_RECHAZO_ESTADISTICAS" xml:space="preserve">
     <value>Estatísticas Rejeições</value>
   </data>
+  <data name="PAR_VIAJE_PROGRAMADO" xml:space="preserve">
+    <value>Rutas Programadas</value>
+  </data>
 </root>

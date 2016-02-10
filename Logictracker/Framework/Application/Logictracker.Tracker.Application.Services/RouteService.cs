@@ -105,21 +105,21 @@ namespace Logictracker.Tracker.Application.Services
         public string FinalizeRoute(int routeId)
         {
             var ticket = DaoFactory.ViajeDistribucionDAO.FindById(routeId);
-            var opened = DaoFactory.ViajeDistribucionDAO.FindEnCurso(ticket.Vehiculo);
+            //var opened = DaoFactory.ViajeDistribucionDAO.FindEnCurso(ticket.Vehiculo);
 
-            if (opened == null) return "ROUTE_CLOSED";
+            if (ticket == null || ticket.Estado == ViajeDistribucion.Estados.Cerrado) return "ROUTE_CLOSED";
 
-            var ciclo = new CicloLogisticoDistribucion(opened, DaoFactory, new MessageSaver(DaoFactory));
+            var ciclo = new CicloLogisticoDistribucion(ticket, DaoFactory, new MessageSaver(DaoFactory));
             var evento = new CloseEvent(DateTime.UtcNow);
             ciclo.ProcessEvent(evento);
             return "CLOG_FINALIZE_SENT";
         }
 
-        public short ReportDelivery(int routeId, long jobId, Coordinate coord, int messageId, short jobStatus, string deviceId)
+        public short ReportDelivery(int routeId, long jobId, Coordinate coord, int messageId, short jobStatus, string deviceId, DateTime dateTime)
         {
             var ticket = DaoFactory.ViajeDistribucionDAO.FindById(routeId);
             var ciclo = new CicloLogisticoDistribucion(ticket, DaoFactory, new MessageSaver(DaoFactory));
-            var evento = new MobileEvent(DateTime.UtcNow, jobId, coord.Latitude, coord.Longitude, jobStatus, messageId, deviceId);
+            var evento = new MobileEvent(dateTime, jobId, coord.Latitude, coord.Longitude, jobStatus, messageId, deviceId);
 
             try
             {

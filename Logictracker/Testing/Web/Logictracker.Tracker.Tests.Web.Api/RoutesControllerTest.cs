@@ -57,7 +57,7 @@ namespace Logictracker.Tracker.Tests.Web.Api
         {
              //Arrange
             var routeState = getFakeRouteState();
-            _routeSevice.Setup(x => x.ReportDelivery(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Coordinate>(), It.IsAny<int>(), It.IsAny<short>(), It.IsAny<string>())).Returns(0);
+            _routeSevice.Setup(x => x.ReportDelivery(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Coordinate>(), It.IsAny<int>(), It.IsAny<short>(), It.IsAny<string>(), DateTime.UtcNow)).Returns(0);
 
             // Act
             IHttpActionResult actionResult = _controller.Post(routeState);

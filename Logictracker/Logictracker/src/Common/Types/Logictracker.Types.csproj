@@ -60,11 +60,13 @@
     <Compile Include="BusinessObjects\Auditoria\XmlType.cs" />
     <Compile Include="BusinessObjects\BaseObjects\LogEventoBase.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\AgendaVehicular.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaProgramada.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculo.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ViajeProgramado.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ViajeDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EstadoLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Garmin.cs" />
