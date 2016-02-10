@@ -82,8 +82,9 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string IntegrationServiceEnabled = "integration.service.enabled";
             public const string IntegrationServiceCodigoMensajeAceptacion = "integration.service.codigo.aceptacion";
-            public const string IntegrationServiceCodigoMensajeRechazo = "integration.service.codigo.rechazo";
+
             public const string IntegrationServicePrefixConfirmation = "integration.service.prefix.confirmation";  
+            public const string GeneraInfraccionesSitrack = "genera.infracciones.sitrack";
         }
         public static class OrdenRuta
         {
@@ -729,6 +730,16 @@ namespace Logictracker.Types.BusinessObjects
             }
         }
 
+        public virtual bool GeneraInfraccionesSitrack
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraInfraccionesSitrack);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
 
         public virtual string IntegrationServicePrefixConfirmation
         {
