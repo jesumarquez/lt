@@ -21,27 +21,37 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         sortable: true,
         groupable: true,
         scrollable: false,
+        selectable: "multiple",
         pageable: {
             refresh: true,
             pageSizes: true,
             info: true
+        },        
+        dataBound: function() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
         },
         columns:
         [
-            { template: '<input type="checkbox" ng-model="dataItem.Selected">', width: "10px" },
             { field: "Empresa", title: "Empresa"},
-            { field: "Empleado", title: "Empleado"},
             { field: "Transportista", title: "Transportista"},
-            { field: "PuntoEntrega", title: "Entrega"},
-            { field: "CodigoPedido", title: "Codigo"},
-            { field: "FechaAlta", title: "Registrado", format: "{0: dd/MM HH:mm}" },
+            { field: "PuntoEntrega", title: "Razon Social"},
+            { field: "CodigoPedido", title: "Codigo Pedido"},
             { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
-            { field: "FechaEntrega", title: "Entrega", format: "{0: dd/MM HH:mm}" },
-            { field: "InicioVentana", title: "Inicio"},
-            { field: "FinVentana", title: "Fin"}
-        ]
+        ],
+        detailTemplate: '<div kendo-grid k-options="detailGridOptions(dataItem)"></div>',
     }
 
+    $scope.detailGridOptions = function (dataItem) {
+        return {
+            dataSource: OrdenesService.ordenDetalles(dataItem, null, onFail),
+            scrollable: false,
+            sortable: true,
+            columns: [
+                { field: "Insumo", title: "Producto", width: "160px" },
+                { field: "Cantidad", title: "Litros" },
+            ]
+        }
+    };
 
     $scope.distritoSelected = {};
 
@@ -149,12 +159,50 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         };
 
         $scope.onBuscar = function () {
-            $scope.Orders = OrdenesService.items({ distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key }, null, $scope.onerror);
+            var filterList = [];
+
+            if ($scope.distritoSelected != undefined)
+                filterList.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key });
+
+            if ($scope.baseSelected != undefined)
+                filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
+
+            if ($scope.transportistaSelected.length > 0) {
+                var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
+                filterList.push({ logic: "or", filters: transportistaFilter });
+            }
+
+            var msOffset = new Date().getTimezoneOffset() * 60000;
+
+            if ($scope.desde != undefined) {
+                var fDesde = new Date($scope.desde);
+                fDesde.setHours(0, 0, 0, 0);
+                filterList.push({ field: "FechaAlta", operator: "gte", value: new Date(fDesde.getTime() + msOffset) });
+            }
+
+            if ($scope.hasta != undefined) {
+                var fHasta = new Date($scope.hasta);
+                fHasta.setHours(23, 59, 59, 999);
+                filterList.push({ field: "FechaAlta", operator: "lte", value: new Date(fHasta.getTime() + msOffset) });
+            }
+
+            var filters = {
+                logic: "and",
+                filters: filterList
+            };
+
+            $scope.Orders = OrdenesService.items(filters, null, onFail);
         };
 
         $scope.programOrders = function (order) {
+
+            var selectOrders = [];
+            $scope.ordenesGrid.select().each(function(index, row) {
+                selectOrders.push($scope.ordenesGrid.dataItem(row));
+            });
+
             $scope.newOrder = new OrdenesService.ordenes();
-            $scope.newOrder.OrderList = $scope.Orders.data();
+            $scope.newOrder.OrderList = selectOrders;
             $scope.newOrder.IdVehicle = order.Vehicle.Key;
             $scope.newOrder.StartDateTime = order.StartDateTime;
             $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;

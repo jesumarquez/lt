@@ -115,10 +115,14 @@ namespace Logictracker.CicloLogistico.Distribucion
 
         protected void BtnBuscarOnClick(object sender, EventArgs e)
         {
+            var clientes = new List<int>();
+            if (cbCliente.Selected > 0) clientes = cbCliente.SelectedValues;
+            else clientes = DAOFactory.ClienteDAO.GetList(new[] { cbEmpresa.Selected }, new[] { -1 }).Select(c => c.Id).ToList();
+            
             var puntos = DAOFactory.PuntoEntregaDAO.GetList(new[] { cbEmpresa.Selected },
-                                                                 new[] { -1 },
-                                                                 new[] { cbCliente.Selected })
-                                                        .ToList();
+                                                            new[] { -1 },
+                                                            clientes)
+                                                   .ToList();
             if (!txtPunto.Text.Trim().Equals(string.Empty))
                 puntos = puntos.Where(r => r.Descripcion.ToLowerInvariant().Contains(txtPunto.Text.Trim().ToLowerInvariant())).ToList();
 

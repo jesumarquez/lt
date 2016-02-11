@@ -600,8 +600,12 @@ namespace Logictracker.Process.CicloLogistico
 
                     if (Distribucion.Vehiculo.Empresa.IntegrationServiceEnabled)
                     {
-                        var intService = new IntegrationService(DaoFactory);
-                        intService.ArrivalReport(Distribucion);                        
+                        // Si no es la última entrega
+                        if (Distribucion.Detalles.Last().Id != detalle.Id)
+                        {
+                            var intService = new IntegrationService(DaoFactory);
+                            intService.ArrivalReport(Distribucion);
+                        }
                     }
                     break;
                 case EntregaDistribucion.Estados.Completado:
