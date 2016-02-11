@@ -134,6 +134,7 @@
     <Compile Include="CheckBoxLists\DropDownCheckList.cs" />
     <Compile Include="DropDownLists\CategoriaDropDownList.cs" />
     <Compile Include="DropDownLists\CategoriaAccesoDropDownList.cs" />
+    <Compile Include="DropDownLists\ViajeProgramadoDropDownList.cs" />
     <Compile Include="DropDownLists\TurnoDropDownList.cs" />
     <Compile Include="DropDownLists\EstadoArchivoDropDownList.cs" />
     <Compile Include="DropDownLists\DataMartDropDownList.cs" />

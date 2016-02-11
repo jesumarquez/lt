@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcesosVelocidadSitrack.cs" />
     <Compile Include="DatamartTramosTask.cs" />
     <Compile Include="MessageCountServiceTask.cs" />
     <Compile Include="WatchDogServiceTask.cs" />
@@ -109,6 +110,14 @@
     <ProjectReference Include="..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
       <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
       <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Logictracker.Messages.Saver\Logictracker.Messages.Saver.csproj">
+      <Project>{3811e3c9-e240-46fc-a2b2-3fcc0f31f7fa}</Project>
+      <Name>Logictracker.Messages.Saver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Model\Logictracker.Model.csproj">
+      <Project>{9f45020b-8b93-4962-89b6-4591c385e68d}</Project>
+      <Name>Logictracker.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\Process\Logictracker.Process.Geofences\Logictracker.Process.Geofences.csproj">
       <Project>{20A9E6AE-1336-4535-AA2C-A8872DCD007D}</Project>

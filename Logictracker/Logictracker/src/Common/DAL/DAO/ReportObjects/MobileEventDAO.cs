@@ -146,5 +146,40 @@ namespace Logictracker.DAL.DAO.ReportObjects
         #endregion
 
 
+
+        public List<MobileEvent> GetMobilesEventsSQL(List<int> mobilesIds, IEnumerable<int> messagesIds, List<int> driversIds, DateTime initialDate, DateTime finalDate, int maxMonths, ref int pageNum, int pageSize, ref List<Object> totalRows, bool reCount)
+        {
+            var codigos = (from codigo in messagesIds select codigo.ToString()).ToList();
+
+            var results = DAOFactory.LogMensajeDAO.GetByVehiclesAndCodesSQL(mobilesIds, codigos, initialDate, finalDate, maxMonths, ref pageNum, pageSize, ref totalRows, reCount);
+
+            results = results.Where(log => (driversIds.Contains(0) || (log.Chofer != null && driversIds.Contains(log.Chofer.Id)))).ToList();
+
+            if (!results.Any()) return new List<MobileEvent>();
+
+            return results.Select(log => new MobileEvent
+            {
+                Intern = log.Coche.Interno,
+                MobileType = log.Coche.TipoCoche != null ? log.Coche.TipoCoche.Descripcion : "",
+                Driver = log.Chofer != null ? log.Chofer.Entidad.Descripcion : "",
+                EventTime = log.Fecha.ToDisplayDateTime(),
+                Reception = log.FechaAlta.HasValue ? log.FechaAlta.Value.ToDisplayDateTime() : (DateTime?)null,
+                Message = log.Texto,
+                IdMensaje = log.Mensaje.Id,
+                Latitude = log.Latitud,
+                Longitude = log.Longitud,
+                IconUrl = log.GetIconUrl(),
+                EventEndTime = log.FechaFin != null ? log.FechaFin.Value.ToDisplayDateTime() : log.FechaFin,
+                FinalLatitude = log.LatitudFin,
+                FinalLongitude = log.LongitudFin,
+                Id = log.Id,
+                Responsable = log.Coche.Chofer != null ? log.Coche.Chofer.Entidad.Descripcion : "",
+                TieneFoto = log.TieneFoto,
+                IdPuntoInteres = log.IdPuntoDeInteres,
+                Atendido = log.Estado > 0,
+                Usuario = log.Usuario,
+                AtencionEvento = log.Estado > 0 ? DAOFactory.AtencionEventoDAO.GetByEvento(log.Id) : null
+            }).ToList();
+        }
     }
 }

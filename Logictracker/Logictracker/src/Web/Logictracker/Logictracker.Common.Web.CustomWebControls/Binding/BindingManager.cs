@@ -1623,6 +1623,19 @@ namespace Logictracker.Web.CustomWebControls.Binding
             foreach (var item in items) autoBindeable.AddItem(item.Descripcion, item.Id);
         }
 
+        public void BindViajesProgramados(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var empresas = autoBindeable.ParentSelectedValues<Empresa>();
+            var transportistas = autoBindeable.ParentSelectedValues<Transportista>();
+
+            var items = DaoFactory.ViajeProgramadoDAO.GetList(empresas, transportistas).OrderBy(t => t.Codigo);
+
+            foreach (var item in items) autoBindeable.AddItem(item.Codigo, item.Id);
+        }
+
         #endregion
         
         #region Private Methods
