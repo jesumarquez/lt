@@ -637,12 +637,6 @@ namespace Logictracker.Process.CicloLogistico
                     {
                         STrace.Exception(GetType().FullName, ex);
                     }
-
-                    if (Distribucion.Vehiculo.Empresa.IntegrationServiceEnabled)
-                    {
-                        var intService = new IntegrationService(DaoFactory);
-                        intService.ArrivalReport(Distribucion);
-                    }
                     break;
                 default:
                     return;
