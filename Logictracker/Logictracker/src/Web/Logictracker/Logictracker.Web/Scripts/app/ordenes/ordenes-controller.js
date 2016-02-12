@@ -34,7 +34,8 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
         [
             { field: "Empresa", title: "Empresa"},
             { field: "Transportista", title: "Transportista"},
-            { field: "PuntoEntrega", title: "Razon Social"},
+            { field: "CodigoPuntoEntrega", title: "Codigo Entrega" },
+            { field: "PuntoEntrega", title: "Razon Social" },
             { field: "CodigoPedido", title: "Codigo Pedido"},
             { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
         ],
@@ -66,6 +67,9 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
 
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
+
+    $scope.puntoEntregaSelected = {};
+    $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
@@ -167,10 +171,13 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             if ($scope.baseSelected != undefined)
                 filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
 
+            if ($scope.puntoEntregaSelected != undefined && $scope.puntoEntregaSelected.length > 0)
+                filterList.push({ field: "PuntoEntrega.Id", operator: "eq", value: $scope.puntoEntregaSelected[0].PuntoEntregaId });
+            
             if ($scope.transportistaSelected.length > 0) {
                 var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
                 filterList.push({ logic: "or", filters: transportistaFilter });
-            }
+            }            
 
             var msOffset = new Date().getTimezoneOffset() * 60000;
 

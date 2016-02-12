@@ -54,10 +54,11 @@
                     <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
                     <div class="InputGroup__control">
                         <lt-ac-punto-entrega lt-ng-model="puntoEntregaSelected"
-                                            lt-data-distrito="distritoSelected"
-                                            lt-data-base="baseSelected"
-                                            lt-template="tPuntoEntrega"
-                                            lt-depends-on-distribucion="distribucionSelected" />
+                                             lt-data-distrito="distritoSelected"
+                                             lt-data-base="baseSelected"
+                                             lt-template="tPuntoEntrega"
+                                             lt-depends-on="distribucionSelected"
+                                             lt-data-distribucion="distribucionSelected" />
                     </div>
                 </div>
             </div>
