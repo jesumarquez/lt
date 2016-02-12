@@ -442,7 +442,7 @@
 
                 $scope.model = [];
 
-                if (newValue.length == 0) {
+                if ($scope.distribucion == undefined || $scope.distribucion.length == 0) {
                     $scope.dataSource = EntitiesService.distrito.puntoEntrega({
                         distritoId: $scope.distrito.Key,
                         baseId: $scope.base.Key
@@ -453,7 +453,7 @@
                 $scope.dataSource = EntitiesService.distrito.puntoEntrega({
                     distritoId: $scope.distrito.Key,
                     baseId: $scope.base.Key,
-                    distribucionId: $scope.dependsOn[0] !== undefined ? $scope.dependsOn[0].Id : null,
+                    distribucionId: $scope.distribucion[0] !== undefined ? $scope.distribucion[0].Id : null,
                 }, null, $scope.onFail);
             }
         };
@@ -467,7 +467,8 @@
         restrict: 'E',
         scope: {
             model: '=ltNgModel',
-            dependsOn: "=ltDependsOnDistribucion",
+            dependsOn: "=ltDependsOn",
+            distribucion: "=ltDataDistribucion",
             distrito: "=ltDataDistrito",
             base: "=ltDataBase",
             kTemplate: "=ltTemplate"
