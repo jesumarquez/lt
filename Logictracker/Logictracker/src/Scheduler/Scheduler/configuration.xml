@@ -60,8 +60,9 @@
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartEstadoVehiculoTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=gfernandez@logictracker.com,pablof@logictracker.com;"/>
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.MessageCountServiceTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=flavioa@logictracker.com,soporte@logictracker.com,lucasm@logictracker.com;" />
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.VehicleData, Logictracker.Scheduler.Tasks.Mantenimiento" />
-      -->
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartTramosTask, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Destinatarios=lucasm@logictracker.com;Empresas=58;Desde=04/01/2016;Hasta=05/01/2016;" />
+      -->
+      <Task Class="Logictracker.Scheduler.Tasks.GeneracionTareas.GeneracionInversaTask, Logictracker.Scheduler.Tasks.GeneracionTareas" Params="Desde=01/02/2016;Hasta=11/02/2016;" />
     </Timer>
     
     <!--
