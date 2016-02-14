@@ -131,11 +131,14 @@ namespace Logictracker.Web.Controllers.api
         }
 
         [Route("api/ordenes/{id}")]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int id, [FromUri] int[] insumos)
         {
             Order orden = EntityDao.FindById(id);
+            var details = orden.OrderDetails;
+            if (insumos.Length > 0)
+                details = details.Where(od => insumos.Contains(od.Insumo.Id)).ToList();
 
-            return Json(orden.OrderDetails.Select(od => ordenDetalleMapper.EntityToModel(od, new OrderDetailModel())));
+            return Json(details.Select(od => ordenDetalleMapper.EntityToModel(od, new OrderDetailModel())));
         }
 
         private string BuildRouteCode(DateTime date, int vehicleId, int logisticCycleTypeId, int distritoId, int baseId)

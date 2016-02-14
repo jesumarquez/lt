@@ -43,8 +43,14 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
     }
 
     $scope.detailGridOptions = function (dataItem) {
+
+        var insumoList = [];
+        if ($scope.insumoSelected.length > 0) {
+            var insumoList = $scope.insumoSelected.map(function (e) { return e.Key; });
+          }
+
         return {
-            dataSource: OrdenesService.ordenDetalles(dataItem, null, onFail),
+            dataSource: OrdenesService.ordenDetalles(dataItem, insumoList, null, onFail),
             scrollable: false,
             sortable: true,
             columns: [
@@ -73,6 +79,9 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
+
+    $scope.insumoDS = [];
+    $scope.insumoSelected = [];
 
     $scope.estadoSelected = {};
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; },onFail);

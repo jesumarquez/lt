@@ -51,17 +51,19 @@ function OrdenesService($resource) {
         return ds;
     };
 
-    function getOrdenDetalles(data, onEnd, onFail)
+    function getOrdenDetalles(data, list, onEnd, onFail)
     {
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
             transport: {
                 read: {
                     type: "GET",
+                    traditional: true,
                     dataType: "json",
                     url: function (op) {
                         return "/api/ordenes/" + data.Id;
-                    }
+                    },
+                    data: { insumos: list }
                 }
             },
             pageSize: 10,
