@@ -139,6 +139,33 @@ namespace Logictracker.CicloLogistico {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel2;
         
         /// <summary>
+        /// lblViajeProgramado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblViajeProgramado;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// cbViajeProg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.ViajeProgramadoDropDownList cbViajeProg;
+        
+        /// <summary>
         /// updBtInvertir control.
         /// </summary>
         /// <remarks>

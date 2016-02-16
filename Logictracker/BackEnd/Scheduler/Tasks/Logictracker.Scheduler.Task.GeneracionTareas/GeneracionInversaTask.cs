@@ -54,7 +54,6 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
 
                     foreach (var vehiculo in vehiculos)
                     {
-                        var nroViaje = 1;
                         STrace.Trace(GetType().FullName, string.Format("Procesando vehículo: {0}", vehiculo.Id));
 
                         var entradas = DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehiculo.Id, MessageCode.InsideGeoRefference.GetMessageCode(), Desde, Hasta, 1).Where(e => e.IdPuntoDeInteres.HasValue);
@@ -82,17 +81,18 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
 
                                         var linea = vehiculo.Linea ?? DaoFactory.LineaDAO.GetList(new[]{empresa.Id}).FirstOrDefault();
 
+                                        var codigo =salida.Fecha.AddHours(-3).ToString("yyMMdd") + "|" + vehiculo.Interno + "|" + ptoFin.Codigo + "-" + ptoInicio.Codigo;
                                         var viaje = new ViajeDistribucion
                                         {
                                             Alta = DateTime.UtcNow,
-                                            Codigo = salida.Fecha.AddHours(-3).ToString("yyyyMMdd") + "|" + vehiculo.Interno + "|" + nroViaje,
+                                            Codigo = codigo.Length <= 32 ? codigo : codigo.Substring(0, 32),
                                             Empresa = empresa,
                                             Estado = ViajeDistribucion.Estados.Cerrado,
                                             Fin = entrada.Fecha,
                                             Inicio = salida.Fecha,
                                             InicioReal = salida.Fecha,
                                             Linea = linea,
-                                            NumeroViaje = nroViaje,
+                                            NumeroViaje = 1,
                                             RegresoABase = false,
                                             Tipo = ViajeDistribucion.Tipos.Desordenado,
                                             Vehiculo = vehiculo
@@ -152,7 +152,6 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                         viaje.Detalles.Add(entrega2);                                        
 
                                         DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
-                                        nroViaje++;
                                         break;
                                     }
                                 }
