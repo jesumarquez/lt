@@ -35,6 +35,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         private readonly List<PuntoEntrega> _puntosBuffer = new List<PuntoEntrega>();
         private readonly List<Transportista> _transportistasBuffer = new List<Transportista>();
         private readonly List<Insumo> _insumosBuffer = new List<Insumo>();
+        private const int IdClienteDefault = 4738; // SIN ASIGNAR
 
         public static void Parse(LogicLinkFile file, out int pedidos, out string observaciones)
         {
@@ -71,8 +72,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 var row = rows[i];
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
 
-                var descripcionTransportista = row[Properties.PedidosPetrobras.DescripcionTransportista].ToString().Trim();
-                var transportista = descripcionTransportista != string.Empty ? _transportistasBuffer.SingleOrDefault(t => t.Descripcion.Equals(descripcionTransportista)) : null;
+                var codigoTransportista = row[Properties.PedidosPetrobras.CodigoTransportista].ToString().Trim();
+                var transportista = codigoTransportista != string.Empty ? _transportistasBuffer.SingleOrDefault(t => t.Codigo.Equals(codigoTransportista)) : null;
 
                 // BAJO UNA FILA
                 i++;
@@ -95,7 +96,10 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     if (condicion == "YIF")
                     {
                         var codigoCliente = row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim();
+                        var nombreCliente = row[Properties.PedidosPetrobras.NombreCliente].ToString().Trim();
                         var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoCliente);
+                        if (puntoEntrega == null) puntoEntrega = GetNuevoPuntoEntrega(codigoCliente, nombreCliente);
+
                         //var codigoEntrega = row[Properties.PedidosPetrobras.CodigoEntrega].ToString().Trim();
                         var codigoPedido = row[Properties.PedidosPetrobras.CodigoPedido].ToString().Trim();
                         
@@ -118,11 +122,23 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         orden.Transportista = transportista;
                         orden.Programado = false;
 
-                        var naftaSuper = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaSuper].ToString().Trim());
-                        var naftaPremium = Convert.ToDouble(row[Properties.PedidosPetrobras.NaftaPremium].ToString().Trim());
-                        var gasoilMenos500 = Convert.ToDouble(row[Properties.PedidosPetrobras.GasoilMenor500].ToString().Trim());
-                        var gasoilMayor500 = Convert.ToDouble(row[Properties.PedidosPetrobras.GasoilMayor500].ToString().Trim());
-                        var gasoilPremium = Convert.ToDouble(row[Properties.PedidosPetrobras.GasoilPremium].ToString().Trim());
+                        var naftaSuper = 0.0;
+                        var naftaPremium = 0.0;
+                        var gasoilMenos500 = 0.0;
+                        var gasoilMayor500 = 0.0;
+                        var gasoilPremium = 0.0;
+                        
+                        double.TryParse(row[Properties.PedidosPetrobras.NaftaSuper].ToString().Trim(), out naftaSuper);
+                        double.TryParse(row[Properties.PedidosPetrobras.NaftaPremium].ToString().Trim(), out naftaPremium);
+                        double.TryParse(row[Properties.PedidosPetrobras.GasoilMenor500].ToString().Trim(), out gasoilMenos500);
+                        double.TryParse(row[Properties.PedidosPetrobras.GasoilMayor500].ToString().Trim(), out gasoilMayor500);
+                        double.TryParse(row[Properties.PedidosPetrobras.GasoilPremium].ToString().Trim(), out gasoilPremium);
+
+                        naftaSuper = naftaSuper / 1000;
+                        naftaPremium = naftaPremium / 1000;
+                        gasoilMenos500 = gasoilMenos500 / 1000;
+                        gasoilMayor500 = gasoilMayor500 / 1000;
+                        gasoilPremium = gasoilPremium / 1000;
 
                         Insumo insumo = null;
                         if (naftaSuper > 0)
@@ -133,6 +149,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                             detalle.Insumo = insumo;
                             detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
                             detalle.Order = orden;
+                            detalle.Estado = OrderDetail.Estados.Pendiente;
 
                             orden.OrderDetails.Add(detalle);
                         }
@@ -144,6 +161,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                             detalle.Insumo = insumo;
                             detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
                             detalle.Order = orden;
+                            detalle.Estado = OrderDetail.Estados.Pendiente;
 
                             orden.OrderDetails.Add(detalle);
                         }
@@ -155,6 +173,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                             detalle.Insumo = insumo;
                             detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
                             detalle.Order = orden;
+                            detalle.Estado = OrderDetail.Estados.Pendiente;
 
                             orden.OrderDetails.Add(detalle);
                         }
@@ -166,6 +185,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                             detalle.Insumo = insumo;
                             detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
                             detalle.Order = orden;
+                            detalle.Estado = OrderDetail.Estados.Pendiente;
 
                             orden.OrderDetails.Add(detalle);
                         }
@@ -177,6 +197,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                             detalle.Insumo = insumo;
                             detalle.PrecioUnitario = (decimal)insumo.ValorReferencia;
                             detalle.Order = orden;
+                            detalle.Estado = OrderDetail.Estados.Pendiente;
 
                             orden.OrderDetails.Add(detalle);
                         }
@@ -205,6 +226,76 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 DaoFactory.OrderDAO.SaveOrUpdate(orden);
             }
             STrace.Trace(Component, string.Format("Pedidos guardadas en {0} segundos", te.getTimeElapsed().TotalSeconds));
+        }
+
+        private PuntoEntrega GetNuevoPuntoEntrega(string codigoCliente, string nombreCliente)
+        {
+            var cliente = DaoFactory.ClienteDAO.FindById(IdClienteDefault);
+            
+            var georef = new ReferenciaGeografica
+            {
+                Codigo = codigoCliente,
+                Descripcion = nombreCliente,
+                Empresa = Empresa,
+                EsFin = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsFin,
+                EsInicio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsInicio,
+                EsIntermedio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsIntermedio,
+                InhibeAlarma = cliente.ReferenciaGeografica.TipoReferenciaGeografica.InhibeAlarma,
+                TipoReferenciaGeografica = cliente.ReferenciaGeografica.TipoReferenciaGeografica,
+                Vigencia = new Vigencia
+                {
+                    Inicio = DateTime.UtcNow
+                },
+                Icono = cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
+            };
+
+            var latitud =cliente.ReferenciaGeografica.Latitude;
+            var longitud = cliente.ReferenciaGeografica.Longitude;
+            var posicion = GetNewDireccion(latitud, longitud);
+
+            var poligono = new Poligono { Radio = 100, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+            poligono.AddPoints(new[] { new PointF((float)longitud, (float)latitud) });
+
+            georef.AddHistoria(posicion, poligono, DateTime.UtcNow);
+
+            DaoFactory.ReferenciaGeograficaDAO.SaveOrUpdate(georef);
+                            
+            var puntoEntrega = new PuntoEntrega
+            {
+                Cliente = cliente,
+                Codigo = codigoCliente,
+                Descripcion = nombreCliente,
+                Telefono = string.Empty,
+                Baja = false,
+                ReferenciaGeografica = georef,
+                Nomenclado = false,
+                DireccionNomenclada = string.Empty,
+                Nombre = nombreCliente
+            };
+
+            DaoFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
+
+            return puntoEntrega;
+        }
+
+        private static Direccion GetNewDireccion(double latitud, double longitud)
+        {
+            return new Direccion
+            {
+                Altura = -1,
+                IdMapa = -1,
+                Provincia = string.Empty,
+                IdCalle = -1,
+                IdEsquina = -1,
+                IdEntrecalle = -1,
+                Latitud = latitud,
+                Longitud = longitud,
+                Partido = string.Empty,
+                Pais = string.Empty,
+                Calle = string.Empty,
+                Descripcion = string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
+                Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+            };
         }
 
         private void PreBufferInsumos()
@@ -249,21 +340,21 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 try
                 {
-                    var descripcion = row[Properties.PedidosPetrobras.DescripcionTransportista].ToString().Trim();
+                    var codigo = row[Properties.PedidosPetrobras.CodigoTransportista].ToString().Trim();
                     
-                    if (lastCodTransportista != descripcion)
+                    if (lastCodTransportista != codigo)
                     {
-                        if (!codTransportistaStrList.Contains(descripcion))
-                            codTransportistaStrList.Add(descripcion);
+                        if (!codTransportistaStrList.Contains(codigo))
+                            codTransportistaStrList.Add(codigo);
 
-                        lastCodTransportista = descripcion;
+                        lastCodTransportista = codigo;
                     }
                 }
                 catch (Exception ex)
                 {
                     STrace.Exception(Component, ex,
                         String.Format("Error Buffering Transportista ({0})",
-                                      row[Properties.PedidosPetrobras.DescripcionTransportista]));
+                                      row[Properties.PedidosPetrobras.CodigoTransportista]));
                 }
 
                 #endregion
