@@ -1130,7 +1130,7 @@ namespace Logictracker.Siac
             if (count < 6) return false;
             if (payload[start] == 'P' && payload[start + 1] == 'C')
             {
-                detectedCount = payload[start + 5] + 9;
+                detectedCount = payload[start + 5] + 8;
                 return count >= detectedCount;
             }
 
