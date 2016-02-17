@@ -69,7 +69,7 @@ namespace Logictracker.Tracker.Application.Integration
 
             Logger.Info("Searching for a new alarm in S.O.S. service...");
 
-            var rollback = WebServiceSos._alertasRollback("20160210304226");
+            //var rollback = WebServiceSos._alertasRollback("20160217304249");
 
             var response = WebServiceSos.ObtenerAlertas();
             //var fecha = DateTime.Now;
@@ -670,11 +670,9 @@ namespace Logictracker.Tracker.Application.Integration
 
         private void UpdateToSos(string interno, string codigo, int estadoServicio, string diagnostico)
         {
-            //if (WebServiceSos == null)
-            //    WebServiceSos = new WebServiceSos.Service();
-
-            //var res=WebServiceSos.ActualizarSvc(interno, codigo, estadoServicio, diagnostico.Split('-')[0]);
-            //Logger.Info("Webservice response: " + res);
+            if (WebServiceSos == null) WebServiceSos = new WebServiceSos.Service();
+            var res = WebServiceSos.ActualizarSvc(interno, codigo, estadoServicio, diagnostico.Split('-')[0]);
+            Logger.Info("Webservice response: " + res);
         }
 
         public void ArrivalReport(ViajeDistribucion viaje)
@@ -682,14 +680,7 @@ namespace Logictracker.Tracker.Application.Integration
             var ticket = DaoFactory.SosTicketDAO.FindByCodigo(viaje.Codigo);
             if (ticket != null)
             {
-                /*
-                ticket.Distribucion = viaje;
-                ticket.EstadoServicio = (int)CodigoEstado.Llegada;
-                DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
-
-                UpdateToSos(viaje.Vehiculo.Interno, viaje.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
-                */
-                var msgText = "Por favor, informe los 3 dígitos de la patente del vehículo correspondiente al servicio " + viaje.Codigo;
+                var msgText = "Por favor, informe los 3 digitos de la patente del vehiculo correspondiente al servicio " + viaje.Codigo;
                 SendQuestionPatenteToGarmin(msgText, viaje);
             }
         }
@@ -710,7 +701,7 @@ namespace Logictracker.Tracker.Application.Integration
             }
             else
             {
-                var msgText = "Patente errónea. Por favor, informe los 3 dígitos de la patente del vehículo correspondiente al servicio " + ticket.Distribucion.Codigo;
+                var msgText = "Patente erronea. Por favor, informe los 3 digitos de la patente del vehiculo correspondiente al servicio " + ticket.Distribucion.Codigo;
                 SendQuestionPatenteToGarmin(msgText, ticket.Distribucion);
             }
         }
