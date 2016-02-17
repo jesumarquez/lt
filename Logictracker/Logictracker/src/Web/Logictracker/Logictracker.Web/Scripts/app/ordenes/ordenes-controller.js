@@ -210,7 +210,11 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             $scope.Orders = OrdenesService.items(filters, null, onFail);
         };
 
+        $scope.disabledButton = false;
+
         $scope.programOrders = function (order) {
+
+            $scope.disabledButton = true;
 
             var selectOrders = [];
             $scope.ordenesGrid.select().each(function(index, row) {
@@ -226,6 +230,8 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
                 { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key},
                 function () {
                     $scope.onBuscar();
+                    $('#myModal').modal('hide');
+                    $scope.disabledButton = false;
                 },
                 onFail
             );
