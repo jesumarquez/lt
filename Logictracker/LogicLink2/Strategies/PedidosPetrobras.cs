@@ -55,8 +55,53 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             var te = new TimeElapsed();
             var rows = ParseExcelFile(Llfile.FilePath, false, 3);
             STrace.Trace(Component, string.Format("Archivo parseado en {0} segundos", te.getTimeElapsed().TotalSeconds));
+
+            #region Set Indexes
+
+            var indexCodigoTransportista = Properties.PedidosPetrobras.CodigoTransportista;
+            var indexCodigoPlanta = Properties.PedidosPetrobras.CodigoPlanta;
+
+            var indexCodigoCliente = Properties.PedidosPetrobras.CodigoCliente;
+            var indexNombreCliente = Properties.PedidosPetrobras.NombreCliente;
+            var indexFechaSolicitud = Properties.PedidosPetrobras.FechaSolicitud;
+            var indexCondicion = Properties.PedidosPetrobras.Condicion;
+            var indexCodigoPedido = Properties.PedidosPetrobras.CodigoPedido;
+
+            var indexNaftaSuper = Properties.PedidosPetrobras.NaftaSuper;
+            var indexNaftaPremium = Properties.PedidosPetrobras.NaftaPremium;
+            var indexGasoilMenor500 = Properties.PedidosPetrobras.GasoilMenor500;
+            var indexGasoilMayor500 = Properties.PedidosPetrobras.GasoilMayor500;
+            var indexGasoilPremium = Properties.PedidosPetrobras.GasoilPremium;
+
+            var indexCodigoEntrega = Properties.PedidosPetrobras.CodigoEntrega;
+            var indexFechaLiberacion = Properties.PedidosPetrobras.FechaLiberacion;
+            var indexObservaciones = Properties.PedidosPetrobras.Observaciones;            
+
+            var cabecera = rows[6];
+            for (int i = 0; i < 20; i++)
+            {
+                switch (cabecera[i].ToString().Trim())
+                {
+                    case "Cta.": indexCodigoCliente = i; break;
+                    case "Razon Social": indexNombreCliente = i; break;
+                    case "Entrega Solic.": indexFechaSolicitud = i; break;
+                    case "Inco.": indexCondicion = i; break;
+                    case "Pedido": indexCodigoPedido = i; break;
+                    case "Entrega": indexCodigoEntrega = i; break;
+                    case "Fecha Liberacion": indexFechaLiberacion = i; break;
+                    case "Observaciones": indexObservaciones = i; break;
+                    case "Nafta Súper": indexNaftaSuper = i; break;
+                    case "Nafta Premium": indexNaftaPremium = i; break;
+                    case "Gasoil Igual o Inferior 500 ppm Azufre": indexGasoilMenor500 = i; break;
+                    case "Gasoil Superior 500 ppm Azufre": indexGasoilMayor500 = i; break;
+                    case "Gasoil Premium": indexGasoilPremium = i; break;
+                }
+            }
+
+            #endregion
+
             te.Restart();
-            PreBufferRows(rows);            
+            PreBufferRows(rows, indexCodigoCliente, indexCodigoTransportista);
             STrace.Trace(Component, string.Format("PreBufferRows en {0} segundos", te.getTimeElapsed().TotalSeconds));
             PreBufferInsumos();
 
@@ -72,14 +117,14 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 var row = rows[i];
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
 
-                var codigoTransportista = row[Properties.PedidosPetrobras.CodigoTransportista].ToString().Trim();
+                var codigoTransportista = row[indexCodigoTransportista].ToString().Trim();
                 var transportista = codigoTransportista != string.Empty ? _transportistasBuffer.SingleOrDefault(t => t.Codigo.Equals(codigoTransportista)) : null;
 
                 // BAJO UNA FILA
                 i++;
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
                 row = rows[i];
-                var codigoPlanta = row[Properties.PedidosPetrobras.CodigoPlanta].ToString().Trim();
+                var codigoPlanta = row[indexCodigoPlanta].ToString().Trim();
                 var planta = DaoFactory.LineaDAO.FindByCodigo(Empresa.Id, codigoPlanta);
 
                 // BAJO 2 FILAS
@@ -89,27 +134,27 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 STrace.Trace(Component, string.Format("Procesando fila: {0}/{1}", i, rows.Count));
                 row = rows[i];
 
-                while (row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim() != string.Empty)
+                while (row[indexCodigoCliente].ToString().Trim() != string.Empty)
                 {
-                    var condicion = row[Properties.PedidosPetrobras.Condicion].ToString().Trim();                   
+                    var condicion = row[indexCondicion].ToString().Trim();                   
 
                     if (condicion == "YIF")
                     {
-                        var codigoCliente = row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim();
-                        var nombreCliente = row[Properties.PedidosPetrobras.NombreCliente].ToString().Trim();
+                        var codigoCliente = row[indexCodigoCliente].ToString().Trim();
+                        var nombreCliente = row[indexNombreCliente].ToString().Trim();
                         var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoCliente);
                         if (puntoEntrega == null) puntoEntrega = GetNuevoPuntoEntrega(codigoCliente, nombreCliente);
 
-                        //var codigoEntrega = row[Properties.PedidosPetrobras.CodigoEntrega].ToString().Trim();
-                        var codigoPedido = row[Properties.PedidosPetrobras.CodigoPedido].ToString().Trim();
+                        //var codigoEntrega = row[indexCodigoEntrega].ToString().Trim();
+                        var codigoPedido = row[indexCodigoPedido].ToString().Trim();
                         
-                        var fechaSolicitud = row[Properties.PedidosPetrobras.FechaSolicitud].ToString().Trim();
+                        var fechaSolicitud = row[indexFechaSolicitud].ToString().Trim();
                         var arrayFechaSolicitud = fechaSolicitud.Split('.');
                         var diaSolicitud = Convert.ToInt32(arrayFechaSolicitud[0]);
                         var mesSolicitud = Convert.ToInt32(arrayFechaSolicitud[1]);
                         var anioSolicitud = Convert.ToInt32(arrayFechaSolicitud[2]);
                         var dtFechaSolicitud = new DateTime(anioSolicitud, mesSolicitud, diaSolicitud).AddHours(3);
-                        //var fechaLiberacion = row[Properties.PedidosPetrobras.FechaLiberacion].ToString().Trim();
+                        //var fechaLiberacion = row[indexFechaLiberacion].ToString().Trim();
 
                         // ARMAR NUEVO PEDIDO
                         var orden = new Order();
@@ -128,11 +173,11 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         var gasoilMayor500 = 0.0;
                         var gasoilPremium = 0.0;
                         
-                        double.TryParse(row[Properties.PedidosPetrobras.NaftaSuper].ToString().Trim(), out naftaSuper);
-                        double.TryParse(row[Properties.PedidosPetrobras.NaftaPremium].ToString().Trim(), out naftaPremium);
-                        double.TryParse(row[Properties.PedidosPetrobras.GasoilMenor500].ToString().Trim(), out gasoilMenos500);
-                        double.TryParse(row[Properties.PedidosPetrobras.GasoilMayor500].ToString().Trim(), out gasoilMayor500);
-                        double.TryParse(row[Properties.PedidosPetrobras.GasoilPremium].ToString().Trim(), out gasoilPremium);
+                        double.TryParse(row[indexNaftaSuper].ToString().Trim(), out naftaSuper);
+                        double.TryParse(row[indexNaftaPremium].ToString().Trim(), out naftaPremium);
+                        double.TryParse(row[indexGasoilMenor500].ToString().Trim(), out gasoilMenos500);
+                        double.TryParse(row[indexGasoilMayor500].ToString().Trim(), out gasoilMayor500);
+                        double.TryParse(row[indexGasoilPremium].ToString().Trim(), out gasoilPremium);
 
                         naftaSuper = naftaSuper / 1000;
                         naftaPremium = naftaPremium / 1000;
@@ -304,7 +349,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             _insumosBuffer.AddRange(insumos);
         }
 
-        private void PreBufferRows(IEnumerable<Row> rows)
+        private void PreBufferRows(IEnumerable<Row> rows, int indexCodigoCliente, int indexCodigoTransportista)
         {
             var lastCodPunto = string.Empty;
             var lastCodTransportista = string.Empty;
@@ -318,7 +363,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 try
                 {
-                    var codigoPuntoEntrega = row[Properties.PedidosPetrobras.CodigoCliente].ToString().Trim();
+                    var codigoPuntoEntrega = row[indexCodigoCliente].ToString().Trim();
 
                     if (lastCodPunto != codigoPuntoEntrega && codigoPuntoEntrega != string.Empty)
                     {
@@ -330,8 +375,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 }
                 catch (Exception ex)
                 {
-                    STrace.Exception(Component, ex,
-                        String.Format("Error Buffering Punto de Entrega ({0})", row[Properties.PedidosPetrobras.CodigoCliente]));
+                    STrace.Exception(Component, ex, string.Format("Error Buffering Punto de Entrega ({0})", row[indexCodigoCliente]));
                 }
 
                 #endregion
@@ -340,7 +384,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 try
                 {
-                    var codigo = row[Properties.PedidosPetrobras.CodigoTransportista].ToString().Trim();
+                    var codigo = row[indexCodigoTransportista].ToString().Trim();
                     
                     if (lastCodTransportista != codigo)
                     {
@@ -352,9 +396,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 }
                 catch (Exception ex)
                 {
-                    STrace.Exception(Component, ex,
-                        String.Format("Error Buffering Transportista ({0})",
-                                      row[Properties.PedidosPetrobras.CodigoTransportista]));
+                    STrace.Exception(Component, ex, string.Format("Error Buffering Transportista ({0})", row[indexCodigoTransportista]));
                 }
 
                 #endregion
