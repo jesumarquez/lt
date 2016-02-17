@@ -16,7 +16,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
     {
         public List<EstadoLogistico> GetByEmpresa(int empresa)
         {
-            return Session.Query<EstadoLogistico>().Where(e => e.Empresa.Id == empresa)
+            return Session.Query<EstadoLogistico>().Where(e => e.Empresa.Id == empresa && !e.Baja)
                                                    .OrderBy(e => e.Descripcion)
                                                    .ToList();
         }
