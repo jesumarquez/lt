@@ -294,7 +294,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 Icono = cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
             };
 
-            var latitud =cliente.ReferenciaGeografica.Latitude;
+            var latitud = cliente.ReferenciaGeografica.Latitude;
             var longitud = cliente.ReferenciaGeografica.Longitude;
             var posicion = GetNewDireccion(latitud, longitud);
 
@@ -313,8 +313,8 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                 Telefono = string.Empty,
                 Baja = false,
                 ReferenciaGeografica = georef,
-                Nomenclado = false,
-                DireccionNomenclada = string.Empty,
+                Nomenclado = true,
+                DireccionNomenclada = posicion.Descripcion,
                 Nombre = nombreCliente
             };
 
