@@ -158,10 +158,6 @@ namespace Logictracker.Tracker.Application.Integration
             ticket.Distribucion = storedTicket == null ? BuildRoute(ticket) : UpdateRoute(ticket);
             DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
 
-            //S:	20151119303932
-            //O:	SAN MARTIN  500, CORDOBA
-            //D:	COLON 1000, CORDOBA
-            //Di:	CORREA DE DISTRIBUCION
             var mensaje = string.Format("Asignado: {0}<br>De {1}<br>a {2}<br>{3}",
                 ticket.NumeroServicio,
                 ticket.Origen.Direccion + ", " + ticket.Origen.Localidad,
