@@ -39,6 +39,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string TipoCalculoCostoKm = "tipo.calculo.costo.km";
             public const string InicioDistribucionPorSalidaDeBase = "distribucion.inicio.salida.base";
             public const string InicioDistribucionPorSalidaDeGeocerca = "distribucion.inicio.salida.geocerca";
+            public const string InicioDistribucionPorEntradaDeGeocerca = "distribucion.inicio.entrada.geocerca";
             public const string InicioDistribucionIdTipoGeocerca = "distribucion.inicio.id.tipo.geocerca";
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
@@ -86,6 +87,8 @@ namespace Logictracker.Types.BusinessObjects
             public const string IntegrationServicePrefixConfirmation = "integration.service.prefix.confirmation";  
             
             public const string GeneraInfraccionesSitrack = "genera.infracciones.sitrack";
+
+            public const string GeneraRutaInversa = "genera.ruta.inversa";
         }
         public static class OrdenRuta
         {
@@ -336,6 +339,16 @@ namespace Logictracker.Types.BusinessObjects
             get
             {
                 var valor = GetParameter(Params.InicioDistribucionPorSalidaDeGeocerca);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+        public virtual bool InicioDistribucionPorEntradaDeGeocerca
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionPorEntradaDeGeocerca);
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;
@@ -749,6 +762,17 @@ namespace Logictracker.Types.BusinessObjects
                 var valor = GetParameter(Params.IntegrationServicePrefixConfirmation);
                 if (valor == null || valor.Trim() == string.Empty) return "PAT";
                 return valor.ToLowerInvariant();
+            }
+        }
+
+        public virtual bool GeneraRutaInversa
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraRutaInversa);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
             }
         }
 

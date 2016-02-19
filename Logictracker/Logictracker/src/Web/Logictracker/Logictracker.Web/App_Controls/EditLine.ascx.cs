@@ -11,6 +11,7 @@ using Logictracker.Web.Monitor;
 using Logictracker.Web.Monitor.Geometries;
 using Logictracker.Web.Monitor.Markers;
 using Point = Logictracker.Web.Monitor.Geometries.Point;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.App_Controls
 {
@@ -19,6 +20,7 @@ namespace Logictracker.App_Controls
         protected const int MinZoomLevel = 4;
         protected const string LayerRecorrido = "Recorrido";
         protected const string LayerMarkers = "Puntos";
+        protected const string LayerViajeProgramado = "Viaje";
         public Logictracker.Web.Monitor.Monitor Mapa { get { return Monitor; } }
 
         public event EventHandler MapLoad;
@@ -54,7 +56,8 @@ namespace Logictracker.App_Controls
                               LayerFactory.GetGoogleHybrid(CultureManager.GetLabel("LAYER_GHIBRIDO"), MinZoomLevel),
                               LayerFactory.GetGooglePhysical(CultureManager.GetLabel("LAYER_GFISICO"), MinZoomLevel),
                               LayerFactory.GetVector(LayerRecorrido, true, StyleFactory.GetHandlePoint()),
-                              LayerFactory.GetMarkers(LayerMarkers, true));
+                              LayerFactory.GetMarkers(LayerMarkers, true),
+                              LayerFactory.GetVector(LayerViajeProgramado, true));
 
             Monitor.AddControls(ControlFactory.GetLayerSwitcher(),
                                 ControlFactory.GetNavigation(),
@@ -77,7 +80,38 @@ namespace Logictracker.App_Controls
         {
             SetLine(e.Points);
         }
+        public void DrawViajeProgramado(int idViajeProgramado)
+        {
+            Monitor.ClearLayer(LayerViajeProgramado);
+            if (idViajeProgramado > 0)
+            {
+                var viaje = DAOFactory.ViajeProgramadoDAO.FindById(idViajeProgramado);
+                if (viaje != null)
+                {
+                    var count = viaje.Detalles.Count;
+                    if (count > 1)
+                    {
+                        var primero = viaje.Detalles[0].PuntoEntrega;
+                        var ultimo = viaje.Detalles[count - 1].PuntoEntrega;
+                        var origen = new LatLon(primero.ReferenciaGeografica.Latitude, primero.ReferenciaGeografica.Longitude);
+                        var destino = new LatLon(ultimo.ReferenciaGeografica.Latitude, ultimo.ReferenciaGeografica.Longitude);
+                        var waypoints = new List<LatLon>();
+                        for (int i = 1; i < count - 1; i++)
+                        {
+                            var punto = viaje.Detalles[i].PuntoEntrega;
+                            var waypoint = new LatLon(punto.ReferenciaGeografica.Latitude, punto.ReferenciaGeografica.Longitude);
+                            waypoints.Add(waypoint);
+                        }
 
+                        var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, waypoints.ToArray());
+                        var posiciones = directions.Legs.SelectMany(l => l.Steps.SelectMany(s => s.Points));
+                        var line = new Line("D:" + Color.Red.ToArgb(), StyleFactory.GetLineFromColor(Color.Red, 4, 0.5));
+                        line.AddPoints(posiciones.Select(p => new Point("", p.Longitud, p.Latitud)));
+                        Monitor.AddGeometries(LayerViajeProgramado, line);
+                    }
+                }
+            }
+        }
         public void Invertir()
         {
             var points = Points.Get();
@@ -90,6 +124,7 @@ namespace Logictracker.App_Controls
             Points.Set(null);
             Monitor.ClearLayer(LayerRecorrido);
             Monitor.ClearLayer(LayerMarkers);
+            Monitor.ClearLayer(LayerViajeProgramado);
         }
         public void SetLine(List<PointF> points)
         {

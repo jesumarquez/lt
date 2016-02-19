@@ -20,6 +20,7 @@ namespace Logictracker.Web.Models
         public int IdTransportista { get; set; }
         public string PuntoEntrega { get; set; }
         public int IdPuntoEntrega { get; set; }
+        public string CodigoPuntoEntrega { get; set; }
         public string CodigoPedido { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime FechaPedido { get; set; }
@@ -51,6 +52,7 @@ namespace Logictracker.Web.Models
             model.Id = entity.Id;
             if (entity.PuntoEntrega != null) model.PuntoEntrega = entity.PuntoEntrega.Descripcion;
             if (entity.PuntoEntrega != null) model.IdPuntoEntrega = entity.PuntoEntrega.Id;
+            if (entity.PuntoEntrega != null) model.CodigoPuntoEntrega = entity.PuntoEntrega.Codigo;
             if (entity.Transportista != null) model.Transportista = entity.Transportista.Descripcion;
             if (entity.Transportista != null) model.IdTransportista = entity.Transportista.Id;
             

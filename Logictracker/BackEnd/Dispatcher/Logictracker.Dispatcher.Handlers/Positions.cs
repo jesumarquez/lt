@@ -616,6 +616,21 @@ namespace Logictracker.Dispatcher.Handlers
                             if (t.getTimeElapsed().TotalSeconds > 1) STrace.Debug("DispatcherLock", position.DeviceId, String.Format("Switch evento.Evento/GeocercaEventState.Sale ({0} secs), geocerca: {1}", t.getTimeElapsed().TotalSeconds.ToString(), evento.Estado.Geocerca.Id));
                             break;
                         case GeocercaEventState.Entra:
+                            if (Coche.Empresa.InicioDistribucionPorEntradaDeGeocerca && 
+                                evento.Estado.Geocerca.TipoReferenciaGeograficaId == Coche.Empresa.InicioDistribucionIdTipoGeocerca)
+                            {
+                                if (DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche) == null)
+                                {
+                                    var distribucion = DaoFactory.ViajeDistribucionDAO.FindPendiente(new[] { Coche.Empresa.Id }, new[] { -1 }, new[] { Coche.Id }, DateTime.Today, DateTime.Today.AddDays(1));
+                                    if (distribucion != null)
+                                    {
+                                        var ev = new InitEvent(_posicion.GetDateTime());
+                                        var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
+                                        ciclo.ProcessEvent(ev);
+                                    }
+                                }
+                            }
+
                             MessageSaver.Save(_posicion,
                                               MessageCode.InsideGeoRefference.GetMessageCode(),
                                               Dispositivo,

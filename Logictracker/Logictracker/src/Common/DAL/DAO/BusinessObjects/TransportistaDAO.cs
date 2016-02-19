@@ -23,7 +23,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             return Query.FilterEmpresa(Session, new[] { empresa }, null)
                         .FilterLinea(Session, new[] { empresa }, new[] { linea }, null)
-                        .Where(l => !l.Baja && l.Descripcion == codigo)
+                        .Where(l => !l.Baja && l.Codigo == codigo)
                         .Cacheable()
                         .FirstOrDefault();
         }
@@ -32,7 +32,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
         {
             return Query.FilterEmpresa(Session, new[] { empresa }, null)
                         .FilterLinea(Session, new[] { empresa }, new[] { linea }, null)
-                        .Where(p => !p.Baja && codigos.Contains(p.Descripcion))
+                        .Where(p => !p.Baja && codigos.Contains(p.Codigo))
                         .Cacheable()
                         .ToList();
         }

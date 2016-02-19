@@ -373,7 +373,7 @@ namespace ControlSat
             GPSPoint pos;
             var code = EventCodes.Position;
             var time = DateTime.ParseExact(parser[1], "yyyy-MM-dd HH:mm:ss",
-                           System.Globalization.CultureInfo.InvariantCulture);
+                           System.Globalization.CultureInfo.InvariantCulture).AddHours(3);
             var lat = float.Parse(parser[2].Replace('.', ','));
             var lon = float.Parse(parser[3].Replace('.', ','));
             var vel = float.Parse(parser[4]);

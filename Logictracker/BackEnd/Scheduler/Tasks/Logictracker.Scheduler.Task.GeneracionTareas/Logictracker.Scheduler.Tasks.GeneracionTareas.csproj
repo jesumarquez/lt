@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneracionInversaTask.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,6 +58,10 @@
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
       <Name>Logictracker.Cache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{a5c107d7-cc1b-4d48-9275-0c6ee216ba61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
@@ -68,6 +73,10 @@
     <ProjectReference Include="..\..\..\..\Logictracker\src\Common\Mailing\Logictracker.Mailing.csproj">
       <Project>{AE61757F-B47C-4EB8-B223-C89C96092133}</Project>
       <Name>Logictracker.Mailing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Logictracker\src\Common\Services.Helpers\Logictracker.Services.Helpers.csproj">
+      <Project>{335550d5-f4a2-4ad0-a22f-c4ab705c6606}</Project>
+      <Name>Logictracker.Services.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Logictracker\src\Common\Types\Logictracker.Types.csproj">
       <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>

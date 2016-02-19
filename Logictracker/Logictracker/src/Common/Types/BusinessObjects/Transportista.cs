@@ -41,6 +41,7 @@ namespace Logictracker.Types.BusinessObjects
         public virtual string Contacto { get; set; }
         public virtual ReferenciaGeografica ReferenciaGeografica { get; set; }
         public virtual bool Baja { get; set; }
+        public virtual string Codigo { get; set; }
         public virtual string Descripcion { get; set; }
         public virtual bool IdentificaChoferes { get; set; }
 

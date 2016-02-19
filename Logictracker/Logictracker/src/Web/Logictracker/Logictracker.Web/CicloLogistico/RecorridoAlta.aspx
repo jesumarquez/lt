@@ -23,16 +23,26 @@
         </asp:UpdatePanel>
         
         <cwc:ResourceLabel ID="lblCodigo" runat="server" ResourceName="Labels" VariableName="CODE" />
-        <asp:TextBox id="txtCodigo" runat="server" Width="100%" MaxLength="64" />
+        <asp:TextBox id="txtCodigo" runat="server" Width="98%" MaxLength="64" />
         
         <cwc:ResourceLabel ID="lblNombre" runat="server" ResourceName="Labels" VariableName="NAME" />
-        <asp:TextBox id="txtNombre" runat="server" Width="100%" MaxLength="128" />
+        <asp:TextBox id="txtNombre" runat="server" Width="98%" MaxLength="128" />
         
         <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="Labels" VariableName="DESVIO" />
         <div runat="server">
             <asp:TextBox id="txtDesvio" runat="server" Width="60px" MaxLength="6" Text="100" />
             <cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="Labels" VariableName="METROS" />
         </div>
+
+        <cwc:ResourceLabel ID="lblViajeProgramado" runat="server" ResourceName="Entities" VariableName="OPETICK13" Width="100px" />
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" RenderMode="Inline">
+            <ContentTemplate>
+                <cwc:ViajeProgramadoDropDownList ID="cbViajeProg" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa" OnSelectedIndexChanged="cbViajeProgSelectedIndexChanged" />
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+            </Triggers>
+        </asp:UpdatePanel>
         
   </cwc:AbmTitledPanel>
 </td>
