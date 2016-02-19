@@ -233,9 +233,10 @@
     <Content Include="About.aspx" />
     <Content Include="Admin\DatamartLog.aspx" />
     <Content Include="Admin\Log.aspx" />
-    <Content Include="Admin\Logiclink.aspx" />
     <Content Include="Admin\Log\LogContext.aspx" />
+    <Content Include="Admin\LogiclinkAlta.aspx" />
     <Content Include="Admin\ProgramacionReporteAlta.aspx" />
+    <Content Include="Admin\Logiclink.aspx" />
     <Content Include="Admin\ProgramacionReporteLista.aspx" />
     <Content Include="Admin\Queues.aspx" />
     <Content Include="Admin\ReportLog.aspx" />
@@ -2102,13 +2103,6 @@
     <Compile Include="Admin\Log.aspx.designer.cs">
       <DependentUpon>Log.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Logiclink.aspx.cs">
-      <DependentUpon>Logiclink.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Logiclink.aspx.designer.cs">
-      <DependentUpon>Logiclink.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\Log\LogContext.aspx.cs">
       <DependentUpon>LogContext.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2116,12 +2110,26 @@
     <Compile Include="Admin\Log\LogContext.aspx.designer.cs">
       <DependentUpon>LogContext.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\LogiclinkAlta.aspx.cs">
+      <DependentUpon>LogiclinkAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\LogiclinkAlta.aspx.designer.cs">
+      <DependentUpon>LogiclinkAlta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ProgramacionReporteAlta.aspx.cs">
       <DependentUpon>ProgramacionReporteAlta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\ProgramacionReporteAlta.aspx.designer.cs">
       <DependentUpon>ProgramacionReporteAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Logiclink.aspx.cs">
+      <DependentUpon>Logiclink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Logiclink.aspx.designer.cs">
+      <DependentUpon>Logiclink.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ProgramacionReporteLista.aspx.cs">
       <DependentUpon>ProgramacionReporteLista.aspx</DependentUpon>

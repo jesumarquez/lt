@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Logictracker.Web.Admin {
+namespace Logictracker.Admin {
     
     
     public partial class Logiclink {
@@ -101,23 +101,5 @@ namespace Logictracker.Web.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtpHasta;
-        
-        /// <summary>
-        /// panelBuscar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelBuscar;
-        
-        /// <summary>
-        /// txtBuscar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBuscar;
     }
 }

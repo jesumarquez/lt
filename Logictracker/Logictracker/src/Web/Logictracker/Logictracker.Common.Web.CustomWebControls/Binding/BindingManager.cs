@@ -1116,6 +1116,22 @@ namespace Logictracker.Web.CustomWebControls.Binding
             autoBindeable.AddItem("Orbcom", 4);
         }
 
+        public void BindEstrategia(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();            
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            var empresa = DaoFactory.EmpresaDAO.FindById(idEmpresa);
+
+            var items = empresa != null 
+                            ? LogicLinkFile.Estrategias.GetList().Where(e => e.ToUpperInvariant().Contains(empresa.RazonSocial.ToUpperInvariant())).ToList()
+                            : new List<string>();
+            
+            for (int i = 0; i < items.Count; i++)
+            {
+                autoBindeable.AddItem(items[i], i);
+            }
+        }
+
         public void BindTipoLineaTelefonica(IAutoBindeable autoBindeable)
         {
             autoBindeable.ClearItems();
