@@ -220,7 +220,7 @@ namespace Logictracker.Process.Import.EntityParser
                     return float.TryParse(valor.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out floatValue) ? floatValue.ToString(CultureInfo.InvariantCulture) : null;
                 case TipoParametroDocumento.String:
                     return valor;
-                case TipoParametroDocumento.StringBarcode:
+                case TipoParametroDocumento.Barcode:
                     return valor;
                 case TipoParametroDocumento.DateTime:
                     DateTime dateTimeValue;

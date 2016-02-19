@@ -393,7 +393,7 @@ namespace Logictracker.Web.Documentos
                     if (floatnum == -999) return null;
                     return floatnum.ToString();
                 case TipoParametroDocumento.String:
-                case TipoParametroDocumento.StringBarcode:
+                case TipoParametroDocumento.Barcode:
                     textValue = GetTextBoxValue(id);
                     return parameter.Obligatorio
                                ? GetRequiredNotEmpty(parameter.Nombre, textValue)

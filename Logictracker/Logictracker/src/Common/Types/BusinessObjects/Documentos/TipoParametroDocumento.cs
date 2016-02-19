@@ -12,7 +12,7 @@ namespace Logictracker.Types.BusinessObjects.Documentos
         public const string Float = "float";
         public const string Image = "image";
         public const string Integer = "int";
-        public const string StringBarcode = "stringbarcode";
+        public const string Barcode = "stringbarcode";
         public const string String = "string";
         public const string Usuario = "usuario";
         public const string Cliente = "cliente";

@@ -156,9 +156,7 @@
     <Content Include="Applications\GatewayControlSat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Applications\00-GatewayHawk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Applications\00-GatewayHawk.xml" />
     <Content Include="Geocoder.NHibernate.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -431,7 +429,7 @@
     <Content Include="Applications\Instalar y Mantener Servicios.xml">
     </Content>
     <Content Include="Applications\Scheduler.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Applications\Gateway.xml">
     </Content>
