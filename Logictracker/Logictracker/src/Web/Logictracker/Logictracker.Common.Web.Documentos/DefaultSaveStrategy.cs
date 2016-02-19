@@ -123,7 +123,7 @@ namespace Logictracker.Web.Documentos
                             break;
                     val.Valor = sval;
                     break;
-                case TipoParametroDocumento.StringBarcode:
+                case TipoParametroDocumento.Barcode:
                     var svalcode = (ctl as TextBox).Text;
 
                     if (string.IsNullOrEmpty(svalcode))
