@@ -77,11 +77,11 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                     var ptoInicio = DaoFactory.PuntoEntregaDAO.FindByClientesAndGeoreferencia(clientes, salida.IdPuntoDeInteres.Value);
                                     if (ptoInicio != null)
                                     {
-                                        if (ptoInicio == ptoFin && entrada.Fecha.Subtract(salida.Fecha).TotalMinutes < empresa.MinutosMinimosDeViaje) break;
+                                        if (ptoInicio == ptoFin) break;
 
                                         var linea = vehiculo.Linea ?? DaoFactory.LineaDAO.GetList(new[]{empresa.Id}).FirstOrDefault();
 
-                                        var codigo =salida.Fecha.AddHours(-3).ToString("yyMMdd") + "|" + vehiculo.Interno + "|" + ptoFin.Codigo + "-" + ptoInicio.Codigo;
+                                        var codigo = salida.Fecha.AddHours(-3).ToString("yyyyMMdd") + "|" + vehiculo.Interno + "|" + ptoInicio.Codigo + "-" + ptoFin.Codigo;
                                         var viaje = new ViajeDistribucion
                                         {
                                             Alta = DateTime.UtcNow,
@@ -98,18 +98,6 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                             Vehiculo = vehiculo
                                         };
 
-                                        //var salidaBase = new EntregaDistribucion
-                                        //             {
-                                        //                 Linea = linea,
-                                        //                 Descripcion = linea.Descripcion,
-                                        //                 Estado = EntregaDistribucion.Estados.Pendiente,
-                                        //                 Orden = 0,
-                                        //                 Programado = salida.Fecha,
-                                        //                 ProgramadoHasta = salida.Fecha,
-                                        //                 Viaje = viaje
-                                        //             };
-                                        //viaje.Detalles.Add(salidaBase);
-                                        
                                         var entrega1 = new EntregaDistribucion
                                                       {
                                                           Cliente = ptoInicio.Cliente,
@@ -126,6 +114,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                         viaje.Detalles.Add(entrega1);
 
                                         var fechaFin = entrada.Fecha;
+                                        var kms = 0.0;
                                         var origen = new LatLon(ptoInicio.ReferenciaGeografica.Latitude, ptoInicio.ReferenciaGeografica.Longitude);
                                         var destino = new LatLon(ptoFin.ReferenciaGeografica.Latitude, ptoFin.ReferenciaGeografica.Longitude);
                                         var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
@@ -133,6 +122,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                         if (directions != null)
                                         {
                                             var duracion = directions.Duration;
+                                            kms = directions.Distance / 1000.0;
                                             fechaFin = salida.Fecha.Add(duracion);
                                         }
 
@@ -146,7 +136,8 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                                         Programado = fechaFin,
                                                         ProgramadoHasta = fechaFin,
                                                         Viaje = viaje,
-                                                        Entrada = entrada.Fecha
+                                                        Entrada = entrada.Fecha,
+                                                        KmCalculado = kms
                                                     };
 
                                         viaje.Detalles.Add(entrega2);                                        

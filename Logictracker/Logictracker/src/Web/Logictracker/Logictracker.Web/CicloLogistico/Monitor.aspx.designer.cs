@@ -751,13 +751,13 @@ namespace Logictracker.CicloLogistico {
         protected global::System.Web.UI.WebControls.Panel panelReferencia;
         
         /// <summary>
-        /// lblReferencia control.
+        /// lblRecorrido control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblReferencia;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblRecorrido;
         
         /// <summary>
         /// ResourceLabel23 control.

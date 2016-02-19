@@ -108,6 +108,7 @@ namespace Logictracker.App_Controls
                         var line = new Line("D:" + Color.Red.ToArgb(), StyleFactory.GetLineFromColor(Color.Red, 4, 0.5));
                         line.AddPoints(posiciones.Select(p => new Point("", p.Longitud, p.Latitud)));
                         Monitor.AddGeometries(LayerViajeProgramado, line);
+                        Monitor.SetCenter(destino.Latitud, destino.Longitud);
                     }
                 }
             }

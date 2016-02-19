@@ -97,22 +97,11 @@ namespace Logictracker.Tracker.Application.Integration
         {
             switch (ticket.EstadoServicio)
             {
-                case SosTicket.EstadosServicio.Asignado: //servicio asignado
-                    Asignar(ticket);
-                    break;
-                case SosTicket.EstadosServicio.Preasignado: //servicio prea asignado
-                    Preasignar(ticket);
-                    break;
-                case SosTicket.EstadosServicio.AsignacionCancelada: //asignación cancelada
-                    CancelarAsignacion(ticket);
-                    break;
-                case SosTicket.EstadosServicio.PreAsignacionCancelada: //pre asignado cancelado
-                    CancelarPreasignacion(ticket);
-                    break;
-                case SosTicket.EstadosServicio.AsignacionYPreAsignacionCancelada: //asignación y pre asignado canceladas
-                default: 
-                    Cancelar(ticket);
-                    break;
+                case SosTicket.EstadosServicio.Asignado: Asignar(ticket); break;
+                case SosTicket.EstadosServicio.Preasignado: Preasignar(ticket); break;
+                case SosTicket.EstadosServicio.AsignacionCancelada: CancelarAsignacion(ticket); break;
+                case SosTicket.EstadosServicio.PreAsignacionCancelada: CancelarPreasignacion(ticket); break;
+                case SosTicket.EstadosServicio.AsignacionYPreAsignacionCancelada: Cancelar(ticket); break;
             }
         }
 
