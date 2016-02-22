@@ -927,4 +927,7 @@
   <data name="PAR_VIAJE_PROGRAMADO" xml:space="preserve">
     <value>Programmed Routes</value>
   </data>
+  <data name="PAR_STOCK_VEHICULAR" xml:space="preserve">
+    <value>Vehicles Stock</value>
+  </data>
 </root>

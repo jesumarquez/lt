@@ -618,6 +618,8 @@
     <Content Include="CicloLogistico\RecorridoLista.aspx" />
     <Content Include="CicloLogistico\ServicioAlta.aspx" />
     <Content Include="CicloLogistico\ServicioLista.aspx" />
+    <Content Include="CicloLogistico\StockVehicularLista.aspx" />
+    <Content Include="CicloLogistico\StockVehicularAlta.aspx" />
     <Content Include="CicloLogistico\TipoServicioAlta.aspx" />
     <Content Include="CicloLogistico\TipoServicioLista.aspx" />
     <Content Include="Common\EditImage.ashx" />
@@ -1740,6 +1742,7 @@
     <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
     <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\StockVehicularLista.xlsx" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
@@ -2633,6 +2636,20 @@
     </Compile>
     <Compile Include="CicloLogistico\ServicioLista.aspx.designer.cs">
       <DependentUpon>ServicioLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularLista.aspx.cs">
+      <DependentUpon>StockVehicularLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularLista.aspx.designer.cs">
+      <DependentUpon>StockVehicularLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularAlta.aspx.cs">
+      <DependentUpon>StockVehicularAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularAlta.aspx.designer.cs">
+      <DependentUpon>StockVehicularAlta.aspx</DependentUpon>
     </Compile>
     <Compile Include="CicloLogistico\TipoServicioAlta.aspx.cs">
       <DependentUpon>TipoServicioAlta.aspx</DependentUpon>

@@ -10,6 +10,7 @@ using Logictracker.Types.BusinessObjects.Tickets;
 using Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces;
 using Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces.BussinessObjects;
 using Logictracker.Web.CustomWebControls.DropDownLists;
+using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 
 namespace Logictracker.Web.CustomWebControls.Binding
 {
@@ -357,6 +358,20 @@ namespace Logictracker.Web.CustomWebControls.Binding
             var zonasAcceso = DaoFactory.ZonaAccesoDAO.GetList(new[] { idEmpresa }, new[] { idLinea }, idsTipoZonaAcceso).OrderBy(z => z.Descripcion);
 
             foreach (var zonaAcceso in zonasAcceso) autoBindeable.AddItem(zonaAcceso.Descripcion, zonaAcceso.Id);
+        }
+
+        public void BindZona(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            var idLinea = autoBindeable.ParentSelected<Linea>();
+            var idsTipoZona = autoBindeable.ParentSelectedValues<TipoZona>();
+
+            var zonas = DaoFactory.ZonaDAO.GetList(new[] { idEmpresa }, new[] { idLinea }, idsTipoZona).OrderBy(z => z.Descripcion);
+
+            foreach (var zona in zonas) autoBindeable.AddItem(zona.Descripcion, zona.Id);
         }
 
         public void BindTipoCicloLogistico(IAutoBindeable autoBindeable)

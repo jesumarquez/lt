@@ -37,6 +37,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
         public const string StaticDetalle = "PARENTI82";
         public const string StaticTipoProveedor = "PARENTI86";
         public const string StaticDeposito = "PARENTI87";
+        public const string StaticZona = "PARENTI89";
         public const string StaticTipoZonaAcceso = "PARENTI91";
         public const string StaticTaller = "PARENTI35";
 
