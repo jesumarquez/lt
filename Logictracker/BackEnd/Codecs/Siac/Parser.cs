@@ -259,7 +259,7 @@ namespace Logictracker.Siac
 
         protected override UInt32 NextSequenceMin()
         {
-            return 0x0000;
+            return 0x0005;
         }
 
         protected override UInt32 NextSequenceMax()
@@ -382,8 +382,8 @@ namespace Logictracker.Siac
            
              
              */
-            
-            ulong msgId = ulong.Parse(buffer.Substring(46,2));
+
+            ulong msgId = NextSequence;//ulong.Parse(buffer.Substring(46,2));
             var patente = buffer.Substring(14, 6);
             var evento = buffer.Substring(46, 2);
             

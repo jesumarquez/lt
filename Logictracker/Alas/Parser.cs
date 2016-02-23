@@ -19,17 +19,20 @@ using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
 using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects.Vehiculos;
+using System.Xml;
 
-namespace ControlSat
+namespace Alas
 {
-    [FrameworkElement(XName = "ControlSatParser", IsContainer = false)]
+    [FrameworkElement(XName = "AlasParser", IsContainer = false)]
     public partial class Parser : BaseCodec
     {
         private static DAOFactory _daoFactory = new DAOFactory();
         public override NodeTypes NodeType
         {
-            get { return NodeTypes.ControlSat; }
+            get { return NodeTypes.Alas; }
         }
+
+        #region codeRels
 
         private static readonly Dictionary<int, object> LocksByDevice = new Dictionary<int, object>();
 
@@ -225,6 +228,7 @@ namespace ControlSat
                                                                                  MessageIdentifier.DeviceTurnedOn
                                                                              }
                                                                          };
+#endregion
 
         #region Attributes
 
@@ -259,7 +263,7 @@ namespace ControlSat
 
         protected override UInt32 NextSequenceMin()
         {
-            return 0x0005;
+            return 0x0000;
         }
 
         protected override UInt32 NextSequenceMax()
@@ -358,102 +362,128 @@ namespace ControlSat
         }
 
 
+        
+        public override String AsString(IFrame frame)
+        {
+            if (frame.PayloadAsString == null)
+            {
+                frame.PayloadAsString = Encoding.ASCII.GetString(frame.Payload, 0, frame.Payload.Length).Replace("<QP>", "");
+                
+            }
+            return frame.PayloadAsString;
+        }
+
+        #endregion
+
         public IMessage Decode(IFrame frame, bool online)
         {
             IMessage salida = null;
             string buffer = AsString(frame);
             if (buffer == null) return null;
-            string[] parser = buffer.Split(new string[] { "|" }, StringSplitOptions.None);          
-            /*
-             patente|Fecha|latitud|longitud|velocidad|sentido|evento 
-            Ejemplo : XXX111|2015-12-29 10:01:32|-33.95115|-59.40005|90|150|01|            
-             
-             */
-            ulong msgId = NextSequence;// ulong.Parse(parser[6]); 
+            
+            XmlReader reader = XmlReader.Create(new StringReader(buffer));
+
+            var node = string.Empty;
+            var dt = string.Empty;
+            var latitud = string.Empty;
+            var longitud = string.Empty;
+            var velocidad = string.Empty;
+            var patente = string.Empty;
+            var direccion = string.Empty;
+            var evento = string.Empty;
+            var packet = string.Empty;
+
+
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.Element: node = reader.Name; break;
+                    case XmlNodeType.Text:
+                        switch (node)
+	                    {
+                            case "DT": dt = reader.Value; break;
+                            case "Lat": latitud = reader.Value; break;
+                            case "Lon": longitud = reader.Value; break;
+                            case "Spd": velocidad = reader.Value; break;
+                            case "ID": patente = reader.Value; break;
+                            case "Hdng": direccion = reader.Value; break;
+                            case "EvNum": evento = reader.Value; break;
+                            case "Pckt": packet = reader.Value; break;
+                            default: break;
+	                    }                        
+                        break;                    
+                }
+            }           
+            
+            //string[] parser = buffer.Split(new string[] { ";" }, StringSplitOptions.None);
+            
             GPSPoint pos;
             var code = EventCodes.Position;
-            var time = DateTime.ParseExact(parser[1], "yyyy-MM-dd HH:mm:ss",
-                           System.Globalization.CultureInfo.InvariantCulture).AddHours(3);
-            var lat = float.Parse(parser[2].Replace('.', ','));
-            var lon = float.Parse(parser[3].Replace('.', ','));
-            var vel = float.Parse(parser[4]);
-            var dir = float.Parse(parser[5]);
-            
-            short codeevent = (short)0;
-            switch (parser[6])
-            {
-                case "1":
-                        {
-                            codeevent = 5001;
-                        }
-                    break;
-                    case "3" :
-                        {
-                             codeevent = 5003;
-                        }
-                    break;
-                    case "4":
-                        {
-                             codeevent = 5004;
-                        }
-                    break;
-                    case "5":
-                        {
-                             codeevent = 5005;
-                        }
-                    break;
-                    case "50":
-                        {
-                             codeevent = 5050;
-                        }
-                    break;
-                    case "51":
-                        {
-                             codeevent = 5051;
-                        }
-                    break;
-                    case "53":
-                        {
-                             codeevent = 5053;
-                        }
-                    break;
-                default:
-                    break;
-            }
+            var msgId = ulong.Parse(packet);
 
-          
+            var dia = int.Parse(dt.Substring(0, 2));
+            var mes = int.Parse(dt.Substring(2,2));
+            var anio = 2000 + int.Parse(dt.Substring (4,2));
+            var hora = int.Parse(dt.Substring(6,2));
+            var minutos = int.Parse(dt.Substring(8,2));
+            var segundos = int.Parse(dt.Substring(10,2));
             
+            var time = new DateTime(anio,mes,dia,hora,minutos,segundos);
+
+            var lat = float.Parse(latitud.Replace('.', ','));
+            var lon = float.Parse(longitud.Replace('.', ','));
+            
+            var dir = float.Parse(direccion);
+            var vel = float.Parse(velocidad);
+
+            short codeevent = short.Parse(evento);
+
+            codeevent = (short)(codeevent + 8000);
+            
+
             var hdop = 0;
             pos = GPSPoint.Factory(time, lat, lon, vel, dir, 0, hdop);
-            var device = DataProvider.FindByIMEI(parser[0].ToString(), this);
+            var device = DataProvider.FindByIMEI(patente, this);
             var deviceid = 0;
             if (device == null)
             {
-                var empresa = _daoFactory.EmpresaDAO.FindByCodigo("GC");
-                var tipodispositivo = _daoFactory.TipoDispositivoDAO.FindByModelo("CONTROLSAT");
+                var empresa = _daoFactory.EmpresaDAO.FindByCodigo("LA");
+                var tipodispositivo = _daoFactory.TipoDispositivoDAO.FindByModelo("ALAS");
                 Dispositivo newdispo = new Dispositivo();
                 newdispo.Empresa = empresa;
-              //  newdispo.Linea = _daoFactory.LineaDAO.FindByNombre(empresa.Id, "Generica");
                 newdispo.TipoDispositivo = tipodispositivo;
-                newdispo.Clave = parser[0].ToString();
+                newdispo.Clave = patente;
                 newdispo.Tablas = "";
-                newdispo.Port = 6065;
-              //  newdispo.Firmware = _daoFactory.FirmwareDAO.FindById(5);
-                newdispo.Imei = parser[0].ToString();
-                newdispo.Codigo = parser[0].ToString();
+                newdispo.Port = 6069;
+                newdispo.Imei = patente;
+                newdispo.Codigo = patente;
                 _daoFactory.DispositivoDAO.Save(newdispo);
-                if (_daoFactory.CocheDAO.FindByPatente(empresa.Id, parser[0].ToString()) == null)
+                if (_daoFactory.CocheDAO.FindByPatente(empresa.Id, patente) == null)
                 {
+                    var modeloDao = new ModeloDAO();
+                    var marcaDao = new MarcaDAO();
+                    var tipoVehiculoDao = new TipoCocheDAO();
+                    var modelo = modeloDao.FindByCodigo(empresa.Id, -1, "Generico");
+                    var marca = marcaDao.GetByDescripcion(empresa.Id, -1, "Generica");
+
                     Coche newcoche = new Coche();
-                    newcoche.Patente = parser[0].ToString();
-                    newcoche.Interno = parser[0].ToString();
+                    newcoche.Patente = patente;
+                    newcoche.Interno = patente + "-ALAS";
                     newcoche.Empresa = empresa;
+                    newcoche.Marca = marca;
+                    newcoche.Modelo = modelo;
+                    newcoche.ModeloDescripcion = modelo.Descripcion;
                     newcoche.Dispositivo = newdispo;
+                    newcoche.Poliza = patente;
+                    newcoche.TipoCoche = tipoVehiculoDao.FindByCodigo(empresa.Id, -1, "CM");
+
+
                     _daoFactory.CocheDAO.Save(newcoche);
                 }
                 else
                 {
-                    Coche coche = _daoFactory.CocheDAO.FindByPatente(empresa.Id, parser[0].ToString());
+                    Coche coche = _daoFactory.CocheDAO.FindByPatente(empresa.Id, patente);
                     coche.Dispositivo = newdispo;
                     _daoFactory.CocheDAO.Save(coche);
                 }
@@ -461,34 +491,17 @@ namespace ControlSat
             }
             else
             {
-                deviceid = DataProvider.FindByIMEI(parser[0].ToString(), this).Id;
+                deviceid = DataProvider.FindByIMEI(patente, this).Id;
             }
 
-            salida = new Event(codeevent, -1, deviceid, msgId,pos, pos.GetDate(), "", new List<long>(),true);
-          
+            salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
+
             return salida;
         }
 
-        public override String AsString(IFrame frame)
-        {
-            if (frame.PayloadAsString == null)
-            {
-                frame.PayloadAsString = Encoding.ASCII.GetString(frame.Payload, 0, frame.Payload.Length).Replace("<QP>", "");
-                var ini = frame.PayloadAsString.IndexOf('>');
-                if (ini >= 0)
-                {
-                    var len = (frame.PayloadAsString.IndexOf('<', ini) - ini) + 1;
-                    if (len >= 2)
-                    {
-                        frame.PayloadAsString = frame.PayloadAsString.Substring(ini, len);
-                        ParserUtils.CheckChecksumOk(frame.PayloadAsString, ";*", "<", Mensaje.GetCheckSum);
-                    }
-                }
-            }
-            return frame.PayloadAsString;
-        }
 
-        #endregion
+
+        #region All
 
         private DateTime _lastConfigSentTimestamp = DateTime.MinValue;
 
@@ -870,6 +883,8 @@ namespace ControlSat
                 return null;
             }
         }
+
+#endregion
 
         #region Nested type: CacheVar
 
