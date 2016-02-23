@@ -2720,10 +2720,12 @@
     <Compile Include="Controllers\api\TipoMensajeController.cs" />
     <Compile Include="Controllers\api\UserDataController.cs" />
     <Compile Include="Controllers\api\CocheController.cs" />
+    <Compile Include="Controllers\api\InsumoController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
     <Compile Include="Models\EventoModel.cs" />
     <Compile Include="Models\MensajeModel.cs" />
+    <Compile Include="Models\InsumoModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />

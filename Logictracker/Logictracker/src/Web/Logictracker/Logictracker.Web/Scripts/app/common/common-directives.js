@@ -442,7 +442,7 @@
 
                 $scope.model = [];
 
-                if (newValue.length == 0) {
+                if ($scope.distribucion == undefined || $scope.distribucion.length == 0) {
                     $scope.dataSource = EntitiesService.distrito.puntoEntrega({
                         distritoId: $scope.distrito.Key,
                         baseId: $scope.base.Key
@@ -453,7 +453,7 @@
                 $scope.dataSource = EntitiesService.distrito.puntoEntrega({
                     distritoId: $scope.distrito.Key,
                     baseId: $scope.base.Key,
-                    distribucionId: $scope.dependsOn[0] !== undefined ? $scope.dependsOn[0].Id : null,
+                    distribucionId: $scope.distribucion[0] !== undefined ? $scope.distribucion[0].Id : null,
                 }, null, $scope.onFail);
             }
         };
@@ -467,7 +467,8 @@
         restrict: 'E',
         scope: {
             model: '=ltNgModel',
-            dependsOn: "=ltDependsOnDistribucion",
+            dependsOn: "=ltDependsOn",
+            distribucion: "=ltDataDistribucion",
             distrito: "=ltDataDistrito",
             base: "=ltDataBase",
             kTemplate: "=ltTemplate"
@@ -868,6 +869,73 @@
         .directive('ltCbSupervisorRuta', directive);
 
 }());
+
+// ltDdlInsumo
+(function () {
+
+    var directive = function () {
+
+        var controller = function ($scope, EntitiesService) {
+
+            var vm = this;
+            vm.ds = EntitiesService.distrito.insumo(onDSLoad, onFail);
+         
+            $scope.$watch("vm.dependsOn", onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = e.response[0];
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+
+            function onSelected(newValue, oldValue) {
+
+                if (newValue !== undefined && newValue !== oldValue) {
+                    vm.ds.read({
+                        distritoId: vm.distrito.Key,
+                        baseId: vm.base.Key,
+                     });
+                }
+                else {
+                    vm.ds.data([]);
+                    vm.ds.read();
+                }
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                distrito: "=ltDataDistrito",
+                base: "=ltDataBase",
+                dependsOn: "=ltDependsOn"
+            },
+            controller: ['$scope', 'EntitiesService', controller],
+            controllerAs: 'vm',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-multi-select ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="vm.ds" ',
+                    'k-ng-model="vm.model" ',
+                    'required >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltMsInsumo', directive);
+
+}());
+
+
 
 /// ltDdlTipoCoche
 (function () {

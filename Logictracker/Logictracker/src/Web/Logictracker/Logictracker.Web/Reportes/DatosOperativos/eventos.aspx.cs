@@ -25,7 +25,7 @@ namespace Logictracker.Reportes.DatosOperativos
         public Boolean recount = true;
         private const int Interval = 5;
 
-        protected int totalVirtualRows;
+        protected List<Object> totalVirtualRows;
 
         [Serializable]
         public class SearchData
@@ -276,25 +276,33 @@ namespace Logictracker.Reportes.DatosOperativos
 
                 if (chkPaginar.Checked)
                 {
-                    totalVirtualRows = (int)Session["totalVirtualRows"];                   
-                    results = ReportFactory.MobileEventDAO.GetMobilesEventsLinq(data.VehiclesId,
+                    if (recount)
+                    {
+                        Session["totalVirtualRows"] = null;
+                    }
+                    int pageNum = 1;                
+                    if (Grid.PageIndex != 0 && !recount)
+                    {
+                        pageNum = pageNum + Grid.PageIndex;
+                    }
+                    results = ReportFactory.MobileEventDAO.GetMobilesEventsSQL(data.VehiclesId,
                                                                                 data.MessageId,
                                                                                 data.DriverId,
                                                                                 data.InitialDate,
                                                                                 data.FinalDate,
                                                                                 maxMonths,
-                                                                                Grid.PageIndex,
+                                                                                ref pageNum,
                                                                                 this.PageSize,
                                                                                 ref totalVirtualRows,
                                                                                 recount)
                                                               .Select(o => new MobileEventVo(o) { HideCornerNearest = !chkVerEsquinas.Checked })
-                                                              .ToList();
+                                                             .ToList();
 
                     if (recount)
                     {
                         Session["totalVirtualRows"] = totalVirtualRows;
-                        Grid.VirtualItemCount = totalVirtualRows;
-                        
+                        var count = totalVirtualRows[0];
+                        Grid.VirtualItemCount = int.Parse(count.ToString());                        
                     }
                 }
                 else
@@ -339,6 +347,7 @@ namespace Logictracker.Reportes.DatosOperativos
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
                 Grid.PageIndexChanging += Grid_PageIndexChanging;
                 GridUtils.CustomPagination = true;
+                recount = true;
             }
             else
             {
@@ -382,9 +391,10 @@ namespace Logictracker.Reportes.DatosOperativos
                 Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
                 Grid.PageIndexChanging += Grid_PageIndexChanging;
                 GridUtils.CustomPagination = true;
+                recount = true;
             }
             else
-            {;
+            {
                 if (Session["totalVirtualRows"] == null)
                     Session["totalVirtualRows"] = totalVirtualRows;
                 Grid.AllowPaging = true;

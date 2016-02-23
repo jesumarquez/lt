@@ -153,6 +153,17 @@ namespace Logictracker.Messaging
 
         PanicButtonOn,
         SirenOn,
+
+        ServicioAsignado,
+        ServicioAsignadoRechazado,
+        ServicioAsignadoAceptado,
+        LlegadaServicio,
+        SolicitaAsistencia,
+        ServicioFinalizado,
+        ServicioPreasignado,
+        ServicioPreasignadoRechazado,
+        ServicioPreasignadoAceptado,
+        ServicioPreasignadoCancelado,
 	}
 
 	public static class MessageCodeX
@@ -335,6 +346,19 @@ namespace Logictracker.Messaging
                 case MessageCode.PermanenciaEnGeocercaExcedidaEnCicloLogistico: return "5001";
 
                 // del 6000 al 6099 son eventos definibles para Estado Logistico (Categoria ESLO0 y ESLO1)
+
+                    // SOS
+                case MessageCode.ServicioAsignado: return "10035";
+                case MessageCode.ServicioAsignadoRechazado: return "10040";
+                case MessageCode.ServicioAsignadoAceptado: return "10045";
+                case MessageCode.LlegadaServicio: return "10050";
+                case MessageCode.SolicitaAsistencia: return "10055";
+                case MessageCode.ServicioFinalizado: return "10060";
+                case MessageCode.ServicioPreasignado: return "10100";
+                case MessageCode.ServicioPreasignadoRechazado: return "10105";
+                case MessageCode.ServicioPreasignadoAceptado: return "10110";
+                case MessageCode.ServicioPreasignadoCancelado: return "10115";
+
 				default: return String.Empty;
 			}
 		}

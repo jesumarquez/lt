@@ -26,22 +26,39 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             refresh: true,
             pageSizes: true,
             info: true
+        },        
+        dataBound: function() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
         },
         columns:
         [
             { field: "Empresa", title: "Empresa"},
-            { field: "Empleado", title: "Empleado"},
             { field: "Transportista", title: "Transportista"},
-            { field: "PuntoEntrega", title: "Entrega"},
-            { field: "CodigoPedido", title: "Codigo"},
-            { field: "FechaAlta", title: "Registrado", format: "{0: dd/MM HH:mm}" },
+            { field: "CodigoPuntoEntrega", title: "Codigo Entrega" },
+            { field: "PuntoEntrega", title: "Razon Social" },
+            { field: "CodigoPedido", title: "Codigo Pedido"},
             { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
-            { field: "FechaEntrega", title: "Entrega", format: "{0: dd/MM HH:mm}" },
-            { field: "InicioVentana", title: "Inicio"},
-            { field: "FinVentana", title: "Fin"}
-        ]
+        ],
+        detailTemplate: '<div kendo-grid k-options="detailGridOptions(dataItem)"></div>',
     }
 
+    $scope.detailGridOptions = function (dataItem) {
+
+        var insumoList = [];
+        if ($scope.insumoSelected.length > 0) {
+            var insumoList = $scope.insumoSelected.map(function (e) { return e.Key; });
+          }
+
+        return {
+            dataSource: OrdenesService.ordenDetalles(dataItem, insumoList, null, onFail),
+            scrollable: false,
+            sortable: true,
+            columns: [
+                { field: "Insumo", title: "Producto", width: "160px" },
+                { field: "Cantidad", title: "Litros" },
+            ]
+        }
+    };
 
     $scope.distritoSelected = {};
 
@@ -57,8 +74,14 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
     $scope.transportistaSelected = [];
     $scope.transportistaDS = [];
 
+    $scope.puntoEntregaSelected = {};
+    $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
+
     $scope.desde = new Date();
     $scope.hasta = new Date();
+
+    $scope.insumoDS = [];
+    $scope.insumoSelected = [];
 
     $scope.estadoSelected = {};
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; },onFail);
@@ -157,10 +180,13 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             if ($scope.baseSelected != undefined)
                 filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
 
+            if ($scope.puntoEntregaSelected != undefined && $scope.puntoEntregaSelected.length > 0)
+                filterList.push({ field: "PuntoEntrega.Id", operator: "eq", value: $scope.puntoEntregaSelected[0].PuntoEntregaId });
+            
             if ($scope.transportistaSelected.length > 0) {
                 var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
                 filterList.push({ logic: "or", filters: transportistaFilter });
-            }
+            }            
 
             var msOffset = new Date().getTimezoneOffset() * 60000;
 
@@ -184,7 +210,11 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             $scope.Orders = OrdenesService.items(filters, null, onFail);
         };
 
+        $scope.disabledButton = false;
+
         $scope.programOrders = function (order) {
+
+            $scope.disabledButton = true;
 
             var selectOrders = [];
             $scope.ordenesGrid.select().each(function(index, row) {
@@ -200,6 +230,8 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
                 { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key},
                 function () {
                     $scope.onBuscar();
+                    $('#myModal').modal('hide');
+                    $scope.disabledButton = false;
                 },
                 onFail
             );

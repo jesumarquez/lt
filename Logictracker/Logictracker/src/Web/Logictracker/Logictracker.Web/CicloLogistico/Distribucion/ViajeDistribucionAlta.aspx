@@ -92,6 +92,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="cbTransportista" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbCentroDeCosto" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbSubCentroDeCosto" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="cbVehiculoProgramado" EventName="SelectedIndexChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
                         
@@ -130,6 +131,7 @@
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbCentroDeCosto" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbSubCentroDeCosto" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="dtFechaProgramada" EventName="DateChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
                         
@@ -543,61 +545,109 @@
 
     <cwc:AbmTabPanel ID="AbmTabPanel2" runat="server" ResourceName="Menu" VariableName="PAR_ESTADO_LOGISTICO">        
         <asp:UpdatePanel ID="pnlUpdate" runat="server">
-                <ContentTemplate>
-                    <table width="100%" border="0">
-                        <tr>
-                            <td align="center" valign="top"> 
-                                <c1:C1GridView ID="gridEstadosCumplidos" runat="server" OnRowDataBound="GridEstadosCumplidosOnRowDataBound" AutoGenerateColumns="false" Width="100%" Visible="true" SkinID="ListGridNoGroupNoPage" >
-                                    <Columns>
-                                        <c1:C1TemplateField>
-                                            <ItemStyle HorizontalAlign="Center" />
-                                            <ItemTemplate>
-                                                <asp:Image ID="imgIcono" runat="server" />
-                                            </ItemTemplate>                                            
-                                        </c1:C1TemplateField>
-                                        <c1:C1TemplateField>
-                                            <ItemStyle HorizontalAlign="Left" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblEstadoLogistico" runat="server" />
-                                            </ItemTemplate>                                            
-                                        </c1:C1TemplateField>
-                                        <c1:C1TemplateField>
-                                            <ItemStyle HorizontalAlign="Left" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblDesde" runat="server" />
-                                            </ItemTemplate>                                            
-                                        </c1:C1TemplateField>
-                                        <c1:C1TemplateField>
-                                            <ItemStyle HorizontalAlign="Left" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblHasta" runat="server" />
-                                            </ItemTemplate>                                            
-                                        </c1:C1TemplateField>
-                                        <c1:C1TemplateField>
-                                            <ItemStyle HorizontalAlign="Left" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblTotal" runat="server" />
-                                            </ItemTemplate>                                            
-                                        </c1:C1TemplateField>
-                                        <c1:C1TemplateField>
-                                            <ItemStyle HorizontalAlign="Left" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblDemora" runat="server" />
-                                            </ItemTemplate>                                            
-                                        </c1:C1TemplateField>
-                                        <c1:C1TemplateField>
-                                            <ItemStyle HorizontalAlign="Left" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblDesvio" runat="server" />
-                                            </ItemTemplate>                                            
-                                        </c1:C1TemplateField>
-                                    </Columns>
-                                </c1:C1GridView>
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-            </asp:UpdatePanel>
+            <ContentTemplate>
+                <table width="100%" border="0">
+                    <tr>
+                        <td align="center" valign="top"> 
+                            <c1:C1GridView ID="gridEstadosCumplidos" runat="server" OnRowDataBound="GridEstadosCumplidosOnRowDataBound" AutoGenerateColumns="false" Width="100%" Visible="true" SkinID="ListGridNoGroupNoPage" >
+                                <Columns>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Image ID="imgIcono" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEstadoLogistico" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDesde" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblHasta" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTotal" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDemora" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDesvio" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                </Columns>
+                            </c1:C1GridView>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </cwc:AbmTabPanel>
+
+    <cwc:AbmTabPanel ID="AbmTabPanel3" runat="server" ResourceName="Menu" VariableName="PAR_VIAJE_PROGRAMADO" Visible="false">
+        <asp:UpdatePanel ID="pnlUpdateViajeProg" runat="server">
+            <ContentTemplate>
+                <table width="100%" border="0">
+                    <tr>
+                        <td align="center" valign="top">
+                            <cwc:AbmTitledPanel ID="AbmTitledPanel2" runat="server" TitleVariableName="DATOS_GENERALES" TitleResourceName="Labels" Height="320px">
+                                
+                                <cwc:ResourceLabel ID="lblViajeProg" runat="server" ResourceName="Entities" VariableName="OPETICK13" />
+                                <asp:UpdatePanel ID="updViajeProg" runat="server" RenderMode="Inline" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:ViajeProgramadoDropDownList ID="cbViajeProgramado" runat="server" ParentControls="cbEmpresa,cbTransportista" OnSelectedIndexChanged="CbViajeProgramadoSelectedIndexChanged" AddNoneItem="true" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbTransportista" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="ResourceLabel22" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
+                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:MovilDropDownList ID="cbVehiculoProgramado" runat="server"  AddAllItem="true" ParentControls="cbEmpresa,cbLinea,cbTransportista,cbCentroDeCosto,cbSubCentroDeCosto" OnSelectedIndexChanged="CbVehiculoProgramadoSelectedIndexChanged" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbTransportista" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbCentroDeCosto" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbSubCentroDeCosto" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="ResourceLabel23" runat="server" ResourceName="Labels" VariableName="DATE" />     
+                                <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:DateTimePicker ID="dtFechaProgramada" runat="server" IsValidEmpty="false" Mode="DateTime" TimeMode="Now" Visible="True" OnDateChanged="DtFechaProgramadaDateChanged" AutoPostBack="True" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+
+                            </cwc:AbmTitledPanel>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </cwc:AbmTabPanel>
 
 </asp:Content>

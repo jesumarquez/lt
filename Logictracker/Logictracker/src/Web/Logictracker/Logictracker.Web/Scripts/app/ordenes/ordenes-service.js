@@ -5,6 +5,7 @@
 function OrdenesService($resource) {
     var _service = {
         items: getOrdenesItems,
+        ordenDetalles: getOrdenDetalles,
         ordenes: $resource("/api/distrito/:distritoId/base/:baseId/ordenes", { distritoId: "@distritoId", baseId: "@baseId" })
     }
 
@@ -49,6 +50,36 @@ function OrdenesService($resource) {
 
         return ds;
     };
+
+    function getOrdenDetalles(data, list, onEnd, onFail)
+    {
+        var ds = new kendo.data.DataSource({
+            type: "aspnetmvc-ajax",
+            transport: {
+                read: {
+                    type: "GET",
+                    traditional: true,
+                    dataType: "json",
+                    url: function (op) {
+                        return "/api/ordenes/" + data.Id;
+                    },
+                    data: { insumos: list }
+                }
+            },
+            pageSize: 10,
+            serverGrouping: false,
+            serverFiltering: true,
+            serverSorting: false,
+            serverPaging: false,
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    }
     
     function getItems(data_, onEnd, onFail) {
         var ds = new kendo.data.DataSource({
