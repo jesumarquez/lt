@@ -139,6 +139,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbTransportista.SetSelectedValue(EditObject.Transportista != null ? EditObject.Transportista.Id : cbTransportista.AllValue);
             cbCentroDeCosto.SetSelectedValue(EditObject.CentroDeCostos != null ? EditObject.CentroDeCostos.Id : cbCentroDeCosto.AllValue);
             cbSubCentroDeCosto.SetSelectedValue(EditObject.SubCentroDeCostos != null ? EditObject.SubCentroDeCostos.Id : cbSubCentroDeCosto.AllValue);
+            cbTipoVehiculo.SetSelectedValue(EditObject.TipoCoche != null ? EditObject.TipoCoche.Id : cbTipoVehiculo.NoneValue);
             cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.AllValue);
             cbChofer.SetSelectedValue(EditObject.Empleado != null ? EditObject.Empleado.Id : cbChofer.AllValue);
             cbTipoCicloLogistico.SetSelectedValue(EditObject.TipoCicloLogistico != null ? EditObject.TipoCicloLogistico.Id : cbTipoCicloLogistico.AllValue);
@@ -266,6 +267,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                     EditObject.SubCentroDeCostos = cbSubCentroDeCosto.Selected > 0
                         ? DAOFactory.SubCentroDeCostosDAO.FindById(cbSubCentroDeCosto.Selected)
                         : null;
+                    EditObject.TipoCoche = cbTipoVehiculo.Selected > 0 ? DAOFactory.TipoCocheDAO.FindById(cbTipoVehiculo.Selected) : null;
                     EditObject.Vehiculo = cbVehiculo.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculo.Selected) : null;
                     EditObject.Empleado = cbChofer.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbChofer.Selected) : null;
                     EditObject.TipoCicloLogistico = cbTipoCicloLogistico.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloLogistico.Selected) : null;
@@ -740,6 +742,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                 {
                     var empresa = DAOFactory.EmpresaDAO.FindById(cbEmpresaProg.Selected);
                     var vehiculo = cbVehiculoProg.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculoProg.Selected) : null;
+                    var tipoVehiculo = cbTipoVehiculoProg.Selected > 0 ? DAOFactory.TipoCocheDAO.FindById(cbTipoVehiculoProg.Selected) : null;
                     var transportista = cbTransportistaProg.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(cbTransportistaProg.Selected) : null;
                     var tipoCiclo = cbTipoCicloProg.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloProg.Selected) : null;
 
@@ -763,21 +766,10 @@ namespace Logictracker.CicloLogistico.Distribucion
                         RegresoABase = false,
                         Tipo = ViajeDistribucion.Tipos.Desordenado,
                         Vehiculo = vehiculo,
+                        TipoCoche = tipoVehiculo,
                         Transportista = transportista,
                         TipoCicloLogistico = tipoCiclo
-                    };
-
-                    var salidaBase = new EntregaDistribucion
-                                 {
-                                     Linea = linea,
-                                     Descripcion = linea.Descripcion,
-                                     Estado = EntregaDistribucion.Estados.Pendiente,
-                                     Orden = 0,
-                                     Programado = fecha,
-                                     ProgramadoHasta = fecha,
-                                     Viaje = viaje
-                                 };
-                    viaje.Detalles.Add(salidaBase);
+                    };                    
 
                     for (var i = 0; i < viajeProg.Detalles.Count; i++)
                     {
@@ -846,7 +838,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             var byCode = DAOFactory.ViajeDistribucionDAO.FindByCodigo(cbEmpresaProg.Selected, -1, codigo);
             ValidateDuplicated(byCode, "CODE");
             ValidateEmpty(dtFechaProg.SelectedDate, "FECHA");
-            ValidateEntity(cbVehiculoProg.Selected, "OPETICK12");
+            ValidateEntity(cbViajeProgramado.Selected, "OPETICK13");
         }
 
         private void SetFechaInicio(CentroDeCostos cc)

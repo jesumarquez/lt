@@ -925,6 +925,9 @@
     <value>Rutas Programadas</value>
   </data>
   <data name="PAR_STOCK_VEHICULAR" xml:space="preserve">
-    <value>Stock Veicular</value>
+    <value>Estoque Veicular</value>
+  </data>
+  <data name="REP_PROYECCION_STOCK" xml:space="preserve">
+    <value>Projeção de Estoque</value>
   </data>
 </root>

@@ -969,4 +969,7 @@
   <data name="PAR_STOCK_VEHICULAR" xml:space="preserve">
     <value>Stock Vehicular</value>
   </data>
+  <data name="REP_PROYECCION_STOCK" xml:space="preserve">
+    <value>Proyección de Stock</value>
+  </data>
 </root>

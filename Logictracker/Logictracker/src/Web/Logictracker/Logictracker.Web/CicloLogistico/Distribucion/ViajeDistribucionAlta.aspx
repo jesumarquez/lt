@@ -81,10 +81,21 @@
                             </Triggers>
                         </asp:UpdatePanel>
                         
+                        <cwc:ResourceLabel ID="lblTipoVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI17" />
+                        <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:TipoDeVehiculoDropDownList ID="cbTipoVehiculo" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa,cbLinea" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />                                
+                            </Triggers>
+                        </asp:UpdatePanel>
+
                         <cwc:ResourceLabel ID="lblVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
                         <asp:UpdatePanel ID="updMovil" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <cwc:MovilDropDownList ID="cbVehiculo" runat="server" Width="100%" AddAllItem="true" ParentControls="cbEmpresa,cbLinea,cbTransportista,cbCentroDeCosto,cbSubCentroDeCosto" OnSelectedIndexChanged="CbVehiculoSelectedIndexChanged" TabIndex="20" />
+                                <cwc:MovilDropDownList ID="cbVehiculo" runat="server" Width="100%" AddAllItem="true" ParentControls="cbEmpresa,cbLinea,cbTransportista,cbCentroDeCosto,cbSubCentroDeCosto,cbTipoVehiculo" OnSelectedIndexChanged="CbVehiculoSelectedIndexChanged" TabIndex="20" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
@@ -92,6 +103,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="cbTransportista" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbCentroDeCosto" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbSubCentroDeCosto" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="cbTipoVehiculo" EventName="SelectedIndexChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
                         
@@ -632,14 +644,25 @@
                                     </Triggers>
                                 </asp:UpdatePanel>
 
+                                <cwc:ResourceLabel ID="ResourceLabel28" runat="server" ResourceName="Entities" VariableName="PARENTI17" />
+                                <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:TipoDeVehiculoDropDownList ID="cbTipoVehiculoProg" runat="server" Width="75%" AddAllItem="true" ParentControls="cbEmpresaProg" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
                                 <cwc:ResourceLabel ID="ResourceLabel22" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                     <ContentTemplate>
-                                        <cwc:MovilDropDownList ID="cbVehiculoProg" runat="server" Width="75%" AddAllItem="true" ParentControls="cbEmpresaProg,cbTransportistaProg" />
+                                        <cwc:MovilDropDownList ID="cbVehiculoProg" runat="server" Width="75%" AddAllItem="true" ParentControls="cbEmpresaProg,cbTransportistaProg,cbTipoVehiculoProg" />
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />                                        
                                         <asp:AsyncPostBackTrigger ControlID="cbTransportistaProg" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbTipoVehiculoProg" EventName="SelectedIndexChanged" />
                                     </Triggers>
                                 </asp:UpdatePanel>
 

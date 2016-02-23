@@ -1456,6 +1456,7 @@
     <Content Include="Reportes\CicloLogistico\FlujoDeTareas.aspx" />
     <Content Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\ProyeccionStock.aspx" />
     <Content Include="Reportes\CicloLogistico\mimicoKpi.js" />
     <Content Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx" />
@@ -4317,6 +4318,13 @@
     </Compile>
     <Compile Include="Reportes\CicloLogistico\KPIDistribucion.aspx.designer.cs">
       <DependentUpon>KPIDistribucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ProyeccionStock.aspx.cs">
+      <DependentUpon>ProyeccionStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ProyeccionStock.aspx.designer.cs">
+      <DependentUpon>ProyeccionStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx.cs">
       <DependentUpon>ReporteEstadosLogisticos.aspx</DependentUpon>
