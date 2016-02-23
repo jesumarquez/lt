@@ -12,4 +12,8 @@
     "logictracker.ordenes.service",
     "logictracker.ordenes.controller",
     "logictracker.ordenes.directives",
-    "logictracker.common.directives"]);
+    "logictracker.common.directives",
+    "logictracker.common",
+    "logictracker.eventos"]);
+angular.module('logictracker.common', []);
+angular.module('logictracker.eventos', []);

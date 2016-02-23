@@ -7,6 +7,12 @@ using Logictracker.Messaging;
 using Logictracker.Security;
 using Logictracker.Types.ReportObjects;
 using Logictracker.Utils;
+using NHibernate.Criterion;
+using NHibernate.Transform;
+using Logictracker.Types.BusinessObjects.Messages;
+using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
+using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.DAL.DAO.ReportObjects
 {
@@ -26,6 +32,55 @@ namespace Logictracker.DAL.DAO.ReportObjects
         #endregion
 
         #region Public Methods
+
+        public IEnumerable<MobileEvent> GetMobilesEventsByDistritoBase(int distritoId, int baseId)
+        {
+            LogMensaje log = null;
+            Coche coche = null;
+            TipoCoche tCoche = null;
+            Empleado chofer = null;
+            Mensaje mensaje = null;
+
+            var q = NHibernate.SessionHelper.Current
+                .QueryOver(() => log)
+                .Inner.JoinAlias(() => log.Coche, () => coche)
+                .Inner.JoinAlias(() => coche.TipoCoche, () => tCoche)
+                .Inner.JoinAlias(() => log.Chofer, () => chofer)
+                .Inner.JoinAlias(() => log.Mensaje, () => mensaje)
+                .Where(() => log.Estado > 0)
+                .Select(Projections.ProjectionList()
+                    .Add(Projections.Property(() => coche.Interno).As("Intern"))
+                    .Add(Projections.Property(() => tCoche.Descripcion).As("MobileType"))
+                    .Add(Projections.Property(() => chofer.Entidad.Descripcion).As("Driver"))
+                    //.Add(Projections.Property(() => log.Fecha.ToDisplayDateTime()).As("EventTime"))
+                    //.Add(Projections.Property(() => log.FechaAlta.HasValue ? log.FechaAlta.Value.ToDisplayDateTime() : (DateTime?)null).As("Reception"))
+                    .Add(Projections.Property(() => log.Texto).As("Message"))
+                    .Add(Projections.Property(() => mensaje.Id).As("IdMensaje"))
+                    .Add(Projections.Property(() => log.Latitud).As("Latitude"))
+                    .Add(Projections.Property(() => log.Longitud).As("Longitude"))
+                    //.Add(Projections.Property(() => log.GetIconUrl()).As("IconUrl"))
+                    //.Add(Projections.Property(() => log.FechaFin != null ? log.FechaFin.Value.ToDisplayDateTime() : log.FechaFin).As("EventEndTime"))
+                    .Add(Projections.Property(() => log.LatitudFin).As("FinalLatitude"))
+                    .Add(Projections.Property(() => log.LongitudFin).As("FinalLongitude"))
+                    .Add(Projections.Property(() => log.Id).As("Id"))
+                    .Add(Projections.Property(() => coche.Chofer.Entidad.Descripcion).As("Responsable"))
+                    .Add(Projections.Property(() => log.TieneFoto).As("TieneFoto"))
+                    .Add(Projections.Property(() => log.IdPuntoDeInteres).As("IdPuntoInteres"))
+                    .Add(Projections.Property(() => log.Estado).As("Atendido"))
+                    .Add(Projections.Property(() => log.Usuario).As("Usuario"))
+                    //.Add(Projections.Property(() => log.Estado > 0 ? DAOFactory.AtencionEventoDAO.GetByEvento(log.Id) : null).As("AtencionEvento"))
+                );
+
+            if (distritoId != -1)
+                q = q.Where(m => coche.Empresa.Id == distritoId);
+
+            if (baseId != -1)
+                q = q.Where(m => coche.Linea.Id == baseId);
+
+            q = q.TransformUsing(Transformers.AliasToBean<MobileEvent>());
+
+            return q.Future<MobileEvent>();
+        }
 
         /// <summary>
         /// Gets a list of mobiles events filtered by the givenn search criteria.

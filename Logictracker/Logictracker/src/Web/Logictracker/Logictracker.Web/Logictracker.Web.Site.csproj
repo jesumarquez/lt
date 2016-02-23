@@ -1738,6 +1738,9 @@
     <Content Include="Areas\Rechazos\Views\Rechazo\EditItem.cshtml" />
     <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
+    <Content Include="Areas\Eventos\Views\web.config" />
+    <Content Include="Areas\Eventos\Views\Eventos\Index.cshtml" />
+    <Content Include="Areas\Eventos\Views\_ViewStart.cshtml" />
     <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1745,9 +1748,11 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\common\common-directives.js" />
+    <Content Include="Scripts\app\common\common-utilities.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\app\EntitiesService.js" />
+    <Content Include="Scripts\app\eventos\eventos-controller.js" />
     <Content Include="Scripts\app\ordenes\ordenes-controller.js" />
     <Content Include="Scripts\app\ordenes\ordenes-directives.js" />
     <Content Include="Scripts\app\ordenes\ordenes-service.js" />
@@ -2363,6 +2368,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Eventos\Controllers\EventosController.cs" />
+    <Compile Include="Areas\Eventos\EventosAreaRegistration.cs" />
     <Compile Include="Areas\Ordenes\Controllers\ProgramarController.cs" />
     <Compile Include="Areas\Ordenes\OrdenesAreaRegistration.cs" />
     <Compile Include="Areas\Rechazos\Controllers\RechazoController.cs" />
@@ -2696,6 +2703,9 @@
     <Compile Include="ControlAcceso\Fichada.aspx.designer.cs">
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\api\ReportController.cs" />
+    <Compile Include="Controllers\api\EventoController.cs" />
+    <Compile Include="Controllers\api\MensajeController.cs" />
     <Compile Include="Controllers\api\EmpleadoController.cs" />
     <Compile Include="Controllers\api\Models\CocheModel.cs" />
     <Compile Include="Controllers\api\PuntoEntregaController.cs" />
@@ -2706,11 +2716,15 @@
     <Compile Include="Controllers\api\DistribucionController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
     <Compile Include="Controllers\api\TipoCicloLogisticoController.cs" />
+    <Compile Include="Controllers\api\TipoCocheController.cs" />
+    <Compile Include="Controllers\api\TipoMensajeController.cs" />
     <Compile Include="Controllers\api\UserDataController.cs" />
     <Compile Include="Controllers\api\CocheController.cs" />
     <Compile Include="Controllers\api\InsumoController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
+    <Compile Include="Models\EventoModel.cs" />
+    <Compile Include="Models\MensajeModel.cs" />
     <Compile Include="Models\InsumoModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
@@ -3040,6 +3054,8 @@
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\SelectionOrderModel.cs" />
     <Compile Include="Models\TipoCicloLogisticoModel.cs" />
+    <Compile Include="Models\TipoCocheModel.cs" />
+    <Compile Include="Models\TipoMensajeModel.cs" />
     <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.cs">
       <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5068,9 +5084,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Eventos\Models\" />
+    <Folder Include="Areas\Eventos\Views\Shared\" />
     <Folder Include="Areas\Ordenes\Models\" />
     <Folder Include="Areas\Rechazos\Models\" />
     <Folder Include="Areas\Rechazos\Views\Shared\" />
+    <Folder Include="Views\TipoMensaje\" />
+    <Folder Include="Views\TipoVehiculo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Geocoder\Geocoder.Core.csproj">
