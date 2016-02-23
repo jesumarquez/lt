@@ -104,7 +104,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         var diaSolicitud = Convert.ToInt32(arrayFechaSolicitud[0]);
                         var mesSolicitud = Convert.ToInt32(arrayFechaSolicitud[1]);
                         var anioSolicitud = Convert.ToInt32(arrayFechaSolicitud[2]);
-                        var dtFechaSolicitud = new DateTime(anioSolicitud, mesSolicitud, diaSolicitud).AddHours(-3);
+                        var dtFechaSolicitud = new DateTime(anioSolicitud, mesSolicitud, diaSolicitud).AddHours(3);
                         //var fechaLiberacion = row[Properties.PedidosPetrobras.FechaLiberacion].ToString().Trim();
 
                         // ARMAR NUEVO PEDIDO

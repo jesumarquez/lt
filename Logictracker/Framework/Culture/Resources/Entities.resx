@@ -343,6 +343,9 @@
   <data name="OPETICK04" xml:space="preserve">
     <value>Entrega</value>
   </data>
+  <data name="OPETICK13" xml:space="preserve">
+    <value>Viaje Programado</value>
+  </data>
   <data name="PARENTI35" xml:space="preserve">
     <value>Taller</value>
   </data>

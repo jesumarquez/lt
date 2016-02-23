@@ -414,7 +414,18 @@ namespace Logictracker.Messaging
 
         // del 6000 al 6099 son eventos definibles para Estado Logistico (Categoria ESLO0 y ESLO1)        
 		GenericMessage = Event.GenericMessage, // = 32767; //0x7FFF,
-        NoMessage = 9999
+        NoMessage = 9999,
+
+        ServicioAsignado = 10035,
+        ServicioAsignadoRechazado = 10040,
+        ServicioAsignadoAceptado = 10045,
+        LlegadaServicio = 10050,
+        SolicitaAsistencia = 10055,
+        ServicioFinalizado = 10060,
+        ServicioPreasignado = 10100,
+        ServicioPreasignadoRechazado = 10105,
+        ServicioPreasignadoAceptado = 10110,
+        ServicioPreasignadoCancelado = 10115
     }
 
 	public static class MessageIdentifierX

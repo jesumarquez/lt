@@ -25,7 +25,8 @@ function EntitiesService($resource, $http) {
             tipoCoche: getTipoCocheDS,
             tipoMensaje: getTipoMensajeDS,
             mensaje: getMensajeDS,
-            empleados: getListEmpleadoDS
+            empleados: getListEmpleadoDS,
+            insumo: getInsumoDS,
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -48,7 +49,8 @@ function EntitiesService($resource, $http) {
             coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId", excludeNone: "@excludeNone" }),
             tipoCoche: $resource("/api/distrito/:distritoId/base/:baseId/tipocoche/items", { distritoId: "@distritoId", baseId: "@baseId"}),
             tipoMensaje: $resource("/api/distrito/:distritoId/base/:baseId/tipomensaje/items", { distritoId: "@distritoId", baseId: "@baseId" }),
-            mensaje: $resource("/api/distrito/:distritoId/base/:baseId/mensaje/items", { distritoId: "@distritoId", baseId: "@baseId" })
+            mensaje: $resource("/api/distrito/:distritoId/base/:baseId/mensaje/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            insumo: $resource("/api/insumos/:distritoId/base/:baseId/items", { distritoId: "@ditritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -705,6 +707,27 @@ function EntitiesService($resource, $http) {
     function getListEmpleadoDS(onEnd, onFail) {
         return getDSByDistritoBase(onEnd, onFail, _service.resources.empleados);
     }
+    function getInsumoDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+                        getData(_service.resources.insumo, op, { distritoId: op.data.distritoId, baseId: op.data.baseId });
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
 
     return _service;
 }

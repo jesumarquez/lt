@@ -19,10 +19,12 @@ namespace Logictracker.Web.Controllers.api
     public class OrdenesController : EntityController<Order, OrderDAO, OrderModel, OrdenesMapper>
     {
         IRoutingService RoutingService { get; set; }
+        OrdenDetallesMapper ordenDetalleMapper;
 
         public OrdenesController()
         {
             RoutingService = new RoutingService();
+            ordenDetalleMapper = new OrdenDetallesMapper();
         }
 
         //GET: api/distrito/91/Orders/base/321/ordenes
@@ -123,9 +125,20 @@ namespace Logictracker.Web.Controllers.api
                [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
             IQueryable<Order> ordenes = EntityDao.FindAll();
-            ordenes = ordenes.Where(o => !o.Programado);
+            ordenes = ordenes.Where(o => !o.Programado);            
 
             return ordenes.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new OrderModel()));
+        }
+
+        [Route("api/ordenes/{id}")]
+        public IHttpActionResult Get(int id, [FromUri] int[] insumos)
+        {
+            Order orden = EntityDao.FindById(id);
+            var details = orden.OrderDetails;
+            if (insumos.Length > 0)
+                details = details.Where(od => insumos.Contains(od.Insumo.Id)).ToList();
+
+            return Json(details.Select(od => ordenDetalleMapper.EntityToModel(od, new OrderDetailModel())));
         }
 
         private string BuildRouteCode(DateTime date, int vehicleId, int logisticCycleTypeId, int distritoId, int baseId)

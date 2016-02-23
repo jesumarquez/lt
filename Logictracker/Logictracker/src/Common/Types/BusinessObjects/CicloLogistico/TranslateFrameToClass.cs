@@ -40,7 +40,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
 
             novelty.NumeroServicio = fields[(int)SosFields.Servicio];
             novelty.Movil = int.Parse(fields[(int)SosFields.Movil]);
-            novelty.Diagnostico = fields[(int)SosFields.CodDiagnostico] + "-" +fields[(int)SosFields.Diagnostico];
+            novelty.Diagnostico = fields[(int)SosFields.CodDiagnostico] + "-" + fields[(int)SosFields.Diagnostico];
             novelty.Prioridad = fields[(int)SosFields.Prioridad];
             novelty.HoraServicio = DateTime.Parse(fields[(int) SosFields.HoraPedido]);
             novelty.CobroAdicional = fields[(int) SosFields.Adicional];

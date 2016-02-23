@@ -729,5 +729,43 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             var results = sqlQ.List<LogMensaje>();
             return results;
         }
+
+        public IList<LogMensaje> GetByVehiclesAndCodesSQL(List<int> vehicleIds, List<string> codes, DateTime desde, DateTime hasta, int maxMonths, ref int pageNum, int pageSize, ref List<Object> totalRows, bool reCount)
+        {
+            var tableVehiculos = Ids2DataTable(vehicleIds);
+            var dao = new DAOFactory();
+            var mensajesIds = dao.MensajeDAO.FindByCodes(codes).Select(m => m.Id);
+            var tableMensajes = Ids2DataTable(mensajesIds);
+
+            var minDate = DateTime.UtcNow.AddMonths(-maxMonths);
+
+            if (desde < minDate) desde = minDate;
+            if (hasta < minDate) hasta = minDate;
+            var newpageSize = (pageSize * pageNum);
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetByVehiclesAndMessagesPaging] @vehiculosIds = :vehiculosIds, @mensajesIds = :mensajesIds, @desde = :desde, @hasta = :hasta, @pageSize = :pageSize, @pageNum = :pageNum;")
+                              .AddEntity(typeof(LogMensaje))
+                              .SetStructured("vehiculosIds", tableVehiculos)
+                              .SetStructured("mensajesIds", tableMensajes)
+                              .SetDateTime("desde", desde)
+                              .SetDateTime("hasta", hasta)
+                              .SetInt32("pageSize", newpageSize)
+                              .SetInt64("pageNum", pageNum);
+            var results = sqlQ.List<LogMensaje>().Skip((pageSize * (pageNum-1))).ToList();
+
+            if (reCount)
+            {
+                var sqlQcount = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetByVehiclesAndMessagesCount] @vehiculosIds = :vehiculosIds, @mensajesIds = :mensajesIds, @desde = :desde, @hasta = :hasta;")
+                                .SetStructured("vehiculosIds", tableVehiculos)
+                              .SetStructured("mensajesIds", tableMensajes)
+                              .SetDateTime("desde", desde)
+                              .SetDateTime("hasta", hasta)
+                              .SetTimeout(0);
+                totalRows = sqlQcount.List<object>().ToList();
+            }
+            
+            return results;
+
+            //return GetByVehiclesAndCodes(vehicleIds.ToArray(), codes.ToArray(), desde, hasta, maxMonths);
+        }
     }
 }
