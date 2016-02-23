@@ -89,6 +89,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string GeneraInfraccionesSitrack = "genera.infracciones.sitrack";
 
             public const string GeneraRutaInversa = "genera.ruta.inversa";
+            public const string ControlaDescanso = "controla.descanso";
         }
         public static class OrdenRuta
         {
@@ -770,6 +771,17 @@ namespace Logictracker.Types.BusinessObjects
             get
             {
                 var valor = GetParameter(Params.GeneraRutaInversa);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool ControlaDescanso
+        {
+            get
+            {
+                var valor = GetParameter(Params.ControlaDescanso);
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;
