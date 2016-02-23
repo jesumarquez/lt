@@ -150,6 +150,7 @@
     <Compile Include="DropDownLists\SubCentroDeCostosDropDownList.cs" />
     <Compile Include="DropDownLists\TipoDistribucionDropDownList.cs" />
     <Compile Include="DropDownLists\ReferenciasGeograficas\TipoZonaDropDownList.cs" />
+    <Compile Include="DropDownLists\ZonaDropDownList.cs" />
     <Compile Include="DropDownLists\ZonaAccesoDropDownList.cs" />
     <Compile Include="DropDownLists\TipoZonaAccesoDropDownList.cs" />
     <Compile Include="DropDownLists\SubcategoriaDropDownList.cs" />
