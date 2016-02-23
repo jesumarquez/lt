@@ -25,7 +25,7 @@ function EntitiesService($resource, $http) {
             tipoCoche: getTipoCocheDS,
             tipoMensaje: getTipoMensajeDS,
             mensaje: getMensajeDS,
-            empleados: getListEmpleadoDS
+            empleados: getListEmpleadoDS,
             insumo: getInsumoDS,
         },
         resources: {
