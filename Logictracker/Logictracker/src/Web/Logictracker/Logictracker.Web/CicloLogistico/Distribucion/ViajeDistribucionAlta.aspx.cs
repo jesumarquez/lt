@@ -113,12 +113,13 @@ namespace Logictracker.CicloLogistico.Distribucion
                 if (!EditMode)
                 {
                     dtFecha.SetDate();
-                    dtFechaProgramada.SetDate();
+                    dtFechaProg.SetDate();
                     dtRegeneraDesde.SetDate();
                     dtRegeneraHasta.SetDate();
                     BindEntregas();
                 }
                 SetCancelState();
+                AbmTabPanel3.Visible = !EditMode;
             }
         }
 
@@ -138,6 +139,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbTransportista.SetSelectedValue(EditObject.Transportista != null ? EditObject.Transportista.Id : cbTransportista.AllValue);
             cbCentroDeCosto.SetSelectedValue(EditObject.CentroDeCostos != null ? EditObject.CentroDeCostos.Id : cbCentroDeCosto.AllValue);
             cbSubCentroDeCosto.SetSelectedValue(EditObject.SubCentroDeCostos != null ? EditObject.SubCentroDeCostos.Id : cbSubCentroDeCosto.AllValue);
+            cbTipoVehiculo.SetSelectedValue(EditObject.TipoCoche != null ? EditObject.TipoCoche.Id : cbTipoVehiculo.NoneValue);
             cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.AllValue);
             cbChofer.SetSelectedValue(EditObject.Empleado != null ? EditObject.Empleado.Id : cbChofer.AllValue);
             cbTipoCicloLogistico.SetSelectedValue(EditObject.TipoCicloLogistico != null ? EditObject.TipoCicloLogistico.Id : cbTipoCicloLogistico.AllValue);
@@ -265,6 +267,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                     EditObject.SubCentroDeCostos = cbSubCentroDeCosto.Selected > 0
                         ? DAOFactory.SubCentroDeCostosDAO.FindById(cbSubCentroDeCosto.Selected)
                         : null;
+                    EditObject.TipoCoche = cbTipoVehiculo.Selected > 0 ? DAOFactory.TipoCocheDAO.FindById(cbTipoVehiculo.Selected) : null;
                     EditObject.Vehiculo = cbVehiculo.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculo.Selected) : null;
                     EditObject.Empleado = cbChofer.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbChofer.Selected) : null;
                     EditObject.TipoCicloLogistico = cbTipoCicloLogistico.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloLogistico.Selected) : null;
@@ -675,12 +678,161 @@ namespace Logictracker.CicloLogistico.Distribucion
 
         protected void CbViajeProgramadoSelectedIndexChanged(object sender, EventArgs e)
         {
+            var detalles = new List<EntregaProgramada>();
+            if (cbViajeProgramado.Selected > 0)
+            {
+                var viajeProgramado = DAOFactory.ViajeProgramadoDAO.FindById(cbViajeProgramado.Selected);
+                if (viajeProgramado != null)
+                {
+                    detalles = viajeProgramado.Detalles.ToList();
+                    btnGuardar.Visible = true;
+                }
+                else
+                {
+                    btnGuardar.Visible = false;
+                }
+            }
 
+            gridEntregas.Columns[0].HeaderText = CultureManager.GetEntity("PARENTI44");
+            gridEntregas.Columns[1].HeaderText = CultureManager.GetLabel("BULTOS");
+            gridEntregas.Columns[2].HeaderText = CultureManager.GetLabel("PESO");
+            gridEntregas.Columns[3].HeaderText = CultureManager.GetLabel("VOLUMEN");
+            gridEntregas.Columns[4].HeaderText = CultureManager.GetLabel("VALOR");
+
+            gridEntregas.DataSource = detalles;
+            gridEntregas.DataBind();
         }
 
-        protected void CbVehiculoProgramadoSelectedIndexChanged(object sender, EventArgs e)
+        protected void GridEntregasOnRowDataBound(object sender, C1GridViewRowEventArgs e)
         {
-            cbVehiculo.SetSelectedValue(cbVehiculoProgramado.Selected);
+            if (e.Row.RowType == C1GridViewRowType.DataRow)
+            {
+                var entrega = e.Row.DataItem as EntregaProgramada;
+                if (entrega != null)
+                {
+                    var lbl = e.Row.FindControl("lblPuntoEntrega") as Label;
+                    if (lbl != null) lbl.Text = entrega.PuntoEntrega.Descripcion;
+
+                    var txt = e.Row.FindControl("txtBultos") as TextBox;
+                    if (txt != null) txt.Text = "0";
+
+                    txt = e.Row.FindControl("txtPeso") as TextBox;
+                    if (txt != null) txt.Text = "0.0";
+
+                    txt = e.Row.FindControl("txtVolumen") as TextBox;
+                    if (txt != null) txt.Text = "0.0";
+
+                    txt = e.Row.FindControl("txtValor") as TextBox;
+                    if (txt != null) txt.Text = "0.0";
+
+                    var dt = e.Row.FindControl("dtDateProg") as DateTimePicker;
+                    if (dt != null) dt.SelectedDate = dtFechaProg.SelectedDate;
+                }
+            }
+        }
+
+        protected void BtnGuardarOnClick(object sender, EventArgs e)
+        {
+            ValidateSaveProgramado();
+
+            if (cbViajeProgramado.Selected > 0)
+            {
+                var viajeProg = DAOFactory.ViajeProgramadoDAO.FindById(cbViajeProgramado.Selected);
+                if (viajeProg != null && viajeProg.Detalles.Any())
+                {
+                    var empresa = DAOFactory.EmpresaDAO.FindById(cbEmpresaProg.Selected);
+                    var vehiculo = cbVehiculoProg.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculoProg.Selected) : null;
+                    var tipoVehiculo = cbTipoVehiculoProg.Selected > 0 ? DAOFactory.TipoCocheDAO.FindById(cbTipoVehiculoProg.Selected) : null;
+                    var transportista = cbTransportistaProg.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(cbTransportistaProg.Selected) : null;
+                    var tipoCiclo = cbTipoCicloProg.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloProg.Selected) : null;
+                    var codigo = txtCodigoProg.Text;
+                    var fecha = dtFechaProg.SelectedDate.Value.ToDataBaseDateTime();
+
+                    var viaje = new ViajeDistribucion
+                    {
+                        Alta = DateTime.UtcNow,
+                        Codigo = codigo,
+                        Empresa = empresa,
+                        Estado = ViajeDistribucion.Estados.Pendiente,
+                        Inicio = fecha,
+                        Fin = fecha,
+                        NumeroViaje = 1,
+                        RegresoABase = false,
+                        Tipo = ViajeDistribucion.Tipos.Desordenado,
+                        Vehiculo = vehiculo,
+                        TipoCoche = tipoVehiculo,
+                        Transportista = transportista,
+                        TipoCicloLogistico = tipoCiclo
+                    };                    
+
+                    for (var i = 0; i < viajeProg.Detalles.Count; i++)
+                    {
+                        var entregaProg = viajeProg.Detalles[i];
+
+                        if (i > 0)
+                        {
+                            var origen = new LatLon(viajeProg.Detalles[i - 1].PuntoEntrega.ReferenciaGeografica.Latitude, viajeProg.Detalles[i - 1].PuntoEntrega.ReferenciaGeografica.Longitude);
+                            var destino = new LatLon(viajeProg.Detalles[i].PuntoEntrega.ReferenciaGeografica.Latitude, viajeProg.Detalles[i].PuntoEntrega.ReferenciaGeografica.Longitude);
+                            var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
+
+                            if (directions != null)
+                            {
+                                var duracion = directions.Duration;
+                                fecha = fecha.Add(duracion);
+                            }
+                        }
+
+                        var fila = gridEntregas.Rows[i];
+                        var txtBultos = fila.FindControl("txtBultos") as TextBox;
+                        var txtPeso = fila.FindControl("txtPeso") as TextBox;
+                        var txtVolumen = fila.FindControl("txtVolumen") as TextBox;
+                        var txtValor = fila.FindControl("txtValor") as TextBox;
+                        
+                        var bultos = 0;
+                        var peso = 0.0;
+                        var volumen = 0.0;
+                        var valor = 0.0;
+
+                        int.TryParse(txtBultos.Text.Replace(".",","), out bultos);
+                        double.TryParse(txtPeso.Text.Replace(".", ","), out peso);
+                        double.TryParse(txtVolumen.Text.Replace(".", ","), out volumen);
+                        double.TryParse(txtValor.Text.Replace(".", ","), out valor);
+
+                        var entrega = new EntregaDistribucion
+                        {
+                            Cliente = entregaProg.PuntoEntrega.Cliente,
+                            PuntoEntrega = entregaProg.PuntoEntrega,
+                            Descripcion = entregaProg.PuntoEntrega.Descripcion,
+                            Estado = EntregaDistribucion.Estados.Pendiente,
+                            Orden = viaje.Detalles.Count,
+                            Programado = fecha,
+                            ProgramadoHasta = fecha.AddHours(1),
+                            Viaje = viaje,
+                            Bultos = bultos,
+                            Peso = peso,
+                            Volumen = volumen,
+                            Valor = valor                            
+                        };
+
+                        viaje.Detalles.Add(entrega);
+
+                        viaje.Fin = fecha.AddHours(1);
+                    }
+
+                    DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
+                }
+            }
+
+            Response.Redirect(RedirectUrl);
+        }
+
+        private void ValidateSaveProgramado()
+        {
+            var codigo = ValidateEmpty(txtCodigoProg.Text, "CODE");
+            var byCode = DAOFactory.ViajeDistribucionDAO.FindByCodigo(cbEmpresaProg.Selected, -1, codigo);
+            ValidateDuplicated(byCode, "CODE");
+            ValidateEmpty(dtFechaProg.SelectedDate, "FECHA");
+            ValidateEntity(cbViajeProgramado.Selected, "OPETICK13");
         }
 
         private void SetFechaInicio(CentroDeCostos cc)
@@ -893,12 +1045,6 @@ namespace Logictracker.CicloLogistico.Distribucion
             Hasta.Set(hasta);
 
             BindEntregas();
-        }
-
-        protected void DtFechaProgramadaDateChanged(object sender, EventArgs e)
-        {
-            dtFecha.SelectedDate = dtFechaProgramada.SelectedDate;
-            DtFechaDateChanged(sender, e);
         }
 
         private static Direccion DireccionFromVo(DireccionVO direccion)
@@ -1549,8 +1695,6 @@ namespace Logictracker.CicloLogistico.Distribucion
             }
         } 
         #endregion
-
-        
     }
 
     [Serializable]

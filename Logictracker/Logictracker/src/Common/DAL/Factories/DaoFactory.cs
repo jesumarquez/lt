@@ -488,6 +488,12 @@ namespace Logictracker.DAL.Factories
         private StockDAO _stockDao;
         public StockDAO StockDAO { get { return _stockDao ?? (_stockDao = GetDao<StockDAO>()); } }
 
+        private StockVehicularDAO _stockVehicularDao;
+        public StockVehicularDAO StockVehicularDAO { get { return _stockVehicularDao ?? (_stockVehicularDao = GetDao<StockVehicularDAO>()); } }
+
+        private DetalleStockVehicularDAO _detalleStockVehicularDao;
+        public DetalleStockVehicularDAO DetalleStockVehicularDAO { get { return _detalleStockVehicularDao ?? (_detalleStockVehicularDao = GetDao<DetalleStockVehicularDAO>()); } }
+
         private ProveedorDAO _proveedorDao;
         public ProveedorDAO ProveedorDAO { get { return _proveedorDao ?? (_proveedorDao = GetDao<ProveedorDAO>()); } }
 

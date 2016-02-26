@@ -14,10 +14,10 @@ namespace Logictracker.Tracker.Application.WebServiceConsumer.Host
 
         public void Start()
         {
-            //Timer4Services = new System.Timers.Timer(Time * 60000);
-            //Timer4Services.Elapsed += OnTimedEvent;
-            //Timer4Services.AutoReset = true;
-            //Timer4Services.Enabled = true;
+            Timer4Services = new System.Timers.Timer(Time * 60000);
+            Timer4Services.Elapsed += OnTimedEvent;
+            Timer4Services.AutoReset = true;
+            Timer4Services.Enabled = true;
 
             Logger.Warn("Starting WebService Consumer Host...");
             IntegrationService.CheckServices();

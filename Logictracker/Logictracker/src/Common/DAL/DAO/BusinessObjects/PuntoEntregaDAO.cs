@@ -47,6 +47,25 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                         .ToList();
         }
 
+        public PuntoEntrega FindByClientesAndGeoreferencia(IEnumerable<int> clientes, int idReferencia)
+        {
+            return Query.Where(p => clientes.Contains(p.Cliente.Id) 
+                                 && p.ReferenciaGeografica != null 
+                                 && p.ReferenciaGeografica.Id == idReferencia
+                                 && !p.Baja)
+                        .Cacheable()
+                        .FirstOrDefault();
+        }
+
+        public List<PuntoEntrega> FindByCodes(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, IEnumerable<string> codes)
+        {
+            return Query.FilterCliente(Session, empresas, lineas, clientes)
+                .Where(p => !p.Baja)
+                .Where(p => codes.Contains(p.Codigo))
+                .Cacheable()
+                .ToList();
+        }
+
         #endregion
 
         #region Get Methods
@@ -60,15 +79,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .SafeFirstOrDefault();
         }
 
-        public List<PuntoEntrega> FindByCodes(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> clientes, IEnumerable<string> codes)
-        {
-            return Query.FilterCliente(Session, empresas, lineas, clientes)
-                .Where(p => !p.Baja)
-                .Where(p => codes.Contains(p.Codigo))
-                .Cacheable()
-                .ToList();
-        }
-        
         public List<PuntoEntrega> GetByCliente(int idCliente, int page, int pageSize, ref int totalRows, bool reCount, string SearchString)
         {
             if (string.IsNullOrEmpty(SearchString))

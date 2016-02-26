@@ -156,9 +156,6 @@
     <Content Include="Applications\GatewayControlSat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Applications\00-GatewayHawk.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Geocoder.NHibernate.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -179,6 +176,10 @@
     <ProjectReference Include="..\..\Absolut\Absolut.csproj">
       <Project>{6BC4CD8F-48BB-405D-8E0C-EF08FA17DD6A}</Project>
       <Name>Absolut</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Alas\Alas.csproj">
+      <Project>{69ad7149-433d-4d81-beb1-c9c3d611c578}</Project>
+      <Name>Alas</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\Gte\Trax.csproj">
       <Project>{5E21FE40-F8AC-4182-997B-11E6B83DB504}</Project>
@@ -431,7 +432,7 @@
     <Content Include="Applications\Instalar y Mantener Servicios.xml">
     </Content>
     <Content Include="Applications\Scheduler.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Applications\Gateway.xml">
     </Content>

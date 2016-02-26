@@ -10,6 +10,7 @@
     </id>
 
     <property column="parenti07_descri" type="String" name="Descripcion" not-null="true" length="64" />
+    <property column="parenti07_codigo" name="Codigo" />
     <property column="parenti07_tarifa_tramo_corto" type="Double" name="TarifaTramoCorto" not-null="false" />
     <property column="parenti07_tarifa_tramo_largo" type="Double" name="TarifaTramoLargo" not-null="false" />
     <!--<property column="parenti07_costo_por_bulto" name="CostoPorBulto" />

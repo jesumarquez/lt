@@ -416,5 +416,41 @@ namespace Logictracker.Parametrizacion {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btnGenerar;
+        
+        /// <summary>
+        /// tpContenedores control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Panels.TitledPanel tpContenedores;
+        
+        /// <summary>
+        /// updContenedores control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updContenedores;
+        
+        /// <summary>
+        /// gridContenedores control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::C1.Web.UI.Controls.C1GridView.C1GridView gridContenedores;
+        
+        /// <summary>
+        /// btAddContenedor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btAddContenedor;
     }
 }

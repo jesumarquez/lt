@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="Logictracker.Types.BusinessObjects.CicloLogistico.DetalleStockVehicular,Logictracker.Types" table="opetick16" lazy="true">
+        <cache usage="read-write" />
+
+        <id name="Id" column="id_opetick16" type="Int32" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <many-to-one name="StockVehicular" column="rela_opetick15" lazy="proxy" />
+        <many-to-one name="Vehiculo" column="rela_parenti03" lazy="proxy" />
+
+    </class>
+</hibernate-mapping>

@@ -1,5 +1,6 @@
 using System;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects
 {
@@ -39,6 +40,22 @@ namespace Logictracker.Types.BusinessObjects
             public const string DistribucionCCU = "Distribucion.CCU";
             public const string PedidosPetrobras = "Pedidos.PETROBRAS";
             public const string AsignacionClienteEmpleado = "Cliente.Empleado";
+
+            public static List<string> GetList()
+            {
+                return new List<string> 
+                {
+                    DistribucionFemsa, 
+                    DistribucionQuilmes, 
+                    DistribucionMusimundo, 
+                    DistribucionBrinks,
+                    DistribucionSos, 
+                    DistribucionReginaldLee, 
+                    DistribucionCCU, 
+                    PedidosPetrobras, 
+                    AsignacionClienteEmpleado
+                };
+            }
         }
 
         public virtual int Id { get; set; }

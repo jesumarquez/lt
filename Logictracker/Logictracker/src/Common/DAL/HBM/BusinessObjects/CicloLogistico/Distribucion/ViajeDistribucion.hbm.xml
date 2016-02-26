@@ -17,6 +17,7 @@
     <many-to-one name="Empleado" column="rela_parenti09" lazy="proxy" />
     <many-to-one name="UsuarioControl" column="rela_socusua01_control" lazy="proxy" />
     <many-to-one name="TipoCicloLogistico" column="rela_partick09" lazy="proxy" />
+    <many-to-one name="TipoCoche" column="rela_parenti17" lazy="proxy" />
 
     <property column="opetick03_codigo" name="Codigo" />
     <property column="opetick03_numero" name="NumeroViaje" />

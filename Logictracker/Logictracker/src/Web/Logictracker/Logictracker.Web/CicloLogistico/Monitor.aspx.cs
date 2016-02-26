@@ -459,7 +459,9 @@ namespace Logictracker.CicloLogistico
                 ShowRecorridoCalculado(Color.Red, puntos.ToArray());
                 ReferenciaGeografica anterior = null;
                 var kmCalculados = 0.0;
-                foreach (var detalle in ciclo.Detalles)
+                var duracion = new TimeSpan();
+                var dets = ciclo.Detalles.OrderBy(d => d.Orden);
+                foreach (var detalle in dets)
                 {
                     var actual = detalle.PuntoEntrega != null 
                                     ? detalle.PuntoEntrega.ReferenciaGeografica
@@ -472,12 +474,13 @@ namespace Logictracker.CicloLogistico
                         if (dir != null)
                         {
                             kmCalculados += (dir.Distance/1000.0);
+                            duracion = duracion.Add(dir.Duration);
                         }
                     }
 
                     anterior = actual;
                 }
-                lblKmCalculados.Text = kmCalculados.ToString("#0.00") + " Km";
+                lblKmCalculados.Text = kmCalculados.ToString("#0.00") + " Km - " + string.Format("{0}:{1}:{2} Hs", ((int)duracion.TotalHours).ToString("00"), duracion.Minutes.ToString("00"), duracion.Seconds.ToString("00"));
             }
             
             ShowEventos(ciclo.Vehiculo, inicio, fin, ciclo.Id);
@@ -490,18 +493,24 @@ namespace Logictracker.CicloLogistico
             trCalculado.Visible = chkRecorridoCalculado.Checked;
 
             var kmReales = 0.0;
+            var duracionReal = new TimeSpan();
             if (ciclo.InicioReal.HasValue)
             {
                 if (ciclo.InicioReal.Value < DateTime.Today)
                 {
+                    duracionReal = ciclo.Fin.Subtract(ciclo.InicioReal.Value);
                     var dmViaje = DAOFactory.DatamartViajeDAO.GetRecords(ciclo.Id).FirstOrDefault();
                     if (dmViaje != null) kmReales = dmViaje.KmTotales;
                 }
-                else kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
+                else 
+                    kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
             }
-            
-            lblKmReales.Text = kmReales.ToString("#0.00") + " Km";
-            lblKmProgramados.Text = ciclo.Detalles.Sum(d => d.KmCalculado).Value.ToString("#0.00") + " Km";
+
+            lblKmReales.Text = kmReales.ToString("#0.00") + " Km - " + string.Format("{0}:{1}:{2} Hs", ((int)duracionReal.TotalHours).ToString("00"), duracionReal.Minutes.ToString("00"), duracionReal.Seconds.ToString("00"));
+            var inicioProgramado = ciclo.Detalles.Min(d => d.Programado);
+            var finProgramado = ciclo.Detalles.Max(d => d.Programado);
+            var duracionProgramada = finProgramado.Subtract(inicioProgramado);
+            lblKmProgramados.Text = ciclo.Detalles.Sum(d => d.KmCalculado).Value.ToString("#0.00") + " Km - " + string.Format("{0}:{1}:{2} Hs", ((int)duracionProgramada.TotalHours).ToString("00"), duracionProgramada.Minutes.ToString("00"), duracionProgramada.Seconds.ToString("00"));
         }
 
         protected void ShowPosicionesReportadas(Coche vehiculo, DateTime desde, DateTime hasta, Color color)

@@ -263,7 +263,7 @@ namespace Vigilia
 
         protected override UInt32 NextSequenceMin()
         {
-            return 0x0000;
+            return 0x0005;
         }
 
         protected override UInt32 NextSequenceMax()
@@ -396,7 +396,7 @@ namespace Vigilia
             Ejemplo : XXX111|2015-12-29 10:01:32|-33.95115|-59.40005|90|150|01|            
              
              */
-            ulong msgId = ulong.Parse(buffer.Substring(58,2));
+            ulong msgId = NextSequence;// ulong.Parse(buffer.Substring(58,2));
             GPSPoint pos;
             var code = EventCodes.Position;
             var time = DateTime.ParseExact(buffer.Substring(9,19), "yyyy-MM-dd HH:mm:ss",

@@ -122,7 +122,7 @@ namespace Logictracker.Types.BusinessObjects.Documentos
                     return Convert.ToDouble(v.Valor, CultureInfo.InvariantCulture);
                 case TipoParametroDocumento.String:
                     return v.Valor;
-                case TipoParametroDocumento.StringBarcode:
+                case TipoParametroDocumento.Barcode:
                     return v.Valor;
                 case TipoParametroDocumento.DateTime:
                     return Convert.ToDateTime(v.Valor, CultureInfo.InvariantCulture);

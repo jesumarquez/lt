@@ -51,6 +51,10 @@ namespace Logictracker.CicloLogistico
             var points = EditLine1.Points.Get();
             if(points == null || points.Count == 0) SetCenterLinea();
         }
+        protected void cbViajeProgSelectedIndexChanged(object sender, EventArgs e)
+        {
+            EditLine1.DrawViajeProgramado(cbViajeProg.Selected);
+        }
         protected void btInvertir_Click(object sender, EventArgs e)
         {
             EditLine1.Invertir();
@@ -73,12 +77,10 @@ namespace Logictracker.CicloLogistico
 
             if (points.Count > 0) EditLine1.SetCenter(points[0].Y, points[0].X);
         }
-
         protected override void OnDelete()
         {
             DAOFactory.RecorridoDAO.Delete(EditObject);
         }
-
         protected override void OnSave()
         {
             EditObject.Empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
@@ -123,8 +125,5 @@ namespace Logictracker.CicloLogistico
                 ThrowMustEnter("RECORRIDO");
             }
         }
-
-
-    
     }
 }

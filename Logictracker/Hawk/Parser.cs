@@ -262,7 +262,7 @@ namespace Hawk
 
         protected override UInt32 NextSequenceMin()
         {
-            return 0x0000;
+            return 0x0005;
         }
 
         protected override UInt32 NextSequenceMax()
@@ -394,7 +394,7 @@ namespace Hawk
              * GPS;KJX958;1;Cerca de: NAC 3, Km. 2774, RIO GRANDE, RIO GRANDE, TIERRA DEL FUEGO, ARGENTINA;E;-53.7733;-67.7252;0.000000;133;29/01/2016 15:50:49;HAWK
              
              */
-            ulong msgId = ulong.Parse(parser[2]);
+            ulong msgId = NextSequence;//ulong.Parse(parser[2]);
             GPSPoint pos;
             var code = EventCodes.Position;
             var patente =  parser[1];

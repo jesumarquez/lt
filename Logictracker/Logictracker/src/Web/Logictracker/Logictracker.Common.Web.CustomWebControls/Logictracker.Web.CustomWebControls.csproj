@@ -125,6 +125,7 @@
     <Compile Include="DropDownCheckLists\PlantaDropDownCheckList.cs" />
     <Compile Include="DropDownCheckLists\TipoDeVehiculoDropDownCheckList.cs" />
     <Compile Include="DropDownCheckLists\TransportistaDropDownCheckList.cs" />
+    <Compile Include="DropDownLists\EstrategiaDropDownList.cs" />
     <Compile Include="DropDownLists\TipoCicloLogisticoDropDownList.cs" />
     <Compile Include="DropDownLists\ReportTypeDropDownList.cs" />
     <Compile Include="DropDownLists\ReporteDropDownList.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="DropDownLists\SubCentroDeCostosDropDownList.cs" />
     <Compile Include="DropDownLists\TipoDistribucionDropDownList.cs" />
     <Compile Include="DropDownLists\ReferenciasGeograficas\TipoZonaDropDownList.cs" />
+    <Compile Include="DropDownLists\ZonaDropDownList.cs" />
     <Compile Include="DropDownLists\ZonaAccesoDropDownList.cs" />
     <Compile Include="DropDownLists\TipoZonaAccesoDropDownList.cs" />
     <Compile Include="DropDownLists\SubcategoriaDropDownList.cs" />

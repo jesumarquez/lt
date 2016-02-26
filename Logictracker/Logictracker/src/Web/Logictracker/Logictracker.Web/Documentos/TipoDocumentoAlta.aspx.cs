@@ -145,10 +145,7 @@ namespace Logictracker.Documentos
             BindTipoDato(cbTipoParam);
 
             var li = cbTipoParam.Items.FindByValue(param.TipoDato??TipoParametroDocumento.String);
-            if (li != null) li.Selected = true;
-
-            var li2 = cbTipoParam.Items.FindByValue(param.TipoDato ?? TipoParametroDocumento.StringBarcode);
-            if (li2 != null) li2.Selected = true;
+            if (li != null) li.Selected = true;          
 
             txtLargo.Text = param.Largo.ToString();
             txtPrecision.Text = param.Precision.ToString();
@@ -205,7 +202,7 @@ namespace Logictracker.Documentos
         {
             combo.Items.Clear();
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_TEXT"), TipoParametroDocumento.String));
-            combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_TEXTBARCODE"), TipoParametroDocumento.StringBarcode));
+            combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_BARCODE"), TipoParametroDocumento.Barcode));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_INTEGER"), TipoParametroDocumento.Integer));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_FLOAT"), TipoParametroDocumento.Float));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_DATETIME"), TipoParametroDocumento.DateTime));
@@ -218,7 +215,6 @@ namespace Logictracker.Documentos
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_EQUIPO"), TipoParametroDocumento.Equipo));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_TANQUE"), TipoParametroDocumento.Tanque));
             combo.Items.Add(new ListItem(CultureManager.GetLabel("DOC_FIELDTYPE_CENTRODECOSTO"), TipoParametroDocumento.CentroCostos));
-
         }
 
         private void GetNewData()
@@ -276,7 +272,6 @@ namespace Logictracker.Documentos
                 var txtPrecision = item.FindControl("txtPrecision") as TextBox;
                 //var chkObligatorio = item.FindControl("chkObligatorio") as CheckBox;
                 var txtDefault = item.FindControl("txtDefault") as TextBox;
-
                 switch(cbTipoParam.SelectedValue)
                 {
                     case TipoParametroDocumento.Integer:
@@ -284,7 +279,7 @@ namespace Logictracker.Documentos
                         txtLargo.Enabled = txtPrecision.Enabled = txtDefault.Enabled = true;
                         break;
                     case TipoParametroDocumento.String:
-                    case TipoParametroDocumento.StringBarcode:
+                    case TipoParametroDocumento.Barcode:
                         txtLargo.Enabled = txtDefault.Enabled = true;
                         txtPrecision.Enabled = false;
                         break;

@@ -69,7 +69,7 @@ namespace Logictracker.Tracker.Application.Integration
 
             Logger.Info("Searching for a new alarm in S.O.S. service...");
 
-            var rollback = WebServiceSos._alertasRollback("20160210304226");
+            //var rollback = WebServiceSos._alertasRollback("20160217304249");
 
             var response = WebServiceSos.ObtenerAlertas();
             //var fecha = DateTime.Now;
@@ -97,22 +97,11 @@ namespace Logictracker.Tracker.Application.Integration
         {
             switch (ticket.EstadoServicio)
             {
-                case SosTicket.EstadosServicio.Asignado: //servicio asignado
-                    Asignar(ticket);
-                    break;
-                case SosTicket.EstadosServicio.Preasignado: //servicio prea asignado
-                    Preasignar(ticket);
-                    break;
-                case SosTicket.EstadosServicio.AsignacionCancelada: //asignación cancelada
-                    CancelarAsignacion(ticket);
-                    break;
-                case SosTicket.EstadosServicio.PreAsignacionCancelada: //pre asignado cancelado
-                    CancelarPreasignacion(ticket);
-                    break;
-                case SosTicket.EstadosServicio.AsignacionYPreAsignacionCancelada: //asignación y pre asignado canceladas
-                default: 
-                    Cancelar(ticket);
-                    break;
+                case SosTicket.EstadosServicio.Asignado: Asignar(ticket); break;
+                case SosTicket.EstadosServicio.Preasignado: Preasignar(ticket); break;
+                case SosTicket.EstadosServicio.AsignacionCancelada: CancelarAsignacion(ticket); break;
+                case SosTicket.EstadosServicio.PreAsignacionCancelada: CancelarPreasignacion(ticket); break;
+                case SosTicket.EstadosServicio.AsignacionYPreAsignacionCancelada: Cancelar(ticket); break;
             }
         }
 
@@ -145,6 +134,10 @@ namespace Logictracker.Tracker.Application.Integration
                 ticket.Destino.Direccion + ", " + ticket.Destino.Localidad,
                 ticket.Diagnostico);
 
+            var ms = new MessageSaver(DaoFactory);
+            var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+            var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+            ms.Save(MessageCode.ServicioPreasignado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
             SendQuestionToGarmin(mensaje, ticket.Distribucion);
         }
 
@@ -154,10 +147,6 @@ namespace Logictracker.Tracker.Application.Integration
             ticket.Distribucion = storedTicket == null ? BuildRoute(ticket) : UpdateRoute(ticket);
             DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
 
-            //S:	20151119303932
-            //O:	SAN MARTIN  500, CORDOBA
-            //D:	COLON 1000, CORDOBA
-            //Di:	CORREA DE DISTRIBUCION
             var mensaje = string.Format("Asignado: {0}<br>De {1}<br>a {2}<br>{3}",
                 ticket.NumeroServicio,
                 ticket.Origen.Direccion + ", " + ticket.Origen.Localidad,
@@ -167,7 +156,7 @@ namespace Logictracker.Tracker.Application.Integration
             var ms = new MessageSaver(DaoFactory);
             var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
             var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
-            ms.Save(MessageCode.ServicioAsignado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, "Servicio " + ticket.NumeroServicio + " asignado");
+            ms.Save(MessageCode.ServicioAsignado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
             SendQuestionToGarmin(mensaje, ticket.Distribucion);
         }
 
@@ -602,8 +591,10 @@ namespace Logictracker.Tracker.Application.Integration
                    ticket.Diagnostico.Split('-')[1] + " $" + ticket.CobroAdicional);
                 SendMessageToGarmin(mensaje, dist);
 
-                //envio de ruta al garmin
-                //SendRouteToGarmin();
+                var ms = new MessageSaver(DaoFactory);
+                var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+                var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+                ms.Save(MessageCode.ServicioAsignadoAceptado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);                
             }
             else
             {
@@ -611,6 +602,11 @@ namespace Logictracker.Tracker.Application.Integration
                 ticket.Cancelado = DateTime.Now;
                 ticket.CancelacionNotificada = true;
                 ticket.EstadoServicio = (int)CodigoEstado.AsignadoRechazado;
+
+                var ms = new MessageSaver(DaoFactory);
+                var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+                var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+                ms.Save(MessageCode.ServicioAsignadoRechazado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
             }
             DaoFactory.SosTicketDAO.SaveOrUpdate(ticket); 
 
@@ -634,6 +630,11 @@ namespace Logictracker.Tracker.Application.Integration
                    ticket.Observacion,
                    ticket.Diagnostico.Split('-')[1] + " $" + ticket.CobroAdicional);
                 SendMessageToGarmin(mensaje, dist);
+
+                var ms = new MessageSaver(DaoFactory);
+                var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+                var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+                ms.Save(MessageCode.ServicioPreasignadoAceptado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
             }
             else
             {
@@ -641,6 +642,11 @@ namespace Logictracker.Tracker.Application.Integration
                 ticket.Cancelado = DateTime.Now;
                 ticket.CancelacionNotificada = true;
                 ticket.EstadoServicio = (int)CodigoEstado.PreasignadoRechazado;
+
+                var ms = new MessageSaver(DaoFactory);
+                var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+                var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+                ms.Save(MessageCode.ServicioPreasignadoRechazado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
             }
             DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
 
@@ -649,11 +655,9 @@ namespace Logictracker.Tracker.Application.Integration
 
         private void UpdateToSos(string interno, string codigo, int estadoServicio, string diagnostico)
         {
-            //if (WebServiceSos == null)
-            //    WebServiceSos = new WebServiceSos.Service();
-
-            //var res=WebServiceSos.ActualizarSvc(interno, codigo, estadoServicio, diagnostico.Split('-')[0]);
-            //Logger.Info("Webservice response: " + res);
+            if (WebServiceSos == null) WebServiceSos = new WebServiceSos.Service();
+            var res = WebServiceSos.ActualizarSvc(interno, codigo, estadoServicio, diagnostico.Split('-')[0]);
+            Logger.Info("Webservice response: " + res);
         }
 
         public void ArrivalReport(ViajeDistribucion viaje)
@@ -661,14 +665,7 @@ namespace Logictracker.Tracker.Application.Integration
             var ticket = DaoFactory.SosTicketDAO.FindByCodigo(viaje.Codigo);
             if (ticket != null)
             {
-                /*
-                ticket.Distribucion = viaje;
-                ticket.EstadoServicio = (int)CodigoEstado.Llegada;
-                DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
-
-                UpdateToSos(viaje.Vehiculo.Interno, viaje.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
-                */
-                var msgText = "Por favor, informe los 3 dígitos de la patente del vehículo correspondiente al servicio " + viaje.Codigo;
+                var msgText = "Por favor, informe los 3 digitos de la patente del vehiculo correspondiente al servicio " + viaje.Codigo;
                 SendQuestionPatenteToGarmin(msgText, viaje);
             }
         }
@@ -680,11 +677,16 @@ namespace Logictracker.Tracker.Application.Integration
                 ticket.EstadoServicio = (int)CodigoEstado.Llegada;
                 DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
 
+                var ms = new MessageSaver(DaoFactory);
+                var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+                var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+                ms.Save(MessageCode.LlegadaServicio.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
+
                 UpdateToSos(ticket.Distribucion.Vehiculo.Interno, ticket.Distribucion.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
             }
             else
             {
-                var msgText = "Patente errónea. Por favor, informe los 3 dígitos de la patente del vehículo correspondiente al servicio " + ticket.Distribucion.Codigo;
+                var msgText = "Patente erronea. Por favor, informe los 3 digitos de la patente del vehiculo correspondiente al servicio " + ticket.Distribucion.Codigo;
                 SendQuestionPatenteToGarmin(msgText, ticket.Distribucion);
             }
         }
@@ -697,6 +699,14 @@ namespace Logictracker.Tracker.Application.Integration
                 ticket.Distribucion = viaje;
                 ticket.EstadoServicio = (int)CodigoEstado.Finalizado;
                 DaoFactory.SosTicketDAO.SaveOrUpdate(ticket);
+
+                var ms = new MessageSaver(DaoFactory);
+                var lastPos = ticket.Distribucion.Vehiculo.IsLastPositionInCache() ? ticket.Distribucion.Vehiculo.RetrieveLastPosition() : null;
+                var point = lastPos != null ? new GPSPoint(lastPos.FechaMensaje, (float)lastPos.Latitud, (float)lastPos.Longitud, (float)(lastPos.Velocidad), GPSPoint.SourceProviders.GpsProvider, (float)lastPos.Altitud) : null;
+                if (EntregaDistribucion.Estados.EstadosOk.Contains(viaje.Detalles.Last().Estado))
+                    ms.Save(MessageCode.ServicioFinalizado.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
+                else
+                    ms.Save(MessageCode.SolicitaAsistencia.GetMessageCode(), ticket.Distribucion.Vehiculo, DateTime.UtcNow, null, ticket.NumeroServicio);
 
                 UpdateToSos(viaje.Vehiculo.Interno, viaje.Codigo, ticket.EstadoServicio, ticket.Diagnostico);
             }

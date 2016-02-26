@@ -36,5 +36,16 @@
       <key column="rela_parenti17" />
       <many-to-many class="Logictracker.Types.BusinessObjects.Vehiculos.Odometro,Logictracker.Types" column="rela_parenti40" />
     </set>
+
+    <bag name="Contenedores"
+          table="parenti108"
+          order-by="parenti108_descripcion ASC"
+          inverse="true"
+          cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_parenti17" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Vehiculos.Contenedor, Logictracker.Types" />
+    </bag>
+
   </class>
 </hibernate-mapping>

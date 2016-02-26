@@ -233,9 +233,10 @@
     <Content Include="About.aspx" />
     <Content Include="Admin\DatamartLog.aspx" />
     <Content Include="Admin\Log.aspx" />
-    <Content Include="Admin\Logiclink.aspx" />
     <Content Include="Admin\Log\LogContext.aspx" />
+    <Content Include="Admin\LogiclinkAlta.aspx" />
     <Content Include="Admin\ProgramacionReporteAlta.aspx" />
+    <Content Include="Admin\Logiclink.aspx" />
     <Content Include="Admin\ProgramacionReporteLista.aspx" />
     <Content Include="Admin\Queues.aspx" />
     <Content Include="Admin\ReportLog.aspx" />
@@ -617,6 +618,8 @@
     <Content Include="CicloLogistico\RecorridoLista.aspx" />
     <Content Include="CicloLogistico\ServicioAlta.aspx" />
     <Content Include="CicloLogistico\ServicioLista.aspx" />
+    <Content Include="CicloLogistico\StockVehicularLista.aspx" />
+    <Content Include="CicloLogistico\StockVehicularAlta.aspx" />
     <Content Include="CicloLogistico\TipoServicioAlta.aspx" />
     <Content Include="CicloLogistico\TipoServicioLista.aspx" />
     <Content Include="Common\EditImage.ashx" />
@@ -1453,6 +1456,7 @@
     <Content Include="Reportes\CicloLogistico\FlujoDeTareas.aspx" />
     <Content Include="Reportes\CicloLogistico\Hormigon\ReporteTolva.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIDistribucion.aspx" />
+    <Content Include="Reportes\CicloLogistico\ProyeccionStock.aspx" />
     <Content Include="Reportes\CicloLogistico\mimicoKpi.js" />
     <Content Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx" />
     <Content Include="Reportes\CicloLogistico\KPIEstadoEntregas.aspx" />
@@ -1742,6 +1746,7 @@
     <Content Include="Areas\Eventos\Views\Eventos\Index.cshtml" />
     <Content Include="Areas\Eventos\Views\_ViewStart.cshtml" />
     <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\StockVehicularLista.xlsx" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
@@ -2107,13 +2112,6 @@
     <Compile Include="Admin\Log.aspx.designer.cs">
       <DependentUpon>Log.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Logiclink.aspx.cs">
-      <DependentUpon>Logiclink.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Logiclink.aspx.designer.cs">
-      <DependentUpon>Logiclink.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\Log\LogContext.aspx.cs">
       <DependentUpon>LogContext.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2121,12 +2119,26 @@
     <Compile Include="Admin\Log\LogContext.aspx.designer.cs">
       <DependentUpon>LogContext.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\LogiclinkAlta.aspx.cs">
+      <DependentUpon>LogiclinkAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\LogiclinkAlta.aspx.designer.cs">
+      <DependentUpon>LogiclinkAlta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ProgramacionReporteAlta.aspx.cs">
       <DependentUpon>ProgramacionReporteAlta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\ProgramacionReporteAlta.aspx.designer.cs">
       <DependentUpon>ProgramacionReporteAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Logiclink.aspx.cs">
+      <DependentUpon>Logiclink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Logiclink.aspx.designer.cs">
+      <DependentUpon>Logiclink.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ProgramacionReporteLista.aspx.cs">
       <DependentUpon>ProgramacionReporteLista.aspx</DependentUpon>
@@ -2632,6 +2644,20 @@
     </Compile>
     <Compile Include="CicloLogistico\ServicioLista.aspx.designer.cs">
       <DependentUpon>ServicioLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularLista.aspx.cs">
+      <DependentUpon>StockVehicularLista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularLista.aspx.designer.cs">
+      <DependentUpon>StockVehicularLista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularAlta.aspx.cs">
+      <DependentUpon>StockVehicularAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CicloLogistico\StockVehicularAlta.aspx.designer.cs">
+      <DependentUpon>StockVehicularAlta.aspx</DependentUpon>
     </Compile>
     <Compile Include="CicloLogistico\TipoServicioAlta.aspx.cs">
       <DependentUpon>TipoServicioAlta.aspx</DependentUpon>
@@ -4310,6 +4336,13 @@
     </Compile>
     <Compile Include="Reportes\CicloLogistico\KPIDistribucion.aspx.designer.cs">
       <DependentUpon>KPIDistribucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ProyeccionStock.aspx.cs">
+      <DependentUpon>ProyeccionStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ProyeccionStock.aspx.designer.cs">
+      <DependentUpon>ProyeccionStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\CicloLogistico\ReporteEstadosLogisticos.aspx.cs">
       <DependentUpon>ReporteEstadosLogisticos.aspx</DependentUpon>

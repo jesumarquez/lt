@@ -6,16 +6,20 @@ namespace Logictracker.Types.ValueObjects.Parametrizacion
     [Serializable]
     public class TransportistaVo
     {
-        public const int IndexDescripcion = 0;
-        public const int IndexTarifaTramoCorto = 1;
-        public const int IndexTarifaTramoLargo = 2;
-        public const int IndexCostoBulto = 3;
-        public const int IndexCostoHora = 4;
-        public const int IndexCostoKm = 5;
+        public const int IndexCodigo = 0;
+        public const int IndexDescripcion = 1;
+        public const int IndexTarifaTramoCorto = 2;
+        public const int IndexTarifaTramoLargo = 3;
+        public const int IndexCostoBulto = 4;
+        public const int IndexCostoHora = 5;
+        public const int IndexCostoKm = 6;
 
         public int Id { get; set; }
 
-        [GridMapping(Index = IndexDescripcion, ResourceName = "Entities", VariableName = "PARENTI07", InitialSortExpression = true, AllowGroup = false, IncludeInSearch = true)]
+        [GridMapping(Index = IndexCodigo, ResourceName = "Labels", VariableName = "CODE", IncludeInSearch = true)]
+        public string Codigo { get; set; }
+
+        [GridMapping(Index = IndexDescripcion, ResourceName = "Entities", VariableName = "PARENTI07", InitialSortExpression = true, IncludeInSearch = true)]
         public string Descripcion { get; set;}
 
         [GridMapping(Index = IndexTarifaTramoCorto, ResourceName = "Labels", VariableName = "TARIFA_TRAMO_CORTO", DataFormatString = "{0:0.00}", AllowGroup = false)]
@@ -36,6 +40,7 @@ namespace Logictracker.Types.ValueObjects.Parametrizacion
         public TransportistaVo(Transportista transportista)
         {
             Id = transportista.Id;
+            Codigo = transportista.Codigo;
             Descripcion = transportista.Descripcion;
             TarifaTramoCorto = transportista.TarifaTramoCorto;
             TarifaTramoLargo = transportista.TarifaTramoLargo;

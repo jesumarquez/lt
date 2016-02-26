@@ -58,7 +58,12 @@ namespace LogicTracker.App.Web.Api.Controllers
                 var employee = empleado.FindEmpleadoByDevice(device);
                 List<int> empresas = new List<int>();
                 empresas.Add(employee.Empresa.Id);
-                var lineas = new int[] { employee.Linea.Id };
+                var linea = -1;
+                if ( employee.Linea != null)
+                {
+                    linea = employee.Linea.Id;
+                }
+                var lineas = new int[] { linea };
                 List<TipoDocumento> lista = documentos.GetList(empresas, lineas).Where(x => x.Id > id).ToList();
 
                 foreach (var item in lista)
@@ -190,7 +195,8 @@ namespace LogicTracker.App.Web.Api.Controllers
                         items.Add(new FormulariosList()
                         {
                             id = Convert.ToString(item.Id),
-                            nombre = item.Descripcion,
+                            nombre = item.Nombre,
+                            descripcion = item.Descripcion,
                             primeraviso = Convert.ToString(item.PrimerAviso),
                             requerirpresentacion = Convert.ToString(item.RequerirPresentacion),
                             requerirvencimiento = Convert.ToString(item.RequerirVencimiento),
@@ -212,7 +218,7 @@ namespace LogicTracker.App.Web.Api.Controllers
 
         [Route("api/Formularios/formulario")]
         [HttpPost]
-        [DeflateCompression]
+        [CompressContent]
         public IHttpActionResult cargarRegistrosFormularios([FromBody]FormularioRow[] records)
         {
             try
@@ -228,6 +234,14 @@ namespace LogicTracker.App.Web.Api.Controllers
                 CocheDAO cocheDao = new CocheDAO();
                 var device = dispositivo.FindByImei(deviceId);
                 var employee = empleado.FindEmpleadoByDevice(device);
+                List<int> empresas = new List<int>();
+                empresas.Add(employee.Empresa.Id);
+                var linea = -1;
+                if (employee.Linea != null)
+                {
+                    linea = employee.Linea.Id;
+                }
+                var lineas = new int[] { linea };
 
                 foreach (var item in records)
                 {
@@ -318,18 +332,19 @@ namespace LogicTracker.App.Web.Api.Controllers
                                                     var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
                                                               where p.Nombre == itemParametro.nombrecampo
                                                               select p;
+                                                    var date = DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
                                                     var val = new DocumentoValor
                                                     {
                                                         Documento = doc,
                                                         Parametro = par.ToList()[0],
                                                         Repeticion = ((short)1),
-                                                        Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                                        Valor = date
                                                     };
                                                     doc.Parametros.Add(val);
                                                 }
                                                 break;
                                             }
-                                        case "PRESENTACION":
+                                        case "PRESENTACIÓN":
                                             {
                                                 doc.Presentacion = DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                                                 break;
@@ -349,12 +364,13 @@ namespace LogicTracker.App.Web.Api.Controllers
                                                 var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
                                                           where p.Nombre == itemParametro.nombrecampo
                                                           select p;
+                                               var date =  DateTime.ParseExact(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo), "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
                                                 var val = new DocumentoValor
                                                 {
                                                     Documento = doc,
                                                     Parametro = par.ToList()[0],
                                                     Repeticion = ((short)1),
-                                                    Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                                    Valor = date
                                                 };
                                                 doc.Parametros.Add(val);
                                                 break;
@@ -454,6 +470,17 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             if (descr.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)))
                                             {
                                                 doc.Vehiculo = itemVehiculos;
+                                                var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                          where p.Nombre == itemParametro.nombrecampo
+                                                          select p;
+                                                var val = new DocumentoValor
+                                                {
+                                                    Documento = doc,
+                                                    Parametro = par.ToList()[0],
+                                                    Repeticion = ((short)1),
+                                                    Valor = doc.Vehiculo.Id.ToString()
+                                                };
+                                                doc.Parametros.Add(val);
                                                 break;
                                             }
                                         }
@@ -467,12 +494,25 @@ namespace LogicTracker.App.Web.Api.Controllers
                                         var emple = empleado.FindAll().ToList();
                                         foreach (Empleado itemempleado in emple)
                                         {
-                                            string descr = itemempleado.ToString();
+                                            string descr = itemempleado.Entidad.Descripcion;
                                             if (descr.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)))
                                             {
                                                 doc.Empleado = itemempleado;
+                                                var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                          where p.Nombre == itemParametro.nombrecampo
+                                                          select p;
+                                                var val = new DocumentoValor
+                                                {
+                                                    Documento = doc,
+                                                    Parametro = par.ToList()[0],
+                                                    Repeticion = ((short)1),
+                                                    Valor = doc.Empleado.Id.ToString()
+                                                };
+                                                doc.Parametros.Add(val);
                                                 break;
                                             }
+
+                                           
                                         }
                                     }
                                     break;
@@ -488,14 +528,30 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             if (descr.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)))
                                             {
                                                 doc.Transportista = itemtranspor;
+                                                var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                          where p.Nombre == itemParametro.nombrecampo
+                                                          select p;
+                                                var val = new DocumentoValor
+                                                {
+                                                    Documento = doc,
+                                                    Parametro = par.ToList()[0],
+                                                    Repeticion = ((short)1),
+                                                    Valor = doc.Transportista.Id.ToString()
+                                                };
+                                                doc.Parametros.Add(val);
                                                 break;
                                             }
                                         }
+                                      
                                     }
                                     break;
                                 }
                             case "cliente":
                                 {
+
+                                    Cliente cliente = new ClienteDAO().GetList(empresas, lineas)
+                                        .Where(X=> X.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo))).FirstOrDefault();
+                                    
                                     var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
                                               where p.Nombre == itemParametro.nombrecampo
                                               select p;
@@ -504,13 +560,15 @@ namespace LogicTracker.App.Web.Api.Controllers
                                                   Documento = doc,
                                                   Parametro = par.ToList()[0],
                                                   Repeticion = ((short)1),
-                                                  Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                                  Valor = cliente.Id.ToString()
                                               };
                                     doc.Parametros.Add(val);
                                     break;
                                 }
                             case "equipo":
                                 {
+                                    var equipos = new EquipoDAO().FindAll().Cast<Equipo>();                                    
+                                    Equipo equip = equipos.Where(x=> x.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo))).FirstOrDefault();
                                     var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
                                               where p.Nombre == itemParametro.nombrecampo
                                               select p;
@@ -519,13 +577,24 @@ namespace LogicTracker.App.Web.Api.Controllers
                                         Documento = doc,
                                         Parametro = par.ToList()[0],
                                         Repeticion = ((short)1),
-                                        Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                        Valor = equip.Id.ToString()
                                     };
                                     doc.Parametros.Add(val);
                                     break;
                                 }
                             case "centrocostos":
                                 {
+                                    var departamentos = new DepartamentoDAO().GetList(empresas, lineas);
+                                        List<int> dep = new List<int>();
+                                        foreach (var itemDeparta in departamentos)
+                                        {
+                                            dep.Add(itemDeparta.Id);
+                                        }
+                                        CentroDeCostos centro = new CentroDeCostosDAO()
+                                            .GetList(empresas, lineas, dep)
+                                            .Where(x=> x.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)))
+                                            .FirstOrDefault();
+
                                     var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
                                               where p.Nombre == itemParametro.nombrecampo
                                               select p;
@@ -534,7 +603,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                                         Documento = doc,
                                         Parametro = par.ToList()[0],
                                         Repeticion = ((short)1),
-                                        Valor = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)
+                                        Valor = centro.Id.ToString()
                                     };
                                     doc.Parametros.Add(val);
                                     break;

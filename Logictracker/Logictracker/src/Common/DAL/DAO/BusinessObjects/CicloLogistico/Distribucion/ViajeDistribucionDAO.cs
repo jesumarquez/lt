@@ -176,6 +176,16 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion
                          .ToList();
         }
 
+        public List<ViajeDistribucion> GetList(int empresa, DateTime desde, DateTime hasta)
+        {
+            var q = Query.Where(v => v.Empresa.Id == empresa
+                                  && ((v.Inicio >= desde && v.Inicio <= hasta)
+                                   || (v.Fin >= desde && v.Fin <= hasta))
+                                  && v.Estado != ViajeDistribucion.Estados.Eliminado);
+
+            return q.ToList();
+        }
+
         public List<ViajeDistribucion> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, IEnumerable<int> departamentos, IEnumerable<int> centrosDeCosto, IEnumerable<int> subCentrosDeCosto, IEnumerable<int> vehiculos, DateTime? desde, DateTime? hasta)
         {
             return GetList(empresas, lineas, transportistas, departamentos, centrosDeCosto, subCentrosDeCosto, vehiculos, new[] { -1 }, desde, hasta);

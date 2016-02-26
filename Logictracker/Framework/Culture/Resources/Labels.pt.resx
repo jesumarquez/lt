@@ -2577,6 +2577,9 @@
   <data name="DOC_FIELDTYPE_INTEGER" xml:space="preserve">
     <value>Numérico Integer</value>
   </data>
+  <data name="DOC_FIELDTYPE_BARCODE" xml:space="preserve">
+    <value>TextBarcode   </value>
+  </data>
   <data name="DOC_FIELDTYPE_TANQUE" xml:space="preserve">
     <value>Tanque</value>
   </data>
@@ -4590,5 +4593,8 @@
   </data>
   <data name="TIPO_INFRACCION" xml:space="preserve">
     <value>Tipo do violação</value>
+  </data>
+  <data name="CONTENEDORES" xml:space="preserve">
+    <value>Contentores</value>
   </data>
 </root>

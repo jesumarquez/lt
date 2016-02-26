@@ -269,7 +269,7 @@ namespace Logictracker.Web.Documentos
                 case TipoParametroDocumento.String:
                     AddParameterString(par, id, style);
                     break;
-                case TipoParametroDocumento.StringBarcode:
+                case TipoParametroDocumento.Barcode:
                     AddParameterString(par, id, style);
                     break;
                 case TipoParametroDocumento.DateTime:
@@ -452,7 +452,7 @@ namespace Logictracker.Web.Documentos
                 case TipoParametroDocumento.String:
                     SetStringValue(ctl, val, repeticion);
                     break;
-                case TipoParametroDocumento.StringBarcode:
+                case TipoParametroDocumento.Barcode:
                     SetStringValue(ctl, val, repeticion);
                     break;
                 case TipoParametroDocumento.DateTime:
