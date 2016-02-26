@@ -40,7 +40,7 @@
                         <cwc:ResourceLabel ID="lblLinea" runat="server" ResourceName="Entities" VariableName="PARENTI02" Width="100px" />
                         <asp:UpdatePanel ID="upLinea" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                             <ContentTemplate>
-                                <cwc:PlantaDropDownList ID="cbLinea" runat="server" Width="100%" ParentControls="cbEmpresa" AutoPostBack="True" OnSelectedIndexChanged="CbLineaSelectedIndexChanged" />
+                                <cwc:PlantaDropDownList ID="cbLinea" runat="server" Width="100%" ParentControls="cbEmpresa" AutoPostBack="True" OnSelectedIndexChanged="CbLineaSelectedIndexChanged" AddAllItem="true" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Logictracker.Configuration;
-using Logictracker.DatabaseTracer.Core;
-using Logictracker.Mailing;
-using Logictracker.Scheduler.Core.Tasks.BaseTasks;
+﻿using Logictracker.DatabaseTracer.Core;
 using Logictracker.Messaging;
-using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
-using Logictracker.Services.Helpers;
+using Logictracker.Scheduler.Core.Tasks.BaseTasks;
+using System;
+using System.Linq;
 
 namespace Logictracker.Scheduler.Tasks.GeneracionTareas
 {
@@ -58,14 +52,24 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                         STrace.Trace(GetType().FullName, string.Format("Procesando vehículo: {0}({1})", vehiculo.Interno, vehiculo.Id));
 
                         var detenciones = DaoFactory.LogMensajeDAO.GetByVehicleAndCode(vehiculo.Id, MessageCode.StoppedEvent.GetMessageCode(), Desde, Hasta, 1).Where(e => e.IdPuntoDeInteres.HasValue);
-                
+
+                        var mayoresa3horas = detenciones.Where(d => d.Duracion > new TimeSpan(3,0,0).TotalSeconds);
+                        var mayoresa10min = detenciones.Where(d => d.Duracion < new TimeSpan(3,0,0).TotalSeconds && d.Duracion > new TimeSpan(0,10,0).TotalSeconds);
                         STrace.Trace(GetType().FullName, string.Format("Detenciones a procesar: {0}", detenciones.Count()));
 
                         var i = 1;
-                        foreach (var detencion in detenciones)
+                        var enInfraccion = false;
+                        foreach (var detencion in mayoresa3horas)
                         {
-                            STrace.Trace(GetType().FullName, string.Format("Procesando detención: {0}/{1}", i, detenciones.Count()));
+                            var anterior = DaoFactory.LogMensajeDAO.GetLastByVehicleAndCode(vehiculo.Id, MessageCode.StoppedEvent.GetMessageCode(), detencion.Fecha, detencion.Fecha.AddDays(-1), 1);
+                            if (anterior != null)
+                            {
+                                var tiempoEntreDetenciones = detencion.Fecha.Subtract(anterior.FechaFin.Value);
+                                if (tiempoEntreDetenciones.Hours > 8)
+                                {
 
+                                }
+                            }
                         }
                     
                         STrace.Trace(GetType().FullName, string.Format("Vehículos a procesar: {0}", --vehiculosPendientes));

@@ -745,11 +745,6 @@ namespace Logictracker.CicloLogistico.Distribucion
                     var tipoVehiculo = cbTipoVehiculoProg.Selected > 0 ? DAOFactory.TipoCocheDAO.FindById(cbTipoVehiculoProg.Selected) : null;
                     var transportista = cbTransportistaProg.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(cbTransportistaProg.Selected) : null;
                     var tipoCiclo = cbTipoCicloProg.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloProg.Selected) : null;
-
-                    var linea = vehiculo != null && vehiculo.Linea != null
-                                    ? vehiculo.Linea
-                                    : DAOFactory.LineaDAO.GetList(new[] { empresa.Id }).FirstOrDefault();
-
                     var codigo = txtCodigoProg.Text;
                     var fecha = dtFechaProg.SelectedDate.Value.ToDataBaseDateTime();
 
@@ -758,7 +753,6 @@ namespace Logictracker.CicloLogistico.Distribucion
                         Alta = DateTime.UtcNow,
                         Codigo = codigo,
                         Empresa = empresa,
-                        Linea = linea,
                         Estado = ViajeDistribucion.Estados.Pendiente,
                         Inicio = fecha,
                         Fin = fecha,

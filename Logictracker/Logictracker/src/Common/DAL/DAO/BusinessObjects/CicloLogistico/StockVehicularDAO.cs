@@ -15,5 +15,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico
                         .FilterTipoVehiculo(Session, empresas, new[] { -1 }, tiposVehiculo)
                         .ToList();
         }
+
+        public StockVehicular GetByZonaAndTipoCoche(int idZona, int idTipoCoche)
+        {
+            return Query.Where(s => s.Zona.Id == idZona
+                                 && s.TipoCoche.Id == idTipoCoche)
+                        .FirstOrDefault();
+        }
     }
 }

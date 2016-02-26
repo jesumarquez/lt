@@ -136,14 +136,11 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         private void SetVehicles()
         {
-            var ids = GetListOfInt("Ids");
             var distrito = GetInt32("Distrito");
 
             if (distrito.HasValue)
-                Vehicles = DaoFactory.CocheDAO.GetList(new[] { distrito.Value }, new[] { -1 }).Select(v => v.Id).ToList();
-            else if (ids != null && ids.Count > 0)
-                Vehicles = ids;
-
+                Vehicles = DaoFactory.CocheDAO.FindAllActivos().Where(v => v.Empresa != null && v.Empresa.Id == distrito).Select(v => v.Id).ToList();
+            
             VehiclesToProcess = Vehicles.Count;
         }
 

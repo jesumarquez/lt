@@ -460,7 +460,8 @@ namespace Logictracker.CicloLogistico
                 ReferenciaGeografica anterior = null;
                 var kmCalculados = 0.0;
                 var duracion = new TimeSpan();
-                foreach (var detalle in ciclo.Detalles)
+                var dets = ciclo.Detalles.OrderBy(d => d.Orden);
+                foreach (var detalle in dets)
                 {
                     var actual = detalle.PuntoEntrega != null 
                                     ? detalle.PuntoEntrega.ReferenciaGeografica

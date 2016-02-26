@@ -4864,4 +4864,7 @@
   <data name="TIPO_INFRACCION" xml:space="preserve">
     <value>Tipo de infracción</value>
   </data>
+  <data name="CONTENEDORES" xml:space="preserve">
+    <value>Contenedores</value>
+  </data>
 </root>

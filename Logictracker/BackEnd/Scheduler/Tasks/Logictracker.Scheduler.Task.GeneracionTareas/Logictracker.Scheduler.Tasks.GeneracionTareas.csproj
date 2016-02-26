@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActualizacionStockVehicularTask.cs" />
     <Compile Include="ControlDescansoTask.cs" />
     <Compile Include="GeneracionInversaTask.cs" />
     <Compile Include="Task.cs" />
