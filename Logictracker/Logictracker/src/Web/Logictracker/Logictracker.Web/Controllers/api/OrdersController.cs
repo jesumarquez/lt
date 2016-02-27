@@ -19,7 +19,7 @@ namespace Logictracker.Web.Controllers.api
     public class OrdenesController : EntityController<Order, OrderDAO, OrderModel, OrdenesMapper>
     {
         IRoutingService RoutingService { get; set; }
-        OrdenDetallesMapper ordenDetalleMapper;
+        readonly OrdenDetallesMapper ordenDetalleMapper;
 
         public OrdenesController()
         {
@@ -72,14 +72,17 @@ namespace Logictracker.Web.Controllers.api
             var orderDetailList = new List<OrderDetailModel>();
             foreach (var orderDetail in orderDetails)
             {
-                var orderDetailModel = new OrderDetailModel();
-                orderDetailModel.Id = orderDetail.Id;
-                orderDetailModel.OrderId = orderId;
-                if (orderDetail.Insumo != null) orderDetailModel.Insumo = orderDetail.Insumo.Descripcion;
-                orderDetailModel.PrecioUnitario = orderDetail.PrecioUnitario;
-                orderDetailModel.Cantidad = orderDetail.Cantidad;
-                orderDetailModel.Descuento = orderDetail.Descuento;
+                var orderDetailModel = new OrderDetailModel
+                {
+                    Id = orderDetail.Id,
+                    OrderId = orderId,
+                    PrecioUnitario = orderDetail.PrecioUnitario,
+                    Cantidad = orderDetail.Cantidad,
+                    Descuento = orderDetail.Descuento
+                };
 
+                if (orderDetail.Insumo != null) orderDetailModel.Insumo = orderDetail.Insumo.Descripcion;
+           
                 orderDetailList.Add(orderDetailModel);
             }
             return Ok(orderDetailList);
