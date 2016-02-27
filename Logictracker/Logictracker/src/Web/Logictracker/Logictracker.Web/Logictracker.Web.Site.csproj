@@ -64,10 +64,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Win.C1Chart.2.dll</HintPath>
     </Reference>
-    <Reference Include="CDT.ColorPickerExtender, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Resources\CDT.ColorPickerExtender.dll</HintPath>
-    </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +79,10 @@
     <Reference Include="Commons, Version=0.4.2.8580, Culture=neutral, PublicKeyToken=44382d1b57473eda">
       <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Commons.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Compumap.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\Compumap.Controls\Compumap.Controls.dll</HintPath>
     </Reference>
     <Reference Include="ExtExtenders, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -5183,6 +5183,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4aefc2c1-47ff-444d-96a1-eb57fba1be7f}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Web\ColorPickerExtender\ColorPickerExtender.csproj">
+      <Project>{01dc3c5e-6f1d-48fe-bcac-b38642a2ec59}</Project>
+      <Name>ColorPickerExtender</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Web\Logictracker.Common.Web\Logictracker.Web.csproj">
       <Project>{327f6143-1118-4881-8c79-5f0913f63f6b}</Project>

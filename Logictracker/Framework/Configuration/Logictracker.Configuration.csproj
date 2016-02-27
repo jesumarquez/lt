@@ -92,6 +92,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)..\..\Resources\xsd.exe" "$(ProjectDir)Cameras\Logictracker.Cameras.xsd" /c /o:"$(ProjectDir)Cameras" /edb /l:cs /n:Logictracker.Configuration.Cameras</PreBuildEvent>
+    <PreBuildEvent>rem "$(ProjectDir)..\..\Resources\xsd.exe" "$(ProjectDir)Cameras\Logictracker.Cameras.xsd" /c /o:"$(ProjectDir)Cameras" /edb /l:cs /n:Logictracker.Configuration.Cameras</PreBuildEvent>
   </PropertyGroup>
 </Project>
