@@ -77,7 +77,6 @@ function OrderDetailDirective() {
         var vm = this;
 
         vm.gridOptions = {
-            selectable: "multiple",
             scrollable: false,
             sortable: true,
             columns: [
