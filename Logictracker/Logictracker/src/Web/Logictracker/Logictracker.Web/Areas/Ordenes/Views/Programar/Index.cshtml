@@ -2,6 +2,8 @@
     ViewBag.Title = "Ordenes para Programar";
 }
 
+@*<h1>@ViewBag.Title</h1>*@
+
 <script id="tPuntoEntrega" type="text/x-kendo-template">
     <div>
         <span>#= data.Codigo #</span>
@@ -15,11 +17,11 @@
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
-                   @Html.ResourceLabel("Entities", "PARENTI01"):
+                    @Html.ResourceLabel("Entities", "PARENTI01"):
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">                    
+                <div class="col-md-12">
                     <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
                 </div>
             </div>
@@ -29,11 +31,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">                   
+                <div class="col-md-12">
                     <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
                 </div>
             </div>
-        </div>       
+        </div>
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
@@ -62,7 +64,7 @@
                 </div>
 
             </div>
-        </div>        
+        </div>
         <div class="col-md-2">
             <div class="row">
                 <div class="col-md-12">
@@ -73,12 +75,12 @@
                 <div class="col-md-12">
                     <input class="form-control" kendo-date-picker k-ng-model="desde" />
                 </div>
-            </div>            
-                <div class="row">
-                    <div class="col-md-12">
-                        @Html.ResourceLabel("Labels", "Hasta"):
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ResourceLabel("Labels", "Hasta"):
                 </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <input class="form-control" kendo-date-picker k-ng-model="hasta" />
@@ -95,9 +97,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <lt-ms-insumo lt-ng-model="insumoSelected"
-                                         lt-data-distrito="distritoSelected"
-                                         lt-data-base="baseSelected"
-                                         lt-depends-on="baseSelected" />
+                                  lt-data-distrito="distritoSelected"
+                                  lt-data-base="baseSelected"
+                                  lt-depends-on="baseSelected" />
                 </div>
             </div>
         </div>
@@ -105,70 +107,22 @@
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="form-control" kendo-button style="margin-top: 1.5em;min-width: 10em" ng-click="onBuscar()">@Html.ResourceLabel("Labels", "Buscar")</button>
+                    <button class="form-control" kendo-button ng-click="onBuscar()" style="margin-top: 1.5em; -moz-min-width: 10em; -ms-min-width: 10em; -o-min-width: 10em; -webkit-min-width: 10em; min-width: 10em" type="button">
+                        @Html.ResourceLabel("Labels", "Buscar")
+                    </button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="form-control" kendo-button style="margin-top: 1.5em; min-width: 10em" data-toggle="modal" data-target="#myModal">
+                    <button class="form-control" kendo-button ng-click="onAsignar()" style="margin-top: 1.5em; -moz-min-width: 10em; -ms-min-width: 10em; -o-min-width: 10em; -webkit-min-width: 10em; min-width: 10em" type="button">
                         @Html.ResourceLabel("Labels", "Asignar")
                     </button>
                 </div>
             </div>
         </div>
+
+    </div>
     
-    </div>
-    <h1>@ViewBag.Title</h1>
-    <div cass="row" style="margin-top: 1em;">
-        <div class="col-md-12">
-            
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Enviar a Distribución</h4>
-                        </div>
-                        <div style="height: 200px" class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="year" class="col-sm-4 control-label">Camión</label>
-                                    <div class="col-sm-8">
-                                        <lt-ddl-coche 
-                                                lt-ng-model="order.Vehicle"
-                                                lt-depends-on-base="baseSelected"
-                                                lt-data-distrito="distritoSelected"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="startDateTime" class="col-sm-4 control-label">Fecha/Hora Inicio</label>
-                                    <div class="col-sm-8">
-                                        <input id="startDateTime" kendo-date-time-picker k-ng-model="order.StartDateTime" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
-                                    <div class="col-sm-8">
-                                        <lt-ddl-tipo-ciclo-logistico 
-                                                lt-ng-model="order.LogisticsCycleType" 
-                                                lt-dependent-on="distritoSelected"  />
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="programOrders(order)">Programar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
             <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
@@ -176,6 +130,49 @@
     </div>
 
     <span kendo-notification="notify"></span>
+
+
+    <script type="text/ng-template" id="ordenes_programar.html">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Enviar a Distribución</h4>
+        </div>
+
+        <div style="height: 200px" class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="year" class="col-sm-4 control-label">Camión</label>
+                    <div class="col-sm-8">
+                        <lt-ddl-coche lt-ng-model="order.Vehicle"
+                                      lt-depends-on-base="baseSelected"
+                                      lt-data-distrito="distritoSelected" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="startDateTime" class="col-sm-4 control-label">Fecha/Hora Inicio</label>
+                    <div class="col-sm-8">
+                        <input id="startDateTime" kendo-date-time-picker k-ng-model="order.StartDateTime" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
+                    <div class="col-sm-8">
+                        <lt-ddl-tipo-ciclo-logistico lt-ng-model="order.LogisticsCycleType"
+                                                     lt-dependent-on="distritoSelected" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
+            <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="ok()">Programar</a>
+        </div>
+    </script>
+
 </div>
 
 

@@ -43,12 +43,17 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                             "~/Scripts/angular.js",
                             "~/Scripts/angular-route.js",
-                            "~/Scripts/angular-ui-bootstrap-modal.js",
+                            "~/Scripts/angular-animate.js",
                             "~/Scripts/angular-resource.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angularjs-ui").Include(
+                          "~/Scripts/angular-ui/ui-bootstrap.js",
+                          "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs-mocks").Include(
                           "~/Scripts/angular-mocks.js"));
-           
+                
             // Kendo
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
                  //  "~/Scripts/kendo/2014.2.1008/jquery-2.1.1.js",
