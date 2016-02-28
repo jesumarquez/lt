@@ -41,30 +41,30 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, $uibMo
             { field: "CodigoPedido", title: "Codigo Pedido" },
             { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
         ],
-        detailTemplate: '<div kendo-grid k-options="detailGridOptions(dataItem)"></div>',
+        detailTemplate: '<order-detail lt-ng-order-id="dataItem.Id" lt-ng-selected-list="productsSelected"/>',
     }
 
-    $scope.detailGridOptions = function (dataItem) {
-        var insumoList = [];
+    //$scope.detailGridOptions = function (dataItem) {
+    //    var insumoList = [];
 
-        if ($scope.insumoSelected.length > 0) {
-            var insumoList = $scope.insumoSelected.map(function (e) { return e.Key; });
-        }
+    //    if ($scope.insumoSelected.length > 0) {
+    //        var insumoList = $scope.insumoSelected.map(function (e) { return e.Key; });
+    //    }
 
-        return {
+    //    return {
 
-            dataSource: OrdenesService.ordenDetalles(dataItem, insumoList, null, onFail),
-            scrollable: false,
-            sortable: true,
-            columns: [
-                { field: "Insumo", title: "Producto", width: "160px" },
-                { field: "Cantidad", title: "Litros" },
-                { template: '<lt-ordenes-chk-producto />' }
-            ]
-        }
-    };
+    //        dataSource: OrdenesService.ordenDetalles(dataItem, insumoList, null, onFail),
+    //        scrollable: false,
+    //        sortable: true,
+    //        columns: [
+    //            { field: "Insumo", title: "Producto", width: "160px" },
+    //            { field: "Cantidad", title: "Litros" },
+    //            { template: '<lt-ordenes-chk-producto />' }
+    //        ]
+    //    }
+    //};
 
-    $scope.productsSelected = {};
+    $scope.productsSelected = [];
 
     $scope.distritoSelected = {};
 
