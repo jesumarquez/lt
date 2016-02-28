@@ -70,4 +70,58 @@
         template: '<input class="checkbox" type="checkbox" ng-model="checked" />'
     };
 })
-;
+.directive('orderDetail', OrderDetailDirective);
+
+function OrderDetailDirective() {
+    var controller = function ($scope, OrdenesService) {
+        var vm = this;
+
+        vm.gridOptions = {
+            selectable: "multiple",
+            scrollable: false,
+            sortable: true,
+            columns: [
+                { field: "Insumo", title: "Producto", width: "160px" },
+                { field: "Cantidad", title: "Litros" },
+                { template: "<input type='checkbox' ng-click='productos.onSelected(dataItem)'/>" }
+            ]
+        };
+
+        vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], null, onFail);
+
+        vm.onSelected = function (data) {
+            var index = vm.selectedList.indexOf(data);
+
+            if (index > -1)
+                vm.selectedList.splice(index, 1);
+            else
+                vm.selectedList.push(data);
+
+            console.log(vm.selectedList);
+            if (vm.selectedList.length > 0) {
+                console.log(vm.selectedList[vm.selectedList.length - 1].Id);
+            }
+        };
+
+        function onFail(e) {
+            $scope.$emit('errorEvent', e);
+        };
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            orderId: "=ltNgOrderId",
+            selectedList: "=ltNgSelectedList"
+        },
+        controller: ['$scope', 'OrdenesService', controller],
+        controllerAs: 'productos',
+        bindToController: true,
+        template: [
+            '<div kendo-grid ',
+            'k-options="productos.gridOptions" ',
+            'k-data-source="productos.ds"></div>'
+        ].join('')
+    };
+
+}
