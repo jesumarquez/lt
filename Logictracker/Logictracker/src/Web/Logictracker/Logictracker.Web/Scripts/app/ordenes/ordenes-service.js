@@ -51,7 +51,7 @@ function OrdenesService($resource) {
         return ds;
     };
 
-    function getOrdenDetalles(data, list, onEnd, onFail)
+    function getOrdenDetalles(orderId, list, onEnd, onFail)
     {
         var ds = new kendo.data.DataSource({
             type: "aspnetmvc-ajax",
@@ -61,7 +61,7 @@ function OrdenesService($resource) {
                     traditional: true,
                     dataType: "json",
                     url: function (op) {
-                        return "/api/ordenes/" + data.Id;
+                        return "/api/ordenes/" + orderId;
                     },
                     data: { insumos: list }
                 }
