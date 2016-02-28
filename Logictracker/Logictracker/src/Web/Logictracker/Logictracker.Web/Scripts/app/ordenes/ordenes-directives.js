@@ -89,12 +89,24 @@ function OrderDetailDirective() {
         vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], null, onFail);
 
         vm.onSelected = function (data) {
-            var index = vm.selectedList.indexOf(data);
+            var index = -1;
 
-            if (index > -1)
+            var found = $.grep(vm.selectedList, function (item) {
+                return item.Id === data.Id;
+            });
+
+            if (found.length > 0) {
+                index = vm.selectedList.indexOf(found[0]);
+            }
+
+            if (index > -1) {
                 vm.selectedList.splice(index, 1);
-            else
+                data.checked = false;
+            }
+            else {
                 vm.selectedList.push(data);
+                data.checked = true;
+            }
         };
 
         function onFail(e) {
