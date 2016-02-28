@@ -77,7 +77,6 @@ function OrderDetailDirective() {
         var vm = this;
 
         vm.gridOptions = {
-            selectable: "multiple",
             scrollable: false,
             sortable: true,
             columns: [
@@ -90,16 +89,23 @@ function OrderDetailDirective() {
         vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], null, onFail);
 
         vm.onSelected = function (data) {
-            var index = vm.selectedList.indexOf(data);
+            var index = -1;
 
-            if (index > -1)
+            var found = $.grep(vm.selectedList, function (item) {
+                return item.Id === data.Id;
+            });
+
+            if (found.length > 0) {
+                index = vm.selectedList.indexOf(found[0]);
+            }
+
+            if (index > -1) {
                 vm.selectedList.splice(index, 1);
-            else
+                data.checked = false;
+            }
+            else {
                 vm.selectedList.push(data);
-
-            console.log(vm.selectedList);
-            if (vm.selectedList.length > 0) {
-                console.log(vm.selectedList[vm.selectedList.length - 1].Id);
+                data.checked = true;
             }
         };
 
