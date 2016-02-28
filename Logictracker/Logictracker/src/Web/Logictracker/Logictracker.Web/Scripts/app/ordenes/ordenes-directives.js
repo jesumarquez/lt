@@ -95,11 +95,6 @@ function OrderDetailDirective() {
                 vm.selectedList.splice(index, 1);
             else
                 vm.selectedList.push(data);
-
-            console.log(vm.selectedList);
-            if (vm.selectedList.length > 0) {
-                console.log(vm.selectedList[vm.selectedList.length - 1].Id);
-            }
         };
 
         function onFail(e) {
