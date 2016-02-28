@@ -461,31 +461,31 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td colspan="2" class="Grid_Header">
-                                    <cwc:ResourceLabel runat="server" ID="lblReferencia" ResourceName="Labels" VariableName="REFFERENCE" />
+                                    <cwc:ResourceLabel runat="server" ID="lblRecorrido" ResourceName="Labels" VariableName="RECORRIDO" />
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px; background-color: #228b22"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel23" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_REAL" />.<cwc:ResourceLabel ID="ResourceLabel24" runat="server"  ResourceName="Labels" VariableName="IDA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel23" runat="server"  ResourceName="Labels" VariableName="REAL" />.<cwc:ResourceLabel ID="ResourceLabel24" runat="server"  ResourceName="Labels" VariableName="IDA" />
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px;background-color: #0000FF"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel25" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_REAL" />.<cwc:ResourceLabel ID="ResourceLabel26" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel25" runat="server"  ResourceName="Labels" VariableName="REAL" />.<cwc:ResourceLabel ID="ResourceLabel26" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
                                 </td>
                             </tr>
                             <tr runat="server" ID="trCalculadoIda">
                                 <td style="width: 20px; height: 20px;background-color: #FF0000"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel27" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel28" runat="server"  ResourceName="Labels" VariableName="IDA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel27" runat="server"  ResourceName="Labels" VariableName="CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel28" runat="server"  ResourceName="Labels" VariableName="IDA" />
                                 </td>
                             </tr>
                             <tr runat="server" ID="trCalculadoVuelta">
                                 <td style="width: 20px; height: 20px;background-color: #9400d3"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel29" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel30" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel29" runat="server"  ResourceName="Labels" VariableName="CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel30" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
                                 </td>
                             </tr>
                         </table>
@@ -493,26 +493,26 @@
                     <asp:Panel runat="server" ID="panelReferenciaSimple" Visible="False">
                         <table style="width: 100%;">
                             <tr>
-                                <td colspan="2" class="Grid_Header"><cwc:ResourceLabel runat="server" ID="ResourceLabel5" ResourceName="Labels" VariableName="REFFERENCE" /></td>
+                                <td colspan="2" class="Grid_Header"><cwc:ResourceLabel runat="server" ID="ResourceLabel5" ResourceName="Labels" VariableName="RECORRIDO" /></td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px; background-color: #228b22"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel31" runat="server" ResourceName="Labels" VariableName="RECORRIDO_REAL" />: 
+                                    <cwc:ResourceLabel ID="ResourceLabel31" runat="server" ResourceName="Labels" VariableName="REAL" />: 
                                     <asp:Label ID="lblKmReales" runat="server" />
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px; background-color: #ff7f50"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel21" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_PROGRAMADO" />: 
+                                    <cwc:ResourceLabel ID="ResourceLabel21" runat="server"  ResourceName="Labels" VariableName="PROGRAMADO" />: 
                                     <asp:Label ID="lblKmProgramados" runat="server" />
                                 </td>
                             </tr>
                             <tr runat="server" ID="trCalculado">
                                 <td style="width: 20px; height: 20px;background-color: #FF0000"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel32" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_CALCULADO" />: 
+                                    <cwc:ResourceLabel ID="ResourceLabel32" runat="server"  ResourceName="Labels" VariableName="CALCULADO" />: 
                                     <asp:Label ID="lblKmCalculados" runat="server" />
                                 </td>
                             </tr>

@@ -123,7 +123,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             if (_editMode)
             {
                 e.Row.Attributes.Remove("onclick");
-                var vehiculos = DAOFactory.CocheDAO.GetList(new[] { ticket.IdEmpresa }, new[] { ticket.IdLinea }).OrderBy(c => c.Interno);
+                var vehiculos = DAOFactory.CocheDAO.GetList(new[] { ticket.IdEmpresa }, new[] { ticket.IdLinea }, new[] { ticket.IdTipoVehiculo }).OrderBy(c => c.Interno);
 
                 cbVehiculo.Items.Add(new ListItem("Ninguno", "0"));
                 foreach (var vehiculo in vehiculos)
@@ -458,11 +458,12 @@ namespace Logictracker.CicloLogistico.Distribucion
         {
             var empresas = viaje.Empresa != null ? new[] {viaje.Empresa.Id} : new[] {-1};
             var lineas = viaje.Linea != null ? new[] {viaje.Linea.Id} : new[] {-1};
+            var tiposVehiculo = viaje.TipoCoche != null ? new[] { viaje.TipoCoche.Id } : new[] { -1 };
             var centros = viaje.CentroDeCostos != null ? new[] {viaje.CentroDeCostos.Id} : new[] {-1};
             var subCentros = viaje.SubCentroDeCostos != null ? new[] {viaje.SubCentroDeCostos.Id} : new[] {-1};
             var todos = new[] {-1};
 
-            var vehiculos = DAOFactory.CocheDAO.GetList(empresas, lineas, todos, todos, todos, centros, subCentros, true);
+            var vehiculos = DAOFactory.CocheDAO.GetList(empresas, lineas, tiposVehiculo, todos, todos, centros, subCentros, true);
 
             cbVehiculoAsociar.ClearItems();
             foreach (var vehiculo in vehiculos)

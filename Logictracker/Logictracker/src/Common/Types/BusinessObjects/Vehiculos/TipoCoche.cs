@@ -61,6 +61,13 @@ namespace Logictracker.Types.BusinessObjects.Vehiculos
 
         public virtual ISet<Odometro> Odometros { get { return _odometros ?? (_odometros = new HashSet<Odometro>()); } }
 
+        private IList<Contenedor> _contenedores;
+        public virtual IList<Contenedor> Contenedores
+        {
+            get { return _contenedores ?? (_contenedores = new List<Contenedor>()); }
+            set { _contenedores = value; }
+        }
+
         #endregion
 
         #region Public Methods

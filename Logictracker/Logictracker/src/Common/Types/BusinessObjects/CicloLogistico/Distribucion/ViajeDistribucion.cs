@@ -9,7 +9,7 @@ using Logictracker.Services.Helpers;
 namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
 {
     [Serializable]
-    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto, IHasTransportista
+    public class ViajeDistribucion : IAuditable, ISecurable, IHasVehiculo, IHasEmpleado, IHasCentroDeCosto, IHasSubCentroDeCosto, IHasTransportista, IHasTipoVehiculo
     {
         public static class Estados
         {
@@ -54,6 +54,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual SubCentroDeCostos SubCentroDeCostos { get; set; }
         public virtual Coche Vehiculo { get; set; }
         public virtual TipoCicloLogistico TipoCicloLogistico { get; set; }
+        public virtual TipoCoche TipoCoche { get; set; }
         public virtual Empleado Empleado { get; set; }
         public virtual string Codigo { get; set; }
         public virtual int NumeroViaje { get; set; }

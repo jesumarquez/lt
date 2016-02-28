@@ -151,6 +151,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
             return Query.FilterEmpresa(Session, new[]{ empresa }).FirstOrDefault(c => c.Patente == patente);
         }
 
+        public Coche FindByPatente(IEnumerable<int> empresas, string patente)
+        {
+            return Query.FilterEmpresa(Session, empresas).FirstOrDefault(c => c.Patente == patente);
+        }
+
         public IEnumerable<Coche> FindByPatentes(int empresa, IEnumerable<string> patentes)
         {
             return Query.FilterEmpresa(Session, new[] { empresa })

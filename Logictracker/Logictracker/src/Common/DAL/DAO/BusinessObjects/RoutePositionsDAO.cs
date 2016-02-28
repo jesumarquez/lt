@@ -59,11 +59,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .OrderBy(pos => pos.Date)
                 .ToList();
 
-            foreach (var r in results)
-            {
-                r.Recieved = r.Recieved.ToDisplayDateTime();
-                r.Date = r.Date.ToDisplayDateTime();
-            }
+            //foreach (var r in results)
+            //{
+            //    r.Recieved = r.Recieved.ToDisplayDateTime();
+            //    r.Date = r.Date.ToDisplayDateTime();
+            //}
 
             return results;
         }

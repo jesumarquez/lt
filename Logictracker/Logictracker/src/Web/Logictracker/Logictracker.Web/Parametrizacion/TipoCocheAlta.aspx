@@ -90,7 +90,7 @@
                         
                         <cwc:ResourceLabel ID="ResourceLabel10" runat="server" ResourceName="Labels" VariableName="DESVIO_MAXIMO" />
                         <c1:C1NumericInput runat="server" ID="npDesvioMaximo" DecimalPlaces="0" MaxValue="999" MinValue="0" Width="100px" Height="15px" Value="0" SmartInputMode="true" />
-                        
+
                     </cwc:AbmTitledPanel>
                 </td>
                 <td style="width: 50%; vertical-align: top;"> 
@@ -115,6 +115,39 @@
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </cwc:AbmTitledPanel>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <cwc:TitledPanel ID="tpContenedores" runat="server" TitleVariableName="CONTENEDORES" TitleResourceName="Labels" >
+                        <asp:UpdatePanel ID="updContenedores" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                            <ContentTemplate>
+        
+                            <C1:C1GridView id="gridContenedores" runat="server" Width="100%" cssclass="SmallGrid" autogeneratecolumns="False" OnRowDataBound="gridContenedores_RowDataBound">
+                                <Columns>
+                                    <c1h:C1ResourceTemplateColumn ResourceName="Labels" VariableName="DESCRIPCION" SortDirection="Ascending" SortExpression="Descripcion">
+                                        <ItemStyle Width="50%" />
+                                        <ItemTemplate>
+                                        <asp:TextBox ID="txtDescripcion" runat="server" Width="100%" />
+                                        </ItemTemplate>
+                                    </c1h:C1ResourceTemplateColumn>
+                                    <c1h:C1ResourceTemplateColumn ResourceName="Labels" VariableName="CAPACIDAD">
+                                        <ItemStyle Width="50%" />
+                                        <ItemTemplate>
+                                        <asp:TextBox ID="txtCapacidad" runat="server" Width="100%" />
+                                        </ItemTemplate>
+                                    </c1h:C1ResourceTemplateColumn>
+                                </Columns>
+                            </C1:C1GridView>
+                            <div style="text-align: right;">
+                                <asp:Button  ID="btAddContenedor" runat="server" Text="Agregar contenedor" CssClass="LogicButton" OnClick="btAddContenedor_Click"/>
+                            </div>
+                            </ContentTemplate>
+                            </asp:UpdatePanel>
+                    </cwc:TitledPanel>
+                </td>
+                <td>
+
                 </td>
             </tr>
         </table>

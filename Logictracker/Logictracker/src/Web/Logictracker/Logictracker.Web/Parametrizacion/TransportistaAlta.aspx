@@ -27,6 +27,9 @@
                             </Triggers>
                         </asp:UpdatePanel>
     
+                        <cwc:ResourceLabel ID="ResourceLabel12" runat="server" ResourceName="Labels" VariableName="CODE" />
+                        <asp:TextBox runat="server" id="txtCodigo" Width="99%" MaxLength="32" />
+
                         <cwc:ResourceLabel ID="ResourceLabel3" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" />
                         <asp:TextBox runat="server" id="txtDescripcion" Width="99%" MaxLength="64" />
     

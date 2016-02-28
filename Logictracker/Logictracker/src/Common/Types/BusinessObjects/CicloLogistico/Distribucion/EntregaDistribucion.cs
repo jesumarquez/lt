@@ -41,7 +41,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
             }
 
             public static List<short> EstadosOk { get { return new List<short> { Completado, Visitado, EnSitio, EnZona }; } }
-            public static List<short> EstadosFinales { get { return new List<short> { Completado, Visitado, Cancelado }; } }
+            public static List<short> EstadosFinales { get { return new List<short> { Completado, Visitado, Cancelado, NoCompletado }; } }
 
             public static List<int> TodosEstados
             {

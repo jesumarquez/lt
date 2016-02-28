@@ -36,6 +36,38 @@
                     'k-data-source="estadoDS" ' +
                     'k-data-text-field="\'Value\'" ' +
                     'k-data-value-field="\'Key\'" ' +
-                    'k-ng-model="estadoSelected" />' 
+                    'k-ng-model="estadoSelected" />'
     };
-});
+})
+.directive('ltOrdenesChkProducto', function () {
+
+    var controller = ['$scope','$log', function ($scope,$log) {
+
+        $scope.$log = $log;
+
+        $scope.checked = false;
+
+        $scope.$watch('checked', function(newValue,oldValue) {
+            $scope.$log.info(newValue);
+            // cambiar el estado deacuerdo al check usando data
+        });
+
+        function init() {
+            // verificar si esta checkeado desde data
+        }
+
+        init();
+    }];
+
+    return {
+        controller: controller,
+        retrict: 'E',
+        replace: true,
+        scope: {
+            data: '=',
+            checked: '='
+        },
+        template: '<input class="checkbox" type="checkbox" ng-model="checked" />'
+    };
+})
+;

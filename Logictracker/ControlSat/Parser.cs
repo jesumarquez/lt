@@ -259,7 +259,7 @@ namespace ControlSat
 
         protected override UInt32 NextSequenceMin()
         {
-            return 0x0000;
+            return 0x0005;
         }
 
         protected override UInt32 NextSequenceMax()
@@ -369,11 +369,11 @@ namespace ControlSat
             Ejemplo : XXX111|2015-12-29 10:01:32|-33.95115|-59.40005|90|150|01|            
              
              */
-            ulong msgId = ulong.Parse(parser[6]); 
+            ulong msgId = NextSequence;// ulong.Parse(parser[6]); 
             GPSPoint pos;
             var code = EventCodes.Position;
             var time = DateTime.ParseExact(parser[1], "yyyy-MM-dd HH:mm:ss",
-                           System.Globalization.CultureInfo.InvariantCulture);
+                           System.Globalization.CultureInfo.InvariantCulture).AddHours(3);
             var lat = float.Parse(parser[2].Replace('.', ','));
             var lon = float.Parse(parser[3].Replace('.', ','));
             var vel = float.Parse(parser[4]);

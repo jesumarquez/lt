@@ -74,7 +74,9 @@
     <Compile Include="BusinessObjects\CicloLogistico\Recorrido.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\DetalleRecorrido.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\SosTicket.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\DetalleStockVehicular.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\TimeTracking\EventoViaje.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\StockVehicular.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\TipoServicioCiclo.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\TranslateFrameToClass.cs" />
     <Compile Include="BusinessObjects\ControlAcceso\CategoriaAcceso.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="BusinessObjects\Messages\Infraccion.cs" />
     <Compile Include="BusinessObjects\ReferenciasGeograficas\TipoZona.cs" />
     <Compile Include="BusinessObjects\Rechazos\TicketRechazo.cs" />
+    <Compile Include="BusinessObjects\Vehiculos\Contenedor.cs" />
     <Compile Include="BusinessObjects\ZonaAcceso.cs" />
     <Compile Include="BusinessObjects\TipoZonaAcceso.cs" />
     <Compile Include="BusinessObjects\ReferenciaZona.cs" />
@@ -239,6 +242,7 @@
     <Compile Include="InterfacesAndBaseClasses\IHasSubCentroDeCosto.cs" />
     <Compile Include="InterfacesAndBaseClasses\IHasTipoZona.cs" />
     <Compile Include="InterfacesAndBaseClasses\IHasPuertaAcceso.cs" />
+    <Compile Include="InterfacesAndBaseClasses\IHasZona.cs" />
     <Compile Include="InterfacesAndBaseClasses\IHasZonaAcceso.cs" />
     <Compile Include="InterfacesAndBaseClasses\IHasZonaAccesoSalida.cs" />
     <Compile Include="InterfacesAndBaseClasses\IHasZonaAccesoEntrada.cs" />
