@@ -169,7 +169,7 @@ function SummaryProductsSelected() {
             '<div ng-show="summary.selectedList.length >0">',
                 '<ul class="SummaryContainer">',
                     '<li class="SummaryItem" ng-repeat="(key, value) in summary.selectedList | groupBy: \'Insumo\'">',
-                        '{{key}}: {{summary.totalByProduct(value)}}',
+                        '{{key}} ({{value.length}}): {{summary.totalByProduct(value)}}',
                     '</li>',
                 '</ul>',
             '</div>'
