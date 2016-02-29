@@ -251,7 +251,9 @@ function OrdenesAsignarController($scope, $log) {
                     "OrderId": { type: "number", editable: false },
                     "Insumo": { type: "string", editable: false },
                     "Cantidad": { type: "number", editable: false },
-                    "Descuento": { type: "number", editable: true }
+                    "Ajuste": { type: "number", editable: true },
+                    "Cuaderna": { type: "number", editable: true },
+                    "CocheId" : { type: "number", editable: true }
                 }
             },
         }
@@ -263,6 +265,12 @@ function OrdenesAsignarController($scope, $log) {
         l.appendTo(container);
     }
 
+    $scope.cuadernaEditor = function (container, options) {
+        ////var l = $('<lt-cuaderna-editor/>');
+         var l = $('<input kendo-combo-box/>');
+        l.appendTo(container);
+    }
+
     $scope.productosGridOptions =
     {
         columns: [
@@ -270,8 +278,8 @@ function OrdenesAsignarController($scope, $log) {
             { field: "OrderId", title: "Pedido", editor: $scope.noEdit },
             { field: "Insumo",  title: "Producto", editor: $scope.noEdit },
             { field: "Cantidad", title: "Litros", editor: $scope.noEdit },
-          //{ field: "Cuaderna", title: "Cuaderna", editor: $scope.noEdit},
-            { field: "Descuento", title: "Ajuste"},
+            { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor},
+            { field: "Ajuste", title: "Ajuste"},
           //{ field: "Total", title: "Total" ,editor: $scope.noEdit},
         ],
         editable: {

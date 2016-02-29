@@ -78,7 +78,10 @@ namespace Logictracker.Web.Controllers.api
                     OrderId = orderId,
                     PrecioUnitario = orderDetail.PrecioUnitario,
                     Cantidad = orderDetail.Cantidad,
-                    Descuento = orderDetail.Descuento
+                    Descuento = orderDetail.Descuento,
+                    Ajuste = orderDetail.Ajuste,
+                    ChocheId = 0,
+                    Cuaderna = -1,
                 };
 
                 if (orderDetail.Insumo != null) orderDetailModel.Insumo = orderDetail.Insumo.Descripcion;
