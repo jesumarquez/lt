@@ -15,6 +15,10 @@ namespace Logictracker.Web.Models
         public decimal PrecioUnitario { get; set; }
         public int Cantidad { get; set; }
         public decimal Descuento { get; set; }
+        public int Ajuste { get; set; }
+        public int ChocheId { get; set; }
+
+        public int Cuaderna { get; set; }
     }
 
     public class OrdenDetallesMapper : EntityModelMapper<OrderDetail, OrderDetailModel>
