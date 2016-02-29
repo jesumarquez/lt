@@ -1556,6 +1556,8 @@
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-filter.js" />
+    <Content Include="Scripts\angular-filter.min.js" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDispositivos.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDocumentos.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioEmpleados.xls" />

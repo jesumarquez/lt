@@ -1,4 +1,4 @@
-﻿angular.module('logictracker.ordenes.directives', [])
+﻿angular.module('logictracker.ordenes.directives', ['angular.filter'])
 .directive('ltOrdenesDistrito', function () {
     return {
         restrict: 'E',
@@ -70,7 +70,8 @@
         template: '<input class="checkbox" type="checkbox" ng-model="checked" />'
     };
 })
-.directive('orderDetail', OrderDetailDirective);
+.directive('orderDetail', OrderDetailDirective)
+.directive('summaryProductsSelected', SummaryProductsSelected);
 
 function OrderDetailDirective() {
     var controller = function ($scope, OrdenesService) {
@@ -82,11 +83,11 @@ function OrderDetailDirective() {
             columns: [
                 { field: "Insumo", title: "Producto", width: "160px" },
                 { field: "Cantidad", title: "Litros" },
-                { template: "<input type='checkbox' ng-click='productos.onSelected(dataItem)'/>" }
+                { template: "<input type='checkbox' ng-model='dataItem.checked' ng-change='productos.onSelected(dataItem)'/>" }
             ]
         };
 
-        vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], null, onFail);
+        vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], onDSLoad, onFail);
 
         vm.onSelected = function (data) {
             var index = -1;
@@ -109,6 +110,18 @@ function OrderDetailDirective() {
             }
         };
 
+        function onDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $.each(vm.selectedList, function (index, item) {
+                    $.each(e.response, function (dsIndex, dsItem) {
+                        if (dsItem.Id === item.Id) {
+                            dsItem.checked = true;
+                        }
+                    });
+                });
+            }
+        };
+
         function onFail(e) {
             $scope.$emit('errorEvent', e);
         };
@@ -127,6 +140,39 @@ function OrderDetailDirective() {
             '<div kendo-grid ',
             'k-options="productos.gridOptions" ',
             'k-data-source="productos.ds"></div>'
+        ].join('')
+    };
+
+}
+
+function SummaryProductsSelected() {
+    var controller = function ($scope) {
+        var vm = this;
+        vm.totalByProduct = function (items) {
+            var total = 0;
+            $.each(items, function (i, item) {
+                total += item.Cantidad;
+            });
+            return total;
+        };
+    };
+
+    return {
+        restrict: 'E',
+        scope: {
+            selectedList: "=ltNgSelectedList"
+        },
+        controller: ['$scope', controller],
+        controllerAs: 'summary',
+        bindToController: true,
+        template: [
+            '<div ng-show="summary.selectedList.length >0">',
+                '<ul class="SummaryContainer">',
+                    '<li class="SummaryItem" ng-repeat="(key, value) in summary.selectedList | groupBy: \'Insumo\'">',
+                        '{{key}}: {{summary.totalByProduct(value)}}',
+                    '</li>',
+                '</ul>',
+            '</div>'
         ].join('')
     };
 

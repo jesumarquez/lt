@@ -127,6 +127,8 @@
 
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
+			<button ng-show="productsSelected.length > 0" type="button" ng-click="clearProductsSelected()">Limpiar</button>
+			<div><summary-products-selected lt-ng-selected-list="productsSelected" /></div>
             <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
         </div>
     </div>
@@ -171,7 +173,7 @@
                     <div class="row">
 
                         <div class="col-sm-12">
-                            <div kendo-grid="productosGrid" k-options="productosGridOptions" k-data-source="ds"></div>
+							<div kendo-grid="productosGrid" k-options="productosGridOptions" k-data-source="ds"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -191,5 +193,3 @@
     </div>
 
 </div>
-
-
