@@ -171,6 +171,8 @@
 
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
+            <button ng-show="productsSelected.length > 0" type="button" ng-click="clearProductsSelected()">Limpiar</button>
+            <div><summary-products-selected lt-ng-selected-list="productsSelected" /></div>
             <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
         </div>
     </div>

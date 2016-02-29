@@ -1555,6 +1555,8 @@
     <Content Include="Reportes\Transportistas\ActividadTerceros.aspx" />
     <Content Include="Reportes\Transportistas\TransportMobileKilometers.aspx" />
     <Content Include="Reportes\Transportistas\TransportMobileTimes.aspx" />
+    <Content Include="Scripts\angular-filter.js" />
+    <Content Include="Scripts\angular-filter.min.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular-route.js" />
