@@ -44,6 +44,7 @@ namespace Logictracker.Web
                             "~/Scripts/angular.js",
                             "~/Scripts/angular-route.js",
                             "~/Scripts/angular-animate.js",
+                            "~/Scripts/angular-filter.js",
                             "~/Scripts/angular-resource.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/angularjs-ui").Include(

@@ -293,3 +293,18 @@ textarea {
 .sem-grey {
     background-color: grey;
 }
+
+.SummaryContainer{
+    background: papayawhip;
+    padding: .2em;
+    border-radius: 5px;
+}
+
+.SummaryItem{
+    background: lightblue;
+    padding: .5em;
+    display: inline-block;
+    margin: .3em;
+    font-size: 10px;
+    border-radius: 5px;
+}
