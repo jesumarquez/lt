@@ -9,20 +9,21 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-@RenderSection("PageScripts", required: false)
-@RenderBody()
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/angularjs")
-@Scripts.Render("~/bundles/kendo")
-@Scripts.Render("~/bundles/global")
-@Scripts.Render("~/bundles/angularjs-logictracker")
-@RenderSection("scripts", required: false)
-<script type="text/javascript">
-    // Asigna la cultura del lado del cliente en base a la configurada para el servidor (Ver <globalization>)
-    kendo.culture("es-AR");
-    //Globalize.culture("es-AR");
-    _baseUrl = "@(Url.Content("~/"))";
-</script>
+    @RenderSection("PageScripts", required: false)
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angularjs")
+    @*@Scripts.Render("~/bundles/angularjs-ui")*@
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/global")
+    @Scripts.Render("~/bundles/angularjs-logictracker")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        // Asigna la cultura del lado del cliente en base a la configurada para el servidor (Ver <globalization>)
+        kendo.culture("es-AR");
+        //Globalize.culture("es-AR");
+        _baseUrl = "@(Url.Content("~/"))";
+    </script>
 </body>
 </html>

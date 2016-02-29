@@ -1,16 +1,11 @@
 ﻿angular
-    .module('logictracker.ordenes.controller', ['kendo.directives'])
-    .controller('OrdenesController', ['$scope', 'EntitiesService', 'OrdenesService', OrdenesController]);
+    .module('logictracker.ordenes.controller', ['kendo.directives', 'ngAnimate'])
+    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService', OrdenesController])
+    .controller('OrdenesAsignarController', ['$scope', '$log', OrdenesAsignarController]);
 
-function OrdenesController($scope, EntitiesService, OrdenesService) {
+function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
     //$scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
     $scope.UserData = EntitiesService.resources.userData.get();
-    $scope.UserData.$promise.then(function () {
-        if ($scope.UserData.EmpleadoId === 0) {
-
-            onFail({ errorThrown: "Usuario sin empleado asociado" });
-        }
-    });
 
     $scope.order = {
         StartDateTime: new Date()
@@ -63,7 +58,7 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
     //    }
     //};
 
-    $scope.productsSelected = [];
+    $scope.productsSelected = new kendo.data.ObservableArray([]);
 
     $scope.distritoSelected = {};
 
@@ -249,5 +244,69 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
 
 }
 
+function OrdenesAsignarController($scope, $log) {
+
+    $scope.ds = new kendo.data.DataSource({
+        data: $scope.productsSelected,
+        schema:
+        {
+            model: {
+                id: "Id",
+                fields: {
+                    "Id": { type: "number", editable: false },
+                    "OrderId": { type: "number", editable: false },
+                    "Insumo": { type: "string", editable: false },
+                    "Cantidad": { type: "number", editable: false },
+                    "Descuento": { type: "number", editable: true }
+                }
+            },
+        }
+    });
+
+    $scope.noEdit = function (container, options) {
+        var l = $('<span/>');
+        l.text(options.model[options.field]);
+        l.appendTo(container);
+    }
+
+    $scope.productosGridOptions =
+    {
+        columns: [
+            { field: "Id", hidden: true },
+            { field: "OrderId", title: "Pedido", editor: $scope.noEdit },
+            { field: "Insumo",  title: "Producto", editor: $scope.noEdit },
+            { field: "Cantidad", title: "Litros", editor: $scope.noEdit },
+          //{ field: "Cuaderna", title: "Cuaderna", editor: $scope.noEdit},
+            { field: "Descuento", title: "Ajuste"},
+          //{ field: "Total", title: "Total" ,editor: $scope.noEdit},
+        ],
+        editable: {
+            update: true,
+            destroy: false
+        }
+    };
+
+    $scope.cuadernasGridOptions =
+    {
+        columns:
+     [
+         { field: "Orden", title: "" },
+         { field: "Capacidad", title: "Capacidad" },
+         { field: "Seleccionados", title: "NP" },
+         { field: "Total", title: "Total" },
+         { field: "Disponible", title: "Disponible" },
+     ],
+    };
+
+    $scope.ok = function () {
+        $log.debug('ok');
+        //$uibModalInstance.close();
+    }
+
+    $scope.cancel = function () {
+        $log.debug('cancel');
+        //$uibModalInstance.dismiss();
+    }
 
 
+}

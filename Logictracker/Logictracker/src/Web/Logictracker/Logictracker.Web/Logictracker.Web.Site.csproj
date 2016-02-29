@@ -49,6 +49,10 @@
     <Reference Include="App_Licenses">
       <HintPath>..\..\..\..\..\Resources\App_Licenses.dll</HintPath>
     </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap, Version=3.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\packages\AspNet.ScriptManager.bootstrap.3.3.6\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="C1.Web.C1WebChart.2">
       <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.C1WebChart.2.dll</HintPath>
     </Reference>
@@ -165,9 +169,6 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="AspNet.ScriptManager.bootstrap">
-      <HintPath>..\..\..\..\..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
-    </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery">
       <HintPath>..\..\..\..\..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
     </Reference>
@@ -1261,9 +1262,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="MasterPages\AbmPage.master" />
     <Content Include="MasterPages\ImportPage.master" />
     <Content Include="MasterPages\ListPage.master" />
@@ -1555,17 +1553,11 @@
     <Content Include="Reportes\Transportistas\ActividadTerceros.aspx" />
     <Content Include="Reportes\Transportistas\TransportMobileKilometers.aspx" />
     <Content Include="Reportes\Transportistas\TransportMobileTimes.aspx" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-filter.js" />
     <Content Include="Scripts\angular-filter.min.js" />
-    <Content Include="Scripts\angular-resource.js" />
-    <Content Include="Scripts\angular-resource.min.js" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-route.min.js" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-resource.min.js.map" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDispositivos.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDocumentos.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioEmpleados.xls" />
@@ -1742,17 +1734,33 @@
     <Content Include="Areas\Ordenes\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\Estadisticas.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\EditItem.cshtml" />
-    <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
     <Content Include="Areas\Eventos\Views\web.config" />
     <Content Include="Areas\Eventos\Views\Eventos\Index.cshtml" />
     <Content Include="Areas\Eventos\Views\_ViewStart.cshtml" />
     <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\StockVehicularLista.xlsx" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
-    <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\common\common-directives.js" />
     <Content Include="Scripts\app\common\common-utilities.js" />
@@ -5122,6 +5130,7 @@
     <Folder Include="Areas\Eventos\Models\" />
     <Folder Include="Areas\Eventos\Views\Shared\" />
     <Folder Include="Areas\Ordenes\Models\" />
+    <Folder Include="Areas\Ordenes\Views\Shared\" />
     <Folder Include="Areas\Rechazos\Models\" />
     <Folder Include="Areas\Rechazos\Views\Shared\" />
     <Folder Include="Views\TipoMensaje\" />

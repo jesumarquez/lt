@@ -31,14 +31,14 @@
             model: "=ltNgModel",
             defaultValue: "=ltDefaultValue"
         },
+        replace: true,
         controller: ['$scope', '$filter', 'EntitiesService', DistritoController],
         template: [
 			'<input class="form-control" kendo-drop-down-list ',
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
         ].join('')
     };
 })
@@ -89,8 +89,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -132,8 +132,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -159,8 +159,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" />',
+
         ].join('')
     };
 })
@@ -191,8 +191,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -238,8 +238,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -265,8 +265,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -298,8 +298,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -494,7 +494,7 @@
         $scope.ds = EntitiesService.distrito.transportista.empleados(onDSLoad, onFail);
 
         $scope.$watch("dependsOn", onSelected);
-        
+
         function onSelected(newValue, oldValue) {
             if (newValue !== oldValue) {
                 if (newValue.length == 0) {
@@ -667,7 +667,7 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
+		        'k-ng-model="model" > ',
 			'</input>'
         ].join('')
     };
@@ -675,25 +675,27 @@
 .directive('ltDdlCoche', function () {
 
     function CocheController($scope, $filter, EntitiesService) {
-        $scope.dataSource = EntitiesService.distrito.coche(onDSLoad, onFail);
+        vm = this;
+        vm.ds = EntitiesService.distrito.coche(onDSLoad, onFail);
 
-        $scope.$watch("dependsOn", onSelected);
+        $scope.$watch("vm.dependsOn", onSelected);
 
         function onDSLoad(e) {
             if (e.type === "read" && e.response) {
-                $scope.model = e.response[0];
+                vm.model = e.response[0];
             }
         };
 
         function onSelected(newValue, oldValue) {
-            if (newValue != null && newValue !== oldValue) {
-                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });
+            if (vm.distrito != undefined && vm.dependsOn != undefined && newValue !== oldValue) {
+            vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.dependsOn.Key });
             }
         };
 
         function onFail(e) {
             $scope.$emit('errorEvent', e);
         }
+
     };
 
     return {
@@ -703,14 +705,16 @@
             dependsOn: "=ltDependsOnBase",
             distrito: "=ltDataDistrito"
         },
+        //replace: true,
         controller: ['$scope', '$filter', 'EntitiesService', CocheController],
+        controllerAs: 'vm',
+        bindToController: true,
         template: [
 			'<input class="form-control" kendo-drop-down-list ',
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
-		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-data-source="vm.ds" ',
+		        'k-ng-model="vm.model" /> '
         ].join('')
     };
 });
@@ -879,7 +883,7 @@
 
             var vm = this;
             vm.ds = EntitiesService.distrito.insumo(onDSLoad, onFail);
-         
+
             $scope.$watch("vm.dependsOn", onSelected);
 
             function onDSLoad(e) {
@@ -898,7 +902,7 @@
                     vm.ds.read({
                         distritoId: vm.distrito.Key,
                         baseId: vm.base.Key,
-                     });
+                    });
                 }
                 else {
                     vm.ds.data([]);
@@ -946,7 +950,7 @@
 
             vm.ds = EntitiesService.distrito.tipoCoche(onDSLoad, onFail);
 
-            $scope.$watch(function() { return vm.base; }, onBaseChange);
+            $scope.$watch(function () { return vm.base; }, onBaseChange);
 
             function onDSLoad(e) {
                 if (e.type === "read" && e.response) {
@@ -980,7 +984,7 @@
                     'k-data-text-field="\'Value\'" ',
                     'k-data-value-field="\'Key\'" ',
                     'k-data-source="tipoCoche.ds" ',
-                    'k-ng-model="tipoCoche.model" ',
+                    'k-ng-model="tipoCoche.model" > ',
                 '</input>'
             ].join('')
         };
@@ -1062,7 +1066,7 @@
 
             function onSelected(newValue, oldValue) {
                 if (newValue != null && newValue !== oldValue) {
-                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, excludeNone: true});
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, excludeNone: true });
                 }
             };
 
@@ -1118,7 +1122,7 @@
 
             function onSelected(newValue, oldValue) {
                 if (newValue != null && newValue !== oldValue) {
-                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key});
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
                 }
             };
 
