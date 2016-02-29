@@ -114,7 +114,9 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button class="form-control" kendo-button ng-click="onAsignar()" style="margin-top: 1.5em; -moz-min-width: 10em; -ms-min-width: 10em; -o-min-width: 10em; -webkit-min-width: 10em; min-width: 10em" type="button">
+                    <button class="form-control" kendo-button 
+                            style="margin-top: 1.5em; -moz-min-width: 10em; -ms-min-width: 10em; -o-min-width: 10em; -webkit-min-width: 10em; min-width: 10em" type="button"
+                            data-toggle="modal" data-target="#myModal">
                         @Html.ResourceLabel("Labels", "Asignar")
                     </button>
                 </div>
@@ -122,7 +124,7 @@
         </div>
 
     </div>
-    
+
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
             <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
@@ -132,46 +134,48 @@
     <span kendo-notification="notify"></span>
 
 
-    <script type="text/ng-template" id="ordenes_programar.html">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="OrdenesAsignarController">
+        <div class="modal-content" style="width: 50%">
 
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Enviar a Distribución</h4>
-        </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Enviar a Distribución</h4>
+            </div>
 
-        <div style="height: 200px" class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="year" class="col-sm-4 control-label">Camión</label>
-                    <div class="col-sm-8">
-                        <lt-ddl-coche lt-ng-model="order.Vehicle"
-                                      lt-depends-on-base="baseSelected"
-                                      lt-data-distrito="distritoSelected" />
+            <div style="height: 200px" class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="year" class="col-sm-4 control-label">Camión</label>
+                        <div class="col-sm-8">
+                            <lt-ddl-coche lt-ng-model="order.Vehicle"
+                                          lt-depends-on-base="baseSelected"
+                                          lt-data-distrito="distritoSelected" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="startDateTime" class="col-sm-4 control-label">Fecha/Hora Inicio</label>
-                    <div class="col-sm-8">
-                        <input id="startDateTime" kendo-date-time-picker k-ng-model="order.StartDateTime" />
+                    <div class="form-group">
+                        <label for="startDateTime" class="col-sm-4 control-label">Fecha/Hora Inicio</label>
+                        <div class="col-sm-8">
+                            <input id="startDateTime" kendo-date-time-picker k-ng-model="order.StartDateTime" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
-                    <div class="col-sm-8">
-                        <lt-ddl-tipo-ciclo-logistico lt-ng-model="order.LogisticsCycleType"
-                                                     lt-dependent-on="distritoSelected" />
+                    <div class="form-group">
+                        <label for="tipoCiclo" class="col-sm-4 control-label">Tipo de Ciclo Logistico</label>
+                        <div class="col-sm-8">
+                            <lt-ddl-tipo-ciclo-logistico lt-ng-model="order.LogisticsCycleType"
+                                                         lt-dependent-on="distritoSelected" />
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
-            <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="ok()">Programar</a>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
+                <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="ok()" data-dismiss="modal">Programar</a>
+            </div>
         </div>
-    </script>
+    </div>
 
 </div>
 

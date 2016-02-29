@@ -30,7 +30,7 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
 
-           
+
             // JQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                             "~/Scripts/jquery-{version}.js"));
@@ -46,21 +46,21 @@ namespace Logictracker.Web
                             "~/Scripts/angular-animate.js",
                             "~/Scripts/angular-resource.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/angularjs-ui").Include(
-                          "~/Scripts/angular-ui/ui-bootstrap.js",
-                          "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/angularjs-ui").Include(
+            //              "~/Scripts/angular-ui/ui-bootstrap.js",
+            //              "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs-mocks").Include(
                           "~/Scripts/angular-mocks.js"));
-                
+
             // Kendo
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
-                 //  "~/Scripts/kendo/2014.2.1008/jquery-2.1.1.js",
+                //  "~/Scripts/kendo/2014.2.1008/jquery-2.1.1.js",
                 "~/Scripts/kendo/2014.2.1008/kendo.all.min.js",
                 "~/Scripts/kendo/2014.2.1008/kendo.aspnetmvc.min.js",
                 "~/Scripts/kendo/kendo.custom.js"));
-                    //"~/Scripts/kendo/kendo.modernizr.custom.js"));
+            //"~/Scripts/kendo/kendo.modernizr.custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/global").Include(
                 "~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.es-AR.min.js",
@@ -75,11 +75,11 @@ namespace Logictracker.Web
                 "~/Content/kendo/"
                 ));
 
- 
+
             // Logictracker Angular app
             bundles.Add(new ScriptBundle("~/bundles/angularjs-logictracker").Include(
                             "~/Scripts/app/app.js")
-                            .IncludeDirectory("~/Scripts/app/","*.js",searchSubdirectories: true));
+                            .IncludeDirectory("~/Scripts/app/", "*.js", searchSubdirectories: true));
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",

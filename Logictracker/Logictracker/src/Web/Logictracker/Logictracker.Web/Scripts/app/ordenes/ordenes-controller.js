@@ -1,9 +1,9 @@
 ﻿angular
-    .module('logictracker.ordenes.controller', ['kendo.directives', 'ngAnimate', 'ui.bootstrap'])
-    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService', '$uibModal', OrdenesController])
-    .controller('OrdenesAsignarController', ['$scope', '$uibModalInstance', '$log', 'EntitiesService', 'OrdenesService', OrdenesAsignarController]);
+    .module('logictracker.ordenes.controller', ['kendo.directives', 'ngAnimate'])
+    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService',  OrdenesController])
+    .controller('OrdenesAsignarController', ['$scope', '$log', 'EntitiesService', 'OrdenesService',  OrdenesAsignarController]);
 
-function OrdenesController($scope, $log, EntitiesService, OrdenesService, $uibModal) {
+function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
     //$scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
     $scope.UserData = EntitiesService.resources.userData.get();
     $scope.UserData.$promise.then(function () {
@@ -246,19 +246,24 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, $uibMo
     $scope.onAsignar = function () {
 
         var modalInstance = $uibModal.open({
-            templateUrl: 'ordenes_programar.html',
-            controller: 'OrdenesAsignarController',
-            size:'sm',
-            //resolve: {
-            //    items: function () {
-            //        return $scope.items;
-            //    }
-            //}
+            template : $('#ordenes_programar').html(),
+//            templateUrl: 'ordenes_programar.html',
+            controller:  OrdenesAsignarController,
+            size: 'sm',
+            resolve: {
+                order: function () {
+                    return {
+                        Vehicle: undefined,
+                        baseSelected: $scope.baseSelected,
+                        distritoSelected: $scope.distritoSelected
+                    };
+                }
+            }
         });
 
-        modalInstance.result.then(function() {
+        modalInstance.result.then(function () {
             $log.debug('Se cerro por OK');
-        }, function() {
+        }, function () {
             $log.debug('Se cerro por Cancel');
 
         });
@@ -268,15 +273,18 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, $uibMo
 }
 
 
-function OrdenesAsignarController($scope, $uibModalInstance , $log, EntitiesService, OrdenesService) {
+function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService) {
+
 
     $scope.ok = function () {
         $log.debug('ok');
-        $uibModalInstance.close();
+        //$uibModalInstance.close();
     }
 
     $scope.cancel = function () {
         $log.debug('cancel');
-        $uibModalInstance.dismiss();
+        //$uibModalInstance.dismiss();
     }
+
+    
 }
