@@ -239,7 +239,7 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
 
     $scope.clearProductsSelected = function () {
         $scope.productsSelected.splice(0, $scope.productsSelected.length);
-        //TODO: hacer que la directiva de detalle de ordenes limpie los seleccionados.
+        $scope.$broadcast('onClearProductsSelected', {});
     };
 
 }

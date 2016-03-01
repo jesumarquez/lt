@@ -102,13 +102,15 @@ function OrderDetailDirective() {
 
             if (index > -1) {
                 vm.selectedList.splice(index, 1);
-                data.checked = false;
             }
             else {
                 vm.selectedList.push(data);
-                data.checked = true;
             }
         };
+
+        $scope.$on('onClearProductsSelected', function (event, args) {
+            vm.ds.read();
+        });
 
         function onDSLoad(e) {
             if (e.type === "read" && e.response) {
