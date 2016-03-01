@@ -688,7 +688,7 @@
 
         function onSelected(newValue, oldValue) {
             if (vm.distrito != undefined && vm.dependsOn != undefined && newValue !== oldValue) {
-            vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.dependsOn.Key });
+                vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, tipoCocheId: vm.tipoCoche.Key });
             }
         };
 
@@ -702,8 +702,10 @@
         restrict: 'E',
         scope: {
             model: "=ltNgModel",
-            dependsOn: "=ltDependsOnBase",
-            distrito: "=ltDataDistrito"
+            dependsOn: "=ltDependsOn",
+            distrito: "=ltDataDistrito",
+            base: "=ltDataBase",
+            tipoCoche: "=ltDataTipoCoche"
         },
         //replace: true,
         controller: ['$scope', '$filter', 'EntitiesService', CocheController],
@@ -718,6 +720,7 @@
         ].join('')
     };
 });
+
 
 /// ltCbSupervisorVenta
 (function () {
