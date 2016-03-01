@@ -281,12 +281,12 @@ function OrdenesAsignarController($scope, $log) {
     {
         columns: [
             { field: "Id", hidden: true },
-            { field: "OrderId", title: "Pedido", editor: $scope.noEdit },
+            { field: "OrderId", title: "Pedido", editor: $scope.noEdit , width :"10em"},
             { field: "Insumo",  title: "Producto", editor: $scope.noEdit },
-            { field: "Cantidad", title: "Litros", editor: $scope.noEdit },
+            { field: "Cantidad", title: "Litros", editor: $scope.noEdit , width:"10em" },
             { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor},
-            { field: "Ajuste", title: "Ajuste"},
-          //{ field: "Total", title: "Total" ,editor: $scope.noEdit},
+            { field: "Ajuste", title: "Ajuste" , width:"10em"},
+            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #" , editor: $scope.noEdit},
         ],
         editable: {
             update: true,
