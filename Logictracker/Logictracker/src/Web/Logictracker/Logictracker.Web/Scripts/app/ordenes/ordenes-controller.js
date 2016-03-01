@@ -38,26 +38,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
         detailTemplate: '<order-detail lt-ng-order-id="dataItem.Id" lt-ng-selected-list="productsSelected"/>',
     }
 
-    //$scope.detailGridOptions = function (dataItem) {
-    //    var insumoList = [];
-
-    //    if ($scope.insumoSelected.length > 0) {
-    //        var insumoList = $scope.insumoSelected.map(function (e) { return e.Key; });
-    //    }
-
-    //    return {
-
-    //        dataSource: OrdenesService.ordenDetalles(dataItem, insumoList, null, onFail),
-    //        scrollable: false,
-    //        sortable: true,
-    //        columns: [
-    //            { field: "Insumo", title: "Producto", width: "160px" },
-    //            { field: "Cantidad", title: "Litros" },
-    //            { template: '<lt-ordenes-chk-producto />' }
-    //        ]
-    //    }
-    //};
-
     $scope.productsSelected = new kendo.data.ObservableArray([]);
 
     $scope.distritoSelected = {};
@@ -79,9 +59,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
-
-    $scope.insumoDS = [];
-    $scope.insumoSelected = [];
 
     $scope.estadoSelected = {};
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, onFail);
@@ -237,11 +214,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
         );
     };
 
-    $scope.clearProductsSelected = function () {
-        $scope.productsSelected.splice(0, $scope.productsSelected.length);
-        //TODO: hacer que la directiva de detalle de ordenes limpie los seleccionados.
-    };
-
 }
 
 function OrdenesAsignarController($scope, $log) {
@@ -281,12 +253,12 @@ function OrdenesAsignarController($scope, $log) {
     {
         columns: [
             { field: "Id", hidden: true },
-            { field: "OrderId", title: "Pedido", editor: $scope.noEdit },
+            { field: "OrderId", title: "Pedido", editor: $scope.noEdit , width :"10em"},
             { field: "Insumo",  title: "Producto", editor: $scope.noEdit },
-            { field: "Cantidad", title: "Litros", editor: $scope.noEdit },
+            { field: "Cantidad", title: "Litros", editor: $scope.noEdit , width:"10em" },
             { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor},
-            { field: "Ajuste", title: "Ajuste"},
-          //{ field: "Total", title: "Total" ,editor: $scope.noEdit},
+            { field: "Ajuste", title: "Ajuste" , width:"10em"},
+            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #" , editor: $scope.noEdit},
         ],
         editable: {
             update: true,

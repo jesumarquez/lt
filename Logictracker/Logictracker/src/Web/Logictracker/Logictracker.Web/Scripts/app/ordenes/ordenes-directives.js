@@ -102,13 +102,15 @@ function OrderDetailDirective() {
 
             if (index > -1) {
                 vm.selectedList.splice(index, 1);
-                data.checked = false;
             }
             else {
                 vm.selectedList.push(data);
-                data.checked = true;
             }
         };
+
+        $scope.$on('onClearProductsSelected', function (event, args) {
+            vm.ds.read();
+        });
 
         function onDSLoad(e) {
             if (e.type === "read" && e.response) {
@@ -148,12 +150,18 @@ function OrderDetailDirective() {
 function SummaryProductsSelected() {
     var controller = function ($scope) {
         var vm = this;
+
         vm.totalByProduct = function (items) {
             var total = 0;
             $.each(items, function (i, item) {
                 total += item.Cantidad;
             });
             return total;
+        };
+
+        vm.clearSelection = function () {
+            vm.selectedList.splice(0, vm.selectedList.length);
+            $scope.$parent.$broadcast('onClearProductsSelected', {});
         };
     };
 
@@ -166,10 +174,11 @@ function SummaryProductsSelected() {
         controllerAs: 'summary',
         bindToController: true,
         template: [
-            '<div ng-show="summary.selectedList.length >0">',
-                '<ul class="SummaryContainer">',
+            '<div class="SummaryContainer" ng-show="summary.selectedList.length >0">',
+                '<span class="SummaryContainer-clear" ng-click="summary.clearSelection()">x</span>',
+                '<ul>',
                     '<li class="SummaryItem" ng-repeat="(key, value) in summary.selectedList | groupBy: \'Insumo\'">',
-                        '{{key}}: {{summary.totalByProduct(value)}}',
+                        '{{key}} ({{value.length}}): {{summary.totalByProduct(value)}}',
                     '</li>',
                 '</ul>',
             '</div>'

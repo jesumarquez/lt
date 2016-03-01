@@ -54,7 +54,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         /// <param name="linea"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public IList FindByEmpresasAndLineas(List<int> empresa, List<int> linea, Usuario user)
+        public IList<TipoCoche> FindByEmpresasAndLineas(List<int> empresa, List<int> linea, Usuario user)
         {
             var tipos = FindByEmpresasYLineas(empresa, linea);
 
@@ -94,7 +94,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         /// <param name="empresas"></param>
         /// <param name="lineas"></param>
         /// <returns></returns>
-        private IList FindByEmpresasYLineas(ICollection<int> empresas, ICollection<int> lineas)
+        private IList<TipoCoche> FindByEmpresasYLineas(ICollection<int> empresas, ICollection<int> lineas)
         {
             var lineaDao = new LineaDAO();
 

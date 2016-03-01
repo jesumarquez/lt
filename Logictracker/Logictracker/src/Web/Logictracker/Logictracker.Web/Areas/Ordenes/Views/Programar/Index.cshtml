@@ -14,7 +14,7 @@
 
 <div ng-app="logictracker" class="container" ng-controller="OrdenesController">
     <div class="row nl-filterpanel">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI01"):
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Entities", "PARENTI07"):
@@ -65,7 +65,7 @@
 
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
                     @Html.ResourceLabel("Labels", "Desde"):
@@ -88,23 +88,8 @@
             </div>
         </div>
 
-        <div class="col-md-2">
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.ResourceLabel("Labels", "Producto"):
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <lt-ms-insumo lt-ng-model="insumoSelected"
-                                  lt-data-distrito="distritoSelected"
-                                  lt-data-base="baseSelected"
-                                  lt-depends-on="baseSelected" />
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-12">
                     <button class="form-control" kendo-button ng-click="onBuscar()" style="margin-top: 1.5em; -moz-min-width: 10em; -ms-min-width: 10em; -o-min-width: 10em; -webkit-min-width: 10em; min-width: 10em" type="button">
@@ -127,7 +112,6 @@
 
     <div cass="row" style="margin-top: 1em;">
         <div class="col-md-12">
-			<button ng-show="productsSelected.length > 0" type="button" ng-click="clearProductsSelected()">Limpiar</button>
 			<div><summary-products-selected lt-ng-selected-list="productsSelected" /></div>
             <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
         </div>
