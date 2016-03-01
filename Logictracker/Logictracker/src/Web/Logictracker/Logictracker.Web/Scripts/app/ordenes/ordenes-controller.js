@@ -38,26 +38,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
         detailTemplate: '<order-detail lt-ng-order-id="dataItem.Id" lt-ng-selected-list="productsSelected"/>',
     }
 
-    //$scope.detailGridOptions = function (dataItem) {
-    //    var insumoList = [];
-
-    //    if ($scope.insumoSelected.length > 0) {
-    //        var insumoList = $scope.insumoSelected.map(function (e) { return e.Key; });
-    //    }
-
-    //    return {
-
-    //        dataSource: OrdenesService.ordenDetalles(dataItem, insumoList, null, onFail),
-    //        scrollable: false,
-    //        sortable: true,
-    //        columns: [
-    //            { field: "Insumo", title: "Producto", width: "160px" },
-    //            { field: "Cantidad", title: "Litros" },
-    //            { template: '<lt-ordenes-chk-producto />' }
-    //        ]
-    //    }
-    //};
-
     $scope.productsSelected = new kendo.data.ObservableArray([]);
 
     $scope.distritoSelected = {};
@@ -79,9 +59,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
-
-    $scope.insumoDS = [];
-    $scope.insumoSelected = [];
 
     $scope.estadoSelected = {};
     $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, onFail);
