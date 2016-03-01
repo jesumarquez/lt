@@ -1,10 +1,9 @@
-﻿using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
-using Logictracker.Types.BusinessObjects.Vehiculos;
-using Logictracker.Web.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
+using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Web.Models;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -20,7 +19,6 @@ namespace Logictracker.Web.Controllers.api
                     new List<int> { distritoId },
                     new List<int> { baseId },
                     Usuario)
-                    .Cast<TipoCoche>()
                     .Select(t => Mapper.ToItem(t))
                 );
 
