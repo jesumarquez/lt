@@ -237,11 +237,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
         );
     };
 
-    $scope.clearProductsSelected = function () {
-        $scope.productsSelected.splice(0, $scope.productsSelected.length);
-        $scope.$broadcast('onClearProductsSelected', {});
-    };
-
 }
 
 function OrdenesAsignarController($scope, $log) {

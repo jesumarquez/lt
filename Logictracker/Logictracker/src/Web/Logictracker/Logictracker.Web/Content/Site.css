@@ -296,15 +296,28 @@ textarea {
 
 .SummaryContainer{
     background: papayawhip;
-    padding: .2em;
     border-radius: 5px;
+    padding: 5px;
+    margin: .5em .1em;
 }
+    .SummaryContainer-clear{
+        cursor: pointer;
+        background: gray;
+        color: #FFFFFF;
+        padding: .1em .2em;
+        font-weight: bold;
+        border-radius: .2em;        
+    }
+    .SummaryContainer > ul {
+        margin: 0;
+        padding: 0;
+    }
 
-.SummaryItem{
-    background: lightblue;
-    padding: .5em;
-    display: inline-block;
-    margin: .3em;
-    font-size: 10px;
-    border-radius: 5px;
-}
+    .SummaryItem{
+        background: lightblue;
+        padding: .5em;
+        display: inline-block;
+        margin: .3em;
+        font-size: 10px;
+        border-radius: 5px;
+    }
