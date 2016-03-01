@@ -152,10 +152,10 @@
                             <div class="col-sm-4">
                                 <input id="startDateTime" kendo-date-time-picker k-ng-model="order.StartDateTime" />
                             </div>
-                            <label for="year" class="col-sm-2 control-label">Camión</label>
+                            <label for="year" class="col-sm-2 control-label">Tipo Vehículo</label>
                             <div class="col-sm-4">
-                                <lt-ddl-coche lt-ng-model="order.Vehicle"
-                                              lt-depends-on-base="baseSelected"
+                                <lt-ddl-tipo-coche lt-ng-model="order.VehicleType"
+                                              lt-data-base="baseSelected"
                                               lt-data-distrito="distritoSelected" />
                             </div>
 
@@ -167,6 +167,14 @@
                             <div class="col-sm-4">
                                 <lt-ddl-tipo-ciclo-logistico lt-ng-model="order.LogisticsCycleType"
                                                              lt-dependent-on="distritoSelected" />
+                            </div>
+                            <label for="year" class="col-sm-2 control-label">Camión</label>
+                            <div class="col-sm-4">
+                                <lt-ddl-coche lt-ng-model="order.Vehicle"
+                                              lt-depends-on="order.VehicleType"
+                                              lt-data-base="baseSelected"
+                                              lt-data-distrito="distritoSelected"
+                                              lt-data-tipo-coche="order.VehicleType" />
                             </div>
                         </div>
                     </div>
