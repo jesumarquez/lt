@@ -1,11 +1,11 @@
 ﻿angular
     .module('logictracker.ordenes.controller', ['kendo.directives', 'ngAnimate'])
-    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService', OrdenesController])
+    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService', 'UserDataInfo', OrdenesController])
     .controller('OrdenesAsignarController', ['$scope', '$log', OrdenesAsignarController]);
 
-function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
+function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
-    $scope.UserData = EntitiesService.resources.userData.get();
+    $scope.UserData = UserDataInfo.get($scope, this);
 
     $scope.order = {
         StartDateTime: new Date()
@@ -41,50 +41,20 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
     $scope.productsSelected = new kendo.data.ObservableArray([]);
 
     $scope.distritoSelected = {};
-
-    $scope.baseDS = [];
     $scope.baseSelected = {};
-
     $scope.transportistaSelected = [];
-    $scope.transportistaDS = [];
-
+    
     $scope.puntoEntregaSelected = {};
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
 
-    $scope.transportistaDS = EntitiesService.distrito.transportista.models(ontransportistaDSLoad, onFail);
-
-    $scope.$watch("baseSelected", onBaseSelected);
-
     function onFail(error) {
         if (error.errorThrown)
             $scope.notify.show(error.errorThrown, "error");
         else
             $scope.notify.show(error.statusText, "error");
-    };
-
-    function onDistritoSelected(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key });
-        }
-    };
-
-    function ontransportistaDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.transportistaSelected = [];
-        }
-    }
-
-    function onBaseSelected(newValue, oldValue) {
-        if (newValue != null && newValue !== oldValue) {
-
-            $scope.UserData.DistritoSelected = $scope.distritoSelected.Key;
-            $scope.UserData.BaseSelected = $scope.baseSelected.Key;
-
-            $scope.UserData.$save();
-        }
     };
 
     $scope.onerror = function (error) {
