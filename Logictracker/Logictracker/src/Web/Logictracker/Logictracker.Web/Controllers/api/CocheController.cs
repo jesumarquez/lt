@@ -13,6 +13,12 @@ namespace Logictracker.Web.Controllers.api
 {
     public class CocheController : EntityController<Coche, CocheDAO, CocheModel, CocheMapper>
     {
+        [Route("api/distrito/{distritoId}/base/{baseId}/coche/items")]
+        public IEnumerable<ItemModel> GetComboItem(int distritoId, int baseId, bool excludeNone = false)
+        {
+            return GetComboItem(distritoId, baseId, -1, excludeNone);
+        }
+
         [Route("api/distrito/{distritoId}/base/{baseId}/tipoCoche/{tipoCocheId}/coche/items")]
         public IEnumerable<ItemModel> GetComboItem(int distritoId, int baseId, int tipoCocheId, bool excludeNone = false)
         {

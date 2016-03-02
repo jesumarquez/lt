@@ -10,19 +10,13 @@ namespace Logictracker.Web.Controllers.api
     public class TipoCocheController : EntityController<TipoCoche, TipoCocheDAO, TipoCocheModel, TipoCocheMapper>
     {
         [Route("api/distrito/{distritoId}/base/{baseId}/tipocoche/items")]
-        public IEnumerable<ItemModel> GetComboItem(int distritoId, int baseId)
+        public IEnumerable<TipoCocheModel> GetComboItem(int distritoId, int baseId)
         {
-            var list = ItemModel.All.ToList();
-
-            list.AddRange(
-                EntityDao.FindByEmpresasAndLineas(
+            return new List<TipoCocheModel>(EntityDao.FindByEmpresasAndLineas(
                     new List<int> { distritoId },
                     new List<int> { baseId },
                     Usuario)
-                    .Select(t => Mapper.ToItem(t))
-                );
-
-            return list;
+                    .Select(t => Mapper.EntityToModel(t, new TipoCocheModel())));
         }
     }
 }
