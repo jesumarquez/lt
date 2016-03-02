@@ -8,13 +8,27 @@ namespace Logictracker.Web.Models
 {
     public class TipoCocheModel
     {
+        public int Id { get; set; }
+        public string Descripcion { get; set; }
+        public IList<ContenedorModel> Contenedores { get; set; }
     }
 
     public class TipoCocheMapper : EntityModelMapper<TipoCoche, TipoCocheModel>
     {
         public override TipoCocheModel EntityToModel(TipoCoche entity, TipoCocheModel model)
         {
-            throw new NotImplementedException();
+            model.Id = entity.Id;
+            model.Descripcion = entity.Descripcion;
+            // if (entity.Contenedores.Count > 0) model.Contenedores = new List<ContenedorModel>(entity.Contenedores.Select(c => new ContenedorModel() { Descripcion = c.Descripcion, Capacidad = c.Capacidad }));
+
+            //Duro
+            model.Contenedores = new List<ContenedorModel>();
+            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 1" });
+            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 2" });
+            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 3" });
+            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 4" });
+
+            return model;
         }
 
         public override TipoCoche ModelToEntity(TipoCocheModel model, TipoCoche entity)
@@ -26,5 +40,11 @@ namespace Logictracker.Web.Models
         {
             return new ItemModel { Key = entity.Id, Value = entity.Descripcion };
         }
+    }
+
+    public class ContenedorModel
+    {
+        public virtual string Descripcion { get; set; }
+        public virtual double Capacidad { get; set; }
     }
 }

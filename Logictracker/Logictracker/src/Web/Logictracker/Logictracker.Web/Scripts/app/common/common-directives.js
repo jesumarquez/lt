@@ -688,7 +688,10 @@
 
         function onSelected(newValue, oldValue) {
             if (vm.distrito != undefined && vm.dependsOn != undefined && newValue !== oldValue) {
-                vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, tipoCocheId: vm.tipoCoche.Key });
+                if (vm.tipoCoche != undefined)
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, tipoCocheId: vm.tipoCoche.Id });
+                else
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
             }
         };
 
@@ -984,8 +987,8 @@
             bindToController: true,
             template: [
                 '<input class="form-control" kendo-drop-down-list ',
-                    'k-data-text-field="\'Value\'" ',
-                    'k-data-value-field="\'Key\'" ',
+                    'k-data-text-field="\'Descripcion\'" ',
+                    'k-data-value-field="\'Id\'" ',
                     'k-data-source="tipoCoche.ds" ',
                     'k-ng-model="tipoCoche.model" > ',
                 '</input>'

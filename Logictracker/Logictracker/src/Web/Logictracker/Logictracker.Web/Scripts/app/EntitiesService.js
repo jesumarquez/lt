@@ -633,7 +633,10 @@ function EntitiesService($resource, $http) {
                 read: function (op) {
                     if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
                         op.data.baseId !== undefined && op.data.baseId !== "") {
-                        getData(_service.resources.coche, op, { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoCocheId: op.data.tipoCocheId, excludeNone: op.data.excludeNone });
+
+                        // Faltaria contemplar cuando no recibis tipoCoche
+                        if (op.data.tipoCocheId !== undefined && op.data.tipoCocheId !== "")
+                            getData(_service.resources.coche, op, { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoCocheId: op.data.tipoCocheId, excludeNone: op.data.excludeNone });
                     }
                     else {
                         op.success([]);
