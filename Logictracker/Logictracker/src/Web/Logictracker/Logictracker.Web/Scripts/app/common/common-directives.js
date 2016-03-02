@@ -1220,3 +1220,58 @@
 
 
 })();
+
+//No Funciona
+//ltCbCuadernaEditor
+(function () {
+
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+            vm.ds = new kendo.data.DataSource({});
+
+            $scope.$watch(function () { return vm.dependsOn; }, onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = [];
+                }
+            };
+
+            function onSelected(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.data = newValue.Contenedores;
+                    //vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                dependsOn: "=ltDependsOn"
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'cuadernaEditor',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-combo-box',
+                    'k-data-text-field="\'Descripcion\'" ',
+                    'k-data-value-field="\'Capacidad\'" ',
+                    'k-data-source="cuadernaEditor.ds" ',
+                    'k-ng-model="cuadernaEditor.model" ',
+                    'k-auto-bind="false" >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltCbCuadernaEditor', directive);
+})();
