@@ -1,11 +1,11 @@
 ﻿angular
     .module('logictracker.ordenes.controller', ['kendo.directives', 'ngAnimate'])
-    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService', OrdenesController])
+    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService', 'UserDataInfo', OrdenesController])
     .controller('OrdenesAsignarController', ['$scope', '$log', OrdenesAsignarController]);
 
-function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
-    //$scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
-    $scope.UserData = EntitiesService.resources.userData.get();
+function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
+
+    $scope.UserData = UserDataInfo.get($scope, this);
 
     $scope.order = {
         StartDateTime: new Date()
@@ -41,40 +41,14 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
     $scope.productsSelected = new kendo.data.ObservableArray([]);
 
     $scope.distritoSelected = {};
-
-    $scope.baseDS = [];
     $scope.baseSelected = {};
-
-    $scope.departamentoDS = [];
-    $scope.departamentoSelected = [];
-
-    $scope.centroDeCostosDS = [];
-    $scope.centroDeCostosSelected = [];
-
     $scope.transportistaSelected = [];
-    $scope.transportistaDS = [];
-
+    
     $scope.puntoEntregaSelected = {};
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
-
-    $scope.estadoSelected = {};
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; }, onFail);
-
-    $scope.motivoSelected = {};
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; }, onFail);
-
-    $scope.departamentoDS = EntitiesService.distrito.departamento(onDepartamentoDSLoad, onFail);
-
-    $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad, onFail);
-
-    $scope.transportistaDS = EntitiesService.distrito.transportista.models(ontransportistaDSLoad, onFail);
-
-    $scope.$watch("baseSelected", onBaseSelected);
-
-    $scope.$watchGroup(["departamentoSelected", "baseSelected"], onDepartamentoAndBaseChange);
 
     function onFail(error) {
         if (error.errorThrown)
@@ -82,61 +56,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
         else
             $scope.notify.show(error.statusText, "error");
     };
-
-    function onDistritoSelected(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key });
-        }
-    };
-
-    function onBasesDSChange(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.departamentoSelected = [];
-            $scope.centroDeCostosSelected = [];
-        }
-    };
-
-    function onDepartamentoDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.departamentoSelected = [];
-        }
-    }
-
-    function onCentroDeCostosDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.centroDeCostosSelected = [];
-        }
-    }
-
-    function ontransportistaDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.transportistaSelected = [];
-        }
-    }
-
-    function onBaseSelected(newValue, oldValue) {
-        if (newValue != null && newValue !== oldValue) {
-
-            $scope.UserData.DistritoSelected = $scope.distritoSelected.Key;
-            $scope.UserData.BaseSelected = $scope.baseSelected.Key;
-
-            $scope.UserData.$save();
-        }
-    };
-
-    function onDepartamentoAndBaseChange(newValue, oldValue) {
-        if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
-            $scope.centroDeCostosDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                departamentoId: $scope.departamentoSelected.map(function (o) { return o.Key; })
-            });
-    }
-
-    //$scope.onNuevo = function () {
-    //    $scope.operacion = "A";
-    //    $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
-    //};
 
     $scope.onerror = function (error) {
         $scope.notify.show(error.statusText, "error");
@@ -200,7 +119,7 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
 
         $scope.newOrder = new OrdenesService.ordenes();
         $scope.newOrder.OrderList = selectOrders;
-        $scope.newOrder.IdVehicle = order.Vehicle.Key;
+        $scope.newOrder.IdVehicle = order.Vehicle.Id;
         $scope.newOrder.StartDateTime = order.StartDateTime;
         $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
         $scope.newOrder.$save(
@@ -217,6 +136,8 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService) {
 }
 
 function OrdenesAsignarController($scope, $log) {
+
+    $scope.vehicleTypeSelected = {};
 
     $scope.ds = new kendo.data.DataSource({
         data: $scope.productsSelected,
@@ -236,6 +157,17 @@ function OrdenesAsignarController($scope, $log) {
             },
         }
     });
+
+    $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
+
+    function onvehicleTypeSelected(newValue, oldValue) {
+
+        if (newValue != null && newValue !== oldValue) {
+            $scope.cuadernasDs = new kendo.data.DataSource({
+                data: newValue.Contenedores
+            });
+        }
+    }
 
     $scope.noEdit = function (container, options) {
         var l = $('<span/>');
@@ -271,6 +203,7 @@ function OrdenesAsignarController($scope, $log) {
         columns:
      [
          { field: "Orden", title: "" },
+         { field: "Descripcion", title: "" },
          { field: "Capacidad", title: "Capacidad" },
          { field: "Seleccionados", title: "NP" },
          { field: "Total", title: "Total" },
