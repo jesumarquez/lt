@@ -13,101 +13,64 @@
 </script>
 
 <div ng-app="logictracker" class="container" ng-controller="OrdenesController">
-    <div class="row nl-filterpanel">
+    <div class="nl-filterpanel">
         <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.ResourceLabel("Entities", "PARENTI01"):
-                </div>
+            <div class="form-group">
+                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI01"):</label>
+                <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.ResourceLabel("Entities", "PARENTI02"):
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
-                </div>
+            <div class="form-group">
+                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI02"):</label>
+                <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
             </div>
         </div>
         <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.ResourceLabel("Entities", "PARENTI07"):
-                </div>
+            <div class="form-group">
+                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI07"):</label>
+                <lt-ms-transportista lt-ng-model="transportistaSelected"
+                                     lt-data-distrito="distritoSelected"
+                                     lt-depends-on-base="baseSelected" />
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <lt-ms-transportista lt-ng-model="transportistaSelected"
-                                         lt-data-distrito="distritoSelected"
-                                         lt-depends-on-base="baseSelected" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <span class="InputGroup__label">@Html.ResourceLabel("Labels", "Entrega"):</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <lt-ac-punto-entrega lt-ng-model="puntoEntregaSelected"
-                                         lt-data-distrito="distritoSelected"
-                                         lt-data-base="baseSelected"
-                                         lt-template="tPuntoEntrega"
-                                         lt-depends-on="baseSelected" />
-                </div>
-
+            <div class="form-group">
+                <label class="label-control">@Html.ResourceLabel("Labels", "Entrega"):</label>
+                <lt-ac-punto-entrega lt-ng-model="puntoEntregaSelected"
+                                        lt-data-distrito="distritoSelected"
+                                        lt-data-base="baseSelected"
+                                        lt-template="tPuntoEntrega"
+                                        lt-depends-on="baseSelected" />
             </div>
         </div>
         <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.ResourceLabel("Labels", "Desde"):
-                </div>
+            <div class="form-group">
+                <label class="label-control">@Html.ResourceLabel("Labels", "Desde"):</label>
+                <input class="form-control" kendo-date-picker k-ng-model="desde" />
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <input class="form-control" kendo-date-picker k-ng-model="desde" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.ResourceLabel("Labels", "Hasta"):
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <input class="form-control" kendo-date-picker k-ng-model="hasta" />
-                </div>
+            <div class="form-group">
+                <label class="label-control">@Html.ResourceLabel("Labels", "Hasta"):</label>
+                <input class="form-control" kendo-date-picker k-ng-model="hasta" />
             </div>
         </div>
 
 
         <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="form-control" kendo-button ng-click="onBuscar()" style="margin-top: 1.5em; -moz-min-width: 10em; -ms-min-width: 10em; -o-min-width: 10em; -webkit-min-width: 10em; min-width: 10em" type="button">
-                        @Html.ResourceLabel("Labels", "Buscar")
-                    </button>
-                </div>
+            <div class="form-group">
+                <label class="label-control">&nbsp;</label>
+                <kendo-button class="form-control" ng-click="onBuscar()">
+                    @Html.ResourceLabel("Labels", "Buscar")
+                </kendo-button>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="form-control" kendo-button
-                            style="margin-top: 1.5em; -moz-min-width: 10em; -ms-min-width: 10em; -o-min-width: 10em; -webkit-min-width: 10em; min-width: 10em" type="button"
-                            data-toggle="modal" data-target="#myModal" ng-disabled="productsSelected.length == 0">
+            <div class="form-group">
+                <label class="label-control">&nbsp;</label>
+                <kendo-button class="form-control" 
+                              data-toggle="modal" 
+                              data-target="#myModal" 
+                              ng-disabled="productsSelected.length == 0">
                         @Html.ResourceLabel("Labels", "Asignar")
-                    </button>
-                </div>
+                </kendo-button>
             </div>
         </div>
 
+        <div class="clearfix"></div>
     </div>
 
     <div cass="row" style="margin-top: 1em;">
