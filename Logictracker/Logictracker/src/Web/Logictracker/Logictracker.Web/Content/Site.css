@@ -35,8 +35,8 @@ textarea {
 .nl-filterpanel {
     background-color: #e7e7e7;
     border: solid 1px #cccccc;
-    padding-top: 1em;
-    padding-bottom: 1.5em;
+    padding-top: .5em;
+    padding-bottom: .5em;
     -ms-border-radius: 5px;
     border-radius: 5px;
 }
@@ -321,3 +321,10 @@ textarea {
         font-size: 10px;
         border-radius: 5px;
     }
+
+.form-group {
+	margin-bottom: 5px;
+}
+.form-group > label{
+	font-weight: normal;
+}

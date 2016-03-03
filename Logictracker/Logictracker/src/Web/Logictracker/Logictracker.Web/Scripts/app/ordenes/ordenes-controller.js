@@ -5,7 +5,7 @@
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
-    $scope.UserData = UserDataInfo.get($scope, this);
+    $scope.UserData = UserDataInfo.get($scope, $scope);
 
     $scope.order = {
         StartDateTime: new Date()
