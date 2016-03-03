@@ -84,67 +84,71 @@
 
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="OrdenesAsignarController">
-        <div class="modal-content" style="width: 75%">
+        <div class="modal-dialog" style="width: 75%">
+            <div class="modal-content">
 
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Enviar a Distribución</h4>
-            </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Enviar a Distribución</h4>
+                </div>
 
-            <div style="min-height: 10px" class="modal-body">
-                <form>
-                    <div class="row">
+                <div style="min-height: 10px" class="modal-body">
+                        
+                    <div class="form-horizontal col-md-6">
                         <div class="form-group">
-                            <label for="startDateTime" class="col-sm-2 control-label">Fecha/Hora Inicio</label>
-                            <div class="col-sm-4">
-                                <input id="startDateTime" kendo-date-time-picker k-ng-model="order.StartDateTime" />
+                            <label for="startDateTime" class="col-md-4 control-label">Fecha/Hora Inicio</label>
+                            <div class="col-md-8">
+                                <input id="startDateTime" class="form-control" kendo-date-time-picker k-ng-model="order.StartDateTime" />
                             </div>
-                            <label for="year" class="col-sm-2 control-label">Tipo Vehículo</label>
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="form-group">
+                            <label for="year" class="col-md-4 control-label">Tipo Vehículo</label>
+                            <div class="col-md-8">
                                 <lt-ddl-tipo-coche lt-ng-model="vehicleTypeSelected"
-                                              lt-data-base="baseSelected"
-                                              lt-data-distrito="distritoSelected" />
+                                                    lt-data-base="baseSelected"
+                                                    lt-data-distrito="distritoSelected" />
                             </div>
-
                         </div>
                     </div>
-                    <div class="row">
+
+                    <div class="form-horizontal col-md-6">
                         <div class="form-group">
-                            <label for="tipoCiclo" class="col-sm-2 control-label">Tipo de Ciclo Logistico</label>
-                            <div class="col-sm-4">
+                            <label for="tipoCiclo" class="col-md-4 control-label">Ciclo Logistico</label>
+                            <div class="col-md-8">
                                 <lt-ddl-tipo-ciclo-logistico lt-ng-model="order.LogisticsCycleType"
-                                                             lt-dependent-on="distritoSelected" />
+                                                                lt-dependent-on="distritoSelected" />
                             </div>
-                            <label for="year" class="col-sm-2 control-label">Camión</label>
-                            <div class="col-sm-4">
+                        </div>
+                        <div class="form-group">
+                            <label for="year" class="col-md-4 control-label">Camión</label>
+                            <div class="col-md-8">
                                 <lt-ddl-coche lt-ng-model="order.Vehicle"
-                                              lt-depends-on="vehicleTypeSelected"
-                                              lt-data-base="baseSelected"
-                                              lt-data-distrito="distritoSelected"
-                                              lt-data-tipo-coche="vehicleTypeSelected" />
+                                                lt-depends-on="vehicleTypeSelected"
+                                                lt-data-base="baseSelected"
+                                                lt-data-distrito="distritoSelected"
+                                                lt-data-tipo-coche="vehicleTypeSelected" />
                             </div>
                         </div>
                     </div>
-                    <div class="row">
 
-                        <div class="col-sm-12">
-							<div kendo-grid="productosGrid" k-options="productosGridOptions" k-data-source="ds"></div>
-                        </div>
+                    <div class="col-md-12">
+                        <div kendo-grid="productosGrid" k-options="productosGridOptions" k-data-source="ds"></div>
                     </div>
-                    <div class="row">
 
-                        <div class="col-sm-12">
-                            <div kendo-grid="cuadernasGrid" k-options="cuadernasGridOptions" k-data-source="cuadernasDs"></div>
-                        </div>
+                    <div class="col-sm-12">
+                        <div kendo-grid="cuadernasGrid" k-options="cuadernasGridOptions" k-data-source="cuadernasDs"></div>
                     </div>
-                </form>
-            </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
-                <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="ok()" data-dismiss="modal">Programar</a>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
+                    <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="ok()" data-dismiss="modal">Programar</a>
+                </div>
             </div>
         </div>
+
     </div>
 
 </div>
