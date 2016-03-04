@@ -16,23 +16,23 @@
     <div class="nl-filterpanel">
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI01"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI01"):</label>
                 <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
             </div>
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI02"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI02"):</label>
                 <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI07"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI07"):</label>
                 <lt-ms-transportista lt-ng-model="transportistaSelected"
                                      lt-data-distrito="distritoSelected"
                                      lt-depends-on-base="baseSelected" />
             </div>
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Labels", "Entrega"):</label>
+                <label class="control-label">@Html.ResourceLabel("Labels", "Entrega"):</label>
                 <lt-ac-punto-entrega lt-ng-model="puntoEntregaSelected"
                                         lt-data-distrito="distritoSelected"
                                         lt-data-base="baseSelected"
@@ -42,11 +42,11 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Labels", "Desde"):</label>
+                <label class="control-label">@Html.ResourceLabel("Labels", "Desde"):</label>
                 <input class="form-control" kendo-date-picker k-ng-model="desde" />
             </div>
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Labels", "Hasta"):</label>
+                <label class="control-label">@Html.ResourceLabel("Labels", "Hasta"):</label>
                 <input class="form-control" kendo-date-picker k-ng-model="hasta" />
             </div>
         </div>
@@ -54,13 +54,13 @@
 
         <div class="col-md-3">
             <div class="form-group">
-                <label class="label-control">&nbsp;</label>
+                <label class="control-label">&nbsp;</label>
                 <kendo-button class="form-control" ng-click="onBuscar()">
                     @Html.ResourceLabel("Labels", "Buscar")
                 </kendo-button>
             </div>
             <div class="form-group">
-                <label class="label-control">&nbsp;</label>
+                <label class="control-label">&nbsp;</label>
                 <kendo-button class="form-control" 
                               data-toggle="modal" 
                               data-target="#myModal" 
