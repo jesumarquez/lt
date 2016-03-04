@@ -13,62 +13,62 @@
     <div class="row nl-filterpanel">
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI01"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI01"):</label>
                 <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
             </div>
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI02"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI02"):</label>
                 <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
             </div>
         </div>
         
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI04"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI04"):</label>
                 <lt-ms-departamento lt-ng-model="departamentoSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" />
             </div>
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Labels", "Estado"):</label>
+                <label class="control-label">@Html.ResourceLabel("Labels", "Estado"):</label>
                 <lt-ms-estado lt-ng-model="estadoSelected" />
             </div>
         </div>
 
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI37"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI37"):</label>
                 <lt-ms-centro-de-costos lt-ng-model="centroDeCostosSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" lt-depends-on-departamento="departamentoSelected" />
             </div>
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Labels", "Motivo"):</label>
+                <label class="control-label">@Html.ResourceLabel("Labels", "Motivo"):</label>
                 <lt-ms-motivo lt-ng-model="motivoSelected" />
             </div>
         </div>
 
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Entities", "PARENTI07"):</label>
+                <label class="control-label">@Html.ResourceLabel("Entities", "PARENTI07"):</label>
                 <lt-ms-transportista lt-ng-model="transportistaSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" />
             </div>
         </div>
 
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Labels", "Desde"):</label>
+                <label class="control-label">@Html.ResourceLabel("Labels", "Desde"):</label>
                 <input class="form-control" kendo-date-picker k-ng-model="desde" />
             </div>
             <div class="form-group">
-                <label class="label-control">@Html.ResourceLabel("Labels", "Hasta"):</label>
+                <label class="control-label">@Html.ResourceLabel("Labels", "Hasta"):</label>
                 <input class="form-control" kendo-date-picker k-ng-model="hasta" />
             </div>
         </div>
 
         <div class="col-md-2">
             <div class="form-group">
-                <label class="label-control">&nbsp;</label>
+                <label class="control-label">&nbsp;</label>
                 <kendo-button class="form-control" ng-click="onBuscar()">@Html.ResourceLabel("Labels", "Buscar")</kendo-button>
             </div>
             <div class="form-group">
-                <label class="label-control">&nbsp;</label>
+                <label class="control-label">&nbsp;</label>
                 <kendo-button class="form-control" ng-click="onNuevo()">@Html.ResourceLabel("Labels", "Nuevo")</kendo-button>
             </div>
         </div>
