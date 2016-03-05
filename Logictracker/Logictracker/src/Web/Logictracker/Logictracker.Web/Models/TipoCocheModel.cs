@@ -23,10 +23,10 @@ namespace Logictracker.Web.Models
 
             //Duro
             model.Contenedores = new List<ContenedorModel>();
-            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 1" });
-            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 2" });
-            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 3" });
-            model.Contenedores.Add(new ContenedorModel() { Capacidad = 6000, Descripcion = "Cuaderna 4" });
+            model.Contenedores.Add(new ContenedorModel() { Orden = 1, Capacidad = 6000, Descripcion = "Cuaderna 1" });
+            model.Contenedores.Add(new ContenedorModel() { Orden = 2, Capacidad = 6000, Descripcion = "Cuaderna 2" });
+            model.Contenedores.Add(new ContenedorModel() { Orden = 3, Capacidad = 6000, Descripcion = "Cuaderna 3" });
+            model.Contenedores.Add(new ContenedorModel() { Orden = 4, Capacidad = 6000, Descripcion = "Cuaderna 4" });
 
             return model;
         }
@@ -44,6 +44,7 @@ namespace Logictracker.Web.Models
 
     public class ContenedorModel
     {
+        public virtual int Orden { get; set; }
         public virtual string Descripcion { get; set; }
         public virtual double Capacidad { get; set; }
     }

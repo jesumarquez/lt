@@ -175,9 +175,12 @@ function OrdenesAsignarController($scope, $log) {
         l.appendTo(container);
     }
 
+    $scope.cuadernaSelected = {};
+    $scope.cuadernaEditorDataBind = "";
     $scope.cuadernaEditor = function (container, options) {
-        ////var l = $('<lt-cuaderna-editor/>');
-         var l = $('<input kendo-combo-box/>');
+        $scope.cuadernaEditorDataBind = options.field;
+        var l = $('<lt-cb-cuaderna-editor lt-ng-model=\"cuadernaSelected\" lt-depends-on="vehicleTypeSelected" lt-data-bind="cuadernaEditorDataBind" />');
+        //var l = $('<input kendo-combo-box/>');
         l.appendTo(container);
     }
 
@@ -188,7 +191,7 @@ function OrdenesAsignarController($scope, $log) {
             { field: "OrderId", title: "Pedido", editor: $scope.noEdit , width :"10em"},
             { field: "Insumo",  title: "Producto", editor: $scope.noEdit },
             { field: "Cantidad", title: "Litros", editor: $scope.noEdit , width:"10em" },
-            { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor},
+            { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor },
             { field: "Ajuste", title: "Ajuste" , width:"10em"},
             { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #" , editor: $scope.noEdit},
         ],
