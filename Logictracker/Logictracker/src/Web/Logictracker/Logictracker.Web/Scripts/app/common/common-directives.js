@@ -1229,8 +1229,10 @@
 
         var Controller = function ($scope, EntitiesService) {
             var vm = this;
-            vm.ds = new kendo.data.DataSource({});
-
+            vm.ds = new kendo.data.DataSource({
+                data: vm.dependsOn.Contenedores
+            });
+            
             $scope.$watch(function () { return vm.dependsOn; }, onSelected);
 
             function onDSLoad(e) {
@@ -1239,11 +1241,7 @@
                 }
             };
 
-            function onSelected(newValue, oldValue) {
-                if (newValue != null && newValue !== oldValue) {
-                    vm.ds.data = newValue.Contenedores;
-                    //vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
-                }
+            function onSelected(newValue, oldValue) {                
             };
 
             function onFail(e) {
@@ -1255,18 +1253,20 @@
             restrict: 'E',
             scope: {
                 model: "=ltNgModel",
-                dependsOn: "=ltDependsOn"
+                dependsOn: "=ltDependsOn",
+                dataBind: "=ltDataBind"
             },
             controller: ['$scope', 'EntitiesService', Controller],
             controllerAs: 'cuadernaEditor',
             bindToController: true,
             template: [
-                '<input class="form-control" kendo-combo-box',
-                    'k-data-text-field="\'Descripcion\'" ',
-                    'k-data-value-field="\'Capacidad\'" ',
+                '<input kendo-drop-down-list ',
+                    'k-data-text-field="\'Orden\'" ',
+                    'k-data-value-field="\'Orden\'" ',
                     'k-data-source="cuadernaEditor.ds" ',
                     'k-ng-model="cuadernaEditor.model" ',
-                    'k-auto-bind="false" >',
+                    'data-bind="value:\'Cuaderna\'" ',
+                    'k-auto-bind="true" >',
                 '</input>'
             ].join('')
         };
