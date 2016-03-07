@@ -34,10 +34,10 @@
             <div class="form-group">
                 <label class="control-label">@Html.ResourceLabel("Labels", "Entrega"):</label>
                 <lt-ac-punto-entrega lt-ng-model="puntoEntregaSelected"
-                                        lt-data-distrito="distritoSelected"
-                                        lt-data-base="baseSelected"
-                                        lt-template="tPuntoEntrega"
-                                        lt-depends-on="baseSelected" />
+                                     lt-data-distrito="distritoSelected"
+                                     lt-data-base="baseSelected"
+                                     lt-template="tPuntoEntrega"
+                                     lt-depends-on="baseSelected" />
             </div>
         </div>
         <div class="col-md-3">
@@ -61,22 +61,37 @@
             </div>
             <div class="form-group">
                 <label class="control-label">&nbsp;</label>
-                <kendo-button class="form-control" 
-                              data-toggle="modal" 
-                              data-target="#myModal" 
+                <kendo-button class="form-control"
+                              data-toggle="modal"
+                              data-target="#myModal"
                               ng-disabled="productsSelected.length == 0">
-                        @Html.ResourceLabel("Labels", "Asignar")
+                    @Html.ResourceLabel("Labels", "Asignar")
                 </kendo-button>
             </div>
         </div>
 
         <div class="clearfix"></div>
     </div>
-
-    <div cass="row" style="margin-top: 1em;">
+    <div class="row">
         <div class="col-md-12">
-			<div><summary-products-selected lt-ng-selected-list="productsSelected" /></div>
-            <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
+            <summary-products-selected lt-ng-selected-list="productsSelected" />
+        </div>
+    </div>
+    <div class="row" style="margin-top: 1em;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#grilla">Grilla</a></li>
+            <li><a data-toggle="tab" href="#mapa">Mapa</a></li>
+        </ul>
+
+    </div>
+    <div cass="row" style="margin-top: 1em;">
+        <div id="grilla" class="tab-pane fade in active">
+            <div class="col-md-12">
+                <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
+            </div>
+        </div>
+        <div id="mapa" class="tab-pane fade">
+
         </div>
     </div>
 
@@ -134,13 +149,13 @@
 
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div kendo-grid="productosGrid" k-options="productosGridOptions" k-data-source="ds"></div>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div kendo-grid="cuadernasGrid" k-options="cuadernasGridOptions" k-data-source="cuadernasDs"></div>
@@ -158,5 +173,3 @@
         </div>
 
     </div>
-
-</div>
