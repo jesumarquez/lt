@@ -1,7 +1,7 @@
 ﻿angular
-    .module('logictracker.ordenes.controller', ['kendo.directives', 'ngAnimate'])
-    .controller('OrdenesController', ['$scope', '$log', 'EntitiesService', 'OrdenesService', 'UserDataInfo', OrdenesController])
-    .controller('OrdenesAsignarController', ['$scope', '$log', OrdenesAsignarController]);
+    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate"])
+    .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
+    .controller('OrdenesAsignarController', ["$scope", "$log", OrdenesAsignarController]);
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
@@ -43,7 +43,7 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
     $scope.transportistaSelected = [];
-    
+
     $scope.puntoEntregaSelected = {};
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
@@ -152,35 +152,58 @@ function OrdenesAsignarController($scope, $log) {
                     "Cantidad": { type: "number", editable: false },
                     "Ajuste": { type: "number", editable: true },
                     "Cuaderna": { type: "number", editable: true },
-                    "CocheId" : { type: "number", editable: true }
+                    "CocheId": { type: "number", editable: true }
                 }
             },
-        }
+        },
+        change: onDataChanged
     });
 
     $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
 
-    function onvehicleTypeSelected(newValue, oldValue) {
 
+
+    function onvehicleTypeSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
             $scope.cuadernasDs = new kendo.data.DataSource({
                 data: newValue.Contenedores
+            });
+            // Deberia limpiar 
+        }
+    }
+
+
+    function sumCuaderna(cuaderna) {
+        var l = 0;
+        var n = 0;
+        angular.forEach($scope.ds.data(), function (value, key) {
+            if (value.Cuaderna === cuaderna) {
+                l += value.Cantidad + value.Ajuste;
+                n += 1;
+            }
+        });
+        return { asignados: l, cantidad: n }
+    }
+
+    function onDataChanged(evt) {
+        if (evt.action === "itemchange") {
+            var data = $scope.cuadernasDs.data();
+            angular.forEach(data, function (value, key) {
+                var s = sumCuaderna(value.Orden);
+                value.Seleccionados = s.cantidad;
+                value.Asignado = s.asignados;
             });
         }
     }
 
     $scope.noEdit = function (container, options) {
-        var l = $('<span/>');
+        var l = $("<span/>");
         l.text(options.model[options.field]);
         l.appendTo(container);
     }
 
-    $scope.cuadernaSelected = {};
-    $scope.cuadernaEditorDataBind = "";
     $scope.cuadernaEditor = function (container, options) {
-        $scope.cuadernaEditorDataBind = options.field;
-        var l = $('<lt-cb-cuaderna-editor lt-ng-model=\"cuadernaSelected\" lt-depends-on="vehicleTypeSelected" lt-data-bind="cuadernaEditorDataBind" />');
-        //var l = $('<input kendo-combo-box/>');
+        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Orden'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
         l.appendTo(container);
     }
 
@@ -188,12 +211,12 @@ function OrdenesAsignarController($scope, $log) {
     {
         columns: [
             { field: "Id", hidden: true },
-            { field: "OrderId", title: "Pedido", editor: $scope.noEdit , width :"10em"},
-            { field: "Insumo",  title: "Producto", editor: $scope.noEdit },
-            { field: "Cantidad", title: "Litros", editor: $scope.noEdit , width:"10em" },
+            { field: "OrderId", title: "Pedido", editor: $scope.noEdit, width: "10em" },
+            { field: "Insumo", title: "Producto", editor: $scope.noEdit },
+            { field: "Cantidad", title: "Litros", editor: $scope.noEdit, width: "10em" },
             { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor },
-            { field: "Ajuste", title: "Ajuste" , width:"10em"},
-            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #" , editor: $scope.noEdit},
+            { field: "Ajuste", title: "Ajuste", width: "10em" },
+            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #", editor: $scope.noEdit },
         ],
         editable: {
             update: true,
@@ -208,19 +231,19 @@ function OrdenesAsignarController($scope, $log) {
          { field: "Orden", title: "" },
          { field: "Descripcion", title: "" },
          { field: "Capacidad", title: "Capacidad" },
-         { field: "Seleccionados", title: "NP" },
-         { field: "Total", title: "Total" },
-         { field: "Disponible", title: "Disponible" },
+         { field: "Seleccionados", title: "N°" },
+         { field: "Asignado", title: "Asignado" },
+         { field: "Asignado", title: "Disponible", template: "#= data.Capacidad - data.Asignado #" },
      ],
     };
 
     $scope.ok = function () {
-        $log.debug('ok');
+        $log.debug("ok");
         //$uibModalInstance.close();
     }
 
     $scope.cancel = function () {
-        $log.debug('cancel');
+        $log.debug("cancel");
         //$uibModalInstance.dismiss();
     }
 
