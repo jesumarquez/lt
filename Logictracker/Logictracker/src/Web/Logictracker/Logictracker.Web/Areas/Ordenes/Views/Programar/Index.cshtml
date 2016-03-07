@@ -4,6 +4,15 @@
 
 @*<h1>@ViewBag.Title</h1>*@
 
+@section csssection {
+    @Styles.Render("~/bundles/css-openlayer")
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/js-openlayer")
+}
+
+
 <script id="tPuntoEntrega" type="text/x-kendo-template">
     <div>
         <span>#= data.Codigo #</span>
@@ -84,14 +93,14 @@
         </ul>
 
     </div>
-    <div cass="row" style="margin-top: 1em;">
-        <div id="grilla" class="tab-pane fade in active">
+    <div cass="tab-content" style="margin-top: 1em;">
+        <div id="grilla" class="tab-pane collapse in active">
             <div class="col-md-12">
                 <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
             </div>
         </div>
         <div id="mapa" class="tab-pane fade">
-
+            <openlayers width="100%" height="400px"></openlayers>
         </div>
     </div>
 
@@ -171,5 +180,5 @@
                 </div>
             </div>
         </div>
-
     </div>
+</div>

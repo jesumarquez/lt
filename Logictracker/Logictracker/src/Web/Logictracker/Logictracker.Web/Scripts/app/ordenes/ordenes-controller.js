@@ -1,5 +1,5 @@
 ﻿angular
-    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate"])
+    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
     .controller('OrdenesAsignarController', ["$scope", "$log", OrdenesAsignarController]);
 
