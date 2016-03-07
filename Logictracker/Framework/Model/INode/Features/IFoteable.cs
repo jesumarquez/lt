@@ -18,6 +18,7 @@ namespace Logictracker.Model
 
         Boolean ResetFMIOnGarmin(ulong messageId);
 
+        Boolean ClearDeviceQueue(ulong messageId);
         /// <summary>
         /// </summary>
 		Boolean ReloadConfiguration(ulong messageId);

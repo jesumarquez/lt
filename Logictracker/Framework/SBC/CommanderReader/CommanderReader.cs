@@ -703,6 +703,17 @@ namespace Logictracker.Layers.CommanderReader
                                                                            trackingExtraData, _tree);
                                         commandResolved = true;
                                         break;
+                                    case "ClearDeviceQueue":
+                                        if (iFoteable == null || testMode)
+                                            return RejectCommand(iPoint, messageId, trackingExtraData, iDispatcher, request);
+
+                                        DevicesCommandStatus.CreateCommand(iPoint, iDispatcher, messageId,
+                                                                           gatewayMessageId,
+                                                                           secondsTimeout,
+                                                                           GetActionClearDeviceQueue(messageId, iFoteable),
+                                                                           trackingExtraData, _tree);
+                                        commandResolved = true;
+                                        break;
 
                                 }
                             }
@@ -901,6 +912,11 @@ namespace Logictracker.Layers.CommanderReader
             private static Action GetActionResetFMIOnGarmin(ulong messageId, IFoteable iFoteable)
             {
                 return () => iFoteable.ResetFMIOnGarmin(messageId);
+            }
+
+            private static Action GetActionClearDeviceQueue(ulong messageId, IFoteable iFoteable)
+            {
+                return () => iFoteable.ClearDeviceQueue(messageId);
             }
             
             private static Action GetActionDeviceReloadConfiguration(ulong messageId, IFoteable iFoteable)
