@@ -41,13 +41,13 @@
 })
 .directive('ltOrdenesChkProducto', function () {
 
-    var controller = ['$scope','$log', function ($scope,$log) {
+    var controller = ['$scope', '$log', function ($scope, $log) {
 
         $scope.$log = $log;
 
         $scope.checked = false;
 
-        $scope.$watch('checked', function(newValue,oldValue) {
+        $scope.$watch('checked', function (newValue, oldValue) {
             $scope.$log.info(newValue);
             // cambiar el estado deacuerdo al check usando data
         });
@@ -184,5 +184,60 @@ function SummaryProductsSelected() {
             '</div>'
         ].join('')
     };
-
 }
+
+
+//No Funciona
+//ltCbCuadernaEditor
+(function () {
+
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+            vm.ds = new kendo.data.DataSource({
+                data: vm.dependsOn.Contenedores
+            });
+
+            $scope.$watch(function () { return vm.dependsOn; }, onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = [];
+                }
+            };
+
+            function onSelected(newValue, oldValue) {
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                dependsOn: "=ltDependsOn",
+                dataBind: "=ltDataBind"
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'cuadernaEditor',
+            bindToController: true,
+            template: [
+                '<input kendo-drop-down-list ',
+                    'k-data-text-field="\'Orden\'" ',
+                    'k-data-value-field="\'Orden\'" ',
+                    'k-data-source="cuadernaEditor.ds" ',
+                    'k-ng-model="cuadernaEditor.model" ',
+                    'data-bind="value:\'Cuaderna\'" ',
+                    'k-auto-bind="true" >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltCbCuadernaEditor', directive);
+})();

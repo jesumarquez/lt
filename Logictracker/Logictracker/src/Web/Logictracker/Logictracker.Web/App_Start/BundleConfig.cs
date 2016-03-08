@@ -45,12 +45,8 @@ namespace Logictracker.Web
                             "~/Scripts/angular-route.js",
                             "~/Scripts/angular-animate.js",
                             "~/Scripts/angular-filter.js",
-                            "~/Scripts/angular-resource.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/angularjs-ui").Include(
-            //              "~/Scripts/angular-ui/ui-bootstrap.js",
-            //              "~/Scripts/angular-ui/ui-bootstrap-tpls.js"));
-
+                            "~/Scripts/angular-resource.js",
+                            "~/Scripts/angular-sanitize.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs-mocks").Include(
                           "~/Scripts/angular-mocks.js"));
@@ -76,6 +72,20 @@ namespace Logictracker.Web
                 "~/Content/kendo/"
                 ));
 
+#if DEBUG
+            bundles.Add(new StyleBundle("~/bundles/css-openlayer").Include(
+                "~/Content/ol-debug.css", "~/Content/angular-openlayers-directive.css"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/js-openlayer").Include(
+                "~/Scripts/ol.js", "~/Scripts/angular-openlayers-directive.js"));
+#else
+            bundles.Add(new StyleBundle("~/bundles/css-openlayer").Include(
+                "~/Content/ol-debug.css", "~/Content/angular-openlayers-directive.css"
+                ));
+            
+            bundles.Add(new ScriptBundle("~/bundles/js-openlayer").Include(
+                "~/Scripts/ol.js", "~/Script/angular-openlayers-directive.js"));
+#endif
 
             // Logictracker Angular app
             bundles.Add(new ScriptBundle("~/bundles/angularjs-logictracker").Include(
