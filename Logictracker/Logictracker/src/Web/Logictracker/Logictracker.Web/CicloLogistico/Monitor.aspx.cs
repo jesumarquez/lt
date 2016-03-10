@@ -444,16 +444,32 @@ namespace Logictracker.CicloLogistico
         protected void SelectCiclo(ViajeDistribucion ciclo, bool posicionar, short modo)
         {
             monitor.ClearLayers();
-            monitor.SetCenter(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude);
-            monitor.SetDefaultCenter(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude);
+            var lat = 0.0;
+            var lon = 0.0;
+            if (ciclo.Linea != null && ciclo.Linea.ReferenciaGeografica != null)
+            {
+                lat = ciclo.Linea.ReferenciaGeografica.Latitude;
+                lon = ciclo.Linea.ReferenciaGeografica.Longitude;
+            }
+            else if (ciclo.Detalles.Any())
+            {
+                lat = ciclo.Detalles[0].ReferenciaGeografica.Latitude;
+                lon = ciclo.Detalles[0].ReferenciaGeografica.Longitude;
+            }
+            monitor.SetCenter(lat, lon);
+            monitor.SetDefaultCenter(lat, lon);
 
             var inicio = Ciclo.GetFechaInicio(ciclo);
             var fin = Ciclo.GetFechaFin(ciclo);
 
             ShowPosicionesReportadas(ciclo.Vehiculo, inicio, fin.AddSeconds(1), Color.ForestGreen);
 
-            var puntos = ciclo.Detalles.Where(e=>e.PuntoEntrega != null).Select(e=>new LatLon(e.ReferenciaGeografica.Latitude, e.ReferenciaGeografica.Longitude)).ToList();
-            puntos.Insert(0, new LatLon(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude));
+            var puntos = ciclo.Detalles.Where(e => e.PuntoEntrega != null).Select(e => new LatLon(e.ReferenciaGeografica.Latitude, e.ReferenciaGeografica.Longitude)).ToList();
+            if (ciclo.Linea != null)
+            {
+                puntos.Insert(0, new LatLon(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude));
+            }
+
             if (chkRecorridoCalculado.Checked)
             {
                 ShowRecorridoCalculado(Color.Red, puntos.ToArray());
@@ -485,7 +501,7 @@ namespace Logictracker.CicloLogistico
             
             ShowEventos(ciclo.Vehiculo, inicio, fin, ciclo.Id);
             ShowMensajes(ciclo.Vehiculo, inicio, fin);
-            ShowPuntos(new[] {ciclo.Linea.ReferenciaGeografica}, 0);
+            if (ciclo.Linea != null) ShowPuntos(new[] {ciclo.Linea.ReferenciaGeografica}, 0);
             ShowPuntos(posicionar, modo, ciclo.Detalles.Where(e => e.PuntoEntrega != null).ToArray());
 
             panelReferenciaSimple.Visible = true;
