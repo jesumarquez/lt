@@ -1,5 +1,5 @@
 ﻿angular
-    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate"])
+    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
     .controller('OrdenesAsignarController', ["$scope", "$log", OrdenesAsignarController]);
 
@@ -49,6 +49,14 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
+    $scope.olMap = {
+        center: {
+            lat: -34.603722,
+            lon: -58.381592,
+            zoom: 10
+        }
+    };
+    $scope.orderSelected = {};
 
     function onFail(error) {
         if (error.errorThrown)
@@ -103,7 +111,26 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
             filters: filterList
         };
 
-        $scope.Orders = OrdenesService.items(filters, null, onFail);
+        $scope.Orders = OrdenesService.items(filters, onOrdersDSLoad, onFail);
+        function onOrdersDSLoad() {
+            //$scope.olMap.markers = $scope.Orders.map(function (o) {
+            //    return {
+            //        name: o.Id,
+            //        lat: o.LatitudPuntoEntrega,
+            //        lon: o.LongitudPuntoEntrega,
+            //        label: {
+            //            message: '<span>' + o.PuntoEntrega + '</span>',
+            //            show: false,
+            //            showOnMouseOver: true
+            //        },
+            //        dataItem: o,
+            //        onClick: function (event, properties) {
+            //            $scope.orderSelected = properties.dataItem;
+            //            $("#markerModal").modal('toggle');
+            //        }
+            //    }
+            //});
+        }
     };
 
     $scope.disabledButton = false;
@@ -190,8 +217,10 @@ function OrdenesAsignarController($scope, $log) {
             var data = $scope.cuadernasDs.data();
             angular.forEach(data, function (value, key) {
                 var s = sumCuaderna(value.Orden);
-                value.Seleccionados = s.cantidad;
+                
+                value.Seleccionados=s.cantidad;
                 value.Asignado = s.asignados;
+                value.Total = value.Capacidad - s.asignados;
             });
         }
     }
@@ -199,6 +228,13 @@ function OrdenesAsignarController($scope, $log) {
     $scope.noEdit = function (container, options) {
         var l = $("<span/>");
         l.text(options.model[options.field]);
+        l.appendTo(container);
+    }
+
+
+    $scope.noEditTotal = function (container, options) {
+        var l = $("<span/>");
+        l.text(options.model["Cantidad"] + options.model["Ajuste"]);
         l.appendTo(container);
     }
 
@@ -216,7 +252,7 @@ function OrdenesAsignarController($scope, $log) {
             { field: "Cantidad", title: "Litros", editor: $scope.noEdit, width: "10em" },
             { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor },
             { field: "Ajuste", title: "Ajuste", width: "10em" },
-            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #", editor: $scope.noEdit },
+            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #", editor: $scope.noEditTotal },
         ],
         editable: {
             update: true,
@@ -233,7 +269,7 @@ function OrdenesAsignarController($scope, $log) {
          { field: "Capacidad", title: "Capacidad" },
          { field: "Seleccionados", title: "N°" },
          { field: "Asignado", title: "Asignado" },
-         { field: "Asignado", title: "Disponible", template: "#= data.Capacidad - data.Asignado #" },
+         { field: "Disponible", title: "Disponible", template: "#= data.Capacidad - (data.Asignado?data.Asignado:0) #" },
      ],
     };
 
