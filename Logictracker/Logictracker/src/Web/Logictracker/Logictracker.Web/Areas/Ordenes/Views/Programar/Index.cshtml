@@ -96,7 +96,11 @@
                 <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
             </div>
             <div id="mapa" class="tab-pane fade" role="tabpanel">
-                <openlayers width="100%" height="400px"></openlayers>
+                <openlayers ol-center="olMap.center" ol-markers="olMap.markers" width="100%" height="400px">
+                    <ol-marker ng-repeat="marker in olMap.markers"
+                               ol-marker-properties="marker">
+                    </ol-marker>
+                </openlayers>
             </div>
         </div>
     </div>
