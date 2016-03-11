@@ -49,6 +49,14 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
+    $scope.olMap = {
+        center: {
+            lat: -34.603722,
+            lon: -58.381592,
+            zoom: 10
+        }
+    };
+    $scope.orderSelected = {};
 
     function onFail(error) {
         if (error.errorThrown)
@@ -103,7 +111,26 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
             filters: filterList
         };
 
-        $scope.Orders = OrdenesService.items(filters, null, onFail);
+        $scope.Orders = OrdenesService.items(filters, onOrdersDSLoad, onFail);
+        function onOrdersDSLoad() {
+            //$scope.olMap.markers = $scope.Orders.map(function (o) {
+            //    return {
+            //        name: o.Id,
+            //        lat: o.LatitudPuntoEntrega,
+            //        lon: o.LongitudPuntoEntrega,
+            //        label: {
+            //            message: '<span>' + o.PuntoEntrega + '</span>',
+            //            show: false,
+            //            showOnMouseOver: true
+            //        },
+            //        dataItem: o,
+            //        onClick: function (event, properties) {
+            //            $scope.orderSelected = properties.dataItem;
+            //            $("#markerModal").modal('toggle');
+            //        }
+            //    }
+            //});
+        }
     };
 
     $scope.disabledButton = false;
