@@ -1445,6 +1445,7 @@
     <Content Include="Reportes\Accidentologia\MensajesVehiculo.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx" />
     <Content Include="Reportes\Accidentologia\OperatorRanking.aspx" />
+    <Content Include="Reportes\Accidentologia\RankingTransportistas.aspx" />
     <Content Include="Reportes\Accidentologia\RankingVehiculos.aspx" />
     <Content Include="Reportes\Accidentologia\VehicleInfractionsDetails.aspx" />
     <Content Include="Reportes\Auditoria\LoginsHistory.aspx" />
@@ -1744,6 +1745,7 @@
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
     <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\StockVehicularLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\RankingTransportistas.xlsx" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
@@ -4241,6 +4243,13 @@
     </Compile>
     <Compile Include="Reportes\Accidentologia\OperatorRanking.aspx.designer.cs">
       <DependentUpon>OperatorRanking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\RankingTransportistas.aspx.cs">
+      <DependentUpon>RankingTransportistas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\RankingTransportistas.aspx.designer.cs">
+      <DependentUpon>RankingTransportistas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\Accidentologia\RankingVehiculos.aspx.cs">
       <DependentUpon>RankingVehiculos.aspx</DependentUpon>

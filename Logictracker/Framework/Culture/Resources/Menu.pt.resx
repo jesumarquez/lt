@@ -816,6 +816,9 @@
   <data name="RANKING_VEHICULOS" xml:space="preserve">
     <value>Ranking do Veículos</value>
   </data>
+  <data name="RANKING_TRANSPORTISTAS" xml:space="preserve">
+    <value>Ranking do Portadores</value>
+  </data>
   <data name="REP_FLUJO_TAREAS" xml:space="preserve">
     <value>Produtividad do Ruta</value>
   </data>
