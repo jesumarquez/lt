@@ -87,22 +87,20 @@
         </div>
     </div>
     <div class="row" style="margin-top: 1em;">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" role="tablist">
             <li class="active"><a data-toggle="tab" href="#grilla">Grilla</a></li>
             <li><a data-toggle="tab" href="#mapa">Mapa</a></li>
         </ul>
-
-    </div>
-    @*<div cass="tab-content" style="margin-top: 1em;">
-        <div id="grilla" class="tab-pane collapse in active">*@
-            <div class="col-md-12">
+        <div cass="tab-content" style="margin-top: 1em;">
+            <div id="grilla" class="tab-pane collapse in active" role="tabpanel">
                 <div kendo-grid="ordenesGrid" k-options="ordenesGridOptions" k-data-source="Orders"></div>
             </div>
-        @*</div>
-        <div id="mapa" class="tab-pane fade">
-            <openlayers width="100%" height="400px"></openlayers>
+            <div id="mapa" class="tab-pane fade" role="tabpanel">
+                <openlayers width="100%" height="400px"></openlayers>
+            </div>
         </div>
-    </div>*@
+    </div>
+
 
     <span kendo-notification="notify"></span>
 
