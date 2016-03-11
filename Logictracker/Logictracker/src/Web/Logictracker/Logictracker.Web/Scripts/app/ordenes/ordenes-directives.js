@@ -90,15 +90,9 @@ function OrderDetailDirective() {
         vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], onDSLoad, onFail);
 
         vm.onSelected = function (data) {
-            var index = -1;
-
-            var found = $.grep(vm.selectedList, function (item) {
+            var index = vm.selectedList.toJSON().findIndex(function (item) {
                 return item.Id === data.Id;
-            });
-
-            if (found.length > 0) {
-                index = vm.selectedList.indexOf(found[0]);
-            }
+            },data);
 
             if (index > -1) {
                 vm.selectedList.splice(index, 1);
@@ -108,19 +102,29 @@ function OrderDetailDirective() {
             }
         };
 
-        $scope.$on('onClearProductsSelected', function (event, args) {
-            vm.ds.read();
-        });
+        $scope.$watchCollection(function () { return vm.selectedList; }, onSelectedListChange);
+
+        function onSelectedListChange(newValue, oldValue) {
+            if (newValue !== oldValue) {
+                updateSelected(vm.selectedList, vm.ds.data());
+            }
+        };
+
+        function updateSelected(source, target) {
+            $.each(target, function (dsIndex, dsItem) {
+                var found = $.grep(source, function (item) {
+                    return item.Id === dsItem.Id;
+                });
+                var checked = found.length > 0;
+                if (dsItem.checked !== checked) {
+                    dsItem.checked = checked;
+                }
+            });
+        };
 
         function onDSLoad(e) {
             if (e.type === "read" && e.response) {
-                $.each(vm.selectedList, function (index, item) {
-                    $.each(e.response, function (dsIndex, dsItem) {
-                        if (dsItem.Id === item.Id) {
-                            dsItem.checked = true;
-                        }
-                    });
-                });
+                updateSelected(vm.selectedList, e.response);
             }
         };
 
@@ -161,7 +165,6 @@ function SummaryProductsSelected() {
 
         vm.clearSelection = function () {
             vm.selectedList.splice(0, vm.selectedList.length);
-            $scope.$parent.$broadcast('onClearProductsSelected', {});
         };
     };
 
