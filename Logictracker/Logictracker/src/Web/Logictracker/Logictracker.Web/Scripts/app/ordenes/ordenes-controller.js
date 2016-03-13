@@ -38,7 +38,8 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         detailTemplate: '<order-detail lt-ng-order-id="dataItem.Id" lt-ng-selected-list="productsSelected"/>',
     }
 
-    $scope.productsSelected = new kendo.data.ObservableArray([]);
+    //$scope.productsSelected = new kendo.data.ObservableArray([]);
+   $scope.productsSelected = new Array();
 
     $scope.distritoSelected = {};
     $scope.baseSelected = {};
@@ -160,6 +161,8 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         );
     };
 
+
+
 }
 
 function OrdenesAsignarController($scope, $log) {
@@ -167,7 +170,7 @@ function OrdenesAsignarController($scope, $log) {
     $scope.vehicleTypeSelected = {};
 
     $scope.ds = new kendo.data.DataSource({
-        data: $scope.productsSelected,
+        data: [],
         schema:
         {
             model: {
@@ -186,19 +189,19 @@ function OrdenesAsignarController($scope, $log) {
         change: onDataChanged
     });
 
+    $scope.cuadernasDs = new kendo.data.DataSource({
+        data: []
+    });
+
     $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
-
-
 
     function onvehicleTypeSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
-            $scope.cuadernasDs = new kendo.data.DataSource({
-                data: newValue.Contenedores
-            });
-            // Deberia limpiar 
+            $scope.cuadernasDs.data(newValue.Contenedores);
+
+            $scope.ds.data($scope.productsSelected);
         }
     }
-
 
     function sumCuaderna(cuaderna) {
         var l = 0;
@@ -231,7 +234,6 @@ function OrdenesAsignarController($scope, $log) {
         l.appendTo(container);
     }
 
-
     $scope.noEditTotal = function (container, options) {
         var l = $("<span/>");
         l.text(options.model["Cantidad"] + options.model["Ajuste"]);
@@ -263,14 +265,14 @@ function OrdenesAsignarController($scope, $log) {
     $scope.cuadernasGridOptions =
     {
         columns:
-     [
-         { field: "Orden", title: "" },
-         { field: "Descripcion", title: "" },
-         { field: "Capacidad", title: "Capacidad" },
-         { field: "Seleccionados", title: "N°" },
-         { field: "Asignado", title: "Asignado" },
-         { field: "Disponible", title: "Disponible", template: "#= data.Capacidad - (data.Asignado?data.Asignado:0) #" },
-     ],
+        [
+            { field: "Orden", title: "" },
+            { field: "Descripcion", title: "" },
+            { field: "Capacidad", title: "Capacidad" },
+            { field: "Seleccionados", title: "N°" },
+            { field: "Asignado", title: "Asignado" },
+            { field: "Disponible", title: "Disponible", template: "#= data.Capacidad - (data.Asignado?data.Asignado:0) #" },
+        ],
     };
 
     $scope.ok = function () {
@@ -283,5 +285,19 @@ function OrdenesAsignarController($scope, $log) {
         //$uibModalInstance.dismiss();
     }
 
+    $('#myModal').on('shown.bs.modal', null, function (e) {
+        
+        $scope.fillLocalDs();
+    });
 
+
+    $scope.fillLocalDs = function ()
+    {
+        $scope.ds.data($scope.productsSelected);
+
+        if ($scope.vehicleTypeSelected) {
+            $scope.cuadernasDs.data([]);
+            $scope.cuadernasDs.data($scope.vehicleTypeSelected.Contenedores);
+        }
+    };
 }
