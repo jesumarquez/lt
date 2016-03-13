@@ -90,7 +90,7 @@ function OrderDetailDirective() {
         vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], onDSLoad, onFail);
 
         vm.onSelected = function (data) {
-            var index = vm.selectedList.toJSON().findIndex(function (item) {
+            var index = vm.selectedList.findIndex(function (item) {
                 return item.Id === data.Id;
             },data);
 
@@ -98,7 +98,7 @@ function OrderDetailDirective() {
                 vm.selectedList.splice(index, 1);
             }
             else {
-                vm.selectedList.push(data);
+                vm.selectedList.push(data.toJSON());
             }
         };
 
