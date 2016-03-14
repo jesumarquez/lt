@@ -345,6 +345,7 @@
     <Compile Include="ReportObjects\OperatorActivity.cs" />
     <Compile Include="ReportObjects\OperatorMobiles.cs" />
     <Compile Include="ReportObjects\OperatorMobilesByDay.cs" />
+    <Compile Include="ReportObjects\RankingTransportistas.cs" />
     <Compile Include="ReportObjects\RankingVehiculos.cs" />
     <Compile Include="ReportObjects\OperatorStadistics.cs" />
     <Compile Include="ReportObjects\RankingDeOperadores\InfractionDetail.cs" />
