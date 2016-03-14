@@ -1,7 +1,7 @@
 ﻿angular
     .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
-    .controller('OrdenesAsignarController', ["$scope", "$log", OrdenesAsignarController]);
+    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", OrdenesAsignarController]);
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
@@ -164,7 +164,7 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
 
 }
 
-function OrdenesAsignarController($scope, $log) {
+function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService) {
 
     $scope.vehicleTypeSelected = {};
 
@@ -219,8 +219,8 @@ function OrdenesAsignarController($scope, $log) {
             var data = $scope.cuadernasDs.data();
             angular.forEach(data, function (value, key) {
                 var s = sumCuaderna(value.Orden);
-                
-                value.Seleccionados=s.cantidad;
+
+                value.Seleccionados = s.cantidad;
                 value.Asignado = s.asignados;
                 value.Total = value.Capacidad - s.asignados;
             });
@@ -278,7 +278,30 @@ function OrdenesAsignarController($scope, $log) {
     $scope.ok = function () {
         $log.debug("ok");
         //$uibModalInstance.close();
-    }
+
+        var selectOrders = [];
+        //$scope.ordenesGrid.select().each(function (index, row) {
+        //    selectOrders.push($scope.ordenesGrid.dataItem(row));
+        //});
+
+        $scope.newOrder = new OrdenesService.ordenes();
+        $scope.newOrder.OrderList = selectOrders;
+        $scope.newOrder.OrderDetailList = $scope.productsSelected.toJSON();
+        $scope.newOrder.IdVehicle = $scope.$parent.order.Vehicle.Key;
+        $scope.newOrder.IdVehicleType = $scope.vehicleTypeSelected.Id;
+        $scope.newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
+        $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
+        $scope.newOrder.$save(
+            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
+            function () {
+                //$scope.onBuscar();
+                //$('#myModal').modal('hide');
+                //$scope.disabledButton = false;
+            },
+            function () {}
+                //onFail
+        );
+            }
 
     $scope.cancel = function () {
         $log.debug("cancel");

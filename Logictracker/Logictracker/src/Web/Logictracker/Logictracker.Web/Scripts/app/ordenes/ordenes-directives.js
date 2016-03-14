@@ -92,7 +92,7 @@ function OrderDetailDirective() {
         vm.onSelected = function (data) {
             var index = vm.selectedList.toJSON().findIndex(function (item) {
                 return item.Id === data.Id;
-            },data);
+            }, data);
 
             if (index > -1) {
                 vm.selectedList.splice(index, 1);
