@@ -27,6 +27,8 @@ namespace Logictracker.Web.Models
         public DateTime? FechaEntrega { get; set; }
         public string InicioVentana { get; set; }
         public string FinVentana { get; set; }
+        public double PuntoEntregaLatitud { get; set; }
+        public double PuntoEntregaLongitud { get; set; }
     }
 
     public class OrdenesMapper : EntityModelMapper<Order, OrderModel>
@@ -50,9 +52,14 @@ namespace Logictracker.Web.Models
             model.FinVentana = entity.FinVentana;
             model.InicioVentana = entity.InicioVentana;
             model.Id = entity.Id;
-            if (entity.PuntoEntrega != null) model.PuntoEntrega = entity.PuntoEntrega.Descripcion;
-            if (entity.PuntoEntrega != null) model.IdPuntoEntrega = entity.PuntoEntrega.Id;
-            if (entity.PuntoEntrega != null) model.CodigoPuntoEntrega = entity.PuntoEntrega.Codigo;
+            if (entity.PuntoEntrega != null)
+            {
+                model.PuntoEntrega = entity.PuntoEntrega.Descripcion;
+                model.IdPuntoEntrega = entity.PuntoEntrega.Id;
+                model.CodigoPuntoEntrega = entity.PuntoEntrega.Codigo;
+                model.PuntoEntregaLatitud = entity.PuntoEntrega.ReferenciaGeografica.Latitude;
+                model.PuntoEntregaLongitud = entity.PuntoEntrega.ReferenciaGeografica.Longitude;
+            }
             if (entity.Transportista != null) model.Transportista = entity.Transportista.Descripcion;
             if (entity.Transportista != null) model.IdTransportista = entity.Transportista.Id;
             

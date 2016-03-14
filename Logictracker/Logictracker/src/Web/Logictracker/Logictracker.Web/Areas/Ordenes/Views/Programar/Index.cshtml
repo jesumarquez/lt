@@ -183,4 +183,54 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="markerModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width: 50%">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div style="min-height: 10px" class="modal-body">
+                    <div class="panel small">
+                        <div class="col-md-6">
+                            <div>
+                                <label class="control-label ">Empresa:</label>
+                                <span ng-bind="orderSelected.Empresa"></span>
+                            </div>
+                            <div>
+                                <label class="control-label">Transportista:</label>
+                                <span ng-bind="orderSelected.Transportista"></span>
+                            </div>
+                            <div>
+                                <label class="control-label">Pedido:</label>
+                                <span ng-bind="orderSelected.FechaPedido"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div>
+                                <label class="control-label">Codigo Entrega:</label>
+                                <span ng-bind="orderSelected.CodigoPuntoEntrega"></span>
+                            </div>
+                            <div>
+                                <label class="control-label">Razon Social:</label>
+                                <span ng-bind="orderSelected.PuntoEntrega"></span>
+                            </div>
+                            <div>
+                                <label class="control-label">Codigo Pedido:</label>
+                                <span ng-bind="orderSelected.CodigoPedido"></span>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                    </div><!-- panel -->
+
+                    <order-detail lt-ng-order-id="orderSelected.Id" lt-ng-selected-list="productsSelected" />
+                </div><!-- modal-body -->
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
 </div>
