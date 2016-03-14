@@ -23,6 +23,7 @@ namespace Logictracker.Types.BusinessObjects.Ordenes
         public virtual int Total { get; set; }
         public virtual short Estado { get; set; }
         public virtual decimal Descuento { get; set; }        
-        public virtual Order Order { get; set; }        
+        public virtual Order Order { get; set; }
+        public virtual int Cuaderna { get; set; }
     }
 }
