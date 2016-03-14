@@ -195,10 +195,20 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
             $scope.cuadernasDs = new kendo.data.DataSource({
                 data: newValue.Contenedores
             });
-            // Deberia limpiar 
+
+            cleanEditableProducts();
         }
     }
 
+    function cleanEditableProducts()
+    {
+        // Limpio si hay algo ya editado
+        $scope.productsSelected.forEach(
+            function (o) {
+                o.Cuaderna = 0;
+                o.Ajuste = 0;
+            });
+    }
 
     function sumCuaderna(cuaderna) {
         var l = 0;
@@ -304,7 +314,7 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
     $scope.cancel = function () {
         $log.debug("cancel");
         //$uibModalInstance.dismiss();
-    }
+   }
 
 
 }
