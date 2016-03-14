@@ -96,31 +96,44 @@ namespace Logictracker.Web.Controllers.api
         [HttpPost]
         public IHttpActionResult Post(int distritoId, int baseId, [FromBody] OrderSelectionModel orderSelectionModel)
         {
+            // Hay que definir como sería el routeCode ahora que también hay TipoCoche, por ahora solo se la pasa
             var routeCode = BuildRouteCode(orderSelectionModel.StartDateTime,
                 orderSelectionModel.IdVehicle,
+                orderSelectionModel.IdVehicleType,
                 orderSelectionModel.LogisticsCycleType,
                 distritoId,
                 baseId);
 
-            foreach (var orderModel in orderSelectionModel.OrderList)
-            {
-                var order = new Order();
-                order.CodigoPedido = orderModel.CodigoPedido;
-                order.Empleado = new Empleado { Id = orderModel.IdEmpleado };
-                order.Empresa = new Empresa { Id = orderModel.IdEmpresa };
-                order.Linea = new Linea { Id = orderModel.BaseId };
-                order.Transportista = new Transportista { Id = orderModel.IdTransportista };
-                order.FechaAlta = orderModel.FechaAlta;
-                order.FechaEntrega = orderModel.FechaEntrega;
-                order.FechaPedido = orderModel.FechaPedido;
-                order.FinVentana = orderModel.FinVentana;
-                order.InicioVentana = orderModel.InicioVentana;
-                order.Id = orderModel.Id;
-                order.PuntoEntrega = new PuntoEntrega { Id = orderModel.IdPuntoEntrega };
-                order.Transportista = new Transportista { Id = orderModel.IdTransportista };
+            // Debería borrarse
+            //foreach (var orderModel in orderSelectionModel.OrderList)
+            //{
+            //    var order = new Order();
+            //    order.CodigoPedido = orderModel.CodigoPedido;
+            //    order.Empleado = new Empleado { Id = orderModel.IdEmpleado };
+            //    order.Empresa = new Empresa { Id = orderModel.IdEmpresa };
+            //    order.Linea = new Linea { Id = orderModel.BaseId };
+            //    order.Transportista = new Transportista { Id = orderModel.IdTransportista };
+            //    order.FechaAlta = orderModel.FechaAlta;
+            //    order.FechaEntrega = orderModel.FechaEntrega;
+            //    order.FechaPedido = orderModel.FechaPedido;
+            //    order.FinVentana = orderModel.FinVentana;
+            //    order.InicioVentana = orderModel.InicioVentana;
+            //    order.Id = orderModel.Id;
+            //    order.PuntoEntrega = new PuntoEntrega { Id = orderModel.IdPuntoEntrega };
+            //    order.Transportista = new Transportista { Id = orderModel.IdTransportista };
 
-                RoutingService.Programming(order, routeCode, orderSelectionModel.IdVehicle,
-                    orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType);
+            //    RoutingService.Programming(order, routeCode, orderSelectionModel.IdVehicle,
+            //        orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType);
+            //}
+
+            Order o = null;
+            foreach (var orderDetailModel in orderSelectionModel.OrderDetailList)
+            {
+                o = EntityDao.FindById(orderDetailModel.OrderId);
+                if (o == null) return InternalServerError();
+
+                RoutingService.Programming(o, routeCode, orderSelectionModel.IdVehicle,
+                    orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
             }
 
             return Ok();
@@ -147,7 +160,7 @@ namespace Logictracker.Web.Controllers.api
             return Json(details.Select(od => ordenDetalleMapper.EntityToModel(od, new OrderDetailModel())));
         }
 
-        private string BuildRouteCode(DateTime date, int vehicleId, int logisticCycleTypeId, int distritoId, int baseId)
+        private string BuildRouteCode(DateTime date, int vehicleId, int vechicleTypeId, int logisticCycleTypeId, int distritoId, int baseId)
         {
             var daoF = new DAOFactory();
 

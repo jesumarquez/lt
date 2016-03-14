@@ -114,7 +114,7 @@ namespace Logictracker.Tracker.Application.Services
         //    //var order = DaoFactory.OrderDAO.FindById(orderId);
         //}
 
-        public void Programming(Order order, string routeCode, int idVehicle, DateTime startDateTime, int cycleType)
+        public void Programming(Order order, string routeCode, int idVehicle, DateTime startDateTime, int cycleType, int idVehicleType)
         {
             var viaje = DaoFactory.ViajeDistribucionDAO.FindByCodigo(order.Empresa.Id, -1, routeCode);
             
@@ -132,6 +132,7 @@ namespace Logictracker.Tracker.Application.Services
                 //viaje.CentroDeCostos = DaoFactory.CentroDeCostosDAO.FindById();
                 viaje.Vehiculo = (idVehicle != -2)? DaoFactory.CocheDAO.FindById(idVehicle) : null;
                 viaje.TipoCicloLogistico = (cycleType != -2) ? DaoFactory.TipoCicloLogisticoDAO.FindById(cycleType) : null;
+                viaje.TipoCoche = DaoFactory.TipoCocheDAO.FindById(idVehicleType);
                 viaje.Empleado = null;//DaoFactory.EmpleadoDAO.FindById(idEmpleado);
                 viaje.Codigo = routeCode;
                 viaje.Inicio = startDateTime;
