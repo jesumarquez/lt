@@ -184,10 +184,7 @@ namespace Logictracker.Tracker.Application.Services
 
             DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
 
-            var order2Remove = DaoFactory.OrderDAO.FindById(order.Id);
-            order2Remove.Programado = true;
-                      
-            DaoFactory.OrderDAO.SaveOrUpdate(order2Remove);
+            DaoFactory.OrderDAO.SaveOrUpdate(order);
         }
     }
 }

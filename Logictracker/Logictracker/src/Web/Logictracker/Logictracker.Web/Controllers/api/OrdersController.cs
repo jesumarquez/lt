@@ -137,6 +137,12 @@ namespace Logictracker.Web.Controllers.api
                 o = EntityDao.FindById(orderDetailModel.OrderId);
                 if (o == null) return InternalServerError();
 
+                // Se asigna el ajuste y la cuaderna asignada
+                var orderDetail = o.OrderDetails.Single(od => od.Id == orderDetailModel.Id);
+                orderDetail.Ajuste = orderDetailModel.Ajuste;
+                orderDetail.Cuaderna = orderDetailModel.Cuaderna;
+                orderDetail.Estado = OrderDetail.Estados.Ruteado;
+
                 RoutingService.Programming(o, routeCode, orderSelectionModel.IdVehicle,
                     orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
             }
@@ -171,6 +177,10 @@ namespace Logictracker.Web.Controllers.api
 
             var patente = vehicleId >= 0
                 ? daoF.CocheDAO.FindById(vehicleId).Patente
+                : CultureManager.GetControl("DDL_NONE");
+
+            var tipoCoche = vechicleTypeId >= 0
+                ? daoF.TipoCocheDAO.FindById(vechicleTypeId).Codigo
                 : CultureManager.GetControl("DDL_NONE");
 
             var tipoCiclo = logisticCycleTypeId >= 0

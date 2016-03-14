@@ -31,6 +31,8 @@ namespace Logictracker.Web.Models
             model.PrecioUnitario = entity.PrecioUnitario;
             model.Cantidad = entity.Cantidad;
             model.Descuento = entity.Descuento;
+            model.Cuaderna = entity.Cuaderna;
+            model.Ajuste = entity.Ajuste;
 
             return model;
         }
