@@ -112,24 +112,26 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         };
 
         $scope.Orders = OrdenesService.items(filters, onOrdersDSLoad, onFail);
-        function onOrdersDSLoad() {
-            //$scope.olMap.markers = $scope.Orders.map(function (o) {
-            //    return {
-            //        name: o.Id,
-            //        lat: o.LatitudPuntoEntrega,
-            //        lon: o.LongitudPuntoEntrega,
-            //        label: {
-            //            message: '<span>' + o.PuntoEntrega + '</span>',
-            //            show: false,
-            //            showOnMouseOver: true
-            //        },
-            //        dataItem: o,
-            //        onClick: function (event, properties) {
-            //            $scope.orderSelected = properties.dataItem;
-            //            $("#markerModal").modal('toggle');
-            //        }
-            //    }
-            //});
+        function onOrdersDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.olMap.markers = e.response.Data.map(function (o) {
+                    return {
+                        name: o.Id,
+                        lat: o.PuntoEntregaLatitud,
+                        lon: o.PuntoEntregaLongitud,
+                        label: {
+                            message: '<span>' + o.PuntoEntrega + '</span>',
+                            show: false,
+                            showOnMouseOver: true
+                        },
+                        dataItem: o,
+                        onClick: function (event, properties) {
+                            $scope.orderSelected = properties.dataItem;
+                            $("#markerModal").modal('toggle');
+                        }
+                    }
+                });
+            }
         }
     };
 

@@ -53,8 +53,13 @@ namespace Logictracker.Web.Controllers.api
                 orderModel.FinVentana = order.FinVentana;
                 orderModel.InicioVentana = order.InicioVentana;
                 orderModel.Id = order.Id;
-                if (order.PuntoEntrega != null) orderModel.PuntoEntrega = order.PuntoEntrega.Descripcion;
-                if (order.PuntoEntrega != null) orderModel.IdPuntoEntrega = order.PuntoEntrega.Id;
+                if (order.PuntoEntrega != null)
+                {
+                    orderModel.PuntoEntrega = order.PuntoEntrega.Descripcion;
+                    orderModel.IdPuntoEntrega = order.PuntoEntrega.Id;
+                    orderModel.PuntoEntregaLatitud = order.PuntoEntrega.ReferenciaGeografica.Latitude;
+                    orderModel.PuntoEntregaLongitud = order.PuntoEntrega.ReferenciaGeografica.Longitude;
+                }
                 if (order.Transportista != null) orderModel.Transportista = order.Transportista.Descripcion;
                 if (order.Transportista != null) orderModel.IdTransportista = order.Transportista.Id;
                 orderList.Add(orderModel);
