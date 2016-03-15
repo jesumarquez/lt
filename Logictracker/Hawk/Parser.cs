@@ -411,8 +411,7 @@ namespace Hawk
 
             short codeevent = (short)0;
 
-            codeevent = (short)(int.Parse(parser[2]) + 7000);
-            
+            codeevent = (short)(int.Parse(parser[2]) + 7000);                        
 
             var hdop = 0;
             pos = GPSPoint.Factory(time, lat, lon, vel, dir, 0, hdop);
@@ -465,9 +464,15 @@ namespace Hawk
             {
                 deviceid = DataProvider.FindByIMEI(parser[1].ToString(), this).Id;
             }
-
-            salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
-
+            if (codeevent == 7001 || codeevent == 7003)
+            {
+                salida = pos.ToPosition(deviceid, msgId);
+            }
+            else { 
+            
+                salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
+            
+            }
             return salida;
         }
 

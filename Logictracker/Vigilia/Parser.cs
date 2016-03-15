@@ -407,47 +407,7 @@ namespace Vigilia
             var dir = float.Parse(buffer.Substring(54,3));
             var patente = buffer.Substring(2,6);
             
-            short codeevent = (short)0;
-            switch (buffer.Substring(58, 2))
-            {
-                case "1":
-                    {
-                        codeevent = 5001;
-                    }
-                    break;
-                case "3":
-                    {
-                        codeevent = 5003;
-                    }
-                    break;
-                case "4":
-                    {
-                        codeevent = 5004;
-                    }
-                    break;
-                case "5":
-                    {
-                        codeevent = 5005;
-                    }
-                    break;
-                case "50":
-                    {
-                        codeevent = 5050;
-                    }
-                    break;
-                case "51":
-                    {
-                        codeevent = 5051;
-                    }
-                    break;
-                case "53":
-                    {
-                        codeevent = 5053;
-                    }
-                    break;
-                default:
-                    break;
-            }
+            short codeevent = (short)0;            
 
             var hdop = 0;
             pos = GPSPoint.Factory(time, lat, lon, vel, dir, 0, hdop);
@@ -505,8 +465,16 @@ namespace Vigilia
             {
                 deviceid = DataProvider.FindByIMEI(patente, this).Id;
             }
+            if (codeevent == 0)
+            {
+                salida = pos.ToPosition(deviceid, msgId);
+            }
+            else {
+                
+                salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
+            }
 
-            salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
+            
                       
             return salida;
         }
