@@ -30,9 +30,9 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         [
             { field: "Empresa", title: "Empresa" },
             { field: "Transportista", title: "Transportista" },
-            { field: "CodigoPuntoEntrega", title: "Codigo Entrega" },
-            { field: "PuntoEntrega", title: "Razon Social" },
-            { field: "CodigoPedido", title: "Codigo Pedido" },
+            { field: "CodigoPuntoEntrega", title: "Código Entrega" },
+            { field: "PuntoEntrega", title: "Razón Social" },
+            { field: "CodigoPedido", title: "Código Pedido" },
             { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
         ],
         detailTemplate: '<order-detail lt-ng-order-id="dataItem.Id" lt-ng-selected-list="productsSelected"/>',

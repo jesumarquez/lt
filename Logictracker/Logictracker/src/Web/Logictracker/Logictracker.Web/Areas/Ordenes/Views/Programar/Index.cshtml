@@ -52,11 +52,11 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label class="control-label">@Html.ResourceLabel("Labels", "Desde"):</label>
-                <input class="form-control" kendo-date-picker k-ng-model="desde" />
+                <input class="form-control" kendo-date-picker k-ng-model="desde" name="filter-fecha desde" />
             </div>
             <div class="form-group">
                 <label class="control-label">@Html.ResourceLabel("Labels", "Hasta"):</label>
-                <input class="form-control" kendo-date-picker k-ng-model="hasta" />
+                <input class="form-control" kendo-date-picker k-ng-model="hasta" name="filter-fecha hasta" />
             </div>
         </div>
 
@@ -64,7 +64,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label class="control-label">&nbsp;</label>
-                <kendo-button class="form-control" ng-click="onBuscar()">
+                <kendo-button class="form-control" ng-click="onBuscar()" name="buscar">
                     @Html.ResourceLabel("Labels", "Buscar")
                 </kendo-button>
             </div>
@@ -73,7 +73,7 @@
                 <kendo-button class="form-control"
                               data-toggle="modal"
                               data-target="#myModal"
-                              ng-disabled="productsSelected.length == 0">
+                              ng-disabled="productsSelected.length == 0" name="asignar">
                     @Html.ResourceLabel("Labels", "Asignar")
                 </kendo-button>
             </div>
