@@ -150,11 +150,9 @@ namespace Logictracker.Web.Reportes.Accidentologia
             var inicio = DateTime.UtcNow;
             try
             {
-                var results =
-                    ReportFactory.InfractionDetailDAO.GetInfractionsDetails(ddlDistrito.SelectedValues,
-                        ddlBase.SelectedValues, ddlTransportista.SelectedValues, GetOperators(), desde, hasta)
-                        .Select(o => new InfractionDetailVo(o) {HideCornerNearest = !chkVerEsquinas.Checked})
-                        .ToList();
+                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(ddlDistrito.SelectedValues, ddlBase.SelectedValues, ddlTransportista.SelectedValues, GetOperators(), desde, hasta)
+                                                               .Select(o => new InfractionDetailVo(o) {HideCornerNearest = !chkVerEsquinas.Checked})
+                                                               .ToList();
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 
                 STrace.Trace("Detalle de Infracciones", String.Format("Duración de la consulta: {0} segundos", duracion));

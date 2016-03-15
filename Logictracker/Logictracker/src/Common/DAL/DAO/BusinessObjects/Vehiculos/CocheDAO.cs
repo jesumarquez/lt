@@ -688,11 +688,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         /// <returns></returns>
         public double GetDistance(int coche, DateTime inicio, DateTime fin)
         {
-
-
             var distance = 0.0;
 
-            if (fin < DateTime.Today)
+            if (fin < DateTime.Today.ToDataBaseDateTime())
             {
                 var dmDAO = new DatamartDAO();
                 var dm = dmDAO.GetMobilesKilometers(inicio, fin, new List<int> {coche}).FirstOrDefault();
@@ -729,6 +727,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         public double GetRunningHours(int coche, DateTime inicio, DateTime fin)
         {
             var time = 0.0;
+
+            if (fin < DateTime.Today.ToDataBaseDateTime())
+            {
+                var dmDAO = new DatamartDAO();
+                var dm = dmDAO.GetMobilesTimes(inicio, fin, new List<int> { coche }).FirstOrDefault();
+                return dm != null ? dm.ElapsedTime : 0.0;
+            }
 
             var lpDAO = new LogPosicionDAO();
             var results = lpDAO.GetPositionsBetweenDates(coche, inicio, fin);

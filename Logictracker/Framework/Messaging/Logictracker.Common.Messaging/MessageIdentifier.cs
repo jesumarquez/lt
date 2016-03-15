@@ -308,8 +308,8 @@ namespace Logictracker.Messaging
         UserMessageDisableFuel = 4020,
         UserMessageEnableFuel = 4021,
 
-        PermanenciaEnGeocercaExcedida = 5000,
-        PermanenciaEnGeocercaExcedidaEnCicloLogistico = 5001,
+        PermanenciaEnGeocercaExcedida = 5500,
+        PermanenciaEnGeocercaExcedidaEnCicloLogistico = 5501,
 
         CustomEvent0001 = 7000,
         CustomEvent0002 = 7001,

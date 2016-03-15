@@ -849,6 +849,9 @@
   <data name="RANKING_VEHICULOS" xml:space="preserve">
     <value>Ranking de Vehículos</value>
   </data>
+  <data name="RANKING_TRANSPORTISTAS" xml:space="preserve">
+    <value>Ranking de Transportistas</value>
+  </data>
   <data name="PAR_TIPO_ZONA" xml:space="preserve">
     <value>Tipo de Zona</value>
   </data>

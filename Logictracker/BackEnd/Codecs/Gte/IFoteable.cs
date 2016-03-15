@@ -105,6 +105,14 @@ namespace Logictracker.Trax.v1
             return true;
         }
 
+        public bool ClearDeviceQueue(ulong messageId)
+        {
+            var config = new StringBuilder();            
+            config.AppendFormat("{0}{1}", ">SDLE<", Environment.NewLine); //Borro la cola de eventos/posiciones del dispositivo
+            SendMessages(config.ToString(), messageId, null);
+            return true;
+        }
+
         public Boolean ContainsMessage(String line)
         {
             int ini = line.IndexOf('>');

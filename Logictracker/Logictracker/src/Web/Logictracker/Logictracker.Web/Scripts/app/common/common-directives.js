@@ -38,7 +38,7 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" /> ',
+		        'k-ng-model="model" name="filter-distrito" /> ',
         ].join('')
     };
 })
@@ -89,7 +89,7 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" /> ',
+		        'k-ng-model="model" name="filter-base"/> ',
 
         ].join('')
     };
@@ -346,7 +346,7 @@
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="ds" ',
 		        'k-ng-model="model" ',
-                'k-auto-bind="false" >',
+                'k-auto-bind="false" name="filter-transportista" >',
 			'</input>'
         ].join(''),
         link: link
@@ -483,7 +483,7 @@
                 'k-filter="\'contains\'" ',
                 'k-min-length="3" ',
                 'required ',
-                'k-template="kTemplate"/> ',
+                'k-template="kTemplate" name="filter-entrega"/> ',
         ].join('')
     }
 })

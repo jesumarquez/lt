@@ -196,6 +196,7 @@
     <Content Include="Resources\MenuImages\ANALIZADOR_MEDICIONES.png" />
     <Content Include="Resources\MenuImages\CLOG_CONSOLA_TICKETS.png" />
     <Content Include="Resources\MenuImages\CLOG_CONTROL_DISTRIBUCION.png" />
+    <Content Include="Resources\MenuImages\RANKING_TRANSPORTISTAS.png" />
     <Content Include="Resources\MenuImages\REP_PROYECCION_STOCK.png" />
     <Content Include="Resources\MenuImages\PAR_STOCK_VEHICULAR.png" />
     <Content Include="Resources\MenuImages\PAR_VIAJE_PROGRAMADO.png" />

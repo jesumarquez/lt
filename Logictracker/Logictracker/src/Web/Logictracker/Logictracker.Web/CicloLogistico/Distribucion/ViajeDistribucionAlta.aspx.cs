@@ -1306,6 +1306,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             var combo = (sender as TipoServicioCicloDropDownList);
 
             var newValue = combo != null && combo.SelectedIndex >= 0 ? combo.Selected : 0;
+            if (index >= entregas.Count) return;
             var oldValue = entregas[index].TipoServicio;
 
             var oldTipo = oldValue > 0 ? DAOFactory.TipoServicioCicloDAO.FindById(oldValue) : null;
@@ -1619,20 +1620,24 @@ namespace Logictracker.CicloLogistico.Distribucion
                     horario = dtFecha.SelectedDate.HasValue ? dtFecha.SelectedDate.Value : Inicio;
                     hasta = horario;
                 }
-                var linea = DAOFactory.LineaDAO.FindById(cbLinea.Selected);
-                var entrega = new Entrega(new EntregaDistribucion { Descripcion = linea.Descripcion, Linea = linea, Viaje = EditObject });
+                
+                if (cbLinea.Selected > 0)
+                {
+                    var linea = DAOFactory.LineaDAO.FindById(cbLinea.Selected);
+                    var entrega = new Entrega(new EntregaDistribucion { Descripcion = linea.Descripcion, Linea = linea, Viaje = EditObject });
 
-                if (entregas.Count > 0)
-                {
-                    entregas.Insert(0, entrega);
-                    horarios.Insert(0, horario);
-                    hastas.Insert(0, hasta);
-                }
-                else
-                {
-                    entregas.Add(entrega);
-                    horarios.Add(horario);
-                    hastas.Add(hasta);
+                    if (entregas.Count > 0)
+                    {
+                        entregas.Insert(0, entrega);
+                        horarios.Insert(0, horario);
+                        hastas.Insert(0, hasta);
+                    }
+                    else
+                    {
+                        entregas.Add(entrega);
+                        horarios.Add(horario);
+                        hastas.Add(hasta);
+                    }
                 }
 
                 Horarios.Set(horarios);
