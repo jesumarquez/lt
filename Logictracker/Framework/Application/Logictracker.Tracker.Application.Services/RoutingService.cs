@@ -184,7 +184,22 @@ namespace Logictracker.Tracker.Application.Services
 
             DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
 
-            DaoFactory.OrderDAO.SaveOrUpdate(order);
+            foreach (var punto in viaje.Detalles.Where(d => d.PuntoEntrega != null).Select(d => d.PuntoEntrega))
+            {
+                punto.ReferenciaGeografica.Vigencia.Fin = viaje.Fin.AddMinutes(viaje.Empresa.EndMarginMinutes);
+                DaoFactory.PuntoEntregaDAO.SaveOrUpdate(punto);
+            }
+
+            var dict = new Dictionary<int, List<int>>();
+            var todaslaslineas = DaoFactory.LineaDAO.GetList(new[] { viaje.Empresa.Id }).Select(l => l.Id).ToList();
+            todaslaslineas.Add(-1);            
+            dict.Add(viaje.Empresa.Id, todaslaslineas);
+            DaoFactory.ReferenciaGeograficaDAO.UpdateGeocercas(dict);
+
+            var order2Remove = DaoFactory.OrderDAO.FindById(order.Id);
+            order2Remove.Programado = true;
+                      
+            DaoFactory.OrderDAO.SaveOrUpdate(order2Remove);
         }
     }
 }

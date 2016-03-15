@@ -248,6 +248,7 @@
     <Compile Include="DAO\BusinessObjects\Dispositivos\TipoDispositivoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Dispositivos\TipoParametroDispositivoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Vehiculos\ShiftDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RankingTransportistasDAO.cs" />
     <Compile Include="NHibernate\Interceptors\ReferenciaGeograficaLifeCycleInterceptor.cs" />
     <Compile Include="DAO\ReportObjects\AcumulatedHoursDAO.cs" />
     <Compile Include="DAO\ReportObjects\ControlDeCombustible\CentroDeCargaRemitosDAO.cs" />

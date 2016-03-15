@@ -790,6 +790,9 @@
   <data name="RANKING_VEHICULOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>MenuImages\RANKING_VEHICULOS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="RANKING_TRANSPORTISTAS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>MenuImages\RANKING_TRANSPORTISTAS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PAR_TIPO_ZONA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>MenuImages\PAR_TIPO_ZONA.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

@@ -681,6 +681,8 @@ namespace Logictracker.Messages.Sender
             /// trackingExtraData=[string_devuelto_en_el_ack-nack_correspondiente]
             /// </remarks>
             public const string ResetStateMachine = "ResetStateMachine";
+            
+            public const string ClearDeviceQueue = "ClearDeviceQueue";
 
             public const string ClearFota = "ClearFOTA";
 

@@ -464,7 +464,14 @@ namespace ControlSat
                 deviceid = DataProvider.FindByIMEI(parser[0].ToString(), this).Id;
             }
 
-            salida = new Event(codeevent, -1, deviceid, msgId,pos, pos.GetDate(), "", new List<long>(),true);
+            if (codeevent == 0)
+            {
+                salida = pos.ToPosition(deviceid, msgId);
+            }
+            else
+            {
+                salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
+            }
           
             return salida;
         }

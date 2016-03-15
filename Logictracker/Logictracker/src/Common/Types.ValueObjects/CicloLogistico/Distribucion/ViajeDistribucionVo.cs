@@ -67,7 +67,7 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico.Distribucion
             Distribucion = viaje;
             Id = viaje.Id;
             IdEmpresa = viaje.Empresa.Id;
-            IdLinea = viaje.Linea.Id;
+            IdLinea = viaje.Linea != null ? viaje.Linea.Id : 0;
             IdVehiculo = viaje.Vehiculo != null ? viaje.Vehiculo.Id : 0;
             IdTipoVehiculo = viaje.TipoCoche != null ? viaje.TipoCoche.Id : 0;
             Codigo = viaje.Codigo;
