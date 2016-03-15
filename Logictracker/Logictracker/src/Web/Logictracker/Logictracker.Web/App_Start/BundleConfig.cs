@@ -72,20 +72,12 @@ namespace Logictracker.Web
                 "~/Content/kendo/"
                 ));
 
-#if DEBUG
             bundles.Add(new StyleBundle("~/bundles/css-openlayer").Include(
                 "~/Content/ol-debug.css", "~/Content/angular-openlayers-directive.css"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/js-openlayer").Include(
                 "~/Scripts/ol.js", "~/Scripts/angular-openlayers-directive.js"));
-#else
-            bundles.Add(new StyleBundle("~/bundles/css-openlayer").Include(
-                "~/Content/ol-debug.css", "~/Content/angular-openlayers-directive.css"
-                ));
-            
-            bundles.Add(new ScriptBundle("~/bundles/js-openlayer").Include(
-                "~/Scripts/ol.js", "~/Script/angular-openlayers-directive.js"));
-#endif
+
 
             // Logictracker Angular app
             bundles.Add(new ScriptBundle("~/bundles/angularjs-logictracker").Include(
