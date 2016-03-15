@@ -341,10 +341,6 @@
       <Project>{A4CBB9B0-1C0B-4112-B9EC-D7F2BF58397C}</Project>
       <Name>Logictracker.Interfaces.LoJackApi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Logictracker.Messaging.RabbitmqQueue\Logictracker.Messaging.RabbitmqQueue.csproj">
-      <Project>{e3be14d6-2bf7-4b97-96f5-026a96465337}</Project>
-      <Name>Logictracker.Messaging.RabbitmqQueue</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Logictracker.Novatec\Novatel.csproj">
       <Project>{27C99A0E-3146-4E44-ACDB-2E55528F608A}</Project>
       <Name>Novatel</Name>
