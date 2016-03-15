@@ -297,10 +297,6 @@
       <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
       <Name>Logictracker.Description</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Diagnostics\Logictracker.Diagnostics.csproj">
-      <Project>{7FBF3686-AE82-4EE7-B164-7F5AFE5ECED6}</Project>
-      <Name>Logictracker.Diagnostics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Inet\Logictracker.Inet.csproj">
       <Project>{7FA87A8B-B2F1-42D5-A1F6-A224BEF84C9B}</Project>
       <Name>Logictracker.Inet</Name>
