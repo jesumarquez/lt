@@ -265,10 +265,12 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
             { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor },
             { field: "Ajuste", title: "Ajuste", width: "10em" },
             { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #", editor: $scope.noEditTotal },
+            //{ command: ["edit"], title: "&nbsp;", width: "250px" }
         ],
+        //editable: "inline"
         editable: {
             update: true,
-            destroy: false
+            destroy: false,
         }
     };
 
