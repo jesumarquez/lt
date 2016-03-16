@@ -22,6 +22,7 @@ function OrdenesService($resource) {
                     }
                 }
             },
+            //data: [{ "Id": 1137, "Empresa": "Petrobras", "IdEmpresa": 91, "BaseId": 2476, "Empleado": null, "IdEmpleado": 0, "Transportista": "ALL ROAD SA", "IdTransportista": 321, "PuntoEntrega": "67 - TRASLUX S.A.    ", "IdPuntoEntrega": 646198, "CodigoPuntoEntrega": "490", "CodigoPedido": "2959048", "FechaAlta": "2016-02-15T14:18:16", "FechaPedido": "2016-02-08T03:00:00", "FechaEntrega": null, "InicioVentana": null, "FinVentana": null, "PuntoEntregaLatitud": -34.125461, "PuntoEntregaLongitud": -59.081656 }, { "Id": 1138, "Empresa": "Petrobras", "IdEmpresa": 91, "BaseId": 2476, "Empleado": null, "IdEmpleado": 0, "Transportista": "ALL ROAD SA", "IdTransportista": 321, "PuntoEntrega": "28 - ZAGABRIA S.A.    ", "IdPuntoEntrega": 646159, "CodigoPuntoEntrega": "2359", "CodigoPedido": "2959384", "FechaAlta": "2016-02-15T14:18:16", "FechaPedido": "2016-02-08T03:00:00", "FechaEntrega": null, "InicioVentana": null, "FinVentana": null, "PuntoEntregaLatitud": -33.6966, "PuntoEntregaLongitud": -59.6816 }],
             schema: {
                 total: "Total",
                 data: "Data",
