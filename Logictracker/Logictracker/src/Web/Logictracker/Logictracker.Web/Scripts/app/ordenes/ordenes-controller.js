@@ -1,7 +1,7 @@
 ﻿angular
     .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
-    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", OrdenesAsignarController]);
+    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController]);
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
@@ -164,7 +164,7 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
 
 }
 
-function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService) {
+function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService, $filter) {
 
     $scope.vehicleTypeSelected = {};
 
@@ -202,8 +202,7 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
         }
     }
 
-    function cleanEditableProducts()
-    {
+    function cleanEditableProducts() {
         // Limpio si hay algo ya editado
         $scope.productsSelected.forEach(
             function (o) {
@@ -251,18 +250,25 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
     }
 
     $scope.cuadernaEditor = function (container, options) {
-        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Orden'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
+        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
         l.appendTo(container);
+    }
+
+    $scope.getCuadernaDesc = function (data) {
+        return $filter('filter')($scope.cuadernasDs.data(), { Orden: data.Cuaderna })[0].Descripcion;
     }
 
     $scope.productosGridOptions =
     {
+        dataBound: function () {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
+        },
         columns: [
             { field: "Id", hidden: true },
             { field: "OrderId", title: "Pedido", editor: $scope.noEdit, width: "10em" },
             { field: "Insumo", title: "Producto", editor: $scope.noEdit },
             { field: "Cantidad", title: "Litros", editor: $scope.noEdit, width: "10em" },
-            { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor },
+            { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
             { field: "Ajuste", title: "Ajuste", width: "10em" },
             { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #", editor: $scope.noEditTotal },
         ],
@@ -308,15 +314,15 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
                 //$('#myModal').modal('hide');
                 //$scope.disabledButton = false;
             },
-            function () {}
+            function () { }
                 //onFail
         );
-            }
+    }
 
     $scope.cancel = function () {
         $log.debug("cancel");
         //$uibModalInstance.dismiss();
-   }
+    }
 
 
 }
