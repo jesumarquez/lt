@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebGrease.Css.Extensions;
 
 namespace Logictracker.Web.Models
 {
@@ -21,12 +22,26 @@ namespace Logictracker.Web.Models
             model.Descripcion = entity.Descripcion;
             // if (entity.Contenedores.Count > 0) model.Contenedores = new List<ContenedorModel>(entity.Contenedores.Select(c => new ContenedorModel() { Descripcion = c.Descripcion, Capacidad = c.Capacidad }));
 
-            //Duro
-            model.Contenedores = new List<ContenedorModel>();
-            model.Contenedores.Add(new ContenedorModel() { Orden = 1, Capacidad = 6000, Descripcion = "Cuaderna 1" });
-            model.Contenedores.Add(new ContenedorModel() { Orden = 2, Capacidad = 6000, Descripcion = "Cuaderna 2" });
-            model.Contenedores.Add(new ContenedorModel() { Orden = 3, Capacidad = 6000, Descripcion = "Cuaderna 3" });
-            model.Contenedores.Add(new ContenedorModel() { Orden = 4, Capacidad = 6000, Descripcion = "Cuaderna 4" });
+            model.Contenedores = new List<ContenedorModel>(entity.Contenedores.Count);
+
+            for (var i = 0; i < entity.Contenedores.Count; i++)
+            {
+                var toAdd = new ContenedorModel
+                {
+                    Orden = i+1,
+                    Capacidad = entity.Contenedores[i].Capacidad,
+                    Descripcion = entity.Contenedores[i].Descripcion
+                };
+                model.Contenedores.Add(toAdd);
+            }
+            // si no tiene contenedores, es como si tuviera uno solo de volumen uníco
+            if (!model.Contenedores.Any())
+            {
+                model.Contenedores.Add( new ContenedorModel()
+                    { Orden=1,Capacidad = entity.CapacidadCarga, Descripcion = "Espacio de carga"});
+            }
+
+            model.Contenedores.Add(new ContenedorModel(){Orden=0,Capacidad = 0, Descripcion = "Ninguna"});
 
             return model;
         }
