@@ -167,7 +167,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
 function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService) {
 
     $scope.vehicleTypeSelected = {};
-
     $scope.ds = new kendo.data.DataSource({
         data: $scope.productsSelected,
         schema:
@@ -187,10 +186,42 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
         },
         change: onDataChanged
     });
+    $scope.productosGridOptions =
+    {
+        columns: [
+            { field: "Id", hidden: true },
+            { field: "OrderId", title: "Pedido", width: "10em" },
+            { field: "Insumo", title: "Producto" },
+            { field: "Cantidad", title: "Litros", width: "10em" },
+            { field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor },
+            { field: "Ajuste", title: "Ajuste", width: "10em" },
+            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #" },
+        ],
+        editable: {
+            update: true,
+            destroy: false
+        }
+    };
+    $scope.cuadernasDs = {};
+    $scope.cuadernasGridOptions =
+    {
+        columns:
+             [
+                 { field: "Orden", title: "" },
+                 { field: "Descripcion", title: "" },
+                 { field: "Capacidad", title: "Capacidad" },
+                 { field: "Seleccionados", title: "N°" },
+                 { field: "Asignado", title: "Asignado" },
+                 { field: "Asignado", title: "Disponible", template: "#= data.Capacidad - (data.Asignado?data.Asignado:0) #" },
+             ],
+    };
 
     $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
 
-
+    function cuadernaEditor(container, options) {
+        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Orden'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
+        l.appendTo(container);
+    }
 
     function onvehicleTypeSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
@@ -207,83 +238,50 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
         // Limpio si hay algo ya editado
         $scope.productsSelected.forEach(
             function (o) {
-                o.Cuaderna = 0;
-                o.Ajuste = 0;
+                o.set('Cuaderna', 0);
+                o.set('Ajuste', 0);
             });
-    }
-
-    function sumCuaderna(cuaderna) {
-        var l = 0;
-        var n = 0;
-        angular.forEach($scope.ds.data(), function (value, key) {
-            if (value.Cuaderna === cuaderna) {
-                l += value.Cantidad + value.Ajuste;
-                n += 1;
-            }
-        });
-        return { asignados: l, cantidad: n }
     }
 
     function onDataChanged(evt) {
-        if (evt.action === "itemchange") {
+        if (evt.action === "itemchange" || evt.action === "remove") {
             var data = $scope.cuadernasDs.data();
-            angular.forEach(data, function (value, key) {
-                var s = sumCuaderna(value.Orden);
 
-                value.Seleccionados = s.cantidad;
-                value.Asignado = s.asignados;
-                value.Total = value.Capacidad - s.asignados;
+            data.forEach(function (cuaderna) {
+                var items = $scope.ds.data();
+                var asignado = 0;
+                var seleccionados = 0;
+
+                items.forEach(function (item) {
+                    if(item.Cuaderna === cuaderna.Orden){
+                        asignado += item.Cantidad + item.Ajuste;
+                        seleccionados += 1;
+                    }
+                });
+
+                cuaderna.set('Asignado', asignado);
+                cuaderna.set('Seleccionados', seleccionados);
             });
         }
     }
 
-    $scope.noEdit = function (container, options) {
-        var l = $("<span/>");
-        l.text(options.model[options.field]);
-        l.appendTo(container);
-    }
+    //$scope.noEdit = function (container, options) {
+    //    var l = $("<span/>");
+    //    l.text(options.model[options.field]);
+    //    l.appendTo(container);
+    //}
 
+    //$scope.noEditTotal = function (container, options) {
+    //    var l = $("<span/>");
+    //    l.text(options.model["Cantidad"] + options.model["Ajuste"]);
+    //    l.appendTo(container);
+    //}
 
-    $scope.noEditTotal = function (container, options) {
-        var l = $("<span/>");
-        l.text(options.model["Cantidad"] + options.model["Ajuste"]);
-        l.appendTo(container);
-    }
+    //$scope.cuadernaEditor = function (container, options) {
+    //    var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Orden'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
+    //    l.appendTo(container);
+    //}
 
-    $scope.cuadernaEditor = function (container, options) {
-        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Orden'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
-        l.appendTo(container);
-    }
-
-    $scope.productosGridOptions =
-    {
-        columns: [
-            { field: "Id", hidden: true },
-            { field: "OrderId", title: "Pedido", editor: $scope.noEdit, width: "10em" },
-            { field: "Insumo", title: "Producto", editor: $scope.noEdit },
-            { field: "Cantidad", title: "Litros", editor: $scope.noEdit, width: "10em" },
-            { field: "Cuaderna", title: "Cuaderna", editor: $scope.cuadernaEditor },
-            { field: "Ajuste", title: "Ajuste", width: "10em" },
-            { field: "Ajuste", title: "Total", template: "#= data.Cantidad + data.Ajuste #", editor: $scope.noEditTotal },
-        ],
-        editable: {
-            update: true,
-            destroy: false
-        }
-    };
-
-    $scope.cuadernasGridOptions =
-    {
-        columns:
-     [
-         { field: "Orden", title: "" },
-         { field: "Descripcion", title: "" },
-         { field: "Capacidad", title: "Capacidad" },
-         { field: "Seleccionados", title: "N°" },
-         { field: "Asignado", title: "Asignado" },
-         { field: "Disponible", title: "Disponible", template: "#= data.Capacidad - (data.Asignado?data.Asignado:0) #" },
-     ],
-    };
 
     $scope.ok = function () {
         $log.debug("ok");
@@ -315,8 +313,8 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
 
     $scope.cancel = function () {
         $log.debug("cancel");
+        //cleanEditableProducts();
         //$uibModalInstance.dismiss();
    }
-
 
 }
