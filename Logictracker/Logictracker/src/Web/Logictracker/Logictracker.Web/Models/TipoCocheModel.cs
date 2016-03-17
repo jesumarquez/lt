@@ -41,6 +41,8 @@ namespace Logictracker.Web.Models
                     { Orden=1,Capacidad = entity.CapacidadCarga, Descripcion = "Espacio de carga"});
             }
 
+            model.Contenedores.Add(new ContenedorModel(){Orden=0,Capacidad = 0, Descripcion = "Ninguna"});
+
             return model;
         }
 
