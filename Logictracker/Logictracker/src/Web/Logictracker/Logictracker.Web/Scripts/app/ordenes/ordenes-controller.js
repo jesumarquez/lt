@@ -169,21 +169,6 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
     $scope.vehicleTypeSelected = {};
     $scope.ds = new kendo.data.DataSource({
         data: $scope.productsSelected,
-        schema:
-        {
-            model: {
-                id: "Id",
-                fields: {
-                    "Id": { type: "number", editable: false },
-                    "OrderId": { type: "number", editable: false },
-                    "Insumo": { type: "string", editable: false },
-                    "Cantidad": { type: "number", editable: false },
-                    "Ajuste": { type: "number", editable: true },
-                    "Cuaderna": { type: "number", editable: true },
-                    "CocheId": { type: "number", editable: true }
-                }
-            },
-        },
         change: onDataChanged
     });
     $scope.productosGridOptions =
