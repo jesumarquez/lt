@@ -212,9 +212,14 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
                  { field: "Capacidad", title: "Capacidad" },
                  { field: "Seleccionados", title: "N°" },
                  { field: "Asignado", title: "Asignado" },
-                 { field: "Asignado", title: "Disponible", template: "#= data.Capacidad - (data.Asignado?data.Asignado:0) #" },
+                 { field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
              ],
     };
+
+    $scope.semaforo = function (dataItem) {
+        if (dataItem.Orden === 0) return "";
+        return dataItem.Capacidad - (dataItem.Asignado ? dataItem.Asignado : 0) < 0 ? "tex-red" : "";
+    }
 
     $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
 

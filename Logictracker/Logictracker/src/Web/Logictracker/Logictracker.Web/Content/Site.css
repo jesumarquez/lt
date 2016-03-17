@@ -330,3 +330,7 @@ textarea {
 .form-group > label{
 	font-weight: normal;
 }
+
+.tex-red {
+    color: red;
+}
