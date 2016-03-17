@@ -244,7 +244,7 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
     }
 
     function onDataChanged(evt) {
-        if (evt.action === "itemchange") {
+        if (evt.action === "itemchange" || evt.action === "remove") {
             var data = $scope.cuadernasDs.data();
 
             data.forEach(function (cuaderna) {
@@ -313,7 +313,7 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService)
 
     $scope.cancel = function () {
         $log.debug("cancel");
-        cleanEditableProducts();
+        //cleanEditableProducts();
         //$uibModalInstance.dismiss();
    }
 
