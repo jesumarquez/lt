@@ -301,6 +301,8 @@ textarea {
     margin: .5em .1em;
 }
     .SummaryContainer-clear{
+        float: left;
+        margin-top: .2em;
         cursor: pointer;
         background: gray;
         color: #FFFFFF;
