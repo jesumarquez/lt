@@ -63,6 +63,7 @@ function OrderDetailDirective() {
             columns: [
                 { field: "Insumo", title: "Producto", width: "160px" },
                 { field: "Cantidad", title: "Litros" },
+                { field: "EstadoDescripcion", title: "Estado"},
                 { template: "<input type='checkbox' ng-model='dataItem.checked' ng-change='productos.onSelected(dataItem)'/>" }
             ]
         };
@@ -153,7 +154,8 @@ function SummaryProductsSelected() {
     return {
         restrict: 'E',
         scope: {
-            selectedList: "=ltNgSelectedList"
+            selectedList: "=ltNgSelectedList",
+            accessor: "="
         },
         controller: ['$scope', controller],
         controllerAs: 'summary',
@@ -167,8 +169,19 @@ function SummaryProductsSelected() {
                     '</li>',
                 '</ul>',
             '</div>'
-        ].join('')
+        ].join(''),
+        link: link
     };
+
+    function link(scope, element, attrs, controller) {
+        if (controller.accessor) {
+            controller.accessor.invoke = function () {                
+                if (controller)
+                    controller.clearSelection();
+            };
+        }
+    }
+
 }
 
 
