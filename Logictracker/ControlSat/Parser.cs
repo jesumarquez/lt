@@ -372,8 +372,8 @@ namespace ControlSat
             ulong msgId = NextSequence;// ulong.Parse(parser[6]); 
             GPSPoint pos;
             var code = EventCodes.Position;
-            var time = DateTime.ParseExact(parser[1], "yyyy-MM-dd HH:mm:ss",
-                           System.Globalization.CultureInfo.InvariantCulture).AddHours(3);
+            var time = DateTime.SpecifyKind(DateTime.ParseExact(parser[1], "yyyy-MM-dd HH:mm:ss",
+                           System.Globalization.CultureInfo.InvariantCulture),DateTimeKind.Utc);
             var lat = float.Parse(parser[2].Replace('.', ','));
             var lon = float.Parse(parser[3].Replace('.', ','));
             var vel = float.Parse(parser[4]);
@@ -410,11 +410,6 @@ namespace ControlSat
                     case "51":
                         {
                              codeevent = 5051;
-                        }
-                    break;
-                    case "53":
-                        {
-                             codeevent = 5053;
                         }
                     break;
                 default:

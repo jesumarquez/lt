@@ -673,7 +673,7 @@ namespace Logictracker.Monitor.MonitorDeEntidades
             }
         }
 
-        protected static string GetMessage(SharedPopup popup)
+        protected static string GetMessage(Logictracker.SharedPopup popup)
         {
             return "<div style=\"cursor: pointer; background-color: " + popup.Color + "; border: solid 1px White;color: White; padding: 3px;\" onclick=\"LoadDetail(" + popup.Id + "); this.parentNode.removeChild(this);\">" + popup.DateTime.ToDisplayDateTime().ToString("HH:mm") + ": <b>" + popup.Interno + "</b> - " + popup.Text + "</div>";
         }
