@@ -196,10 +196,11 @@ namespace Logictracker.Tracker.Application.Services
             dict.Add(viaje.Empresa.Id, todaslaslineas);
             DaoFactory.ReferenciaGeograficaDAO.UpdateGeocercas(dict);
 
-            var order2Remove = DaoFactory.OrderDAO.FindById(order.Id);
-            order2Remove.Programado = true;
-                      
-            DaoFactory.OrderDAO.SaveOrUpdate(order2Remove);
+            // Si todos los OrdetDetails están ruteados entonces setea la orden en programado
+            var allRouted = order.OrderDetails.Where(od => (od.Estado == OrderDetail.Estados.Ruteado)).ToList().Count == order.OrderDetails.Count;
+            if (allRouted) order.Programado = true;
+
+            DaoFactory.OrderDAO.SaveOrUpdate(order);
         }
     }
 }

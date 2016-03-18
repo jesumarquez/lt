@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Logictracker.Web.Monitor.Geometries;
 using Point = Logictracker.Web.Monitor.Geometries.Point;
 using Logictracker.Services.Helpers;
+using Logictracker.Web;
 
 namespace Logictracker.CicloLogistico.Distribucion
 {
@@ -24,6 +25,7 @@ namespace Logictracker.CicloLogistico.Distribucion
         protected override String RedirectUrl { get { return "ViajeProgramadoLista.aspx"; } }
         protected override String VariableName { get { return "PAR_VIAJE_PROGRAMADO"; } }
         protected override String GetRefference() { return "PAR_VIAJE_PROGRAMADO"; }
+        public VsProperty<List<PointF>> Points { get { return this.CreateVsProperty<List<PointF>>("Points", null); } }
 
         protected override void OnInit(EventArgs e)
         {
@@ -101,6 +103,31 @@ namespace Logictracker.CicloLogistico.Distribucion
                 entrega.ViajeProgramado = EditObject;
                 EditObject.Detalles.Add(entrega);
             }
+
+
+            Logictracker.Types.BusinessObjects.CicloLogistico.Recorrido REditObject = new Types.BusinessObjects.CicloLogistico.Recorrido();
+             REditObject.Empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
+             REditObject.Linea = null;
+            REditObject.Codigo = txtCodigo.Text.Trim();
+            REditObject.Nombre = txtCodigo.Text.Trim();
+            REditObject.Desvio = Convert.ToInt32(100);
+
+            var points = Points.Get();
+            REditObject.Detalles.Clear();
+            Logictracker.Types.BusinessObjects.CicloLogistico.DetalleRecorrido last = null;
+            for (int i = 0; i < points.Count; i++)
+            {
+                var point = points[i];
+                var det = new Logictracker.Types.BusinessObjects.CicloLogistico.DetalleRecorrido { Latitud = point.Y, Longitud = point.X, Recorrido = REditObject, Orden = i };
+                det.Distancia = last == null
+                                    ? 0
+                                    : Logictracker.Utils.Distancias.Loxodromica(last.Latitud, last.Longitud, det.Latitud, det.Longitud) / 1000.0;
+                REditObject.Detalles.Add(det);
+                last = det;
+            }
+
+
+            DAOFactory.RecorridoDAO.SaveOrUpdate(REditObject);
 
             DAOFactory.ViajeProgramadoDAO.SaveOrUpdate(EditObject);
         }
@@ -252,8 +279,11 @@ namespace Logictracker.CicloLogistico.Distribucion
                 var posiciones = directions.Legs.SelectMany(l => l.Steps.SelectMany(s => s.Points));
                 var line = new Line("D:" + Color.Red.ToArgb(), StyleFactory.GetLineFromColor(Color.Red, 4, 0.5));
                 line.AddPoints(posiciones.Select(p => new Point("", p.Longitud, p.Latitud)));
-                monitor.AddGeometries(LayerRecorrido, line);
 
+                Points.Set(posiciones.Select(p => new PointF((float)p.Longitud, (float)p.Latitud)).ToList());
+                
+                monitor.AddGeometries(LayerRecorrido, line);
+                
                 if (recalcularValores)
                 {
                     var ts = directions.Duration;

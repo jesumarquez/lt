@@ -2192,7 +2192,29 @@
     <Compile Include="Admin\Services.aspx.designer.cs">
       <DependentUpon>Services.aspx</DependentUpon>
     </Compile>
-    <Content Include="App_Code\ViewExtensions.cs" />
+    <Compile Include="App_Code\ViewExtensions.cs" />
+    <Content Include="App_Code\AutoComplete.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="App_Code\Export.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="App_Code\Geocoder.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="App_Code\Import.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="App_Code\Operation.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="App_Code\OperationService.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Compile Include="App_Code\SharedPositions.cs" />
+    <Content Include="App_Code\Tickets.cs">
+      <SubType>Component</SubType>
+    </Content>
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3175,28 +3197,6 @@
     </Compile>
     <Compile Include="Monitor\popup\MobileRoutePopup.aspx.designer.cs">
       <DependentUpon>MobileRoutePopup.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Old_App_Code\AutoComplete.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Export.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Geocoder.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Import.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Operation.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\OperationService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\SharedPositions.cs" />
-    <Compile Include="Old_App_Code\Tickets.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Operacion\Camaras\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

@@ -17,8 +17,9 @@ namespace Logictracker.Web.Models
         public decimal Descuento { get; set; }
         public int Ajuste { get; set; }
         public int ChocheId { get; set; }
-
         public int Cuaderna { get; set; }
+        public string EstadoDescripcion { get; set; }
+
     }
 
     public class OrdenDetallesMapper : EntityModelMapper<OrderDetail, OrderDetailModel>
@@ -33,6 +34,7 @@ namespace Logictracker.Web.Models
             model.Descuento = entity.Descuento;
             model.Cuaderna = entity.Cuaderna;
             model.Ajuste = entity.Ajuste;
+            model.EstadoDescripcion = entity.Estado.ToString();
 
             return model;
         }

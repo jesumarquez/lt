@@ -1520,7 +1520,7 @@ namespace Logictracker.Operacion
             }
         }
 
-        protected static string GetMessage(SharedPopup popup)
+        protected static string GetMessage(Logictracker.SharedPopup popup)
         {
             var posTime = popup.DateTime.ToDisplayDateTime().ToString("HH:mm");
             var posTimeAlta = popup.DateTimeAlta.ToDisplayDateTime().ToString("HH:mm");
