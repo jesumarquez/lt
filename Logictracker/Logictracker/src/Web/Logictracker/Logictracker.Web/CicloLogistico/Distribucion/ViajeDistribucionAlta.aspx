@@ -84,7 +84,7 @@
                         <cwc:ResourceLabel ID="lblTipoVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI17" />
                         <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <cwc:TipoDeVehiculoDropDownList ID="cbTipoVehiculo" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa,cbLinea" />
+                                <cwc:TipoDeVehiculoDropDownList ID="cbTipoVehiculo" runat="server" Width="100%" AddAllItem="true" ParentControls="cbEmpresa,cbLinea" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
@@ -95,7 +95,7 @@
                         <cwc:ResourceLabel ID="lblVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
                         <asp:UpdatePanel ID="updMovil" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <cwc:MovilDropDownList ID="cbVehiculo" runat="server" Width="100%" AddAllItem="true" ParentControls="cbEmpresa,cbLinea,cbTransportista,cbCentroDeCosto,cbSubCentroDeCosto,cbTipoVehiculo" OnSelectedIndexChanged="CbVehiculoSelectedIndexChanged" TabIndex="20" />
+                                <cwc:MovilDropDownList ID="cbVehiculo" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa,cbLinea,cbTransportista,cbCentroDeCosto,cbSubCentroDeCosto,cbTipoVehiculo" OnSelectedIndexChanged="CbVehiculoSelectedIndexChanged" TabIndex="20" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />

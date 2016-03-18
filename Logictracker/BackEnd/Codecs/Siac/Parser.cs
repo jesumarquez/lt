@@ -429,10 +429,6 @@ namespace Logictracker.Siac
                     codeevent = 6020;
                 }
                     break;
-                case "00":
-                {
-                    break;
-                }
                 default:
                     break;
             }
@@ -493,8 +489,15 @@ namespace Logictracker.Siac
             {
                 deviceid = DataProvider.FindByIMEI(patente, this).Id;
             }
+            if (codeevent == 0)
+            {
+                salida = pos.ToPosition(deviceid, msgId);
+            }
+            else {
 
-            salida = new Event(codeevent, -1, deviceid, msgId,pos, pos.GetDate(), "", new List<long>(),true);
+                salida = new Event(codeevent, -1, deviceid, msgId, pos, pos.GetDate(), "", new List<long>(), true);
+
+            }
           
             return salida;
         }
