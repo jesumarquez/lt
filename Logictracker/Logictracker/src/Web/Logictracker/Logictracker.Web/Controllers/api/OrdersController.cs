@@ -108,20 +108,23 @@ namespace Logictracker.Web.Controllers.api
                 distritoId,
                 baseId);
 
-            Order o = null;
-            foreach (var orderDetailModel in orderSelectionModel.OrderDetailList)
+            // Agrupo por OrderId
+            var odByOrderId = orderSelectionModel.OrderDetailList.GroupBy(od => od.OrderId);
+            foreach (var group in odByOrderId)
             {
-                o = EntityDao.FindById(orderDetailModel.OrderId);
-                if (o == null) return InternalServerError();
+                var order = EntityDao.FindById(group.Key);
+                group.ToList().ForEach(od =>
+                {
+                    // Se asigna el ajuste y la cuaderna asignada
+                    var orderDetail = order.OrderDetails.Single(item => item.Id == od.Id);
+                    orderDetail.Ajuste = od.Ajuste;
+                    orderDetail.Cuaderna = od.Cuaderna;
+                    orderDetail.Estado = OrderDetail.Estados.Ruteado;
+                });
 
-                // Se asigna el ajuste y la cuaderna asignada
-                var orderDetail = o.OrderDetails.Single(od => od.Id == orderDetailModel.Id);
-                orderDetail.Ajuste = orderDetailModel.Ajuste;
-                orderDetail.Cuaderna = orderDetailModel.Cuaderna;
-                orderDetail.Estado = OrderDetail.Estados.Ruteado;
-
-                RoutingService.Programming(o, routeCode, orderSelectionModel.IdVehicle,
-                    orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
+                // Programo por Orden
+                RoutingService.Programming(order, routeCode, orderSelectionModel.IdVehicle,
+                orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
             }
 
             return Ok();
