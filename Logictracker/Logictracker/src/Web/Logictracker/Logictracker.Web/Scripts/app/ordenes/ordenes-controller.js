@@ -5,6 +5,8 @@
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
+    $scope.accessor = {};
+
     $scope.UserData = UserDataInfo.get($scope, $scope);
 
     $scope.order = {
@@ -292,14 +294,20 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
         $scope.newOrder.$save(
             { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
-            function () {
-                //$scope.onBuscar();
-                //$('#myModal').modal('hide');
-                //$scope.disabledButton = false;
-            },
+            onSuccess(),
             function () { }
                 //onFail
         );
+    }
+
+    function onSuccess()
+    {
+        if ($scope.accessor.invoke)
+            $scope.accessor.invoke();
+            
+        $scope.onBuscar();
+        //$('#myModal').modal('hide');
+        //$scope.disabledButton = false;
     }
 
     $scope.cancel = function () {

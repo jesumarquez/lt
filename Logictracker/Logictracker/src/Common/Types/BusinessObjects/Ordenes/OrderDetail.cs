@@ -6,12 +6,12 @@ namespace Logictracker.Types.BusinessObjects.Ordenes
 {
     public class OrderDetail : IAuditable
     {
-        public static class Estados
-        {
-            public const short Cancelado = -1;
-            public const short Pendiente = 0;
-            public const short Ruteado = 1;
-            public const short NoRuteado = 2;
+        public enum Estados
+        { 
+            Cancelado   = -1,
+            Pendiente   = 0,
+            Ruteado     = 1,
+            NoRuteado   = 2
         }
 
         public virtual int Id { get; set; }
@@ -21,7 +21,7 @@ namespace Logictracker.Types.BusinessObjects.Ordenes
         public virtual int Cantidad { get; set; }
         public virtual int Ajuste { get; set; }
         public virtual int Total { get; set; }
-        public virtual short Estado { get; set; }
+        public virtual Estados Estado { get; set; }
         public virtual decimal Descuento { get; set; }        
         public virtual Order Order { get; set; }
         public virtual int Cuaderna { get; set; }
