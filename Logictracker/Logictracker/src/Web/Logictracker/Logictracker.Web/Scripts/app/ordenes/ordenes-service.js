@@ -67,6 +67,21 @@ function OrdenesService($resource) {
                     data: { insumos: list }
                 }
             },
+            schema:
+        {
+            model: {
+                id: "Id",
+                fields: {
+                    "Id": { type: "number", editable: false },
+                    "OrderId": { type: "number", editable: false },
+                    "Insumo": { type: "string", editable: false },
+                    "Cantidad": { type: "number", editable: false },
+                    "Ajuste": { type: "number", editable: true },
+                    "Cuaderna": { type: "number", editable: true },
+                    "CocheId": { type: "number", editable: true }
+                }
+            },
+        },
             pageSize: 10,
             serverGrouping: false,
             serverFiltering: true,

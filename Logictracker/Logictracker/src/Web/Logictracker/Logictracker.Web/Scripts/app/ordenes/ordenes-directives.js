@@ -76,6 +76,8 @@ function OrderDetailDirective() {
 
             if (index > -1) {
                 vm.selectedList.splice(index, 1);
+                data.Ajuste = 0;
+                data.Cuaderna = 0;
             }
             else {
                 vm.selectedList.push(data);
