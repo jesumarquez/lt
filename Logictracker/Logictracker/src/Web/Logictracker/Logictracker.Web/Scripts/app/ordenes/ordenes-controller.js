@@ -270,16 +270,18 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
     $scope.ok = function () {
        
         if ($scope.$parent.disabledButton) return;
-        //$uibModalInstance.close();
 
         var selectOrders = [];
-        //$scope.ordenesGrid.select().each(function (index, row) {
-        //    selectOrders.push($scope.ordenesGrid.dataItem(row));
-        //});
 
         $scope.newOrder = new OrdenesService.ordenes();
         $scope.newOrder.OrderList = selectOrders;
-        $scope.newOrder.OrderDetailList = $scope.productsSelected.toJSON();
+
+        // Obtener solo los productos que tienen cuaderna seleccionada
+        var productsSelectedAssigned = new Array();
+        $scope.productsSelected.forEach(function (item)
+        { if (item.Cuaderna > 0) productsSelectedAssigned.push(item.toJSON()); });
+
+        $scope.newOrder.OrderDetailList = productsSelectedAssigned;
         $scope.newOrder.IdVehicle = $scope.$parent.order.Vehicle.Key;
         $scope.newOrder.IdVehicleType = $scope.vehicleTypeSelected.Id;
         $scope.newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
