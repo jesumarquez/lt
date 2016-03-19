@@ -53,8 +53,13 @@ namespace Logictracker.Web.Controllers.api
                 orderModel.FinVentana = order.FinVentana;
                 orderModel.InicioVentana = order.InicioVentana;
                 orderModel.Id = order.Id;
-                if (order.PuntoEntrega != null) orderModel.PuntoEntrega = order.PuntoEntrega.Descripcion;
-                if (order.PuntoEntrega != null) orderModel.IdPuntoEntrega = order.PuntoEntrega.Id;
+                if (order.PuntoEntrega != null)
+                {
+                    orderModel.PuntoEntrega = order.PuntoEntrega.Descripcion;
+                    orderModel.IdPuntoEntrega = order.PuntoEntrega.Id;
+                    orderModel.PuntoEntregaLatitud = order.PuntoEntrega.ReferenciaGeografica.Latitude;
+                    orderModel.PuntoEntregaLongitud = order.PuntoEntrega.ReferenciaGeografica.Longitude;
+                }
                 if (order.Transportista != null) orderModel.Transportista = order.Transportista.Descripcion;
                 if (order.Transportista != null) orderModel.IdTransportista = order.Transportista.Id;
                 orderList.Add(orderModel);
@@ -96,7 +101,6 @@ namespace Logictracker.Web.Controllers.api
         [HttpPost]
         public IHttpActionResult Post(int distritoId, int baseId, [FromBody] OrderSelectionModel orderSelectionModel)
         {
-            // Hay que definir como sería el routeCode ahora que también hay TipoCoche, por ahora solo se la pasa
             var routeCode = BuildRouteCode(orderSelectionModel.StartDateTime,
                 orderSelectionModel.IdVehicle,
                 orderSelectionModel.IdVehicleType,
@@ -104,36 +108,23 @@ namespace Logictracker.Web.Controllers.api
                 distritoId,
                 baseId);
 
-            // Debería borrarse
-            //foreach (var orderModel in orderSelectionModel.OrderList)
-            //{
-            //    var order = new Order();
-            //    order.CodigoPedido = orderModel.CodigoPedido;
-            //    order.Empleado = new Empleado { Id = orderModel.IdEmpleado };
-            //    order.Empresa = new Empresa { Id = orderModel.IdEmpresa };
-            //    order.Linea = new Linea { Id = orderModel.BaseId };
-            //    order.Transportista = new Transportista { Id = orderModel.IdTransportista };
-            //    order.FechaAlta = orderModel.FechaAlta;
-            //    order.FechaEntrega = orderModel.FechaEntrega;
-            //    order.FechaPedido = orderModel.FechaPedido;
-            //    order.FinVentana = orderModel.FinVentana;
-            //    order.InicioVentana = orderModel.InicioVentana;
-            //    order.Id = orderModel.Id;
-            //    order.PuntoEntrega = new PuntoEntrega { Id = orderModel.IdPuntoEntrega };
-            //    order.Transportista = new Transportista { Id = orderModel.IdTransportista };
-
-            //    RoutingService.Programming(order, routeCode, orderSelectionModel.IdVehicle,
-            //        orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType);
-            //}
-
-            Order o = null;
-            foreach (var orderDetailModel in orderSelectionModel.OrderDetailList)
+            // Agrupo por OrderId
+            var odByOrderId = orderSelectionModel.OrderDetailList.GroupBy(od => od.OrderId);
+            foreach (var group in odByOrderId)
             {
-                o = EntityDao.FindById(orderDetailModel.OrderId);
-                if (o == null) return InternalServerError();
+                var order = EntityDao.FindById(group.Key);
+                group.ToList().ForEach(od =>
+                {
+                    // Se asigna el ajuste y la cuaderna asignada
+                    var orderDetail = order.OrderDetails.Single(item => item.Id == od.Id);
+                    orderDetail.Ajuste = od.Ajuste;
+                    orderDetail.Cuaderna = od.Cuaderna;
+                    orderDetail.Estado = OrderDetail.Estados.Ruteado;
+                });
 
-                RoutingService.Programming(o, routeCode, orderSelectionModel.IdVehicle,
-                    orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
+                // Programo por Orden
+                RoutingService.Programming(order, routeCode, orderSelectionModel.IdVehicle,
+                orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
             }
 
             return Ok();
@@ -166,6 +157,10 @@ namespace Logictracker.Web.Controllers.api
 
             var patente = vehicleId >= 0
                 ? daoF.CocheDAO.FindById(vehicleId).Patente
+                : CultureManager.GetControl("DDL_NONE");
+
+            var tipoCoche = vechicleTypeId >= 0
+                ? daoF.TipoCocheDAO.FindById(vechicleTypeId).Codigo
                 : CultureManager.GetControl("DDL_NONE");
 
             var tipoCiclo = logisticCycleTypeId >= 0

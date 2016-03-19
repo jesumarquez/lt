@@ -290,6 +290,11 @@ namespace Logictracker.SimComLite
 			return true;
 		}
 
+        public bool ClearDeviceQueue(ulong messageId)
+        {
+            return true;
+        }
+
 		public bool ContainsMessage(String line)
 		{
 			return String.IsNullOrEmpty(line);

@@ -324,6 +324,8 @@ namespace Logictracker.Unetel.v1
             throw new NotImplementedException();
         }
 
+        public bool ClearDeviceQueue(ulong messageId) { return true; }
+
         public Boolean? IsGarminConnected { get { throw new NotImplementedException(); } set { throw new NotImplementedException(); } }
 
 		public Boolean ReloadFirmware(ulong messageId) { return true; }

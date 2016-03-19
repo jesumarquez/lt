@@ -342,8 +342,8 @@ namespace Logictracker.Messaging
                 case MessageCode.TrailerHooked: return "2817";
 
                 //Tiempo Máximo en Geocerca
-                case MessageCode.PermanenciaEnGeocercaExcedida: return "5000";
-                case MessageCode.PermanenciaEnGeocercaExcedidaEnCicloLogistico: return "5001";
+                case MessageCode.PermanenciaEnGeocercaExcedida: return "5500";
+                case MessageCode.PermanenciaEnGeocercaExcedidaEnCicloLogistico: return "5501";
 
                 // del 6000 al 6099 son eventos definibles para Estado Logistico (Categoria ESLO0 y ESLO1)
 

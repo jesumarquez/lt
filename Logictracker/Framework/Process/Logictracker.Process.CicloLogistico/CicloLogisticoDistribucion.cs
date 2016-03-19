@@ -1097,7 +1097,7 @@ namespace Logictracker.Process.CicloLogistico
 
         #region AutoClose
 
-        protected override void AutoCloseTicket()
+        protected override void AutoCloseTicket(DateTime date)
         {
             if (Distribucion.Estado == ViajeDistribucion.Estados.Eliminado ||
                 Distribucion.Estado == ViajeDistribucion.Estados.Anulado ||
@@ -1110,7 +1110,7 @@ namespace Logictracker.Process.CicloLogistico
                 var ultimo = Distribucion.Detalles.Last(d => d.Linea != null);
                 if (ultimo.Entrada.HasValue)
                 {
-                    CerrarDistribucion();
+                    CerrarDistribucion(ultimo.Entrada.Value);
                     STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por regreso a base.", Distribucion.Id));
                     return;
                 }
@@ -1124,7 +1124,7 @@ namespace Logictracker.Process.CicloLogistico
                         Distribucion.EntregasTotalCountConBases > 0 && 
                         Distribucion.Detalles.Last().Salida.HasValue)
                     {
-                        CerrarDistribucion();
+                        CerrarDistribucion(Distribucion.Detalles.Last().Salida.Value);
                         STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por cumplir última entrega.", Distribucion.Id));
                         return;
                     }
@@ -1132,10 +1132,11 @@ namespace Logictracker.Process.CicloLogistico
                 else
                 {
                     // Si todas las entregas ya fueron realizadas cierro el ticket.
+                    var entregas = Distribucion.Detalles.Where(d => d.PuntoEntrega != null);
                     if (Distribucion.Empresa.CierreDistribucionCompleta &&
-                        Distribucion.Detalles.Where(d => d.PuntoEntrega != null).All(d => EntregaDistribucion.Estados.EstadosFinales.Contains(d.Estado)))
+                        entregas.All(d => EntregaDistribucion.Estados.EstadosFinales.Contains(d.Estado)))
                     {
-                        CerrarDistribucion();
+                        CerrarDistribucion(date);
                         STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por cumplir todas las entregas.", Distribucion.Id));
                         return;
                     }
@@ -1147,14 +1148,14 @@ namespace Logictracker.Process.CicloLogistico
             var close = cerrarPorTiempo && Distribucion.Fin.AddMinutes(Distribucion.Empresa.EndMarginMinutes) < DateTime.UtcNow;
             if (close)
             {
-                CerrarDistribucion();
+                CerrarDistribucion(date);
                 STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por tiempo.", Distribucion.Id));
             }
         }
 
-        public void CerrarDistribucion()
+        public void CerrarDistribucion(DateTime date)
         {
-            var evento = EventFactory.GetCloseEvent(DateTime.UtcNow, true);
+            var evento = EventFactory.GetCloseEvent(date, true);
             Process(evento as CloseEvent);
         }
 

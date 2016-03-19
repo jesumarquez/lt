@@ -68,10 +68,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Win.C1Chart.2.dll</HintPath>
     </Reference>
-    <Reference Include="CDT.ColorPickerExtender, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Resources\CDT.ColorPickerExtender.dll</HintPath>
-    </Reference>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
@@ -87,6 +83,10 @@
     <Reference Include="Commons, Version=0.4.2.8580, Culture=neutral, PublicKeyToken=44382d1b57473eda">
       <HintPath>..\..\..\..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Commons.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Compumap.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Resources\Compumap.Controls\Compumap.Controls.dll</HintPath>
     </Reference>
     <Reference Include="ExtExtenders, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1446,6 +1446,7 @@
     <Content Include="Reportes\Accidentologia\MensajesVehiculo.aspx" />
     <Content Include="Reportes\Accidentologia\MensajesVehiculoGrafico.aspx" />
     <Content Include="Reportes\Accidentologia\OperatorRanking.aspx" />
+    <Content Include="Reportes\Accidentologia\RankingTransportistas.aspx" />
     <Content Include="Reportes\Accidentologia\RankingVehiculos.aspx" />
     <Content Include="Reportes\Accidentologia\VehicleInfractionsDetails.aspx" />
     <Content Include="Reportes\Auditoria\LoginsHistory.aspx" />
@@ -1743,6 +1744,7 @@
     <Content Include="Areas\Eventos\Views\_ViewStart.cshtml" />
     <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\StockVehicularLista.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\RankingTransportistas.xlsx" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -2190,7 +2192,29 @@
     <Compile Include="Admin\Services.aspx.designer.cs">
       <DependentUpon>Services.aspx</DependentUpon>
     </Compile>
-    <Content Include="App_Code\ViewExtensions.cs" />
+    <Compile Include="Old_App_Code\ViewExtensions.cs" />
+    <Content Include="Old_App_Code\AutoComplete.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="Old_App_Code\Export.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="Old_App_Code\Geocoder.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="Old_App_Code\Import.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="Old_App_Code\Operation.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Content Include="Old_App_Code\OperationService.cs">
+      <SubType>Component</SubType>
+    </Content>
+    <Compile Include="Old_App_Code\SharedPositions.cs" />
+    <Content Include="Old_App_Code\Tickets.cs">
+      <SubType>Component</SubType>
+    </Content>
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3173,28 +3197,6 @@
     </Compile>
     <Compile Include="Monitor\popup\MobileRoutePopup.aspx.designer.cs">
       <DependentUpon>MobileRoutePopup.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Old_App_Code\AutoComplete.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Export.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Geocoder.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Import.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\Operation.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\OperationService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Old_App_Code\SharedPositions.cs" />
-    <Compile Include="Old_App_Code\Tickets.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Operacion\Camaras\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -4282,6 +4284,13 @@
     <Compile Include="Reportes\Accidentologia\OperatorRanking.aspx.designer.cs">
       <DependentUpon>OperatorRanking.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\Accidentologia\RankingTransportistas.aspx.cs">
+      <DependentUpon>RankingTransportistas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\Accidentologia\RankingTransportistas.aspx.designer.cs">
+      <DependentUpon>RankingTransportistas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\Accidentologia\RankingVehiculos.aspx.cs">
       <DependentUpon>RankingVehiculos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5228,6 +5237,10 @@
     <ProjectReference Include="..\..\..\..\..\Framework\Tracer\Logictracker.DatabaseTracer.csproj">
       <Project>{4aefc2c1-47ff-444d-96a1-eb57fba1be7f}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Web\ColorPickerExtender\ColorPickerExtender.csproj">
+      <Project>{01dc3c5e-6f1d-48fe-bcac-b38642a2ec59}</Project>
+      <Name>ColorPickerExtender</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Web\Logictracker.Common.Web\Logictracker.Web.csproj">
       <Project>{327f6143-1118-4881-8c79-5f0913f63f6b}</Project>

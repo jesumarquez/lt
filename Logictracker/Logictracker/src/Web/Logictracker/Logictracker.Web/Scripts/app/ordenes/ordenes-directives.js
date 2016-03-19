@@ -1,24 +1,4 @@
 ﻿angular.module('logictracker.ordenes.directives', ['angular.filter'])
-.directive('ltOrdenesDistrito', function () {
-    return {
-        restrict: 'E',
-        template: '<input class="form-control" kendo-drop-down-list="ddlDistrito" ' +
-                    'k-data-source="distritoDS" ' +
-                    'k-data-text-field="\'Value\'" ' +
-                    'k-data-value-field="\'Key\'" ' +
-                    'k-ng-model="distritoSelected"/>'
-    };
-})
-.directive('ltOrdenesBase', function () {
-    return {
-        restrict: 'E',
-        template: '<input class="form-control" kendo-drop-down-list="ddlBase" ' +
-                    'k-data-source="baseDS" ' +
-                    'k-data-text-field="\'Value\'" ' +
-                    'k-data-value-field="\'Key\'" ' +
-                    'k-ng-model="baseSelected" />'
-    };
-})
 .directive('ltOrdenesDepartamento', function () {
     return {
         restrict: 'E',
@@ -83,6 +63,7 @@ function OrderDetailDirective() {
             columns: [
                 { field: "Insumo", title: "Producto", width: "160px" },
                 { field: "Cantidad", title: "Litros" },
+                { field: "EstadoDescripcion", title: "Estado"},
                 { template: "<input type='checkbox' ng-model='dataItem.checked' ng-change='productos.onSelected(dataItem)'/>" }
             ]
         };
@@ -96,6 +77,8 @@ function OrderDetailDirective() {
 
             if (index > -1) {
                 vm.selectedList.splice(index, 1);
+                data.Ajuste = 0;
+                data.Cuaderna = 0;
             }
             else {
                 vm.selectedList.push(data);
@@ -171,7 +154,8 @@ function SummaryProductsSelected() {
     return {
         restrict: 'E',
         scope: {
-            selectedList: "=ltNgSelectedList"
+            selectedList: "=ltNgSelectedList",
+            accessor: "="
         },
         controller: ['$scope', controller],
         controllerAs: 'summary',
@@ -185,8 +169,19 @@ function SummaryProductsSelected() {
                     '</li>',
                 '</ul>',
             '</div>'
-        ].join('')
+        ].join(''),
+        link: link
     };
+
+    function link(scope, element, attrs, controller) {
+        if (controller.accessor) {
+            controller.accessor.invoke = function () {                
+                if (controller)
+                    controller.clearSelection();
+            };
+        }
+    }
+
 }
 
 

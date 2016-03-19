@@ -14,6 +14,7 @@
     <property column="parenti105_ajuste" name="Ajuste" />
     <property column="parenti105_total" name="Total" />
     <property column="parenti105_estado" name="Estado" />
+    <property column="parenti105_cuaderna" name="Cuaderna" />
 
     <many-to-one column="rela_parenti58" name="Insumo" lazy="proxy" not-null="true" />
     <many-to-one column="rela_parenti104" name="Order"  lazy="proxy" not-null="true" />

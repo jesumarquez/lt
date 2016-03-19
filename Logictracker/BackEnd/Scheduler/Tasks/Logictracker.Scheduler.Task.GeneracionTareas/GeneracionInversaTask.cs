@@ -79,8 +79,6 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                     {
                                         if (ptoInicio == ptoFin) break;
 
-                                        var linea = vehiculo.Linea ?? DaoFactory.LineaDAO.GetList(new[]{empresa.Id}).FirstOrDefault();
-
                                         var codigo = salida.Fecha.AddHours(-3).ToString("yyyyMMdd") + "|" + vehiculo.Interno + "|" + ptoInicio.Codigo + "-" + ptoFin.Codigo;
                                         var viaje = new ViajeDistribucion
                                         {
@@ -91,7 +89,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                             Fin = entrada.Fecha,
                                             Inicio = salida.Fecha,
                                             InicioReal = salida.Fecha,
-                                            Linea = linea,
+                                            Linea = vehiculo.Linea,
                                             NumeroViaje = 1,
                                             RegresoABase = false,
                                             Tipo = ViajeDistribucion.Tipos.Desordenado,

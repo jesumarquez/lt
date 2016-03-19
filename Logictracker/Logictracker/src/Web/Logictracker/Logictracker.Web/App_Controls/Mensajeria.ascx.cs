@@ -231,9 +231,11 @@ namespace Logictracker.App_Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnClearQueues_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ResetStateMachine); }
+        //protected void btnClearQueues_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ResetStateMachine); }
+        protected void btnClearQueues_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ClearDeviceQueue); }
 
         protected void btnClearFota_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ClearFota); }
+        
 
         /// <summary>
         /// Envia mensaje para purgar la configuracion del dispositivo.
