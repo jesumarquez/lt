@@ -301,4 +301,8 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         //$uibModalInstance.dismiss();
     }
 
+    $scope.clean = function () {
+        cleanEditableProducts();
+    }
+
 }
