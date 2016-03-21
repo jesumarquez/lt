@@ -39,6 +39,7 @@ namespace Logictracker.Web.Models
             model.ChocheId = 0;
             model.Cuaderna = entity.Cuaderna;
             if (entity.Insumo != null) model.Insumo = entity.Insumo.Descripcion;
+            model.EstadoDescripcion = entity.Estado.ToString();
             return model;
         }
 
