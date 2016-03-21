@@ -11,6 +11,7 @@ using Logictracker.Tracker.Application.Services;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Web.Models;
+using Logictracker.Utils;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -96,7 +97,7 @@ namespace Logictracker.Web.Controllers.api
         {
             var orderDetails = RoutingService.GetOrderDetails(id)
             .Where(o => o.Estado == OrderDetail.Estados.Pendiente)
-            .Where(o => insumos.Length == 0 ? true : insumos.Contains(o.Insumo.Id))
+            .WhereIf(insumos.Length > 0, od => insumos.Contains(od.Insumo.Id))
             .Select(e => MapperDetail.EntityToModel(e, new OrderDetailModel()));
 
             return Ok(orderDetails.ToList());
