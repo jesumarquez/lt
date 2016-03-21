@@ -11,6 +11,7 @@ using Logictracker.Tracker.Application.Services;
 using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Web.Models;
+using Logictracker.Utils;
 
 namespace Logictracker.Web.Controllers.api
 {
@@ -94,14 +95,12 @@ namespace Logictracker.Web.Controllers.api
         [Route("api/ordenes/{id}")]
         public IHttpActionResult Get(int id, [FromUri] int[] insumos)
         {
-            var orden = EntityDao.FindById(id);
+            var orderDetails = RoutingService.GetOrderDetails(id)
+            .Where(o => o.Estado == OrderDetail.Estados.Pendiente)
+            .WhereIf(insumos.Length > 0, od => insumos.Contains(od.Insumo.Id))
+            .Select(e => MapperDetail.EntityToModel(e, new OrderDetailModel()));
 
-            var details = orden.OrderDetails;
-
-            if (insumos.Any())
-                details = details.Where(od => insumos.Contains(od.Insumo.Id)).ToList();
-
-            return Json(details.Select(od => MapperDetail.EntityToModel(od, new OrderDetailModel())));
+            return Ok(orderDetails.ToList());
         }
 
         private static string BuildRouteCode(DateTime date, int vehicleId, int vechicleTypeId, int logisticCycleTypeId, int distritoId, int baseId)
