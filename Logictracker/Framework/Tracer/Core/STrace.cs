@@ -10,8 +10,10 @@ using System.Text;
 using Logictracker.Configuration;
 using Logictracker.DatabaseTracer.Enums;
 using Logictracker.DatabaseTracer.Types;
+using System.Configuration;
 using log4net;
 using log4net.Config;
+using Microsoft.Win32;
 
 #endregion
 
@@ -47,114 +49,141 @@ namespace Logictracker.DatabaseTracer.Core
 		/// <param name="str"></param>
 		public static void Log(String component, Exception e, int device, LogTypes logType, Dictionary<String, String> context, String str)
 		{
-			try
-			{
-				#region Console Trace
-				if (Environment.UserInteractive && ((ConsoleFilter.Length == 1) || ConsoleFilter.Contains(device)))
-				{
-					Console.WriteLine(str);
+            bool activatelog = true;
+            Object data = AppDomain.CurrentDomain.GetData("activatelog");
+         //   System.Configuration.ConfigurationSettings.AppSettings.Set("hola","hola");
+            if (data != null)
+            {
+                activatelog = (bool)data;
+            }
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo keyinfo = Console.ReadKey(false);
+              
+                if (keyinfo.Key == ConsoleKey.A)
+                {
+                   activatelog = true;
+                   AppDomain.CurrentDomain.SetData("activatelog", activatelog);
+                }
+                if (keyinfo.Key == ConsoleKey.D)
+                {
+                    activatelog = false;
+                    AppDomain.CurrentDomain.SetData("activatelog", activatelog);
+                }
+                Console.Clear();
+            }
+            if (activatelog)
+            {
+                try
+                {
+                    #region Console Trace
+                    if (Environment.UserInteractive && ((ConsoleFilter.Length == 1) || ConsoleFilter.Contains(device)))
+                    {
+                        Console.WriteLine(str);
 
-					if (e != null)
-					{
-						Console.WriteLine("{1}{1}exception {0}{1}", e, Environment.NewLine);
+                        if (e != null)
+                        {
+                            Console.WriteLine("{1}{1}exception {0}{1}", e, Environment.NewLine);
 
-						if (e.InnerException != null)
-						{
-							Console.WriteLine("{1}innerexception {0}{1}{1}", e.InnerException, Environment.NewLine);
-						}
-					}
-				}
-				#endregion
+                            if (e.InnerException != null)
+                            {
+                                Console.WriteLine("{1}innerexception {0}{1}{1}", e.InnerException, Environment.NewLine);
+                            }
+                        }
+                    }
+                    #endregion
 
-				#region Log4NET Trace
-				if (TracerType.Contains(Config.Tracer.Types.Log4Net))
-				{
-					var logger = LogManager.GetLogger(component);
+                    #region Log4NET Trace
+                    if (TracerType.Contains(Config.Tracer.Types.Log4Net))
+                    {
+                        var logger = LogManager.GetLogger(component);
 
-					using (ThreadContext.Stacks["DeviceId"].Push(device.ToString(CultureInfo.InvariantCulture)))
-					{
-                        
-						switch (logType)
-						{                                
-							case LogTypes.Debug: logger.Debug(str, e); break;
-							case LogTypes.Trace: logger.Info(str, e); break;
-							case LogTypes.Error: logger.Error(str, e); break;
-							case LogTypes.Exception: logger.Fatal(str, e); break;
-                            case LogTypes.Warning: logger.Warn(str, e); break;
-						}
-					} // value will be popped off the stack here
-				}
-				#endregion
+                        using (ThreadContext.Stacks["DeviceId"].Push(device.ToString(CultureInfo.InvariantCulture)))
+                        {
 
-				#region Fota Folder Trace
-				/*if (TracerType.Contains(Config.Tracer.Types.Fota) && (device != 0) && ConsoleFilter.Contains(device))
+                            switch (logType)
+                            {
+                                case LogTypes.Debug: logger.Debug(str, e); break;
+                                case LogTypes.Trace: logger.Info(str, e); break;
+                                case LogTypes.Error: logger.Error(str, e); break;
+                                case LogTypes.Exception: logger.Fatal(str, e); break;
+                                case LogTypes.Warning: logger.Warn(str, e); break;
+                            }
+                        } // value will be popped off the stack here
+                    }
+                    #endregion
+
+                    #region Fota Folder Trace
+                    /*if (TracerType.Contains(Config.Tracer.Types.Fota) && (device != 0) && ConsoleFilter.Contains(device))
 				{
 					ReformatCached(ref str, format, args);
 					FotaTrace(device, str);
 				}//*/
-				#endregion
+                    #endregion
 
-				#region Database Trace
-				if (TracerType.Contains(Config.Tracer.Types.DataBase))
-				{
-					var type = logType.GetValue();
-					if (!(type < MinLogTypeValue))
-					{
-						var log = new Log
-						          	{
-						          		DateTime = DateTime.UtcNow,
-						          		Module = Module,
-						          		Component = component,
-						          		Message = str,
-						          		Type = type,
-						          	};
+                    #region Database Trace
+                    if (TracerType.Contains(Config.Tracer.Types.DataBase))
+                    {
+                        var type = logType.GetValue();
+                        if (!(type < MinLogTypeValue))
+                        {
+                            var log = new Log
+                                        {
+                                            DateTime = DateTime.UtcNow,
+                                            Module = Module,
+                                            Component = component,
+                                            Message = str,
+                                            Type = type,
+                                        };
 
-						if (e != null)
-						{
-							log.AddContext("exception", e.ToString());
-							log.AddContext("exception.message", e.Message);
-							log.AddContext("exception.stacktrace", e.StackTrace);
-
-							if (e.InnerException != null)
-							{
-								log.AddContext("exception.innerexception", e.InnerException.ToString());
-								log.AddContext("exception.innerexception.message", e.InnerException.Message);
-								log.AddContext("exception.innerexception.stacktrace", e.InnerException.StackTrace);
-							}
-						} else if (type == LogTypes.Error.GetValue())
-						{
-                            var stackTrace = new StackTrace();           // get call stack
-                            var stackFrames = stackTrace.GetFrames();  // get method calls (frames)
-						    var stacksb = new StringBuilder();
-                            // write call stack method names
-                            foreach (var stackFrame in stackFrames)
+                            if (e != null)
                             {
-                                stacksb.AppendFormat("{0}{1}", stackFrame, Environment.NewLine);   // write method name
-                            }						    
-                            log.AddContext("stacktrace", stacksb.ToString());                            
-						}
+                                log.AddContext("exception", e.ToString());
+                                log.AddContext("exception.message", e.Message);
+                                log.AddContext("exception.stacktrace", e.StackTrace);
 
-					    if (context != null)
-						{
-							foreach (var ctx in context)
-							{
-								log.AddContext(ctx.Key, ctx.Value);
-							}
-						}
+                                if (e.InnerException != null)
+                                {
+                                    log.AddContext("exception.innerexception", e.InnerException.ToString());
+                                    log.AddContext("exception.innerexception.message", e.InnerException.Message);
+                                    log.AddContext("exception.innerexception.stacktrace", e.InnerException.StackTrace);
+                                }
+                            }
+                            else if (type == LogTypes.Error.GetValue())
+                            {
+                                var stackTrace = new StackTrace();           // get call stack
+                                var stackFrames = stackTrace.GetFrames();  // get method calls (frames)
+                                var stacksb = new StringBuilder();
+                                // write call stack method names
+                                foreach (var stackFrame in stackFrames)
+                                {
+                                    stacksb.AppendFormat("{0}{1}", stackFrame, Environment.NewLine);   // write method name
+                                }
+                                log.AddContext("stacktrace", stacksb.ToString());
+                            }
 
-						if (device != 0) log.Device = device;
+                            if (context != null)
+                            {
+                                foreach (var ctx in context)
+                                {
+                                    log.AddContext(ctx.Key, ctx.Value);
+                                }
+                            }
 
-						Queue.Enqueue(log);
-					}
-				}
-				#endregion
-			}
-			catch (Exception ee)
-			{
-				var err = String.Format("Exception:{1}{0}{1}{1}Log original: Component={2}; Format={3}{1}{1}", ee, Environment.NewLine, component, str);
-				if (!(ee is IndexOutOfRangeException)) File.AppendAllText(String.Format("logs/{0:yyyy-MM-dd HH mm} TraceErrors.txt", DateTime.Now), err);
-				if (Environment.UserInteractive) Console.WriteLine(err);
-			}
+                            if (device != 0) log.Device = device;
+
+                            Queue.Enqueue(log);
+                        }
+                    }
+                    #endregion
+                }
+                catch (Exception ee)
+                {
+                    var err = String.Format("Exception:{1}{0}{1}{1}Log original: Component={2}; Format={3}{1}{1}", ee, Environment.NewLine, component, str);
+                    if (!(ee is IndexOutOfRangeException)) File.AppendAllText(String.Format("logs/{0:yyyy-MM-dd HH mm} TraceErrors.txt", DateTime.Now), err);
+                    if (Environment.UserInteractive) Console.WriteLine(err);
+                }
+            }
 		}
 
 		#endregion
