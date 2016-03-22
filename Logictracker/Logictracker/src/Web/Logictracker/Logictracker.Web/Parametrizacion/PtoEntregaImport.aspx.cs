@@ -79,16 +79,16 @@ namespace Logictracker.Parametrizacion
                         var tipoCliente = row.GetString(GetColumnByValue(Fields.TipoCliente.Value));
                         var cliente = DAOFactory.ClienteDAO.FindByDescripcion(new[] { empresa.Id }, new[] { -1 }, tipoCliente);
                         var codigo = row.GetString(GetColumnByValue(Fields.Codigo.Value));
-
+                                                  
                         var pto = DAOFactory.PuntoEntregaDAO.FindByCode(new[] { cliente.Empresa.Id }, new[] { cliente.Linea != null ? cliente.Linea.Id : -1 }, new[] { cliente.Id }, codigo);
-
+                                            
                         if (pto == null)
                         {
                             var descripcion = IsMapped(Fields.Descripcion.Value) ? row.GetString(GetColumnByValue(Fields.Descripcion.Value)) : codigo;
                             var longitud = row.GetDouble(GetColumnByValue(Fields.Longitud.Value));
                             var latitud = row.GetDouble(GetColumnByValue(Fields.Latitud.Value));
                             var vigenciaDesde = DateTime.Now;
-                            var direccionNomenclada = string.Empty;
+                            var direccionNomenclada = row.GetString(GetColumnByValue(Fields.Direccion.Value));
                             var geoRef = new ReferenciaGeografica();
                             var telefono = "";
 
@@ -99,9 +99,13 @@ namespace Logictracker.Parametrizacion
                             if (latitud.HasValue &&
                                 longitud.HasValue)
                             {
+                                if (direccionNomenclada == null)
+                                {
+                                    direccionNomenclada = string.Format("({0}, {1})", latitud.Value, longitud.Value);
+                                }
                                 geoRef = GetReferenciaGeografica(tipoReferencia, null, empresa, linea, codigo, descripcion, vigenciaDesde, null,
                                     latitud.Value, longitud.Value);
-                                direccionNomenclada = string.Format("({0}, {1})", latitud.Value, longitud.Value);
+                               
                             }
 
                             pto = CreatePuntoEntrega(cliente, codigo, descripcion, telefono, geoRef);
@@ -194,11 +198,12 @@ namespace Logictracker.Parametrizacion
         
         private static class Fields
         {
-            public static readonly FieldValue Codigo = new FieldValue("Nro SAP Nvo");
+            public static readonly FieldValue Codigo = new FieldValue("Codigo Cliente");
             public static readonly FieldValue Latitud = new FieldValue("Latitud");
             public static readonly FieldValue Longitud = new FieldValue("Longitud");
-            public static readonly FieldValue Descripcion = new FieldValue("Razón Social");
-            public static readonly FieldValue TipoCliente = new FieldValue("Activadad   ");
+            public static readonly FieldValue Descripcion = new FieldValue("Descripcion cliente");
+            public static readonly FieldValue TipoCliente = new FieldValue("Tipo de Cliente");
+            public static readonly FieldValue Direccion = new FieldValue("Direccion");
             
             public static List<FieldValue> List
             {
@@ -209,7 +214,8 @@ namespace Logictracker.Parametrizacion
                                                     Latitud,
                                                     Longitud,
                                                     Descripcion,
-                                                    TipoCliente
+                                                    TipoCliente,
+                                                    Direccion
                                                 };
                 }
             }
