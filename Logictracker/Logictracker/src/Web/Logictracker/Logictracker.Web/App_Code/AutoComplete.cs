@@ -62,7 +62,7 @@ namespace Logictracker
         [WebMethod(EnableSession=true)]
         public string[] GetPuntosEntrega(string prefixText, int count, string contextKey)
         {
-            prefixText = prefixText.ToLower();
+            OprefixText = prefixText.ToLower();
             var parents = ParseContextKey(contextKey);
             var empresas = GetParentElement(parents, 0);
             var lineas = GetParentElement(parents, 1);
