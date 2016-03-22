@@ -1,20 +1,18 @@
 ﻿angular
-    .module('logictracker.ordenes.controller', ['kendo.directives'])
-    .controller('OrdenesController', ['$scope', 'EntitiesService', 'OrdenesService', OrdenesController]);
+    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
+    .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
+    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController]);
 
-function OrdenesController($scope, EntitiesService, OrdenesService) {
-    //$scope.mydata = "Seleccione los filtros necesarios y haga click en Buscar...";
-    $scope.UserData = EntitiesService.resources.userData.get();
-    $scope.UserData.$promise.then(function () {
-        if ($scope.UserData.EmpleadoId === 0) {
+function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
-            onFail({ errorThrown: "Usuario sin empleado asociado" });
-        }
-    });
+    $scope.accessor = {};
+
+    $scope.UserData = UserDataInfo.get($scope, $scope);
 
     $scope.order = {
         StartDateTime: new Date()
     };
+
     $scope.order.StartDateTime.setDate($scope.order.StartDateTime.getDate() + 1);
 
     $scope.ordenesGridOptions = {
@@ -26,202 +24,293 @@ function OrdenesController($scope, EntitiesService, OrdenesService) {
             refresh: true,
             pageSizes: true,
             info: true
-        },        
-        dataBound: function() {
+        },
+        dataBound: function () {
             this.expandRow(this.tbody.find("tr.k-master-row").first());
         },
         columns:
         [
-            { field: "Empresa", title: "Empresa"},
-            { field: "Transportista", title: "Transportista"},
-            { field: "CodigoPuntoEntrega", title: "Codigo Entrega" },
-            { field: "PuntoEntrega", title: "Razon Social" },
-            { field: "CodigoPedido", title: "Codigo Pedido"},
+            { field: "Empresa", title: "Empresa" },
+            { field: "Transportista", title: "Transportista" },
+            { field: "CodigoPuntoEntrega", title: "Código Entrega" },
+            { field: "PuntoEntrega", title: "Razón Social" },
+            { field: "CodigoPedido", title: "Código Pedido" },
             { field: "FechaPedido", title: "Pedido", format: "{0: dd/MM HH:mm}" },
         ],
-        detailTemplate: '<div kendo-grid k-options="detailGridOptions(dataItem)"></div>',
+        detailTemplate: '<order-detail lt-ng-order-id="dataItem.Id" lt-ng-selected-list="productsSelected"/>',
     }
 
-    $scope.detailGridOptions = function (dataItem) {
-        return {
-            dataSource: OrdenesService.ordenDetalles(dataItem, null, onFail),
-            scrollable: false,
-            sortable: true,
-            columns: [
-                { field: "Insumo", title: "Producto", width: "160px" },
-                { field: "Cantidad", title: "Litros" },
-            ]
-        }
-    };
+    $scope.productsSelected = new kendo.data.ObservableArray([]);
 
     $scope.distritoSelected = {};
-
-    $scope.baseDS = [];
     $scope.baseSelected = {};
-
-    $scope.departamentoDS = [];
-    $scope.departamentoSelected = [];
-
-    $scope.centroDeCostosDS = [];
-    $scope.centroDeCostosSelected = [];
-
     $scope.transportistaSelected = [];
-    $scope.transportistaDS = [];
 
     $scope.puntoEntregaSelected = {};
     $scope.tPuntoEntrega = kendo.template($("#tPuntoEntrega").html());
 
     $scope.desde = new Date();
     $scope.hasta = new Date();
-
-    $scope.estadoSelected = {};
-    $scope.estadoDS = EntitiesService.ticketrechazo.estados(function () { $scope.estadoSelected = $scope.estadoDS[0]; },onFail);
-
-    $scope.motivoSelected = {};
-    $scope.motivoDS = EntitiesService.ticketrechazo.motivos(function () { $scope.motivoSelected = $scope.motivoDS[0]; },onFail);
-
-    $scope.departamentoDS = EntitiesService.distrito.departamento(onDepartamentoDSLoad, onFail);
-
-    $scope.centroDeCostosDS = EntitiesService.distrito.centroDeCostos(onCentroDeCostosDSLoad,onFail);
-    
-    $scope.transportistaDS = EntitiesService.distrito.transportista.models(ontransportistaDSLoad,onFail);
-
-    $scope.$watch("baseSelected", onBaseSelected);
-
-    $scope.$watchGroup(["departamentoSelected", "baseSelected"],onDepartamentoAndBaseChange);
+    $scope.olMap = {
+        center: {
+            lat: -34.603722,
+            lon: -58.381592,
+            zoom: 10
+        }
+    };
+    $scope.orderSelected = {};
 
     function onFail(error) {
-        if(error.errorThrown)
+        if (error.errorThrown)
             $scope.notify.show(error.errorThrown, "error");
         else
             $scope.notify.show(error.statusText, "error");
     };
 
-    function onDistritoSelected(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.baseDS.read({ distritoId: $scope.distritoSelected.Key });
+    $scope.onerror = function (error) {
+        $scope.notify.show(error.statusText, "error");
+    }
+
+    $scope.onNuevo = function () {
+        $scope.rechazoWin.refresh({ url: "Item?op=A" });
+        $scope.rechazoWin.center();
+        $scope.rechazoWin.open();
+    };
+
+    $scope.onBuscar = function () {
+        var filterList = [];
+
+        if ($scope.distritoSelected != undefined)
+            filterList.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key });
+
+        if ($scope.baseSelected != undefined)
+            filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
+
+        if ($scope.puntoEntregaSelected != undefined && $scope.puntoEntregaSelected.length > 0)
+            filterList.push({ field: "PuntoEntrega.Id", operator: "eq", value: $scope.puntoEntregaSelected[0].PuntoEntregaId });
+
+        if ($scope.transportistaSelected.length > 0) {
+            var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
+            filterList.push({ logic: "or", filters: transportistaFilter });
+        }
+
+        var msOffset = new Date().getTimezoneOffset() * 60000;
+
+        if ($scope.desde != undefined) {
+            var fDesde = new Date($scope.desde);
+            fDesde.setHours(0, 0, 0, 0);
+            filterList.push({ field: "FechaAlta", operator: "gte", value: new Date(fDesde.getTime() + msOffset) });
+        }
+
+        if ($scope.hasta != undefined) {
+            var fHasta = new Date($scope.hasta);
+            fHasta.setHours(23, 59, 59, 999);
+            filterList.push({ field: "FechaAlta", operator: "lte", value: new Date(fHasta.getTime() + msOffset) });
+        }
+
+        var filters = {
+            logic: "and",
+            filters: filterList
+        };
+
+        $scope.Orders = OrdenesService.items(filters, onOrdersDSLoad, onFail);
+        function onOrdersDSLoad(e) {
+            if (e.type === "read" && e.response) {
+                $scope.olMap.markers = e.response.Data.map(function (o) {
+                    return {
+                        name: o.Id,
+                        lat: o.PuntoEntregaLatitud,
+                        lon: o.PuntoEntregaLongitud,
+                        label: {
+                            message: '<span>' + o.PuntoEntrega + '</span>',
+                            show: false,
+                            showOnMouseOver: true
+                        },
+                        dataItem: o,
+                        onClick: function (event, properties) {
+                            $scope.orderSelected = properties.dataItem;
+                            $("#markerModal").modal('toggle');
+                        }
+                    }
+                });
+            }
         }
     };
 
-    function onBasesDSChange(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.departamentoSelected = [];
-            $scope.centroDeCostosSelected = [];
-        }
+    $scope.disabledButton = true;
+
+    $scope.programOrders = function (order) {
+
+        $scope.disabledButton = true;
+
+        var selectOrders = [];
+        $scope.ordenesGrid.select().each(function (index, row) {
+            selectOrders.push($scope.ordenesGrid.dataItem(row));
+        });
+
+        $scope.newOrder = new OrdenesService.ordenes();
+        $scope.newOrder.OrderList = selectOrders;
+        $scope.newOrder.IdVehicle = order.Vehicle.Id;
+        $scope.newOrder.StartDateTime = order.StartDateTime;
+        $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
+        $scope.newOrder.$save(
+            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
+            function () {
+                $scope.onBuscar();
+                $('#myModal').modal('hide');
+                $scope.disabledButton = false;
+            },
+            onFail
+        );
     };
 
-    function onDepartamentoDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.departamentoSelected = [];
+}
+
+function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService, $filter) {
+
+    $scope.vehicleTypeSelected = {};
+    $scope.ds = new kendo.data.DataSource({
+        data: $scope.productsSelected,
+        change: onDataChanged
+    });
+    $scope.productosGridOptions =
+    {
+        columns: [
+            { field: "Id", hidden: true },
+            { field: "OrderId", title: "Pedido", width: "10em" },
+            { field: "Insumo", title: "Producto" },
+            { field: "Cantidad", title: "Litros", width: "10em" },
+            { field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
+            { field: "Ajuste", title: "Ajuste", width: "10em" },
+            { field: "Ajuste", title: "Total", template: "{{ dataItem.Cantidad + dataItem.Ajuste }}" },
+        ],
+        editable: {
+            update: true,
+            destroy: false
         }
+    };
+    $scope.cuadernasDs = {};
+    $scope.cuadernasGridOptions =
+    {
+        columns:
+             [
+                 { field: "Orden", title: "" },
+                 { field: "Descripcion", title: "" },
+                 { field: "Capacidad", title: "Capacidad" },
+                 { field: "Seleccionados", title: "N°" },
+                 { field: "Asignado", title: "Asignado" },
+                 { field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
+             ],
+    };
+
+    $scope.semaforo = function (dataItem) {
+        if (dataItem.Orden === 0) return "";
+        return dataItem.Capacidad - (dataItem.Asignado ? dataItem.Asignado : 0) < 0 ? "tex-red" : "";
     }
 
-    function onCentroDeCostosDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.centroDeCostosSelected = [];
-        }
+    $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
+
+    function cuadernaEditor(container, options) {
+        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
+        l.appendTo(container);
     }
 
-    function ontransportistaDSLoad(e) {
-        if (e.type === "read" && e.response) {
-            $scope.transportistaSelected = [];
-        }
-    }
-
-    function onBaseSelected(newValue, oldValue) {
+    function onvehicleTypeSelected(newValue, oldValue) {
         if (newValue != null && newValue !== oldValue) {
+            $scope.cuadernasDs = new kendo.data.DataSource({
+                data: newValue.Contenedores
+            });
 
-            $scope.UserData.DistritoSelected = $scope.distritoSelected.Key;
-            $scope.UserData.BaseSelected = $scope.baseSelected.Key;
-
-            $scope.UserData.$save();
+            cleanEditableProducts();
         }
-    };
+    }
 
-    function onDepartamentoAndBaseChange(newValue, oldValue) {
-        if (newValue[0] !== undefined && newValue[0].length > 0 && newValue != null && newValue !== oldValue)
-            $scope.centroDeCostosDS.read({
-                distritoId: $scope.distritoSelected.Key,
-                baseId: $scope.baseSelected.Key,
-                departamentoId: $scope.departamentoSelected.map(function (o) { return o.Key; })
+    function cleanEditableProducts() {
+        // Limpio si hay algo ya editado
+        $scope.productsSelected.forEach(
+            function (o) {
+                o.set('Cuaderna', 0);
+                o.set('Ajuste', 0);
             });
     }
 
-    //$scope.onNuevo = function () {
-    //    $scope.operacion = "A";
-    //    $scope.rechazoWin.refresh({ url: "Item?op=A" }).open().center();
-    //};
+    function onDataChanged(evt) {
+        if (evt.action === "itemchange" || evt.action === "remove") {
+            var data = $scope.cuadernasDs.data();
 
-        $scope.onerror = function (error) {
-            $scope.notify.show(error.statusText, "error");
+            var disabledProgramar = true;
+
+            data.forEach(function (cuaderna) {
+                var items = $scope.ds.data();
+                var asignado = 0;
+                var seleccionados = 0;
+
+                items.forEach(function (item) {
+                    if(item.Cuaderna === cuaderna.Orden){
+                        asignado += item.Cantidad + item.Ajuste;
+                        seleccionados += 1;
+                    }
+
+                    if (item.Cuaderna != 0) disabledProgramar = false;
+                });                
+
+                cuaderna.set('Asignado', asignado);
+                cuaderna.set('Seleccionados', seleccionados);
+            });
+
+            $scope.$parent.disabledButton = disabledProgramar;
         }
-    
-        $scope.onNuevo = function () {
-            $scope.rechazoWin.refresh({ url: "Item?op=A" });
-            $scope.rechazoWin.center();
-            $scope.rechazoWin.open();
-        };
+    }
 
-        $scope.onBuscar = function () {
-            var filterList = [];
 
-            if ($scope.distritoSelected != undefined)
-                filterList.push({ field: "Empresa.Id", operator: "eq", value: $scope.distritoSelected.Key });
+    $scope.getCuadernaDesc = function (data) {
+        return $filter('filter') ($scope.cuadernasDs.data(), { Orden : data.Cuaderna  })[0].Descripcion;
+    }
 
-            if ($scope.baseSelected != undefined)
-                filterList.push({ field: "Linea.Id", operator: "eq", value: $scope.baseSelected.Key });
+    $scope.ok = function () {
+       
+        if ($scope.$parent.disabledButton) return;
+        //$uibModalInstance.close();
 
-            if ($scope.puntoEntregaSelected != undefined && $scope.puntoEntregaSelected.length > 0)
-                filterList.push({ field: "PuntoEntrega.Id", operator: "eq", value: $scope.puntoEntregaSelected[0].PuntoEntregaId });
+        var selectOrders = [];
+        //$scope.ordenesGrid.select().each(function (index, row) {
+        //    selectOrders.push($scope.ordenesGrid.dataItem(row));
+        //});
+
+        $scope.newOrder = new OrdenesService.ordenes();
+        $scope.newOrder.OrderList = selectOrders;
+        $scope.newOrder.OrderDetailList = $scope.productsSelected.toJSON();
+        $scope.newOrder.IdVehicle = $scope.$parent.order.Vehicle.Key;
+        $scope.newOrder.IdVehicleType = $scope.vehicleTypeSelected.Id;
+        $scope.newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
+        $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
+        $scope.newOrder.$save(
+            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
+            onSuccess(),
+            function () { }
+                //onFail
+        );
+    }
+
+    function onSuccess()
+    {
+        $('#myModal').modal('hide');
+
+        if ($scope.accessor.invoke)
+            $scope.accessor.invoke();
             
-            if ($scope.transportistaSelected.length > 0) {
-                var transportistaFilter = $scope.transportistaSelected.map(function (e) { return { field: "Transportista.Id", operator: "eq", value: e.Key }; });
-                filterList.push({ logic: "or", filters: transportistaFilter });
-            }            
-
-            var msOffset = new Date().getTimezoneOffset() * 60000;
-
-            if ($scope.desde != undefined) {
-                var fDesde = new Date($scope.desde);
-                fDesde.setHours(0, 0, 0, 0);
-                filterList.push({ field: "FechaAlta", operator: "gte", value: new Date(fDesde.getTime() + msOffset) });
-            }
-
-            if ($scope.hasta != undefined) {
-                var fHasta = new Date($scope.hasta);
-                fHasta.setHours(23, 59, 59, 999);
-                filterList.push({ field: "FechaAlta", operator: "lte", value: new Date(fHasta.getTime() + msOffset) });
-            }
-
-            var filters = {
-                logic: "and",
-                filters: filterList
-            };
-
-            $scope.Orders = OrdenesService.items(filters, null, onFail);
-        };
-
-        $scope.programOrders = function (order) {
-
-            var selectOrders = [];
-            $scope.ordenesGrid.select().each(function(index, row) {
-                selectOrders.push($scope.ordenesGrid.dataItem(row));
-            });
-
-            $scope.newOrder = new OrdenesService.ordenes();
-            $scope.newOrder.OrderList = selectOrders;
-            $scope.newOrder.IdVehicle = order.Vehicle.Key;
-            $scope.newOrder.StartDateTime = order.StartDateTime;
-            $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
-            $scope.newOrder.$save(
-                { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key},
-                function () {
-                    $scope.onBuscar();
-                },
-                onFail
-            );
-        };
+        $scope.onBuscar();
+        //$scope.disabledButton = false;
     }
 
+    $scope.cancel = function () {
+        $log.debug("cancel");
+        //cleanEditableProducts();
+        //$uibModalInstance.dismiss();
+    }
 
+    $scope.clean = function () {
+        cleanEditableProducts();
+    }
 
+}

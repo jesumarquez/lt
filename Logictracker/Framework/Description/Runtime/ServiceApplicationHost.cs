@@ -1,11 +1,8 @@
 #region Usings
-
 using System;
 using System.ServiceProcess;
 using System.Threading;
 using Logictracker.DatabaseTracer.Core;
-using Logictracker.Diagnostics;
-
 #endregion
 
 namespace Logictracker.Description.Runtime
@@ -42,7 +39,7 @@ namespace Logictracker.Description.Runtime
         /// </summary>
         private void ServiceThread()
         {
-            Debugger.LaunchDebugger(4);
+         //   Debugger.LaunchDebugger(4);
 
             try
             {
@@ -83,7 +80,7 @@ namespace Logictracker.Description.Runtime
         /// <param name="args"></param>
         protected override void OnStart(string[] args)
         {
-            Debugger.LaunchDebugger(3);
+     //       Debugger.LaunchDebugger(3);
 
             STrace.Debug(GetType().FullName, String.Format("Iniciando servicio windows: {0}", ServiceName));
 

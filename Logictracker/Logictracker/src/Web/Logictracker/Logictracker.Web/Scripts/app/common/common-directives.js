@@ -31,14 +31,14 @@
             model: "=ltNgModel",
             defaultValue: "=ltDefaultValue"
         },
+        replace: true,
         controller: ['$scope', '$filter', 'EntitiesService', DistritoController],
         template: [
 			'<input class="form-control" kendo-drop-down-list ',
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" name="filter-distrito" /> ',
         ].join('')
     };
 })
@@ -89,8 +89,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" name="filter-base"/> ',
+
         ].join('')
     };
 })
@@ -132,8 +132,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -159,8 +159,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" />',
+
         ].join('')
     };
 })
@@ -191,8 +191,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -238,8 +238,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -265,8 +265,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -298,8 +298,8 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-ng-model="model" /> ',
+
         ].join('')
     };
 })
@@ -346,7 +346,7 @@
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="ds" ',
 		        'k-ng-model="model" ',
-                'k-auto-bind="false" >',
+                'k-auto-bind="false" name="filter-transportista" >',
 			'</input>'
         ].join(''),
         link: link
@@ -483,7 +483,7 @@
                 'k-filter="\'contains\'" ',
                 'k-min-length="3" ',
                 'required ',
-                'k-template="kTemplate"/> ',
+                'k-template="kTemplate" name="filter-entrega"/> ',
         ].join('')
     }
 })
@@ -494,7 +494,7 @@
         $scope.ds = EntitiesService.distrito.transportista.empleados(onDSLoad, onFail);
 
         $scope.$watch("dependsOn", onSelected);
-        
+
         function onSelected(newValue, oldValue) {
             if (newValue !== oldValue) {
                 if (newValue.length == 0) {
@@ -667,7 +667,7 @@
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
 		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
+		        'k-ng-model="model" > ',
 			'</input>'
         ].join('')
     };
@@ -675,45 +675,55 @@
 .directive('ltDdlCoche', function () {
 
     function CocheController($scope, $filter, EntitiesService) {
-        $scope.dataSource = EntitiesService.distrito.coche(onDSLoad, onFail);
+        vm = this;
+        vm.ds = EntitiesService.distrito.coche(onDSLoad, onFail);
 
-        $scope.$watch("dependsOn", onSelected);
+        $scope.$watch("vm.dependsOn", onSelected);
 
         function onDSLoad(e) {
             if (e.type === "read" && e.response) {
-                $scope.model = e.response[0];
+                vm.model = e.response[0];
             }
         };
 
         function onSelected(newValue, oldValue) {
-            if (newValue != null && newValue !== oldValue) {
-                $scope.dataSource.read({ distritoId: $scope.distrito.Key, baseId: $scope.dependsOn.Key });
+            if (vm.distrito != undefined && vm.dependsOn != undefined && newValue !== oldValue) {
+                if (vm.tipoCoche != undefined)
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, tipoCocheId: vm.tipoCoche.Id });
+                else
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
             }
         };
 
         function onFail(e) {
             $scope.$emit('errorEvent', e);
         }
+
     };
 
     return {
         restrict: 'E',
         scope: {
             model: "=ltNgModel",
-            dependsOn: "=ltDependsOnBase",
-            distrito: "=ltDataDistrito"
+            dependsOn: "=ltDependsOn",
+            distrito: "=ltDataDistrito",
+            base: "=ltDataBase",
+            tipoCoche: "=ltDataTipoCoche"
         },
+        //replace: true,
         controller: ['$scope', '$filter', 'EntitiesService', CocheController],
+        controllerAs: 'vm',
+        bindToController: true,
         template: [
 			'<input class="form-control" kendo-drop-down-list ',
 				'k-data-text-field="\'Value\'" ',
 		        'k-data-value-field="\'Key\'" ',
-		        'k-data-source="dataSource" ',
-		        'k-ng-model="model" ',
-			'</input>'
+		        'k-data-source="vm.ds" ',
+		        'k-ng-model="vm.model" /> '
         ].join('')
     };
 });
+
 
 /// ltCbSupervisorVenta
 (function () {
@@ -869,3 +879,345 @@
         .directive('ltCbSupervisorRuta', directive);
 
 }());
+
+// ltDdlInsumo
+(function () {
+
+    var directive = function () {
+
+        var controller = function ($scope, EntitiesService) {
+
+            var vm = this;
+            vm.ds = EntitiesService.distrito.insumo(onDSLoad, onFail);
+
+            $scope.$watch("vm.dependsOn", onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = e.response[0];
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+
+            function onSelected(newValue, oldValue) {
+
+                if (newValue !== undefined && newValue !== oldValue) {
+                    vm.ds.read({
+                        distritoId: vm.distrito.Key,
+                        baseId: vm.base.Key,
+                    });
+                }
+                else {
+                    vm.ds.data([]);
+                    vm.ds.read();
+                }
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                distrito: "=ltDataDistrito",
+                base: "=ltDataBase",
+                dependsOn: "=ltDependsOn"
+            },
+            controller: ['$scope', 'EntitiesService', controller],
+            controllerAs: 'vm',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-multi-select ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="vm.ds" ',
+                    'k-ng-model="vm.model" ',
+                    'required >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltMsInsumo', directive);
+
+}());
+
+
+
+/// ltDdlTipoCoche
+(function () {
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+
+            vm.ds = EntitiesService.distrito.tipoCoche(onDSLoad, onFail);
+
+            $scope.$watch(function () { return vm.base; }, onBaseChange);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = e.response[0];
+                }
+            };
+
+            function onBaseChange(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito"
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'tipoCoche',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-drop-down-list ',
+                    'k-data-text-field="\'Descripcion\'" ',
+                    'k-data-value-field="\'Id\'" ',
+                    'k-data-source="tipoCoche.ds" ',
+                    'k-ng-model="tipoCoche.model" > ',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltDdlTipoCoche', directive);
+})();
+
+/// ltDdlTipoMensaje
+(function () {
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+
+            vm.ds = EntitiesService.distrito.tipoMensaje(onDSLoad, onFail);
+
+            $scope.$watch(function () { return vm.base; }, onBaseChange);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = e.response[0];
+                }
+            };
+
+            function onBaseChange(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito"
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'tipoMensaje',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-drop-down-list ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="tipoMensaje.ds" ',
+                    'k-ng-model="tipoMensaje.model" ',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltDdlTipoMensaje', directive);
+})();
+
+//ltMsCoche
+(function () {
+
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+            vm.ds = EntitiesService.distrito.coche(onDSLoad, onFail);
+
+            $scope.$watch(function () { return vm.base; }, onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = [];
+                }
+            };
+
+            function onSelected(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, excludeNone: true });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito",
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'coche',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-multi-select ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="coche.ds" ',
+                    'k-ng-model="coche.model" ',
+                    'k-auto-bind="false" >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltMsCoche', directive);
+
+
+})();
+
+//ltMsMensaje
+(function () {
+
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+            vm.ds = EntitiesService.distrito.mensaje(onDSLoad, onFail);
+
+            $scope.$watch(function () { return vm.base; }, onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = [];
+                }
+            };
+
+            function onSelected(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito",
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'mensaje',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-multi-select ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="mensaje.ds" ',
+                    'k-ng-model="mensaje.model" ',
+                    'k-auto-bind="false" >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltMsMensaje', directive);
+
+
+})();
+
+//ltMsEmpleado
+(function () {
+
+    var directive = function () {
+
+        var Controller = function ($scope, EntitiesService) {
+            var vm = this;
+            vm.ds = EntitiesService.distrito.empleados(onDSLoad, onFail);
+
+            $scope.$watch(function () { return vm.base; }, onSelected);
+
+            function onDSLoad(e) {
+                if (e.type === "read" && e.response) {
+                    vm.model = [];
+                }
+            };
+
+            function onSelected(newValue, oldValue) {
+                if (newValue != null && newValue !== oldValue) {
+                    vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key });
+                }
+            };
+
+            function onFail(e) {
+                $scope.$emit('errorEvent', e);
+            }
+        };
+
+        return {
+            restrict: 'E',
+            scope: {
+                model: "=ltNgModel",
+                base: "=ltDataBase",
+                distrito: "=ltDataDistrito",
+            },
+            controller: ['$scope', 'EntitiesService', Controller],
+            controllerAs: 'empleado',
+            bindToController: true,
+            template: [
+                '<input class="form-control" kendo-multi-select ',
+                    'k-data-text-field="\'Value\'" ',
+                    'k-data-value-field="\'Key\'" ',
+                    'k-data-source="empleado.ds" ',
+                    'k-ng-model="empleado.model" ',
+                    'k-auto-bind="false" >',
+                '</input>'
+            ].join('')
+        };
+    };
+
+    angular.module('logictracker.common.directives')
+        .directive('ltMsEmpleado', directive);
+
+
+})();
+

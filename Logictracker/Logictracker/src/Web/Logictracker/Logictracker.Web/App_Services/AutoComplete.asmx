@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="~/App_Code/AutoComplete.cs" Class="Logictracker.AutoComplete" %>
+﻿<%@ WebService Language="C#" CodeBehind="AutoComplete.asmx.cs" Class="Logictracker.Web.App_Services.AutoComplete" %>

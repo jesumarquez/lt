@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="~/App_Code/Import.cs" Class="Import" %>
+﻿<%@ WebService Language="C#" CodeBehind="Import.asmx.cs" Class="Logictracker.Web.App_Services.Import" %>

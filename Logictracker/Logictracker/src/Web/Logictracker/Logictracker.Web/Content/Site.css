@@ -35,8 +35,8 @@ textarea {
 .nl-filterpanel {
     background-color: #e7e7e7;
     border: solid 1px #cccccc;
-    padding-top: 1em;
-    padding-bottom: 1.5em;
+    padding-top: .5em;
+    padding-bottom: .5em;
     -ms-border-radius: 5px;
     border-radius: 5px;
 }
@@ -292,4 +292,45 @@ textarea {
 
 .sem-grey {
     background-color: grey;
+}
+
+.SummaryContainer{
+    background: papayawhip;
+    border-radius: 5px;
+    padding: 5px;
+    margin: .5em .1em;
+}
+    .SummaryContainer-clear{
+        float: left;
+        margin-top: .2em;
+        cursor: pointer;
+        background: gray;
+        color: #FFFFFF;
+        padding: .1em .2em;
+        font-weight: bold;
+        border-radius: .2em;        
+    }
+    .SummaryContainer > ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .SummaryItem{
+        background: lightblue;
+        padding: .5em;
+        display: inline-block;
+        margin: .3em;
+        font-size: 10px;
+        border-radius: 5px;
+    }
+
+.form-group {
+	margin-bottom: 5px;
+}
+.form-group > label{
+	font-weight: normal;
+}
+
+.tex-red {
+    color: red;
 }

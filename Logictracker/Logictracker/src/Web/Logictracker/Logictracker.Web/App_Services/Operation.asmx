@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="~/App_Code/Operation.cs" Class="Operation" %>
+﻿<%@ WebService Language="C#" CodeBehind="Operation.asmx.cs" Class="Logictracker.Web.App_Services.Operation" %>

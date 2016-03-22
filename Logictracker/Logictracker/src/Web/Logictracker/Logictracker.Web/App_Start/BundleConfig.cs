@@ -30,7 +30,7 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
 
-           
+
             // JQuery
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                             "~/Scripts/jquery-{version}.js"));
@@ -43,19 +43,21 @@ namespace Logictracker.Web
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                             "~/Scripts/angular.js",
                             "~/Scripts/angular-route.js",
-                            "~/Scripts/angular-ui-bootstrap-modal.js",
-                            "~/Scripts/angular-resource.js"));
+                            "~/Scripts/angular-animate.js",
+                            "~/Scripts/angular-filter.js",
+                            "~/Scripts/angular-resource.js",
+                            "~/Scripts/angular-sanitize.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs-mocks").Include(
                           "~/Scripts/angular-mocks.js"));
-           
+
             // Kendo
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
-                 //  "~/Scripts/kendo/2014.2.1008/jquery-2.1.1.js",
+                //  "~/Scripts/kendo/2014.2.1008/jquery-2.1.1.js",
                 "~/Scripts/kendo/2014.2.1008/kendo.all.min.js",
                 "~/Scripts/kendo/2014.2.1008/kendo.aspnetmvc.min.js",
                 "~/Scripts/kendo/kendo.custom.js"));
-                    //"~/Scripts/kendo/kendo.modernizr.custom.js"));
+            //"~/Scripts/kendo/kendo.modernizr.custom.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/global").Include(
                 "~/Scripts/kendo/2014.2.1008/cultures/kendo.culture.es-AR.min.js",
@@ -70,11 +72,17 @@ namespace Logictracker.Web
                 "~/Content/kendo/"
                 ));
 
- 
+            bundles.Add(new StyleBundle("~/bundles/css-openlayer").Include(
+                "~/Content/ol-debug.css", "~/Content/angular-openlayers-directive.css"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/js-openlayer").Include(
+                "~/Scripts/ol.js", "~/Scripts/angular-openlayers-directive.js"));
+
+
             // Logictracker Angular app
             bundles.Add(new ScriptBundle("~/bundles/angularjs-logictracker").Include(
                             "~/Scripts/app/app.js")
-                            .IncludeDirectory("~/Scripts/app/","*.js",searchSubdirectories: true));
+                            .IncludeDirectory("~/Scripts/app/", "*.js", searchSubdirectories: true));
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",

@@ -297,17 +297,9 @@
       <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
       <Name>Logictracker.Description</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Diagnostics\Logictracker.Diagnostics.csproj">
-      <Project>{7FBF3686-AE82-4EE7-B164-7F5AFE5ECED6}</Project>
-      <Name>Logictracker.Diagnostics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Inet\Logictracker.Inet.csproj">
       <Project>{7FA87A8B-B2F1-42D5-A1F6-A224BEF84C9B}</Project>
       <Name>Logictracker.Inet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\InterQueue\Logictracker.InterQueue.csproj">
-      <Project>{E5BDF62C-26DB-45B0-8F41-41E00133059F}</Project>
-      <Name>Logictracker.InterQueue</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
@@ -344,10 +336,6 @@
     <ProjectReference Include="..\..\Logictracker.Interfaces.LoJackApi\Logictracker.Interfaces.LoJackApi.csproj">
       <Project>{A4CBB9B0-1C0B-4112-B9EC-D7F2BF58397C}</Project>
       <Name>Logictracker.Interfaces.LoJackApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Logictracker.Messaging.RabbitmqQueue\Logictracker.Messaging.RabbitmqQueue.csproj">
-      <Project>{e3be14d6-2bf7-4b97-96f5-026a96465337}</Project>
-      <Name>Logictracker.Messaging.RabbitmqQueue</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Logictracker.Novatec\Novatel.csproj">
       <Project>{27C99A0E-3146-4E44-ACDB-2E55528F608A}</Project>

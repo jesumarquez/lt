@@ -1,15 +1,11 @@
 ﻿#region Usings
-
 using System;
-using System.IO;
 using System.ServiceProcess;
 using System.Threading;
 using System.Windows.Forms;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Description.Common;
-using Logictracker.Diagnostics;
 using Logictracker.Utils;
-
 #endregion
 
 namespace Logictracker.Description.Runtime
@@ -124,7 +120,7 @@ namespace Logictracker.Description.Runtime
 		{
 			try
 			{
-				Debugger.LaunchDebugger(2);
+		//		Debugger.LaunchDebugger(2);
 
 				var servicesToRun = new ServiceBase[] {new ServiceApplicationHost(svcName, file)};
 

@@ -108,10 +108,6 @@
       <Project>{d695bbf0-26f4-415c-a619-99c3b6dc8c40}</Project>
       <Name>Logictracker.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Diagnostics\Logictracker.Diagnostics.csproj">
-      <Project>{7FBF3686-AE82-4EE7-B164-7F5AFE5ECED6}</Project>
-      <Name>Logictracker.Diagnostics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Logictracker.Model.csproj">
       <Project>{9F45020B-8B93-4962-89B6-4591C385E68D}</Project>
       <Name>Logictracker.Model</Name>

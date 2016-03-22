@@ -49,6 +49,10 @@
     <Reference Include="App_Licenses">
       <HintPath>..\..\..\..\..\Resources\App_Licenses.dll</HintPath>
     </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap, Version=3.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\packages\AspNet.ScriptManager.bootstrap.3.3.6\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="C1.Web.C1WebChart.2">
       <HintPath>..\..\..\..\..\Resources\ComponentOne\v3\C1.Web.C1WebChart.2.dll</HintPath>
     </Reference>
@@ -165,9 +169,6 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="AspNet.ScriptManager.bootstrap">
-      <HintPath>..\..\..\..\..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
-    </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery">
       <HintPath>..\..\..\..\..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
     </Reference>
@@ -644,6 +645,7 @@
     <Content Include="CompumapISAPI\Micros.srf" />
     <Content Include="CompumapISAPI\recorridos.srf" />
     <Content Include="Contact.aspx" />
+    <Content Include="Content\angular-openlayers-directive.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -867,6 +869,8 @@
     <Content Include="Content\kendo\2014.2.1008\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.2.1008\Uniform\sprite_2x.png" />
     <Content Include="Content\kendo\kendo.custom.css" />
+    <Content Include="Content\ol-debug.css" />
+    <Content Include="Content\ol.css" />
     <Content Include="Content\Site.css" />
     <Content Include="ControlAcceso\CategoriaAccesoAlta.aspx" />
     <Content Include="ControlAcceso\CategoriaAccesoLista.aspx" />
@@ -1261,9 +1265,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="MasterPages\AbmPage.master" />
     <Content Include="MasterPages\ImportPage.master" />
     <Content Include="MasterPages\ListPage.master" />
@@ -1556,15 +1557,11 @@
     <Content Include="Reportes\Transportistas\ActividadTerceros.aspx" />
     <Content Include="Reportes\Transportistas\TransportMobileKilometers.aspx" />
     <Content Include="Reportes\Transportistas\TransportMobileTimes.aspx" />
-    <Content Include="Scripts\angular-resource.js" />
-    <Content Include="Scripts\angular-resource.min.js" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-route.min.js" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-resource.min.js.map" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-filter.js" />
+    <Content Include="Scripts\angular-filter.min.js" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDispositivos.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioDocumentos.xls" />
     <Content Include="Parametrizacion\ImportadorMasivo\Templates\FormularioEmpleados.xls" />
@@ -1741,20 +1738,48 @@
     <Content Include="Areas\Ordenes\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\Estadisticas.cshtml" />
     <Content Include="Areas\Rechazos\Views\Rechazo\EditItem.cshtml" />
-    <Content Include="Areas\Ordenes\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Ordenes\Views\Programar\Index.cshtml" />
+    <Content Include="Areas\Eventos\Views\web.config" />
+    <Content Include="Areas\Eventos\Views\Eventos\Index.cshtml" />
+    <Content Include="Areas\Eventos\Views\_ViewStart.cshtml" />
     <Content Include="ExcelTemplate\Logictracker\ViajeProgramadoLista.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\StockVehicularLista.xlsx" />
     <Content Include="ExcelTemplate\Logictracker\RankingTransportistas.xlsx" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
+    <Content Include="Scripts\angular-openlayers-directive.js" />
+    <Content Include="Scripts\angular-openlayers-directive.min.js" />
+    <Content Include="Scripts\angular-openlayers-directive.min.no-header.js" />
+    <Content Include="Scripts\angular-openlayers-directive.pre.js" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="perfil.aspx" />
-    <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\common\common-directives.js" />
+    <Content Include="Scripts\app\common\common-utilities.js" />
     <Content Include="Scripts\app\dummy\dummy-controller.js" />
     <Content Include="Scripts\app\dummy\dummy-service.js" />
     <Content Include="Scripts\app\EntitiesService.js" />
+    <Content Include="Scripts\app\eventos\eventos-controller.js" />
     <Content Include="Scripts\app\ordenes\ordenes-controller.js" />
     <Content Include="Scripts\app\ordenes\ordenes-directives.js" />
     <Content Include="Scripts\app\ordenes\ordenes-service.js" />
@@ -1913,6 +1938,8 @@
     <Content Include="Scripts\kendo\2014.2.1008\messages\kendo.messages.zh-TW.min.js" />
     <Content Include="Scripts\kendo\kendo.modernizr.custom.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ol-debug.js" />
+    <Content Include="Scripts\ol.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
@@ -2165,29 +2192,36 @@
     <Compile Include="Admin\Services.aspx.designer.cs">
       <DependentUpon>Services.aspx</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\ViewExtensions.cs" />
-    <Content Include="App_Code\AutoComplete.cs">
+    <Compile Include="App_Services\AutoComplete.asmx.cs">
+      <DependentUpon>AutoComplete.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="App_Code\Export.cs">
+    </Compile>
+    <Compile Include="App_Services\Export.asmx.cs">
+      <DependentUpon>Export.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="App_Code\Geocoder.cs">
+    </Compile>
+    <Compile Include="App_Services\Geocoder.asmx.cs">
+      <DependentUpon>Geocoder.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="App_Code\Import.cs">
+    </Compile>
+    <Compile Include="App_Services\Import.asmx.cs">
+      <DependentUpon>Import.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="App_Code\Operation.cs">
+    </Compile>
+    <Compile Include="App_Services\Operation.asmx.cs">
+      <DependentUpon>Operation.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="App_Code\OperationService.cs">
+    </Compile>
+    <Compile Include="App_Services\OperationService.asmx.cs">
+      <DependentUpon>OperationService.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Compile Include="App_Code\SharedPositions.cs" />
-    <Content Include="App_Code\Tickets.cs">
+    </Compile>
+    <Compile Include="App_Services\Tickets.asmx.cs">
+      <DependentUpon>Tickets.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
+    </Compile>
+    <Compile Include="Utils_Code\ViewExtensions.cs" />
+    <Compile Include="Utils_Code\SharedPositions.cs" />
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2399,6 +2433,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Eventos\Controllers\EventosController.cs" />
+    <Compile Include="Areas\Eventos\EventosAreaRegistration.cs" />
     <Compile Include="Areas\Ordenes\Controllers\ProgramarController.cs" />
     <Compile Include="Areas\Ordenes\OrdenesAreaRegistration.cs" />
     <Compile Include="Areas\Rechazos\Controllers\RechazoController.cs" />
@@ -2746,6 +2782,9 @@
     <Compile Include="ControlAcceso\Fichada.aspx.designer.cs">
       <DependentUpon>Fichada.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\api\ReportController.cs" />
+    <Compile Include="Controllers\api\EventoController.cs" />
+    <Compile Include="Controllers\api\MensajeController.cs" />
     <Compile Include="Controllers\api\EmpleadoController.cs" />
     <Compile Include="Controllers\api\Models\CocheModel.cs" />
     <Compile Include="Controllers\api\PuntoEntregaController.cs" />
@@ -2756,10 +2795,16 @@
     <Compile Include="Controllers\api\DistribucionController.cs" />
     <Compile Include="Controllers\api\TicketRechazoController.cs" />
     <Compile Include="Controllers\api\TipoCicloLogisticoController.cs" />
+    <Compile Include="Controllers\api\TipoCocheController.cs" />
+    <Compile Include="Controllers\api\TipoMensajeController.cs" />
     <Compile Include="Controllers\api\UserDataController.cs" />
     <Compile Include="Controllers\api\CocheController.cs" />
+    <Compile Include="Controllers\api\InsumoController.cs" />
     <Compile Include="Models\CantidadPorEstadoModel.cs" />
     <Compile Include="Models\EmpleadoModel.cs" />
+    <Compile Include="Models\EventoModel.cs" />
+    <Compile Include="Models\MensajeModel.cs" />
+    <Compile Include="Models\InsumoModel.cs" />
     <Compile Include="Models\PuntoEntregaModel.cs" />
     <Compile Include="Models\TicketRechazoModel.cs" />
     <Compile Include="Controllers\api\TransportistaController.cs" />
@@ -3088,6 +3133,8 @@
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\SelectionOrderModel.cs" />
     <Compile Include="Models\TipoCicloLogisticoModel.cs" />
+    <Compile Include="Models\TipoCocheModel.cs" />
+    <Compile Include="Models\TipoMensajeModel.cs" />
     <Compile Include="Monitor\MonitorDeCalidad\monitorDeCalidad.aspx.cs">
       <DependentUpon>monitorDeCalidad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5108,9 +5155,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Eventos\Models\" />
+    <Folder Include="Areas\Eventos\Views\Shared\" />
     <Folder Include="Areas\Ordenes\Models\" />
+    <Folder Include="Areas\Ordenes\Views\Shared\" />
     <Folder Include="Areas\Rechazos\Models\" />
     <Folder Include="Areas\Rechazos\Views\Shared\" />
+    <Folder Include="Views\TipoMensaje\" />
+    <Folder Include="Views\TipoVehiculo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Geocoder\Geocoder.Core.csproj">
