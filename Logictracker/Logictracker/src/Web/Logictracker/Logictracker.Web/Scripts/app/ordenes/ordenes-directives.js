@@ -85,7 +85,14 @@ function OrderDetailDirective() {
             }
         };
 
+        $scope.$watch(function () { return vm.orderId; }, onOrderChange)
         $scope.$watchCollection(function () { return vm.selectedList; }, onSelectedListChange);
+
+        function onOrderChange(newValue, oldValue) {
+            if (newValue !== oldValue) {
+                vm.ds = OrdenesService.ordenDetalles(vm.orderId, [], onDSLoad, onFail);
+            }
+        };
 
         function onSelectedListChange(newValue, oldValue) {
             if (newValue !== oldValue) {
