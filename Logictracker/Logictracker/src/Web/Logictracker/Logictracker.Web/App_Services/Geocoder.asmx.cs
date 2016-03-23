@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Services;
+using Geocoder.Core.VO;
 using Logictracker.Security;
 using Logictracker.Services.Helpers;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Web.BaseClasses.Handlers;
-using Geocoder.Core.VO;
 
-namespace Logictracker
+namespace Logictracker.Web.App_Services
 {
     /// <summary>
     /// Summary description for Geocoder
@@ -70,4 +70,3 @@ namespace Logictracker
         }
     }
 }
-

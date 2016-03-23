@@ -1,99 +1,50 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Logictracker.Culture;
+using Logictracker.DAL.DAO.BusinessObjects.Ordenes;
+using Logictracker.DAL.Factories;
 using Logictracker.Tracker.Application.Services;
 using Logictracker.Tracker.Services;
-using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Ordenes;
 using Logictracker.Web.Models;
-using Logictracker.DAL.Factories;
-using Logictracker.Culture;
-using Kendo.Mvc.UI;
-using System.Web.Http.ModelBinding;
-using Logictracker.DAL.DAO.BusinessObjects.Ordenes;
-using Kendo.Mvc.Extensions;
+using Logictracker.Utils;
 
 namespace Logictracker.Web.Controllers.api
 {
     public class OrdenesController : EntityController<Order, OrderDAO, OrderModel, OrdenesMapper>
     {
         IRoutingService RoutingService { get; set; }
-        readonly OrdenDetallesMapper ordenDetalleMapper;
+        private OrdenesDetailMapper MapperDetail {get; set; }
 
         public OrdenesController()
         {
             RoutingService = new RoutingService();
-            ordenDetalleMapper = new OrdenDetallesMapper();
+            MapperDetail = new OrdenesDetailMapper();
         }
 
         //GET: api/distrito/91/Orders/base/321/ordenes
         [Route("api/distrito/{distritoId}/base/{baseId}/ordenes")]
         public IHttpActionResult Get(int distritoId, int baseId, [FromUri] int[] transportistaId)
         {
-            var orders = RoutingService.GetOrders(distritoId, baseId, transportistaId);
+            var ordersList = RoutingService.GetOrders(distritoId, baseId, transportistaId)
+                .Select(e => Mapper.EntityToModel(e, new OrderModel())).ToList();
 
-            var orderList = new List<OrderModel>();
-            foreach (var order in orders)
-            {
-                var orderModel = new OrderModel();
-                orderModel.CodigoPedido = order.CodigoPedido;
-                if (order.Empleado != null) orderModel.Empleado = order.Empleado.Entidad.Descripcion;
-                if (order.Empleado != null) orderModel.IdEmpleado = order.Empleado.Entidad.Id;
-                if (order.Empresa != null) orderModel.Empresa = order.Empresa.RazonSocial;
-                if (order.Empresa != null) orderModel.IdEmpresa = order.Empresa.Id;
-
-                orderModel.BaseId = order.Linea.Id;
-                orderModel.FechaAlta = order.FechaAlta;
-                if (order.FechaEntrega != null)
-                    orderModel.FechaEntrega = order.FechaEntrega.Value;
-                else
-                    orderModel.FechaEntrega = null;
-                orderModel.FechaPedido = order.FechaPedido;
-                orderModel.FinVentana = order.FinVentana;
-                orderModel.InicioVentana = order.InicioVentana;
-                orderModel.Id = order.Id;
-                if (order.PuntoEntrega != null)
-                {
-                    orderModel.PuntoEntrega = order.PuntoEntrega.Descripcion;
-                    orderModel.IdPuntoEntrega = order.PuntoEntrega.Id;
-                    orderModel.PuntoEntregaLatitud = order.PuntoEntrega.ReferenciaGeografica.Latitude;
-                    orderModel.PuntoEntregaLongitud = order.PuntoEntrega.ReferenciaGeografica.Longitude;
-                }
-                if (order.Transportista != null) orderModel.Transportista = order.Transportista.Descripcion;
-                if (order.Transportista != null) orderModel.IdTransportista = order.Transportista.Id;
-                orderList.Add(orderModel);
-            }
-
-            return Ok(orderList);
+            return Ok(ordersList);
         }
 
         //GET: api/Ordenes/91/Orders/1
         [Route("api/distrito/{distritoId}/base/{baseId}/ordenes/{id}")]
         public IHttpActionResult Get(int distritoId, int baseId, int transportistaId, int orderId)
         {
-            var orderDetails = RoutingService.GetOrderDetails(orderId);
+            var orderDetails = RoutingService.GetOrderDetails(orderId)
+                .Where(o => o.Estado == OrderDetail.Estados.Pendiente)
+                .Select(e => MapperDetail.EntityToModel(e, new OrderDetailModel()));
 
-            var orderDetailList = new List<OrderDetailModel>();
-            foreach (var orderDetail in orderDetails)
-            {
-                var orderDetailModel = new OrderDetailModel
-                {
-                    Id = orderDetail.Id,
-                    OrderId = orderId,
-                    PrecioUnitario = orderDetail.PrecioUnitario,
-                    Cantidad = orderDetail.Cantidad,
-                    Descuento = orderDetail.Descuento,
-                    Ajuste = orderDetail.Ajuste,
-                    ChocheId = 0,
-                    Cuaderna = -1,
-                };
-
-                if (orderDetail.Insumo != null) orderDetailModel.Insumo = orderDetail.Insumo.Descripcion;
-           
-                orderDetailList.Add(orderDetailModel);
-            }
-            return Ok(orderDetailList);
+            return Ok(orderDetails.ToList());
         }
 
         // POST: api/Orders/91/Orders
@@ -108,20 +59,26 @@ namespace Logictracker.Web.Controllers.api
                 distritoId,
                 baseId);
 
-            Order o = null;
-            foreach (var orderDetailModel in orderSelectionModel.OrderDetailList)
+            // Agrupo por OrderId
+            var odByOrderId = orderSelectionModel.OrderDetailList.Where(od => od.Cuaderna != 0).GroupBy(od => od.OrderId);
+
+            // 
+
+            foreach (var group in odByOrderId)
             {
-                o = EntityDao.FindById(orderDetailModel.OrderId);
-                if (o == null) return InternalServerError();
+                var order = EntityDao.FindById(group.Key);
+                group.ToList().ForEach(od =>
+                {
+                    // Se asigna el ajuste y la cuaderna asignada
+                    var orderDetail = order.OrderDetails.Single(item => item.Id == od.Id);
+                    orderDetail.Ajuste = od.Ajuste;
+                    orderDetail.Cuaderna = od.Cuaderna;
+                    orderDetail.Estado = OrderDetail.Estados.Ruteado;
+                });
 
-                // Se asigna el ajuste y la cuaderna asignada
-                var orderDetail = o.OrderDetails.Single(od => od.Id == orderDetailModel.Id);
-                orderDetail.Ajuste = orderDetailModel.Ajuste;
-                orderDetail.Cuaderna = orderDetailModel.Cuaderna;
-                orderDetail.Estado = OrderDetail.Estados.Ruteado;
-
-                RoutingService.Programming(o, routeCode, orderSelectionModel.IdVehicle,
-                    orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
+                // Programo por Orden
+                RoutingService.Programming(order, routeCode, orderSelectionModel.IdVehicle,
+                orderSelectionModel.StartDateTime, orderSelectionModel.LogisticsCycleType, orderSelectionModel.IdVehicleType);
             }
 
             return Ok();
@@ -131,24 +88,22 @@ namespace Logictracker.Web.Controllers.api
         public DataSourceResult GetDataSource(
                [ModelBinder(typeof(WebApiDataSourceRequestModelBinder))] DataSourceRequest request)
         {
-            IQueryable<Order> ordenes = EntityDao.FindAll();
-            ordenes = ordenes.Where(o => !o.Programado);            
-
+            var ordenes = EntityDao.FindAll().Where(o => !o.Programado);
             return ordenes.ToDataSourceResult(request, e => Mapper.EntityToModel(e, new OrderModel()));
         }
 
         [Route("api/ordenes/{id}")]
         public IHttpActionResult Get(int id, [FromUri] int[] insumos)
         {
-            Order orden = EntityDao.FindById(id);
-            var details = orden.OrderDetails;
-            if (insumos.Length > 0)
-                details = details.Where(od => insumos.Contains(od.Insumo.Id)).ToList();
+            var orderDetails = RoutingService.GetOrderDetails(id)
+            .Where(o => o.Estado == OrderDetail.Estados.Pendiente)
+            .WhereIf(insumos.Length > 0, od => insumos.Contains(od.Insumo.Id))
+            .Select(e => MapperDetail.EntityToModel(e, new OrderDetailModel()));
 
-            return Json(details.Select(od => ordenDetalleMapper.EntityToModel(od, new OrderDetailModel())));
+            return Ok(orderDetails.ToList());
         }
 
-        private string BuildRouteCode(DateTime date, int vehicleId, int vechicleTypeId, int logisticCycleTypeId, int distritoId, int baseId)
+        private static string BuildRouteCode(DateTime date, int vehicleId, int vechicleTypeId, int logisticCycleTypeId, int distritoId, int baseId)
         {
             var daoF = new DAOFactory();
 
@@ -180,14 +135,5 @@ namespace Logictracker.Web.Controllers.api
             return routeCode;
         }
 
-        // PUT: api/Orders/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Orders/5
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -137,7 +137,7 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         }
     };
 
-    $scope.disabledButton = false;
+    $scope.disabledButton = true;
 
     $scope.programOrders = function (order) {
 
@@ -238,6 +238,8 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         if (evt.action === "itemchange" || evt.action === "remove") {
             var data = $scope.cuadernasDs.data();
 
+            var disabledProgramar = true;
+
             data.forEach(function (cuaderna) {
                 var items = $scope.ds.data();
                 var asignado = 0;
@@ -248,11 +250,15 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
                         asignado += item.Cantidad + item.Ajuste;
                         seleccionados += 1;
                     }
-                });
+
+                    if (item.Cuaderna != 0) disabledProgramar = false;
+                });                
 
                 cuaderna.set('Asignado', asignado);
                 cuaderna.set('Seleccionados', seleccionados);
             });
+
+            $scope.$parent.disabledButton = disabledProgramar;
         }
     }
 
@@ -262,7 +268,8 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
     }
 
     $scope.ok = function () {
-        $log.debug("ok");
+       
+        if ($scope.$parent.disabledButton) return;
         //$uibModalInstance.close();
 
         var selectOrders = [];
@@ -287,11 +294,12 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
 
     function onSuccess()
     {
+        $('#myModal').modal('hide');
+
         if ($scope.accessor.invoke)
             $scope.accessor.invoke();
             
         $scope.onBuscar();
-        //$('#myModal').modal('hide');
         //$scope.disabledButton = false;
     }
 
@@ -299,6 +307,10 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         $log.debug("cancel");
         //cleanEditableProducts();
         //$uibModalInstance.dismiss();
+    }
+
+    $scope.clean = function () {
+        cleanEditableProducts();
     }
 
 }

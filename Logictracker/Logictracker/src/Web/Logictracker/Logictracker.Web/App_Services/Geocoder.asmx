@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="~/App_Code/Geocoder.cs" Class="Logictracker.GeocoderWs" %>
+﻿<%@ WebService Language="C#" CodeBehind="Geocoder.asmx.cs" Class="Logictracker.Web.App_Services.Geocoder" %>

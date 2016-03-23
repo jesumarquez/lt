@@ -301,10 +301,6 @@
       <Project>{7FA87A8B-B2F1-42D5-A1F6-A224BEF84C9B}</Project>
       <Name>Logictracker.Inet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\InterQueue\Logictracker.InterQueue.csproj">
-      <Project>{E5BDF62C-26DB-45B0-8F41-41E00133059F}</Project>
-      <Name>Logictracker.InterQueue</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
       <Name>Logictracker.Cache</Name>
