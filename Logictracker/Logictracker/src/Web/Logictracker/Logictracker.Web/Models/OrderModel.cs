@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.Ordenes;
 
 namespace Logictracker.Web.Models
@@ -31,38 +26,73 @@ namespace Logictracker.Web.Models
         public double PuntoEntregaLongitud { get; set; }
     }
 
+    public class OrdenesDetailMapper : EntityModelMapper<OrderDetail, OrderDetailModel>
+    {
+        public override OrderDetailModel EntityToModel(OrderDetail entity, OrderDetailModel model)
+        {
+            model.Id = entity.Id;
+            model.OrderId = entity.Order.Id;
+            model.PrecioUnitario = entity.PrecioUnitario;
+            model.Cantidad = entity.Cantidad;
+            model.Descuento = entity.Descuento;
+            model.Ajuste = entity.Ajuste;
+            model.ChocheId = 0;
+            model.Cuaderna = entity.Cuaderna;
+            if (entity.Insumo != null) model.Insumo = entity.Insumo.Descripcion;
+            model.EstadoDescripcion = entity.Estado.ToString();
+            return model;
+        }
+
+        public override OrderDetail ModelToEntity(OrderDetailModel model, OrderDetail entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ItemModel ToItem(OrderDetail entity)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class OrdenesMapper : EntityModelMapper<Order, OrderModel>
     {
         public override OrderModel EntityToModel(Order entity, OrderModel model)
         {
-            model.Id = entity.Id;
             model.CodigoPedido = entity.CodigoPedido;
-            if (entity.Empleado != null) model.Empleado = entity.Empleado.Entidad.Descripcion;
-            if (entity.Empleado != null) model.IdEmpleado = entity.Empleado.Entidad.Id;
-            if (entity.Empresa != null) model.Empresa = entity.Empresa.RazonSocial;
-            if (entity.Empresa != null) model.IdEmpresa = entity.Empresa.Id;
-
-            model.BaseId = entity.Linea.Id;
-            model.FechaAlta = entity.FechaAlta;
-            if (entity.FechaEntrega != null)
-                model.FechaEntrega = entity.FechaEntrega.Value;
-            else
-                model.FechaEntrega = null;
             model.FechaPedido = entity.FechaPedido;
             model.FinVentana = entity.FinVentana;
             model.InicioVentana = entity.InicioVentana;
             model.Id = entity.Id;
+            model.BaseId = entity.Linea.Id;
+            model.FechaAlta = entity.FechaAlta;
+            model.FechaEntrega = entity.FechaEntrega;
+            
+            if (entity.Empleado != null)
+            {
+                model.Empleado = entity.Empleado.Entidad.Descripcion;
+                model.IdEmpleado = entity.Empleado.Entidad.Id;
+            }
+
+            if (entity.Empresa != null)
+            {
+                model.Empresa = entity.Empresa.RazonSocial;
+                model.IdEmpresa = entity.Empresa.Id;
+            }
+
+            if (entity.Transportista != null)
+            {
+                model.Transportista = entity.Transportista.Descripcion;
+                model.IdTransportista = entity.Transportista.Id;
+            }
+
             if (entity.PuntoEntrega != null)
             {
                 model.PuntoEntrega = entity.PuntoEntrega.Descripcion;
                 model.IdPuntoEntrega = entity.PuntoEntrega.Id;
-                model.CodigoPuntoEntrega = entity.PuntoEntrega.Codigo;
                 model.PuntoEntregaLatitud = entity.PuntoEntrega.ReferenciaGeografica.Latitude;
                 model.PuntoEntregaLongitud = entity.PuntoEntrega.ReferenciaGeografica.Longitude;
             }
-            if (entity.Transportista != null) model.Transportista = entity.Transportista.Descripcion;
-            if (entity.Transportista != null) model.IdTransportista = entity.Transportista.Id;
-            
+
             return model;
         }
 

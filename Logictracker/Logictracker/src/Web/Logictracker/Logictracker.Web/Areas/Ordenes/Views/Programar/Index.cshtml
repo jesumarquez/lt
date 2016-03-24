@@ -88,8 +88,8 @@
     </div>
     <div class="row" style="margin-top: 1em;">
         <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a data-toggle="tab" href="#grilla">Grilla</a></li>
-            <li><a data-toggle="tab" href="#mapa">Mapa</a></li>
+            <li class="active"><a data-toggle="tab" href="#grilla">@Html.ResourceLabel("Labels", "Grilla")</a></li>
+            <li><a data-toggle="tab" href="#mapa">@Html.ResourceLabel("Labels", "Mapa")</a></li>
         </ul>
         <div cass="tab-content" style="margin-top: 1em;">
             <div id="grilla" class="tab-pane collapse in active" role="tabpanel">
@@ -228,7 +228,6 @@
                         <div class="clearfix"></div>
 
                     </div><!-- panel -->
-
                     <order-detail lt-ng-order-id="orderSelected.Id" lt-ng-selected-list="productsSelected" />
                 </div><!-- modal-body -->
             </div><!-- modal-content -->
