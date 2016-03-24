@@ -2192,29 +2192,36 @@
     <Compile Include="Admin\Services.aspx.designer.cs">
       <DependentUpon>Services.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Old_App_Code\ViewExtensions.cs" />
-    <Content Include="Old_App_Code\AutoComplete.cs">
+    <Compile Include="App_Services\AutoComplete.asmx.cs">
+      <DependentUpon>AutoComplete.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="Old_App_Code\Export.cs">
+    </Compile>
+    <Compile Include="App_Services\Export.asmx.cs">
+      <DependentUpon>Export.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="Old_App_Code\Geocoder.cs">
+    </Compile>
+    <Compile Include="App_Services\Geocoder.asmx.cs">
+      <DependentUpon>Geocoder.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="Old_App_Code\Import.cs">
+    </Compile>
+    <Compile Include="App_Services\Import.asmx.cs">
+      <DependentUpon>Import.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="Old_App_Code\Operation.cs">
+    </Compile>
+    <Compile Include="App_Services\Operation.asmx.cs">
+      <DependentUpon>Operation.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Content Include="Old_App_Code\OperationService.cs">
+    </Compile>
+    <Compile Include="App_Services\OperationService.asmx.cs">
+      <DependentUpon>OperationService.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
-    <Compile Include="Old_App_Code\SharedPositions.cs" />
-    <Content Include="Old_App_Code\Tickets.cs">
+    </Compile>
+    <Compile Include="App_Services\Tickets.asmx.cs">
+      <DependentUpon>Tickets.asmx</DependentUpon>
       <SubType>Component</SubType>
-    </Content>
+    </Compile>
+    <Compile Include="Utils_Code\ViewExtensions.cs" />
+    <Compile Include="Utils_Code\SharedPositions.cs" />
     <Compile Include="App_Controls\altaEntidad.ascx.cs">
       <DependentUpon>altaEntidad.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
