@@ -267,9 +267,24 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         return $filter('filter') ($scope.cuadernasDs.data(), { Orden : data.Cuaderna  })[0].Descripcion;
     }
 
+    function onFail(error) {
+        try {
+            $scope.$parent.disabledButton = false;
+
+            if (error.data.ExceptionMessage) {
+                $scope.modalNotify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) {
+        }
+        $scope.modalNotify.show(error.errorThrown, "error");
+    };
+
     $scope.ok = function () {
        
         if ($scope.$parent.disabledButton) return;
+
+        $scope.$parent.disabledButton = true;
 
         var selectOrders = [];
 
@@ -288,9 +303,10 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
         $scope.newOrder.$save(
             { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
-            onSuccess(),
-            function () { }
-                //onFail
+            function (value) {
+                onSuccess();
+            },
+            function (error) { onFail(error); }
         );
     }
 
@@ -302,7 +318,8 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
             $scope.accessor.invoke();
             
         $scope.onBuscar();
-        //$scope.disabledButton = false;
+
+        $scope.$parent.disabledButton = false;
     }
 
     $scope.cancel = function () {
