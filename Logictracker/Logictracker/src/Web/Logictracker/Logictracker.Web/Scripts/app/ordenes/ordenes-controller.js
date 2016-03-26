@@ -318,8 +318,6 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
             $scope.accessor.invoke();
             
         $scope.onBuscar();
-
-        $scope.$parent.disabledButton = false;
     }
 
     $scope.cancel = function () {
