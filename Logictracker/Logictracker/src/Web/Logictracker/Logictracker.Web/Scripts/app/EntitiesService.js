@@ -21,7 +21,12 @@ function EntitiesService($resource, $http) {
             },
             puntoEntrega: getPuntoEntrega,
             tipoCicloLogistico: getTipoCicloLogisticoDS,
-            coche: getCocheDS
+            coche: getCocheDS,
+            tipoCoche: getTipoCocheDS,
+            tipoMensaje: getTipoMensajeDS,
+            mensaje: getMensajeDS,
+            empleados: getListEmpleadoDS,
+            insumo: getInsumoDS,
         },
         resources: {
             bases: $resource("/api/distrito/:distritoId/base/items", { distritoId: "@distritoId" }),
@@ -32,6 +37,7 @@ function EntitiesService($resource, $http) {
             empleadoReporta: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/reporta/models"),
             empleadoByTipo: $resource("/api/distrito/:distritoId/base/:baseId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/models"),
             empleado: $resource("/api/distrito/:distritoId/base/:baseId/empleado/:empleadoId/model"),
+            empleados: $resource("/api/distrito/:distritoId/base/:baseId/empleado/items"),
             ticketRechazo: $resource("/api/ticketrechazo/item/:id", { id: "@id" }, { "update": { method: "PUT" } }),
             userData: $resource("/api/UserData"),
             parametros: $resource("/api/Distrito/:distritoId/parametros/items", { distritoId: "@distritoId" }),
@@ -40,7 +46,11 @@ function EntitiesService($resource, $http) {
             cantidadTicketPorHora: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/estadisticas/ticketporhora", { distritoId: "@distritoId", baseId: "@baseId" }),
             chofer: $resource("/api/ticketrechazo/distrito/:distritoId/base/:baseId/transportista/:transportistaId/tipoEmpleadoCodigo/:tipoEmpleadoCodigo/items", { distritoId: "@distritoId", baseId: "@baseId" }),
             tipoCicloLogistico: $resource("/api/distrito/:distritoId/tipociclologistico/items", { distritoId: "@distritoId" }),
-            coche: $resource("/api/distrito/:distritoId/base/:baseId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId"})
+            coche: $resource("/api/distrito/:distritoId/base/:baseId/tipoCoche/:tipoCocheId/coche/items", { distritoId: "@ditritoId", baseId: "@baseId", tipoCocheId: "@tipoCocheId", excludeNone: "@excludeNone" }),
+            tipoCoche: $resource("/api/distrito/:distritoId/base/:baseId/tipocoche/items", { distritoId: "@distritoId", baseId: "@baseId"}),
+            tipoMensaje: $resource("/api/distrito/:distritoId/base/:baseId/tipomensaje/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            mensaje: $resource("/api/distrito/:distritoId/base/:baseId/mensaje/items", { distritoId: "@distritoId", baseId: "@baseId" }),
+            insumo: $resource("/api/insumos/:distritoId/base/:baseId/items", { distritoId: "@ditritoId", baseId: "@baseId" })
         },
         ticketrechazo: {
             estados: getEstados,
@@ -623,7 +633,10 @@ function EntitiesService($resource, $http) {
                 read: function (op) {
                     if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
                         op.data.baseId !== undefined && op.data.baseId !== "") {
-                        getData(_service.resources.coche, op, { distritoId: op.data.distritoId, baseId: op.data.baseId });
+
+                        // Faltaria contemplar cuando no recibis tipoCoche
+                        if (op.data.tipoCocheId !== undefined && op.data.tipoCocheId !== "")
+                            getData(_service.resources.coche, op, { distritoId: op.data.distritoId, baseId: op.data.baseId, tipoCocheId: op.data.tipoCocheId, excludeNone: op.data.excludeNone });
                     }
                     else {
                         op.success([]);
@@ -640,6 +653,84 @@ function EntitiesService($resource, $http) {
         return ds;
     };
 
+    function getTipoCocheDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.tipoCoche);
+    }
+
+
+    /* Helper para cargar datasource que depende de distrito y base */
+    function getDSByDistritoBase(onEnd, onFail, resource) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+                        getData(resource, op, { distritoId: op.data.distritoId, baseId: op.data.baseId });
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+    function getSimpleKeyValueItems(onEnd, onFail, resource) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    getData(resource, op, {});
+                }
+            }
+        });
+
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
+
+    function getTipoMensajeDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.tipoMensaje);
+    }
+    
+    function getMensajeDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.mensaje);
+    }
+
+    function getListEmpleadoDS(onEnd, onFail) {
+        return getDSByDistritoBase(onEnd, onFail, _service.resources.empleados);
+    }
+    function getInsumoDS(onEnd, onFail) {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: function (op) {
+                    if (op.data.distritoId !== undefined && op.data.distritoId !== "" &&
+                        op.data.baseId !== undefined && op.data.baseId !== "") {
+                        getData(_service.resources.insumo, op, { distritoId: op.data.distritoId, baseId: op.data.baseId });
+                    }
+                    else {
+                        op.success([]);
+                    }
+                }
+            }
+        });
+        if (angular.isFunction(onEnd))
+            ds.bind("requestEnd", onEnd);
+        if (angular.isFunction(onFail))
+            ds.bind("error", onFail);
+
+        return ds;
+    };
 
     return _service;
 }

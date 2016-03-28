@@ -47,215 +47,213 @@ public class Import : BaseServiceHandler, IHttpHandler
 //        }
 //}
     public override void ProcessRequest (string method) {
-        if (method == "importdata")
-        {
-            var company = Context.Request.Form["company"];
-            var branch = Context.Request.Form["branch"];
-            var data = Context.Request.Form["data"];
-            var empresa = string.IsNullOrEmpty(company) ? null : BaseService.GetEmpresaByCode(company);
-            var linea = string.IsNullOrEmpty(branch) || empresa == null ? null : BaseService.GetLineaByCode(branch, empresa);
-            var idEmpresa = empresa != null ? empresa.Id : -1;
-            var idLinea = linea != null ? linea.Id : -1;
+        if (method != "importdata") return;
+        var company = Context.Request.Form["company"];
+        var branch = Context.Request.Form["branch"];
+        var data = Context.Request.Form["data"];
+        var empresa = string.IsNullOrEmpty(company) ? null : BaseService.GetEmpresaByCode(company);
+        var linea = string.IsNullOrEmpty(branch) || empresa == null ? null : BaseService.GetLineaByCode(branch, empresa);
+        var idEmpresa = empresa != null ? empresa.Id : -1;
+        var idLinea = linea != null ? linea.Id : -1;
 
-            var sw = File.CreateText(Context.Server.MapPath("req.xml"));
-            sw.Write(data);
-            sw.Close();
+        var sw = File.CreateText(Context.Server.MapPath("req.xml"));
+        sw.Write(data);
+        sw.Close();
             
-            TextReader reader = new StringReader(data);
-            var xml = new XmlSerializer(typeof(OPERACIONES));
-            var ds = (OPERACIONES)xml.Deserialize(reader);
-            reader.Close();
+        TextReader reader = new StringReader(data);
+        var xml = new XmlSerializer(typeof(OPERACIONES));
+        var ds = (OPERACIONES)xml.Deserialize(reader);
+        reader.Close();
 
-            var server = new Server();
-            WriteLine("<Respuesta>");
-            foreach (var op in ds.OPERACION)
+        var server = new Server();
+        WriteLine("<Respuesta>");
+        foreach (var op in ds.OPERACION)
+        {
+            try
             {
-                try
+                var oDispositivo = op.DISPOSITIVO;
+                var oVehiculo = op.VEHICULO;
+                var oBase = op.BASE;
+                var oDistrito = op.DISTRITO;
+
+                var operacion = Logictracker.Process.Import.Client.Types.Operation.None;
+
+                switch (op.movimiento)
                 {
-                    var oDispositivo = op.DISPOSITIVO;
-                    var oVehiculo = op.VEHICULO;
-                    var oBase = op.BASE;
-                    var oDistrito = op.DISTRITO;
-
-                    var operacion = Logictracker.Process.Import.Client.Types.Operation.None;
-
-                    switch (op.movimiento)
-                    {
-                        case uOperacion.A:
-                            operacion = Logictracker.Process.Import.Client.Types.Operation.Add;
-                            break;
-                        case uOperacion.B:
-                            operacion = Logictracker.Process.Import.Client.Types.Operation.Delete;
-                            break;
-                        case uOperacion.M:
-                            operacion = Logictracker.Process.Import.Client.Types.Operation.Modify;
-                            break;
-                    }
-                    Logictracker.Types.BusinessObjects.Empresa uempresa;
-                    Logictracker.Types.BusinessObjects.Linea ulinea;
+                    case uOperacion.A:
+                        operacion = Logictracker.Process.Import.Client.Types.Operation.Add;
+                        break;
+                    case uOperacion.B:
+                        operacion = Logictracker.Process.Import.Client.Types.Operation.Delete;
+                        break;
+                    case uOperacion.M:
+                        operacion = Logictracker.Process.Import.Client.Types.Operation.Modify;
+                        break;
+                }
+                Logictracker.Types.BusinessObjects.Empresa uempresa;
+                Logictracker.Types.BusinessObjects.Linea ulinea;
                        
-                    var done = false;
-                    if (operacion == Logictracker.Process.Import.Client.Types.Operation.Add)
-                    {
-                        var dataDistrito = GetData(oDistrito, operacion);
-                        uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
-                        idEmpresa = uempresa != null ? uempresa.Id : -1;
-                        done = uempresa == null;
-                        server.Import(idEmpresa, idLinea, dataDistrito, 1);
+                var done = false;
+                if (operacion == Logictracker.Process.Import.Client.Types.Operation.Add)
+                {
+                    var dataDistrito = GetData(oDistrito, operacion);
+                    uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
+                    idEmpresa = uempresa != null ? uempresa.Id : -1;
+                    done = uempresa == null;
+                    server.Import(idEmpresa, idLinea, dataDistrito, 1);
                         
-                        uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
-                        idEmpresa = uempresa != null ? uempresa.Id : -1;
+                    uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
+                    idEmpresa = uempresa != null ? uempresa.Id : -1;
 
-                        var dataBase = GetData(oBase, operacion);
-                        if (dataBase != null)
-                        {
-                            ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
-                            idLinea = ulinea != null ? ulinea.Id : -1;
-                            done = ulinea == null;
-                            server.Import(idEmpresa, idLinea, dataBase, 1);
-
-                            ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
-                            idLinea = ulinea != null ? ulinea.Id : -1;
-                        }
-
-                        var dataDispositivo = GetData(oDispositivo, operacion);
-                        if (dataDispositivo != null)
-                        {
-                            var dataTel = GetDataTel(oDispositivo, operacion);
-                            server.Import(idEmpresa, idLinea, dataTel, 1);
-
-                            var dispo = BaseService.DAOFactory.DispositivoDAO.GetByCode(oDispositivo.codigo);
-                            done = dispo == null || dispo.Estado == Dispositivo.Estados.Inactivo;
-
-                            dataDispositivo.Operation = (int)(done ? Logictracker.Process.Import.Client.Types.Operation.AddOrModify :
-                                                                                                                        Logictracker.Process.Import.Client.Types.Operation.Add);
-                            server.Import(idEmpresa, idLinea, dataDispositivo, 1);
-                        }
-
-                        var dataVehiculo = GetData(oVehiculo, operacion);
-                        if (dataVehiculo != null)
-                        {
-                            var dataMarca = GetDataMarca(oVehiculo, operacion);
-                            server.Import(idEmpresa, idLinea, dataMarca, 1);
-                            var dataModelo = GetDataModelo(oVehiculo, operacion);
-                            server.Import(idEmpresa, idLinea, dataModelo, 1);
-                            var dataTipoVeh = GetDataTipoVeh(oVehiculo, operacion);
-                            server.Import(idEmpresa, idLinea, dataTipoVeh, 1);
-                            if (oDispositivo != null)
-                            {
-                                dataVehiculo.Add(Logictracker.Process.Import.Client.Types.Properties.Vehiculo.Dispositivo,
-                                                 oDispositivo.codigo);
-                            }
-                            var vh = BaseService.DAOFactory.CocheDAO.FindByInterno(new[] { idEmpresa }, new[] { idLinea },
-                                                                                  oVehiculo.interno);
-                            done = vh == null || vh.Estado == Logictracker.Types.BusinessObjects.Vehiculos.Coche.Estados.Inactivo;
-
-                            dataVehiculo.Operation = (int)(done ? Logictracker.Process.Import.Client.Types.Operation.AddOrModify :
-                                                                                                                                Logictracker.Process.Import.Client.Types.Operation.Add);
-                            if (oBase != null)
-                                dataVehiculo.Add(Logictracker.Process.Import.Client.Types.Properties.Vehiculo.Base, oBase.codigo);
-                            server.Import(idEmpresa, -1, dataVehiculo, 1);
-                        }
-                    }
-                    else if (operacion == Logictracker.Process.Import.Client.Types.Operation.Modify)
+                    var dataBase = GetData(oBase, operacion);
+                    if (dataBase != null)
                     {
-                        uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
-                        idEmpresa = uempresa != null ? uempresa.Id : -1;
-                        if (oBase != null)
-                        {
-                            ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
-                            idLinea = ulinea != null ? ulinea.Id : -1;
-                        }
-                    
-                        if (oDispositivo != null || oVehiculo != null)
-                        {
-                            var dataMarca = GetDataMarca(oVehiculo, Logictracker.Process.Import.Client.Types.Operation.Add);
-                            server.Import(idEmpresa, idLinea, dataMarca, 1);
-                            var dataModelo = GetDataModelo(oVehiculo, Logictracker.Process.Import.Client.Types.Operation.Add);
-                            server.Import(idEmpresa, idLinea, dataModelo, 1);
-                            var dataTipoVeh = GetDataTipoVeh(oVehiculo, Logictracker.Process.Import.Client.Types.Operation.Add);
-                            server.Import(idEmpresa, idLinea, dataTipoVeh, 1);
-                            
-                            var dataVehiculo = GetData(oVehiculo, operacion);
-                            if (oDispositivo != null)
-                            {
-                                var dataTel = GetDataTel(oDispositivo, Logictracker.Process.Import.Client.Types.Operation.Add);
-                                server.Import(idEmpresa, idLinea, dataTel, 1);
-                                
-                                var dataDispositivo = GetData(oDispositivo, operacion);
+                        ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
+                        idLinea = ulinea != null ? ulinea.Id : -1;
+                        done = ulinea == null;
+                        server.Import(idEmpresa, idLinea, dataBase, 1);
 
-                                done = BaseService.DAOFactory.DispositivoDAO.GetByCode(oDispositivo.codigo) != null;
-                                server.Import(idEmpresa, idLinea, dataDispositivo, 1);
-                                dataVehiculo.Add(Logictracker.Process.Import.Client.Types.Properties.Vehiculo.Dispositivo,
-                                                 oDispositivo.codigo);
-                            }
-                            else
-                            {
-                                done = BaseService.DAOFactory.CocheDAO.FindByInterno(new[]{idEmpresa}, new[]{idLinea}, oVehiculo.interno) == null;
-                            }
-                            server.Import(idEmpresa, idLinea, dataVehiculo, 1);
-                        }
-                        else if (oBase != null)
-                        {
-                            var dataBase = GetData(oBase, operacion);
-                            done = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo) != null;
-                            server.Import(idEmpresa, idLinea, dataBase, 1);
-                        }
-                        else
-                        {
-                            var dataDistrito = GetData(oDistrito, operacion);
-                            done = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo) != null;
-                            server.Import(idEmpresa, idLinea, dataDistrito, 1);
-                        }
+                        ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
+                        idLinea = ulinea != null ? ulinea.Id : -1;
                     }
-                    else if (operacion == Logictracker.Process.Import.Client.Types.Operation.Delete)
+
+                    var dataDispositivo = GetData(oDispositivo, operacion);
+                    if (dataDispositivo != null)
                     {
-                        uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
-                        idEmpresa = uempresa != null ? uempresa.Id : -1;
-                        if (oBase != null)
-                        {
-                            ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
-                            idLinea = ulinea != null ? ulinea.Id : -1;
-                        }
-                        
+                        var dataTel = GetDataTel(oDispositivo, operacion);
+                        server.Import(idEmpresa, idLinea, dataTel, 1);
+
+                        var dispo = BaseService.DAOFactory.DispositivoDAO.GetByCode(oDispositivo.codigo);
+                        done = dispo == null || dispo.Estado == Dispositivo.Estados.Inactivo;
+
+                        dataDispositivo.Operation = (int)(done ? Logictracker.Process.Import.Client.Types.Operation.AddOrModify :
+                            Logictracker.Process.Import.Client.Types.Operation.Add);
+                        server.Import(idEmpresa, idLinea, dataDispositivo, 1);
+                    }
+
+                    var dataVehiculo = GetData(oVehiculo, operacion);
+                    if (dataVehiculo != null)
+                    {
+                        var dataMarca = GetDataMarca(oVehiculo, operacion);
+                        server.Import(idEmpresa, idLinea, dataMarca, 1);
+                        var dataModelo = GetDataModelo(oVehiculo, operacion);
+                        server.Import(idEmpresa, idLinea, dataModelo, 1);
+                        var dataTipoVeh = GetDataTipoVeh(oVehiculo, operacion);
+                        server.Import(idEmpresa, idLinea, dataTipoVeh, 1);
                         if (oDispositivo != null)
                         {
+                            dataVehiculo.Add(Logictracker.Process.Import.Client.Types.Properties.Vehiculo.Dispositivo,
+                                oDispositivo.codigo);
+                        }
+                        var vh = BaseService.DAOFactory.CocheDAO.FindByInterno(new[] { idEmpresa }, new[] { idLinea },
+                            oVehiculo.interno);
+                        done = vh == null || vh.Estado == Logictracker.Types.BusinessObjects.Vehiculos.Coche.Estados.Inactivo;
+
+                        dataVehiculo.Operation = (int)(done ? Logictracker.Process.Import.Client.Types.Operation.AddOrModify :
+                            Logictracker.Process.Import.Client.Types.Operation.Add);
+                        if (oBase != null)
+                            dataVehiculo.Add(Logictracker.Process.Import.Client.Types.Properties.Vehiculo.Base, oBase.codigo);
+                        server.Import(idEmpresa, -1, dataVehiculo, 1);
+                    }
+                }
+                else if (operacion == Logictracker.Process.Import.Client.Types.Operation.Modify)
+                {
+                    uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
+                    idEmpresa = uempresa != null ? uempresa.Id : -1;
+                    if (oBase != null)
+                    {
+                        ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
+                        idLinea = ulinea != null ? ulinea.Id : -1;
+                    }
+                    
+                    if (oDispositivo != null || oVehiculo != null)
+                    {
+                        var dataMarca = GetDataMarca(oVehiculo, Logictracker.Process.Import.Client.Types.Operation.Add);
+                        server.Import(idEmpresa, idLinea, dataMarca, 1);
+                        var dataModelo = GetDataModelo(oVehiculo, Logictracker.Process.Import.Client.Types.Operation.Add);
+                        server.Import(idEmpresa, idLinea, dataModelo, 1);
+                        var dataTipoVeh = GetDataTipoVeh(oVehiculo, Logictracker.Process.Import.Client.Types.Operation.Add);
+                        server.Import(idEmpresa, idLinea, dataTipoVeh, 1);
+                            
+                        var dataVehiculo = GetData(oVehiculo, operacion);
+                        if (oDispositivo != null)
+                        {
+                            var dataTel = GetDataTel(oDispositivo, Logictracker.Process.Import.Client.Types.Operation.Add);
+                            server.Import(idEmpresa, idLinea, dataTel, 1);
+                                
                             var dataDispositivo = GetData(oDispositivo, operacion);
+
                             done = BaseService.DAOFactory.DispositivoDAO.GetByCode(oDispositivo.codigo) != null;
                             server.Import(idEmpresa, idLinea, dataDispositivo, 1);
-                        }
-                        else if (oVehiculo != null)
-                        {
-                            var dataVehiculo = GetData(oVehiculo, operacion);
-                            done = BaseService.DAOFactory.CocheDAO.FindByInterno(new[] { idEmpresa }, new[] { idLinea }, oVehiculo.interno) == null;
-                            server.Import(idEmpresa, idLinea, dataVehiculo, 1);
-                        }
-                        else if (oBase != null)
-                        {
-                            var dataBase = GetData(oBase, operacion);
-                            done = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo) != null;
-                            server.Import(idEmpresa, idLinea, dataBase, 1);
+                            dataVehiculo.Add(Logictracker.Process.Import.Client.Types.Properties.Vehiculo.Dispositivo,
+                                oDispositivo.codigo);
                         }
                         else
                         {
-                            var dataDistrito = GetData(oDistrito, operacion);
-                            done = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo) != null;
-                            server.Import(idEmpresa, idLinea, dataDistrito, 1);
+                            done = BaseService.DAOFactory.CocheDAO.FindByInterno(new[]{idEmpresa}, new[]{idLinea}, oVehiculo.interno) == null;
                         }
+                        server.Import(idEmpresa, idLinea, dataVehiculo, 1);
                     }
-                    WriteLine("<Import trans=\"{0}\">{1}</Import>", op.trans, done);
+                    else if (oBase != null)
+                    {
+                        var dataBase = GetData(oBase, operacion);
+                        done = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo) != null;
+                        server.Import(idEmpresa, idLinea, dataBase, 1);
+                    }
+                    else
+                    {
+                        var dataDistrito = GetData(oDistrito, operacion);
+                        done = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo) != null;
+                        server.Import(idEmpresa, idLinea, dataDistrito, 1);
+                    }
                 }
-                catch (System.Exception ex)
+                else if (operacion == Logictracker.Process.Import.Client.Types.Operation.Delete)
                 {
-                    Logictracker.DatabaseTracer.Core.STrace.Exception("Cusat Web Service", ex, 0, new Dictionary<string, string> { { "transaction", op.trans } }, ex.Message);
-                    WriteLine("<Error trans=\"{0}\">{1}</Error>", op.trans, ex.Message);
+                    uempresa = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo);
+                    idEmpresa = uempresa != null ? uempresa.Id : -1;
+                    if (oBase != null)
+                    {
+                        ulinea = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo);
+                        idLinea = ulinea != null ? ulinea.Id : -1;
+                    }
+                        
+                    if (oDispositivo != null)
+                    {
+                        var dataDispositivo = GetData(oDispositivo, operacion);
+                        done = BaseService.DAOFactory.DispositivoDAO.GetByCode(oDispositivo.codigo) != null;
+                        server.Import(idEmpresa, idLinea, dataDispositivo, 1);
+                    }
+                    else if (oVehiculo != null)
+                    {
+                        var dataVehiculo = GetData(oVehiculo, operacion);
+                        done = BaseService.DAOFactory.CocheDAO.FindByInterno(new[] { idEmpresa }, new[] { idLinea }, oVehiculo.interno) == null;
+                        server.Import(idEmpresa, idLinea, dataVehiculo, 1);
+                    }
+                    else if (oBase != null)
+                    {
+                        var dataBase = GetData(oBase, operacion);
+                        done = BaseService.DAOFactory.LineaDAO.FindByCodigo(idEmpresa, oBase.codigo) != null;
+                        server.Import(idEmpresa, idLinea, dataBase, 1);
+                    }
+                    else
+                    {
+                        var dataDistrito = GetData(oDistrito, operacion);
+                        done = BaseService.DAOFactory.EmpresaDAO.FindByCodigo(oDistrito.codigo) != null;
+                        server.Import(idEmpresa, idLinea, dataDistrito, 1);
+                    }
                 }
+                WriteLine("<Import trans=\"{0}\">{1}</Import>", op.trans, done);
             }
-            WriteLine("</Respuesta>");
-            sw = File.CreateText(Context.Server.MapPath("res.xml"));
-            sw.Write(res.ToString());
-            sw.Close();
+            catch (System.Exception ex)
+            {
+                Logictracker.DatabaseTracer.Core.STrace.Exception("Cusat Web Service", ex, 0, new Dictionary<string, string> { { "transaction", op.trans } }, ex.Message);
+                WriteLine("<Error trans=\"{0}\">{1}</Error>", op.trans, ex.Message);
+            }
         }
+        WriteLine("</Respuesta>");
+        sw = File.CreateText(Context.Server.MapPath("res.xml"));
+        sw.Write(res.ToString());
+        sw.Close();
     }
 
     private StringBuilder res = new StringBuilder();

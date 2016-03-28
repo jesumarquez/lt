@@ -18,6 +18,13 @@ namespace Logictracker.Web.Controllers.api
             return l;
         }
 
+        [Route("api/Distrito/{distritoId}/base/{baseId}/empleado/items")]
+        public IEnumerable<ItemModel> GetEmpleados(int distritoId, int baseId)
+        {
+            var empleados = EntityDao.GetList(new List<int>{ distritoId}, new List<int> { baseId },new List<int>(), new List<int>());
+            return empleados.Select(e =>  Mapper.ToItem(e)).OrderBy(e => e.Value).ToList();
+        }
+
         [Route("api/Distrito/{distritoId}/base/{baseId}/empleado/{empleadoId}/model")]
         public IEnumerable<EmpleadoModel> GetEmpleadoModel(int distritoId, int baseId, int empleadoId)
         {

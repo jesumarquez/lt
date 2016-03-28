@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Logictracker - " + @Html.ResourceLabel("Labels", "EventsReport");
+}
+<div class="container" ng-controller="EventosController as eventos">
+
+    <div class="container nl-filterpanel">
+        <div class="col-md-3">
+            <div class="row">
+                <div>@Html.ResourceLabel("Entities", "PARENTI01"):</div>
+                <lt-ddl-distrito lt-ng-model="eventos.distritoSelected" lt-default-value="eventos.UserData.DistritoSelected" />
+            </div>
+            <div class="row">
+                <div>@Html.ResourceLabel("Entities", "PARENTI02"):</div>
+                <lt-ddl-base lt-ng-model="eventos.baseSelected" lt-default-value="eventos.UserData.BaseSelected" lt-dependent-on="eventos.distritoSelected" />
+            </div>
+            <div class="row">
+                <div>@Html.ResourceLabel("Labels", "DESDE"):</div>
+                <input class=""
+                        kendo-date-time-picker
+                        k-ng-model="eventos.desde" />
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="row">
+                <div>@Html.ResourceLabel("Entities", "PARENTI17"):</div>
+                <lt-ddl-tipo-coche lt-ng-model="eventos.tipoCocheSelected"
+                                    lt-data-base="eventos.baseSelected"
+                                    lt-data-distrito="eventos.distritoSelected" />
+            </div>
+            <div class="row">
+                <div>@Html.ResourceLabel("Entities", "PARENTI16"):</div>
+                <lt-ddl-tipo-mensaje lt-ng-model="eventos.tipoMensajeSelected"
+                                        lt-data-base="eventos.baseSelected"
+                                        lt-data-distrito="eventos.distritoSelected" />
+            </div>
+            <div class="row">
+                <div>@Html.ResourceLabel("Labels", "HASTA"):</div>
+                <input class=""
+                        kendo-date-time-picker
+                        k-ng-model="eventos.hasta" />
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+            <div class="row">
+                <div>@Html.ResourceLabel("Entities", "PARENTI03"):</div>
+                <lt-ms-coche lt-ng-model="eventos.cocheSelected"
+                             lt-data-base="eventos.baseSelected"
+                             lt-data-distrito="eventos.distritoSelected" />
+            </div>
+            <div class="row">
+                <div>@Html.ResourceLabel("Entities", "PAREVEN01"):</div>
+                <lt-ms-mensaje lt-ng-model="eventos.mensajeSelected"
+                               lt-data-base="eventos.baseSelected"
+                               lt-data-distrito="eventos.distritoSelected" />
+            </div>
+            <div class="row">
+                <div>@Html.ResourceLabel("Labels", "OPERADORES"):</div>
+                <lt-ms-empleado lt-ng-model="eventos.empleadoSelected"
+                               lt-data-base="eventos.baseSelected"
+                               lt-data-distrito="eventos.distritoSelected" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div>
+                    <button type="button"
+                            kendo-button
+                            style="margin-top: 1.5em;"
+                            ng-click="eventos.Search()">
+                            @Html.ResourceLabel("Labels", "Buscar")
+                    </button>
+                </div>
+            </div>
+        </div>
+    <span kendo-notification="eventos.notify" k-auto-hide-after="10000"></span>
+</div>
+

@@ -33,6 +33,7 @@ using Point = Logictracker.Web.Monitor.Geometries.Point;
 using Logictracker.DAL.NHibernate;
 using ListItem = System.Web.UI.WebControls.ListItem;
 using C1.Web.UI.Controls.C1GridView;
+using Logictracker.Web.Controls;
 
 namespace Logictracker.CicloLogistico.Distribucion
 {
@@ -120,6 +121,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                 }
                 SetCancelState();
                 AbmTabPanel3.Visible = !EditMode;
+                SetContextKey();
             }
         }
 
@@ -1700,6 +1702,13 @@ namespace Logictracker.CicloLogistico.Distribucion
             }
         } 
         #endregion
+
+
+        protected void SetContextKey()
+        {
+            cbPuntoEntrega.ContextKey = AutoCompleteTextBox.CreateContextKey(new[] { cbEmpresa.Selected },
+                                                                           new[] { cbLinea.Selected } , new[] {cbCliente.Selected});
+        }
     }
 
     [Serializable]
