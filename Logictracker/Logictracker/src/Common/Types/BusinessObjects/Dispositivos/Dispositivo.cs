@@ -297,5 +297,34 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
 		{
 			return me == null ? 0 : me.Id;
 		}
+
+
+	    public static int GetExcesoNivel(this Dispositivo me, int level)
+	    {
+	        var key = (level == -1)?"GTE_PARAM_GG_EXC_NN":string.Format("GTE_PARAM_GG_EXC_{0:2}", level);
+	        var d = me.DetallesDispositivo.FirstOrDefault(dt => dt.TipoParametro.Nombre == key);
+	        return d == null? 200 : d.As(200);
+	    }
+
+        public static int GetInfraccionNivel(this Dispositivo me, int level)
+        {
+            var key = (level == -1) ? "GTE_PARAM_GG_INF_NN" : string.Format("GTE_PARAM_GG_INF_{0:2}", level);
+            var d = me.DetallesDispositivo.FirstOrDefault(dt => dt.TipoParametro.Nombre == key);
+            return d == null ? 200 : d.As(200);
+        }
+
+	    public static string GetQtreeFile(this Dispositivo me )
+	    {
+	        const string key = "PARAM_QTREE_FILE";
+            var d = me.DetallesDispositivo.FirstOrDefault(dt => dt.TipoParametro.Nombre == key);
+	        return d == null ? "FULLPAISFIX" : d.Valor;
+	    }
+        
+        public static string GetQtreeType(this Dispositivo me)
+        {
+            const string key = "PARAM_QTREE_TYPE";
+            var d = me.DetallesDispositivo.FirstOrDefault(dt => dt.TipoParametro.Nombre == key);
+            return d == null ? "Gte" : d.Valor;
+        }
 	}
 }
