@@ -13,6 +13,7 @@
     <property column="opetick06_orden" name="Orden" />
     <property column="opetick06_entrega" name="Entrega" />
     <property column="opetick06_estado" name="Estado" />
+    <property column="opetick06_id_estado" name="IdEstado" />
     <property column="opetick06_km" name="Km" />
     <property column="opetick06_recorrido" name="Recorrido" />
     <property column="opetick06_tiempo_entrega" name="TiempoEntrega" />
@@ -24,6 +25,7 @@
     <property column="opetick06_importe" name="Importe" />    
     <property column="opetick06_cliente" name="Cliente" />
     <property column="opetick06_confirmacion" name="Confirmacion" />
+    <property column="opetick06_distancia" name="Distancia" />
 
     <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
     <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />

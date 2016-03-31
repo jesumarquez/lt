@@ -954,7 +954,8 @@ namespace Logictracker.Tracker.Application.Reports
 
                 if (ruta > 0)
                 {
-                    var dms = DaoFactory.DatamartDistribucionDAO.GetRecords(ruta);
+                    var dms = DaoFactory.DatamartDistribucionDAO.GetRecords(ruta)
+                                                                .Where(e => estadosEntrega.Contains(e.IdEstado));
                     foreach (var dm in dms)
                     {
                         results.Add(new ReporteDistribucionVo(dm, confirmation));
