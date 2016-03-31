@@ -106,7 +106,7 @@ NOTA: entre “|” y “#” está pensado para poner data ( quizás variable ) en el fut
             var time = DateTime.ParseExact(parser.Fecha, "ddMMyyHHmmss",
                            System.Globalization.CultureInfo.InvariantCulture);
             var lat = float.Parse(parser.Latitud.Insert(3,","));// parser[2].Replace('.', ','));
-            var lon = float.Parse(parser.Longitud.Insert(3,","));
+            var lon = float.Parse(parser.Longitud.Insert(4,","));
             var vel = float.Parse(parser.Vel);
             var dir = float.Parse(parser.Dir);
 
