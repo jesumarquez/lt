@@ -876,10 +876,14 @@ namespace Logictracker.Monitor.MonitorHistorico
         }
         protected void DdlMovilPreBind(object sender, EventArgs e) { if (Mobile > 0) ddlMovil.EditValue = Mobile; }
         protected void DdlTipoPreBind(object sender, EventArgs e) { if (MessageType > 0) ddlTipo.EditValue = MessageType; }
-
+        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            var empresa = DAOFactory.EmpresaDAO.FindById(ddlDistrito.Selected);
+            var maxHours = empresa != null && empresa.Id > 0 ? empresa.MaxHorasMonitor : 24;
+            dtvalidator.MaxRange = new TimeSpan(maxHours, 0, 0);
 
             if (IsPostBack) return;
 
