@@ -213,12 +213,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             from = from < limite ? limite : from;
             to = to < limite ? limite : to;
 
-            if (((to-from).TotalDays) > 7)
-            {
-                from = to.AddDays(-7);
-            }
-
-
             var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetRegenerationStartDate_2] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta, @recepcionDesde = :recepcionDesde, @recepcionHasta = :recepcionHasta;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
