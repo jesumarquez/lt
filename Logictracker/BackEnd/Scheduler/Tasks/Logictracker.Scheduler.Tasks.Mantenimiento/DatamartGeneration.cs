@@ -152,6 +152,11 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         {
             var lastUpdate = GetStartDate(coche.Id);
 
+            if (today.AddDays(-7) > lastUpdate)
+            {
+                lastUpdate = today.AddDays(-7);
+            }
+
 			var dispo = coche.Dispositivo != null ? coche.Dispositivo.Id : 0;
             STrace.Trace(GetType().FullName, dispo, String.Format("Processing vehicle with id: {0}", coche.Id));
             
@@ -172,6 +177,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private void ProcessCurrentPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
+
+            
             while (lastUpdate < today)
             {
                 var lastDay = lastUpdate.AddDays(1) > today ? today : lastUpdate.AddDays(1);
