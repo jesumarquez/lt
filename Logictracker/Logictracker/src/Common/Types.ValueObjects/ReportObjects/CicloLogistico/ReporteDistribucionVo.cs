@@ -6,6 +6,8 @@ using Logictracker.DAL.Factories;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ReportObjects.Datamart;
+using Logictracker.Utils;
+using Logictracker.Messaging;
 
 namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 {
@@ -27,11 +29,12 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
         public const int IndexDuracion = 12;
         public const int IndexKm = 13;
         public const int IndexEstado = 14;
-        public const int IndexTieneFoto = 15;
-        public const int IndexConfirmacion = 16;
-        public const int IndexHorario = 17;
-        public const int IndexUnreadInactive = 18;
-        public const int IndexReadInactive = 19;
+        public const int IndexDistancia = 15;
+        public const int IndexTieneFoto = 16;        
+        public const int IndexConfirmacion = 17;
+        public const int IndexHorario = 18;        
+        public const int IndexUnreadInactive = 19;
+        public const int IndexReadInactive = 20;
 
         public int Id { get; set; }
         public int IdDispositivo { get; set; }
@@ -91,7 +94,10 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
         [GridMapping(Index = IndexEstado, ResourceName = "Labels", VariableName = "STATE", AllowGroup = true)]
         public string Estado { get; set; }
-        
+
+        [GridMapping(Index = IndexDistancia, ResourceName = "Labels", VariableName = "DISTANCIA", AllowGroup = false, DataFormatString = "{0: 0.00}")]
+        public double? Distancia { get; set; }
+
         [GridMapping(Index = IndexTieneFoto, IsTemplate = true, HeaderText = "", AllowGroup = false)]
         public bool TieneFoto { get; set; }
 
@@ -100,7 +106,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
         [GridMapping(Index = IndexHorario, ResourceName = "Labels", VariableName = "HORARIO")]
         public DateTime? Horario { get; set; }
-
+        
         [GridMapping(Index = IndexUnreadInactive, ResourceName = "Labels", VariableName = "UNREAD_INACTIVE")]
         public string UnreadInactive { get; set; }
 
@@ -184,12 +190,21 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
             if (verConfirmacion && entrega.Viaje.Vehiculo != null)
             {
+                var confirmaciones = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                                        MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
+                                                        MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
                 Confirmacion = entrega.MensajeConfirmacion != null
                                 ? entrega.MensajeConfirmacion.Mensaje.Descripcion
                                 : string.Empty;
                 Horario = entrega.RecepcionConfirmacion.HasValue
                               ? entrega.RecepcionConfirmacion.Value.ToDisplayDateTime()
                               : (DateTime?) null;
+                var eventos = entrega.EventosDistri.Where(e => confirmaciones.Contains(e.LogMensaje.Mensaje.Codigo));
+                var evento = eventos.Any() 
+                    ? eventos.OrderBy(e => e.Fecha).FirstOrDefault() 
+                    : null;
+
+                Distancia = evento != null ? Distancias.Loxodromica(evento.LogMensaje.Latitud, evento.LogMensaje.Longitud, entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude) : (double?)null;
             }
         }
 
@@ -244,6 +259,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
                 Horario = dm.Detalle.RecepcionConfirmacion.HasValue
                               ? dm.Detalle.RecepcionConfirmacion.Value.ToDisplayDateTime()
                               : (DateTime?)null;
+                Distancia = dm.Distancia;
             }
         }
 
@@ -261,7 +277,6 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
             Descripcion = dm.Descripcion;
             Km = dm.Km;
             Estado = dm.Estado;
-            Confirmacion = dm.Confirmacion;
 
             Fecha = dm.Date.ToDisplayDateTime().ToString("dd/MM/yyyy");
             Manual = dm.DateManual.HasValue
@@ -287,6 +302,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
             Horario = dm.DateConfirmacion.HasValue 
                             ? dm.DateConfirmacion.Value.ToDisplayDateTime()
                             : (DateTime?) null;
+            Distancia = dm.Distancia;
         }
 
         public ReporteDistribucionVo() { }

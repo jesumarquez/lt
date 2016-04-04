@@ -267,28 +267,46 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         return $filter('filter') ($scope.cuadernasDs.data(), { Orden : data.Cuaderna  })[0].Descripcion;
     }
 
+    function onFail(error) {
+        try {
+            $scope.$parent.disabledButton = false;
+
+            if (error.data.ExceptionMessage) {
+                $scope.modalNotify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) {
+        }
+        $scope.modalNotify.show(error.errorThrown, "error");
+    };
+
     $scope.ok = function () {
        
         if ($scope.$parent.disabledButton) return;
-        //$uibModalInstance.close();
+
+        $scope.$parent.disabledButton = true;
 
         var selectOrders = [];
-        //$scope.ordenesGrid.select().each(function (index, row) {
-        //    selectOrders.push($scope.ordenesGrid.dataItem(row));
-        //});
 
         $scope.newOrder = new OrdenesService.ordenes();
         $scope.newOrder.OrderList = selectOrders;
-        $scope.newOrder.OrderDetailList = $scope.productsSelected.toJSON();
+
+        // Obtener solo los productos que tienen cuaderna seleccionada
+        var productsSelectedAssigned = new Array();
+        $scope.productsSelected.forEach(function (item)
+        { if (item.Cuaderna > 0) productsSelectedAssigned.push(item.toJSON()); });
+
+        $scope.newOrder.OrderDetailList = productsSelectedAssigned;
         $scope.newOrder.IdVehicle = $scope.$parent.order.Vehicle.Key;
         $scope.newOrder.IdVehicleType = $scope.vehicleTypeSelected.Id;
         $scope.newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
         $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
         $scope.newOrder.$save(
             { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
-            onSuccess(),
-            function () { }
-                //onFail
+            function (value) {
+                onSuccess();
+            },
+            function (error) { onFail(error); }
         );
     }
 
@@ -300,7 +318,6 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
             $scope.accessor.invoke();
             
         $scope.onBuscar();
-        //$scope.disabledButton = false;
     }
 
     $scope.cancel = function () {

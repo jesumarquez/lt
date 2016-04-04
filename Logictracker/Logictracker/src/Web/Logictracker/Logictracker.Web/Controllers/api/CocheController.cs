@@ -31,7 +31,7 @@ namespace Logictracker.Web.Controllers.api
 
             list.AddRange(
                 EntityDao.GetList(new[] { distritoId }, new[] { baseId }, new[] {tipoCocheId})
-                .Select(t => Mapper.ToItem(t)));
+                .Select(t => Mapper.ToItem(t)).OrderBy(t => t.Value));
 
             return list;
         }

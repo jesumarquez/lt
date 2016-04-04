@@ -53,7 +53,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
         public void Parse(out int pedidos, out string observaciones)
         {
             var te = new TimeElapsed();
-            var rows = ParseExcelFile(Llfile.FilePath, false, 3);
+            var rows = ParseExcelFile(Llfile.FilePath, false, 25);
             STrace.Trace(Component, string.Format("Archivo parseado en {0} segundos", te.getTimeElapsed().TotalSeconds));
 
             #region Set Indexes
@@ -95,6 +95,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                     case "Gasoil Igual o Inferior 500 ppm Azufre": indexGasoilMenor500 = i; break;
                     case "Gasoil Superior 500 ppm Azufre": indexGasoilMayor500 = i; break;
                     case "Gasoil Premium": indexGasoilPremium = i; break;
+                    case "Gasóleo Premium": indexGasoilPremium = i; break;
                 }
             }
 

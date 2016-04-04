@@ -48,6 +48,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string DistribucionGeneraRechazo = "distribucion.genera.rechazo";
 
             public const string MesesConsultaPosiciones = "meses.consulta.posiciones";
+            public const string MaxHorasMonitor = "max.horas.monitor";
             public const string EliminaRutas = "elimina.rutas";
             public const string EliminaPuntosDeEntrega = "elimina.puntos";
             public const string EliminaAntiguedadMeses = "elimina.antiguedad.meses";
@@ -450,6 +451,16 @@ namespace Logictracker.Types.BusinessObjects
                 var valor = GetParameter(Params.MesesConsultaPosiciones);
                 int cant;
                 if (valor == null || !int.TryParse(valor, out cant)) return 3;
+                return cant;
+            }
+        }
+        public virtual int MaxHorasMonitor
+        {
+            get
+            {
+                var valor = GetParameter(Params.MaxHorasMonitor);
+                int cant;
+                if (valor == null || !int.TryParse(valor, out cant)) return 24;
                 return cant;
             }
         }
