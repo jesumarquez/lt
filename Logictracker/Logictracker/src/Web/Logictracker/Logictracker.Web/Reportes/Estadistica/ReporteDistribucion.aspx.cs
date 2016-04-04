@@ -183,6 +183,7 @@ namespace Logictracker.Reportes.Estadistica
 
             grid.Columns[ReporteDistribucionVo.IndexConfirmacion].Visible = chkVerConfirmacion.Checked;
             grid.Columns[ReporteDistribucionVo.IndexHorario].Visible = chkVerConfirmacion.Checked;
+            grid.Columns[ReporteDistribucionVo.IndexDistancia].Visible = chkVerConfirmacion.Checked;
 
             grid.Columns[ReporteDistribucionVo.IndexReadInactive].Visible = chkInteraccionGarmin.Checked;
             grid.Columns[ReporteDistribucionVo.IndexUnreadInactive].Visible = chkInteraccionGarmin.Checked;

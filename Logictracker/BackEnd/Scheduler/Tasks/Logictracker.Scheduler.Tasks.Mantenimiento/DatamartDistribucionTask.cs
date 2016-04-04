@@ -13,6 +13,7 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ReportObjects.Datamart;
 using Logictracker.Utils;
+using Logictracker.Messaging;
 
 namespace Logictracker.Scheduler.Tasks.Mantenimiento
 {
@@ -207,6 +208,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                 ? entrega.Entrada.Value.Subtract(entrega.Programado)
                                 : new TimeSpan();
 
+                var confirmaciones = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                                        MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
+                                                        MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
+                var eventos = entrega.EventosDistri.Where(e => confirmaciones.Contains(e.LogMensaje.Mensaje.Codigo));
+                var evento = eventos.Any() ? eventos.OrderBy(e => e.Fecha).FirstOrDefault() : null;
+                var distancia = evento != null ? Distancias.Loxodromica(evento.LogMensaje.Latitud, evento.LogMensaje.Longitud, entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude) : (double?)null;
+
                 var registro = new DatamartDistribucion
                                    {
                                        Empresa = entrega.Viaje.Empresa,
@@ -218,6 +226,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                        Fecha = entrega.Viaje.Inicio,
                                        Ruta = entrega.Viaje.Codigo.Trim(),
                                        Entrega = entrega.Descripcion.Trim().Length > 50 ? entrega.Descripcion.Trim().Substring(0, 50) : entrega.Descripcion.Trim(),
+                                       IdEstado = entrega.Estado,
                                        Estado = CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado)),
                                        Km = kms,
                                        Recorrido = tiempoRecorrido.TotalMinutes,
@@ -234,7 +243,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                                         ? entrega.MensajeConfirmacion.Mensaje.Descripcion
                                                         : string.Empty,
                                        Cliente = entrega.PuntoEntrega != null && entrega.PuntoEntrega.Cliente != null 
-                                                    ? entrega.PuntoEntrega.Cliente.Descripcion : string.Empty
+                                                    ? entrega.PuntoEntrega.Cliente.Descripcion : string.Empty,
+                                       Distancia = distancia
                                    };
 
                 DaoFactory.DatamartDistribucionDAO.Save(registro);

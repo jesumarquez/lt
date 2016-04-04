@@ -139,6 +139,15 @@ namespace Logictracker.Monitor.MonitorHistorico {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDistrito;
         
         /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        
+        /// <summary>
         /// ddlDistrito control.
         /// </summary>
         /// <remarks>
@@ -290,6 +299,15 @@ namespace Logictracker.Monitor.MonitorHistorico {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtHasta;
+        
+        /// <summary>
+        /// updRange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updRange;
         
         /// <summary>
         /// dtvalidator control.
