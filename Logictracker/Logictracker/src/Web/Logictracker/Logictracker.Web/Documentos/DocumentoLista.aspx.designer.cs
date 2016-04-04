@@ -83,5 +83,50 @@ namespace Logictracker.Documentos {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.TransportistaDropDownList cbTransportista;
+        
+        /// <summary>
+        /// lblDesde control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDesde;
+        
+        /// <summary>
+        /// dtpDesde control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtpDesde;
+        
+        /// <summary>
+        /// lblHasta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblHasta;
+        
+        /// <summary>
+        /// dtpHasta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtpHasta;
+        
+        /// <summary>
+        /// dtvalidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Input.DateTimeRangeValidator dtvalidator;
     }
 }
