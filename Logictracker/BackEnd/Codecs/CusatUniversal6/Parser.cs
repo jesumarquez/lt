@@ -184,7 +184,7 @@ NOTA: entre “|” y “#” está pensado para poner data ( quizás variable ) en el fut
             var deviceid = 0;
             if (device == null)
             {
-                var empresa = _daoFactory.EmpresaDAO.FindByCodigo("LA");
+                var empresa = _daoFactory.EmpresaDAO.FindByCodigo("QP");
                 var tipodispositivo = _daoFactory.TipoDispositivoDAO.FindByModelo("CUSATUNIVERSAL6");
                 Dispositivo newdispo = new Dispositivo();
                 newdispo.Empresa = empresa;
