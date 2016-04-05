@@ -1783,6 +1783,7 @@
     <Content Include="Scripts\app\ordenes\ordenes-controller.js" />
     <Content Include="Scripts\app\ordenes\ordenes-directives.js" />
     <Content Include="Scripts\app\ordenes\ordenes-service.js" />
+    <Content Include="Scripts\app\ordenes\vrp-module.js" />
     <Content Include="Scripts\app\orders\orders-controller.js" />
     <Content Include="Scripts\app\orders\orders-service.js" />
     <Content Include="Scripts\app\rechazo\rechazo-controller.js" />
