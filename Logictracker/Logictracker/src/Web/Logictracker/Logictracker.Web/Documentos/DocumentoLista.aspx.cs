@@ -30,13 +30,24 @@ namespace Logictracker.Documentos
         protected override List<DocumentoVo> GetListData()
         {
             var user = DAOFactory.UsuarioDAO.FindById(Usuario.Id);
-            return DAOFactory.DocumentoDAO.FindByTipoAndUsuario(user, cbTipoDocumento.Selected, cbEmpresa.Selected, cbLinea.Selected, cbTransportista.Selected)
-                .OfType<Documento>()
-                .Where(x => x.FechaAlta >= SecurityExtensions.ToDataBaseDateTime(dtpDesde.SelectedDate.Value) &&
-                    x.FechaAlta <= SecurityExtensions.ToDataBaseDateTime(dtpHasta.SelectedDate.Value))
-                .Select(d=> new DocumentoVo(d))
-                .ToList()
-                ;
+            if (chkFiltrar.Checked)
+            {
+                return DAOFactory.DocumentoDAO.FindByTipoAndUsuario(user, cbTipoDocumento.Selected, cbEmpresa.Selected, cbLinea.Selected, cbTransportista.Selected)
+                    .OfType<Documento>()
+                    .Where(x => x.FechaAlta >= SecurityExtensions.ToDataBaseDateTime(dtpDesde.SelectedDate.Value) &&
+                        x.FechaAlta <= SecurityExtensions.ToDataBaseDateTime(dtpHasta.SelectedDate.Value))
+                    .Select(d => new DocumentoVo(d))
+                    .ToList()
+                    ;
+            }
+            else
+            {
+                return DAOFactory.DocumentoDAO.FindByTipoAndUsuario(user, cbTipoDocumento.Selected, cbEmpresa.Selected, cbLinea.Selected, cbTransportista.Selected)
+       .OfType<Documento>()
+       .Select(d => new DocumentoVo(d))
+       .ToList()
+       ;
+            }
         }
 
         protected void FilterChanged(object sender, EventArgs e) { if (IsPostBack) Bind(); }
