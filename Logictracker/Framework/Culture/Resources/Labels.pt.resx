@@ -3334,6 +3334,9 @@
   <data name="PAGINAR_CONSULTA" xml:space="preserve">
     <value>Consulta paginado</value>
   </data>
+  <data name="FILTRAR_CONSULTA" xml:space="preserve">
+    <value>Consulta filtrado</value>
+  </data>
   <data name="PLANO" xml:space="preserve">
     <value>Mapa</value>
   </data>

@@ -28,6 +28,7 @@
                 <br />
                 <cwc:DateTimePicker ID="dtpDesde" runat="server" TimeMode="Start" Mode="DateTime" IsValidEmpty="false" AutoPostBack="true" OnDateChanged="FilterChanged" />
                 <br/>
+                <cwc:ResourceCheckBox ID="chkFiltrar" Checked="false" runat="server" Font-Bold="false" ResourceName="Labels" VariableName="FILTRAR_CONSULTA" />
                 <br/>
                 <cwc:ResourceLabel ID="lblHasta" runat="server" ResourceName="Labels" VariableName="HASTA" Font-Bold="True" />
                 <br />
