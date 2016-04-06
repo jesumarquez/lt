@@ -113,6 +113,8 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
         [GridMapping(Index = IndexReadInactive, ResourceName = "Labels", VariableName = "READ_INACTIVE")]
         public string ReadInactive { get; set; }
 
+        public int Radio { get; set; }
+
         public ReporteDistribucionVo(EntregaDistribucion entrega, EntregaDistribucion anterior, int orden, double km, bool verConfirmacion)
         {
             var dao = new DAOFactory();
@@ -190,21 +192,29 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
             if (verConfirmacion && entrega.Viaje.Vehiculo != null)
             {
-                var confirmaciones = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
-                                                        MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
-                                                        MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
+                var mensajes = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                                  MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
+                                                  MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
+                var confirmaciones = dao.MensajeDAO.GetMensajesDeConfirmacion(new[] { entrega.Viaje.Empresa.Id }, new int[]{}).Select(m => m.Codigo);
+                var rechazos = dao.MensajeDAO.GetMensajesDeRechazo(new[] { entrega.Viaje.Empresa.Id }, new int[]{}).Select(m => m.Codigo);
+                mensajes.AddRange(confirmaciones);
+                mensajes.AddRange(rechazos);
+
                 Confirmacion = entrega.MensajeConfirmacion != null
-                                ? entrega.MensajeConfirmacion.Mensaje.Descripcion
-                                : string.Empty;
+                                    ? entrega.MensajeConfirmacion.Mensaje.Descripcion
+                                    : string.Empty;
                 Horario = entrega.RecepcionConfirmacion.HasValue
                               ? entrega.RecepcionConfirmacion.Value.ToDisplayDateTime()
                               : (DateTime?) null;
-                var eventos = entrega.EventosDistri.Where(e => confirmaciones.Contains(e.LogMensaje.Mensaje.Codigo));
+                var eventos = entrega.EventosDistri.Where(e => mensajes.Contains(e.LogMensaje.Mensaje.Codigo));
                 var evento = eventos.Any() 
-                    ? eventos.OrderBy(e => e.Fecha).FirstOrDefault() 
-                    : null;
+                                ? eventos.OrderBy(e => e.Fecha).FirstOrDefault() 
+                                : null;
 
                 Distancia = evento != null ? Distancias.Loxodromica(evento.LogMensaje.Latitud, evento.LogMensaje.Longitud, entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude) : (double?)null;
+                if (entrega.PuntoEntrega != null && entrega.PuntoEntrega.ReferenciaGeografica != null
+                 && entrega.PuntoEntrega.ReferenciaGeografica.Poligono != null)
+                    Radio = entrega.PuntoEntrega.ReferenciaGeografica.Poligono.Radio;
             }
         }
 
@@ -260,6 +270,9 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
                               ? dm.Detalle.RecepcionConfirmacion.Value.ToDisplayDateTime()
                               : (DateTime?)null;
                 Distancia = dm.Distancia;
+                if (dm.PuntoEntrega != null && dm.PuntoEntrega.ReferenciaGeografica != null
+                 && dm.PuntoEntrega.ReferenciaGeografica.Poligono != null)
+                    Radio = dm.PuntoEntrega.ReferenciaGeografica.Poligono.Radio;
             }
         }
 
@@ -303,6 +316,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
                             ? dm.DateConfirmacion.Value.ToDisplayDateTime()
                             : (DateTime?) null;
             Distancia = dm.Distancia;
+            Radio = dm.Radio;
         }
 
         public ReporteDistribucionVo() { }
