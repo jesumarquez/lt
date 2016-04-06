@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>
         <tr>
-            <td>
+            <td valign="top">
                 <%--EMPRESA--%>
                 <cwc:ResourceLabel ID="ResourceLabel3" runat="server" ResourceName="Entities" VariableName="PARENTI01" Font-Bold="True"/>
                 <br />
@@ -19,7 +19,7 @@
                 <br />
                 <cwc:DepartamentoDropDownList ID="cbDepartamento" runat="server" Width="100%" AddAllItem="true" ParentControls="cbEmpresa,cbLinea" OnSelectedIndexChanged="FilterChanged" />
             </td>
-            <td>
+            <td valign="top">
                 <%--VEHICULO--%>
                 <cwc:ResourceLinkButton ID="lblParenti03" runat="server" ResourceName="Entities" VariableName="PARENTI03" Font-Bold="True" ForeColor="Black" ListControlTargetID="cbMovil" />
                 <br />
@@ -34,7 +34,7 @@
                     </Triggers>
                 </asp:UpdatePanel>
             </td>
-            <td>
+            <td valign="top">
                 <cwc:ResourceLabel ID="lblDesde" runat="server" ResourceName="Labels" VariableName="DESDE" Font-Bold="True" />
                 <br />
                 <cwc:DateTimePicker ID="dtpDesde" runat="server" TimeMode="Start" Mode="DateTime" IsValidEmpty="false" AutoPostBack="true" OnDateChanged="FilterChanged" />

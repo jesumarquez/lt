@@ -69,11 +69,17 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
 
         public IList<Documento> FindByTipo(int[] tiposDocumento, List<int> empresas, List<int> lineas)
         {
+            return FindByTipo(tiposDocumento, empresas, lineas, new List<int> { -1 });
+        }
+
+        public IList<Documento> FindByTipo(int[] tiposDocumento, List<int> empresas, List<int> lineas, List<int> transportistas)
+        {
             var q = Query.FilterEmpresa(Session, empresas)
                          .FilterLinea(Session, empresas, lineas)
-                         .FilterVehiculo(Session, empresas, lineas, new[]{-1},new[]{-1},new[]{-1},new[]{-1},new[]{-1})
-                         .FilterEmpleado(Session, empresas, lineas, new[]{-1},new[]{-1},new[]{-1});
-            
+                         .FilterTransportista(Session, empresas, lineas, transportistas)
+                         .FilterVehiculo(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 })
+                         .FilterEmpleado(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 });
+
             if (!QueryExtensions.IncludesAll(tiposDocumento))
             {
                 var tipos = tiposDocumento.ToList();
