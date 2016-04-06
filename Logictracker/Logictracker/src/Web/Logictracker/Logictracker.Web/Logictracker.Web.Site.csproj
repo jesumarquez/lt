@@ -1756,7 +1756,6 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="ExcelTemplate\Logictracker\MonitorCheckOut.xlsx" />
-    <Content Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <Content Include="Scripts\angular-openlayers-directive.js" />
     <Content Include="Scripts\angular-openlayers-directive.min.js" />
@@ -5323,9 +5322,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
