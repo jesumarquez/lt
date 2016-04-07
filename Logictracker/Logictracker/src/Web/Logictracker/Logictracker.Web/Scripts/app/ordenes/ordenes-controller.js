@@ -1,7 +1,8 @@
 ﻿angular
     .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
-    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController]);
+    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController])
+    .controller('OrdenesAsignarAutoController', ["$scope", "EntitiesService", OrdenesAsignarAutoController]);
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
@@ -330,4 +331,34 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         cleanEditableProducts();
     }
 
+}
+
+function OrdenesAsignarAutoController($scope, EntitiesService) {
+    var vm = this;
+    vm.productos = $scope.productsSelected;
+    vm.distritoId = $scope.distritoSelected.Key;
+    vm.baseId = $scope.baseSelected.Key;
+    vm.tipoCocheSelected = {};
+    vm.asignar = asignar;
+
+    function asignar() {
+        var total = sumCapacidadCuadernas();
+        var coches = getCoches();
+
+        console.log(total);
+    };
+
+    function sumCapacidadCuadernas() {
+        var total = 0;
+        if (vm.tipoCocheSelected !== null && vm.tipoCocheSelected.Contenedores != null) {
+            vm.tipoCocheSelected.Contenedores.forEach(function (cuaderna) {
+                total += cuaderna.Capacidad;
+            });
+        }
+        return total;
+    };
+
+    function getCoches() {
+
+    }
 }

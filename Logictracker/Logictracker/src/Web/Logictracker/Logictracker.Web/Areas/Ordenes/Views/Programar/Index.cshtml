@@ -49,7 +49,7 @@
                                      lt-depends-on="baseSelected" />
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label class="control-label">@Html.ResourceLabel("Labels", "Desde"):</label>
                 <input class="form-control" kendo-date-picker k-ng-model="desde" name="filter-fecha desde" />
@@ -61,7 +61,7 @@
         </div>
 
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
                 <label class="control-label">&nbsp;</label>
                 <kendo-button class="form-control" ng-click="onBuscar()" name="buscar">
@@ -75,6 +75,17 @@
                               data-target="#myModal"
                               ng-disabled="productsSelected.length == 0" name="asignar">
                     @Html.ResourceLabel("Labels", "Asignar")
+                </kendo-button>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">&nbsp;</label>
+                <kendo-button class="form-control"
+                              data-toggle="modal"
+                              data-target="#modalAuto"
+                              name="asignar-auto">
+                    @Html.ResourceLabel("Labels", "Asignar" + " Auto.")
                 </kendo-button>
             </div>
         </div>
@@ -174,7 +185,7 @@
                     </div>
 
                     <span kendo-notification="modalNotify" k-auto-hide-after="10000"></span>
-                    
+
                     <div class="clearfix"></div>
                 </div>
 
@@ -235,4 +246,34 @@
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div><!-- modal -->
-</div>
+
+    <div class="modal fade" id="modalAuto" tabindex="-1" role="dialog" aria-labelledby="myModalAutoLabel" ng-controller="OrdenesAsignarAutoController as asignarAutomatico">
+        <div class="modal-dialog" style="width: 50%">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Distribución Automática</h4>
+                </div>
+
+                <div style="min-height: 10px" class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-6 control-label">Tipo Vehículo</label>
+                        <div class="col-md-6">
+                            <lt-ddl-tipo-coche lt-ng-model="asignarAutomatico.tipoCocheSelected"
+                                               lt-data-base="baseSelected"
+                                               lt-data-distrito="distritoSelected" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div><!--modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" ng-disabled="asignarAutomatico.disabledButton" ng-click="asignarAutomatico.asignar()">Programar</a>
+                </div>
+            </div><!--modal-content-->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+</div><!--div container-->
