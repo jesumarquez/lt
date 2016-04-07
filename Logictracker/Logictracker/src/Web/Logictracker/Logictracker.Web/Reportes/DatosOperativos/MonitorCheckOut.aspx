@@ -49,6 +49,15 @@
                     <br />
                     <asp:RadioButton ID="rbtn60" runat="server" Text="60" Checked="false" GroupName="periodo" ValidationGroup="periodo" />
                 </td>
+                <td valign="top" align="left">
+                    <cwc:ResourceLabel ID="lblTipo" runat="server" ResourceName="Labels" VariableName="MODO" Font-Bold="True" />
+                    <br />
+                    <asp:RadioButton ID="rbtnCheckIn" runat="server" Text="Check In" Checked="true" GroupName="modo" ValidationGroup="modo" />
+                    <br />
+                    <asp:RadioButton ID="rbtnCheckOut" runat="server" Text="Check Out" Checked="false" GroupName="modo" ValidationGroup="modo" />
+                    <br />
+                    <asp:RadioButton ID="rbtnAcumulado" runat="server" Text="Acumulado" Checked="false" GroupName="modo" ValidationGroup="modo" />
+                </td>
             </tr>
         </table>
 </asp:Content>
