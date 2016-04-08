@@ -69,15 +69,26 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
 
         public IList<Documento> FindByTipo(int[] tiposDocumento, List<int> empresas, List<int> lineas)
         {
+            return FindByTipo(tiposDocumento, empresas, lineas, new List<int> { -1 });
+        }
+
+        public IList<Documento> FindByTipo(int[] tiposDocumento, List<int> empresas, List<int> lineas, List<int> transportistas)
+        {
             var q = Query.FilterEmpresa(Session, empresas)
                          .FilterLinea(Session, empresas, lineas)
-                         .FilterVehiculo(Session, empresas, lineas, new[]{-1},new[]{-1},new[]{-1},new[]{-1},new[]{-1})
-                         .FilterEmpleado(Session, empresas, lineas, new[]{-1},new[]{-1},new[]{-1});
-            
+                         .FilterVehiculo(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 })
+                         .FilterEmpleado(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 });
+
             if (!QueryExtensions.IncludesAll(tiposDocumento))
             {
                 var tipos = tiposDocumento.ToList();
                 q = q.Where(x => tipos.Contains(x.TipoDocumento.Id));
+            }
+            if (!QueryExtensions.IncludesAll(transportistas))
+            {
+                q = q.Where(x => (x.Transportista != null && transportistas.Contains(x.Transportista.Id))
+                              || (x.Vehiculo != null && x.Vehiculo.Transportista != null && transportistas.Contains(x.Vehiculo.Transportista.Id))
+                              || (x.Empleado != null && x.Empleado.Transportista != null && transportistas.Contains(x.Empleado.Transportista.Id)));
             }
 
             return q.Where(x => x.Estado != Documento.Estados.Eliminado)

@@ -172,6 +172,14 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         {
             var entregas = distribucion.Detalles;
 
+            var mensajes = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                              MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
+                                              MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
+            var confirmaciones = DaoFactory.MensajeDAO.GetMensajesDeConfirmacion(new[] { distribucion.Empresa.Id }, new int[] { }).Select(m => m.Codigo);
+            var rechazos = DaoFactory.MensajeDAO.GetMensajesDeRechazo(new[] { distribucion.Empresa.Id }, new int[] { }).Select(m => m.Codigo);
+            mensajes.AddRange(confirmaciones);
+            mensajes.AddRange(rechazos);
+
             EntregaDistribucion anterior = null;
 
             if (distribucion.Tipo == ViajeDistribucion.Tipos.Desordenado)
@@ -208,10 +216,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                 ? entrega.Entrada.Value.Subtract(entrega.Programado)
                                 : new TimeSpan();
 
-                var confirmaciones = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
-                                                        MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
-                                                        MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
-                var eventos = entrega.EventosDistri.Where(e => confirmaciones.Contains(e.LogMensaje.Mensaje.Codigo));
+                var eventos = entrega.EventosDistri.Where(e => mensajes.Contains(e.LogMensaje.Mensaje.Codigo));
                 var evento = eventos.Any() ? eventos.OrderBy(e => e.Fecha).FirstOrDefault() : null;
                 var distancia = evento != null ? Distancias.Loxodromica(evento.LogMensaje.Latitud, evento.LogMensaje.Longitud, entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude) : (double?)null;
 

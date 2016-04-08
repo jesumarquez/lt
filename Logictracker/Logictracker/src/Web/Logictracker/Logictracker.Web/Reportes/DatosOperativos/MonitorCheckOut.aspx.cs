@@ -36,7 +36,11 @@ namespace Logictracker.Reportes.Estadistica
             if (rbtn30.Checked) periodo = 30;
             else if (rbtn60.Checked) periodo = 60;
 
-            return ReportFactory.CheckOutDAO.GetCheckOuts(ddlLocacion.Selected, ddlPlanta.Selected, ddlTransportista.Selected, desde, hasta, periodo);
+            var modo = CheckOut.Modo.CheckIn;
+            if (rbtnCheckOut.Checked) modo = CheckOut.Modo.CheckOut;
+            else if (rbtnAcumulado.Checked) modo = CheckOut.Modo.Acumulado;
+
+            return ReportFactory.CheckOutDAO.GetReporte(ddlLocacion.Selected, ddlPlanta.Selected, ddlTransportista.Selected, desde, hasta, periodo, modo);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -60,7 +64,7 @@ namespace Logictracker.Reportes.Estadistica
                 helper.AddConfigEntry("yAxisName", YAxisLabel);
                 helper.AddConfigEntry("hoverCapSepChar", " - ");
                 helper.AddConfigEntry("rotateNames", "1");
-
+                
                 foreach (var checkout in ReportObjectsList)
                 {
                     var item = new FusionChartsItem();
