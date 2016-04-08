@@ -192,6 +192,7 @@
                                         </c1:C1TemplateField>
                                     </Columns>
                                 </c1:C1GridView>
+                                <a style="color: black"></a>
                             </td>
                         </tr>
                         <tr>

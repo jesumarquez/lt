@@ -380,7 +380,7 @@ namespace ControlSat
             var dir = float.Parse(parser[5]);
             
             short codeevent = (short)0;
-            switch (parser[6])
+            switch (parser[7])
             {
                 case "1":
                         {
