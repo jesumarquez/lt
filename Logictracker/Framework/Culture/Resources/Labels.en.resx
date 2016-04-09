@@ -3769,6 +3769,9 @@
   <data name="PAGINAR_CONSULTA" xml:space="preserve">
     <value>Paginated query</value>
   </data>
+  <data name="FILTRAR_CONSULTA" xml:space="preserve">
+    <value>filter query</value>
+  </data>
   <data name="USA_PREFIJO" xml:space="preserve">
     <value>Use prefix</value>
   </data>

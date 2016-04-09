@@ -1,8 +1,20 @@
 ﻿angular
-    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
+    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive', "vrp"])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
     .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController])
-    .controller('OrdenesAsignarAutoController', ["$scope", "EntitiesService", OrdenesAsignarAutoController]);
+    .controller('OrdenesAsignarAutoController', [
+        "$scope",
+        "EntitiesService",
+        "vrpService",
+        "Servicio",
+        "Coordenada",
+        "Locacion",
+        "Ventana",
+        "Vehiculo",
+        "Problema",
+        "TipoVehiculo",
+        "Costo",
+        OrdenesAsignarAutoController]);
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
@@ -333,7 +345,19 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
 
 }
 
-function OrdenesAsignarAutoController($scope, EntitiesService) {
+function OrdenesAsignarAutoController(
+    $scope,
+    EntitiesService,
+    vrpService,
+    Servicio,
+    Coordenada,
+    Locacion,
+    Ventana,
+    Vehiculo,
+    Problema,
+    TipoVehiculo,
+    Costo) {
+
     var vm = this;
     vm.productos = $scope.productsSelected;
     vm.distritoId = $scope.distritoSelected.Key;
@@ -344,6 +368,19 @@ function OrdenesAsignarAutoController($scope, EntitiesService) {
     function asignar() {
         var total = sumCapacidadCuadernas();
         var coches = getCoches();
+
+        var srv = new Servicio("serv2", new Coordenada(-34.1, -58.9), 20, 0, new Ventana(36000, 46800));
+        var vehiculo = new Vehiculo("V1", "A", new Locacion("0", new Coordenada(-34.6, -58.95)), new Ventana(28800, 61200));
+        var tp = new TipoVehiculo("A", 100, new Costo(300, 1, 1));
+
+        var tst = new Problema();
+        tst.add_vehiculo(vehiculo);
+        tst.add_servicio(srv);
+        tst.add_tipo_vehiculo(tp);
+
+        vrpService.newRoute(tst).then(function (res) {
+            console.log(res);
+        });
 
         console.log(total);
     };

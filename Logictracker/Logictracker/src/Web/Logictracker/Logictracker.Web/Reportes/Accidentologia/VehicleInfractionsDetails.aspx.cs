@@ -167,19 +167,18 @@ namespace Logictracker.Web.Reportes.Accidentologia
 
         private void AddSessionParameters()
         {
-            var message = DAOFactory.LogMensajeDAO.FindById(Convert.ToInt32(Grid.SelectedDataKey.Values[0]));
+            var message = DAOFactory.InfraccionDAO.FindById(Convert.ToInt32(Grid.SelectedDataKey.Values[0]));
 
-            Session.Add("Distrito", message.Coche.Empresa != null ? message.Coche.Empresa.Id : message.Coche.Linea != null ? message.Coche.Linea.Empresa.Id : -1);
-            Session.Add("Location", message.Coche.Linea != null ? message.Coche.Linea.Id : -1);
-            Session.Add("TypeMobile", message.Coche.TipoCoche.Id);
-            Session.Add("Mobile", message.Coche.Id);
-            Session.Add("InitialDate", message.Fecha.AddMinutes(-1).ToDisplayDateTime());
-            Session.Add("FinalDate", (message.FechaFin.HasValue ? message.FechaFin.Value : message.Fecha).AddMinutes(1).ToDisplayDateTime());
-            Session.Add("MessageType", message.Mensaje.TipoMensaje.Id);
+            Session.Add("Distrito", message.Vehiculo.Empresa != null ? message.Vehiculo.Empresa.Id : message.Vehiculo.Linea != null ? message.Vehiculo.Linea.Empresa.Id : -1);
+            Session.Add("Location", message.Vehiculo.Linea != null ? message.Vehiculo.Linea.Id : -1);
+            Session.Add("TypeMobile", message.Vehiculo.TipoCoche.Id);
+            Session.Add("Mobile", message.Vehiculo.Id);
+            Session.Add("InitialDate", message.Fecha.AddMinutes(-1));
+            Session.Add("FinalDate", (message.FechaFin.HasValue ? message.FechaFin.Value : message.Fecha).AddMinutes(1));
+            //Session.Add("MessageType", message.Mensaje.TipoMensaje.Id);
+            //Session.Add("MessagesIds", new List<string>{message.Mensaje.Codigo});
 
-            Session.Add("MessagesIds", new List<string>{message.Mensaje.Codigo});
-
-            Session.Add("MessageCenterIndex", message.Id);
+            //Session.Add("MessageCenterIndex", message.Id);
             Session.Add("ShowPOIS", 0);
         }
 

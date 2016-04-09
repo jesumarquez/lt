@@ -582,6 +582,11 @@
                                 <cwc:ResourceButton ID="btnEntrega" runat="server" ResourceName="Controls" VariableName="BUTTON_SEARCH" OnClick="BtnEntregaOnClick" CssClass="LogicButton_Big" />
                             </td>
                         </tr>
+                        <tr>
+                            <td align="left" colspan="3">
+                                <asp:Label ID="lblDistancia" runat="server" Visible="false" Font-Bold="true" />
+                            </td>
+                        </tr>
                     </table>
                     <br/>
                     <table width="100%" border="0">

@@ -40,7 +40,7 @@
                             <td width="40%" align="left">
                                 <asp:UpdatePanel ID="upDepto" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                                     <ContentTemplate>
-                                        <cwc:DepartamentoDropDownList ID="cbDepartamento" runat="server" Width="98%" ParentControls="cbEmpresa,cbLinea" OnSelectedIndexChanged="ConditionChanged" AddAllItem="true" />
+                                        <cwc:DepartamentoDropDownList ID="cbDepartamento" runat="server" Width="98%" ParentControls="cbEmpresa,cbLinea" OnSelectedIndexChanged="ConditionChanged" />
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
@@ -113,12 +113,10 @@
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
-                                    <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
-                                    <asp:AsyncPostBackTrigger ControlID="cbDepartamento" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbDepartamento" EventName="SelectedIndexChanged" />
                                     </Triggers>
                                 </asp:UpdatePanel>
-
-
                             </td>
                         </tr>
                         <tr>
