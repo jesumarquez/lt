@@ -345,7 +345,19 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
 
 }
 
-function OrdenesAsignarAutoController($scope, EntitiesService) {
+function OrdenesAsignarAutoController(
+    $scope,
+    EntitiesService,
+    vrpService,
+    Servicio,
+    Coordenada,
+    Locacion,
+    Ventana,
+    Vehiculo,
+    Problema,
+    TipoVehiculo,
+    Costo) {
+
     var vm = this;
     vm.productos = $scope.productsSelected;
     vm.distritoId = $scope.distritoSelected.Key;
