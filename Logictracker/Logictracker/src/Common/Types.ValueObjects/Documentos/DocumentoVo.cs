@@ -22,6 +22,9 @@ namespace Logictracker.Types.ValueObjects.Documentos
         [GridMapping(Index = IndexDescripcion, ResourceName = "Labels", VariableName = "DESCRIPCION", AllowGroup = false, IncludeInSearch = true)]
         public string Descripcion { get; set; }
 
+        [GridMapping(Index = IdexEstado, ResourceName = "Labels", VariableName = "Usuario", AllowGroup = true)]
+        public string Usuario { get; set; }
+
         [GridMapping(Index = IndexVehiculo, ResourceName = "Entities", VariableName = "PARENTI03", AllowGroup = true, IncludeInSearch = true)]
         public string Vehiculo { get; set; }
 
@@ -58,7 +61,15 @@ namespace Logictracker.Types.ValueObjects.Documentos
                 Transportista = documento.Empleado.Transportista.Descripcion;
             else 
                 Transportista = string.Empty;
-            
+
+            foreach (var item in documento.Parametros)
+            {
+                if (item.Parametro.Nombre.Equals("Técnico"))
+                {
+                    Usuario = item.Valor;
+                    break;
+                }
+            }
             switch (documento.Estado)
             {
                 case 0: Estado = "Abierto"; break;

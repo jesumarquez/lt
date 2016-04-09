@@ -128,9 +128,15 @@ namespace Logictracker.CicloLogistico
 
                 if (ciclo.InicioReal.HasValue)
                 {
-                    SelectCiclo(ciclo, false, Modos.Ninguno);
+                    SelectCiclo(ciclo, true, Modos.Ninguno);
                     UpdateLinks(ciclo);
                     dtDesde.SelectedDate = ciclo.InicioReal.Value.ToDisplayDateTime();
+                    
+                    if (ciclo.EntregasTotalCountConBases > 0)
+                    {
+                        gridEntregas.DataSource = ciclo.Detalles.Where(d => d.PuntoEntrega != null);
+                        gridEntregas.DataBind();
+                    }                    
                 }
                 
                 dtHasta.SelectedDate = ciclo.Fin.ToDisplayDateTime();
@@ -279,6 +285,7 @@ namespace Logictracker.CicloLogistico
             }
             else if (ciclo.Value[0] == 'D')
             {
+                lblDistancia.Visible = false;
                 var distribucion = DAOFactory.ViajeDistribucionDAO.FindById(id);
                 SelectCiclo(distribucion, posicionar, modo);
                 UpdateLinks(distribucion);
@@ -801,6 +808,13 @@ namespace Logictracker.CicloLogistico
             if (toPosition != null)
             {
                 PosicionarPunto(toPosition);
+                if (viajeEnCurso)
+                {
+                    var lastPosition = DAOFactory.LogPosicionDAO.GetLastVehiclePosition(vehiculo);
+                    var distancia = GeocoderHelper.CalcularDistacia(toPosition.Latitude, toPosition.Longitude, lastPosition.Latitud, lastPosition.Longitud);
+                    lblDistancia.Text = "Distancia: " + distancia.ToString("#0.00") + "km";
+                    lblDistancia.Visible = true;
+                }
                 if (toPosition.Poligono != null)
                 {
                     var color = Color.Black;

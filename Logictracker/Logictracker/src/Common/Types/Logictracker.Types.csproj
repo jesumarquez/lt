@@ -328,6 +328,7 @@
     <Compile Include="ReportObjects\MobileEvent.cs" />
     <Compile Include="ReportObjects\MobileExtraHours.cs" />
     <Compile Include="ReportObjects\MobileGeocerca.cs" />
+    <Compile Include="ReportObjects\CheckOut.cs" />
     <Compile Include="ReportObjects\MobileKilometer.cs" />
     <Compile Include="ReportObjects\MobileMaintenance.cs" />
     <Compile Include="ReportObjects\MobileMessage.cs" />
