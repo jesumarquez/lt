@@ -177,6 +177,12 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         );
     };
 
+    $scope.getOrden = function(id){
+        var orden = $scope.Orders.data().find(function (item) {
+            return item.Id === id;
+        });
+        return orden;
+    }
 }
 
 function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService, $filter) {
@@ -360,29 +366,37 @@ function OrdenesAsignarAutoController(
 
     var vm = this;
     vm.productos = $scope.productsSelected;
-    vm.distritoId = $scope.distritoSelected.Key;
-    vm.baseId = $scope.baseSelected.Key;
+    vm.getOrden = $scope.getOrden;
     vm.tipoCocheSelected = {};
     vm.asignar = asignar;
 
     function asignar() {
-        var total = sumCapacidadCuadernas();
-        var coches = getCoches();
 
-        var srv = new Servicio("serv2", new Coordenada(-34.1, -58.9), 20, 0, new Ventana(36000, 46800));
-        var vehiculo = new Vehiculo("V1", "A", new Locacion("0", new Coordenada(-34.6, -58.95)), new Ventana(28800, 61200));
-        var tp = new TipoVehiculo("A", 100, new Costo(300, 1, 1));
+        var problema = new Problema();
+        var capacidad = sumCapacidadCuadernas();
+        var tVeh = new TipoVehiculo(vm.tipoCocheSelected.Id, capacidad, new Costo(300, 1, 1));
+        var coordVeh = new Coordenada(-34.6, -58.95);
+        var vehiculo = new Vehiculo("V1", vm.tipoCocheSelected.Id, new Locacion("0", coordVeh), new Ventana(28800, 61200));
 
-        var tst = new Problema();
-        tst.add_vehiculo(vehiculo);
-        tst.add_servicio(srv);
-        tst.add_tipo_vehiculo(tp);
+        $.each(vm.productos, function (index, item) {
 
-        vrpService.newRoute(tst).then(function (res) {
-            console.log(res);
+            var orden = vm.getOrden(item.OrderId);
+
+            var coordSrv = new Coordenada(orden.PuntoEntregaLatitud, orden.PuntoEntregaLongitud);
+
+            var srv = new Servicio(orden.IdPuntoEntrega, coordSrv, 20, 0, new Ventana(36000, 46800));
+
+            problema.add_servicio(srv);
         });
 
-        console.log(total);
+        problema.add_vehiculo(vehiculo);
+        problema.add_tipo_vehiculo(tVeh);
+
+        //vrpService.newRoute(tst).then(function (res) {
+        //    console.log(res);
+        //});
+
+        console.log(problema);
     };
 
     function sumCapacidadCuadernas() {
@@ -395,7 +409,4 @@ function OrdenesAsignarAutoController(
         return total;
     };
 
-    function getCoches() {
-
-    }
 }
