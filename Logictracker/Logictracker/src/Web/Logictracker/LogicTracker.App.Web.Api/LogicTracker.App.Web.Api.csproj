@@ -114,6 +114,7 @@
     <Reference Include="System.Data.DataSetExtensions">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Device" />
     <Reference Include="System.Drawing">
       <Private>True</Private>
     </Reference>
@@ -141,6 +142,7 @@
     <Reference Include="System.Web.Routing">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml">
       <Private>True</Private>
     </Reference>
@@ -350,6 +352,10 @@
     <Compile Include="Providers\LogWritter.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="WebServiceLT.asmx.cs">
+      <DependentUpon>WebServiceLT.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -388,6 +394,9 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="WebServiceLT.asmx" />
+    <None Include="Properties\PublishProfiles\filesistem.pubxml" />
+    <None Include="Properties\PublishProfiles\profiledos.pubxml" />
     <None Include="Properties\PublishProfiles\testing server.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -476,6 +485,10 @@
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
       <Name>Logictracker.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Services.Helpers\Logictracker.Services.Helpers.csproj">
+      <Project>{335550d5-f4a2-4ad0-a22f-c4ab705c6606}</Project>
+      <Name>Logictracker.Services.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\Types\Logictracker.Types.csproj">
       <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
       <Name>Logictracker.Types</Name>
@@ -497,11 +510,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>53703</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
