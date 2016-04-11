@@ -91,7 +91,6 @@
     <Compile Include="IQueryableX.cs" />
     <Compile Include="NHibernate\BaseInterceptor.cs" />
     <Compile Include="NHibernate\NHibernateUtils.cs" />
-    <Compile Include="NHibernate\NHSQLInterceptor.cs" />
     <Compile Include="PerformanceCounterHelper.cs" />
     <Compile Include="Process.cs" />
     <Compile Include="Random.cs" />

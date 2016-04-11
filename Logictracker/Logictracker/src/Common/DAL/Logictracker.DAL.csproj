@@ -336,6 +336,7 @@
     <Compile Include="Filtros\Filtro.cs" />
     <Compile Include="NHibernate\DriverConnectionProvider.cs" />
     <Compile Include="NHibernate\NHibernateHelper.cs" />
+    <Compile Include="NHibernate\NHSQLInterceptor.cs" />
     <Compile Include="NHibernate\SessionHelper.cs" />
     <Compile Include="NHibernate\SmartTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
