@@ -11,6 +11,7 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Messaging;
 using Logictracker.Utils;
 using Logictracker.Process.Geofences;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.Mantenimiento
 {
@@ -20,6 +21,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
+            var start = DateTime.UtcNow;
+
             var empresas = DaoFactory.EmpresaDAO.GetList().Where(emp => emp.GeneraInfraccionesSitrack);
             
             STrace.Trace(GetType().FullName, string.Format("Procesando empresas. Cantidad: {0}", empresas.Count()));
@@ -128,6 +131,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 }
 
                 STrace.Trace(GetType().FullName, "Tarea finalizada.");
+
+                var end = DateTime.UtcNow;
+                var duration = end.Subtract(start).TotalMinutes;
+                DaoFactory.DataMartsLogDAO.SaveNewLog(start, end, duration, DataMartsLog.Moludos.ExcesoVelocidadSitrack, "Exceso Velocidad Sitrack finalizado exitosamente");
             }
             catch (Exception ex)
             {
