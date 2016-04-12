@@ -682,15 +682,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
                                   Vigencia = new Vigencia { Inicio = DateTime.Now }
                               };
 
+
+
+
                 var pol = new Poligono
-                              {
-                                  Radio = 100,
-                                  Vigencia = new Vigencia { Inicio = DateTime.Now }
-                              };
+                {
+                    Radio = 100,
+                    Vigencia = new Vigencia { Inicio = DateTime.Now }
+                };
                 pol.AddPoints(new[]
                                   {
-                                      new PointF((float) direccionNomenclada.Longitud,
-                                                 (float) direccionNomenclada.Latitud)
+                                      new PointF((float) dir.Longitud,
+                                                 (float) dir.Latitud)
                                   });
 
 
@@ -722,7 +725,28 @@ namespace Logictracker.Web.BaseClasses.BasePages
         }
         protected static IList<DireccionVO> NomenclarByLatLon(double latitud, double longitud)
         {
-            return new List<DireccionVO> { GeocoderHelper.Cleaning.GetDireccionMasCercana(latitud, longitud) };
+            var vo = GeocoderHelper.Cleaning.GetDireccionMasCercana(latitud, longitud);
+            var lst = new List<DireccionVO>(1);
+            if (vo == null)
+            {
+               vo = new DireccionVO
+                {
+                    Altura = -1,
+                    Calle = string.Empty,
+                    Direccion = string.Format("({0}, {1})", latitud, longitud),
+                    IdEsquina = -1,
+                    IdMapaUrbano = -1,
+                    IdPoligonal = -1,
+                    IdProvincia = -1,
+                    Partido = string.Empty,
+                    Provincia = string.Empty,
+                    Latitud = latitud,
+                    Longitud = longitud
+                };             
+            }
+             
+            lst.Add(vo);
+            return lst;
         }
         protected static IList<DireccionVO> NomenclarByCalle(string calle, int altura, string esquina, string partido, string provincia)
         {

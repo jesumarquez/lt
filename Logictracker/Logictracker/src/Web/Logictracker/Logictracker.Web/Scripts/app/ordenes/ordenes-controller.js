@@ -1,7 +1,20 @@
 ﻿angular
-    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive'])
+    .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive', "vrp"])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
-    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController]);
+    .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController])
+    .controller('OrdenesAsignarAutoController', [
+        "$scope",
+        "EntitiesService",
+        "vrpService",
+        "Servicio",
+        "Coordenada",
+        "Locacion",
+        "Ventana",
+        "Vehiculo",
+        "Problema",
+        "TipoVehiculo",
+        "Costo",
+        OrdenesAsignarAutoController]);
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
 
@@ -164,6 +177,12 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         );
     };
 
+    $scope.getOrden = function(id){
+        var orden = $scope.Orders.data().find(function (item) {
+            return item.Id === id;
+        });
+        return orden;
+    }
 }
 
 function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService, $filter) {
@@ -267,28 +286,46 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         return $filter('filter') ($scope.cuadernasDs.data(), { Orden : data.Cuaderna  })[0].Descripcion;
     }
 
+    function onFail(error) {
+        try {
+            $scope.$parent.disabledButton = false;
+
+            if (error.data.ExceptionMessage) {
+                $scope.modalNotify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) {
+        }
+        $scope.modalNotify.show(error.errorThrown, "error");
+    };
+
     $scope.ok = function () {
        
         if ($scope.$parent.disabledButton) return;
-        //$uibModalInstance.close();
+
+        $scope.$parent.disabledButton = true;
 
         var selectOrders = [];
-        //$scope.ordenesGrid.select().each(function (index, row) {
-        //    selectOrders.push($scope.ordenesGrid.dataItem(row));
-        //});
 
         $scope.newOrder = new OrdenesService.ordenes();
         $scope.newOrder.OrderList = selectOrders;
-        $scope.newOrder.OrderDetailList = $scope.productsSelected.toJSON();
+
+        // Obtener solo los productos que tienen cuaderna seleccionada
+        var productsSelectedAssigned = new Array();
+        $scope.productsSelected.forEach(function (item)
+        { if (item.Cuaderna > 0) productsSelectedAssigned.push(item.toJSON()); });
+
+        $scope.newOrder.OrderDetailList = productsSelectedAssigned;
         $scope.newOrder.IdVehicle = $scope.$parent.order.Vehicle.Key;
         $scope.newOrder.IdVehicleType = $scope.vehicleTypeSelected.Id;
         $scope.newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
         $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
         $scope.newOrder.$save(
             { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
-            onSuccess(),
-            function () { }
-                //onFail
+            function (value) {
+                onSuccess();
+            },
+            function (error) { onFail(error); }
         );
     }
 
@@ -300,7 +337,6 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
             $scope.accessor.invoke();
             
         $scope.onBuscar();
-        //$scope.disabledButton = false;
     }
 
     $scope.cancel = function () {
@@ -312,5 +348,65 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
     $scope.clean = function () {
         cleanEditableProducts();
     }
+
+}
+
+function OrdenesAsignarAutoController(
+    $scope,
+    EntitiesService,
+    vrpService,
+    Servicio,
+    Coordenada,
+    Locacion,
+    Ventana,
+    Vehiculo,
+    Problema,
+    TipoVehiculo,
+    Costo) {
+
+    var vm = this;
+    vm.productos = $scope.productsSelected;
+    vm.getOrden = $scope.getOrden;
+    vm.tipoCocheSelected = {};
+    vm.asignar = asignar;
+
+    function asignar() {
+
+        var problema = new Problema();
+        var capacidad = sumCapacidadCuadernas();
+        var tVeh = new TipoVehiculo(vm.tipoCocheSelected.Id, capacidad, new Costo(300, 1, 1));
+        var coordVeh = new Coordenada(-34.6, -58.95);
+        var vehiculo = new Vehiculo("V1", vm.tipoCocheSelected.Id, new Locacion("0", coordVeh), new Ventana(28800, 61200));
+
+        $.each(vm.productos, function (index, item) {
+
+            var orden = vm.getOrden(item.OrderId);
+
+            var coordSrv = new Coordenada(orden.PuntoEntregaLatitud, orden.PuntoEntregaLongitud);
+
+            var srv = new Servicio(orden.IdPuntoEntrega, coordSrv, 20, 0, new Ventana(36000, 46800));
+
+            problema.add_servicio(srv);
+        });
+
+        problema.add_vehiculo(vehiculo);
+        problema.add_tipo_vehiculo(tVeh);
+
+        //vrpService.newRoute(tst).then(function (res) {
+        //    console.log(res);
+        //});
+
+        console.log(problema);
+    };
+
+    function sumCapacidadCuadernas() {
+        var total = 0;
+        if (vm.tipoCocheSelected !== null && vm.tipoCocheSelected.Contenedores != null) {
+            vm.tipoCocheSelected.Contenedores.forEach(function (cuaderna) {
+                total += cuaderna.Capacidad;
+            });
+        }
+        return total;
+    };
 
 }

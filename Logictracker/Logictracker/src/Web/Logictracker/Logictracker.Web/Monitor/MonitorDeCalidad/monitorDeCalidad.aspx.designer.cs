@@ -157,6 +157,15 @@ namespace Logictracker.Monitor.MonitorDeCalidad {
         protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDistrito;
         
         /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// ddlDistrito control.
         /// </summary>
         /// <remarks>
@@ -308,6 +317,15 @@ namespace Logictracker.Monitor.MonitorDeCalidad {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtHasta;
+        
+        /// <summary>
+        /// updrange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updrange;
         
         /// <summary>
         /// dtvalidator control.

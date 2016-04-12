@@ -22,6 +22,7 @@ namespace Logictracker.Types.ReportObjects.Datamart
         public virtual int Orden { get; set; }
         public virtual string Entrega { get; set; }
         public virtual string Estado { get; set; }
+        public virtual int IdEstado { get; set; }
         public virtual double Km { get; set; }
         public virtual double Recorrido { get; set; }
         public virtual double TiempoEntrega { get; set; }
@@ -33,7 +34,7 @@ namespace Logictracker.Types.ReportObjects.Datamart
         public virtual float Importe { get; set; }
         public virtual string Cliente { get; set; }
         public virtual string Confirmacion { get; set; }
-
+        public virtual double? Distancia { get; set; }
         public virtual Type TypeOf() { return GetType(); }
     }
 }

@@ -20,7 +20,7 @@ namespace Logictracker.Web.Admin
         {
             return DAOFactory.DataMartsLogDAO.GetList(dtpDesde.SelectedDate.Value.ToDataBaseDateTime(),
                                                       dtpHasta.SelectedDate.Value.ToDataBaseDateTime())
-                                                          .Where(file => ddlDatamart.Selected==-1 || ddlDatamart.Selected == file.Modulo)
+                                              .Where(file => ddlDatamart.Selected == -1 || ddlDatamart.Selected == file.Modulo)
                                               .Select(file => new DatamartLogVo(file))
                                               .ToList();
         }

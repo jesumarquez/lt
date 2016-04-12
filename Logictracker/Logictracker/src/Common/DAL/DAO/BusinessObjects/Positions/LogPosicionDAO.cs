@@ -216,8 +216,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetRegenerationStartDate_2] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta, @recepcionDesde = :recepcionDesde, @recepcionHasta = :recepcionHasta;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
-                              .SetDateTime("desde", refference)
-                              .SetDateTime("hasta", from)
+                              .SetDateTime("desde", from)
+                              .SetDateTime("hasta", to)
                               .SetDateTime("recepcionDesde", from)
                               .SetDateTime("recepcionHasta", to);
             var results = sqlQ.List<LogPosicion>();
