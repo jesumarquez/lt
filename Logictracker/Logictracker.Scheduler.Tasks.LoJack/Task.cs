@@ -17,7 +17,7 @@ namespace Logictracker.Scheduler.Tasks.LoJack
         {
             STrace.Trace(ComponentName, "Inicio de la tarea");
 
-            var service = new Service();
+            var service = new LoJackApi.Service1(); //service = new Service();
             var user = GetString("user");
             var password = GetString("password");
             var guid = GetString("guid");

@@ -26,6 +26,7 @@ namespace Logictracker.Reportes.Estadistica
         protected override string YAxisLabel { get { return CultureManager.GetLabel(Cantidad); } }
 
         protected override bool ExcelButton { get { return true; } }
+        protected override bool PrintButton { get { return false; } }
 
         protected override List<CheckOut> GetResults()
         {
@@ -39,6 +40,7 @@ namespace Logictracker.Reportes.Estadistica
             var modo = CheckOut.Modo.CheckIn;
             if (rbtnCheckOut.Checked) modo = CheckOut.Modo.CheckOut;
             else if (rbtnAcumulado.Checked) modo = CheckOut.Modo.Acumulado;
+            else if (rbtnAcumuladoPorc.Checked) modo = CheckOut.Modo.AcumuladoPorc;
 
             return ReportFactory.CheckOutDAO.GetReporte(ddlLocacion.Selected, ddlPlanta.Selected, ddlTransportista.Selected, desde, hasta, periodo, modo);
         }

@@ -311,6 +311,7 @@
     <Compile Include="ReportObjects\ControlDeCombustible\IngresosPorEquipo.cs" />
     <Compile Include="ReportObjects\ControlDeCombustible\MarchaMotor.cs" />
     <Compile Include="ReportObjects\ControlDeCombustible\NivelesTanque.cs" />
+    <Compile Include="ReportObjects\Datamart\InformeViajeRecarga.cs" />
     <Compile Include="ReportObjects\Datamart\DatamartTramo.cs" />
     <Compile Include="ReportObjects\KilometrosDiarios.cs" />
     <Compile Include="ReportObjects\Datamart\DatamartViaje.cs" />

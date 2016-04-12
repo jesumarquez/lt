@@ -12,6 +12,11 @@ namespace Logictracker.Types.BusinessObjects
             public const short DatamartEntregas = 1;
             public const short DatamartRutas = 2;
             public const short DatamartTramos = 3;
+            public const short DatamartEstadoVehiculos = 4; 
+            public const short VencimientoDocumentos = 5;
+            public const short ExcesoVelocidadSitrack = 6;
+            public const short VehicleData = 7;
+            public const short ReportScheduler = 8;
 
             public static string GetString(short modulo)
             {
@@ -21,6 +26,11 @@ namespace Logictracker.Types.BusinessObjects
                     case DatamartEntregas: return "Datamart Entregas";
                     case DatamartRutas: return "Datamart Rutas";
                     case DatamartTramos: return "Datamart Tramos";
+                    case DatamartEstadoVehiculos: return "Datamart Estado Vehículos";
+                    case VencimientoDocumentos: return "Vencimiento de documentos";
+                    case ExcesoVelocidadSitrack: return "Excesos de Velocidad Sitrack";
+                    case VehicleData: return "Vehicle Data";
+                    case ReportScheduler: return "Report Scheduler";
                     default: return string.Empty;
                 }
             }

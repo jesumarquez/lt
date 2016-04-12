@@ -57,6 +57,8 @@
                     <asp:RadioButton ID="rbtnCheckOut" runat="server" Text="Check Out" Checked="false" GroupName="modo" ValidationGroup="modo" />
                     <br />
                     <asp:RadioButton ID="rbtnAcumulado" runat="server" Text="Acumulado" Checked="false" GroupName="modo" ValidationGroup="modo" />
+                    <br />
+                    <asp:RadioButton ID="rbtnAcumuladoPorc" runat="server" Text="Acumulado %" Checked="false" GroupName="modo" ValidationGroup="modo" />
                 </td>
             </tr>
         </table>
