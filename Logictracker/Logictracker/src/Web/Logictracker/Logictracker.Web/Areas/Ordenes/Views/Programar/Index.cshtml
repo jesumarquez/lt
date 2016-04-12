@@ -244,18 +244,30 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Distribución Automática</h4>
+                    <h4 class="modal-title">Distribuci&oacute;n Autom&aacute;tica</h4>
                 </div>
 
                 <div style="min-height: 10px" class="modal-body">
-                    <div class="form-group">
-                        <label class="col-md-6 control-label">Tipo Vehículo</label>
-                        <div class="col-md-6">
-                            <lt-ddl-tipo-coche lt-ng-model="asignarAutomatico.tipoCocheSelected"
-                                               lt-data-base="baseSelected"
-                                               lt-data-distrito="distritoSelected" />
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-md-6 control-label">Tipo Veh&iacute;culo</label>
+                                <div class="col-md-6">
+                                    <lt-ddl-tipo-coche lt-ng-model="asignarAutomatico.tipoCocheSelected"
+                                                       lt-data-base="baseSelected"
+                                                       lt-data-distrito="distritoSelected" />
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div kendo-grid="sortedProductsGrid" k-options="asignarAutomatico.sortedProductsGridOptions" k-data-source="asignarAutomatico.sortedProducts"></div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+
                     <div class="clearfix"></div>
 
                 </div><!--modal-body-->

@@ -369,6 +369,14 @@ function OrdenesAsignarAutoController(
     vm.getOrden = $scope.getOrden;
     vm.tipoCocheSelected = {};
     vm.asignar = asignar;
+    vm.sortedProductsGridOptions = {
+        columns: [
+                { field: "Insumo", title: "Producto"},
+                { field: "Cantidad", title: "Litros" },
+                { field: "EstadoDescripcion", title: "Estado" }
+        ]
+    };
+    vm.sortedProducts = [];
 
     function asignar() {
 
@@ -395,6 +403,8 @@ function OrdenesAsignarAutoController(
         //vrpService.newRoute(tst).then(function (res) {
         //    console.log(res);
         //});
+
+        vm.sortedProducts = vm.productos;
 
         console.log(problema);
     };
