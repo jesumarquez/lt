@@ -71,10 +71,11 @@ namespace LogicTracker.App.Web.Api.Controllers
                     if (item.Id > id)
                     {
                         List<FormulariosParametros> parametros = new List<FormulariosParametros>();
+                        FormulariosSpinnerList[] spinnerlist = null;
+                        List<FormulariosSpinnerList> spinnerMobile = new List<FormulariosSpinnerList>();
+
                         foreach (var itemParametros in item.Parametros)
-                        {
-                            List<FormulariosSpinnerList> spinnerMobile = new List<FormulariosSpinnerList>();
-                            FormulariosSpinnerList[] spinnerlist = null;
+                        {   
                             switch (Convert.ToString(itemParametros.TipoDato))
                             {
                                 case "coche":
@@ -177,6 +178,26 @@ namespace LogicTracker.App.Web.Api.Controllers
                                     break;
                             }
 
+                            if (itemParametros.TipoDato.ToString().Contains("string") &&
+                                itemParametros.Nombre.ToString().Contains("Técnico"))
+                            {
+                                parametros.Add(new FormulariosParametros()
+                                {
+                                    id = Convert.ToString(itemParametros.Id),
+                                    pordefault = employee.Entidad.Descripcion,
+                                    largo = Convert.ToString(itemParametros.Largo),
+                                    nombre = Convert.ToString(itemParametros.Nombre),
+                                    obligatorio = Convert.ToString(itemParametros.Obligatorio),
+                                    orden = Convert.ToString(itemParametros.Orden),
+                                    precision = Convert.ToString(itemParametros.Precision),
+                                    repeticion = Convert.ToString(itemParametros.Repeticion),
+                                    tipodato = Convert.ToString(itemParametros.TipoDato),
+                                    tipodocumento = itemParametros.TipoDocumento.ToString(),
+                                    spinnerlist = spinnerlist
+                                });
+                            }
+                            else
+                            { 
                             parametros.Add(new FormulariosParametros()
                                 {
                                     id = Convert.ToString(itemParametros.Id),
@@ -191,6 +212,7 @@ namespace LogicTracker.App.Web.Api.Controllers
                                     tipodocumento = itemParametros.TipoDocumento.ToString(),
                                     spinnerlist = spinnerlist
                                 });
+                            }
                         }
                         items.Add(new FormulariosList()
                         {
@@ -208,6 +230,165 @@ namespace LogicTracker.App.Web.Api.Controllers
                     }
                 }
                 return Ok(items.ToArray().OrderBy(item => item.id).ToArray());
+            }
+            catch (Exception error)
+            {
+                LogicTracker.App.Web.Api.Providers.LogWritter.writeLog(error);
+                return BadRequest();
+            }
+        }
+
+
+
+        [Route("api/Formularios/id")]
+        [HttpPost]
+        [CompressContent]
+        public IHttpActionResult getParametrosFormularios([FromBody]int id)
+        {
+            try
+            {
+                var deviceId = GetDeviceId(Request);
+                if (deviceId == null) return BadRequest();
+                var items = new List<FormulariosList>();
+                TipoDocumentoDAO documentos = new TipoDocumentoDAO();
+                EmpleadoDAO empleado = new EmpleadoDAO();// emple //fecha
+                DispositivoDAO dispositivo = new DispositivoDAO();
+                var device = dispositivo.FindByImei(deviceId);
+                var employee = empleado.FindEmpleadoByDevice(device);
+                List<int> empresas = new List<int>();
+                empresas.Add(employee.Empresa.Id);
+                var linea = -1;
+                if (employee.Linea != null)
+                {
+                    linea = employee.Linea.Id;
+                }
+                var lineas = new int[] { linea };
+                List<TipoDocumento> lista = documentos.GetList(empresas, lineas).Where(x => x.Id > id).ToList();
+
+                List<FormulariosParametros> parametros = new List<FormulariosParametros>();
+                List<FormulariosSpinnerList> spinnerMobile = new List<FormulariosSpinnerList>();
+                FormulariosSpinnerList[] spinnerlist = null;
+
+                EmpresaDAO empresaDAO = new EmpresaDAO();
+                var empresasall = empresaDAO.FindAll();
+                foreach (var itemempresa in empresasall)
+                {
+                    spinnerMobile.Add(new FormulariosSpinnerList()
+                    {
+                        id = Convert.ToString(itemempresa.Id),
+                        descripcion = itemempresa.RazonSocial
+                    });
+                }
+                spinnerlist = spinnerMobile.ToArray().OrderBy(x => x.descripcion).ToArray();
+                parametros.Add(new FormulariosParametros()
+                {
+                    id = Convert.ToString(-1),
+                    pordefault = "",
+                    largo = Convert.ToString("distrito"),
+                    nombre = Convert.ToString("Distrito"),
+                    obligatorio = Convert.ToString("true"),
+                    orden = Convert.ToString("0"),
+                    precision = Convert.ToString("0"),
+                    repeticion = Convert.ToString("0"),
+                    tipodato = Convert.ToString("distrito"),
+                    tipodocumento = "",
+                    spinnerlist = spinnerlist
+                });
+
+                spinnerMobile = new List<FormulariosSpinnerList>();
+                LineaDAO lineaDAO = new LineaDAO();
+                var lineasall = lineaDAO.FindAll();
+                foreach (var itemlineas in lineasall)
+                {
+                    spinnerMobile.Add(new FormulariosSpinnerList()
+                    {
+                        id = Convert.ToString(itemlineas.Empresa.Id.ToString() + ";" + itemlineas.Id.ToString()),
+                        descripcion = itemlineas.Descripcion
+                    });
+                }
+                spinnerlist = spinnerMobile.ToArray().OrderBy(x => x.descripcion).ToArray();
+                parametros.Add(new FormulariosParametros()
+                {
+                    id = Convert.ToString(-1),
+                    pordefault = "",
+                    largo = Convert.ToString("base"),
+                    nombre = Convert.ToString("Base"),
+                    obligatorio = Convert.ToString("true"),
+                    orden = Convert.ToString("0"),
+                    precision = Convert.ToString("0"),
+                    repeticion = Convert.ToString("0"),
+                    tipodato = Convert.ToString("base"),
+                    tipodocumento = "",
+                    spinnerlist = spinnerlist
+                });
+
+                spinnerMobile = new List<FormulariosSpinnerList>();
+                CocheDAO cocheDAO = new CocheDAO();
+                var cochesall = cocheDAO.FindAll();
+                foreach (var itemcoches in cochesall)
+                {
+                    var idtrans = itemcoches.Transportista != null ? itemcoches.Transportista.Id : -1;
+                    var idlinea = itemcoches.Linea != null ? itemcoches.Linea.Id : -1;
+                    var idempresa = itemcoches.Empresa != null ? itemcoches.Empresa.Id : -1;
+                    spinnerMobile.Add(new FormulariosSpinnerList()
+                    {
+                        id = Convert.ToString((idempresa) +
+                                            ";" + (idlinea) +  
+                                              ";" + (idtrans) +   
+                                            ";" + itemcoches.Id.ToString() 
+                                            ),
+                        descripcion = itemcoches.CompleteDescripcion()
+                    });
+                }
+                spinnerlist = spinnerMobile.ToArray().OrderBy(x => x.descripcion).ToArray();
+                parametros.Add(new FormulariosParametros()
+                {
+                    id = Convert.ToString(-1),
+                    pordefault = "",
+                    largo = Convert.ToString("vehiculos"),
+                    nombre = Convert.ToString("Vehiculos"),
+                    obligatorio = Convert.ToString("true"),
+                    orden = Convert.ToString("0"),
+                    precision = Convert.ToString("0"),
+                    repeticion = Convert.ToString("0"),
+                    tipodato = Convert.ToString("vehiculos"),
+                    tipodocumento = "",
+                    spinnerlist = spinnerlist
+                });
+
+                TransportistaDAO transDAO = new TransportistaDAO();
+                var transall = transDAO.FindAll();
+                spinnerMobile = new List<FormulariosSpinnerList>();
+                foreach (var itemtrans in transall)
+                {
+                    var idlinea = itemtrans.Linea != null ? itemtrans.Linea.Id : -1;
+                    var idempresa = itemtrans.Empresa != null ? itemtrans.Empresa.Id : -1;
+                    spinnerMobile.Add(new FormulariosSpinnerList()
+                    {
+                        id = Convert.ToString((idempresa) +
+                                            ";" + (idlinea) +
+                                            ";" + itemtrans.Id.ToString() 
+                                            ),
+                        descripcion = itemtrans.Descripcion
+                    });
+                }
+                spinnerlist = spinnerMobile.ToArray().OrderBy(x => x.descripcion).ToArray();
+                parametros.Add(new FormulariosParametros()
+                {
+                    id = Convert.ToString(-1),
+                    pordefault = "",
+                    largo = Convert.ToString("transportista"),
+                    nombre = Convert.ToString("Transportista"),
+                    obligatorio = Convert.ToString("true"),
+                    orden = Convert.ToString("0"),
+                    precision = Convert.ToString("0"),
+                    repeticion = Convert.ToString("0"),
+                    tipodato = Convert.ToString("transportista"),
+                    tipodocumento = "",
+                    spinnerlist = spinnerlist
+                });
+
+                return Ok(parametros.ToArray().OrderBy(item => item.id).ToArray());
             }
             catch (Exception error)
             {
@@ -246,10 +427,62 @@ namespace LogicTracker.App.Web.Api.Controllers
                 foreach (var item in records)
                 {
                     Documento doc = new Documento();
-                    doc.TipoDocumento = tipodocumentoDAO.FindById(int.Parse(item.idFormulario));
-                    doc.Empresa = employee.Empresa;
+                    doc.TipoDocumento = tipodocumentoDAO.FindById(int.Parse(item.idFormulario));                   
                     doc.FechaAlta = DateTime.Now;
-                    doc.Linea = employee.Linea;
+                    foreach (var itemfind in item.campoFormulario)
+                    {
+                        if(itemfind.datatypecampo.ToString().Equals("distrito"))
+                        {
+                            EmpresaDAO ed = new EmpresaDAO();
+                            if (itemfind.objectocampo != null)
+                            {
+                                doc.Empresa = ed.FindAll().Where(x => x.RazonSocial.Equals(System.Text.Encoding.UTF8.GetString(itemfind.objectocampo))).FirstOrDefault();
+                            }
+                        }
+                        if (itemfind.datatypecampo.ToString().Equals("base"))
+                        {
+                            LineaDAO ld = new LineaDAO();
+
+                            if (itemfind.objectocampo != null && doc.Empresa != null)
+                            {
+                                doc.Linea = ld.FindAll().Where(x => x.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemfind.objectocampo)) &&
+                                    x.Empresa.Id.Equals(doc.Empresa.Id)).FirstOrDefault();
+                            }
+                        }
+                        if (itemfind.datatypecampo.ToString().Equals("vehiculos"))
+                        {
+                            CocheDAO ld = new CocheDAO();
+                            if (itemfind.objectocampo != null && doc.Empresa != null && doc.Linea != null)
+                            {
+                                foreach (var itemv in ld.FindAll().Where(x => x.Empresa.Id.Equals(doc.Empresa.Id) && x.Linea.Id.Equals(doc.Linea.Id)).ToList())
+                                {
+                                    string desc = itemv.CompleteDescripcion();
+                                    if (desc.Equals(System.Text.Encoding.UTF8.GetString(itemfind.objectocampo)))
+                                    {
+                                        doc.Vehiculo = itemv;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (itemfind.datatypecampo.ToString().Equals("transportista"))
+                        {
+                            TransportistaDAO ld = new TransportistaDAO();
+                            if (itemfind.objectocampo != null && doc.Empresa != null && doc.Linea != null)
+                            {
+                                foreach (var itemt in ld.FindAll().Where(x => x.Empresa.Id.Equals(doc.Empresa.Id)))
+                                {
+                                    string desc = itemt.Descripcion;
+                                    if (desc.Equals(System.Text.Encoding.UTF8.GetString(itemfind.objectocampo)))
+                                    {
+                                        doc.Transportista = itemt;
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
                     bool firstfechafield = false;
                     foreach (var itemParametro in item.campoFormulario)
                     {
@@ -262,8 +495,56 @@ namespace LogicTracker.App.Web.Api.Controllers
                                     {
                                         case "Codigo":
                                             {
-                                                doc.Codigo = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo);
-                                                var finddoc = documentoDAO.FindByCodigo(doc.TipoDocumento.Id, doc.Codigo);
+                                                Documento search = null;
+                                                if (itemParametro.objectocampo != null &&
+                                                    doc.Empresa != null &&
+                                                    doc.Linea != null)
+                                                {
+                                                    search = new DocumentoDAO().FindAll().Where(x => x.TipoDocumento.Id.Equals(doc.TipoDocumento.Id)
+                                                        && x.Codigo.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo))
+                                                        && x.Empresa.Id.Equals(doc.Empresa.Id)
+                                                        && x.Linea.Id.Equals(doc.Linea.Id)
+                                                        ).FirstOrDefault();
+                                                }
+                                                string finalcode = System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo);
+                                                if (search != null)
+                                                {
+                                                    finalcode = search.Codigo + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff",
+                                                     CultureInfo.InvariantCulture);
+                                                }
+                                                int idcode = 5000;
+                                                if (itemParametro.objectocampo != null &&
+                                                    doc.Empresa != null &&
+                                                    doc.Linea != null)
+                                                {
+                                                    search = new DocumentoDAO().FindAll().Where(x => x.TipoDocumento.Id.Equals(doc.TipoDocumento.Id)
+                                                        && x.Codigo.Equals(idcode.ToString().PadLeft(8, '0'))
+                                                        && x.Empresa.Id.Equals(doc.Empresa.Id)
+                                                        && x.Linea.Id.Equals(doc.Linea.Id)
+                                                        ).FirstOrDefault();
+
+                                                    while (search != null)
+                                                    {
+                                                        idcode++;
+                                                        search = new DocumentoDAO().FindAll().Where(x => x.TipoDocumento.Id.Equals(doc.TipoDocumento.Id)
+                                                        && x.Codigo.Equals(idcode.ToString().PadLeft(8, '0'))
+                                                        && x.Empresa.Id.Equals(doc.Empresa.Id)
+                                                        && x.Linea.Id.Equals(doc.Linea.Id)
+                                                        ).FirstOrDefault();
+                                                    }
+                                                }
+                                                doc.Codigo = idcode.ToString().PadLeft(8, '0');
+                                                Documento finddoc = null;
+                                                if (itemParametro.objectocampo != null &&
+                                                    doc.Empresa != null &&
+                                                    doc.Linea != null)
+                                                {
+                                                   finddoc = documentoDAO.FindAll().Where(x => x.TipoDocumento.Id.Equals(doc.TipoDocumento.Id)
+                                                    && x.Codigo.Equals(idcode.ToString().PadLeft(8, '0'))
+                                                    && x.Empresa.Id.Equals(doc.Empresa.Id)
+                                                    && x.Linea.Id.Equals(doc.Linea.Id)
+                                                    ).FirstOrDefault();
+                                                }
                                                 if (finddoc != null)
                                                     doc = finddoc;
                                                 break;
@@ -440,10 +721,10 @@ namespace LogicTracker.App.Web.Api.Controllers
                                             }
                                         }
                                         string filetimestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff", CultureInfo.InvariantCulture);
-                                        File.WriteAllBytes(uploadPath + filetimestamp + ".png", itemParametro.objectocampo);
-                                        if (File.Exists(uploadPath + filetimestamp + ".png"))
+                                        File.WriteAllBytes(uploadPath + filetimestamp + itemParametro.nombrecampo.Trim() + ".png", itemParametro.objectocampo);
+                                        if (File.Exists(uploadPath + filetimestamp + itemParametro.nombrecampo.Trim() + ".png"))
                                         {
-                                            filename = filetimestamp + ".png";
+                                            filename = filetimestamp + itemParametro.nombrecampo.Trim() + ".png";
                                         }
                                         var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
                                                   where p.Nombre == itemParametro.nombrecampo

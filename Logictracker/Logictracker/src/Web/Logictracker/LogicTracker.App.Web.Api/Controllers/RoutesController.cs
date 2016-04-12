@@ -7,6 +7,10 @@ using Logictracker.Tracker.Services;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.BusinessObjects.Positions;
 using Logictracker.DAL.DAO.BusinessObjects.CicloLogistico.Distribucion;
+using Logictracker.Services.Helpers;
+using System.Linq;
+using System.Threading;
+using System.Device.Location;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -157,7 +161,6 @@ namespace LogicTracker.App.Web.Api.Controllers
                     if (detail.PuntoEntrega != null)
                         jobs.Add(job);
                 }
-
                 route.Jobs = jobs.ToArray();
 
                 if (trip.Recepcion == null)
@@ -175,7 +178,8 @@ namespace LogicTracker.App.Web.Api.Controllers
                 return BadRequest();
             }
         }
-        
+             
+
         // POST: api/Routes
         public IHttpActionResult Post([FromBody]RouteState routeState)
         {

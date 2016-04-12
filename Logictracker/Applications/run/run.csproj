@@ -185,6 +185,14 @@
       <Project>{69ad7149-433d-4d81-beb1-c9c3d611c578}</Project>
       <Name>Alas</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\CusatUniversal6\CusatUniversal6.csproj">
+      <Project>{8b4b6801-43fe-4ec2-a061-55da5ab0df20}</Project>
+      <Name>CusatUniversal6</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\G4S\G4S.csproj">
+      <Project>{08fda8e2-a657-4b3a-bf85-847aa89dc2e3}</Project>
+      <Name>G4S</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\Gte\Trax.csproj">
       <Project>{5E21FE40-F8AC-4182-997B-11E6B83DB504}</Project>
       <Name>Trax</Name>

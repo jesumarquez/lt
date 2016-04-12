@@ -936,4 +936,7 @@
   <data name="REP_PROYECCION_STOCK" xml:space="preserve">
     <value>Stock Projection</value>
   </data>
+  <data name="MON_CHECK_OUT" xml:space="preserve">
+    <value>Check Out Monitor</value>
+  </data>
 </root>

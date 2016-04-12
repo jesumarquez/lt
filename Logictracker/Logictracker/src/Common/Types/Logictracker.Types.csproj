@@ -311,6 +311,7 @@
     <Compile Include="ReportObjects\ControlDeCombustible\IngresosPorEquipo.cs" />
     <Compile Include="ReportObjects\ControlDeCombustible\MarchaMotor.cs" />
     <Compile Include="ReportObjects\ControlDeCombustible\NivelesTanque.cs" />
+    <Compile Include="ReportObjects\Datamart\InformeViajeRecarga.cs" />
     <Compile Include="ReportObjects\Datamart\DatamartTramo.cs" />
     <Compile Include="ReportObjects\KilometrosDiarios.cs" />
     <Compile Include="ReportObjects\Datamart\DatamartViaje.cs" />
@@ -328,6 +329,7 @@
     <Compile Include="ReportObjects\MobileEvent.cs" />
     <Compile Include="ReportObjects\MobileExtraHours.cs" />
     <Compile Include="ReportObjects\MobileGeocerca.cs" />
+    <Compile Include="ReportObjects\CheckOut.cs" />
     <Compile Include="ReportObjects\MobileKilometer.cs" />
     <Compile Include="ReportObjects\MobileMaintenance.cs" />
     <Compile Include="ReportObjects\MobileMessage.cs" />
