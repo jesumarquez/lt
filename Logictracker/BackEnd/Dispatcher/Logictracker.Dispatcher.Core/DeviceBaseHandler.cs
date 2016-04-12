@@ -1,7 +1,6 @@
 using System;
 using Logictracker.Cache;
 using Logictracker.DAL.NHibernate;
-using Logictracker.DatabaseTracer.Core;
 using Logictracker.Dispatcher.Core.AuxClasses;
 using Logictracker.Model;
 using Logictracker.Model.EnumTypes;
