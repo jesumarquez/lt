@@ -238,7 +238,7 @@
         </div><!-- modal-dialog -->
     </div><!-- modal -->
 
-    <div class="modal fade" id="modalAuto" tabindex="-1" role="dialog" aria-labelledby="myModalAutoLabel" ng-controller="OrdenesAsignarAutoController as asignarAutomatico">
+    <div class="modal fade" id="modalAuto" tabindex="-1" role="dialog" aria-labelledby="myModalAutoLabel" ng-controller="OrdenesAsignarAutoController">
         <div class="modal-dialog" style="width: 50%">
             <div class="modal-content">
 
@@ -251,7 +251,7 @@
                     <div class="form-group">
                         <label class="col-md-6 control-label">Tipo Vehículo</label>
                         <div class="col-md-6">
-                            <lt-ddl-tipo-coche lt-ng-model="asignarAutomatico.tipoCocheSelected"
+                            <lt-ddl-tipo-coche lt-ng-model="tipoCocheSelected"
                                                lt-data-base="baseSelected"
                                                lt-data-distrito="distritoSelected" />
                         </div>
@@ -261,7 +261,7 @@
                 </div><!--modal-body-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" ng-disabled="asignarAutomatico.disabledButton" ng-click="asignarAutomatico.asignar()">Programar</a>
+                    <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="asignar()">Programar</a>
                 </div>
             </div><!--modal-content-->
         </div><!-- modal-dialog -->
