@@ -10,6 +10,7 @@ namespace Logictracker.Types.ReportObjects
             public const int CheckIn = 1;
             public const int CheckOut = 2;
             public const int Acumulado = 3;
+            public const int AcumuladoPorc = 4;
         }
 
         public DateTime Fecha { get; set; }
