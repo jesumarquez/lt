@@ -367,8 +367,17 @@ function OrdenesAsignarAutoController(
     $scope.tipoCocheSelected = {};
     $scope.disabledButton = false;
 
+    $scope.sortedProductsGridOptions = {
+        columns: [
+                { field: "Insumo", title: "Producto" },
+                { field: "Cantidad", title: "Litros" },
+                { field: "EstadoDescripcion", title: "Estado" }
+        ]
+    };
+    $scope.sortedProducts = [];
+
     $scope.asignar = function asignar() {
-   
+
         var problema = new Problema();
         var capacidad = sumCapacidadCuadernas();
         var tVeh = new TipoVehiculo($scope.tipoCocheSelected.Id, capacidad, new Costo(300, 1, 1));
@@ -390,6 +399,11 @@ function OrdenesAsignarAutoController(
         problema.add_vehiculo(vehiculo);
         problema.add_tipo_vehiculo(tVeh);
 
+        //vrpService.newRoute(tst).then(function (res) {
+        //    console.log(res);
+        //});
+
+        $scope.sortedProducts = $scope.productsSelected;
         console.log(problema);
     }
 
