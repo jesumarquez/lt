@@ -362,25 +362,23 @@ function OrdenesAsignarAutoController(
     Vehiculo,
     Problema,
     TipoVehiculo,
-    Costo) {
+    Costo)
+{
+    $scope.tipoCocheSelected = {};
+    $scope.disabledButton = false;
 
-    var vm = this;
-    vm.productos = $scope.productsSelected;
-    vm.getOrden = $scope.getOrden;
-    vm.tipoCocheSelected = {};
-    vm.asignar = asignar;
-
-    function asignar() {
-
+    $scope.asignar = function asignar() {
+   
         var problema = new Problema();
         var capacidad = sumCapacidadCuadernas();
-        var tVeh = new TipoVehiculo(vm.tipoCocheSelected.Id, capacidad, new Costo(300, 1, 1));
-        var coordVeh = new Coordenada(-34.6, -58.95);
-        var vehiculo = new Vehiculo("V1", vm.tipoCocheSelected.Id, new Locacion("0", coordVeh), new Ventana(28800, 61200));
+        var tVeh = new TipoVehiculo($scope.tipoCocheSelected.Id, capacidad, new Costo(300, 1, 1));
+        // Se consideran las coordenadas de la base
+        var coordVeh = new Coordenada($scope.baseSelected.Latitud, $scope.baseSelected.Longitud);
+        var vehiculo = new Vehiculo("V1", $scope.tipoCocheSelected.Id, new Locacion("0", coordVeh), new Ventana(28800, 61200));
 
-        $.each(vm.productos, function (index, item) {
+        $.each($scope.productsSelected, function (index, item) {
 
-            var orden = vm.getOrden(item.OrderId);
+            var orden = $scope.getOrden(item.OrderId);
 
             var coordSrv = new Coordenada(orden.PuntoEntregaLatitud, orden.PuntoEntregaLongitud);
 
@@ -392,21 +390,16 @@ function OrdenesAsignarAutoController(
         problema.add_vehiculo(vehiculo);
         problema.add_tipo_vehiculo(tVeh);
 
-        //vrpService.newRoute(tst).then(function (res) {
-        //    console.log(res);
-        //});
-
         console.log(problema);
-    };
+    }
 
     function sumCapacidadCuadernas() {
         var total = 0;
-        if (vm.tipoCocheSelected !== null && vm.tipoCocheSelected.Contenedores != null) {
-            vm.tipoCocheSelected.Contenedores.forEach(function (cuaderna) {
+        if ($scope.tipoCocheSelected !== null && $scope.tipoCocheSelected.Contenedores != null) {
+            $scope.tipoCocheSelected.Contenedores.forEach(function (cuaderna) {
                 total += cuaderna.Capacidad;
             });
         }
         return total;
-    };
-
+    }
 }
