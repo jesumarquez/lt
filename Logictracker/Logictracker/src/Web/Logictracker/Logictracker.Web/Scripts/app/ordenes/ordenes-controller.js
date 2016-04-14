@@ -196,6 +196,8 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
     {
         columns: [
             { field: "Id", hidden: true },
+            { field: "ClienteDescripcion", title: "Cliente", width: "15em" },
+            { field: "ClienteLocalidad", title: "Localidad", width: "10em" },
             { field: "OrderId", title: "Pedido", width: "10em" },
             { field: "Insumo", title: "Producto" },
             { field: "Cantidad", title: "Litros", width: "10em" },
