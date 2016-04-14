@@ -1502,6 +1502,7 @@
     <Content Include="Reportes\DatosOperativos\MobilePois.aspx" />
     <Content Include="Reportes\DatosOperativos\MonitorCheckOut.aspx" />
     <Content Include="Reportes\DatosOperativos\recorrido.aspx" />
+    <Content Include="Reportes\DatosOperativos\ReporteInOut.aspx" />
     <Content Include="Reportes\DatosOperativos\ResumenActividad.aspx" />
     <Content Include="Reportes\DatosOperativos\TomasDetalle.aspx" />
     <Content Include="Reportes\DatosOperativos\TomasDispositivos.aspx" />
@@ -2230,6 +2231,13 @@
     </Compile>
     <Compile Include="Reportes\DatosOperativos\MonitorCheckOut.aspx.designer.cs">
       <DependentUpon>MonitorCheckOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\ReporteInOut.aspx.cs">
+      <DependentUpon>ReporteInOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\DatosOperativos\ReporteInOut.aspx.designer.cs">
+      <DependentUpon>ReporteInOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils_Code\ViewExtensions.cs" />
     <Compile Include="Utils_Code\SharedPositions.cs" />
