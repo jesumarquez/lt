@@ -554,6 +554,9 @@ namespace Logictracker.DAL.Factories
         private AgendaVehicularDAO _agendaVehicularDao;
         public AgendaVehicularDAO AgendaVehicularDAO { get { return _agendaVehicularDao ?? (_agendaVehicularDao = GetDao<AgendaVehicularDAO>()); } }
 
+        private InformeViajeRecargaDAO _informeRecargaDao;
+        public InformeViajeRecargaDAO InformeViajeRecargaDAO { get { return _informeRecargaDao ?? (_informeRecargaDao = GetDao<InformeViajeRecargaDAO>()); } }
+
         #endregion
 
         #region Private Methods

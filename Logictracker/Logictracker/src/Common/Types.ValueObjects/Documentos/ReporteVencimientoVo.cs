@@ -50,12 +50,15 @@ namespace Logictracker.Types.ValueObjects.Documentos
             Codigo = doc.Codigo;
             Descripcion = doc.Descripcion;
 
-            if (doc.Transportista != null) {
+            if (doc.Transportista != null) 
+            {
                 Transportista = doc.Transportista.Descripcion;
-            }else if (doc.Vehiculo != null)
+            }
+            else if (doc.Vehiculo != null)
             {
                 Transportista = doc.Vehiculo.Transportista != null ? doc.Vehiculo.Transportista.Descripcion : string.Empty;
-            }else if (doc.Empleado != null)
+            }
+            else if (doc.Empleado != null)
             {
                 Transportista = doc.Empleado.Transportista != null ? doc.Empleado.Transportista.Descripcion : string.Empty;
             }

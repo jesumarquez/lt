@@ -20,6 +20,8 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 
         protected override void OnExecute(Timer timer)
         {
+            var inicio = DateTime.UtcNow;
+
             //var mail = new MailSender(Config.Mailing.ReportSchedulerMailingConfiguration);
             var queue = GetMailReportQueue();
             if (queue == null)
@@ -51,6 +53,10 @@ namespace Logictracker.Scheduler.Tasks.ReportsScheduler
 
             //genera un FinalExecutionCommand
             queue.Send(GenerateReportCommand(new ProgramacionReporte()));
+
+            var fin = DateTime.UtcNow;
+            var duracion = fin.Subtract(inicio).TotalMinutes;
+            DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.ReportScheduler, "Report Scheduler finalizado exitosamente");
         }
 
         private IReportCommand GenerateReportCommand(ProgramacionReporte prog)

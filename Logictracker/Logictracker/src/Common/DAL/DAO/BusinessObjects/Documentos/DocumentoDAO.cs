@@ -76,7 +76,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
         {
             var q = Query.FilterEmpresa(Session, empresas)
                          .FilterLinea(Session, empresas, lineas)
-                         .FilterTransportista(Session, empresas, lineas, transportistas)
                          .FilterVehiculo(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 })
                          .FilterEmpleado(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 });
 
@@ -84,6 +83,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
             {
                 var tipos = tiposDocumento.ToList();
                 q = q.Where(x => tipos.Contains(x.TipoDocumento.Id));
+            }
+            if (!QueryExtensions.IncludesAll(transportistas))
+            {
+                q = q.Where(x => (x.Transportista != null && transportistas.Contains(x.Transportista.Id))
+                              || (x.Vehiculo != null && x.Vehiculo.Transportista != null && transportistas.Contains(x.Vehiculo.Transportista.Id))
+                              || (x.Empleado != null && x.Empleado.Transportista != null && transportistas.Contains(x.Empleado.Transportista.Id)));
             }
 
             return q.Where(x => x.Estado != Documento.Estados.Eliminado)
