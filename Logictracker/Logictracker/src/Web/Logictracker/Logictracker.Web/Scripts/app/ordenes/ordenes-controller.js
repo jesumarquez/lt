@@ -396,7 +396,7 @@ function OrdenesAsignarAutoController(
 
             var coordSrv = new Coordenada(orden.PuntoEntregaLatitud, orden.PuntoEntregaLongitud);
 
-            var srv = new Servicio(item.Id, coordSrv, 20, 0, new Ventana(36000, 46800));
+            var srv = new Servicio(item.Id, coordSrv, item.Cantidad, 0, new Ventana(36000, 46800));
 
             problema.add_servicio(srv);
         });
