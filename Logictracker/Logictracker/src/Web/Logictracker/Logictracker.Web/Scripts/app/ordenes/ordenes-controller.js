@@ -376,7 +376,12 @@ function OrdenesAsignarAutoController(
     };
     $scope.sortedProducts = [];
 
-    $scope.asignar = function asignar() {
+    $scope.asignar = asignar;
+    //$('#modalAuto').on('hide.bs.modal', function (e) {
+    //    $scope.sortedProducts = [];
+    //})
+
+    function asignar() {
 
         var problema = new Problema();
         var capacidad = sumCapacidadCuadernas();
@@ -391,7 +396,7 @@ function OrdenesAsignarAutoController(
 
             var coordSrv = new Coordenada(orden.PuntoEntregaLatitud, orden.PuntoEntregaLongitud);
 
-            var srv = new Servicio(orden.IdPuntoEntrega, coordSrv, 20, 0, new Ventana(36000, 46800));
+            var srv = new Servicio(item.Id, coordSrv, 20, 0, new Ventana(36000, 46800));
 
             problema.add_servicio(srv);
         });
@@ -399,12 +404,11 @@ function OrdenesAsignarAutoController(
         problema.add_vehiculo(vehiculo);
         problema.add_tipo_vehiculo(tVeh);
 
-        //vrpService.newRoute(tst).then(function (res) {
-        //    console.log(res);
-        //});
+        vrpService.newRoute(problema).then(function (res) {
+            console.log(res);
+        });
 
         $scope.sortedProducts = $scope.productsSelected;
-        console.log(problema);
     }
 
     function sumCapacidadCuadernas() {
