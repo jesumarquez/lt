@@ -54,9 +54,12 @@ namespace Logictracker.Reportes.CicloLogistico
                 if (hasta > DateTime.Today.ToDataBaseDateTime())
                     hasta = DateTime.Today.ToDataBaseDateTime();
 
+                if (lbVehiculo.SelectedValues.Contains(0)) 
+                    lbVehiculo.ToogleItems();
+
                 var viajes = DAOFactory.ViajeDistribucionDAO.GetList(ddlLocacion.SelectedValues,
                                                                      ddlPlanta.SelectedValues,
-                                                                     lbTransportista.SelectedValues,
+                                                                     new[] {-1}, // TRANSPORTISTAS
                                                                      new[] {-1}, // DEPTOS
                                                                      new[] {-1}, // CENTROS
                                                                      new[] {-1}, // SUBCC

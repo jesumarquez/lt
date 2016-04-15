@@ -24,6 +24,8 @@ namespace Logictracker.Scheduler.Tasks.VencimientoDocumentos
         {
 			STrace.Trace(GetType().FullName, "Checking documents due date.");
 
+            var inicio = DateTime.UtcNow;
+
 			var documentos = DaoFactory.DocumentoDAO.FindByVencimiento();
 
             foreach (Documento documento in documentos)
@@ -38,6 +40,11 @@ namespace Logictracker.Scheduler.Tasks.VencimientoDocumentos
                     STrace.Exception(GetType().FullName, ex);
                 }
             }
+
+            var fin = DateTime.UtcNow;
+            var duracion = fin.Subtract(inicio).TotalMinutes;
+
+            DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.VencimientoDocumentos, "Vencimiento de Documentos finalizado exitosamente");
         }
 
         #endregion

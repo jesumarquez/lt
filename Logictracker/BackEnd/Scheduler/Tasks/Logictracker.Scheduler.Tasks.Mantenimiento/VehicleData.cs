@@ -5,6 +5,7 @@ using Logictracker.Messaging;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Mantenimiento;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.Mantenimiento
 {
@@ -14,6 +15,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
+            var inicio = DateTime.UtcNow;
+
             base.OnExecute(timer);
 
             var left = Vehicles.Count;
@@ -187,6 +190,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     DaoFactory.CocheDAO.SaveOrUpdate(vehicle);
 
                     STrace.Trace(GetType().FullName, String.Format("Terminado Vehiculo Id={0}. Faltan: {1}.", vehicle.Id, --left));
+
                     DaoFactory.SessionClear();
                 }
                 catch(Exception ex)
@@ -194,6 +198,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     STrace.Exception(GetType().FullName, ex);
                 }
             }
+
+            var fin = DateTime.UtcNow;
+            var duracion = fin.Subtract(inicio).TotalMinutes;
+            DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.VehicleData, "Vehicle Data finalizado exitosamente");
         }
 
         private DateTime GetFechaDespacho(ConsumoDetalle consumoDetalle)

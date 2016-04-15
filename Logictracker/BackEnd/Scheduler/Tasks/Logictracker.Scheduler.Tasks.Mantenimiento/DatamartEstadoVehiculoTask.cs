@@ -6,6 +6,7 @@ using Logictracker.Mailing;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.Mantenimiento
 {
@@ -15,6 +16,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
+            var inicio = DateTime.UtcNow;
+
             var empresas = DaoFactory.EmpresaDAO.GetList().Where(emp => emp.CambiaEstado);
             
             STrace.Trace(GetType().FullName, string.Format("Procesando empresas. Cantidad: {0}", empresas.Count()));
@@ -57,6 +60,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 }
 
                 STrace.Trace(GetType().FullName, "Tarea finalizada.");
+
+                var fin = DateTime.UtcNow;
+                var duracion = fin.Subtract(inicio).TotalMinutes;
+                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartEstadoVehiculos, "Datamart finalizado exitosamente");
             }
             catch (Exception ex)
             {
