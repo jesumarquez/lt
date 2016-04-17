@@ -74,7 +74,10 @@ angular
         };
 
         Coordenada.build = function (data) {
-            return new Coordenada(data.x, data.y);
+            if (data !== null) {
+                return new Coordenada(data.x, data.y);
+            }
+            return new Coordenada(null, null);
         }
 
         return Coordenada;
@@ -103,6 +106,9 @@ angular
         }
 
         Servicio.build = function (data) {
+            if (data.ventanas === null) {
+                data.ventanas = [{ inicio: null, fin: null }];
+            }
             return new Servicio(data.id, Coordenada.build(data.coordenada), data.demanda, data.duracion, Ventana.build(data.ventanas[0]));
         }
 
@@ -185,8 +191,11 @@ angular
 
         Solucion.build = function (data) {
             var rv = new Solucion(data.costo);
+
             angular.forEach(data.rutas, function (value, key) { rv.add_ruta(Ruta.build(value)); });
             angular.forEach(data.sinAsignar, function (value, key) { rv.add_sin_asignar(Servicio.build(value)); });
+
+            return rv;
         }
 
         return Solucion;
@@ -219,7 +228,7 @@ angular
             this.fin = fin;
         }
 
-        Acto.prototype.build = function (data) {
+        Acto.build = function (data) {
             return new Acto(data.tipo, data.idServicio, data.inicio, data.fin);
         }
 
@@ -234,12 +243,12 @@ angular
         }
 
         VrpSolucion.build = function (data) {
-            var rv = new VrpSolucion(data.uid, data.status, data.message);
+            var rv = new VrpSolucion(data.uid, data.estado, data.mensaje);
 
             rv.problema = Problema.build(data.problema);
 
-            if (data.status == 1)
-                rv.solution = Solucion.build(data.solution);
+            if (data.estado === 1)
+                rv.solution = Solucion.build(data.solucion);
 
             return rv;
         }

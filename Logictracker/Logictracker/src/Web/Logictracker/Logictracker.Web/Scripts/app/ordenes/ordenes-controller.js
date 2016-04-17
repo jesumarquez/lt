@@ -4,6 +4,8 @@
     .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController])
     .controller('OrdenesAsignarAutoController', [
         "$scope",
+        "$timeout",
+        "$interval",
         "EntitiesService",
         "vrpService",
         "Servicio",
@@ -355,6 +357,8 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
 
 function OrdenesAsignarAutoController(
     $scope,
+    $timeout,
+    $interval,
     EntitiesService,
     vrpService,
     Servicio,
@@ -406,11 +410,43 @@ function OrdenesAsignarAutoController(
         problema.add_vehiculo(vehiculo);
         problema.add_tipo_vehiculo(tVeh);
 
+        var getRoutePromise = null; //promise de getRoute. se usa para cancelar las peticiones a getRoute.
+        var cancelGetRoutePromise = $timeout(cancelGetRoute, 10000, false, getRoutePromise); //cancela el getRoute luego de 10 seg.
+
+        //intenta obtener la ruta
         vrpService.newRoute(problema).then(function (res) {
             console.log(res);
+
+            //valida si hay una solucion
+            if (angular.isUndefined(res.status) || res.status !== 1) {
+                //intenta 5 veces obtener la ruta cada segundo. 
+                getRoutePromise = $interval(getRoute, 1000, 5, false, { svc: vrpService, uid: res.uid, cancelGetRoutePromise: cancelGetRoutePromise });
+            }
+            else {
+                //cancela la el timeout
+                $timeout.cancel(cancelGetRoutePromise);
+            }
         });
 
-        //$scope.sortedProducts = $scope.productsSelected;
+    }
+
+    //Consula el estado del problema
+    function getRoute(data) {
+        console.log(data);
+        data.svc.getRoute(data.uid).then(function (res) {
+            if (res.status === 1) {
+                console.log(res);
+                $timeout.cancel(data.cancelGetRoutePromise);
+            }
+        })
+    }
+
+    //Cancela la consulta del problema
+    function cancelGetRoute(getRoutePromise) {
+        if (getRoutePromise !== null) {
+            $interval.cancel(getRoutePromise);
+        }
+        console.log('cancel getroute');
     }
 
     function sumCapacidadCuadernas() {
