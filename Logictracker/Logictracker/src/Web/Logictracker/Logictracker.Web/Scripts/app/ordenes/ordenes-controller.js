@@ -376,7 +376,7 @@ function OrdenesAsignarAutoController(
                 { field: "EstadoDescripcion", title: "Estado" }
         ]
     };
-    $scope.sortedProducts = [];
+    $scope.sortedProducts = $scope.productsSelected;
 
     $scope.asignar = asignar;
     //$('#modalAuto').on('hide.bs.modal', function (e) {
@@ -410,7 +410,7 @@ function OrdenesAsignarAutoController(
             console.log(res);
         });
 
-        $scope.sortedProducts = $scope.productsSelected;
+        //$scope.sortedProducts = $scope.productsSelected;
     }
 
     function sumCapacidadCuadernas() {
