@@ -375,7 +375,9 @@ function OrdenesAsignarAutoController(
 
     $scope.sortedProductsGridOptions = {
         columns: [
-                { field: "Insumo", title: "Producto" },
+                { field: "ClienteDescripcion", title: "Cliente", width: "15em"},
+                { field: "ClienteLocalidad", title: "Localidad", width: "10em" },
+                { field: "Insumo", title: "Producto"},
                 { field: "Cantidad", title: "Litros" },
                 { field: "EstadoDescripcion", title: "Estado" }
         ]
