@@ -40,6 +40,18 @@ namespace Logictracker.Web.Models
             model.Cuaderna = entity.Cuaderna;
             if (entity.Insumo != null) model.Insumo = entity.Insumo.Descripcion;
             model.EstadoDescripcion = entity.Estado.ToString();
+
+            if (entity.Order.PuntoEntrega != null)
+            {
+                model.ClienteDescripcion = entity.Order.PuntoEntrega.Descripcion;
+                if (entity.Order.PuntoEntrega.ReferenciaGeografica != null)
+                {
+                    model.ClienteLocalidad = entity.Order.PuntoEntrega.ReferenciaGeografica.Direccion.Partido;
+                    model.PuntoEntregaLatitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Latitude;
+                    model.PuntoEntregaLongitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Longitude;
+                }
+            }
+
             return model;
         }
 

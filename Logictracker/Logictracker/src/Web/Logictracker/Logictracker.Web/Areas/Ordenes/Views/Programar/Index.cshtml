@@ -75,7 +75,7 @@
                 <kendo-button class="form-control"
                               data-toggle="modal"
                               data-target="#modalAuto"
-                              name="asignar-auto">
+                              ng-disabled="productsSelected.length == 0" name="asignar-auto">
                     @Html.ResourceLabel("Labels", "Asignar" + " Auto.")
                 </kendo-button>
             </div>
