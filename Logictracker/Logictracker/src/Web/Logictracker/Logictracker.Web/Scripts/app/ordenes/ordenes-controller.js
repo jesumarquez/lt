@@ -377,6 +377,8 @@ function OrdenesAsignarAutoController(
         columns: [
                 { field: "NumRuta", title: "Ruta" },
                 { field: "OrdenRuta", title: "Orden" },
+                { field: "ClienteDescripcion", title: "Cliente", width: "15em"},
+                { field: "ClienteLocalidad", title: "Localidad", width: "10em" },
                 { field: "Insumo", title: "Producto" },
                 { field: "Cantidad", title: "Litros" },
                 { field: "EstadoDescripcion", title: "Estado" }
