@@ -375,19 +375,22 @@ function OrdenesAsignarAutoController(
 
     $scope.sortedProductsGridOptions = {
         columns: [
+                { field: "NumRuta", title: "Ruta" },
+                { field: "OrdenRuta", title: "Orden" },
                 { field: "ClienteDescripcion", title: "Cliente", width: "15em"},
                 { field: "ClienteLocalidad", title: "Localidad", width: "10em" },
-                { field: "Insumo", title: "Producto"},
+                { field: "Insumo", title: "Producto" },
                 { field: "Cantidad", title: "Litros" },
                 { field: "EstadoDescripcion", title: "Estado" }
         ]
     };
-    $scope.sortedProducts = $scope.productsSelected;
 
     $scope.asignar = asignar;
-    //$('#modalAuto').on('hide.bs.modal', function (e) {
-    //    $scope.sortedProducts = [];
-    //})
+    $scope.sortedProducts = $scope.productsSelected;
+
+    //$('#modalAuto').on('show.bs.modal', function (e) {
+    //    $scope.sortedProducts = $scope.productsSelected;
+    //});
 
     function asignar() {
 
@@ -404,7 +407,7 @@ function OrdenesAsignarAutoController(
 
             var coordSrv = new Coordenada(orden.PuntoEntregaLatitud, orden.PuntoEntregaLongitud);
 
-            var srv = new Servicio(item.Id, coordSrv, 20, 0, new Ventana(36000, 46800));
+            var srv = new Servicio(item.Id, coordSrv, item.Cantidad, 0, new Ventana(36000, 46800));
 
             problema.add_servicio(srv);
         });
@@ -422,9 +425,10 @@ function OrdenesAsignarAutoController(
             //valida si hay una solucion
             if (angular.isUndefined(res.status) || res.status !== 1) {
                 //intenta 5 veces obtener la ruta cada segundo. 
-                getRoutePromise = $interval(getRoute, 1000, 5, false, { svc: vrpService, uid: res.uid, cancelGetRoutePromise: cancelGetRoutePromise });
+                getRoutePromise = $interval(getRoute, 1000, 10, false, { svc: vrpService, uid: res.uid, cancelGetRoutePromise: cancelGetRoutePromise });
             }
             else {
+                sortProducts(res);
                 //cancela la el timeout
                 $timeout.cancel(cancelGetRoutePromise);
             }
@@ -438,6 +442,7 @@ function OrdenesAsignarAutoController(
         data.svc.getRoute(data.uid).then(function (res) {
             if (res.status === 1) {
                 console.log(res);
+                sortProducts(res);
                 $timeout.cancel(data.cancelGetRoutePromise);
             }
         })
@@ -459,5 +464,49 @@ function OrdenesAsignarAutoController(
             });
         }
         return total;
+    }
+
+    function sortProducts(vrpSolucion) {
+
+        var rutas = vrpSolucion.solution.rutas;
+
+        rutas.forEach(function (ruta, iR) {
+            var actos = ruta.actos;
+            var iRuta = iR;
+            actos.forEach(function (acto, iActo) {
+
+                var p = $scope.sortedProducts.find(function (prod) {
+                    return prod.Id == acto.idServicio;
+                });
+
+                if (angular.isDefined(p)) {
+                    p.OrdenRuta = iActo;
+                    p.NumRuta = iRuta;
+                }
+            });
+        })
+
+        var sorted = $scope.sortedProducts.toJSON().sort(compareRoute);
+        console.log(sorted);
+    }
+
+    function compareRoute(a, b) {
+        if (a.NumRuta > b.NumRuta) {
+            return 1;
+        }
+        if (a.NumRuta < b.NumRuta) {
+            return -1;
+        }
+        if (a.NumRuta === b.NumRuta) {
+            if (a.OrdenRuta > b.OrdenRuta) {
+                return 1;
+            }
+            if (a.OrdenRuta < b.OrdenRuta) {
+                return -1;
+            }
+            return 0;
+        }
+        // a must be equal to b
+        return 0;
     }
 }

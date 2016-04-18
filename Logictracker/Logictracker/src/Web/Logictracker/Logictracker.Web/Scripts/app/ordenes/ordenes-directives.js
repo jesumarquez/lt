@@ -79,6 +79,7 @@ function OrderDetailDirective() {
                 vm.selectedList.splice(index, 1);
                 data.Ajuste = 0;
                 data.Cuaderna = 0;
+                data.OrdenRuta = 1000;
             }
             else {
                 vm.selectedList.push(data);
