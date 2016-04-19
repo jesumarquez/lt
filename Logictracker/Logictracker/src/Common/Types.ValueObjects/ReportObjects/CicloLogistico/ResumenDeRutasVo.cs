@@ -15,16 +15,17 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
         public const int IndexRuta = 1;
         public const int IndexVehiculo = 2;
         public const int IndexInicio = 3;
-        public const int IndexRecepcion = 4;
-        public const int IndexEntregas = 5;
-        public const int IndexRealizadas = 6;
-        public const int IndexVisitadas = 7;
-        public const int IndexRechazadas = 8;
-        public const int IndexEnSitio = 9;
-        public const int IndexEnZona = 10;
-        public const int IndexPorc = 11;
-        public const int IndexKm = 12;
-        public const int IndexRecorrido = 13;
+        public const int IndexFin = 4;
+        public const int IndexRecepcion = 5;
+        public const int IndexEntregas = 6;
+        public const int IndexRealizadas = 7;
+        public const int IndexVisitadas = 8;
+        public const int IndexRechazadas = 9;
+        public const int IndexEnSitio = 10;
+        public const int IndexEnZona = 11;
+        public const int IndexPorc = 12;
+        public const int IndexKm = 13;
+        public const int IndexRecorrido = 14;
 
         [GridMapping(Index = IndexEstado, ResourceName = "Labels", VariableName = "ESTADO", AllowGroup = true, IsInitialGroup = true)]
         public string Estado { get; set; }
@@ -37,6 +38,9 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
         [GridMapping(Index = IndexInicio, ResourceName = "Labels", VariableName = "INICIO")]
         public DateTime? Inicio { get; set; }
+
+        [GridMapping(Index = IndexInicio, ResourceName = "Labels", VariableName = "FIN")]
+        public DateTime? Fin { get; set; }
 
         [GridMapping(Index = IndexRecepcion, ResourceName = "Labels", VariableName = "RECEPCION")]
         public DateTime? Recepcion { get; set; }
@@ -86,6 +90,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
                 + (viaje.Vehiculo.Estado == Coche.Estados.Revisar ? " (Revisar)" : string.Empty)
                 : "Ninguno";
             Inicio = viaje.InicioReal.HasValue ? viaje.InicioReal.Value.ToDisplayDateTime() : (DateTime?) null;
+            Fin = viaje.Estado == ViajeDistribucion.Estados.Cerrado ? viaje.Fin.ToDisplayDateTime() : (DateTime?)null;
             Recepcion = viaje.Recepcion.HasValue ? viaje.Recepcion.Value.ToDisplayDateTime() : (DateTime?) null;
             Entregas = viaje.EntregasTotalCount;
             Realizados = viaje.EntregasCompletadosCount;

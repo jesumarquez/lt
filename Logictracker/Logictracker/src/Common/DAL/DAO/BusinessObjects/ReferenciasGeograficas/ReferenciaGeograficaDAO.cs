@@ -188,6 +188,15 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
                     .ToList();
         }
 
+        public List<ReferenciaGeografica> GetListVigentes(int idEmpresa, int idLinea, List<int> idsTipos, DateTime fecha)
+        {
+            var list = GetListByEmpresaLineaTipos(idEmpresa, idLinea, idsTipos);
+
+            return list.Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > fecha))
+                       .Where(r => !r.Vigencia.Inicio.HasValue || (r.Vigencia.Inicio.HasValue && r.Vigencia.Inicio.Value < fecha))
+                       .ToList();
+        }
+
         public List<ReferenciaGeografica> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tiposGeoRef, int page, int pageSize, ref int totalRows, bool reCount, string SearchString)
         {
 
