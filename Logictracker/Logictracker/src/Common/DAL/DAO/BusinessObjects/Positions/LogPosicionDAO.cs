@@ -318,5 +318,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
         {
             return "delete top(:n) from opeposi01 where opeposi01_fechora <= :date ; select @@ROWCOUNT as count;";
         }
+
+        public int RecompileSP(string spName)
+        {
+            var results = Session.CreateSQLQuery(string.Format("exec sp_recompile '{0}'", spName))
+                                 .SetTimeout(0)
+                                 .UniqueResult<Int32>();
+
+            return results;
+        }
     }
 }
