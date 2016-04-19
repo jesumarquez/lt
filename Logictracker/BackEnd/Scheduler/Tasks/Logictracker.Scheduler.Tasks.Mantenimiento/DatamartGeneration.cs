@@ -79,6 +79,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         {
             base.OnExecute(timer);
 
+            RecompileStores();
+
             var today = EndDate;
             
             //DeleteOldDatamartRecords();
@@ -132,6 +134,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             SendSuccessMail(param);
 
             DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRecorridos, "Datamart finalizado exitosamente");
+        }
+
+        private void RecompileStores()
+        {
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetPositionsBetweenDates_3");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationStartDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationEndDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionOlderThanDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionNewerThanDate_2");
         }
 
         private void SetVehicles()

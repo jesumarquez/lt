@@ -22,66 +22,73 @@ namespace Logictracker.DAL.DAO.ReportObjects
             var inicio = init;
             var fin = inicio.AddMinutes(minutosPeriodo);
 
-            switch (modo)
+            if (vehicles.Any())
             {
-                case CheckOut.Modo.Acumulado:
-                case CheckOut.Modo.AcumuladoPorc:
-                    var inicial = (double) vehicles.Count();
-                    var total = (double) vehicles.Count();
+                switch (modo)
+                {
+                    case CheckOut.Modo.Acumulado:
+                    case CheckOut.Modo.AcumuladoPorc:
+                        var geocerca = DAOFactory.ReferenciaGeograficaDAO.FindGeocerca(oLinea.ReferenciaGeografica.Id);
+                        var inicial = DAOFactory.LogPosicionDAO.GetVehiclesInside(vehicles, geocerca, init);
+                        var total = (double)vehicles.Count();
 
-                    var entradas = DAOFactory.LogMensajeDAO.GetByVehiclesAndCode(vehicles, MessageCode.InsideGeoRefference.GetMessageCode(), init, hasta, 3)
-                                                           .Where(e => e.IdPuntoDeInteres.HasValue
-                                                                    && e.IdPuntoDeInteres.Value == oLinea.ReferenciaGeografica.Id);
-                    var salidas = DAOFactory.LogMensajeDAO.GetByVehiclesAndCode(vehicles, MessageCode.OutsideGeoRefference.GetMessageCode(), init, hasta, 3)
-                                                          .Where(e => e.IdPuntoDeInteres.HasValue
-                                                                   && e.IdPuntoDeInteres.Value == oLinea.ReferenciaGeografica.Id);
+                        var entradas = DAOFactory.LogMensajeDAO.GetByVehiclesAndCode(vehicles, MessageCode.InsideGeoRefference.GetMessageCode(), init, hasta, 3)
+                                                                .Where(e => e.IdPuntoDeInteres.HasValue
+                                                                        && e.IdPuntoDeInteres.Value == oLinea.ReferenciaGeografica.Id);
+                        var salidas = DAOFactory.LogMensajeDAO.GetByVehiclesAndCode(vehicles, MessageCode.OutsideGeoRefference.GetMessageCode(), init, hasta, 3)
+                                                                .Where(e => e.IdPuntoDeInteres.HasValue
+                                                                        && e.IdPuntoDeInteres.Value == oLinea.ReferenciaGeografica.Id);
 
-                    while (inicio < hasta)
-                    {
-                        var ins = entradas.Where(s => s.Fecha >= inicio && s.Fecha < fin).Select(d => d.Coche.Id).Distinct().Count();
-                        var outs = salidas.Where(s => s.Fecha >= inicio && s.Fecha < fin).Select(d => d.Coche.Id).Distinct().Count();
-                        inicial = inicial + ins - outs;                        
-                        var checkout = new CheckOut(inicio, 0);
+                        while (inicio < hasta)
+                        {
+                            var ins = entradas.Where(s => s.Fecha >= inicio && s.Fecha < fin).Select(d => d.Coche.Id).Distinct().Count();
+                            var outs = salidas.Where(s => s.Fecha >= inicio && s.Fecha < fin).Select(d => d.Coche.Id).Distinct().Count();
+                            inicial = inicial + ins - outs;
+                            var checkout = new CheckOut(inicio, 0);
 
+                            switch (modo)
+                            {
+                                case CheckOut.Modo.Acumulado:
+                                    checkout.Cantidad = (int)inicial;
+                                    break;
+                                case CheckOut.Modo.AcumuladoPorc:
+                                    var porc = inicial / total * 100;
+                                    checkout.Cantidad = (int)porc;
+                                    break;
+                            }
+
+                            if (inicio >= desde) list.Add(checkout);
+
+                            inicio = inicio.AddMinutes(minutosPeriodo);
+                            fin = inicio.AddMinutes(minutosPeriodo);
+                        }
+                        break;
+                    case CheckOut.Modo.CheckIn:
+                    case CheckOut.Modo.CheckOut:
+                        var msj = string.Empty;
                         switch (modo)
                         {
-                            case CheckOut.Modo.Acumulado: 
-                                checkout.Cantidad = (int)inicial; 
-                                break;
-                            case CheckOut.Modo.AcumuladoPorc:
-                                var porc = inicial / total * 100;
-                                checkout.Cantidad = (int) porc; 
-                                break;
+                            case CheckOut.Modo.CheckIn: msj = MessageCode.InsideGeoRefference.GetMessageCode(); break;
+                            case CheckOut.Modo.CheckOut: msj = MessageCode.OutsideGeoRefference.GetMessageCode(); break;
                         }
-                        
-                        if (inicio >= desde) list.Add(checkout);
 
-                        inicio = inicio.AddMinutes(minutosPeriodo);
-                        fin = inicio.AddMinutes(minutosPeriodo);
-                    }
-                    break;
-                case CheckOut.Modo.CheckIn:
-                case CheckOut.Modo.CheckOut:
-                    var msj = string.Empty;
-                    switch (modo)
-                    {
-                        case CheckOut.Modo.CheckIn: msj = MessageCode.InsideGeoRefference.GetMessageCode(); break;
-                        case CheckOut.Modo.CheckOut: msj = MessageCode.OutsideGeoRefference.GetMessageCode(); break;
-                    }
+                        var eventos = DAOFactory.LogMensajeDAO.GetByVehiclesAndCode(vehicles, msj, inicio, hasta, 3)
+                                                              .Where(e => e.IdPuntoDeInteres.HasValue
+                                                                       && e.IdPuntoDeInteres.Value == oLinea.ReferenciaGeografica.Id);
+                        if (eventos.Any())
+                        {
+                            while (inicio < hasta)
+                            {
+                                var cantidad = eventos.Where(s => s.Fecha >= inicio && s.Fecha < fin).Select(d => d.Coche.Id).Distinct().Count();
+                                var checkout = new CheckOut(inicio, cantidad);
 
-                    var eventos = DAOFactory.LogMensajeDAO.GetByVehiclesAndCode(vehicles, msj, inicio, hasta, 3)
-                                                          .Where(e => e.IdPuntoDeInteres.HasValue
-                                                                   && e.IdPuntoDeInteres.Value == oLinea.ReferenciaGeografica.Id);
+                                list.Add(checkout);
 
-                    while (inicio < hasta)
-                    {
-                        var cantidad = eventos.Where(s => s.Fecha >= inicio && s.Fecha < fin).Select(d => d.Coche.Id).Distinct().Count();
-                        var checkout = new CheckOut(inicio, cantidad);
-
-                        list.Add(checkout);
-
-                        inicio = inicio.AddMinutes(minutosPeriodo);
-                        fin = inicio.AddMinutes(minutosPeriodo);
+                                inicio = inicio.AddMinutes(minutosPeriodo);
+                                fin = inicio.AddMinutes(minutosPeriodo);
+                            }
+                        }
+                        break;
                     }
                     break;
             }

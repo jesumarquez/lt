@@ -1,7 +1,7 @@
 USE [logictracker]
 GO
 
-/****** Object:  View [dbo].[VW_BI_VIAJE_RECARGA]    Script Date: 11/04/2016 11:28:31 ******/
+/****** Object:  View [dbo].[VW_BI_VIAJE_RECARGA]    Script Date: 12/04/2016 16:01:59 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,10 +17,10 @@ SELECT	 [id_opetick17]
 		,[rela_parenti03]
 		,[opetick17_interno]
 		,[opetick17_patente]
-		,[opetick17_fecha]
+		,CAST([opetick17_fecha] AS DATE) AS 'opetick17_fecha'
 		,[opetick17_accion]
-		,[opetick17_inicio]
-		,[opetick17_fin]
+		,CAST([opetick17_inicio] AS TIME) AS 'opetick17_inicio'
+		,CAST([opetick17_fin] AS TIME) AS 'opetick17_fin'
 		,[opetick17_duracion]
 FROM    dbo.[ope.ope_tick_17_viaje_recarga]
 WHERE [rela_parenti01] IN (	SELECT [su10].RELA_PARENTI01
@@ -31,7 +31,7 @@ WHERE [rela_parenti01] IN (	SELECT [su10].RELA_PARENTI01
 
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0

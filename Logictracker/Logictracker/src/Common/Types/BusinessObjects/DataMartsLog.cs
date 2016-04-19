@@ -17,6 +17,8 @@ namespace Logictracker.Types.BusinessObjects
             public const short ExcesoVelocidadSitrack = 6;
             public const short VehicleData = 7;
             public const short ReportScheduler = 8;
+            public const short GeneracionInversa = 9;
+            public const short InformeViajeDescarga = 10;
 
             public static string GetString(short modulo)
             {
@@ -31,6 +33,8 @@ namespace Logictracker.Types.BusinessObjects
                     case ExcesoVelocidadSitrack: return "Excesos de Velocidad Sitrack";
                     case VehicleData: return "Vehicle Data";
                     case ReportScheduler: return "Report Scheduler";
+                    case GeneracionInversa: return "Generación Inversa";
+                    case InformeViajeDescarga: return "Informe Viaje-Descarga";
                     default: return string.Empty;
                 }
             }
