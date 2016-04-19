@@ -5,8 +5,8 @@ angular
     .factory('vrpService',
     ['$resource', '$log', 'Problema', 'VrpSolucion',
         function ($resource, $log, Problema, VrpSolucion) {
-            //var baseUrl = "http://190.111.252.242:8089";
-            var baseUrl = "http://localhost:8088";
+            var baseUrl = "http://190.111.252.242:8089";
+            //var baseUrl = "http://localhost:8088";
             var service = {};
 
             service.getExample = function () {
