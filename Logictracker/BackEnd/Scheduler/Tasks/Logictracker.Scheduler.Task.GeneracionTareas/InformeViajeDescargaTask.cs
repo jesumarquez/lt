@@ -129,7 +129,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                 var fin = DateTime.UtcNow;
                 var duration = fin.Subtract(inicio).TotalMinutes;
 
-                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duration, DataMartsLog.Moludos.InformeViajeDescarga, "Generación inversa finalizada exitosamente");
+                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duration, DataMartsLog.Moludos.InformeViajeDescarga, "Informe Viaje-Descarga finalizado exitosamente");
             }
             catch (Exception ex)
             {
