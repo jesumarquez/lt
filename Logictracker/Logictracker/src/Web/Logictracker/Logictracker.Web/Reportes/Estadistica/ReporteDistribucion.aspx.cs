@@ -13,6 +13,7 @@ using Logictracker.Security;
 using Logictracker.Web.BaseClasses.BasePages;
 using C1.Web.UI.Controls.C1GridView;
 using NHibernate.Transform;
+using System.Drawing;
 
 namespace Logictracker.Reportes.Estadistica
 {
@@ -183,6 +184,24 @@ namespace Logictracker.Reportes.Estadistica
 
             grid.Columns[ReporteDistribucionVo.IndexConfirmacion].Visible = chkVerConfirmacion.Checked;
             grid.Columns[ReporteDistribucionVo.IndexHorario].Visible = chkVerConfirmacion.Checked;
+            grid.Columns[ReporteDistribucionVo.IndexDistancia].Visible = chkVerConfirmacion.Checked;
+
+            if (chkVerConfirmacion.Checked)
+            {
+                var distancia = dataItem.Distancia;
+                var radio = dataItem.Radio;
+                
+                if (distancia.HasValue && radio > 0)
+                { 
+                    if (distancia < radio) 
+                        e.Row.Cells[ReporteDistribucionVo.IndexDistancia].BackColor = Color.GreenYellow;
+                    else if (distancia < radio * 10)
+                        e.Row.Cells[ReporteDistribucionVo.IndexDistancia].BackColor = Color.Yellow;
+                    else
+                        e.Row.Cells[ReporteDistribucionVo.IndexDistancia].BackColor = Color.Red;
+                }
+            }
+
 
             grid.Columns[ReporteDistribucionVo.IndexReadInactive].Visible = chkInteraccionGarmin.Checked;
             grid.Columns[ReporteDistribucionVo.IndexUnreadInactive].Visible = chkInteraccionGarmin.Checked;

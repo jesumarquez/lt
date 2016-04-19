@@ -69,15 +69,26 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
 
         public IList<Documento> FindByTipo(int[] tiposDocumento, List<int> empresas, List<int> lineas)
         {
+            return FindByTipo(tiposDocumento, empresas, lineas, new List<int> { -1 });
+        }
+
+        public IList<Documento> FindByTipo(int[] tiposDocumento, List<int> empresas, List<int> lineas, List<int> transportistas)
+        {
             var q = Query.FilterEmpresa(Session, empresas)
                          .FilterLinea(Session, empresas, lineas)
-                         .FilterVehiculo(Session, empresas, lineas, new[]{-1},new[]{-1},new[]{-1},new[]{-1},new[]{-1})
-                         .FilterEmpleado(Session, empresas, lineas, new[]{-1},new[]{-1},new[]{-1});
-            
+                         .FilterVehiculo(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 }, new[] { -1 })
+                         .FilterEmpleado(Session, empresas, lineas, new[] { -1 }, new[] { -1 }, new[] { -1 });
+
             if (!QueryExtensions.IncludesAll(tiposDocumento))
             {
                 var tipos = tiposDocumento.ToList();
                 q = q.Where(x => tipos.Contains(x.TipoDocumento.Id));
+            }
+            if (!QueryExtensions.IncludesAll(transportistas))
+            {
+                q = q.Where(x => (x.Transportista != null && transportistas.Contains(x.Transportista.Id))
+                              || (x.Vehiculo != null && x.Vehiculo.Transportista != null && transportistas.Contains(x.Vehiculo.Transportista.Id))
+                              || (x.Empleado != null && x.Empleado.Transportista != null && transportistas.Contains(x.Empleado.Transportista.Id)));
             }
 
             return q.Where(x => x.Estado != Documento.Estados.Eliminado)
@@ -99,14 +110,24 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Documentos
         }
         public IList FindByTipoAndUsuario(Usuario user, int tipoDocumento, int empresa, int linea, int transportista)
         {
-            return Query.FilterEmpresa(Session, new[] {empresa}, user)
-                        .FilterLinea(Session, new[] {empresa}, new[] {linea}, user)
-                        .FilterVehiculo(Session, new[] {empresa}, new[] {linea}, new[] {transportista}, new[] {-1}, new[] {-1}, new[] {-1}, new[] {-1})
-                        .FilterEmpleado(Session, new[] {empresa}, new[] {linea}, new[] {transportista}, new[] {-1}, new[] {-1})
-                        .Where(x => x.TipoDocumento.Id == tipoDocumento)
-                        .Where(x => x.Estado != Documento.Estados.Eliminado)
-                        .OrderBy(x => x.Codigo)
-                        .ToList();
+            var q = Query.FilterEmpresa(Session, new[] {empresa}, user)
+                         .FilterLinea(Session, new[] {empresa}, new[] {linea}, user)
+                         .FilterVehiculo(Session, new[] {empresa}, new[] {linea}, new[] {-1}, new[] {-1}, new[] {-1}, new[] {-1}, new[] {-1})
+                         .FilterEmpleado(Session, new[] {empresa}, new[] {linea}, new[] {-1}, new[] {-1}, new[] {-1})
+                         .Where(x => x.TipoDocumento.Id == tipoDocumento);
+
+            if (transportista > 0)
+            {
+                q = q.Where(x => (x.Transportista != null && transportista == x.Transportista.Id)
+                              || (x.Vehiculo != null && x.Vehiculo.Transportista != null && transportista == x.Vehiculo.Transportista.Id)
+                              || (x.Empleado != null && x.Empleado.Transportista != null && transportista == x.Empleado.Transportista.Id));
+            }
+
+            return q.Where(x => x.Estado != Documento.Estados.Eliminado)
+                .OrderBy(x => x.Codigo)
+                .ToList();
+
+
         }
 
         public List<Documento> FindBy(int tipoDocumento, int transportista, int coche, int empleado, int equipo)

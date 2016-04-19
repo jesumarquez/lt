@@ -477,6 +477,9 @@
   <data name="VENCIMIENTO" xml:space="preserve">
     <value>Maturidade</value>
   </data>
+  <data name="PRESENTACION" xml:space="preserve">
+    <value>Apresentação</value>
+  </data>
   <data name="VENCIMIENTO_POLIZA" xml:space="preserve">
     <value>Política de Expiração</value>
   </data>
@@ -3333,6 +3336,9 @@
   </data>
   <data name="PAGINAR_CONSULTA" xml:space="preserve">
     <value>Consulta paginado</value>
+  </data>
+  <data name="FILTRAR_CONSULTA" xml:space="preserve">
+    <value>Consulta filtrado</value>
   </data>
   <data name="PLANO" xml:space="preserve">
     <value>Mapa</value>

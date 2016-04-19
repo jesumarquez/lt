@@ -119,7 +119,11 @@
                         <cwc:ResourceLabel ID="lblDistrito" runat="server" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI01" />
                     </td>
                     <td>
-                        <cwc:LocacionDropDownList ID="ddlDistrito" runat="server" Width="100%" />
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
+                            <ContentTemplate>
+                                <cwc:LocacionDropDownList ID="ddlDistrito" runat="server" Width="100%" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </td>
                 </tr>
                 <tr>
@@ -202,7 +206,11 @@
                     </td>
                     <td>
                         <cwc:DateTimePicker runat="server" ID="dtHasta" Mode="DateTime" IsValidEmpty="False"></cwc:DateTimePicker>
-                        <cwc:DateTimeRangeValidator ID="dtvalidator" runat="server" StartControlID="dtDesde" EndControlID="dtHasta" MaxRange="23:59"></cwc:DateTimeRangeValidator>
+                        <asp:UpdatePanel ID="updrange" runat="server">
+                            <ContentTemplate>
+                                <cwc:DateTimeRangeValidator ID="dtvalidator" runat="server" StartControlID="dtDesde" EndControlID="dtHasta" MaxRange="23:59"></cwc:DateTimeRangeValidator>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </td>
                 </tr>
                 <tr>

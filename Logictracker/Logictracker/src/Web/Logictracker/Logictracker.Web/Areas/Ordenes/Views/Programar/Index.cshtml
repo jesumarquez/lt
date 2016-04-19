@@ -1,17 +1,8 @@
-﻿@{
+@{
     ViewBag.Title = "Ordenes para Programar";
 }
 
 @*<h1>@ViewBag.Title</h1>*@
-
-@section csssection {
-    @Styles.Render("~/bundles/css-openlayer")
-}
-
-@section scripts {
-    @Scripts.Render("~/bundles/js-openlayer")
-}
-
 
 <script id="tPuntoEntrega" type="text/x-kendo-template">
     <div>
@@ -173,6 +164,8 @@
                         </div>
                     </div>
 
+                    <span kendo-notification="modalNotify" k-auto-hide-after="10000"></span>
+                    
                     <div class="clearfix"></div>
                 </div>
 

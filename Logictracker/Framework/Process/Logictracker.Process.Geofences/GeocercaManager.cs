@@ -315,7 +315,7 @@ namespace Logictracker.Process.Geofences
             }
         }
 
-        private static bool IsInside(Geocerca geocerca, double latitud, double longitud)
+        public static bool IsInside(Geocerca geocerca, double latitud, double longitud)
         {
             var point = new PointF((float)longitud, (float)latitud);
             return geocerca.IsInBounds(point) && geocerca.Contains(latitud, longitud);

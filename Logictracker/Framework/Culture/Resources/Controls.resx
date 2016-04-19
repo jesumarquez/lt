@@ -339,4 +339,7 @@
   <data name="BUTTON_SENDREPORT" xml:space="preserve">
     <value>Enviar reporte por e-mail</value>
   </data>
+  <data name="BUTTON_NOMENCLAR" xml:space="preserve">
+    <value>Nomenclar</value>
+  </data>
 </root>

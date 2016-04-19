@@ -975,4 +975,10 @@
   <data name="REP_PROYECCION_STOCK" xml:space="preserve">
     <value>Proyección de Stock</value>
   </data>
+  <data name="MON_CHECK_OUT" xml:space="preserve">
+    <value>Monitor Check In / Check Out</value>
+  </data>
+  <data name="REP_IN_OUT" xml:space="preserve">
+    <value>Reporte In / Out</value>
+  </data>
 </root>

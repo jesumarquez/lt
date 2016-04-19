@@ -478,6 +478,9 @@
   <data name="RAMPA" xml:space="preserve">
     <value>Rampa</value>
   </data>
+  <data name="PRESENTACION" xml:space="preserve">
+    <value>Presentación</value>
+  </data>
   <data name="VENCIMIENTO" xml:space="preserve">
     <value>Vencimiento</value>
   </data>
@@ -3873,6 +3876,9 @@
   </data>
   <data name="PAGINAR_CONSULTA" xml:space="preserve">
     <value>Paginar consulta</value>
+  </data>
+  <data name="FILTRAR_CONSULTA" xml:space="preserve">
+    <value>Filtrar por fecha</value>
   </data>
   <data name="VER_DETALLE_INFRACCIONES" xml:space="preserve">
     <value>Ver Detalle Infracciones</value>

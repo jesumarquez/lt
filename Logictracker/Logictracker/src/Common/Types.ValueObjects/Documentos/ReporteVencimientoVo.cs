@@ -11,8 +11,9 @@ namespace Logictracker.Types.ValueObjects.Documentos
         public const int IndexCodigo = 2;
         public const int IndexDescripcion = 3;
         public const int IndexTransportista = 4;
-        public const int IndexVencimiento = 5;
-        public const int IndexDiasAlVencimiento = 6;
+        public const int IndexPresentacion = 5; 
+        public const int IndexVencimiento = 6;
+        public const int IndexDiasAlVencimiento = 7;
 
         [GridMapping(Index = IndexTipoDocumento, ResourceName = "Entities", VariableName = "PARENTI25", AllowGroup = true, IsInitialGroup = true, InitialSortExpression = true)]
         public string TipoDocumento { get; set; }
@@ -28,6 +29,9 @@ namespace Logictracker.Types.ValueObjects.Documentos
 
         [GridMapping(Index = IndexTransportista, ResourceName = "Labels", VariableName = "TRANSPORTISTA", AllowGroup = false)]
         public string Transportista { get; set; }
+        
+        [GridMapping(Index = IndexPresentacion, ResourceName = "Labels", VariableName = "PRESENTACION", DataFormatString = "{0:d}", AllowGroup = true)]
+        public DateTime Presentacion { get; set; }
 
         [GridMapping(Index = IndexVencimiento, ResourceName = "Labels", VariableName = "VENCIMIENTO", DataFormatString = "{0:d}", AllowGroup = true)]
         public DateTime Vencimiento { get; set; }
@@ -50,18 +54,22 @@ namespace Logictracker.Types.ValueObjects.Documentos
             Codigo = doc.Codigo;
             Descripcion = doc.Descripcion;
 
-            if (doc.Transportista != null) {
+            if (doc.Transportista != null) 
+            {
                 Transportista = doc.Transportista.Descripcion;
-            }else if (doc.Vehiculo != null)
+            }
+            else if (doc.Vehiculo != null)
             {
                 Transportista = doc.Vehiculo.Transportista != null ? doc.Vehiculo.Transportista.Descripcion : string.Empty;
-            }else if (doc.Empleado != null)
+            }
+            else if (doc.Empleado != null)
             {
                 Transportista = doc.Empleado.Transportista != null ? doc.Empleado.Transportista.Descripcion : string.Empty;
             }
             Fecha = doc.Fecha;
             if (doc.Vencimiento.HasValue)
             {
+                Presentacion = doc.Presentacion.Value;
                 Vencimiento = doc.Vencimiento.Value;
                 DiasAlVencimiento = Convert.ToInt32(doc.Vencimiento.Value.Subtract(fechaActual).TotalDays);
             }

@@ -48,6 +48,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string DistribucionGeneraRechazo = "distribucion.genera.rechazo";
 
             public const string MesesConsultaPosiciones = "meses.consulta.posiciones";
+            public const string MaxHorasMonitor = "max.horas.monitor";
             public const string EliminaRutas = "elimina.rutas";
             public const string EliminaPuntosDeEntrega = "elimina.puntos";
             public const string EliminaAntiguedadMeses = "elimina.antiguedad.meses";
@@ -89,6 +90,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string GeneraInfraccionesSitrack = "genera.infracciones.sitrack";
 
             public const string GeneraRutaInversa = "genera.ruta.inversa";
+            public const string GeneraInformeViajeRecarga = "genera.informe.viaje.recarga";
             public const string ControlaDescanso = "controla.descanso";
             public const string ActualizaStockVehicular = "actualiza.stock.vehicular";
         }
@@ -453,6 +455,16 @@ namespace Logictracker.Types.BusinessObjects
                 return cant;
             }
         }
+        public virtual int MaxHorasMonitor
+        {
+            get
+            {
+                var valor = GetParameter(Params.MaxHorasMonitor);
+                int cant;
+                if (valor == null || !int.TryParse(valor, out cant)) return 24;
+                return cant;
+            }
+        }
         public virtual short EstadoCierreDistribucion
         {
             get
@@ -772,6 +784,17 @@ namespace Logictracker.Types.BusinessObjects
             get
             {
                 var valor = GetParameter(Params.GeneraRutaInversa);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool GeneraInformeViajeRecarga
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraInformeViajeRecarga);
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;

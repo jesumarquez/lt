@@ -2,13 +2,16 @@ using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects.BaseObjects;
 using Logictracker.Types.BusinessObjects.Positions;
+using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Types.ValueObject;
 using Logictracker.Types.ValueObject.Positions;
 using Logictracker.Utils;
 using NHibernate;
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace Logictracker.DAL.DAO.BusinessObjects.Positions
@@ -213,12 +216,6 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             from = from < limite ? limite : from;
             to = to < limite ? limite : to;
 
-            if (((to-from).TotalDays) > 7)
-            {
-                from = to.AddDays(-7);
-            }
-
-
             var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogPosicionDAO_GetRegenerationStartDate_2] @vehicleId = :vehicleId, @desde = :desde, @hasta = :hasta, @recepcionDesde = :recepcionDesde, @recepcionHasta = :recepcionHasta;")
                               .AddEntity(typeof(LogPosicion))
                               .SetInt32("vehicleId", vehicleId)
@@ -297,9 +294,38 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             return q.UniqueResult<LogPosicion>();
         }
 
+        public int GetVehiclesInside(IEnumerable<int> vehicles, Geocerca geocerca, DateTime fecha)
+        {
+            var count = 0;            
+
+            foreach (var vehicleId in vehicles)
+            {
+                var position = GetFirstPositionOlderThanDate(vehicleId, fecha, 1);
+                if (position != null)
+                {
+                    var latitud = position.Latitud;
+                    var longitud = position.Longitud;
+                    var point = new PointF((float)longitud, (float)latitud);
+                    var inside = geocerca.IsInBounds(point) && geocerca.Contains(latitud, longitud);
+                    if (inside) count++;
+                }
+            }
+
+            return count;
+        }
+
         protected override String GetDeleteCommand()
         {
             return "delete top(:n) from opeposi01 where opeposi01_fechora <= :date ; select @@ROWCOUNT as count;";
+        }
+
+        public int RecompileSP(string spName)
+        {
+            var results = Session.CreateSQLQuery(string.Format("exec sp_recompile '{0}'", spName))
+                                 .SetTimeout(0)
+                                 .UniqueResult<Int32>();
+
+            return results;
         }
     }
 }

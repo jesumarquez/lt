@@ -477,6 +477,9 @@
   <data name="VENCIMIENTO" xml:space="preserve">
     <value>Maturity</value>
   </data>
+  <data name="PRESENTACION" xml:space="preserve">
+    <value>Presentation</value>
+  </data>
   <data name="VENCIMIENTO_POLIZA" xml:space="preserve">
     <value>Expiration Policy</value>
   </data>
@@ -3768,6 +3771,9 @@
   </data>
   <data name="PAGINAR_CONSULTA" xml:space="preserve">
     <value>Paginated query</value>
+  </data>
+  <data name="FILTRAR_CONSULTA" xml:space="preserve">
+    <value>filter query</value>
   </data>
   <data name="USA_PREFIJO" xml:space="preserve">
     <value>Use prefix</value>

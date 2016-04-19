@@ -79,6 +79,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         {
             base.OnExecute(timer);
 
+            RecompileStores();
+
             var today = EndDate;
             
             //DeleteOldDatamartRecords();
@@ -134,6 +136,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRecorridos, "Datamart finalizado exitosamente");
         }
 
+        private void RecompileStores()
+        {
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetPositionsBetweenDates_3");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationStartDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationEndDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionOlderThanDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionNewerThanDate_2");
+        }
+
         private void SetVehicles()
         {
             var distrito = GetInt32("Distrito");
@@ -151,6 +162,11 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private void ProcessVehicle(Coche coche, DateTime today)
         {
             var lastUpdate = GetStartDate(coche.Id);
+
+            if (today.AddDays(-7) > lastUpdate)
+            {
+                lastUpdate = today.AddDays(-7);
+            }
 
 			var dispo = coche.Dispositivo != null ? coche.Dispositivo.Id : 0;
             STrace.Trace(GetType().FullName, dispo, String.Format("Processing vehicle with id: {0}", coche.Id));
@@ -172,6 +188,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private void ProcessCurrentPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
+
+            
             while (lastUpdate < today)
             {
                 var lastDay = lastUpdate.AddDays(1) > today ? today : lastUpdate.AddDays(1);

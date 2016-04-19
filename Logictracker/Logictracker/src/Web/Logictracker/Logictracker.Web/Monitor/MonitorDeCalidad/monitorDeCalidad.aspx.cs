@@ -125,6 +125,10 @@ namespace Logictracker.Monitor.MonitorDeCalidad
 
             base.OnLoad(e);
 
+            var empresa = DAOFactory.EmpresaDAO.FindById(ddlDistrito.Selected);
+            var maxHours = empresa != null && empresa.Id > 0 ? empresa.MaxHorasMonitor : 24;
+            dtvalidator.MaxRange = new TimeSpan(maxHours, 0, 0);
+
             if (!IsPostBack)
             {
                 this.RegisterCss(ResolveUrl("~/App_Styles/openlayers.css"));

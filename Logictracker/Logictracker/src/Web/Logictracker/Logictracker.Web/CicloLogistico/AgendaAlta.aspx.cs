@@ -4,6 +4,7 @@ using System.Web.UI.WebControls;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.Web.Controls;
 
 namespace Logictracker.Web.CicloLogistico
 {
@@ -24,6 +25,7 @@ namespace Logictracker.Web.CicloLogistico
             {
                 dtpDesde.SetDate();
                 dtpHasta.SetDate();
+                SetContextKey();
 
                 if (EditMode)
                 {
@@ -144,11 +146,17 @@ namespace Logictracker.Web.CicloLogistico
                                                        .Where(a => a.Estado == AgendaVehicular.Estados.EnCurso || a.Estado == AgendaVehicular.Estados.Reservado);
 
             var asignados = agendas.Select(a => a.Vehiculo).Distinct();
-            var vehiculos = DAOFactory.CocheDAO.GetList(cbEmpresa.SelectedValues, cbLinea.SelectedValues, new[]{-1}, new[]{-1}, cbDepartamento.SelectedValues);
+            var vehiculos = DAOFactory.CocheDAO.GetList(cbEmpresa.SelectedValues, cbLinea.SelectedValues, new[]{-1}, new[]{-1}, new[]{-1});
             var noAsignados = vehiculos.Where(v => !asignados.Contains(v));
 
+            var disponibles = noAsignados.Where(v => v.Departamento != null && v.Departamento.Id == cbDepartamento.Selected);
+            if (!disponibles.Any())
+                disponibles = noAsignados.Where(v => v.Departamento == null);
+            if (!disponibles.Any())
+                disponibles = noAsignados;
+
             cbVehiculo.Items.Clear();
-            foreach (var vehiculo in noAsignados) cbVehiculo.Items.Add(new ListItem(vehiculo.Interno, vehiculo.Id.ToString("#0")));
+            foreach (var vehiculo in disponibles) cbVehiculo.Items.Add(new ListItem(vehiculo.Interno, vehiculo.Id.ToString("#0")));
             cbVehiculo.Enabled = true;
         }
 
@@ -156,6 +164,15 @@ namespace Logictracker.Web.CicloLogistico
         {
             cbVehiculo.Items.Clear();
             cbVehiculo.Enabled = false;
+        }
+        protected void SetContextKey()
+        {
+            auEmpleado.ContextKey = AutoCompleteTextBox.CreateContextKey(new[] { cbEmpresa.Selected },
+                                                                         new[] { cbLinea.Selected },
+                                                                         new[] { -1 },
+                                                                         new[] { -1 },
+                                                                         new[] { -1 },
+                                                                         new[] { cbDepartamento.Selected });
         }
     }
 }

@@ -1057,6 +1057,15 @@ namespace Logictracker.CicloLogistico {
         protected global::Logictracker.Web.CustomWebControls.Buttons.ResourceButton btnEntrega;
         
         /// <summary>
+        /// lblDistancia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDistancia;
+        
+        /// <summary>
         /// btnUltima control.
         /// </summary>
         /// <remarks>
