@@ -24,7 +24,7 @@ namespace Logictracker.Dispatcher.Handlers
         [ElementAttribute(XName = "Port", IsRequired = false, DefaultValue = 9092)]
         public int Port { get; set; }
 
-        [ElementAttribute(XName = "BrockerId", IsRequired = false, DefaultValue = 666)]
+        [ElementAttribute(XName = "BrokerId", IsRequired = false, DefaultValue = 666)]
         public int BrokerId { get; set; }
         
         public override bool LoadResources()
