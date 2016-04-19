@@ -477,6 +477,9 @@
   <data name="VENCIMIENTO" xml:space="preserve">
     <value>Maturidade</value>
   </data>
+  <data name="PRESENTACION" xml:space="preserve">
+    <value>Apresentação</value>
+  </data>
   <data name="VENCIMIENTO_POLIZA" xml:space="preserve">
     <value>Política de Expiração</value>
   </data>
