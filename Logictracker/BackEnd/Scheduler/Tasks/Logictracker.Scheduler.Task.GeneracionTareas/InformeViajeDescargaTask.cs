@@ -10,6 +10,7 @@ using Logictracker.Messaging;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Services.Helpers;
 using Logictracker.Types.ReportObjects.Datamart;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Scheduler.Tasks.GeneracionTareas
 {
@@ -38,6 +39,8 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
         {
             STrace.Trace(ComponentName, "Inicio de la tarea");
 
+            var inicio = DateTime.UtcNow;
+
             var empresas = DaoFactory.EmpresaDAO.GetList().Where(e => e.GeneraInformeViajeRecarga);
 
             STrace.Trace(GetType().FullName, string.Format("Procesando empresas. Cantidad: {0}", empresas.Count()));
@@ -51,11 +54,15 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                     var vehiculosPendientes = vehiculos.Count();
                     STrace.Trace(GetType().FullName, string.Format("Vehículos a procesar: {0}", vehiculosPendientes));
 
+                    var eventosTotales = DaoFactory.LogMensajeDAO.GetByVehiclesAndCodes(vehiculos.Select(v => v.Id).ToArray(), new[] { MessageCode.InsideGeoRefference.GetMessageCode(), MessageCode.OutsideGeoRefference.GetMessageCode() }, Desde, Hasta, 1);
+
                     foreach (var vehiculo in vehiculos)
                     {
                         STrace.Trace(GetType().FullName, string.Format("Procesando vehículo: {0}", vehiculo.Id));
 
-                        var eventos = DaoFactory.LogMensajeDAO.GetByVehiclesAndCodes(new[]{vehiculo.Id}, new[]{MessageCode.InsideGeoRefference.GetMessageCode(), MessageCode.OutsideGeoRefference.GetMessageCode()}, Desde, Hasta, 1).Where(e => e.IdPuntoDeInteres.HasValue && e.IdPuntoDeInteres == vehiculo.Linea.ReferenciaGeografica.Id);
+                        var eventos = eventosTotales.Where(ev => ev.Coche.Id == vehiculo.Id 
+                                                              && ev.IdPuntoDeInteres.HasValue 
+                                                              && ev.IdPuntoDeInteres == vehiculo.Linea.ReferenciaGeografica.Id);
                         var entradas = eventos.Where(e => e.Mensaje.Codigo == MessageCode.InsideGeoRefference.GetMessageCode());
                         var salidas = eventos.Where(e => e.Mensaje.Codigo == MessageCode.OutsideGeoRefference.GetMessageCode());
 
@@ -68,6 +75,11 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                             var vuelta = entradas.Where(e => e.Fecha > salida.Fecha).FirstOrDefault();
                             if (vuelta != null)
                             {
+                                var duracion = vuelta.Fecha.Subtract(salida.Fecha).TotalHours;
+                                var minutosDeViaje = duracion * 60;
+                                if (minutosDeViaje < vehiculo.Empresa.MinutosMinimosDeViaje)
+                                    continue;
+
                                 var informe = new InformeViajeRecarga
                                 { 
                                     Empresa = vehiculo.Empresa,
@@ -79,7 +91,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                     Fecha = salida.Fecha.Date.AddHours(3),
                                     Inicio = salida.Fecha,
                                     Fin = vuelta.Fecha,
-                                    Duracion = vuelta.Fecha.Subtract(salida.Fecha).TotalHours
+                                    Duracion = duracion
                                 };
 
                                 DaoFactory.InformeViajeRecargaDAO.SaveOrUpdate(informe);
@@ -113,6 +125,11 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
 	            }
 
                 STrace.Trace(GetType().FullName, "Tarea finalizada.");
+
+                var fin = DateTime.UtcNow;
+                var duration = fin.Subtract(inicio).TotalMinutes;
+
+                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duration, DataMartsLog.Moludos.InformeViajeDescarga, "Informe Viaje-Descarga finalizado exitosamente");
             }
             catch (Exception ex)
             {

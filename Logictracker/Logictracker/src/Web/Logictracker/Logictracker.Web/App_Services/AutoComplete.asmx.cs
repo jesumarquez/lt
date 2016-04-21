@@ -53,12 +53,14 @@ namespace Logictracker.Web.App_Services
             var centrosCosto = GetParentElement(parents, 4);
             var departamentos = GetParentElement(parents, 5);
 
-            return DAOFactory.EmpleadoDAO.GetList(empresas, lineas, tiposEmpleado, transportistas, centrosCosto, departamentos)
-                .Where(e => e.Entidad.Descripcion.ToLower().Contains(prefixText))
-                .OrderBy(e => e.Entidad.Descripcion)
-                .Take(count)
-                .Select(e => AutoCompleteExtender.CreateAutoCompleteItem(e.Entidad.Descripcion, e.Id.ToString("#0")))
-                .ToArray();
+            var empleados = DAOFactory.EmpleadoDAO.GetList(empresas, lineas, tiposEmpleado, transportistas, centrosCosto, departamentos)
+                                                  .Where(e => e.Entidad.Descripcion.ToLower().Contains(prefixText))
+                                                  .OrderBy(e => e.Entidad.Descripcion)
+                                                  .Take(count)
+                                                  .Select(e => AutoCompleteExtender.CreateAutoCompleteItem(e.Entidad.Descripcion, e.Id.ToString("#0")))
+                                                  .ToArray();
+
+            return empleados;
         }
         [WebMethod(EnableSession = true)]
         public string[] GetPuntosEntrega(string prefixText, int count, string contextKey)

@@ -109,7 +109,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel3" runat="server" RenderMode="Inline" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <cwc:EmpleadoDropDownList ID="cbEmpleado" runat="server" Width="60%" ParentControls="cbEmpresa,cbLinea,cbDepartamento" />
-                                        <cwc:AutoCompleteTextBox ID="auEmpleado" runat="server" ServicePath="~\App_Services\AutoComplete.asmx" ServiceMethod="GetEmpleados" Width="60%" ParentControls="cbEmpresa,cbLinea,cbDepartamento" />
+                                        <cwc:AutoCompleteTextBox ID="auEmpleado" runat="server" ServicePath="~\App_Services\AutoComplete.asmx" ServiceMethod="GetEmpleados" Width="60%" ParentControls="cbEmpresa,cbLinea,,,,cbDepartamento" />
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />

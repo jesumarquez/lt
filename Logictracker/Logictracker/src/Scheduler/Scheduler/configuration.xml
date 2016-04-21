@@ -131,9 +131,8 @@
     </Timer>
     -->
   
-    <Timer Enabled="true" Name="Actualizacion de Stock" Periodicity="Hour" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
-      <!--<Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="MaxMessageCount=5000;Distrito=69;" />
-      <Task Class="Logictracker.Scheduler.Tasks.GeneracionTareas.ActualizacíonStockVehicularTask, Logictracker.Scheduler.Tasks.GeneracionTareas" />-->
+    <Timer Enabled="true" Name="Nomenclador" Periodicity="Hour" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
+      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.Nomenclador, Logictracker.Scheduler.Tasks.Mantenimiento" Params="Empresas=91;" />      
       <Task Class="Logictracker.Scheduler.Tasks.GeneracionTareas.InformeViajeDescargaTask, Logictracker.Scheduler.Tasks.GeneracionTareas" Params="Desde=07/04/2016;Hasta=08/04/2016;" />
     </Timer>
   

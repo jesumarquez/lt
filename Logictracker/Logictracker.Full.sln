@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External.Libs", "External.Libs", "{1C3B03E3-47DF-4499-9666-CC4B72A70C09}"
 EndProject
@@ -3516,21 +3516,21 @@ Global
 		{69AD7149-433D-4D81-BEB1-C9C3D611C578}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{69AD7149-433D-4D81-BEB1-C9C3D611C578}.Release|Win32.ActiveCfg = Release|Any CPU
 		{69AD7149-433D-4D81-BEB1-C9C3D611C578}.Release|x86.ActiveCfg = Release|Any CPU
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|.NET.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|Any CPU.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|Mixed Platforms.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|Win32.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|x86.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|.NET.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|Any CPU.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|Mixed Platforms.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|Win32.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|x86.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|.NET.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|Any CPU.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|Mixed Platforms.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|Win32.ActiveCfg = Release
-		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|x86.ActiveCfg = Release
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|.NET.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|Any CPU.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|Win32.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Debug|x86.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|.NET.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|Any CPU.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|Mixed Platforms.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|Win32.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Part1|x86.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|.NET.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|Any CPU.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|Mixed Platforms.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|Win32.ActiveCfg = Debug
+		{0496E552-4A8E-4423-9B21-E15D4E331679}.Release|x86.ActiveCfg = Debug
 		{8B4B6801-43FE-4EC2-A061-55DA5AB0DF20}.Debug|.NET.ActiveCfg = Debug|Any CPU
 		{8B4B6801-43FE-4EC2-A061-55DA5AB0DF20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B4B6801-43FE-4EC2-A061-55DA5AB0DF20}.Debug|Any CPU.Build.0 = Debug|Any CPU
