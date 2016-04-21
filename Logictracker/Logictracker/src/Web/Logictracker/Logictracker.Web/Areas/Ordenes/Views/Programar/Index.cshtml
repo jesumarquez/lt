@@ -262,7 +262,7 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div kendo-grid="sortedProductsGrid" k-options="sortedProductsGridOptions" k-data-source="sortedProducts"></div>
+                            <div id="sortedProductsGrid" kendo-grid="sortedProductsGrid" k-options="sortedProductsGridOptions" k-data-source="sortedProducts"></div>
                         </div>
                         <div class="clearfix"></div>
 
@@ -273,7 +273,8 @@
                 </div><!--modal-body-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="asignar()">Programar</a>
+                    <button class="btn btn-primary" ng-disabled="asignarDisabledButton" ng-click="rutear()">Rutear</button>
+                    <button type="button" class="btn btn-default" ng-disabled="solution.length == 0" ng-click="programar()">Programar</button>
                 </div>
             </div><!--modal-content-->
         </div><!-- modal-dialog -->
