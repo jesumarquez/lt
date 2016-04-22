@@ -54,6 +54,9 @@
                                     <div style="font-size: 11px; font-weight: bold;">
                                         <asp:Label ID="lblPatente" runat="server" Text="" />
                                     </div>
+                                    <div style="font-size: 11px; font-weight: bold;">
+                                        <asp:Label ID="lblTransportista" runat="server" Text="" />
+                                    </div>
                                 </td>
                             </tr>
                             <tr>

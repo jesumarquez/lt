@@ -19,7 +19,10 @@ namespace Logictracker.Web.Models
         public int ChocheId { get; set; }
         public int Cuaderna { get; set; }
         public string EstadoDescripcion { get; set; }
-
+        public string ClienteDescripcion { get; set; }
+        public string ClienteLocalidad { get; set; }
+        public double PuntoEntregaLatitud { get; set; }
+        public double PuntoEntregaLongitud { get; set; }
     }
 
     public class OrdenDetallesMapper : EntityModelMapper<OrderDetail, OrderDetailModel>
@@ -35,7 +38,18 @@ namespace Logictracker.Web.Models
             model.Cuaderna = entity.Cuaderna;
             model.Ajuste = entity.Ajuste;
             model.EstadoDescripcion = entity.Estado.ToString();
-
+            
+            if (entity.Order.PuntoEntrega != null)
+            {
+                model.ClienteDescripcion = entity.Order.PuntoEntrega.Descripcion;
+                if (entity.Order.PuntoEntrega.ReferenciaGeografica != null)
+                {
+                    model.ClienteLocalidad = entity.Order.PuntoEntrega.ReferenciaGeografica.Direccion.Partido;
+                    model.PuntoEntregaLatitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Latitude;
+                    model.PuntoEntregaLongitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Longitude;
+                }
+            }
+            
             return model;
         }
 
