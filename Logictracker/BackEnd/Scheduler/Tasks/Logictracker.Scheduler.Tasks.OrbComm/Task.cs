@@ -11,6 +11,7 @@ using Logictracker.Model;
 using Logictracker.Model.Utils;
 using Logictracker.Orbcomm;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
+using Logictracker.Utils;
 
 namespace Logictracker.Scheduler.Tasks.OrbComm
 {
@@ -136,11 +137,11 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
                                     payload[24] = nroMensaje;
 
                                     var frame = new Frame( payload, dispo.Id);
-                                    msg = virlocParser.Decode(frame);
+                                    msg = virlocParser.Decode(frame, GPSPoint.SourceProviders.NetworkProvider);
                                     break;
                                 }
 
-                                msg = virlocParser.Decode(buff);
+                                msg = virlocParser.Decode(buff, GPSPoint.SourceProviders.NetworkProvider);
                                 break;
                             default:
                                 var orbCommParser = new Parser {Id = dispo.Id};

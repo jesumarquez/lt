@@ -274,8 +274,11 @@ namespace Logictracker.Reportes.Estadistica
             {
                 switch (mobileRoutes.VehicleStatus)
                 {
-                    case "Detenido": 
-                        color = Color.LightCoral; 
+                    case "Detenido":
+                        if (mobileRoutes.EngineStatus == "Encendido")
+                            color = Color.Orange;
+                        else
+                            color = Color.LightCoral; 
                         break;
                     case "En Movimiento": 
                         color = Color.LightGreen; 

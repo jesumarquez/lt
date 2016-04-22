@@ -341,14 +341,11 @@ namespace Logictracker.Dispatcher.Handlers
 
             if (nonDiscarted.Equals(0) || !_fechasOnline) return;
 
-            var time = new TimeElapsed();
-            UpdateVehicleOdometers();
-            var total = time.getTimeElapsed().TotalSeconds;
-            if (total > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "UpdateVehicleOdometers: " + total);
+            //UpdateVehicleOdometers();
 
-            time.Restart();
+            var time = new TimeElapsed();
             UpdateLastPosition(_lastValidPosition);
-            total = time.getTimeElapsed().TotalSeconds;
+            var total = time.getTimeElapsed().TotalSeconds;
             if (total > 1) STrace.Error("DispatcherLock", _posicion.DeviceId, "UpdateLastPosition: " + total);
 
             LastPositionReceivedAt = DateTime.UtcNow;

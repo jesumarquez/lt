@@ -152,9 +152,7 @@ namespace Logictracker.Web.CicloLogistico
             var disponibles = noAsignados.Where(v => v.Departamento != null && v.Departamento.Id == cbDepartamento.Selected);
             if (!disponibles.Any())
                 disponibles = noAsignados.Where(v => v.Departamento == null);
-            if (!disponibles.Any())
-                disponibles = noAsignados;
-
+            
             cbVehiculo.Items.Clear();
             foreach (var vehiculo in disponibles) cbVehiculo.Items.Add(new ListItem(vehiculo.Interno, vehiculo.Id.ToString("#0")));
             cbVehiculo.Enabled = true;

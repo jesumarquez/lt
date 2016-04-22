@@ -152,6 +152,19 @@ namespace Logictracker.Reportes.DatosOperativos
                 return ViewState["EventsCompany"] != null ? Convert.ToInt32(ViewState["EventsCompany"]) : 0;
             }
         }
+        private int Transportista
+        {
+            get
+            {
+                if (ViewState["EventsTransportista"] == null)
+                {
+                    ViewState["EventsTransportista"] = Session["EventsTransportista"];
+                    Session["EventsTransportista"] = null;
+                }
+
+                return ViewState["EventsTransportista"] != null ? Convert.ToInt32(ViewState["EventsTransportista"]) : 0;
+            }
+        }
         private int MobileType
         {
             get
@@ -424,6 +437,8 @@ namespace Logictracker.Reportes.DatosOperativos
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void DdlPlantaInitialBinding(object sender, EventArgs e) { if (!IsPostBack && Company > 0) ddlPlanta.EditValue = Company; }
+
+        protected void DdlTransportistaInitialBinding(object sender, EventArgs e) { if (!IsPostBack && Transportista > 0) ddlTransportista.EditValue = Transportista; }
 
         /// <summary>
         /// Vehicle T initial binding when called from another report.

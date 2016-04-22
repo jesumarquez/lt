@@ -448,7 +448,7 @@
     <value>Resumo do Operador</value>
   </data>
   <data name="STAT_RESUMEN_RUTA" xml:space="preserve">
-    <value>Resumo da rota</value>
+    <value>Resumo da recorrido</value>
   </data>
   <data name="STAT_RESUMEN_VEHICULAR" xml:space="preserve">
     <value>Resumo do carro</value>
