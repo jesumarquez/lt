@@ -155,31 +155,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
 
     $scope.disabledButton = true;
 
-    $scope.programOrders = function (order) {
-
-        $scope.disabledButton = true;
-
-        var selectOrders = [];
-        $scope.ordenesGrid.select().each(function (index, row) {
-            selectOrders.push($scope.ordenesGrid.dataItem(row));
-        });
-
-        $scope.newOrder = new OrdenesService.ordenes();
-        $scope.newOrder.OrderList = selectOrders;
-        $scope.newOrder.IdVehicle = order.Vehicle.Id;
-        $scope.newOrder.StartDateTime = order.StartDateTime;
-        $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
-        $scope.newOrder.$save(
-            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
-            function () {
-                $scope.onBuscar();
-                $('#myModal').modal('hide');
-                $scope.disabledButton = false;
-            },
-            onFail
-        );
-    };
-
     $scope.getOrden = function(id){
         var orden = $scope.Orders.data().find(function (item) {
             return item.Id === id;
@@ -384,7 +359,12 @@ function OrdenesAsignarAutoController(
                 { field: "Insumo", title: "Producto" },
                 { field: "Cantidad", title: "Litros" },
                 { field: "EstadoDescripcion", title: "Estado" }
-        ]
+        ],
+        // Template para pintar el row cuando no tiene definido una ruta y un orden
+        rowTemplate: '<tr style="#:NumRuta==undefined? \"background-color:\\#ffdad8;\":\"\"#" data-uid="#= uid #">' +
+        '<td>#:NumRuta==undefined?\'\':NumRuta#</td><td>#: OrdenRuta==undefined?\'\':OrdenRuta #</td>'+
+        '<td>#:ClienteDescripcion #</td><td>#:ClienteLocalidad #</td><td>#:Insumo #</td><td>#:Cantidad #</td>'+
+        '<td>#:EstadoDescripcion #</td></tr>'
     };
 
     $scope.rutear = rutear;
