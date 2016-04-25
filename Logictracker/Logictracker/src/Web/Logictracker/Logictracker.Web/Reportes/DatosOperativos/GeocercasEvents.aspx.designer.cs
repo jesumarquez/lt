@@ -37,7 +37,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.LocacionDropDownList ddlLocacion;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.LocacionDropDownList ddlLocacion;
         
         /// <summary>
         /// lblPlanta control.
@@ -64,7 +64,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.PlantaDropDownList ddlPlanta;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList ddlPlanta;
         
         /// <summary>
         /// lblTipoVehiculo control.
@@ -91,7 +91,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.TipoDeVehiculoDropDownList ddlTipoDeVehiculo;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoDeVehiculoDropDownList ddlTipoDeVehiculo;
         
         /// <summary>
         /// lblTransportista control.
@@ -118,7 +118,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.TransportistaDropDownList ddlTransportista;
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TransportistaDropDownList ddlTransportista;
         
         /// <summary>
         /// lblMobile control.
@@ -145,7 +145,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.MovilListBox lbMobile;
+        protected global::Logictracker.Web.CustomWebControls.ListBoxs.MovilListBox lbMobile;
         
         /// <summary>
         /// lnkTipoDomicilio control.
@@ -172,7 +172,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Buttons.TipoReferenciaGeograficaListBox lbTipoDomicilio;
+        protected global::Logictracker.Web.CustomWebControls.ListBoxs.TipoReferenciaGeograficaListBox lbTipoDomicilio;
         
         /// <summary>
         /// lnkGeocercas control.
