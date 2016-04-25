@@ -37,7 +37,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.DropDownLists.LocacionDropDownList ddlLocacion;
+        protected global::Logictracker.Web.CustomWebControls.Buttons.LocacionDropDownList ddlLocacion;
         
         /// <summary>
         /// lblPlanta control.
@@ -64,7 +64,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList ddlPlanta;
+        protected global::Logictracker.Web.CustomWebControls.Buttons.PlantaDropDownList ddlPlanta;
         
         /// <summary>
         /// lblTipoVehiculo control.
@@ -91,7 +91,34 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoDeVehiculoDropDownList ddlTipoDeVehiculo;
+        protected global::Logictracker.Web.CustomWebControls.Buttons.TipoDeVehiculoDropDownList ddlTipoDeVehiculo;
+        
+        /// <summary>
+        /// lblTransportista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblTransportista;
+        
+        /// <summary>
+        /// upTransportista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upTransportista;
+        
+        /// <summary>
+        /// ddlTransportista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Buttons.TransportistaDropDownList ddlTransportista;
         
         /// <summary>
         /// lblMobile control.
@@ -118,7 +145,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.ListBoxs.MovilListBox lbMobile;
+        protected global::Logictracker.Web.CustomWebControls.Buttons.MovilListBox lbMobile;
         
         /// <summary>
         /// lnkTipoDomicilio control.
@@ -145,7 +172,7 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.ListBoxs.TipoReferenciaGeograficaListBox lbTipoDomicilio;
+        protected global::Logictracker.Web.CustomWebControls.Buttons.TipoReferenciaGeograficaListBox lbTipoDomicilio;
         
         /// <summary>
         /// lnkGeocercas control.

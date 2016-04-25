@@ -49,11 +49,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 }
                 catch (Exception ex)
                 {
-                    STrace.Exception(GetType().FullName, ex);
+                    STrace.Exception(GetType().FullName, ex, "No se pudieron actualizar odómetros para el vehículo: " + vehicleId);
 
                     var parametros = new[] { "No se pudieron actualizar odómetros para el vehículo: " + vehicleId, vehicleId.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
                     SendMail(parametros);
-                    STrace.Error(GetType().FullName, "No se pudieron actualizar odómetros para el vehículo: " + vehicleId);
                 }
                 finally 
                 {
@@ -85,7 +84,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             if (today.AddDays(-7) > inicio)
                 inicio = today.AddDays(-7);
 
-            if (!inicio.Equals(DateTime.MinValue))
+            if (inicio.HasValue && !inicio.Equals(DateTime.MinValue))
             {
                 var dm = DaoFactory.DatamartDAO.GetSummarizedDatamart(inicio.Value, fin, coche.Id);
                 var kilometros = dm.Kilometros;
