@@ -8,7 +8,7 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
     {
         static void Main(string[] args)
         {
-            var maxPar = 1;
+            const int maxPar = 10;
             var tsk = new Task[maxPar];
             for (var i = 0; i < maxPar; i++)
             {
@@ -22,18 +22,18 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
         {
             var partitionId = (int) o;
             var options =
-                new PartitionProcessorOptions("190.111.252.242:2181", "lt_dispatcher", partitionId, "jose_test");
+                new PartitionProcessorOptions("190.111.252.242:2181", "lt_dispatcher", partitionId, "qtree_speed_ticket");
 
             var spdTck = new SpeedTicketQtree(null);
 
             var chain = new OdometerHandler(spdTck);
             
-
             var processor = new PartitionProcessor(options, chain);
-
-
+            
+            Console.WriteLine("Init consumer partition {0}",partitionId);
             processor.Process();
 
         }
     }
 }
+    

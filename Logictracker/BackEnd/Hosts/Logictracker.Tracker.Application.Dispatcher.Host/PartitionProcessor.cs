@@ -7,6 +7,7 @@ using Kafka.Client.Cfg;
 using Kafka.Client.Consumers;
 using Kafka.Client.Helper;
 using Kafka.Client.Messages;
+using Kafka.Client.Requests;
 using Logictracker.Model;
 
 namespace Logictracker.Tracker.Application.Dispatcher.Host
@@ -37,22 +38,25 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
 
         public void Process()
         {
-
+            const int factor = 0x2;
             var config = new KafkaSimpleManagerConfiguration()
             {
-                FetchSize = KafkaSimpleManagerConfiguration.DefaultFetchSize,
-                BufferSize = KafkaSimpleManagerConfiguration.DefaultBufferSize,
-                Zookeeper = _processorOptions.Zookeeper
+                FetchSize = KafkaSimpleManagerConfiguration.DefaultFetchSize / factor,
+                BufferSize = KafkaSimpleManagerConfiguration.DefaultBufferSize / factor,
+                Zookeeper = _processorOptions.Zookeeper,
             };
 
             var manager = new KafkaSimpleManager<int, Message>(config);
 
-            var correlationId = 0;
-            var clientId = Guid.NewGuid().ToString();
-            const int versionId = 0;
+            const int correlationId = 0;
+            var clientId = _processorOptions.ClientId;
+            const int versionId = 1;
 
-            manager.RefreshMetadata(versionId, clientId, correlationId++, _processorOptions.Topic, true);
+            manager.RefreshMetadata(versionId, clientId, correlationId,
+                _processorOptions.Topic, true);
             var consumer = manager.GetConsumer(_processorOptions.Topic, _processorOptions.PartitionId);
+
+
 
             MainLoop(consumer, correlationId, manager);
         }
@@ -73,6 +77,7 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
                     _processorOptions.PartitionId, messageOffset,
                     consumer.Config.FetchSize, manager.Config.MaxWaitTime, manager.Config.MinWaitBytes);
 
+             
                 var partitionData = response.PartitionData(_processorOptions.Topic, _processorOptions.PartitionId);
 
                 var messageAndOffsets = partitionData.GetMessageAndOffsets();
@@ -81,9 +86,9 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
 
                 messageOffset = messageAndOffsets.Last().MessageOffset;
 
-                Console.WriteLine("{3} | {0}/{1} seg => {2}", messageAndOffsets.Count, sw.Elapsed.TotalSeconds, messageAndOffsets.Count / sw.Elapsed.TotalSeconds,_processorOptions.PartitionId);
-                
-                sw.Restart();
+                Console.WriteLine("{3} [{4}-{5}] | {0}/{1} seg => {2}", messageAndOffsets.Count, sw.Elapsed.TotalSeconds, messageAndOffsets.Count / sw.Elapsed.TotalSeconds,_processorOptions.PartitionId,messageAndOffsets.First().MessageOffset,messageAndOffsets.Last().MessageOffset);
+             
+                   sw.Restart();
                 
             }
 

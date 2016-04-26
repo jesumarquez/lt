@@ -301,14 +301,14 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
 
 	    public static int GetExcesoNivel(this Dispositivo me, int level)
 	    {
-	        var key = (level == -1)?"GTE_PARAM_GG_EXC_NN":string.Format("GTE_PARAM_GG_EXC_{0:2}", level);
+	        var key = (level == -1)?"GTE_PARAM_GG_EXC_NN":string.Format("GTE_PARAM_GG_EXC_{0:D2}", level);
 	        var d = me.DetallesDispositivo.FirstOrDefault(dt => dt.TipoParametro.Nombre == key);
 	        return d == null? 200 : d.As(200);
 	    }
 
         public static int GetInfraccionNivel(this Dispositivo me, int level)
         {
-            var key = (level == -1) ? "GTE_PARAM_GG_INF_NN" : string.Format("GTE_PARAM_GG_INF_{0:2}", level);
+            var key = (level == -1) ? "GTE_PARAM_GG_INF_NN" : string.Format("GTE_PARAM_GG_INF_{0:D2}", level);
             var d = me.DetallesDispositivo.FirstOrDefault(dt => dt.TipoParametro.Nombre == key);
             return d == null ? 200 : d.As(200);
         }

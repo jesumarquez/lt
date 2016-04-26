@@ -9,6 +9,7 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
             Topic = topic;
             PartitionId = partitionId;
             ClientId = clientId;
+
         }
 
         public string Zookeeper { get; private set; }

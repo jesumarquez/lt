@@ -62,6 +62,10 @@
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Lt.Memcached.ClientLibrary.1.0.0\lib\Memcached.ClientLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -75,7 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChainHandler.cs" />
+    <Compile Include="Handlers\LastPosition.cs" />
     <Compile Include="Handlers\OdometerHandler.cs" />
+    <Compile Include="Handlers\QtreeInstanceManager.cs" />
     <Compile Include="Handlers\SpeedTicketQtree.cs" />
     <Compile Include="Handlers\VehicleState.cs" />
     <Compile Include="OffsetHelper.cs" />
@@ -86,6 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="Geocoder.NHibernate.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -93,13 +102,33 @@
       <Project>{0fd2623e-2379-410d-81e3-c8749bc014de}</Project>
       <Name>Logictracker.AVL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Configuration\Logictracker.Configuration.csproj">
+      <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
+      <Name>Logictracker.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
       <Name>Logictracker.Cache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Messaging\Logictracker.Common.Messaging\Logictracker.Messaging.csproj">
+      <Project>{A5C107D7-CC1B-4D48-9275-0C6EE216BA61}</Project>
+      <Name>Logictracker.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Messaging\Logictracker.Messages.Saver\Logictracker.Messages.Saver.csproj">
+      <Project>{3811E3C9-E240-46FC-A2B2-3FCC0F31F7FA}</Project>
+      <Name>Logictracker.Messages.Saver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Framework\Model\Logictracker.Model.csproj">
       <Project>{9f45020b-8b93-4962-89b6-4591c385e68d}</Project>
       <Name>Logictracker.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\QuadTree\QuadTreeSharp\Logictracker.QuadTree.csproj">
+      <Project>{D1B8EAF1-02F3-40FC-9FA1-209CC1B9F96D}</Project>
+      <Name>Logictracker.QuadTree</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Framework\Security\Logictracker.Security.csproj">
+      <Project>{2d0c837c-8644-4c77-8267-be07cad743bd}</Project>
+      <Name>Logictracker.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Logictracker\src\Common\DAL\Logictracker.DAL.csproj">
       <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>

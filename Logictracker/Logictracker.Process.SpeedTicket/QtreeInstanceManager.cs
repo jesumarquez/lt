@@ -44,15 +44,11 @@ namespace Logictracker.Process.SpeedTicket
         internal State Evaluate(LogPosicion p)
         {
             var qLevel = _repository.GetPositionClass((float)p.Latitud, (float)p.Longitud);
-            
            
             if (_infraccion[qLevel] >= p.Velocidad)
                 return State.Inf;
 
-            if (_excesos[qLevel] >= p.Velocidad)
-                return State.Exc;
-            
-            return State.None;
+            return _excesos[qLevel] >= p.Velocidad ? State.Exc : State.None;
         }
     }
 
@@ -73,30 +69,15 @@ namespace Logictracker.Process.SpeedTicket
                 var key = c.Dispositivo.GetQtreeType() + "|" + c.Dispositivo.GetQtreeFile();
 
                 var repo = repositories.GetOrAdd(key, s =>
-                    {
-                        var so = new GridStructure();
-                        var instance = new Repository();
-                        instance.Open<GeoGrillas>(Config.Qtree.QtreeDirectory, ref so);
-                        return instance;
-                    });
+                {
+                    var so = new GridStructure();
+                    var instance = new Repository();
+                    instance.Open<GeoGrillas>(Config.Qtree.QtreeDirectory, ref so);
+                    return instance;
+                });
 
                 speedSpecs.TryAdd(c.Id, DispositivoSpeedSpec.Build(c.Dispositivo, repo));
             }
         }
-
-        public void Process(int vehicleId, DateTime start, DateTime stop)
-        {
-            var positions = _factory.LogPosicionDAO.GetPositionsBetweenDates(vehicleId, start, stop);
-            var spec = speedSpecs[vehicleId];
-            var secuence = positions.Select(p => spec.Evaluate(p));
-
-            var heads = secuence.TakeWhile(s => s == DispositivoSpeedSpec.State.None);
-            
-            // todos son normales.
-            if (heads.Count() == positions.Count())
-                return;
-            
-        }
-
     }
 }
