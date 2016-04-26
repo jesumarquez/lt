@@ -16,6 +16,7 @@
         "Problema",
         "TipoVehiculo",
         "Costo",
+        "OrdenesService",
         OrdenesAsignarAutoController]);
 
 function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDataInfo) {
@@ -153,31 +154,6 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
     };
 
     $scope.disabledButton = true;
-
-    $scope.programOrders = function (order) {
-
-        $scope.disabledButton = true;
-
-        var selectOrders = [];
-        $scope.ordenesGrid.select().each(function (index, row) {
-            selectOrders.push($scope.ordenesGrid.dataItem(row));
-        });
-
-        $scope.newOrder = new OrdenesService.ordenes();
-        $scope.newOrder.OrderList = selectOrders;
-        $scope.newOrder.IdVehicle = order.Vehicle.Id;
-        $scope.newOrder.StartDateTime = order.StartDateTime;
-        $scope.newOrder.LogisticsCycleType = order.LogisticsCycleType.Key;
-        $scope.newOrder.$save(
-            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
-            function () {
-                $scope.onBuscar();
-                $('#myModal').modal('hide');
-                $scope.disabledButton = false;
-            },
-            onFail
-        );
-    };
 
     $scope.getOrden = function(id){
         var orden = $scope.Orders.data().find(function (item) {
@@ -368,10 +344,11 @@ function OrdenesAsignarAutoController(
     Vehiculo,
     Problema,
     TipoVehiculo,
-    Costo)
+    Costo,
+    OrdenesService)
 {
     $scope.tipoCocheSelected = {};
-    $scope.disabledButton = false;
+    $scope.asignarDisabledButton = false;
 
     $scope.sortedProductsGridOptions = {
         columns: [
@@ -382,17 +359,23 @@ function OrdenesAsignarAutoController(
                 { field: "Insumo", title: "Producto" },
                 { field: "Cantidad", title: "Litros" },
                 { field: "EstadoDescripcion", title: "Estado" }
-        ]
+        ],
+        // Template para pintar el row cuando no tiene definido una ruta y un orden
+        rowTemplate: '<tr style="#:NumRuta==undefined? \"background-color:\\#ffdad8;\":\"\"#" data-uid="#= uid #">' +
+        '<td>#:NumRuta==undefined?\'\':NumRuta#</td><td>#: OrdenRuta==undefined?\'\':OrdenRuta #</td>'+
+        '<td>#:ClienteDescripcion #</td><td>#:ClienteLocalidad #</td><td>#:Insumo #</td><td>#:Cantidad #</td>'+
+        '<td>#:EstadoDescripcion #</td></tr>'
     };
 
-    $scope.asignar = asignar;
+    $scope.rutear = rutear;
     $scope.sortedProducts = $scope.productsSelected;
 
-    //$('#modalAuto').on('show.bs.modal', function (e) {
-    //    $scope.sortedProducts = $scope.productsSelected;
-    //});
+    // Array de los productos ya ruteados
+    $scope.solution = [];
 
-    function asignar() {
+    var getRoutePromise = null; //promise de getRoute. se usa para cancelar las peticiones a getRoute.
+
+    function rutear() {
 
         var problema = new Problema();
         var capacidad = sumCapacidadCuadernas();
@@ -415,13 +398,11 @@ function OrdenesAsignarAutoController(
         problema.add_vehiculo(vehiculo);
         problema.add_tipo_vehiculo(tVeh);
 
-        var getRoutePromise = null; //promise de getRoute. se usa para cancelar las peticiones a getRoute.
         var cancelGetRoutePromise = $timeout(cancelGetRoute, 10000, false, getRoutePromise); //cancela el getRoute luego de 10 seg.
 
         //intenta obtener la ruta
         vrpService.newRoute(problema).then(function (res) {
-            console.log(res);
-
+            
             //valida si hay una solucion
             if (angular.isUndefined(res.status) || res.status !== 1) {
                 //intenta 5 veces obtener la ruta cada segundo. 
@@ -438,10 +419,9 @@ function OrdenesAsignarAutoController(
 
     //Consula el estado del problema
     function getRoute(data) {
-        console.log(data);
+
         data.svc.getRoute(data.uid).then(function (res) {
             if (res.status === 1) {
-                console.log(res);
                 sortProducts(res);
                 $timeout.cancel(data.cancelGetRoutePromise);
             }
@@ -482,12 +462,22 @@ function OrdenesAsignarAutoController(
                 if (angular.isDefined(p)) {
                     p.OrdenRuta = iActo;
                     p.NumRuta = iRuta;
+
+                    // Por el momento se asigna a todos los productos la cuaderna 1
+                    p.Cuaderna = 1;
                 }
             });
         })
 
-        var sorted = $scope.sortedProducts.toJSON().sort(compareRoute);
-        console.log(sorted);
+        // Valida solo los productos que hayan sido ruteados
+        var s = $scope.sortedProducts.toJSON().sort(compareRoute);
+        s.forEach(function (item) {
+            if (angular.isDefined(item.NumRuta) && angular.isDefined(item.OrdenRuta))
+                $scope.solution.push(item);
+        });
+
+        // Ordena la grilla por Ruta y Orden
+        $('#sortedProductsGrid').data('kendoGrid').dataSource.sort([{ field: 'NumRuta', dir: 'asc' }, { field: 'OrdenRuta', dir: 'asc' }]);
     }
 
     function compareRoute(a, b) {
@@ -508,5 +498,43 @@ function OrdenesAsignarAutoController(
         }
         // a must be equal to b
         return 0;
+    }
+
+    $scope.programar = function ()
+    {
+        var newOrder = new OrdenesService.ordenes();
+
+        newOrder.OrderDetailList = $scope.solution;
+        newOrder.IdVehicle = -2; // Ninguno
+        newOrder.LogisticsCycleType = -2; // Ninguno
+        newOrder.IdVehicleType = $scope.tipoCocheSelected.Id;
+        newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
+        newOrder.$save(
+            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
+            function (value) {
+                onSuccess();
+            },
+            function (error) { onFail(error); }
+        );
+    }
+
+    function onSuccess()
+    {
+        $scope.solution = [];
+
+        $('#modalAuto').modal('hide');
+
+        if ($scope.accessor.invoke)
+            $scope.accessor.invoke();
+
+        $scope.onBuscar();
+    }
+
+    function onFail(error)
+    {
+        if (error.errorThrown)
+            $scope.notify.show(error.errorThrown, "error");
+        else
+            $scope.notify.show(error.statusText, "error");
     }
 }

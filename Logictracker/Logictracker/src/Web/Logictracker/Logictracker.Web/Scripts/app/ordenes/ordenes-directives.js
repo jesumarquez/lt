@@ -75,15 +75,17 @@ function OrderDetailDirective() {
                 return item.Id === data.Id;
             }, data);
 
+            data.NumRuta = undefined;
+            data.OrdenRuta = undefined;
+
             if (index > -1) {
                 vm.selectedList.splice(index, 1);
                 data.Ajuste = 0;
                 data.Cuaderna = 0;
-                data.OrdenRuta = 1000;
             }
             else {
-                vm.selectedList.push(data);
-            }
+                vm.selectedList.push(data);                
+            }            
         };
 
         $scope.$watch(function () { return vm.orderId; }, onOrderChange)
