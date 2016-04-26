@@ -56,7 +56,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             get
             {
                 var endDate = GetDateTime("Hasta");
-                return endDate.HasValue ? endDate.Value : DateTime.UtcNow;
+                return endDate.HasValue ? endDate.Value : DateTime.UtcNow.Date.AddHours(3).AddMinutes(-1);
             }
         }
         /// <summary>
@@ -67,7 +67,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private DateTime GetStartDate(int vehicle)
         {
             var startDate = GetDateTime("Desde");
-
             return startDate != null ? startDate.Value : GetLastDatamartUpdate(vehicle);
         }
 
@@ -248,7 +247,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 {
                     // Set environment data
                     var inicio = new DateTime(from.Year, from.Month, from.Day, from.Hour, 0, 0);
-                    var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 0, 0);
+                    var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 59, 59);
 
                     // Deletes all previously generated datamart records for the current vehicle and time span.
                     var t = new TimeElapsed();
