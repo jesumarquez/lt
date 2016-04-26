@@ -10,13 +10,13 @@ namespace Logictracker.DAL.DAO.ReportObjects
 {
     public class CheckOutDAO : ReportDAO
     {
-        public CheckOutDAO(DAOFactory daoFactory) : base(daoFactory) {}
+        public CheckOutDAO(DAOFactory daoFactory) : base(daoFactory) { }
 
         public List<CheckOut> GetReporte(int empresa, int linea, int transportista, DateTime desde, DateTime hasta, int minutosPeriodo, int modo)
         {
             var init = desde.Date.AddHours(3);
 
-            var vehicles = DAOFactory.CocheDAO.GetList(new[]{empresa}, new[]{linea}, new[]{-1}, new[]{transportista}).Select(v => v.Id).ToList();
+            var vehicles = DAOFactory.CocheDAO.GetList(new[] { empresa }, new[] { linea }, new[] { -1 }, new[] { transportista }).Select(v => v.Id).ToList();
             var oLinea = DAOFactory.LineaDAO.FindById(linea);
             var list = new List<CheckOut>();
             var inicio = init;

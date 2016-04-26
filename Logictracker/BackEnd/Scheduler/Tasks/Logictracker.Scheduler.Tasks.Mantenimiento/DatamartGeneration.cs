@@ -77,6 +77,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
+            var inicio = DateTime.UtcNow;
+
             base.OnExecute(timer);
 
             RecompileStores();
@@ -86,8 +88,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             //DeleteOldDatamartRecords();
 
 			STrace.Trace(GetType().FullName, "Processing vehicles.");
-
-            var inicio = DateTime.UtcNow;
 
             SetVehicles();
 
@@ -258,19 +258,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
                     var records = new List<Datamart>();
                     var registrosValidos = false;
-                    var retry = 0;
-
-                    //while (!registrosValidos && retry < 5)
-                    //{
-                        //retry++;
-
-                        using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
-                        {
-                            records = GenerateRecords(data);
-                            registrosValidos = ValidateRecords(data, records);
-                            if (!registrosValidos) STrace.Error(GetType().FullName, string.Format("Registros no válidos para el vehículo: {0}", vehicle.Id));
-                        }
-                    //}
+                    
+                    using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
+                    {
+                        records = GenerateRecords(data);
+                        registrosValidos = ValidateRecords(data, records);
+                        if (!registrosValidos) STrace.Error(GetType().FullName, string.Format("Registros no válidos para el vehículo: {0}", vehicle.Id));
+                    }                    
 
                     t.Restart();
                     foreach (var record in records) DaoFactory.DatamartDAO.Save(record);
@@ -280,7 +274,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
                     transaction.Commit();
 
-                    //if (retry == 5 && !registrosValidos)
                     if (!registrosValidos)
                     {
                         var parametros = new[] { "Se generaron registros de Datamart posiblemente inválidos para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), DateTime.Today.ToString("dd/MM/yyyy HH:mm") };

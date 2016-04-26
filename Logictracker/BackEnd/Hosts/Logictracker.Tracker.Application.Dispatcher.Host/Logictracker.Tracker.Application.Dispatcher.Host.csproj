@@ -84,18 +84,33 @@
     <Compile Include="Handlers\QtreeInstanceManager.cs" />
     <Compile Include="Handlers\SpeedTicketQtree.cs" />
     <Compile Include="Handlers\VehicleState.cs" />
-    <Compile Include="OffsetHelper.cs" />
+    <Compile Include="IPartitionProcessor.cs" />
+    <Compile Include="OffsetManager.cs" />
+    <Compile Include="PartitionProcessorBase.cs" />
     <Compile Include="PartitionProcessorOptions.cs" />
     <Compile Include="PartitionProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ZooKeeperNetBinarySerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <Content Include="Geocoder.NHibernate.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Logictracker.Mailing.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Framework\AVL\Logictracker.AVL.csproj">

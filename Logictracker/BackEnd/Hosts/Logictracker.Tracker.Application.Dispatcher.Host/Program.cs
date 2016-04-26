@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Logictracker.Tracker.Application.Dispatcher.Host.Handlers;
+using Logictracker.Tracker.Application.Dispatcher.Host.Properties;
 
 namespace Logictracker.Tracker.Application.Dispatcher.Host
 {
@@ -22,15 +23,15 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
         {
             var partitionId = (int) o;
             var options =
-                new PartitionProcessorOptions("190.111.252.242:2181", "lt_dispatcher", partitionId, "qtree_speed_ticket");
+                new PartitionProcessorOptions(Settings.Default.kServer,  Settings.Default.kTopic, partitionId, Settings.Default.kClientId);
 
             var spdTck = new SpeedTicketQtree(null);
 
             var chain = new OdometerHandler(spdTck);
             
-            var processor = new PartitionProcessor(options, chain);
+            IPartitionProcessor processor = new PartitionProcessor(options, chain);
             
-            Console.WriteLine("Init consumer partition {0}",partitionId);
+            Console.WriteLine("Init consumer partition {1} - {0}",partitionId,Settings.Default.kClientId);
             processor.Process();
 
         }

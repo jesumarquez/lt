@@ -16,5 +16,6 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
         public string Topic { get; private set; }
         public int PartitionId { get; private set; }
         public string ClientId { get; private set; }
+
     }
 }

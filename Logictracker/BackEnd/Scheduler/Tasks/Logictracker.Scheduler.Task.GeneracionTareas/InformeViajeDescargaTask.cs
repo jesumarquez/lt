@@ -67,7 +67,8 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                         var salidas = eventos.Where(e => e.Mensaje.Codigo == MessageCode.OutsideGeoRefference.GetMessageCode());
 
                         var i = 1;
-                        var viaje = 1;
+                        var nroViaje = 1;
+                        var nroRecarga = 1;
                         foreach (var salida in salidas)
                         {
                             STrace.Trace(GetType().FullName, string.Format("Procesando salida: {0}/{1}", i, salidas.Count()));
@@ -78,7 +79,10 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                 var duracion = vuelta.Fecha.Subtract(salida.Fecha).TotalHours;
                                 var minutosDeViaje = duracion * 60;
                                 if (minutosDeViaje < vehiculo.Empresa.MinutosMinimosDeViaje)
+                                {
+                                    i++;
                                     continue;
+                                }
 
                                 var informe = new InformeViajeRecarga
                                 { 
@@ -87,7 +91,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                     Vehiculo = vehiculo,
                                     Patente = vehiculo.Patente,
                                     Interno = vehiculo.Interno,
-                                    Accion = "Viaje " + viaje++,
+                                    Accion = "Viaje " + nroViaje++,
                                     Fecha = salida.Fecha.Date.AddHours(3),
                                     Inicio = salida.Fecha,
                                     Fin = vuelta.Fecha,
@@ -106,7 +110,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                                         Vehiculo = vehiculo,
                                         Patente = vehiculo.Patente,
                                         Interno = vehiculo.Interno,
-                                        Accion = "Recarga",
+                                        Accion = "Recarga " + nroRecarga++,
                                         Fecha = vuelta.Fecha.Date.AddHours(3),
                                         Inicio = vuelta.Fecha,
                                         Fin = recarga.Fecha,
