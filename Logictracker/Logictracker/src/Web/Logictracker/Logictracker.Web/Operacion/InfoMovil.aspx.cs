@@ -84,6 +84,10 @@ namespace Logictracker.Operacion
 
             lblInterno.Text = pageCoche.Interno;
             lblPatente.Text = string.Concat(CultureManager.GetLabel("PATENTE"), ": ", pageCoche.Patente);
+            if (pageCoche.Transportista != null)
+            {
+                lblTransportista.Text = pageCoche.Transportista.Descripcion;    
+            }            
             lblOdometro.Text = string.Concat(CultureManager.GetLabel("ODOMETRO"), ": ", (pageCoche.InitialOdometer + pageCoche.ApplicationOdometer).ToString("0.00"), "km");
             lblTipo.Text = pageCoche.TipoCoche.Descripcion;
             imgTipo.ImageUrl = IconDir + pageCoche.TipoCoche.IconoDefault.PathIcono;

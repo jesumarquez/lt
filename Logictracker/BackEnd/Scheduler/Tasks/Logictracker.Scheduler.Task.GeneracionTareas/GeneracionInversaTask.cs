@@ -167,7 +167,7 @@ namespace Logictracker.Scheduler.Tasks.GeneracionTareas
                 var fin = DateTime.UtcNow;
                 var duration = fin.Subtract(inicio).TotalMinutes;
 
-                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duration, DataMartsLog.Moludos.DatamartRecorridos, "Generación inversa finalizada exitosamente");
+                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duration, DataMartsLog.Moludos.GeneracionInversa, "Generación inversa finalizada exitosamente");
             }
             catch (Exception ex)
             {

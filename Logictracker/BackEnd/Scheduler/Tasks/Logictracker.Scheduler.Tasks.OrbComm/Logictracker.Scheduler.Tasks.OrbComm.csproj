@@ -78,6 +78,10 @@
       <Project>{45750A64-1C43-44EF-A3E3-B3DCAB8144C8}</Project>
       <Name>Logictracker.Types</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Logictracker\src\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-fd4b-460a-931b-6a3b4d4eef5c}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Logictracker\src\Scheduler\Scheduler.Core\Logictracker.Scheduler.Core.csproj">
       <Project>{AC8BC64C-65C6-43F6-A266-AE32B59D83B1}</Project>
       <Name>Logictracker.Scheduler.Core</Name>

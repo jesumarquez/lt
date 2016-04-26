@@ -162,7 +162,8 @@ namespace Logictracker.Web.CustomWebControls.Binding
                                {DataMartsLog.Moludos.VehicleData, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.VehicleData)},
                                {DataMartsLog.Moludos.VencimientoDocumentos, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.VencimientoDocumentos)},
                                {DataMartsLog.Moludos.GeneracionInversa, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.GeneracionInversa)},
-                               {DataMartsLog.Moludos.InformeViajeDescarga, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.InformeViajeDescarga)}
+                               {DataMartsLog.Moludos.InformeViajeDescarga, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.InformeViajeDescarga)},
+                               {DataMartsLog.Moludos.UpdateOdometers, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.UpdateOdometers)}
                            };
             }
         }

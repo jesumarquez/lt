@@ -448,7 +448,7 @@
     <value>Resumen por Operador</value>
   </data>
   <data name="STAT_RESUMEN_RUTA" xml:space="preserve">
-    <value>Resumen de Ruta</value>
+    <value>Resumen de Recorrido</value>
   </data>
   <data name="STAT_REPORTE_CONSUMOS" xml:space="preserve">
     <value>Reporte de Combustible</value>

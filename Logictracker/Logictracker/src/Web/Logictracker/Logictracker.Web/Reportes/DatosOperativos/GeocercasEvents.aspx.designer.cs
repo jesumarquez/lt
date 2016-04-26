@@ -94,6 +94,33 @@ namespace Logictracker.Reportes.DatosOperativos {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoDeVehiculoDropDownList ddlTipoDeVehiculo;
         
         /// <summary>
+        /// lblTransportista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblTransportista;
+        
+        /// <summary>
+        /// upTransportista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upTransportista;
+        
+        /// <summary>
+        /// ddlTransportista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TransportistaDropDownList ddlTransportista;
+        
+        /// <summary>
         /// lblMobile control.
         /// </summary>
         /// <remarks>

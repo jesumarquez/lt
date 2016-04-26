@@ -9,7 +9,7 @@
     <asp:Panel ID="Panel1" runat="server" SkinID="FilterPanel">
         <table width="100%">
             <tr align="left" style="font-weight: bold" valign="top">
-                <td>
+                <td rowspan="2">
                     <cwc:ResourceLabel ID="lblLocacion" runat="server" ResourceName="Entities" VariableName="PARENTI01" />
                     <br />
                     <cwc:LocacionDropDownList ID="ddlLocacion" runat="server" Width="125px" OnSelectedIndexChanged="DdlLocacionOnSelectedIndexChanged" />
@@ -28,33 +28,43 @@
                     <br />
                     <asp:UpdatePanel ID="upTipoVehic" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <cwc:TipoDeVehiculoDropDownList ID="ddlTipoDeVehiculo" runat="server" AddAllItem="True" Width="125px" ParentControls="ddlPlanta" />
+                            <cwc:TipoDeVehiculoDropDownList ID="ddlTipoDeVehiculo" runat="server" AddAllItem="True" Width="125px" ParentControls="ddlLocacion,ddlPlanta" />
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlLocacion" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                    <cwc:ResourceLabel ID="lblTransportista" runat="server" ResourceName="Entities" VariableName="PARENTI07" />
+                    <br />
+                    <asp:UpdatePanel ID="upTransportista" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <cwc:TransportistaDropDownList ID="ddlTransportista" runat="server" AddAllItem="True" Width="125px" ParentControls="ddlLocacion,ddlPlanta" />
+                        </ContentTemplate>
+                        <Triggers>                            
                             <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
-                <td>
+                <td rowspan="2">
                     <cwc:ResourceLinkButton ID="lblMobile" runat="server" ListControlTargetID="lbMobile" ResourceName="Labels" VariableName="VEHICULOS" ForeColor="Black" />
                     <br />
                     <asp:UpdatePanel ID="upMobile" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                         <ContentTemplate>
-                            <cwc:MovilListBox ID="lbMobile" runat="server" Width="125px" Height="95px" SelectionMode="Multiple" ParentControls="ddlTipoDeVehiculo, ddlPlanta" UseOptionGroup="true" OptionGroupProperty="Estado" AutoPostBack="false" />
+                            <cwc:MovilListBox ID="lbMobile" runat="server" Width="150px" Height="130px" SelectionMode="Multiple" ParentControls="ddlPlanta,ddlTransportista,ddlTipoDeVehiculo" UseOptionGroup="true" OptionGroupProperty="Estado" AutoPostBack="false" />
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlTipoDeVehiculo" EventName="SelectedIndexChanged" />
                             <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlTransportista" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlTipoDeVehiculo" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
-                <td>
+                <td rowspan="2">
                     <cwc:ResourceLinkButton ID="lnkTipoDomicilio" runat="server" ListControlTargetID="lbTipoDomicilio" ResourceName="Entities" VariableName="PARENTI10" ForeColor="Black" />
                     <br />
                     <asp:UpdatePanel ID="upTipoDomicilio" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                         <ContentTemplate>
-                            <cwc:TipoReferenciaGeograficaListBox ID="lbTipoDomicilio" runat="server" Width="200px" Height="95px" SelectionMode="Multiple" ParentControls="ddlLocacion,ddlPlanta" ShowAllTypes="true" OnSelectedIndexChanged="LbTipoDomicilioOnSelecteIndexChanged" />
+                            <cwc:TipoReferenciaGeograficaListBox ID="lbTipoDomicilio" runat="server" Width="200px" Height="130px" SelectionMode="Multiple" ParentControls="ddlLocacion,ddlPlanta" ShowAllTypes="true" OnSelectedIndexChanged="LbTipoDomicilioOnSelecteIndexChanged" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlLocacion" EventName="SelectedIndexChanged" />
@@ -62,12 +72,12 @@
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
-                <td>
+                <td rowspan="2">
                     <cwc:ResourceLinkButton ID="lnkGeocercas" runat="server" ListControlTargetID="lbGeocerca" ResourceName="Entities" VariableName="PARENTI05" ForeColor="Black" />
                     <br />
                     <asp:UpdatePanel ID="upGeocerca" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                         <ContentTemplate>
-                            <asp:ListBox ID="lbGeocerca" runat="server" Width="200px" Height="95px" SelectionMode="Multiple" AutoPostBack="false" />
+                            <asp:ListBox ID="lbGeocerca" runat="server" Width="200px" Height="130px" SelectionMode="Multiple" AutoPostBack="false" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlLocacion" EventName="SelectedIndexChanged" />
@@ -94,11 +104,14 @@
                     <br />
                     <cwc:ResourceLabel ID="lblEnMarcha" runat="server" ResourceName="Labels" VariableName="EN_VIAJE" />
                     <br />
-                    <uc1:TimePicker ID="tpEnMarcha" runat="server" IsValidEmpty="false" Width="80" DefaultTimeMode="Start" />
+                    <uc1:TimePicker ID="tpEnMarcha" runat="server" IsValidEmpty="false" Width="80" DefaultTimeMode="Start" />                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <cwc:ResourceCheckBox ID="chkCalcularKmRecorridos" runat="server" VariableName="CALCULAR_KM_RECORRIDOS" ResourceName="Labels" Font-Bold="true" />
                     <br />
-                    <cwc:ResourceCheckBox ID="chkCalcularKmRecorridos" runat="server" VariableName="CALCULAR_KM_RECORRIDOS" ResourceName="Labels" />
-                    <br />
-                    <cwc:ResourceCheckBox ID="chkPaginar" runat="server" Checked="true" VariableName="PAGINARGEOCERCAS" ResourceName="Labels" />
+                    <cwc:ResourceCheckBox ID="chkPaginar" runat="server" Checked="true" VariableName="PAGINARGEOCERCAS" ResourceName="Labels" Font-Bold="true" />
                 </td>
             </tr>
         </table>
