@@ -33,7 +33,7 @@ namespace Logictracker.Parametrizacion
         {
             ddlDistrito.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : ddlDistrito.AllValue);
             ddlBase.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : ddlBase.AllValue);
-            ddlMensaje.SetSelectedValue(EditObject.Mensaje != null ? Convert.ToInt32(EditObject.Mensaje.Codigo) : ddlMensaje.NoneValue);
+            ddlMensaje.SetSelectedValue(EditObject.Mensaje != null ? EditObject.Mensaje.Id : ddlMensaje.NoneValue);
             ddlTipoVehiculo.SetSelectedValue(EditObject.TipoVehiculo != null ? EditObject.TipoVehiculo.Id : ddlTipoVehiculo.AllValue);
             ddlTransportista.SetSelectedValue(EditObject.Transportista != null ? EditObject.Transportista.Id : ddlTransportista.AllValue);
             ddlDepartamento.SetSelectedValue(EditObject.Departamento != null ? EditObject.Departamento.Id : ddlDepartamento.AllValue);
@@ -126,9 +126,7 @@ namespace Logictracker.Parametrizacion
                     EditObject.Empresa = ddlDistrito.Selected > 0
                         ? DAOFactory.EmpresaDAO.FindById(ddlDistrito.Selected)
                         : EditObject.Linea != null ? EditObject.Linea.Empresa : null;
-                    EditObject.Mensaje =
-                        DAOFactory.MensajeDAO.FindById(
-                            DAOFactory.MensajeDAO.GetByCodigo(ddlMensaje.Selected.ToString("#0"), EditObject.Empresa, EditObject.Linea).Id);
+                    EditObject.Mensaje = DAOFactory.MensajeDAO.FindById(ddlMensaje.Selected);
                     EditObject.Descripcion = txtDescripcion.Text;
                     EditObject.GrabaEnBase = chkGrabaEnBase.Checked;
 

@@ -26,7 +26,7 @@
                         <cwc:ResourceLabel ID="lblMensaje" runat="server" ResourceName="Entities" VariableName="PAREVEN01" Width="100%" />
                         <asp:UpdatePanel ID="upMensaje" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                             <ContentTemplate>
-                                <cwc:MensajesDropDownList ID="ddlMensaje" runat="server" Width="100%" ParentControls="ddlDistrito,ddlBase" />
+                                <cwc:MensajesDropDownList ID="ddlMensaje" runat="server" Width="100%" ParentControls="ddlDistrito,ddlBase" BindIds="true" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="ddlDistrito" EventName="SelectedIndexChanged" />
