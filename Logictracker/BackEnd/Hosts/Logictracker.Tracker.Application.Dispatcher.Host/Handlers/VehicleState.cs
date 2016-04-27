@@ -92,7 +92,7 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host.Handlers
 
                 var qLevel = vehicleState.QtreeRepository.GetPositionClass(point.Lat, point.Lon);
 
-                var velocidadExceso = vehicleState._excesos[qLevel];
+                var velocidadExceso = vehicleState._infraccion[qLevel];
 
                 
                 if (point.Velocidad > velocidadExceso)
@@ -119,13 +119,19 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host.Handlers
 
             public override void Evaluate(VehicleState vehicleState, GPSPoint point)
             {
-                if (point.Date > LastPosition.Fecha)
+                if (point.Date >= LastPosition.Fecha)
                     LastPosition = LastPosition.Create(point);
                 else
                 {
-                    Console.WriteLine("Posicion descartada {0}", point.Date);
+                    if (point.Velocidad >= LastPosition.Velocidad)
+                    {
+                        
+                    }
+
+                    Console.WriteLine("Posicion descartada {0}  vs {1}", point.Date,LastPosition.Fecha);
                     return;
                 }
+              
                 var qLevel = vehicleState.QtreeRepository.GetPositionClass(point.Lat, point.Lon);
 
                 _velocidadInfraccion = Math.Min(_velocidadInfraccion, vehicleState._infraccion[qLevel]);
@@ -148,6 +154,10 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host.Handlers
             {
 
                 var duracion = LastPosition.Fecha.Subtract(_inicioExceso.Fecha);
+
+                if (duracion.TotalSeconds < 15)
+                    return;
+
                 var strMsg = string.Format
                     (": Permitida {0} - Alcanzada {1} - Duracion: {2}", 
                     Convert.ToInt32(_velocidadInfraccion), 

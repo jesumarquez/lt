@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
+using System.Threading;
 using Kafka.Client.Cfg;
 using Kafka.Client.Consumers;
 using Kafka.Client.Helper;
 using Kafka.Client.Messages;
-using Kafka.Client.Requests;
-using Kafka.Client.ZooKeeperIntegration;
-using ZooKeeperNet;
 
 namespace Logictracker.Tracker.Application.Dispatcher.Host
 {
@@ -24,9 +21,7 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
 
         public override void Process()
         {
-
-
-            const int factor = 0x2;
+            const int factor = 1;
             var config = new KafkaSimpleManagerConfiguration()
             {
                 FetchSize = KafkaSimpleManagerConfiguration.DefaultFetchSize / factor,
@@ -81,10 +76,17 @@ namespace Logictracker.Tracker.Application.Dispatcher.Host
                    
                 }
 
+                if (lstOffset == fstOffset)
+                {
+                    Thread.Sleep(30000);
+                    Console.Write('.');
+                    continue;
+                }
+
                 messageOffset = lstOffset;
 
                 offsetManager.SetOffset(_processorOptions.Topic,
-                    _processorOptions.ClientId, _processorOptions.PartitionId, messageOffset);
+                    _processorOptions.ClientId, _processorOptions.PartitionId, lstOffset);
 
 
                 Console.WriteLine("{3} [{4}-{5}] | {0}/{1} seg => {2}",

@@ -86,6 +86,7 @@
     <Compile Include="Handlers\VehicleState.cs" />
     <Compile Include="IPartitionProcessor.cs" />
     <Compile Include="OffsetManager.cs" />
+    <Compile Include="OffsetManagerItem.cs" />
     <Compile Include="PartitionProcessorBase.cs" />
     <Compile Include="PartitionProcessorOptions.cs" />
     <Compile Include="PartitionProcessor.cs" />
