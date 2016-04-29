@@ -5,6 +5,8 @@ using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Web.BaseClasses.BasePages;
 using Logictracker.Web.Controls;
+using Logictracker.Messages.Saver;
+using Logictracker.Messaging;
 
 namespace Logictracker.Web.CicloLogistico
 {
@@ -49,6 +51,7 @@ namespace Logictracker.Web.CicloLogistico
             dtpHasta.SelectedDate = EditObject.FechaHasta.ToDisplayDateTime();
             lblDtDesde.Text = EditObject.FechaDesde.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm");
             lblDtHasta.Text = EditObject.FechaHasta.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm");
+            txtDestino.Text = EditObject.Destino;
 
             cbVehiculo.Items.Clear();
             cbVehiculo.Items.Add(new ListItem(EditObject.Vehiculo.Interno, EditObject.Vehiculo.Id.ToString("#0")));
@@ -74,6 +77,7 @@ namespace Logictracker.Web.CicloLogistico
                 btnCancelar.Visible = EditObject.Estado != AgendaVehicular.Estados.Cancelado;
                 auEmpleado.Visible = false;
                 cbEmpleado.Visible = true;
+                txtDestino.Enabled = false;
             }
             else
             {
@@ -131,8 +135,12 @@ namespace Logictracker.Web.CicloLogistico
 
             EditObject.FechaDesde = dtpDesde.SelectedDate.Value.ToDataBaseDateTime();
             EditObject.FechaHasta = dtpHasta.SelectedDate.Value.ToDataBaseDateTime();
+            EditObject.Destino = txtDestino.Text;
 
             DAOFactory.AgendaVehicularDAO.SaveOrUpdate(EditObject);
+
+            var msgSaver = new MessageSaver(DAOFactory);
+            msgSaver.Save(MessageCode.VehiculoAgendado.GetMessageCode(), EditObject.Vehiculo, EditObject.Empleado, DateTime.UtcNow, null, string.Format("Vehículo {0} asignado a {1}", EditObject.Vehiculo.Patente, EditObject.Empleado.Entidad != null ? EditObject.Empleado.Entidad.Descripcion : string.Empty));
         }
 
         protected void BtnConsultarOnClick(object sender, EventArgs e)

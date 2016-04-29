@@ -36,6 +36,15 @@ namespace Logictracker.Web.CicloLogistico
                                                              dtpHasta.SelectedDate.Value.ToDataBaseDateTime())
                                                     .Where(a => a.Estado != AgendaVehicular.Estados.Cancelado);
 
+            if (Usuario.EmpleadoId > 0)
+            {
+                var empleado = DAOFactory.EmpleadoDAO.FindById(Usuario.EmpleadoId);
+                if (empleado.Departamento != null)
+                {
+                    list = list.Where(a => a.Departamento == empleado.Departamento);
+                }
+            }
+
             return list.Select(a => new AgendaVehicularVo(a)).ToList();
         }
 

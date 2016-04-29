@@ -44,13 +44,9 @@
                 </asp:UpdatePanel>
             </td>
             <td valign="top">
-                <cwc:ResourceLabel ID="lblDesde" runat="server" ResourceName="Labels" VariableName="DESDE" Font-Bold="true" />
+                <cwc:ResourceLabel ID="lblFecha" runat="server" ResourceName="Labels" VariableName="FECHA" Font-Bold="true" />
                 <br/>
-                <cwc:DateTimePicker ID="dtDesde" runat="server" Width="75px" IsValidEmpty="false" Mode="Date" TimeMode="Start" />
-                <br/>
-                <cwc:ResourceLabel ID="lblHasta" runat="server" ResourceName="Labels" VariableName="HASTA" Font-Bold="true" />
-                <br/>
-                <cwc:DateTimePicker ID="dtHasta" runat="server" Width="75px" IsValidEmpty="false" Mode="Date" TimeMode="End" />
+                <cwc:DateTimePicker ID="dtFecha" runat="server" Width="75px" IsValidEmpty="false" Mode="Date" TimeMode="Start" />
             </td>
         </tr>
     </table>

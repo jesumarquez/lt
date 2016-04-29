@@ -45,6 +45,13 @@ namespace Logictracker.Dispatcher.Handlers
             var zona = estado != null && estado.ZonaManejo != null && estado.ZonaManejo.ZonaManejo > 0
                     ? DaoFactory.ZonaDAO.FindById(estado.ZonaManejo.ZonaManejo) : null;
 
+            if (Coche.Empresa.AsignoInfraccionPorAgenda)
+            {
+                var reserva = DaoFactory.AgendaVehicularDAO.FindByVehicleAndDate(Coche.Id, inicio.Date);
+                if (reserva != null)
+                    chofer = reserva.Empleado;
+            }
+
             var evento = MessageSaver.Save(velocidadExcedida, MessageCode.SpeedingTicket.GetMessageCode(), Dispositivo, Coche, chofer, inicio.Date, inicio, velocidadExcedida.EndPoint, texto, velocidadPermitida, velocidadAlcanzada, null, zona);
 
             var infraccion = new Infraccion
