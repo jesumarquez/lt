@@ -84,6 +84,7 @@
     <Compile Include="BusinessObjects\LogicLinkFile.cs" />
     <Compile Include="BusinessObjects\Mantenimiento\HistoriaTicketMantenimiento.cs" />
     <Compile Include="BusinessObjects\Mantenimiento\TicketMantenimiento.cs" />
+    <Compile Include="BusinessObjects\Messages\ColaMensajes.cs" />
     <Compile Include="BusinessObjects\Messages\AtencionEvento.cs" />
     <Compile Include="BusinessObjects\Messages\MensajeTraducido.cs" />
     <Compile Include="BusinessObjects\Messages\MensajeIgnorado.cs" />

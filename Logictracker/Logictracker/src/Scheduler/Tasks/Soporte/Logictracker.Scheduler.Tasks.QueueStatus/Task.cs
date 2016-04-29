@@ -5,6 +5,7 @@ using Logictracker.Configuration;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Mailing;
 using Logictracker.Scheduler.Core.Tasks.BaseTasks;
+using Logictracker.Types.BusinessObjects.Messages;
 
 namespace Logictracker.Scheduler.Tasks.QueueStatus
 {
@@ -30,7 +31,19 @@ namespace Logictracker.Scheduler.Tasks.QueueStatus
         /// <param name="timer"></param>
         protected override void OnExecute(Timer timer)
         {
-            var maxCount = Logictracker.QueueStatus.QueueStatus.GetMaxEnqueuedMessagesCount();
+            var colas = Logictracker.QueueStatus.QueueStatus.GetEnqueuedMessagesPerQueue();
+            foreach (var cola in colas)
+            {
+                var oCola = DaoFactory.ColaMensajesDAO.FindByName(cola.Key);
+                
+                if (oCola == null) oCola = new ColaMensajes { Nombre = cola.Key };
+                oCola.Cantidad = cola.Value;
+                oCola.UltimaActualizacion = DateTime.UtcNow;
+                
+                DaoFactory.ColaMensajesDAO.SaveOrUpdate(oCola);
+            }
+
+            var maxCount = Logictracker.QueueStatus.QueueStatus.GetMaxEnqueuedMessagesCount(colas);
 
             STrace.Trace(GetType().FullName, String.Format("Maximum enqueued messages count: {0}.", maxCount));
 
