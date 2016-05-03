@@ -230,7 +230,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
 
             //var firstPosition = q.UniqueResult<LogPosicion>();
             if (firstPosition == null) return null;
-            return new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 0, 0, 0);
+            return new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 3, 0, 0);
         }
 
         public DateTime GetRegenerationEndDate(int vehicleId, DateTime from, DateTime to, int maxMonths)
@@ -252,7 +252,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             //var firstPosition = q.UniqueResult<LogPosicion>();
             var firstPosition = results.FirstOrDefault();
             return firstPosition != null 
-                        ? new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 23, 59, 59, 99) 
+                        ? new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 2, 59, 59, 99) 
                         : to;
         }
 

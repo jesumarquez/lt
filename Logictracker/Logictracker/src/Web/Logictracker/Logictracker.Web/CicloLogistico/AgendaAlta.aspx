@@ -40,7 +40,7 @@
                             <td width="40%" align="left">
                                 <asp:UpdatePanel ID="upDepto" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                                     <ContentTemplate>
-                                        <cwc:DepartamentoDropDownList ID="cbDepartamento" runat="server" Width="98%" ParentControls="cbEmpresa,cbLinea" OnSelectedIndexChanged="ConditionChanged" />
+                                        <cwc:DepartamentoDropDownList ID="cbDepartamento" runat="server" Width="98%" ParentControls="cbEmpresa,cbLinea" OnSelectedIndexChanged="ConditionChanged" FiltraPorUsuario="true" />
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />
@@ -117,6 +117,14 @@
                                         <asp:AsyncPostBackTrigger ControlID="cbDepartamento" EventName="SelectedIndexChanged" />
                                     </Triggers>
                                 </asp:UpdatePanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%" align="right">
+                                <cwc:ResourceLabel ID="lblDestino" runat="server" ResourceName="Labels" VariableName="DESTINO" />
+                            </td>
+                            <td width="50%" align="left">
+                                <asp:TextBox ID="txtDestino" runat="server" />
                             </td>
                         </tr>
                         <tr>

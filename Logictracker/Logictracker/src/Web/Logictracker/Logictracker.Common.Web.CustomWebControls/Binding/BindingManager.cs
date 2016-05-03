@@ -1070,7 +1070,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
             foreach (var punto in DaoFactory.PuntoEntregaDAO.GetList(idEmpresa, idLinea, idCliente)) autoBindeable.AddItem(punto.Descripcion, punto.Id);
         }
 
-        public void BindDepartamento(IAutoBindeable autoBindeable)
+        public void BindDepartamento(DepartamentoDropDownList autoBindeable)
         {
             autoBindeable.ClearItems();
             AddDefaultItems(autoBindeable);
@@ -1078,6 +1078,28 @@ namespace Logictracker.Web.CustomWebControls.Binding
             var idEmpresa = autoBindeable.ParentSelectedValues<Empresa>();
             var idLinea = autoBindeable.ParentSelectedValues<Linea>();
             var departamentos = DaoFactory.DepartamentoDAO.GetList(idEmpresa, idLinea);
+            if (autoBindeable.FiltraPorUsuario)
+            {
+                var idUsuario = WebSecurity.AuthenticatedUser.EmpleadoId;
+                if (idUsuario > 0)
+                {
+                    var usuario = DaoFactory.EmpleadoDAO.FindById(idUsuario);
+                    if (usuario.Departamento != null)
+                        departamentos = departamentos.Where(d => d == usuario.Departamento);
+                }
+            }
+
+            foreach (var item in departamentos) autoBindeable.AddItem(item.Descripcion, item.Id);
+        }
+
+        public void BindDepartamento(DepartamentoListBox autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idEmpresa = autoBindeable.ParentSelectedValues<Empresa>();
+            var idLinea = autoBindeable.ParentSelectedValues<Linea>();
+            var departamentos = DaoFactory.DepartamentoDAO.GetList(idEmpresa, idLinea);            
 
             foreach (var item in departamentos) autoBindeable.AddItem(item.Descripcion, item.Id);
         }

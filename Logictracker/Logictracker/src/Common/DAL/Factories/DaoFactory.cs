@@ -738,6 +738,9 @@ namespace Logictracker.DAL.Factories
         private InformeViajeRecargaDAO _informeRecargaDao;
         public InformeViajeRecargaDAO InformeViajeRecargaDAO { get { return _informeRecargaDao ?? (_informeRecargaDao = GetDao<InformeViajeRecargaDAO>()); } }
 
+        private ColaMensajesDAO _colaMensajesDAO;
+        public ColaMensajesDAO ColaMensajesDAO { get { return _colaMensajesDAO ?? (_colaMensajesDAO = GetDao<ColaMensajesDAO>()); } }
+
         #endregion
 
         #region Private Methods

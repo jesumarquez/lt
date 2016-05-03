@@ -147,7 +147,7 @@ namespace Logictracker.Reportes.Estadistica
                 if (!Mobile.Equals(0))
                 {
                     SetInitialFilterValues();
-                    Bind();
+                    BtnSearchClick(null, null);
                 }
             }
         }

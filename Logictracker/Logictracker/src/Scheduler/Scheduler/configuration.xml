@@ -136,9 +136,9 @@
     </Timer>
     -->
 
-    <Timer Enabled="true" Name="UpdateOdometers" Periodicity="Hour" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">      
-      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.UpdateOdometers, Logictracker.Scheduler.Tasks.Mantenimiento" />
-      <Task Class="Logictracker.Scheduler.Tasks.GeneracionTareas.InformeViajeDescargaTask, Logictracker.Scheduler.Tasks.GeneracionTareas" Params="Desde=07/04/2016;Hasta=08/04/2016;" />
+    <Timer Enabled="true" Name="UpdateOdometers" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
+      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" />
+      <!--<Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.UpdateOdometers, Logictracker.Scheduler.Tasks.Mantenimiento" />-->
     </Timer>
 
 </Configuration>

@@ -39,5 +39,6 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
         public virtual DateTime FechaDesde { get; set; }
         public virtual DateTime FechaHasta { get; set; }
         public virtual int Estado { get; set; }
+        public virtual string Destino { get; set; }
     }
 }

@@ -173,6 +173,8 @@ namespace Logictracker.Messaging
         DigitalInput04Closed = 1114,
         DigitalInput05Closed = 1115,
 
+        VehiculoAgendado = 1050,
+
         MixerStopped = 2064,
         MixerClockwise = 2065,
         MixerCounterClockwise = 2066,

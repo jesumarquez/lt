@@ -93,6 +93,8 @@ namespace Logictracker.Types.BusinessObjects
             public const string GeneraInformeViajeRecarga = "genera.informe.viaje.recarga";
             public const string ControlaDescanso = "controla.descanso";
             public const string ActualizaStockVehicular = "actualiza.stock.vehicular";
+
+            public const string AsignoInfraccionPorAgenda = "asigno.infraccion.agenda";
         }
         public static class OrdenRuta
         {
@@ -817,6 +819,17 @@ namespace Logictracker.Types.BusinessObjects
             get
             {
                 var valor = GetParameter(Params.ActualizaStockVehicular);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool AsignoInfraccionPorAgenda
+        {
+            get
+            {
+                var valor = GetParameter(Params.AsignoInfraccionPorAgenda);
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;

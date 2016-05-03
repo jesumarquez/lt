@@ -34,7 +34,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             base.OnExecute(timer);
 
-            var today = EndDate;
+            var endDate = EndDate;
             
 			STrace.Trace(GetType().FullName, "Processing vehicles.");
 
@@ -45,13 +45,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 try
                 {
                     var vehicle = DaoFactory.CocheDAO.FindById(vehicleId);
-                    ProcessVehicle(vehicle, today);
+                    ProcessVehicle(vehicle, endDate);
                 }
                 catch (Exception ex)
                 {
                     STrace.Exception(GetType().FullName, ex, "No se pudieron actualizar odómetros para el vehículo: " + vehicleId);
 
-                    var parametros = new[] { "No se pudieron actualizar odómetros para el vehículo: " + vehicleId, vehicleId.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
+                    var parametros = new[] { "No se pudieron actualizar odómetros para el vehículo: " + vehicleId, vehicleId.ToString("#0"), endDate.ToString("dd/MM/yyyy HH:mm") };
                     SendMail(parametros);
                 }
                 finally 
@@ -76,13 +76,16 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             VehiclesToProcess = Vehicles.Count;
         }
 
-        private void ProcessVehicle(Coche coche, DateTime today)
+        private void ProcessVehicle(Coche coche, DateTime endDate)
         {
             var inicio = coche.LastOdometerUpdate;
             var fin = GetLastDatamartUpdate(coche.Id);
 
-            if (today.AddDays(-7) > inicio)
-                inicio = today.AddDays(-7);
+            if (endDate.AddDays(-7) > inicio) 
+                inicio = endDate.AddDays(-7);
+            
+            if (fin > endDate) 
+                fin = endDate;
 
             if (inicio.HasValue && !inicio.Equals(DateTime.MinValue))
             {
