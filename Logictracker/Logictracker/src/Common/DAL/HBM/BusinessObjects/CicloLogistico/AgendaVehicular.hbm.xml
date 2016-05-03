@@ -18,6 +18,7 @@
         <property column="parenti102_fecha_desde" name="FechaDesde" />
         <property column="parenti102_fecha_hasta" name="FechaHasta" />
         <property column="parenti102_estado" name="Estado" />
-        
-    </class>
+        <property column="parenti102_destino" name="Destino" />
+      
+    </class>        
 </hibernate-mapping>

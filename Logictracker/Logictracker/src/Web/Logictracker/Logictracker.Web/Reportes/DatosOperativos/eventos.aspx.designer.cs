@@ -58,22 +58,31 @@ namespace Logictracker.Reportes.DatosOperativos {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList ddlPlanta;
         
         /// <summary>
-        /// lblDesde control.
+        /// lblTransportista control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDesde;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblTransportista;
         
         /// <summary>
-        /// dpDesde control.
+        /// upTransportista control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dpDesde;
+        protected global::System.Web.UI.UpdatePanel upTransportista;
+        
+        /// <summary>
+        /// ddlTransportista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TransportistaDropDownList ddlTransportista;
         
         /// <summary>
         /// lblTipoVehiculo control.
@@ -128,6 +137,24 @@ namespace Logictracker.Reportes.DatosOperativos {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoMensajeDropDownList ddlTipoMensaje;
+        
+        /// <summary>
+        /// lblDesde control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDesde;
+        
+        /// <summary>
+        /// dpDesde control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dpDesde;
         
         /// <summary>
         /// lblHasta control.

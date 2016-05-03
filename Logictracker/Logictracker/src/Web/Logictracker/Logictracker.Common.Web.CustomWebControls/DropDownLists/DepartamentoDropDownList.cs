@@ -8,6 +8,12 @@ namespace Logictracker.Web.CustomWebControls.DropDownLists
     {
         public override Type Type { get { return typeof(Departamento); } }
 
+        public bool FiltraPorUsuario
+        {
+            get { return (bool)(ViewState["FiltraPorUsuario"] ?? false); }
+            set { ViewState["FiltraPorUsuario"] = value; }
+        }
+
         protected override void Bind() { BindingManager.BindDepartamento(this); }
 
     }

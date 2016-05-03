@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpdateOdometers.cs" />
     <Compile Include="ExcesosVelocidadSitrack.cs" />
     <Compile Include="DatamartTramosTask.cs" />
     <Compile Include="MessageCountServiceTask.cs" />

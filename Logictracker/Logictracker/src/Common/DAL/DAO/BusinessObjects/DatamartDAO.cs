@@ -543,15 +543,16 @@ namespace Logictracker.DAL.DAO.BusinessObjects
             return results;
         }
 
-        public IEnumerable<KilometrosDiarios> GetKilometrosDiarios(DateTime desde, DateTime hasta, List<Int32> ids, int gmt)
+        public IEnumerable<KilometrosDiarios> GetKilometrosDiarios(DateTime desde, DateTime hasta, List<Int32> ids)
         {
             var table = Ids2DataTable(ids);
 
-            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_DatamartDAO_GetKilometrosDiarios] :ids, :dateFrom, :dateTo, :GMT;");
+            //var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_DatamartDAO_GetKilometrosDiarios2] :ids, :dateFrom, :dateTo, :GMT;");
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_DatamartDAO_GetKilometrosDiarios2] :ids, :dateFrom, :dateTo;");
             sqlQ.SetStructured("ids", table);
             sqlQ.SetDateTime("dateFrom", desde);
             sqlQ.SetDateTime("dateTo", hasta);
-            sqlQ.SetInt32("GMT", gmt);
+            //sqlQ.SetInt32("GMT", gmt);
             sqlQ.SetResultTransformer(Transformers.AliasToBean(typeof(KilometrosDiarios)));
             var results = sqlQ.List<KilometrosDiarios>();
             return results;

@@ -229,6 +229,24 @@ namespace Logictracker.Web.CicloLogistico {
         protected global::Logictracker.Web.Controls.AutoCompleteTextBox auEmpleado;
         
         /// <summary>
+        /// lblDestino control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDestino;
+        
+        /// <summary>
+        /// txtDestino control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDestino;
+        
+        /// <summary>
         /// ResourceLabel2 control.
         /// </summary>
         /// <remarks>

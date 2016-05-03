@@ -31,7 +31,7 @@ namespace Logictracker.Types.ValueObjects.Documentos
         public string Transportista { get; set; }
         
         [GridMapping(Index = IndexPresentacion, ResourceName = "Labels", VariableName = "PRESENTACION", DataFormatString = "{0:d}", AllowGroup = true)]
-        public DateTime Presentacion { get; set; }
+        public DateTime? Presentacion { get; set; }
 
         [GridMapping(Index = IndexVencimiento, ResourceName = "Labels", VariableName = "VENCIMIENTO", DataFormatString = "{0:d}", AllowGroup = true)]
         public DateTime Vencimiento { get; set; }
@@ -69,7 +69,7 @@ namespace Logictracker.Types.ValueObjects.Documentos
             Fecha = doc.Fecha;
             if (doc.Vencimiento.HasValue)
             {
-                Presentacion = doc.Presentacion.Value;
+                Presentacion = doc.Presentacion;
                 Vencimiento = doc.Vencimiento.Value;
                 DiasAlVencimiento = Convert.ToInt32(doc.Vencimiento.Value.Subtract(fechaActual).TotalDays);
             }

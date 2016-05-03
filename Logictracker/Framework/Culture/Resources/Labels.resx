@@ -3526,6 +3526,24 @@
   <data name="HS_RALENTI" xml:space="preserve">
     <value>Horas en Ralenti</value>
   </data>
+  <data name="HS_DETENIDO" xml:space="preserve">
+    <value>Horas Detenido</value>
+  </data>
+  <data name="HS_SIN_REPORTAR" xml:space="preserve">
+    <value>Horas Sin Reportar</value>
+  </data>
+  <data name="HS_DETENIDO_TALLER" xml:space="preserve">
+    <value>Horas Detenido en Taller</value>
+  </data>
+  <data name="HS_DETENIDO_BASE" xml:space="preserve">
+    <value>Horas Detenido en Base</value>
+  </data>
+  <data name="HS_DETENIDO_CON_TAREA" xml:space="preserve">
+    <value>Horas Detenido con Tarea</value>
+  </data>
+  <data name="HS_DETENIDO_SIN_TAREA" xml:space="preserve">
+    <value>Horas Detenido sin Tarea</value>
+  </data>
   <data name="CONSUMO_$_NO_COMBUSTIBLE" xml:space="preserve">
     <value>Costo Consumo (No Combustible)</value>
   </data>

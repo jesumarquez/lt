@@ -164,6 +164,8 @@ namespace Logictracker.Messaging
         ServicioPreasignadoRechazado,
         ServicioPreasignadoAceptado,
         ServicioPreasignadoCancelado,
+
+        VehiculoAgendado
 	}
 
 	public static class MessageCodeX
@@ -269,6 +271,9 @@ namespace Logictracker.Messaging
                 case MessageCode.EstadoLogisticoCumplidoSalida: return "1010";
                 case MessageCode.EstadoLogisticoCumplidoManualRealizado: return "1013";
                 case MessageCode.EstadoLogisticoCumplidoManualNoRealizado: return "1014";
+
+                // Agenda Vehicular
+                case MessageCode.VehiculoAgendado: return "1050";
 
                 // Desvío de Recorrido
                 case MessageCode.DesvioRecorrido: return "1006";

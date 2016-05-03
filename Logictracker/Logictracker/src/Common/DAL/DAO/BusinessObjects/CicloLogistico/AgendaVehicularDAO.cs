@@ -19,5 +19,16 @@ namespace Logictracker.DAL.DAO.BusinessObjects.CicloLogistico
                                  || (a.FechaDesde <= desde && a.FechaHasta >= hasta))
                         .ToList();
         }
+
+        public AgendaVehicular FindByVehicleAndDate(int idVehiculo, DateTime fecha)
+        {
+            var agenda = Query.Where(a => a.Vehiculo.Id == idVehiculo
+                                       && a.FechaDesde <= fecha
+                                       && a.FechaHasta >= fecha
+                                       && a.Estado != AgendaVehicular.Estados.Cancelado)
+                              .FirstOrDefault();
+
+            return agenda;
+        }
     }
 }

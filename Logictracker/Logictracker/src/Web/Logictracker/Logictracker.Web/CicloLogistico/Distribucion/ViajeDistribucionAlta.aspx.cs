@@ -770,6 +770,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                     for (var i = 0; i < viajeProg.Detalles.Count; i++)
                     {
                         var entregaProg = viajeProg.Detalles[i];
+                        var km = 0.0;
 
                         if (i > 0)
                         {
@@ -781,6 +782,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                             {
                                 var duracion = directions.Duration;
                                 fecha = fecha.Add(duracion);
+                                km = (directions.Distance / 1000.0);
                             }
                         }
 
@@ -809,6 +811,7 @@ namespace Logictracker.CicloLogistico.Distribucion
                             Orden = viaje.Detalles.Count,
                             Programado = fecha,
                             ProgramadoHasta = fecha.AddHours(1),
+                            KmCalculado = km,
                             Viaje = viaje,
                             Bultos = bultos,
                             Peso = peso,
