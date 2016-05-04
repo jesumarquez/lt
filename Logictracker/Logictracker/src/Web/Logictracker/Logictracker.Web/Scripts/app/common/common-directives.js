@@ -687,7 +687,7 @@
         };
 
         function onSelected(newValue, oldValue) {
-            if (vm.distrito != undefined && vm.dependsOn != undefined && newValue !== oldValue) {
+            if (vm.distrito != undefined && vm.dependsOn != undefined && newValue !== undefined && newValue !== oldValue) {
                 if (vm.tipoCoche != undefined)
                     vm.ds.read({ distritoId: vm.distrito.Key, baseId: vm.base.Key, tipoCocheId: vm.tipoCoche.Id });
                 else
