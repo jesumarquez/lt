@@ -76,6 +76,30 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
     };
     $scope.orderSelected = {};
 
+    $scope.$watch("distritoSelected", onDistritoSelected);
+
+    // Flag para identificar si la programación es por producto o por cisterna
+    $scope.disableProgramByProduct = false;
+
+    function onDistritoSelected(newValue, oldValue) {
+        if (newValue != null && newValue !== oldValue) {
+            EntitiesService.resources.parametros.query({ distritoId: $scope.distritoSelected.Key }, paramOnLoad);
+        }
+    }
+
+    function paramOnLoad(e)
+    {
+        if (e !== undefined && e.length > 0) {
+            angular.forEach(e, function (value) {
+                switch (value.Key) {
+                    case "ordenes.disableProgramByProduct":
+                        $scope.disableProgramByProduct = (value.Value === "true");
+                        break;
+                }
+            });
+        }
+    }
+
     function onFail(error) {
         if (error.errorThrown)
             $scope.notify.show(error.errorThrown, "error");
