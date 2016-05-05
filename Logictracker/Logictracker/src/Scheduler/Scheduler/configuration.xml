@@ -6,6 +6,7 @@
 		  <Task Class="Logictracker.Scheduler.Tasks.LoJack.Task, Logictracker.Scheduler.Tasks.LoJack" Params="queuename=.\private$\eventos_lojack;user=wslogictracker;password=12345;guid=FAC9C017-A43A-4B3F-B54C-02FB15EC6150;"/>
 	  </Timer>
     -->
+
     <!--
     <Timer Enabled="false" Name="Reinicio de Servicios" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
       <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.ReiniciarServiciosTask, Logictracker.Scheduler.Tasks.Mantenimiento" />

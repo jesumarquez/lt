@@ -86,6 +86,11 @@ namespace Logictracker.Qtree
                        };
         }
 
+        public int GetNivel(float latitud, float longitud)
+        {
+            return Repository.GetPositionClass(latitud, longitud);
+        }
+
         public override Dictionary<string, string> GetCellInfo(double latitud, double longitud)
         {
             var dic = new Dictionary<string, string>();
