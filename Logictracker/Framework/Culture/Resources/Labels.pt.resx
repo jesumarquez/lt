@@ -936,6 +936,9 @@
   <data name="FECHA_ALTA" xml:space="preserve">
     <value>Data</value>
   </data>
+  <data name="FECHA_PEDIDO" xml:space="preserve">
+    <value>Data Pedido</value>
+  </data>
   <data name="FECHA_INICIO" xml:space="preserve">
     <value>Data Inicio</value>
   </data>
@@ -1436,6 +1439,9 @@
   </data>
   <data name="CANTIDAD_AJUSTES" xml:space="preserve">
     <value>Ajuste m3</value>
+  </data>
+  <data name="AJUSTE" xml:space="preserve">
+    <value>Ajuste</value>
   </data>
   <data name="HORA_CARGA" xml:space="preserve">
     <value>Tempo de carga</value>
@@ -4325,7 +4331,7 @@
     <value>Verificação</value>
   </data>
   <data name="FECHA_ENTREGA" xml:space="preserve">
-    <value>Entrega</value>
+    <value>Data Entrega</value>
   </data>
   <data name="FECHA_TRABAJO_TERMINADO" xml:space="preserve">
     <value>Trabalho Finalizado</value>
@@ -4620,5 +4626,8 @@
   </data>
   <data name="CONTENEDORES" xml:space="preserve">
     <value>Contentores</value>
+  </data>
+  <data name="CISTERNA" xml:space="preserve">
+    <value>Cisterna</value>
   </data>
 </root>

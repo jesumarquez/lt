@@ -1466,6 +1466,7 @@
     <Content Include="Reportes\CicloLogistico\mobilesTickets.aspx" />
     <Content Include="Reportes\CicloLogistico\PedidosProgramados.aspx" />
     <Content Include="Reportes\CicloLogistico\ReporteTraslado.aspx" />
+    <Content Include="Reportes\CicloLogistico\ReporteAsigno.aspx" />
     <Content Include="Reportes\CicloLogistico\ReporteViaje.aspx" />
     <Content Include="Reportes\CicloLogistico\ResumenDeEntregas.aspx" />
     <Content Include="Reportes\CicloLogistico\ResumenDeRutas.aspx" />
@@ -1757,6 +1758,7 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="ExcelTemplate\Logictracker\MonitorCheckOut.xlsx" />
+    <Content Include="ExcelTemplate\Logictracker\ReporteAsigno.xlsx" />
     <None Include="Properties\PublishProfiles\Archivo.pubxml" />
     <Content Include="Scripts\angular-openlayers-directive.js" />
     <Content Include="Scripts\angular-openlayers-directive.min.js" />
@@ -2224,6 +2226,13 @@
     <Compile Include="App_Services\Tickets.asmx.cs">
       <DependentUpon>Tickets.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteAsigno.aspx.cs">
+      <DependentUpon>ReporteAsigno.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\CicloLogistico\ReporteAsigno.aspx.designer.cs">
+      <DependentUpon>ReporteAsigno.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\DatosOperativos\MonitorCheckOut.aspx.cs">
       <DependentUpon>MonitorCheckOut.aspx</DependentUpon>
