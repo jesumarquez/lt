@@ -843,10 +843,13 @@ namespace Logictracker.Parametrizacion
                     var document = SetDocumentDefaultValues(docImp, empresa, linea, tipo);
 
                     var vehiculo = DAOFactory.CocheDAO.FindByPatente(empresa.Id, docImp.PatenteVehiculo);
+                    var empleado = DAOFactory.EmpleadoDAO.FindByLegajo(empresa.Id, linea.Id,docImp.PatenteVehiculo);
 
                     if (vehiculo != null)
                     {
                         document.Vehiculo = vehiculo;
+                    }else if(empleado != null){
+                        document.Empleado = empleado;
                     }
                     else
                     {
