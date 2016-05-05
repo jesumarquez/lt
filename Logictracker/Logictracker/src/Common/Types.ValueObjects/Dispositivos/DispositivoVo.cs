@@ -91,7 +91,6 @@ namespace Logictracker.Types.ValueObjects.Dispositivos
                 if (_configuracion == null)
                 {
                     _configuracion = string.Join(", ", Dispositivo.Configuraciones
-                        .Cast<ConfiguracionDispositivo>()
                         .Select(c => c.Nombre)
                         .ToArray());
                     if (_configuracion.Length > 64) _configuracion = Configuracion.Substring(0, 64);

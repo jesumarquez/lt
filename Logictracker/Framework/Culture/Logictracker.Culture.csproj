@@ -246,6 +246,7 @@
     <None Include="Resources\PAR_ORDENES.bmp" />
     <Content Include="Resources\MenuImages\MON_CHECK_OUT.png" />
     <Content Include="Resources\MenuImages\REP_IN_OUT.png" />
+    <Content Include="Resources\MenuImages\REPORTE_ASIGNO.png" />
     <Content Include="Resources\SystemImages\SYS_DISTRIBUCION.png" />
     <Content Include="Resources\SystemImages\SYS_TELEMETRIA.png" />
     <Content Include="Resources\MenuImages\DISTRIBUCION_GLOBAL_ENTREGAS.png" />

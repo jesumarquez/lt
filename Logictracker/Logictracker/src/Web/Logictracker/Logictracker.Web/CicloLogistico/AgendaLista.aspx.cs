@@ -4,6 +4,7 @@ using System.Linq;
 using Logictracker.Security;
 using Logictracker.Types.ValueObjects.CicloLogistico;
 using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.Types.BusinessObjects.CicloLogistico;
 
 namespace Logictracker.Web.CicloLogistico
 {
@@ -32,7 +33,17 @@ namespace Logictracker.Web.CicloLogistico
                                                              cbDepartamento.SelectedValues,
                                                              cbMovil.SelectedValues,
                                                              dtpDesde.SelectedDate.Value.ToDataBaseDateTime(),
-                                                             dtpHasta.SelectedDate.Value.ToDataBaseDateTime());
+                                                             dtpHasta.SelectedDate.Value.ToDataBaseDateTime())
+                                                    .Where(a => a.Estado != AgendaVehicular.Estados.Cancelado);
+
+            if (Usuario.EmpleadoId > 0)
+            {
+                var empleado = DAOFactory.EmpleadoDAO.FindById(Usuario.EmpleadoId);
+                if (empleado.Departamento != null)
+                {
+                    list = list.Where(a => a.Departamento == empleado.Departamento);
+                }
+            }
 
             return list.Select(a => new AgendaVehicularVo(a)).ToList();
         }

@@ -112,13 +112,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ACC_DET_INFRACCIONES" xml:space="preserve">
-    <value>Detalle de Infracciones</value>
+  <data name="ACC_DET_INFRACCIONES_X_CHOFER" xml:space="preserve">
+    <value>Detalle de Infracciones por Chofer</value>
+  </data>
+  <data name="ACC_DET_INFRACCIONES_X_VEHICULO" xml:space="preserve">
+    <value>Detalle de Infracciones por Vehículo</value>
   </data>
   <data name="ACC_RANKING_CHOFERES" xml:space="preserve">
     <value>Ranking de Choferes</value>
@@ -276,6 +279,9 @@
   <data name="OPE_MON_HISTORICO" xml:space="preserve">
     <value>Monitor Histórico</value>
   </data>
+  <data name="OPE_MON_RECORRIDO" xml:space="preserve">
+    <value>Monitor de Recorridos</value>
+  </data>
   <data name="OPE_MON_ONLINE" xml:space="preserve">
     <value>Monitor OnLine</value>
   </data>
@@ -301,7 +307,7 @@
     <value>Caudalimetros</value>
   </data>
   <data name="PAR_CLIENTES" xml:space="preserve">
-    <value>Clientes</value>
+    <value>Tipo de Clientes / Cadena</value>
   </data>
   <data name="PAR_DET_DISPOSITIVOS" xml:space="preserve">
     <value>Detalles de Dispositivo</value>
@@ -316,7 +322,7 @@
     <value>Equipos</value>
   </data>
   <data name="PAR_ESTADOLOG" xml:space="preserve">
-    <value>Estados Logísticos</value>
+    <value>Estados Logísticos (Hormigón)</value>
   </data>
   <data name="PAR_FIRMUPLOAD" xml:space="preserve">
     <value>Firmware Upload</value>
@@ -385,13 +391,13 @@
     <value>Turnos</value>
   </data>
   <data name="PAR_VEHICULOS" xml:space="preserve">
-    <value>Vehiculos</value>
+    <value>Vehículos</value>
   </data>
   <data name="PAR_MARCAS" xml:space="preserve">
     <value>Marcas</value>
   </data>
   <data name="PTOS_ENTREGA" xml:space="preserve">
-    <value>Puntos de Entrega</value>
+    <value>Clientes / Puntos de Entrega</value>
   </data>
   <data name="REPORTE_ODOMETROS" xml:space="preserve">
     <value>Reporte de Odómetros</value>
@@ -466,7 +472,7 @@
     <value>Despacho de Combustible</value>
   </data>
   <data name="SYS_COSTOS" xml:space="preserve">
-    <value>Costos</value>
+    <value>Disponibilidad</value>
   </data>
   <data name="SYS_DATOSOPE" xml:space="preserve">
     <value>Datos Operativos</value>
@@ -592,13 +598,13 @@
     <value>Pedido</value>
   </data>
   <data name="CLOG_PROGRAMACION" xml:space="preserve">
-    <value>Programacion de Pedidos</value>
+    <value>Programación de Pedidos</value>
   </data>
   <data name="CLOG_DISTRIBUCION" xml:space="preserve">
-    <value>Distribucion</value>
+    <value>Distribución</value>
   </data>
   <data name="SYS_DISTRIBUCION" xml:space="preserve">
-    <value>Distribucion</value>
+    <value>Distribución</value>
   </data>
   <data name="SYS_HORMIGON" xml:space="preserve">
     <value>Hormigon</value>
@@ -629,6 +635,9 @@
   </data>
   <data name="OPE_MIMICO" xml:space="preserve">
     <value>Mímico</value>
+  </data>
+  <data name="OPE_MIMICO_ENTREGAS" xml:space="preserve">
+    <value>Mímico de Entregas</value>
   </data>
   <data name="ADMIN_PROGRAMACION_REPORTE" xml:space="preserve">
     <value>Reportes Programados</value>
@@ -766,7 +775,7 @@
     <value>Retrasos</value>
   </data>
   <data name="REP_CONTROL_DISTRIBUCION" xml:space="preserve">
-    <value>Control de Distribución</value>
+    <value>Retraso de Ruta</value>
   </data>
   <data name="EST_KM_HS_PRODUCTIVOS" xml:space="preserve">
     <value>Km y Horas Productivas</value>
@@ -814,7 +823,7 @@
     <value>Monitor de Ciclo Logístico</value>
   </data>
   <data name="REP_DISTRIBUCION" xml:space="preserve">
-    <value>Reporte de Distribución</value>
+    <value>Estado de Entregas</value>
   </data>
   <data name="OPE_CONSOLA_DISPOSITIVOS" xml:space="preserve">
     <value>Consola de Dispositivos</value>
@@ -837,15 +846,143 @@
   <data name="VERIF_EMPLEADOS" xml:space="preserve">
     <value>Verificador de Empleados</value>
   </data>
-<<<<<<< HEAD
   <data name="RANKING_VEHICULOS" xml:space="preserve">
     <value>Ranking de Vehículos</value>
   </data>
+  <data name="RANKING_TRANSPORTISTAS" xml:space="preserve">
+    <value>Ranking de Transportistas</value>
+  </data>
   <data name="PAR_TIPO_ZONA" xml:space="preserve">
     <value>Tipo de Zona</value>
-=======
+  </data>
   <data name="CLOG_CONSOLA_TICKETS" xml:space="preserve">
     <value>Consola de Tickets</value>
->>>>>>> 522-minimixer
+  </data>
+  <data name="REP_FLUJO_TAREAS" xml:space="preserve">
+    <value>Productividad de Ruta</value>
+  </data>
+  <data name="MONITOR_ESTADO_ENTREGAS" xml:space="preserve">
+    <value>Monitor de Estado de Puntos de Entrega</value>
+  </data>
+  <data name="REP_RESUMEN_ENTREGAS" xml:space="preserve">
+    <value>Resumen de Entregas</value>
+  </data>
+  <data name="SUBCENTROS_COSTOS" xml:space="preserve">
+    <value>Subcentros de Costos</value>
+  </data>
+  <data name="DISTRIBUCION_GLOBAL_ENTREGAS" xml:space="preserve">
+    <value>Distribución Global de Entregas</value>
+  </data>
+  <data name="SYS_TELEMETRIA" xml:space="preserve">
+    <value>Telemetría</value>
+  </data>
+  <data name="REP_POSICIONES" xml:space="preserve">
+    <value>Posiciones</value>
+  </data>
+  <data name="TEL3" xml:space="preserve">
+    <value>Tel3</value>
+  </data>
+  <data name="REP_MAPA" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="REP_CONFIGURACION" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="REP_GRAFICO_LLENADO" xml:space="preserve">
+    <value>Gráfico de llenado</value>
+  </data>
+  <data name="REP_MEDICIONES" xml:space="preserve">
+    <value>Mediciones</value>
+  </data>
+  <data name="REP_TABLERO_CONTROL" xml:space="preserve">
+    <value>Tablero de Control</value>
+  </data>
+  <data name="REP_ZONA_0" xml:space="preserve">
+    <value>Zona 0</value>
+  </data>
+  <data name="TABLERO_CONTROL_DISTRIBUCION" xml:space="preserve">
+    <value>Tablero de Control de Distribuciones</value>
+  </data>
+  <data name="REPORTE_VIAJE" xml:space="preserve">
+    <value>Tiempos de Viaje</value>
+  </data>
+  <data name="REPORTE_TRASLADO" xml:space="preserve">
+    <value>Traslados por Viaje</value>
+  </data>
+  <data name="KPI_DISTRIBUCION" xml:space="preserve">
+    <value>KPI Distribución</value>
+  </data>
+  <data name="REP_RESUMEN_RUTAS" xml:space="preserve">
+    <value>Resumen de Rutas</value>
+  </data>
+  <data name="PREASIGNACION_VIAJE_VEHICULO" xml:space="preserve">
+    <value>Preasignación Viaje-Vehículo</value>
+  </data>
+  <data name="MANT_TICKET" xml:space="preserve">
+    <value>Tickets de Mantenimiento</value>
+  </data>
+  <data name="CONSOLA_ENTREGAS" xml:space="preserve">
+    <value>Consola de Entregas</value>
+  </data>
+  <data name="LOGICLINK_ADMIN" xml:space="preserve">
+    <value>Archivos Logiclink</value>
+  </data>
+  <data name="DATAMART_LOG" xml:space="preserve">
+    <value>Datamart Log</value>
+  </data>
+  <data name="KPI_ESTADO_ENTREGAS" xml:space="preserve">
+    <value>Monitor KPI Estado Entregas</value>
+  </data>
+  <data name="PAR_AGENDA" xml:space="preserve">
+    <value>Agenda Vehicular</value>
+  </data>
+  <data name="SYS_CERTIFICACIONES" xml:space="preserve">
+    <value>Certificaciones</value>
+  </data>
+  <data name="RESUMEN_ACTIVIDAD" xml:space="preserve">
+    <value>Resumen de Actividad</value>
+  </data>
+  <data name="KILOMETROS_DIARIOS" xml:space="preserve">
+    <value>Kilómetros Diarios</value>
+  </data>
+  <data name="REPORT_LOG" xml:space="preserve">
+    <value>Log de Reportes Ejecutados</value>
+  </data>
+  <data name="PAR_ESTADO_LOGISTICO" xml:space="preserve">
+    <value>Estados Logísticos</value>
+  </data>
+  <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
+    <value>Tipo de Ciclo Logístico</value>
+  </data>
+  <data name="REP_ESTADOS_LOGISTICOS" xml:space="preserve">
+    <value>Reporte de Estados Logísticos</value>
+  </data>
+  <data name="CLOG_RECHAZO" xml:space="preserve">
+    <value>Rechazo</value>
+  </data>
+  <data name="PAR_ORDENES" xml:space="preserve">
+    <value>Ordenes</value>
+  </data>
+  <data name="CLOG_RECHAZO_ESTADISTICAS" xml:space="preserve">
+    <value>Estadísticas de Rechazos</value>
+  </data>
+  <data name="PAR_VIAJE_PROGRAMADO" xml:space="preserve">
+    <value>Viajes Programados</value>
+  </data>
+  <data name="PAR_STOCK_VEHICULAR" xml:space="preserve">
+    <value>Stock Vehicular</value>
+  </data>
+  <data name="REP_PROYECCION_STOCK" xml:space="preserve">
+    <value>Proyección de Stock</value>
+  </data>
+  <data name="MON_CHECK_OUT" xml:space="preserve">
+<<<<<<< HEAD
+    <value>Monitor Check Out</value>
+=======
+    <value>Monitor Check In / Check Out</value>
+  </data>
+  <data name="REP_IN_OUT" xml:space="preserve">
+    <value>Reporte In / Out</value>
+>>>>>>> dev
   </data>
 </root>

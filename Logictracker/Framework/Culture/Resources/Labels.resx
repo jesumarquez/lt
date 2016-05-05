@@ -940,6 +940,9 @@
   <data name="FECHA_ALTA" xml:space="preserve">
     <value>Fecha alta</value>
   </data>
+  <data name="FECHA_PEDIDO" xml:space="preserve">
+    <value>Fecha Pedido</value>
+  </data>
   <data name="FECHA_INICIO" xml:space="preserve">
     <value>Fecha inicio</value>
   </data>
@@ -1448,6 +1451,9 @@
   </data>
   <data name="CANTIDAD_AJUSTES" xml:space="preserve">
     <value>Ajuste m3</value>
+  </data>
+  <data name="AJUSTE" xml:space="preserve">
+    <value>Ajuste</value>
   </data>
   <data name="HORA_CARGA" xml:space="preserve">
     <value>Hora de carga</value>
@@ -3526,6 +3532,24 @@
   <data name="HS_RALENTI" xml:space="preserve">
     <value>Horas en Ralenti</value>
   </data>
+  <data name="HS_DETENIDO" xml:space="preserve">
+    <value>Horas Detenido</value>
+  </data>
+  <data name="HS_SIN_REPORTAR" xml:space="preserve">
+    <value>Horas Sin Reportar</value>
+  </data>
+  <data name="HS_DETENIDO_TALLER" xml:space="preserve">
+    <value>Horas Detenido en Taller</value>
+  </data>
+  <data name="HS_DETENIDO_BASE" xml:space="preserve">
+    <value>Horas Detenido en Base</value>
+  </data>
+  <data name="HS_DETENIDO_CON_TAREA" xml:space="preserve">
+    <value>Horas Detenido con Tarea</value>
+  </data>
+  <data name="HS_DETENIDO_SIN_TAREA" xml:space="preserve">
+    <value>Horas Detenido sin Tarea</value>
+  </data>
   <data name="CONSUMO_$_NO_COMBUSTIBLE" xml:space="preserve">
     <value>Costo Consumo (No Combustible)</value>
   </data>
@@ -4454,7 +4478,7 @@
     <value>Verificación</value>
   </data>
   <data name="FECHA_ENTREGA" xml:space="preserve">
-    <value>Entrega</value>
+    <value>Fecha Entrega</value>
   </data>
   <data name="FECHA_TRABAJO_TERMINADO" xml:space="preserve">
     <value>Trabajo Terminado</value>
@@ -4872,5 +4896,8 @@
   </data>
   <data name="CONTENEDORES" xml:space="preserve">
     <value>Contenedores</value>
+  </data>
+  <data name="CISTERNA" xml:space="preserve">
+    <value>Cisterna</value>
   </data>
 </root>

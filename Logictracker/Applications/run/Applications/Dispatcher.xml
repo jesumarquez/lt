@@ -19,6 +19,7 @@
 			<TicketsHandler g:Type="Logictracker.AVL.Messages.SpeedingTicket, Logictracker.AVL" />
 			<TextEventsHandler g:Type="Logictracker.AVL.Messages.TextEvent, Logictracker.AVL" />
 			<SetDetailHandler g:Type="Logictracker.AVL.Messages.SetDetail, Logictracker.AVL" />
+      <!--<KafkaEnqueu g:Type="Logictracker.Model.IMessage, Logictracker.Model" />-->
 		</MessageDispatcher>
 	</StackChannel>
 

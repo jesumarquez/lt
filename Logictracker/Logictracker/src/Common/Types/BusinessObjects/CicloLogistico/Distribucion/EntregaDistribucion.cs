@@ -154,13 +154,16 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
                                  : (DateTime?)null;
             }
         }
-
+        
         private IList<EvenDistri> _eventos;
         public virtual IList<EvenDistri> EventosDistri
         {
             get { return _eventos ?? (_eventos = new List<EvenDistri>()); }
             set { _eventos = value; }
         }
+
+        private ISet<Remito> _remitos;
+        public virtual ISet<Remito> Remitos { get { return _remitos ?? (_remitos = new HashSet<Remito>()); } }
 
         public virtual IEnumerable<LogMensaje> GetEventos()
         {

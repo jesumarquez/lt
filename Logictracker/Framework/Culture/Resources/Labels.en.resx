@@ -936,6 +936,9 @@
   <data name="FECHA_ALTA" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="FECHA_PEDIDO" xml:space="preserve">
+    <value>Order Date</value>
+  </data>
   <data name="FECHA_INICIO" xml:space="preserve">
     <value>Init Date</value>
   </data>
@@ -1439,6 +1442,9 @@
   </data>
   <data name="CANTIDAD_AJUSTES" xml:space="preserve">
     <value>Adjustment m3</value>
+  </data>
+  <data name="AJUSTE" xml:space="preserve">
+    <value>Adjustment</value>
   </data>
   <data name="HORA_CARGA" xml:space="preserve">
     <value>Load Time</value>
@@ -3409,6 +3415,24 @@
   <data name="HS_RALENTI" xml:space="preserve">
     <value>Idle Hours</value>
   </data>
+  <data name="HS_DETENIDO" xml:space="preserve">
+    <value>Detention Hours</value>
+  </data>
+  <data name="HS_SIN_REPORTAR" xml:space="preserve">
+    <value>No Report Hours</value>
+  </data>
+  <data name="HS_DETENIDO_TALLER" xml:space="preserve">
+    <value>Detention Hours in Workshop</value>
+  </data>
+  <data name="HS_DETENIDO_BASE" xml:space="preserve">
+    <value>Detention Hours in Base</value>
+  </data>
+  <data name="HS_DETENIDO_CON_TAREA" xml:space="preserve">
+    <value>Detention Hours with job</value>
+  </data>
+  <data name="HS_DETENIDO_SIN_TAREA" xml:space="preserve">
+    <value>Detention Hours without job</value>
+  </data>
   <data name="CONSUMO_$_NO_COMBUSTIBLE" xml:space="preserve">
     <value>Consumption Cost (Not Fuel)</value>
   </data>
@@ -4313,7 +4337,7 @@
     <value>Verification</value>
   </data>
   <data name="FECHA_ENTREGA" xml:space="preserve">
-    <value>Deliver</value>
+    <value>Deliver Date</value>
   </data>
   <data name="FECHA_TRABAJO_TERMINADO" xml:space="preserve">
     <value>Finish</value>
@@ -4608,5 +4632,8 @@
   </data>
   <data name="CONTENEDORES" xml:space="preserve">
     <value>Containers</value>
+  </data>
+  <data name="CISTERNA" xml:space="preserve">
+    <value>Tank</value>
   </data>
 </root>

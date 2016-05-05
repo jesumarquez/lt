@@ -60,12 +60,14 @@
     <Compile Include="BusinessObjects\Auditoria\XmlType.cs" />
     <Compile Include="BusinessObjects\BaseObjects\LogEventoBase.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\AgendaVehicular.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\DetalleRemito.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaProgramada.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogistico.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculo.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucion.cs" />
+    <Compile Include="BusinessObjects\CicloLogistico\Distribucion\Remito.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ViajeProgramado.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\ViajeDistribucion.cs" />
     <Compile Include="BusinessObjects\CicloLogistico\Distribucion\EstadoLogistico.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="BusinessObjects\LogicLinkFile.cs" />
     <Compile Include="BusinessObjects\Mantenimiento\HistoriaTicketMantenimiento.cs" />
     <Compile Include="BusinessObjects\Mantenimiento\TicketMantenimiento.cs" />
+    <Compile Include="BusinessObjects\Messages\ColaMensajes.cs" />
     <Compile Include="BusinessObjects\Messages\AtencionEvento.cs" />
     <Compile Include="BusinessObjects\Messages\MensajeTraducido.cs" />
     <Compile Include="BusinessObjects\Messages\MensajeIgnorado.cs" />
@@ -322,6 +325,7 @@
     <Compile Include="ReportObjects\Datamart\RegenerateDatamart.cs" />
     <Compile Include="ReportObjects\DetentionTimes.cs" />
     <Compile Include="ReportObjects\IdleTimes.cs" />
+    <Compile Include="ReportObjects\EstadoDiario.cs" />
     <Compile Include="ReportObjects\MaxSpeeds.cs" />
     <Compile Include="ReportObjects\MobileActivity.cs" />
     <Compile Include="ReportObjects\MobileDrivers.cs" />

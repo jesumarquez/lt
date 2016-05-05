@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.ReportObjects.EstadoDiario,Logictracker.Types" table="rep01" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_rep01" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="rep01_horas_en_taller" name="HorasTaller" />
+    <property column="rep01_horas_en_base" name="HorasBase" />
+    <property column="rep01_horas_movimiento" name="HorasMovimiento" />
+    <property column="rep01_horas_sin_reportar" name="HorasSinReportar" />    
+    <property column="rep01_horas_detenido" name="HorasDetenido" />    
+    <property column="rep01_horas_det_en_geocerca" name="HorasDetenidoEnGeocerca" />    
+    <property column="rep01_horas_det_sin_geocerca" name="HorasDetenidoSinGeocerca" />    
+    <property column="rep01_km" name="Kilometros" />    
+    <property column="rep01_horas_en_marcha" name="HorasEnMarcha" />    
+    <property column="rep01_fecha" name="Fecha" />
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" />
+    <many-to-one column="rela_parenti03" name="Vehiculo" lazy="proxy" />
+    
+  </class>
+</hibernate-mapping>

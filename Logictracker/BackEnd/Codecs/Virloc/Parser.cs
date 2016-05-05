@@ -61,7 +61,11 @@ namespace Logictracker.Virloc
 		    return DataProvider.FindByIdNum(dc.IdNum.Value, this);
         }
 
-		public override IMessage Decode(IFrame frame)
+        public override IMessage Decode(IFrame frame)
+        {
+            return Decode(frame, GPSPoint.SourceProviders.Unespecified);
+        }
+        public IMessage Decode(IFrame frame, GPSPoint.SourceProviders provider)
         {
             IMessage salida = null;
             var tipoReporte = Reporte.SinNodo;
@@ -80,7 +84,7 @@ namespace Logictracker.Virloc
             		return null;
                 case Reporte.EventoGL:
                 case Reporte.EventoGP:
-                    salida = GetSalida(dc);
+                    salida = GetSalida(dc, provider);
                     break;
                 case Reporte.SinNodo:
                     if (!GetTipoReporte(dc).StartsWith(Reporte.IMEIReq))
@@ -129,7 +133,11 @@ namespace Logictracker.Virloc
         
         #region Members
 
-		private IMessage GetSalida(VirlocDeviceCommand dc)
+        private IMessage GetSalida(VirlocDeviceCommand dc)
+        {
+            return GetSalida(dc, GPSPoint.SourceProviders.Unespecified);
+        }
+        private IMessage GetSalida(VirlocDeviceCommand dc, GPSPoint.SourceProviders provider)
 		{
             var msgid = dc.MessageId ?? 0;
             
@@ -149,10 +157,11 @@ namespace Logictracker.Virloc
             */
 
             var gpoint = devStatus.Position;
-
+            
             if (gpoint == null)
                 return null;
 
+            gpoint.SourceProvider = provider;
             MessageIdentifier codigo;
 			switch (devStatus.FiredEventNumber) // codigo del Evento generador del reporte
 			{

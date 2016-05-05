@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ActualizacionStockVehicularTask.cs" />
     <Compile Include="ControlDescansoTask.cs" />
+    <Compile Include="ReporteEstadoDiarioTask.cs" />
     <Compile Include="InformeViajeDescargaTask.cs" />
     <Compile Include="GeneracionInversaTask.cs" />
     <Compile Include="Task.cs" />

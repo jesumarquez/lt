@@ -1,4 +1,5 @@
-using Logictracker.DAL.DAO;
+using System;
+using System.Data;
 using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DAL.DAO.BaseClasses.Interfaces;
 using Logictracker.DAL.DAO.BusinessObjects;
@@ -25,15 +26,195 @@ using Logictracker.DAL.DAO.BusinessObjects.Tickets;
 using Logictracker.DAL.DAO.BusinessObjects.Vehiculos;
 using Logictracker.DAL.DAO.ReportObjects;
 using Logictracker.DAL.NHibernate;
-using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Types.InterfacesAndBaseClasses;
 using NHibernate;
-using System;
-using System.Data;
 
 namespace Logictracker.DAL.Factories
 {
-    public class DAOFactory : IDisposable
+    public interface IDAOFactory
+    {
+        /// <summary>
+        /// NHibernate data access session.
+        /// </summary>
+        ISession Session { get; }
+
+        TipoDocumentoDAO TipoDocumentoDAO { get; }
+        DocumentoDAO DocumentoDAO { get; }
+        TipoCocheDAO TipoCocheDAO { get; }
+        CocheDAO CocheDAO { get; }
+        MarcaDAO MarcaDAO { get; }
+        ModeloDAO ModeloDAO { get; }
+        OdometroDAO OdometroDAO { get; }
+        MovOdometroVehiculoDAO MovOdometroVehiculoDAO { get; }
+        CocheOperacionDAO CocheOperacionDAO { get; }
+        DispositivoDAO DispositivoDAO { get; }
+        ConfiguracionDispositivoDAO ConfiguracionDispositivoDAO { get; }
+        FirmwareDAO FirmwareDAO { get; }
+        TipoDispositivoDAO TipoDispositivoDAO { get; }
+        TipoParametroDispositivoDAO TipoParametroDispositivoDAO { get; }
+        DetalleDispositivoDAO DetalleDispositivoDAO { get; }
+        PlanDAO PlanDAO { get; }
+        LineaTelefonicaDAO LineaTelefonicaDAO { get; }
+        TipoEmpleadoDAO TipoEmpleadoDAO { get; }
+        EmpleadoDAO EmpleadoDAO { get; }
+        TipoServicioDAO TipoServicioDAO { get; }
+        MotivoDAO MotivoDAO { get; }
+        DistribuidorDAO DistribuidorDAO { get; }
+        UsuarioDAO UsuarioDAO { get; }
+        SistemaDAO SistemaDAO { get; }
+        FuncionDAO FuncionDAO { get; }
+        PerfilDAO PerfilDAO { get; }
+        TipoMensajeDAO TipoMensajeDAO { get; }
+        MensajeDAO MensajeDAO { get; }
+        AccionDAO AccionDAO { get; }
+        LogMensajeDAO LogMensajeDAO { get; }
+        LogMensajeAdminDAO LogMensajeAdminDAO { get; }
+        AtencionEventoDAO AtencionEventoDAO { get; }
+        LogUltimoLoginDAO LogUltimoLoginDAO { get; }
+        InfraccionDAO InfraccionDAO { get; }
+        EvenDistriDAO EvenDistriDAO { get; }
+        MensajeIgnoradoDAO MensajeIgnoradoDAO { get; }
+        MensajeTraducidoDAO MensajeTraducidoDAO { get; }
+        OrderDAO OrderDAO { get; }
+        EmpresaDAO EmpresaDAO { get; }
+        LineaDAO LineaDAO { get; }
+        TransportistaDAO TransportistaDAO { get; }
+        TipoReferenciaGeograficaDAO TipoReferenciaGeograficaDAO { get; }
+        ReferenciaGeograficaDAO ReferenciaGeograficaDAO { get; }
+        TallerDAO TallerDAO { get; }
+        ZonaDAO ZonaDAO { get; }
+        TipoZonaAccesoDAO TipoZonaAccesoDAO { get; }
+        ZonaAccesoDAO ZonaAccesoDAO { get; }
+        TipoZonaDAO TipoZonaDAO { get; }
+        TicketDAO TicketDAO { get; }
+        DetalleTicketDAO DetalleTicketDAO { get; }
+        CicloLogisticoDAO CicloLogisticoDAO { get; }
+        ServicioDAO ServicioDAO { get; }
+        DetalleCicloDAO DetalleCicloDAO { get; }
+        TipoServicioCicloDAO TipoServicioCicloDAO { get; }
+        BocaDeCargaDAO BocaDeCargaDAO { get; }
+        PedidoDAO PedidoDAO { get; }
+        PreasignacionViajeVehiculoDAO PreasignacionViajeVehiculoDAO { get; }
+        ViajeDistribucionDAO ViajeDistribucionDAO { get; }
+        EntregaDistribucionDAO EntregaDistribucionDAO { get; }
+        EstadoDistribucionDAO EstadoDistribucionDAO { get; }
+        RecorridoDistribucionDAO RecorridoDistribucionDAO { get; }
+        RecorridoDAO RecorridoDAO { get; }
+        DetalleRecorridoDAO DetalleRecorridoDAO { get; }
+        LastVehicleEventDAO LastVehicleEventDAO { get; }
+        TicketRechazoDAO TicketRechazoDAO { get; }
+        SosTicketDAO SosTicketDAO { get; }
+        ViajeProgramadoDAO ViajeProgramadoDAO { get; }
+        EstadoLogisticoDAO EstadoLogisticoDAO { get; }
+        TipoCicloLogisticoDAO TipoCicloLogisticoDAO { get; }
+        MovimientoDAO MovimientoDAO { get; }
+        TanqueDAO TanqueDAO { get; }
+        VolumenHistoricoDAO VolumenHistoricoDAO { get; }
+        TipoMovimientoDAO TipoMovimientoDAO { get; }
+        CaudalimetroDAO CaudalimetroDAO { get; }
+        MotivoConciliacionDAO MotivoConciliacionDAO { get; }
+        VolumenHistoricoInvalidoDAO VolumenHistoricoInvalidoDAO { get; }
+        OutQueueDAO OutQueueDAO { get; }
+        OutStateDAO OutStateDAO { get; }
+        TarjetaDAO TarjetaDAO { get; }
+        CategoriaAccesoDAO CategoriaAccesoDAO { get; }
+        SupportTicketDAO SupportTicketDAO { get; }
+        CategoriaDAO CategoriaDAO { get; }
+        SubCategoriaDAO SubCategoriaDAO { get; }
+        NivelDAO NivelDAO { get; }
+        EstadoDAO EstadoDAO { get; }
+        EquipoDAO EquipoDAO { get; }
+        ProductoDAO ProductoDAO { get; }
+        EventoAccesoDAO EventoAccesoDAO { get; }
+        IconoDAO IconoDAO { get; }
+        SonidoDAO SonidoDAO { get; }
+        LogPosicionDAO LogPosicionDAO { get; }
+        LogPosicionHistoricaDAO LogPosicionHistoricaDAO { get; }
+        ClienteDAO ClienteDAO { get; }
+        PuertaAccesoDAO PuertaAccesoDAO { get; }
+        FeriadoDAO FeriadoDAO { get; }
+        PuntoEntregaDAO PuntoEntregaDAO { get; }
+        RoutePositionsDAO RoutePositionsDAO { get; }
+        LogPosicionDescartadaDAO LogPosicionDescartadaDAO { get; }
+        PeriodoDAO PeriodoDAO { get; }
+        CentroDeCostosDAO CentroDeCostosDAO { get; }
+        TarifaTransportistaDAO TarifaTransportistaDAO { get; }
+        ShiftDAO ShiftDAO { get; }
+        LoginAuditDAO LoginAuditDAO { get; }
+        EntityAuditDAO EntityAuditDAO { get; }
+        LogMensajeDescartadoDAO LogMensajeDescartadoDAO { get; }
+        DatamartDAO DatamartDAO { get; }
+        DatamartTramoDAO DatamartTramoDAO { get; }
+        DatamartDistribucionDAO DatamartDistribucionDAO { get; }
+        DatamartViajeDAO DatamartViajeDAO { get; }
+        PuntajeExcesoVelocidadDAO PuntajeExcesoVelocidadDAO { get; }
+        PuntajeExcesoTiempoDAO PuntajeExcesoTiempoDAO { get; }
+        EventoCombustibleDAO EventoCombustibleDAO { get; }
+        RutaDAO RutaDAO { get; }
+        AsegurableDAO AsegurableDAO { get; }
+        ProgramacionReporteDAO ProgramacionReporteDAO { get; }
+        LogProgramacionReporteDAO LogProgramacionReporteDAO { get; }
+        ConsumoCabeceraDAO ConsumoCabeceraDAO { get; }
+        ConsumoDetalleDAO ConsumoDetalleDAO { get; }
+        InsumoDAO InsumoDAO { get; }
+        TipoInsumoDAO TipoInsumoDAO { get; }
+        DepositoDAO DepositoDAO { get; }
+        StockDAO StockDAO { get; }
+        StockVehicularDAO StockVehicularDAO { get; }
+        DetalleStockVehicularDAO DetalleStockVehicularDAO { get; }
+        ProveedorDAO ProveedorDAO { get; }
+        ReportsCacheDAO ReportsCacheDAO { get; }
+        TipoEntidadDAO TipoEntidadDAO { get; }
+        TipoMedicionDAO TipoMedicionDAO { get; }
+        EntidadDAO EntidadDAO { get; }
+        SubEntidadDAO SubEntidadDAO { get; }
+        SensorDAO SensorDAO { get; }
+        MedicionDAO MedicionDAO { get; }
+        PrecintoDAO PrecintoDAO { get; }
+        DetalleDAO DetalleDAO { get; }
+        LogEventoDAO LogEventoDAO { get; }
+        UnidadMedidaDAO UnidadMedidaDAO { get; }
+        TipoProveedorDAO TipoProveedorDAO { get; }
+        DepartamentoDAO DepartamentoDAO { get; }
+        EventoViajeDAO EventoViajeDAO { get; }
+        SubCentroDeCostosDAO SubCentroDeCostosDAO { get; }
+        TicketMantenimientoDAO TicketMantenimientoDAO { get; }
+        LogicLinkFileDAO LogicLinkFileDAO { get; }
+        DataMartsLogDAO DataMartsLogDAO { get; }
+        AgendaVehicularDAO AgendaVehicularDAO { get; }
+        InformeViajeRecargaDAO InformeViajeRecargaDAO { get; }
+
+        /// <summary>
+        /// Gets a generic DAO for the givenn type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        GenericDAO<T> GetGenericDAO<T>() where T : IAuditable;
+
+        /// <summary>
+        /// Creates anew database command using the current stateless session.
+        /// </summary>
+        /// <returns></returns>
+        IDbCommand CreateCommand();
+
+        /// <summary>
+        /// Creates a new sql query using the prived sql text within the current stateless session.
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        ISQLQuery CreateSqlQuery(String sql);
+
+        /// <summary>
+        /// Removes the specified object from te current session.
+        /// </summary>
+        /// <param name="obj"></param>
+        void RemoveFromSession(Object obj);
+
+        void SessionClear();
+        void Dispose();
+    }
+
+    public class DAOFactory : IDisposable, IDAOFactory
     {
         #region Private Properties
 
@@ -556,6 +737,12 @@ namespace Logictracker.DAL.Factories
 
         private InformeViajeRecargaDAO _informeRecargaDao;
         public InformeViajeRecargaDAO InformeViajeRecargaDAO { get { return _informeRecargaDao ?? (_informeRecargaDao = GetDao<InformeViajeRecargaDAO>()); } }
+
+        private EstadoDiarioDAO _estadoDiarioDao;
+        public EstadoDiarioDAO EstadoDiarioDAO { get { return _estadoDiarioDao ?? (_estadoDiarioDao = GetDao<EstadoDiarioDAO>()); } }
+
+        private ColaMensajesDAO _colaMensajesDAO;
+        public ColaMensajesDAO ColaMensajesDAO { get { return _colaMensajesDAO ?? (_colaMensajesDAO = GetDao<ColaMensajesDAO>()); } }
 
         #endregion
 
