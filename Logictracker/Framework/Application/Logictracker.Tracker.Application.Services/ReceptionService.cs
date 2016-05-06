@@ -87,7 +87,10 @@ namespace Logictracker.Tracker.Application.Services
             var cocheDao = DaoFactory.CocheDAO;
             var coche = cocheDao.FindByPatente(-1, licensePlate);
 
-            var ignorarEstosVehiculos = new String[]
+            if (coche == null)
+                return -1;
+
+             var ignorarEstosVehiculos = new String[]
             {
                 "IHC257",
                 "IPA610",

@@ -11,6 +11,9 @@ using Logictracker.Services.Helpers;
 using System.Linq;
 using System.Threading;
 using System.Device.Location;
+using Logictracker.DAL.DAO.BusinessObjects;
+using Logictracker.DAL.DAO.BusinessObjects.Dispositivos;
+using LogicTracker.App.Web.Api.Providers;
 
 namespace LogicTracker.App.Web.Api.Controllers
 {
@@ -21,6 +24,12 @@ namespace LogicTracker.App.Web.Api.Controllers
         public static string ROUTE_STATUS_PENDING = "0";
         public static string ROUTE_STATUS_ACTIVE = "1";
         public static string ROUTE_STATUS_FINALIZE = "9";
+
+        public const short Eliminado = -1;
+        public const short Pendiente = 0;
+        public const short EnCurso = 1;
+        public const short Anulado = 8;
+        public const short Cerrado = 9;
 
 
         // GET: api/Routes/
@@ -76,6 +85,130 @@ namespace LogicTracker.App.Web.Api.Controllers
                 return BadRequest();
             }
         }
+
+
+        public class ParameterFiter
+        {
+            public string EmpresaId { get; set; }
+            public string LineaId { get; set; }
+            public string TransportistaId { get; set; }
+            public string query { get; set; }
+        }
+
+
+        [Route("api/routes/idfilter")]
+        [HttpPost]
+        [CompressContent]
+        public IHttpActionResult Post([FromBody]ParameterFiter idfilter)
+        {
+            try
+            {
+                if (idfilter == null) return BadRequest();
+                var deviceId = GetDeviceId(Request);
+                if (deviceId == null) return BadRequest();
+
+                var routes = RouteService.GetAvailableRoutes(deviceId, idfilter.EmpresaId, idfilter.LineaId, idfilter.TransportistaId, idfilter.query);
+
+                if (routes == null) return Unauthorized();
+                if (routes.Count < 1) return Ok(new RouteList());
+
+                var listRoute = new RouteList
+                {
+                    CompanyId = routes[0].Empresa.Id,
+                    LineId = routes[0].Linea.Id,
+                    DateTime = DateTime.UtcNow
+                };
+                var items = new List<RouteItem>();
+                foreach (var viajeDistribucion in routes)
+                {
+                    if (viajeDistribucion.Estado.ToString().Equals(Pendiente.ToString()))
+                    {
+                        RouteItem element = new RouteItem()
+                        {
+                            Code = viajeDistribucion.Codigo,
+                            DeliveriesNumber = viajeDistribucion.Detalles.Count - 1,
+                            Id = viajeDistribucion.Id,
+                            Places = PlacesToDescription(viajeDistribucion),
+                            Status = viajeDistribucion.Estado.ToString(),
+                            StartDateTime = viajeDistribucion.Inicio
+
+                        };
+                        if (viajeDistribucion.Vehiculo != null)
+                        {
+                            element.patente = viajeDistribucion.Vehiculo.Patente;
+                            element.interno = viajeDistribucion.Vehiculo.Interno;
+                        }
+                        items.Add(element);
+                    }
+                }
+
+                listRoute.RouteItems = items.ToArray();
+                return Ok(listRoute);
+            }
+            catch (Exception error)
+            {
+                LogicTracker.App.Web.Api.Providers.LogWritter.writeLog(error);
+                return BadRequest();
+            }
+        }
+
+        public class ParameterStartRute
+        {
+            public string Patente { get; set; }
+            public string Ruta { get; set; }
+            public string Chofer { get; set; }
+        }
+
+        [Route("api/routes/idstartrute")]
+        [HttpPost]
+        [CompressContent]
+        public IHttpActionResult Post([FromBody]ParameterStartRute idstartrute)
+        {
+            try
+            {
+                if (idstartrute == null) return BadRequest();
+                var deviceId = GetDeviceId(Request);
+                if (deviceId == null) return BadRequest();
+
+                ViajeDistribucion route = RouteService.setRoute(deviceId, idstartrute.Patente, idstartrute.Chofer, idstartrute.Ruta);
+
+                if (route == null) return Unauthorized();
+
+                var listRoute = new RouteList
+                {
+                    CompanyId = route.Empresa.Id,
+                    LineId = route.Linea.Id,
+                    DateTime = DateTime.UtcNow
+                };
+                var items = new List<RouteItem>();
+                RouteItem element = new RouteItem()
+                {
+                    Code = route.Codigo,
+                    DeliveriesNumber = route.Detalles.Count - 1,
+                    Id = route.Id,
+                    Places = PlacesToDescription(route),
+                    Status = route.Estado.ToString(),
+                    StartDateTime = route.Inicio
+
+                };
+                if (route.Vehiculo != null)
+                {
+                    element.patente = route.Vehiculo.Patente;
+                    element.interno = route.Vehiculo.Interno;
+                }
+                items.Add(element);
+
+
+                listRoute.RouteItems = items.ToArray();
+                return Ok(listRoute);
+            }
+            catch (Exception error)
+            {
+                LogicTracker.App.Web.Api.Providers.LogWritter.writeLog(error);
+                return BadRequest();
+            }
+        }
+
         
         private string PlacesToDescription(ViajeDistribucion viajeDistribucion)
         {
@@ -93,6 +226,12 @@ namespace LogicTracker.App.Web.Api.Controllers
         {
             try
             {
+                var deviceId = GetDeviceId(Request);
+                EmpleadoDAO empleado = new EmpleadoDAO();// emple //fecha
+                DispositivoDAO dispositivo = new DispositivoDAO();
+                var device = dispositivo.FindByImei(deviceId);
+                var employee = empleado.FindEmpleadoByDevice(device);
+
                 var trip = RouteService.GetDistributionRouteById(id);
 
                 if (trip == null) return NotFound();
@@ -167,6 +306,10 @@ namespace LogicTracker.App.Web.Api.Controllers
                 {
                     ViajeDistribucionDAO vd = new ViajeDistribucionDAO();
                     trip.Recepcion = DateTime.UtcNow;
+                    if (trip.Empleado == null)
+                    {
+                        trip.Empleado = employee;
+                    }
                     vd.SaveOrUpdate(trip);
                 }
 
@@ -186,6 +329,8 @@ namespace LogicTracker.App.Web.Api.Controllers
             try
             {
                 var deviceId = GetDeviceId(Request);
+
+
                 if (deviceId == null) return Unauthorized();
 
                 if (routeState == null) return BadRequest();

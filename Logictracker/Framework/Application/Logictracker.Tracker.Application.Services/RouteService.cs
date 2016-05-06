@@ -81,6 +81,76 @@ namespace Logictracker.Tracker.Application.Services
             return routes.Where(viajeDistribucion => viajeDistribucion.Inicio.Date.Equals(DateTime.Now.Date)).ToList();
         }
 
+
+
+        public IList<ViajeDistribucion> GetAvailableRoutes(string deviceId, string EmpresaId, string LineaId, string TransportistaId, string Query)
+        {
+            var employee = GetEmployeeByDeviceImei(deviceId);
+            if (employee == null) return null;
+
+            // var vehicle = DaoFactory.CocheDAO.FindByChofer(employee.Id);
+            //if (vehicle == null) return null; 
+           
+            var companies = new[] { employee.Empresa.Id, int.Parse(EmpresaId) };
+
+            var lineas = new int[] { int.Parse(LineaId) };
+
+            if (employee.Dispositivo.Linea != null)
+            {
+                lineas = new int[] { employee.Dispositivo.Linea.Id, int.Parse(LineaId) };
+            }
+            var vehiculos = new int[] { }; //vehicle.Id 
+            var empleados = new int[] { };
+            int transportista = int.Parse(TransportistaId);
+            //var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, new int[] { }, null, null);
+            var routes = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados)
+                .Where(x => x.Inicio.Date.Equals(DateTime.Now.Date) && 
+                    x.Codigo.ToUpper().Contains(Query.Trim().ToUpper()) && x.InicioReal == null && x.Recepcion == null &&
+                    ((x.Transportista != null && x.Transportista.Equals(transportista)) || x.Transportista == null || transportista.Equals(-1) ));
+
+            return routes.ToList();
+        }
+
+        public ViajeDistribucion setRoute(string deviceId, string Patente, string Chofer, string Ruta)
+        {
+            var employee = GetEmployeeByDeviceImei(deviceId);
+            if (employee == null) return null;
+
+            var companies = new[] { employee.Empresa.Id };
+
+            var lineas = new int[] { };
+
+            if (employee.Linea != null)
+            {
+                lineas = new int[] { employee.Linea.Id};
+            }
+            var vehiculos = new int[] { }; //vehicle.Id 
+            var empleados = new int[] { };
+                var tiposempleados = new int[] { };
+                var transportistas = new int[] { };
+            var route = DaoFactory.ViajeDistribucionDAO.GetList(companies, lineas, vehiculos, empleados)
+                .Where(x => x.Codigo.Trim().ToUpper().Equals(Ruta.Trim().ToUpper())).FirstOrDefault();
+
+            var choferes = DaoFactory.EmpleadoDAO.GetList(companies, lineas, tiposempleados, transportistas).ToList();
+            Empleado chofer = null;
+            foreach (var item in choferes)
+            {
+                if (item.Entidad.Descripcion.ToString().ToUpper().Trim().Equals(Chofer.ToUpper().Trim()))
+                {
+                    chofer = item;
+                    break;
+                }
+            }
+            var patente = DaoFactory.CocheDAO.GetList(companies, lineas).Where(x => (x.Patente.ToString() + " - " + x.Interno.ToString()).ToString().ToUpper().Trim().Equals(Patente.Trim().ToUpper())).FirstOrDefault();
+
+            route.Empleado = chofer;
+            route.Vehiculo = patente;
+
+            DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(route);
+
+            return route;
+        }        
+
         public string StartRoute(int routeId)
         {
             var ticket = DaoFactory.ViajeDistribucionDAO.FindById(routeId);
