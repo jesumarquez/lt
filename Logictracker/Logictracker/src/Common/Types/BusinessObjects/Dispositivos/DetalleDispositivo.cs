@@ -55,5 +55,6 @@ namespace Logictracker.Types.BusinessObjects.Dispositivos
 
 			return (T) Convert.ChangeType(obj.Valor, typeof (T));
 		}
+
 	}
 }

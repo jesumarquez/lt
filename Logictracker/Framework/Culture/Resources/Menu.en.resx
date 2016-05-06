@@ -448,7 +448,7 @@
     <value>Operator summary</value>
   </data>
   <data name="STAT_RESUMEN_RUTA" xml:space="preserve">
-    <value>Route Summary</value>
+    <value>Tour Summary</value>
   </data>
   <data name="STAT_RESUMEN_VEHICULAR" xml:space="preserve">
     <value>Vehicle Summary</value>
@@ -937,6 +937,12 @@
     <value>Stock Projection</value>
   </data>
   <data name="MON_CHECK_OUT" xml:space="preserve">
-    <value>Check Out Monitor</value>
+    <value>Check In / Check Out Monitor</value>
+  </data>
+  <data name="REP_IN_OUT" xml:space="preserve">
+    <value>In / Out Report</value>
+  </data>
+  <data name="REPORTE_ASIGNO" xml:space="preserve">
+    <value>Assign Report</value>
   </data>
 </root>

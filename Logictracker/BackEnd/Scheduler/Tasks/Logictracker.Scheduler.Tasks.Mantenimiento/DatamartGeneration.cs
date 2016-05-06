@@ -56,7 +56,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             get
             {
                 var endDate = GetDateTime("Hasta");
-                return endDate.HasValue ? endDate.Value : DateTime.UtcNow;
+                return endDate.HasValue ? endDate.Value : DateTime.UtcNow.Date.AddHours(3).AddMinutes(-1);
             }
         }
         /// <summary>
@@ -67,7 +67,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private DateTime GetStartDate(int vehicle)
         {
             var startDate = GetDateTime("Desde");
-
             return startDate != null ? startDate.Value : GetLastDatamartUpdate(vehicle);
         }
 
@@ -77,15 +76,17 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
+            var inicio = DateTime.UtcNow;
+
             base.OnExecute(timer);
+
+            RecompileStores();
 
             var today = EndDate;
             
             //DeleteOldDatamartRecords();
 
 			STrace.Trace(GetType().FullName, "Processing vehicles.");
-
-            var inicio = DateTime.UtcNow;
 
             SetVehicles();
 
@@ -132,6 +133,15 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             SendSuccessMail(param);
 
             DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRecorridos, "Datamart finalizado exitosamente");
+        }
+
+        private void RecompileStores()
+        {
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetPositionsBetweenDates_3");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationStartDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationEndDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionOlderThanDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionNewerThanDate_2");
         }
 
         private void SetVehicles()
@@ -237,7 +247,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 {
                     // Set environment data
                     var inicio = new DateTime(from.Year, from.Month, from.Day, from.Hour, 0, 0);
-                    var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 0, 0);
+                    var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 59, 59);
 
                     // Deletes all previously generated datamart records for the current vehicle and time span.
                     var t = new TimeElapsed();
@@ -247,19 +257,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
                     var records = new List<Datamart>();
                     var registrosValidos = false;
-                    var retry = 0;
-
-                    //while (!registrosValidos && retry < 5)
-                    //{
-                        //retry++;
-
-                        using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
-                        {
-                            records = GenerateRecords(data);
-                            registrosValidos = ValidateRecords(data, records);
-                            if (!registrosValidos) STrace.Error(GetType().FullName, string.Format("Registros no válidos para el vehículo: {0}", vehicle.Id));
-                        }
-                    //}
+                    
+                    using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
+                    {
+                        records = GenerateRecords(data);
+                        registrosValidos = ValidateRecords(data, records);
+                        if (!registrosValidos) STrace.Error(GetType().FullName, string.Format("Registros no válidos para el vehículo: {0}", vehicle.Id));
+                    }                    
 
                     t.Restart();
                     foreach (var record in records) DaoFactory.DatamartDAO.Save(record);
@@ -269,7 +273,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
                     transaction.Commit();
 
-                    //if (retry == 5 && !registrosValidos)
                     if (!registrosValidos)
                     {
                         var parametros = new[] { "Se generaron registros de Datamart posiblemente inválidos para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), DateTime.Today.ToString("dd/MM/yyyy HH:mm") };

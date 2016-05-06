@@ -58,6 +58,33 @@ namespace Logictracker.Reportes.Estadistica {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList ddlPlanta;
         
         /// <summary>
+        /// lblDepto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDepto;
+        
+        /// <summary>
+        /// upDepto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upDepto;
+        
+        /// <summary>
+        /// ddlDepto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.DepartamentoDropDownList ddlDepto;
+        
+        /// <summary>
         /// lblTipo control.
         /// </summary>
         /// <remarks>

@@ -2,13 +2,16 @@ using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Types.BusinessObjects.BaseObjects;
 using Logictracker.Types.BusinessObjects.Positions;
+using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Types.BusinessObjects.Vehiculos;
+using Logictracker.Types.ValueObject;
 using Logictracker.Types.ValueObject.Positions;
 using Logictracker.Utils;
 using NHibernate;
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace Logictracker.DAL.DAO.BusinessObjects.Positions
@@ -227,7 +230,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
 
             //var firstPosition = q.UniqueResult<LogPosicion>();
             if (firstPosition == null) return null;
-            return new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 0, 0, 0);
+            return new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 3, 0, 0);
         }
 
         public DateTime GetRegenerationEndDate(int vehicleId, DateTime from, DateTime to, int maxMonths)
@@ -249,7 +252,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             //var firstPosition = q.UniqueResult<LogPosicion>();
             var firstPosition = results.FirstOrDefault();
             return firstPosition != null 
-                        ? new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 23, 59, 59, 99) 
+                        ? new DateTime(firstPosition.FechaMensaje.Year, firstPosition.FechaMensaje.Month, firstPosition.FechaMensaje.Day, 2, 59, 59, 99) 
                         : to;
         }
 
@@ -291,9 +294,38 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Positions
             return q.UniqueResult<LogPosicion>();
         }
 
+        public int GetVehiclesInside(IEnumerable<int> vehicles, Geocerca geocerca, DateTime fecha)
+        {
+            var count = 0;            
+
+            foreach (var vehicleId in vehicles)
+            {
+                var position = GetFirstPositionOlderThanDate(vehicleId, fecha, 1);
+                if (position != null)
+                {
+                    var latitud = position.Latitud;
+                    var longitud = position.Longitud;
+                    var point = new PointF((float)longitud, (float)latitud);
+                    var inside = geocerca.IsInBounds(point) && geocerca.Contains(latitud, longitud);
+                    if (inside) count++;
+                }
+            }
+
+            return count;
+        }
+
         protected override String GetDeleteCommand()
         {
             return "delete top(:n) from opeposi01 where opeposi01_fechora <= :date ; select @@ROWCOUNT as count;";
+        }
+
+        public int RecompileSP(string spName)
+        {
+            var results = Session.CreateSQLQuery(string.Format("exec sp_recompile '{0}'", spName))
+                                 .SetTimeout(0)
+                                 .UniqueResult<Int32>();
+
+            return results;
         }
     }
 }

@@ -20,6 +20,7 @@ using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Web.CustomWebControls.Labels;
 using System.Collections.Generic;
 using Logictracker.DAL.Factories;
+using Logictracker.Services.Helpers;
 
 #endregion
 
@@ -842,10 +843,13 @@ namespace Logictracker.Parametrizacion
                     var document = SetDocumentDefaultValues(docImp, empresa, linea, tipo);
 
                     var vehiculo = DAOFactory.CocheDAO.FindByPatente(empresa.Id, docImp.PatenteVehiculo);
+                    var empleado = DAOFactory.EmpleadoDAO.FindByLegajo(empresa.Id, linea.Id,docImp.PatenteVehiculo);
 
                     if (vehiculo != null)
                     {
                         document.Vehiculo = vehiculo;
+                    }else if(empleado != null){
+                        document.Empleado = empleado;
                     }
                     else
                     {
@@ -977,6 +981,54 @@ namespace Logictracker.Parametrizacion
             if (Directory.Exists(dir)) return;
 
             Directory.CreateDirectory(dir);
+        }
+
+        #endregion
+
+        #region Nomenclador
+
+        protected void btnNomenclar_Click(object sender, EventArgs e)
+        {
+            var empresaId = cbEmpreaNomenclador.Selected;
+            var clientes = DAOFactory.ClienteDAO.FindAll().Where(c => c.Empresa.Id == empresaId && !c.Baja);
+            var puntos = DAOFactory.PuntoEntregaDAO.GetList(new[] { -1 }, new[] { -1 }, clientes.Select(c => c.Id));
+
+            var cant = 0;
+            foreach (var punto in puntos)
+            {
+                try
+                {
+                    var direccion = GeocoderHelper.GetEsquinaMasCercana(punto.ReferenciaGeografica.Latitude, punto.ReferenciaGeografica.Longitude);
+
+                    if (direccion != null)
+                    {
+                        punto.ReferenciaGeografica.Direccion.Calle = direccion.Calle;
+                        punto.ReferenciaGeografica.Direccion.Altura = direccion.Altura;
+                        punto.ReferenciaGeografica.Direccion.Partido = direccion.Partido;
+                        punto.ReferenciaGeografica.Direccion.Provincia = direccion.Provincia;
+                        punto.ReferenciaGeografica.Direccion.Pais = "Argentina";
+                        punto.ReferenciaGeografica.Direccion.Descripcion = direccion.Direccion;
+
+                        punto.ReferenciaGeografica.Direccion.IdMapa = (short)direccion.IdMapaUrbano;
+                        punto.ReferenciaGeografica.Direccion.IdCalle = direccion.IdPoligonal;
+                        punto.ReferenciaGeografica.Direccion.IdEsquina = direccion.IdEsquina;
+
+                        punto.Nomenclado = true;
+                        punto.DireccionNomenclada = direccion.Direccion;
+
+                        DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(punto.ReferenciaGeografica);
+                        DAOFactory.PuntoEntregaDAO.SaveOrUpdate(punto);
+                        cant++;
+                    };
+                }
+                catch (Exception ex)
+                {
+                    STrace.Exception(GetType().FullName, ex);
+                }
+            }
+
+            infoLabel1.Mode = InfoLabelMode.INFO;
+            infoLabel1.Text = "Se han nomenclado " + cant + " puntos de entrega.";
         }
 
         #endregion

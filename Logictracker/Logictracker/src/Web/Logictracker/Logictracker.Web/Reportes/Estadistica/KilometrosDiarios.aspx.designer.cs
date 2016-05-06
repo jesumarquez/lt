@@ -112,39 +112,21 @@ namespace Logictracker.Web.Reportes.Estadistica {
         protected global::Logictracker.Web.CustomWebControls.ListBoxs.MovilListBox lbMovil;
         
         /// <summary>
-        /// lblDesde control.
+        /// lblFecha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblDesde;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblFecha;
         
         /// <summary>
-        /// dtDesde control.
+        /// dtFecha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtDesde;
-        
-        /// <summary>
-        /// lblHasta control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblHasta;
-        
-        /// <summary>
-        /// dtHasta control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtHasta;
+        protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtFecha;
     }
 }

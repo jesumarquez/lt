@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Accion.hbm.xml 381 2007-05-23 16:32:58Z rbugallo $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Messages.ColaMensajes,Logictracker.Types" table="aux06" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_aux06" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="aux06_nombre" name="Nombre" />
+    <property column="aux06_cantidad" name="Cantidad" />
+    <property column="aux06_last_update" name="UltimaActualizacion" />
+    
+  </class>
+</hibernate-mapping>

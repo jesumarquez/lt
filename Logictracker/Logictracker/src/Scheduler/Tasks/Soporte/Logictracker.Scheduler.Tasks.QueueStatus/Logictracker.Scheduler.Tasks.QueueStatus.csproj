@@ -57,6 +57,10 @@
       <Project>{4AEFC2C1-47FF-444D-96A1-EB57FBA1BE7F}</Project>
       <Name>Logictracker.DatabaseTracer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Common\DAL\Logictracker.DAL.csproj">
+      <Project>{937f8161-9c96-42da-88a3-4cbc1db92a3d}</Project>
+      <Name>Logictracker.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Common\Mailing\Logictracker.Mailing.csproj">
       <Project>{AE61757F-B47C-4EB8-B223-C89C96092133}</Project>
       <Name>Logictracker.Mailing</Name>
@@ -64,6 +68,10 @@
     <ProjectReference Include="..\..\..\..\Common\QueueStatus\Logictracker.QueueStatus.csproj">
       <Project>{A91D4BE7-5950-41F3-AD7E-289E04E2FCBF}</Project>
       <Name>Logictracker.QueueStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Common\Types\Logictracker.Types.csproj">
+      <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
+      <Name>Logictracker.Types</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Scheduler.Core\Logictracker.Scheduler.Core.csproj">
       <Project>{AC8BC64C-65C6-43F6-A266-AE32B59D83B1}</Project>

@@ -9,15 +9,20 @@ namespace Logictracker.Web.Controllers.api
 {
     public class BaseController : EntityController<Linea, LineaDAO, BaseModel, LineaMapper>
     {
-
         [Route("api/Distrito/{distritoId}/base/items")]
-        public IEnumerable<ItemModel> GetBases(int distritoId)
+        public IEnumerable<BaseModel> GetBases(int distritoId)
         {
-            return EntityDao.GetLineasPermitidasPorUsuario(new[] {distritoId}).Select(e => Mapper.ToItem(e));
-            //var mapper = new LineaMapper();
-            ////
-            //return ItemModel.All.Union(EntityDao.GetLineasPermitidasPorUsuario(new []{distritoId}).Select(l=>mapper.ToItem(l)));
+            return EntityDao.GetLineasPermitidasPorUsuario(new[] { distritoId }).Select(e => Mapper.EntityToModel(e, new BaseModel()));
         }
+
+        //[Route("api/Distrito/{distritoId}/base/items")]
+        //public IEnumerable<ItemModel> GetBases(int distritoId)
+        //{
+        //    return EntityDao.GetLineasPermitidasPorUsuario(new[] {distritoId}).Select(e => Mapper.ToItem(e));
+        //    //var mapper = new LineaMapper();
+        //    ////
+        //    //return ItemModel.All.Union(EntityDao.GetLineasPermitidasPorUsuario(new []{distritoId}).Select(l=>mapper.ToItem(l)));
+        //}
 
     }
 

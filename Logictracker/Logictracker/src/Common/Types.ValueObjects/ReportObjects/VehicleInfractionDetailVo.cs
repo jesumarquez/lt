@@ -8,19 +8,23 @@ namespace Logictracker.Types.ValueObjects.ReportObjects
     public class VehicleInfractionDetailVo
     {
         public const int IndexVehiculo = 0;
-        public const int IndexTipoInfraccion = 1;
-        public const int IndexCalificacion = 2;
-        public const int IndexOperador = 3;
-        public const int IndexCornerNearest = 4;
-        public const int IndexInicio = 5;
-        public const int IndexDuracion = 6;
-        public const int IndexPico = 7;
-        public const int IndexExceso = 8;
-        public const int IndexPonderacion = 9;
-        public const int IndexCalificacionStr = 10;
+        public const int IndexTransportista = 1;
+        public const int IndexTipoInfraccion = 2;
+        public const int IndexCalificacion = 3;
+        public const int IndexOperador = 4;
+        public const int IndexCornerNearest = 5;
+        public const int IndexInicio = 6;
+        public const int IndexDuracion = 7;
+        public const int IndexPico = 8;
+        public const int IndexExceso = 9;
+        public const int IndexPonderacion = 10;
+        public const int IndexCalificacionStr = 11;
 
         [GridMapping(Index = IndexVehiculo, ResourceName = "Entities", VariableName = "PARENTI03", IsInitialGroup = true, InitialGroupIndex = 0)]
         public string Vehiculo { get { return InfractionDetail.Vehiculo; } }
+
+        [GridMapping(Index = IndexTransportista, ResourceName = "Entities", VariableName = "PARENTI07")]
+        public string Transportista { get { return InfractionDetail.Transportista; } }
 
         [GridMapping(Index = IndexTipoInfraccion, ResourceName = "Labels", VariableName = "TIPO_INFRACCION", AllowGroup = true)]
         public string TipoInfraccion { get { return InfractionDetail.TipoInfraccion; } }

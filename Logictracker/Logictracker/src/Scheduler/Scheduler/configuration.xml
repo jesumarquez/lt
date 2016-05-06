@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration xmlns="urn:Scheduler.Configuration">
 
-
-	<Timer Enabled="true" Name="LoJack" StartTime="00:00:00" Periodicity="Second" Notifiers="matiasa@logictracker.com" RunAtStart="true" >
-		<Task Class="Logictracker.Scheduler.Tasks.LoJack.Task, Logictracker.Scheduler.Tasks.LoJack" Params="queuename=.\private$\eventos_lojack;user=wslogictracker;password=12345;guid=FAC9C017-A43A-4B3F-B54C-02FB15EC6150;"/>
-	</Timer>
-
+    <!--
+	  <Timer Enabled="true" Name="LoJack" StartTime="00:00:00" Periodicity="Second" Notifiers="matiasa@logictracker.com" RunAtStart="true" >
+		  <Task Class="Logictracker.Scheduler.Tasks.LoJack.Task, Logictracker.Scheduler.Tasks.LoJack" Params="queuename=.\private$\eventos_lojack;user=wslogictracker;password=12345;guid=FAC9C017-A43A-4B3F-B54C-02FB15EC6150;"/>
+	  </Timer>
+    -->
 
     <!--
     <Timer Enabled="false" Name="Reinicio de Servicios" StartTime="06:00:00" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="false">
@@ -130,10 +130,15 @@
       <Task Class="Logictracker.Scheduler.Tasks.MonitoreoRechazos.Task, Logictracker.Scheduler.Tasks.MonitoreoRechazos" />
     </Timer>
     -->
-  
-    <Timer Enabled="true" Name="Actualizacion de Stock" Periodicity="Hour" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
-      <!--<Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" Params="MaxMessageCount=5000;Distrito=69;" />-->
-      <Task Class="Logictracker.Scheduler.Tasks.GeneracionTareas.ActualizacíonStockVehicularTask, Logictracker.Scheduler.Tasks.GeneracionTareas" />
+    <!--  
+    <Timer Enabled="true" Name="InformeViajeDescarga" Periodicity="Hour" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">      
+      <Task Class="Logictracker.Scheduler.Tasks.GeneracionTareas.InformeViajeDescargaTask, Logictracker.Scheduler.Tasks.GeneracionTareas" Params="Desde=01/04/2016;Hasta=02/04/2016;" />      
     </Timer>
-  
+    -->
+
+    <Timer Enabled="true" Name="UpdateOdometers" Periodicity="Day" Notifiers="logisticstrack.soporte@gmail.com" RunAtStart="true">
+      <Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.DatamartGeneration, Logictracker.Scheduler.Tasks.Mantenimiento" />
+      <!--<Task Class="Logictracker.Scheduler.Tasks.Mantenimiento.UpdateOdometers, Logictracker.Scheduler.Tasks.Mantenimiento" />-->
+    </Timer>
+
 </Configuration>

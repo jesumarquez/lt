@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Logictracker.Tracker.Application.Dispatcher.Host.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="kTopic" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">lt_dispatcher</Value>
+    </Setting>
+    <Setting Name="kServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">190.111.252.242:2181</Value>
+    </Setting>
+    <Setting Name="kClientId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">qtree_speed_ticket</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

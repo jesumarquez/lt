@@ -11,8 +11,9 @@ namespace Logictracker.Types.ValueObjects.Documentos
         public const int IndexCodigo = 2;
         public const int IndexDescripcion = 3;
         public const int IndexTransportista = 4;
-        public const int IndexVencimiento = 5;
-        public const int IndexDiasAlVencimiento = 6;
+        public const int IndexPresentacion = 5; 
+        public const int IndexVencimiento = 6;
+        public const int IndexDiasAlVencimiento = 7;
 
         [GridMapping(Index = IndexTipoDocumento, ResourceName = "Entities", VariableName = "PARENTI25", AllowGroup = true, IsInitialGroup = true, InitialSortExpression = true)]
         public string TipoDocumento { get; set; }
@@ -28,6 +29,9 @@ namespace Logictracker.Types.ValueObjects.Documentos
 
         [GridMapping(Index = IndexTransportista, ResourceName = "Labels", VariableName = "TRANSPORTISTA", AllowGroup = false)]
         public string Transportista { get; set; }
+        
+        [GridMapping(Index = IndexPresentacion, ResourceName = "Labels", VariableName = "PRESENTACION", DataFormatString = "{0:d}", AllowGroup = true)]
+        public DateTime? Presentacion { get; set; }
 
         [GridMapping(Index = IndexVencimiento, ResourceName = "Labels", VariableName = "VENCIMIENTO", DataFormatString = "{0:d}", AllowGroup = true)]
         public DateTime Vencimiento { get; set; }
@@ -65,6 +69,7 @@ namespace Logictracker.Types.ValueObjects.Documentos
             Fecha = doc.Fecha;
             if (doc.Vencimiento.HasValue)
             {
+                Presentacion = doc.Presentacion;
                 Vencimiento = doc.Vencimiento.Value;
                 DiasAlVencimiento = Convert.ToInt32(doc.Vencimiento.Value.Subtract(fechaActual).TotalDays);
             }
