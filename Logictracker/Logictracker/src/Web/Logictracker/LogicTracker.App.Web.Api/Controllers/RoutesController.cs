@@ -57,10 +57,13 @@ namespace LogicTracker.App.Web.Api.Controllers
                 {
                     if (!viajeDistribucion.Estado.ToString().Equals(ROUTE_STATUS_FINALIZE))
                     {
+                        int index = 0;
+                        if (viajeDistribucion.Detalles.Count > 0)
+                            index = viajeDistribucion.Detalles.Count - 1;
                         RouteItem element = new RouteItem()
                          {
                              Code = viajeDistribucion.Codigo,
-                             DeliveriesNumber = viajeDistribucion.Detalles.Count - 1,
+                             DeliveriesNumber = index,
                              Id = viajeDistribucion.Id,
                              Places = PlacesToDescription(viajeDistribucion),
                              Status = viajeDistribucion.Estado.ToString(),
