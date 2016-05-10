@@ -348,4 +348,7 @@
   <data name="PARTICK09" xml:space="preserve">
     <value>Tipo do Ciclo Logistico</value>
   </data>
+  <data name="PARENTI105" xml:space="preserve">
+    <value>Orden</value>
+  </data>
 </root>

@@ -255,7 +255,15 @@
 			<TicketsHandler g:Type="Logictracker.AVL.Messages.SpeedingTicket, Logictracker.AVL"/>
 			<TextEventsHandler g:Type="Logictracker.AVL.Messages.TextEvent, Logictracker.AVL" />
 			<SetDetailHandler g:Type="Logictracker.AVL.Messages.SetDetail, Logictracker.AVL" />
-		</MessageDispatcher>
+
+
+      <KafkaEnqueu g:Type="Logictracker.AVL.Messages.Position, Logictracker.AVL"/>
+      <KafkaEnqueu g:Type="Logictracker.AVL.Messages.Event, Logictracker.AVL"/>
+      <KafkaEnqueu g:Type="Logictracker.AVL.Messages.SpeedingTicket, Logictracker.AVL"/>
+      <KafkaEnqueu g:Type="Logictracker.AVL.Messages.TextEvent, Logictracker.AVL" />
+      <KafkaEnqueu g:Type="Logictracker.AVL.Messages.SetDetail, Logictracker.AVL" />
+       
+    </MessageDispatcher>
 	</StackChannel>
 	
 	<StackChannel>

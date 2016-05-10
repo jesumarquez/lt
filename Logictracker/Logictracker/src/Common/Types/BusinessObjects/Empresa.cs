@@ -91,6 +91,7 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string GeneraRutaInversa = "genera.ruta.inversa";
             public const string GeneraInformeViajeRecarga = "genera.informe.viaje.recarga";
+            public const string GeneraReporteEstadoDiario = "genera.reporte.estado.diario";
             public const string ControlaDescanso = "controla.descanso";
             public const string ActualizaStockVehicular = "actualiza.stock.vehicular";
 
@@ -797,6 +798,17 @@ namespace Logictracker.Types.BusinessObjects
             get
             {
                 var valor = GetParameter(Params.GeneraInformeViajeRecarga);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool GeneraReporteEstadoDiario
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraReporteEstadoDiario);
                 bool aplica;
                 if (valor == null || !bool.TryParse(valor, out aplica)) return false;
                 return aplica;

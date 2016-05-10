@@ -356,6 +356,10 @@
       <DependentUpon>WebServiceLT.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebServiceLTViajeDistribucion.asmx.cs">
+      <DependentUpon>WebServiceLTViajeDistribucion.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -395,6 +399,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="WebServiceLT.asmx" />
+    <Content Include="WebServiceLTViajeDistribucion.asmx" />
     <None Include="Properties\PublishProfiles\filesistem.pubxml" />
     <None Include="Properties\PublishProfiles\profiledos.pubxml" />
     <None Include="Properties\PublishProfiles\testing server.pubxml" />
@@ -493,6 +498,10 @@
       <Project>{45750a64-1c43-44ef-a3e3-b3dcab8144c8}</Project>
       <Name>Logictracker.Types</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\Utils\Logictracker.Utils.csproj">
+      <Project>{74067696-fd4b-460a-931b-6a3b4d4eef5c}</Project>
+      <Name>Logictracker.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -508,7 +517,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>false</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>53703</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
