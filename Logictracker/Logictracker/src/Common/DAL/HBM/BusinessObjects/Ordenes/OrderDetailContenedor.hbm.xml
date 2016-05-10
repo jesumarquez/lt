@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Ordenes.OrderDetailContenedor, Logictracker.Types" table="[par.par_enti_109_det_orden_contenedor]" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_parenti109" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="parenti109_ajuste" name="Ajuste" />
+
+    <many-to-one column="rela_parenti105" name="OrderDetail" lazy="proxy" not-null="true" />
+    <many-to-one column="rela_parenti108" name="Contenedor" lazy="proxy" not-null="true" />
+
+  </class>
+</hibernate-mapping>
