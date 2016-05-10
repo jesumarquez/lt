@@ -15,6 +15,9 @@ namespace Logictracker.Tracker.Services
         Empleado GetEmployeeByDeviceImei(string imei);
         ViajeDistribucion GetDistributionRouteById(int routeId);
         IList<ViajeDistribucion> GetAvailableRoutes(string deviceId);
+        IList<ViajeDistribucion> GetAvailableRoutes(string deviceId, string EmpresaId, string LineaId, string TransportistaId, string Query);
+        ViajeDistribucion setRoute(string deviceId, string Patente, string Chofer, string Ruta);
+
         string StartRoute(int routeId);
         string FinalizeRoute(int id);
         short ReportDelivery(int routeId, long jobId, Coordinate coord, int messageId, short jobStatus, string deviceId, DateTime dateTime);
