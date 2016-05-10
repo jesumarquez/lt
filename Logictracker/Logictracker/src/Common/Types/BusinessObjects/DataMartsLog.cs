@@ -20,6 +20,7 @@ namespace Logictracker.Types.BusinessObjects
             public const short GeneracionInversa = 9;
             public const short InformeViajeDescarga = 10;
             public const short UpdateOdometers = 11;
+            public const short ReporteEstadoDiario = 12;
 
             public static string GetString(short modulo)
             {
@@ -37,6 +38,7 @@ namespace Logictracker.Types.BusinessObjects
                     case GeneracionInversa: return "Generación Inversa";
                     case InformeViajeDescarga: return "Informe Viaje-Descarga";
                     case UpdateOdometers: return "Actualización de Odómetros";
+                    case ReporteEstadoDiario: return "Reporte Estado Diario";
                     default: return string.Empty;
                 }
             }

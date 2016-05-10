@@ -119,8 +119,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Dispositivos
             var xbeeFirmware = GetXbeeFirmwareValue(dispositivo.Id);
             var knownFirmware = GetKnownVersionValue(dispositivo.Id);
 
-            var firmware = knownFirmware == null || String.IsNullOrEmpty(knownFirmware) ? dispositivo.Firmware != null ? dispositivo.Firmware.Nombre : String.Empty : knownFirmware;
-            return xbeeHardware == null && xbeeFirmware == null ? firmware : String.Concat(firmware, String.Format(" (Xbee HD: {0} - SF: {1})", xbeeHardware, xbeeFirmware));
+            var firmware = String.IsNullOrEmpty(knownFirmware) ? (dispositivo.Firmware != null ? dispositivo.Firmware.Nombre : String.Empty) : knownFirmware;
+            return (xbeeHardware == null && xbeeFirmware == null) ? firmware : String.Concat(firmware, String.Format(" (Xbee HD: {0} - SF: {1})", xbeeHardware, xbeeFirmware));
         }
 
         public string GetAccesoIpValue(int idDispositivo) { return GetDeviceDetail(idDispositivo, AccesoIp).As(string.Empty); }

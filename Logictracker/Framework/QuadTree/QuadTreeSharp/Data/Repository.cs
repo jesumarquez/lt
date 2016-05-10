@@ -47,13 +47,11 @@ namespace Logictracker.QuadTree.Data
             {
                 lock(lockInstance)
                 {
-                    if (_instance == null)
-                    {
-                        const string dirname = @"C:\GEOGRILLAS";
-                        var so = new GridStructure();
-                        _instance = new Repository();
-                        _instance.Open<GeoGrillas>(dirname, ref so);
-                    }
+                    if (_instance != null) return _instance;
+                    const string dirname = @"C:\GEOGRILLAS";
+                    var so = new GridStructure();
+                    _instance = new Repository();
+                    _instance.Open<GeoGrillas>(dirname, ref so);
                     return _instance;
                 }
             }
@@ -127,21 +125,20 @@ namespace Logictracker.QuadTree.Data
         public int GetPositionClass(float lat, float lon)
         {
             RefreshCache(lat, lon);
-            if (IndexFile == null) return 0;
-            return IndexFile.GetPositionClass(lat, lon);
+            return IndexFile == null ? 0 : IndexFile.GetPositionClass(lat, lon);
         }
 
         public TYPE GetReference<TYPE>(float lat, float lon, string name)
         {
             RefreshCache(lat, lon);
-            if (IndexFile == null) return default(TYPE);
-            return IndexFile.GetReference<TYPE>(lat, lon, name);
+            return IndexFile == null ? default(TYPE) : IndexFile.GetReference<TYPE>(lat, lon, name);
         }
 
-        private readonly object spcLock = new object();
+        private readonly object _spcLock = new object();
+
         public void SetPositionClass(float lat, float lon, int value)
         {
-            lock(spcLock) {
+            lock(_spcLock) {
                 RefreshCache(lat, lon);
                 if (IndexFile == null) return;
                 IndexFile.SetPositionClass(lat, lon, value);

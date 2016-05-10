@@ -33,6 +33,12 @@ namespace Logictracker.Types.ReportObjects.RankingDeOperadores
         public string Operador { get; set; }
 
         /// <summary>
+        /// The operator responsable of the infraction.
+        /// </summary>
+        public string Transportista { get; set; }
+
+
+        /// <summary>
         /// The mobile envolved in the infraction.
         /// </summary>
         public string Vehiculo { get; set; }

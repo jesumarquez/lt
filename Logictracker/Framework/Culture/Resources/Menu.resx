@@ -981,4 +981,7 @@
   <data name="REP_IN_OUT" xml:space="preserve">
     <value>Reporte In / Out</value>
   </data>
+  <data name="REPORTE_ASIGNO" xml:space="preserve">
+    <value>Reporte de Asigno</value>
+  </data>
 </root>

@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using Logictracker.Model.Utils;
 using Logictracker.Utils;
@@ -152,5 +154,16 @@ namespace Logictracker.Model
 
 		private const String ToSend = "ToSend";
 		private const String PostSend = "PostSend";
+
+	    public static byte[] BinarySerialized(this IMessage msg)
+	    {
+            using (var stream = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(stream, msg);
+                stream.Position = 0;
+                return stream.ToArray();
+            }
+	    }
 	}
 }

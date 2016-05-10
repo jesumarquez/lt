@@ -64,6 +64,7 @@ namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
                                        new InfractionDetail
                                        {
                                            Id = infraction.Id,
+                                           Transportista = infraction.Vehiculo.Transportista != null ? infraction.Vehiculo.Transportista.Descripcion : "Sin Transportista",  
                                            Latitude = infraction.Latitud,
                                            Longitude = infraction.Longitud,
                                            Vehiculo = infraction.Vehiculo.Interno,

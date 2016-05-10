@@ -484,7 +484,9 @@ namespace Logictracker.Monitor.MonitorDeCalidad
 
                 var gg = new GeoGrillas { Repository = new Repository { BaseFolderPath = Path.Combine(Config.Qtree.QtreeGteDirectory, qtreeDir) } };
                 var revision = 0;
-                var changedSectorsList = new TransactionLog(gg.Repository, vehicle.Dispositivo.Id).GetChangedSectorsAndRevision(int.Parse(qtreeVersion), out revision);
+                var base_revision = 0;
+                int.TryParse(qtreeVersion, out base_revision);
+                var changedSectorsList = new TransactionLog(gg.Repository, vehicle.Dispositivo.Id).GetChangedSectorsAndRevision(base_revision, out revision);
 
                 lblVersionServer.Text = revision.ToString();
                 pnlQtree.Update();

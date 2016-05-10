@@ -67,22 +67,27 @@ namespace Logictracker.QuadTree.Data
 
 		public int GetPositionClass(float lat, float lon)
 		{
-			if (State != GR2.States.INSERVICE) throw new ApplicationException("El indice esta fuera de servicio");
-			long sector;
-			long xbyte;
-			bool low_bits;
-			var fileName = GetFileNameAndIndexes(lat, lon, out sector, out xbyte, out low_bits);
-			if (string.IsNullOrEmpty(fileName)) return 0;
-			//Debug.WriteLine(String.Format("GGTXXT: GET sector = {0} / byte = {1} / en los 4 bits {2}", sector, xbyte, (low_bits ? "bajos" : "altos")));
-			RefreshCache(sector);
+            lock (syncLock)
+            {
 
-			var active_byte = Cache.Data[xbyte];
-			if (low_bits)
-			{
-				return active_byte & 0x0F;
-			}
-			return (active_byte >> 4) & 0x0F;
-		}
+                if (State != GR2.States.INSERVICE) throw new ApplicationException(string.Format("El indice esta fuera de servicio / {0}- {1}", lat, lon));
+                long sector;
+                long xbyte;
+                bool low_bits;
+                var fileName = GetFileNameAndIndexes(lat, lon, out sector, out xbyte, out low_bits);
+                if (string.IsNullOrEmpty(fileName)) return 0;
+                //Debug.WriteLine(String.Format("GGTXXT: GET sector = {0} / byte = {1} / en los 4 bits {2}", sector, xbyte, (low_bits ? "bajos" : "altos")));
+                RefreshCache(sector);
+
+                var active_byte = Cache.Data[xbyte];
+                if (low_bits)
+                {
+                    return active_byte & 0x0F;
+                }
+                return (active_byte >> 4) & 0x0F;
+                
+            }
+        }
 
 		public void SetPositionClass(float lat, float lon, int value)
 		{
@@ -246,11 +251,12 @@ namespace Logictracker.QuadTree.Data
 
 		private void Transition(GR2.States newState)
 		{
-			lock (syncLock)
-			{
-				if (State == newState) return;
-				STrace.Debug(GetType().FullName, String.Format("GG/GR2: Store File Transition. {0} -> {1}", State.ToString(), newState.ToString()));
-				State = newState;
+		    lock (syncLock)
+		    {
+		        if (State == newState) return;
+		        //STrace.Debug(GetType().FullName, String.Format("GG/GR2: Store File Transition. {0} -> {1}", State.ToString(), newState.ToString()));
+		        //Console.Write("Tansition  {0} -> {1}" , State , newState);
+		        State = newState;
 			}
 		}
 

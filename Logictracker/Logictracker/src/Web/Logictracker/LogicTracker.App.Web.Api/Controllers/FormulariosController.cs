@@ -388,6 +388,51 @@ namespace LogicTracker.App.Web.Api.Controllers
                     spinnerlist = spinnerlist
                 });
 
+
+
+                EmpleadoDAO empleDAO = new EmpleadoDAO();
+                var idlineaempleado = employee.Linea != null ? employee.Linea.Id : -1;
+                var idempresaempleado = employee.Empresa != null ? employee.Empresa.Id : -1;
+                var idtransportistaempleado = employee.Transportista != null ? employee.Transportista.Id : -1;
+                TipoEmpleadoDAO d = new TipoEmpleadoDAO();
+                var tipoemple = d.FindByCodigo(idempresaempleado, idlineaempleado , "Cho");
+                var empleadoall = empleDAO.FindAll().Where(x=> x.TipoEmpleado != null && x.TipoEmpleado.Id.Equals(tipoemple.Id) &&
+                                (x.Empresa != null && x.Empresa.Id.Equals(idempresaempleado)) &&
+                                ((x.Linea != null && x.Linea.Id.Equals(idlineaempleado)) || x.Linea == null) &&
+                                ((x.Transportista != null && x.Transportista.Id.Equals(idtransportistaempleado)))).ToList();
+                empleadoall.Add(employee);
+                spinnerMobile = new List<FormulariosSpinnerList>();
+                foreach (var itemtrans in empleadoall)
+                {
+                    var idlinea = itemtrans.Linea != null ? itemtrans.Linea.Id : -1;
+                    var idempresa = itemtrans.Empresa != null ? itemtrans.Empresa.Id : -1;
+                    var idtrans = itemtrans.Transportista != null ? itemtrans.Transportista.Id : -1;
+                    spinnerMobile.Add(new FormulariosSpinnerList()
+                    {
+                        id = Convert.ToString((idempresa) +
+                                            ";" + (idlinea) +
+                                            ";" + idtrans
+                                            ),
+                        descripcion = itemtrans.Entidad.Descripcion
+                    });
+                }
+                spinnerlist = spinnerMobile.ToArray().OrderBy(x => x.descripcion).ToArray();
+                parametros.Add(new FormulariosParametros()
+                {
+                    id = Convert.ToString(-1),
+                    pordefault = "",
+                    largo = Convert.ToString("empleados"),
+                    nombre = Convert.ToString("empleados"),
+                    obligatorio = Convert.ToString("true"),
+                    orden = Convert.ToString("0"),
+                    precision = Convert.ToString("0"),
+                    repeticion = Convert.ToString("0"),
+                    tipodato = Convert.ToString("empleados"),
+                    tipodocumento = "",
+                    spinnerlist = spinnerlist
+                });
+
+
                 return Ok(parametros.ToArray().OrderBy(item => item.id).ToArray());
             }
             catch (Exception error)
@@ -829,43 +874,56 @@ namespace LogicTracker.App.Web.Api.Controllers
                                 }
                             case "cliente":
                                 {
+                                    if (itemParametro.objectocampo != null)
+                                    {
+                                        Cliente cliente = new ClienteDAO().GetList(empresas, lineas)
+                                            .Where(X => X.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo))).FirstOrDefault();
 
-                                    Cliente cliente = new ClienteDAO().GetList(empresas, lineas)
-                                        .Where(X=> X.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo))).FirstOrDefault();
-                                    
-                                    var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
-                                              where p.Nombre == itemParametro.nombrecampo
-                                              select p;
-                                    var val = new DocumentoValor
-                                              {
-                                                  Documento = doc,
-                                                  Parametro = par.ToList()[0],
-                                                  Repeticion = ((short)1),
-                                                  Valor = cliente.Id.ToString()
-                                              };
-                                    doc.Parametros.Add(val);
+                                        if (cliente != null)
+                                        {
+                                            var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                      where p.Nombre == itemParametro.nombrecampo
+                                                      select p;
+                                            var val = new DocumentoValor
+                                                      {
+                                                          Documento = doc,
+                                                          Parametro = par.ToList()[0],
+                                                          Repeticion = ((short)1),
+                                                          Valor = cliente.Id.ToString()
+                                                      };
+                                            doc.Parametros.Add(val);
+                                        }
+                                    }
                                     break;
                                 }
                             case "equipo":
                                 {
-                                    var equipos = new EquipoDAO().FindAll().Cast<Equipo>();                                    
-                                    Equipo equip = equipos.Where(x=> x.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo))).FirstOrDefault();
-                                    var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
-                                              where p.Nombre == itemParametro.nombrecampo
-                                              select p;
-                                    var val = new DocumentoValor
+                                    if (itemParametro.objectocampo != null)
                                     {
-                                        Documento = doc,
-                                        Parametro = par.ToList()[0],
-                                        Repeticion = ((short)1),
-                                        Valor = equip.Id.ToString()
-                                    };
-                                    doc.Parametros.Add(val);
+                                        var equipos = new EquipoDAO().FindAll().Cast<Equipo>();
+                                        Equipo equip = equipos.Where(x => x.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo))).FirstOrDefault();
+                                        if (equip != null)
+                                        {
+                                            var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                      where p.Nombre == itemParametro.nombrecampo
+                                                      select p;
+                                            var val = new DocumentoValor
+                                            {
+                                                Documento = doc,
+                                                Parametro = par.ToList()[0],
+                                                Repeticion = ((short)1),
+                                                Valor = equip.Id.ToString()
+                                            };
+                                            doc.Parametros.Add(val);
+                                        }
+                                    }
                                     break;
                                 }
                             case "centrocostos":
                                 {
-                                    var departamentos = new DepartamentoDAO().GetList(empresas, lineas);
+                                    if (itemParametro.objectocampo != null)
+                                    {
+                                        var departamentos = new DepartamentoDAO().GetList(empresas, lineas);
                                         List<int> dep = new List<int>();
                                         foreach (var itemDeparta in departamentos)
                                         {
@@ -873,20 +931,24 @@ namespace LogicTracker.App.Web.Api.Controllers
                                         }
                                         CentroDeCostos centro = new CentroDeCostosDAO()
                                             .GetList(empresas, lineas, dep)
-                                            .Where(x=> x.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)))
+                                            .Where(x => x.Descripcion.Equals(System.Text.Encoding.UTF8.GetString(itemParametro.objectocampo)))
                                             .FirstOrDefault();
 
-                                    var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
-                                              where p.Nombre == itemParametro.nombrecampo
-                                              select p;
-                                    var val = new DocumentoValor
-                                    {
-                                        Documento = doc,
-                                        Parametro = par.ToList()[0],
-                                        Repeticion = ((short)1),
-                                        Valor = centro.Id.ToString()
-                                    };
-                                    doc.Parametros.Add(val);
+                                        if (centro != null)
+                                        {
+                                            var par = from TipoDocumentoParametro p in doc.TipoDocumento.Parametros
+                                                      where p.Nombre == itemParametro.nombrecampo
+                                                      select p;
+                                            var val = new DocumentoValor
+                                            {
+                                                Documento = doc,
+                                                Parametro = par.ToList()[0],
+                                                Repeticion = ((short)1),
+                                                Valor = centro.Id.ToString()
+                                            };
+                                            doc.Parametros.Add(val);
+                                        }
+                                    }
                                     break;
                                 }
                             default:
