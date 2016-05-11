@@ -40,6 +40,7 @@ namespace Logictracker.Web.Models
             model.Cuaderna = entity.Cuaderna;
             if (entity.Insumo != null) model.Insumo = entity.Insumo.Descripcion;
             model.EstadoDescripcion = entity.Estado.ToString();
+            model.Descripcion = string.Format("{0} | {1}", model.OrderId.ToString(), model.Insumo);
 
             if (entity.Order.PuntoEntrega != null)
             {

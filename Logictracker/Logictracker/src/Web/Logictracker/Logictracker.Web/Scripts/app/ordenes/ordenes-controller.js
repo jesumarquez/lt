@@ -568,8 +568,8 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
 
     $scope.vehicleTypeSelected = {};
     $scope.ds = new kendo.data.DataSource({
-        data: $scope.productsSelected,
-        change: onDataChanged
+        data: $scope.productsSelected//,
+        //change: onDataChanged
     });
     $scope.productosGridOptions =
     {
@@ -580,27 +580,33 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
             { field: "OrderId", title: "Pedido", width: "10em" },
             { field: "Insumo", title: "Producto" },
             { field: "Cantidad", title: "Litros", width: "10em" },
-            { field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
+            //{ field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
+            { field: "Cuaderna", title: "Cuaderna", width: "10em" },
             { field: "Ajuste", title: "Ajuste", width: "10em" },
             { field: "Ajuste", title: "Total", template: "{{ dataItem.Cantidad + dataItem.Ajuste }}" },
-        ],
-        editable: {
-            update: true,
-            destroy: false
-        }
+        ]//,
+        //editable: {
+        //    update: true,
+        //    destroy: false
+        //}
     };
     $scope.cuadernasDs = {};
     $scope.cuadernasGridOptions =
     {
         columns:
              [
+                 { field: "Id", hidden: true },
                  { field: "Orden", title: "" },
                  { field: "Descripcion", title: "" },
                  { field: "Capacidad", title: "Capacidad" },
-                 { field: "Seleccionados", title: "N°" },
+                 { field: "Seleccionados", title: "N°", editor: ordenProductoEditor, template: "{{ getProductoDesc(dataItem) }}" },
                  { field: "Asignado", title: "Asignado" },
                  { field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
              ],
+        editable: {
+            update: true,
+            destroy: false
+        }
     };
 
     $scope.semaforo = function (dataItem) {
@@ -612,6 +618,11 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
 
     function cuadernaEditor(container, options) {
         var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
+        l.appendTo(container);
+    }
+
+    function ordenProductoEditor(container, options) {
+        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Id'\" k-data-source=\"ds\" data-bind=\"value:" + options.field + '"/>');
         l.appendTo(container);
     }
 
@@ -662,6 +673,12 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
         }
     }
 
+    $scope.getProductoDesc = function (data) {
+        if (data.Seleccionados != undefined)
+            return $filter('filter')($scope.ds.data(), { Id: data.Seleccionados.Id })[0].Descripcion;
+
+        return "";
+    }
 
     $scope.getCuadernaDesc = function (data) {
         return $filter('filter')($scope.cuadernasDs.data(), { Orden: data.Cuaderna })[0].Descripcion;
