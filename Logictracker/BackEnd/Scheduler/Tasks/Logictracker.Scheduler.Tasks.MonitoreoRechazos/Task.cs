@@ -36,14 +36,17 @@ namespace Logictracker.Scheduler.Tasks.MonitoreoRechazos
                             STrace.Trace(ComponentName, string.Format("Último estado: Notificado 1 - Minutos: {0}", tiempo));
 
                             if (tiempo > 15 && rechazo.SupervisorVenta != null)
-                            {   
-                                var coche = DaoFactory.CocheDAO.FindByChofer(rechazo.SupervisorVenta.Id);
-                                var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazo.Motivo), coche.Empresa, coche.Linea);
-                                var mensaje = DaoFactory.MensajeDAO.FindById(mensajeVo.Id);
-
+                            {
                                 rechazo.ChangeEstado(TicketRechazo.Estado.Notificado2, "Informe a Supervisor de Ventas", rechazo.SupervisorVenta);
                                 DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
-                                EnviaMensaje(coche, mensaje, rechazo, rechazo.SupervisorVenta);                                 
+
+                                var coche = DaoFactory.CocheDAO.FindByChofer(rechazo.SupervisorVenta.Id);
+                                if (coche != null)
+                                {
+                                    var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazo.Motivo), coche.Empresa, coche.Linea);
+                                    var mensaje = DaoFactory.MensajeDAO.FindById(mensajeVo.Id);
+                                    EnviaMensaje(coche, mensaje, rechazo, rechazo.SupervisorVenta);
+                                }
                             }
                             break;
                         case TicketRechazo.Estado.Notificado2:
@@ -51,13 +54,16 @@ namespace Logictracker.Scheduler.Tasks.MonitoreoRechazos
 
                             if (tiempo > 15 && rechazo.SupervisorRuta != null)
                             {
-                                var coche = DaoFactory.CocheDAO.FindByChofer(rechazo.SupervisorRuta.Id);
-                                var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazo.Motivo), coche.Empresa, coche.Linea);
-                                var mensaje = DaoFactory.MensajeDAO.FindById(mensajeVo.Id);
-
                                 rechazo.ChangeEstado(TicketRechazo.Estado.Notificado3, "Informe a Jefe de Ventas", rechazo.SupervisorRuta);
                                 DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
-                                EnviaMensaje(coche, mensaje, rechazo, rechazo.SupervisorRuta);
+
+                                var coche = DaoFactory.CocheDAO.FindByChofer(rechazo.SupervisorRuta.Id);
+                                if (coche != null)
+                                {
+                                    var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(TicketRechazo.GetCodigoMotivo(rechazo.Motivo), coche.Empresa, coche.Linea);
+                                    var mensaje = DaoFactory.MensajeDAO.FindById(mensajeVo.Id);
+                                    EnviaMensaje(coche, mensaje, rechazo, rechazo.SupervisorRuta);
+                                }
                             }
                             break;
                         case TicketRechazo.Estado.Notificado3:
