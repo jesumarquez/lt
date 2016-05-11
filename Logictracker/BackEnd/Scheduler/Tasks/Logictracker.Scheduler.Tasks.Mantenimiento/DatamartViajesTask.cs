@@ -63,6 +63,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 var viajesPendientes = viajes.Count;
                 STrace.Trace(GetType().FullName, string.Format("Viajes a procesar: {0}", viajesPendientes));
 
+                var viajesToRetry = new List<ViajeDistribucion>();
+
                 foreach (var viaje in viajes)
                 {
                     try
@@ -73,32 +75,23 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     catch (Exception ex)
                     {
                         STrace.Exception(GetType().FullName, ex);
+                        viajesToRetry.Add(viaje);
+                    }
+                }
 
-                        var procesado = false;
-                        var retry = 0;
-                        while (!procesado && retry < 5)
-                        {
-                            retry++;
-                            try
-                            {
-                                ProcesarViaje(viaje.Id, regenera);
-                                STrace.Trace(GetType().FullName, string.Format("Viajes a procesar: {0}", --viajesPendientes));
-                                procesado = true;
-                                var parametros = new[] { "Viaje " + viaje.Id + " procesado exitosamente luego de " + retry + " intentos.", viaje.Id.ToString("#0"), viaje.Inicio.ToString("dd/MM/yyyy HH:mm") };
-                                SendMail(parametros);
-                                STrace.Trace(GetType().FullName, "Viaje " + viaje.Id + " procesado exitosamente luego de " + retry + " intentos.");
-                            }
-                            catch (Exception e)
-                            {
-                                STrace.Exception(GetType().FullName, e);
-                            }
-                        }
-                        if (retry == 5 && !procesado)
-                        {
-                            var parametros = new[] { "No se pudieron generar registros de Datamart para el viaje " + viaje.Id, viaje.Id.ToString("#0"), viaje.Inicio.ToString("dd/MM/yyyy HH:mm") };
-                            SendMail(parametros);
-                            STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para el viaje " + viaje.Id);
-                        }
+                viajesPendientes = viajesToRetry.Count;
+                foreach (var viaje in viajesToRetry)
+                {
+                    try
+                    {
+                        ProcesarViaje(viaje.Id, regenera);
+                        STrace.Trace(GetType().FullName, string.Format("Viajes a procesar: {0}", --viajesPendientes));
+                    }
+                    catch (Exception ex)
+                    {
+                        STrace.Exception(GetType().FullName, ex);
+                        var parametros = new[] { "No se pudieron generar registros de Datamart para el viaje " + viaje.Id, viaje.Id.ToString("#0"), viaje.Inicio.ToString("dd/MM/yyyy HH:mm") };
+                        SendMail(parametros);
                     }
                 }
 
@@ -107,10 +100,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 var fin = DateTime.UtcNow;
                 var duracion = fin.Subtract(inicio).TotalMinutes;
 
+                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRutas, "Datamart finalizado exitosamente");
+
                 var param = new[] { "Datamart Viajes", inicio.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), fin.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), duracion + " minutos" };
                 SendSuccessMail(param);
-
-                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRutas, "Datamart finalizado exitosamente");
             }
             catch (Exception exc)
             {
