@@ -186,6 +186,12 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
                             result = string.Format("Archivo procesado exitosamente. Asignados: {0}", asignados);
                             if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
                             break;
+                        case LogicLinkFile.Estrategias.AsignacionCodigoViaje:
+                            var viajes = 0;
+                            AsignacionCodigoViaje.Parse(archivo, out viajes, out observaciones);
+                            result = string.Format("Archivo procesado exitosamente. Viajes: {0}", viajes);
+                            if (observaciones != string.Empty) result = result + " (" + observaciones + ")";
+                            break;
                     }
 
                     archivo.Status = LogicLinkFile.Estados.Procesado;

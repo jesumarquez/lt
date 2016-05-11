@@ -195,6 +195,10 @@
       <Project>{08fda8e2-a657-4b3a-bf85-847aa89dc2e3}</Project>
       <Name>G4S</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Globalis\Globalis.csproj">
+      <Project>{b231bb3d-cfdf-4c2f-965f-77c2da5ba953}</Project>
+      <Name>Globalis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\Gte\Trax.csproj">
       <Project>{5E21FE40-F8AC-4182-997B-11E6B83DB504}</Project>
       <Name>Trax</Name>
@@ -206,6 +210,10 @@
     <ProjectReference Include="..\..\BackEnd\Codecs\MobileApps\MobileApps.csproj">
       <Project>{4B6EDE70-D8CE-4483-AF0B-CACF6814ADC7}</Project>
       <Name>MobileApps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Pressa\Pressa.csproj">
+      <Project>{7c0cd0ad-ff66-4473-abde-d292f426fc9a}</Project>
+      <Name>Pressa</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\PumpControl\PumpControl.csproj">
       <Project>{E06AA9E5-BBF6-42BD-BAC6-2F7C5478CB77}</Project>

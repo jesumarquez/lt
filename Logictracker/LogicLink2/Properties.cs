@@ -161,5 +161,11 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2
             public const int CodigoCliente = 0;
             public const int Legajo = 2;
         }
+
+        public class AsignacionCodigoViaje
+        {
+            public const int Viaje = 0;
+            public const int Codigo = 1;
+        }
     }
 }

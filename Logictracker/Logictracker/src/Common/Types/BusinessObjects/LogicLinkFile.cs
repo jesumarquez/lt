@@ -40,6 +40,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string DistribucionCCU = "Distribucion.CCU";
             public const string PedidosPetrobras = "Pedidos.PETROBRAS";
             public const string AsignacionClienteEmpleado = "Cliente.Empleado";
+            public const string AsignacionCodigoViaje = "Codigo.Viaje";
 
             public static List<string> GetList()
             {
@@ -53,7 +54,8 @@ namespace Logictracker.Types.BusinessObjects
                     DistribucionReginaldLee, 
                     DistribucionCCU, 
                     PedidosPetrobras, 
-                    AsignacionClienteEmpleado
+                    AsignacionClienteEmpleado,
+                    AsignacionCodigoViaje
                 };
             }
         }

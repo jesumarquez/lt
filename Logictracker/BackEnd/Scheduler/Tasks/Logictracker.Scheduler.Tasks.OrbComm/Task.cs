@@ -159,7 +159,7 @@ namespace Logictracker.Scheduler.Tasks.OrbComm
 						if (!_filtro.IsRepetido(msg))
 						{
 							estado = "Encolando mensaje";
-                            //queue.Send(msg, string.Empty);
+                            queue.Send(msg, string.Empty);
 						}
 
                     	estado = "Marcando mensaje como leido";
