@@ -34,7 +34,7 @@ namespace Logictracker.Mantenimiento
                                                              cbLinea.SelectedValues,
                                                              cbVehiculo.SelectedValues,
                                                              SecurityExtensions.ToDataBaseDateTime(dtDesde.SelectedDate.Value), 
-                                                             SecurityExtensions.ToDataBaseDateTime(dtHasta.SelectedDate.Value))
+                                                             SecurityExtensions.ToDataBaseDateTime(dtHasta.SelectedDate.Value))                                                    
                                                     .Select(t => new TicketMantenimientoVo(t))
                                                     .ToList();
         }
