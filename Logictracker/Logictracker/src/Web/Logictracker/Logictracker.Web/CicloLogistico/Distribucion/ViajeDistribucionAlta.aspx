@@ -675,9 +675,21 @@
                                         <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />
                                     </Triggers>
                                 </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="ResourceLabel29" runat="server" ResourceName="Entities" VariableName="PARENTI09" />
+                        <asp:UpdatePanel ID="UpdatePanel10" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:EmpleadoDropDownList ID="cbChoferProg" runat="server" Width="75%" AddNoneItem="true" ParentControls="cbEmpresaProg,cbTransportistaProg" TabIndex="25" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />                                                               
+                                <asp:AsyncPostBackTrigger ControlID="cbTransportistaProg" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="cbVehiculoProg" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
                         
                                 <cwc:ResourceLabel ID="ResourceLabel27" runat="server" ResourceName="Labels" VariableName="CODE_DISTRIBUCION" />
-                                <asp:TextBox ID="txtCodigoProg" runat="server" Width="50%" MaxLength="32" />
+                                <asp:TextBox ID="txtCodigoProg" runat="server" Width="75%" MaxLength="32" />
 
                                 <cwc:ResourceLabel ID="ResourceLabel23" runat="server" ResourceName="Labels" VariableName="DATE" />     
                                 <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
@@ -685,6 +697,9 @@
                                         <cwc:DateTimePicker ID="dtFechaProg" runat="server" IsValidEmpty="false" Mode="DateTime" TimeMode="Now" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
+
+                            <cwc:ResourceLabel ID="ResourceLabel30" runat="server" ResourceName="Labels" VariableName="COMENTARIO" />
+                            <asp:TextBox ID="txtComentarioProg" runat="server" Width="75%" MaxLength="128" TextMode="MultiLine" />
 
                             </cwc:AbmTitledPanel>
                         </td>
