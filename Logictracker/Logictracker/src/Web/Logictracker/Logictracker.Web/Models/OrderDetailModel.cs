@@ -1,9 +1,5 @@
-﻿using Logictracker.Types.BusinessObjects.Ordenes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Logictracker.Types.BusinessObjects.Ordenes;
 
 namespace Logictracker.Web.Models
 {
