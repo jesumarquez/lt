@@ -122,24 +122,37 @@ namespace Logictracker.CicloLogistico
                 dtDesde.SelectedDate = ciclo.Inicio.ToDisplayDateTime();
                 dtHasta.SelectedDate = ciclo.Inicio.ToDisplayDateTime().AddMinutes(1);
 
-                BtnSearchClick(null, null);
-                var row = gridTickets.Rows.Cast<C1GridViewRow>().FirstOrDefault(r => (r.FindControl("hidId") as HiddenField).Value == string.Format("{0}:{1}", t, id));
-                if (row != null) gridTickets.SelectedIndex = row.RowIndex;
+                var list = new List<Ciclo>();
+                list.Add(new Ciclo(ciclo));                
 
+                gridTickets.DataSource = list;
+                gridTickets.DataBind();
+                gridTickets.SelectedIndex = 0;
+
+                tab.ActiveTab = tabTickets;
+                Clear();
+
+                updTickets.Update();
+                updTabCompleto.Update();
+                updEast.Update();
+                
                 if (ciclo.InicioReal.HasValue)
                 {
                     SelectCiclo(ciclo, true, Modos.Ninguno);
                     UpdateLinks(ciclo);
                     dtDesde.SelectedDate = ciclo.InicioReal.Value.ToDisplayDateTime();
-                    
+                    if (ciclo.Estado == ViajeDistribucion.Estados.Cerrado)
+                        dtHasta.SelectedDate = ciclo.Fin.ToDisplayDateTime();
+                    else
+                        dtHasta.SelectedDate = DateTime.UtcNow.ToDisplayDateTime();
+
+
                     if (ciclo.EntregasTotalCountConBases > 0)
                     {
                         gridEntregas.DataSource = ciclo.Detalles.Where(d => d.PuntoEntrega != null);
                         gridEntregas.DataBind();
                     }                    
                 }
-                
-                dtHasta.SelectedDate = ciclo.Fin.ToDisplayDateTime();
             }
         }
 
