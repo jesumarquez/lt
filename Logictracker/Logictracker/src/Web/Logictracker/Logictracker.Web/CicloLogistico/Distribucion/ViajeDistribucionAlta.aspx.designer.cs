@@ -1237,13 +1237,13 @@ namespace Logictracker.CicloLogistico.Distribucion {
         protected global::Logictracker.Web.CustomWebControls.Panels.AbmTitledPanel AbmTitledPanel2;
         
         /// <summary>
-        /// lblEmpresaProg control.
+        /// ResourceLabel24 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblEmpresaProg;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel24;
         
         /// <summary>
         /// cbEmpresaProg control.
@@ -1390,22 +1390,22 @@ namespace Logictracker.CicloLogistico.Distribucion {
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.TipoCicloLogisticoDropDownList cbTipoCicloProg;
         
         /// <summary>
-        /// lblChofer_viaje_programado control.
+        /// ResourceLabel29 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblChofer_viaje_programado;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel29;
         
         /// <summary>
-        /// updChoferProg control.
+        /// UpdatePanel10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updChoferProg;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel10;
         
         /// <summary>
         /// cbChoferProg control.
@@ -1462,13 +1462,13 @@ namespace Logictracker.CicloLogistico.Distribucion {
         protected global::Logictracker.Web.CustomWebControls.Input.DateTimePicker dtFechaProg;
         
         /// <summary>
-        /// ResourceLabel24 control.
+        /// ResourceLabel30 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel24;
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel ResourceLabel30;
         
         /// <summary>
         /// txtComentarioProg control.
