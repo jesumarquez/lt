@@ -675,7 +675,7 @@
 .directive('ltDdlCoche', function () {
 
     function CocheController($scope, $filter, EntitiesService) {
-        vm = this;
+        var vm = this;
         vm.ds = EntitiesService.distrito.coche(onDSLoad, onFail);
 
         $scope.$watch("vm.dependsOn", onSelected);
