@@ -390,6 +390,8 @@ namespace Logictracker.CicloLogistico
             var entrega = e.Row.DataItem as EntregaDistribucion;
             if (entrega == null) return;
 
+            //var lnk = e.Row.FindControl("lnkEntrega") as LinkButton;
+            //lnk.Text = entrega.Orden.ToString("#0");
             e.Row.Cells[0].Text = entrega.Orden.ToString("#0");
             e.Row.Cells[1].Text = CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado));
             e.Row.Cells[2].Text = entrega.Descripcion;
@@ -404,6 +406,17 @@ namespace Logictracker.CicloLogistico
                 case EntregaDistribucion.Estados.EnZona: e.Row.BackColor = Color.Gray; break;
                 case EntregaDistribucion.Estados.SinVisitar:
                 case EntregaDistribucion.Estados.Pendiente: e.Row.BackColor = Color.Orange; break;
+            }
+        }
+
+        protected void LnkEntregaOnClick(object sender, EventArgs e)
+        {
+            var lnk = sender as LinkButton;
+            if (lnk != null)
+            {
+                var ordenProg = lnk.Text;
+                txtOrdenProg.Text = ordenProg;
+                BtnOrdenProgOnClick(sender, e);
             }
         }
 
@@ -532,14 +545,24 @@ namespace Logictracker.CicloLogistico
             var duracionReal = new TimeSpan();
             if (ciclo.InicioReal.HasValue)
             {
-                if (ciclo.InicioReal.Value < DateTime.Today)
+                if (ciclo.Estado == ViajeDistribucion.Estados.EnCurso)
+                {
+                    kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, ciclo.InicioReal.Value, DateTime.UtcNow);
+                    duracionReal = DateTime.UtcNow.Subtract(ciclo.InicioReal.Value);
+                }
+                else if (ciclo.Estado == ViajeDistribucion.Estados.Cerrado)
                 {
                     duracionReal = ciclo.Fin.Subtract(ciclo.InicioReal.Value);
-                    var dmViaje = DAOFactory.DatamartViajeDAO.GetRecords(ciclo.Id).FirstOrDefault();
-                    if (dmViaje != null) kmReales = dmViaje.KmTotales;
+                    if (ciclo.Fin < DateTime.Today)
+                    {
+                        var dmViaje = DAOFactory.DatamartViajeDAO.GetRecords(ciclo.Id).FirstOrDefault();
+                        if (dmViaje != null) kmReales = dmViaje.KmTotales;
+                    }
+                    else
+                    {
+                        kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, ciclo.InicioReal.Value, ciclo.Fin);
+                    }
                 }
-                else 
-                    kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
             }
 
             lblKmReales.Text = kmReales.ToString("#0.00") + " Km - " + string.Format("{0}:{1}:{2} Hs", ((int)duracionReal.TotalHours).ToString("00"), duracionReal.Minutes.ToString("00"), duracionReal.Seconds.ToString("00"));
@@ -682,11 +705,10 @@ namespace Logictracker.CicloLogistico
             {
                 e.PuntoEntrega.ReferenciaGeografica.Observaciones = GetPuntoEntregaPopupContent(e.Id);
             }
-            ShowPuntos(entregas.OrderBy(e => e.Orden), 1, posicionar, modo);
+            ShowPuntos(entregas.OrderBy(e => e.Orden), posicionar, modo);
         }
-        protected void ShowPuntos(IEnumerable<EntregaDistribucion> entregas, int index, bool posicionar, int modo)
+        protected void ShowPuntos(IEnumerable<EntregaDistribucion> entregas, bool posicionar, int modo)
         {
-            var orden = index;
             ReferenciaGeografica toPosition = null;
             var viaje = entregas.First().Viaje;
             var vehiculo = viaje.Vehiculo;
@@ -760,7 +782,7 @@ namespace Logictracker.CicloLogistico
                     }
                 }
 
-                var text = orden.ToString("#0") + horario + eta;
+                var text = entrega.Orden.ToString("#0") + horario + eta;
                 var marker = MarkerFactory.CreateLabeledMarker("P:" + punto.Id, icono, punto.Latitude, punto.Longitude, text, style, punto.Observaciones);
                 monitor.AddMarkers(Layers.Puntos, marker);
                 if (posicionar)
@@ -768,7 +790,7 @@ namespace Logictracker.CicloLogistico
                     switch (modo)
                     {
                         case Modos.OrdenProgramado:
-                            if (txtOrdenProg.Text.Trim() == orden.ToString("#0"))
+                            if (txtOrdenProg.Text.Trim() == entrega.Orden.ToString("#0"))
                                 toPosition = punto;
                             break;
                         case Modos.OrdenReal:
@@ -796,8 +818,6 @@ namespace Logictracker.CicloLogistico
                             break;
                     }
                 }
-
-                orden++;
 
                 if (punto.Poligono != null)
                 {

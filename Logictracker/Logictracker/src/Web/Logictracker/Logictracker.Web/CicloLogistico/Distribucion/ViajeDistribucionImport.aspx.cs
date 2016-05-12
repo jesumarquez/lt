@@ -668,12 +668,12 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             var hora = viajeDistribucion.Inicio;
                             foreach (var detalle in viajeDistribucion.Detalles)
                             {
-                                var distancia = GeocoderHelper.CalcularDistacia(dirBase.Latitude, dirBase.Longitude, detalle.ReferenciaGeografica.Latitude,
-                                    detalle.ReferenciaGeografica.Longitude);
+                                var distancia = GeocoderHelper.CalcularDistacia(dirBase.Latitude, dirBase.Longitude, detalle.ReferenciaGeografica.Latitude, detalle.ReferenciaGeografica.Longitude);
                                 var horas = distancia/velocidadPromedio;
                                 var demora = detalle.TipoServicio != null ? detalle.TipoServicio.Demora : 0;
                                 detalle.Programado = hora.AddHours(horas).AddMinutes(demora);
                                 detalle.ProgramadoHasta = detalle.Programado.AddMinutes(empresa.MarginMinutes);
+                                detalle.KmCalculado = distancia;
                                 dirBase = detalle.ReferenciaGeografica;
                                 hora = detalle.Programado;
                             }
