@@ -13,24 +13,6 @@ namespace Logictracker.Mantenimiento {
     public partial class TicketMantenimientoLista {
         
         /// <summary>
-        /// lblTaller control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblTaller;
-        
-        /// <summary>
-        /// cbTaller control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TallerDropDownList cbTaller;
-        
-        /// <summary>
         /// lblBase control.
         /// </summary>
         /// <remarks>
@@ -65,6 +47,24 @@ namespace Logictracker.Mantenimiento {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Logictracker.Web.CustomWebControls.DropDownLists.PlantaDropDownList cbLinea;
+        
+        /// <summary>
+        /// lblTaller control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.Labels.ResourceLabel lblTaller;
+        
+        /// <summary>
+        /// cbTaller control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Logictracker.Web.CustomWebControls.DropDownLists.TallerDropDownList cbTaller;
         
         /// <summary>
         /// lblVehiculo control.

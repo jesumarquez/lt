@@ -23,6 +23,9 @@ namespace Logictracker.Parametrizacion
 
         protected override void Bind()
         {
+            ddlEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : ddlEmpresa.AllValue);
+            cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
+            
             txtTelefono.Text = EditObject.Telefono;
             txtDescripcion.Text = EditObject.Descripcion;
             txtCodigo.Text = EditObject.Codigo;
@@ -35,6 +38,12 @@ namespace Logictracker.Parametrizacion
 
         protected override void OnSave()
         {
+            
+            EditObject.Empresa = ddlEmpresa.Selected > 0
+                ? DAOFactory.EmpresaDAO.FindById(ddlEmpresa.Selected)
+                : EditObject.Linea != null ? EditObject.Linea.Empresa : null;
+            EditObject.Linea = cbLinea.Selected > 0 ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+            
             EditObject.Telefono = txtTelefono.Text.Trim();
             EditObject.Descripcion = txtDescripcion.Text.Trim();
             EditObject.Codigo = txtCodigo.Text.Trim();
@@ -45,6 +54,11 @@ namespace Logictracker.Parametrizacion
             }
             else
             {
+                EditObject.Empresa = ddlEmpresa.Selected > 0
+                    ? DAOFactory.EmpresaDAO.FindById(ddlEmpresa.Selected)
+                    : EditObject.Linea != null ? EditObject.Linea.Empresa : null;
+                EditObject.Linea = cbLinea.Selected > 0 ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+                
                 EditObject.ReferenciaGeografica = EditEntityGeoRef1.GetNewGeoRefference();
                 EditObject.ReferenciaGeografica.Empresa = EditObject.Empresa;
                 EditObject.ReferenciaGeografica.Linea = EditObject.Linea;

@@ -65,6 +65,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
             STrace.Debug(GetType().FullName, "Vehicle to process " + Vehicles.Count);
             var i = 0;
+
+            var vehiclesToRetry = new List<int>();
             foreach (var vehicleId in Vehicles)
             {
                 i++;
@@ -78,39 +80,37 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 catch (Exception ex)
                 {
                     STrace.Exception(GetType().FullName, ex);
-
-                    var procesado = false;
-                    var retry = 0;
-                    while (!procesado && retry < 5)
-                    {
-                        retry++;
-                        try
-                        {
-                            ProcessPeriod(vehicle, StartDate, EndDate);
-                            procesado = true;
-                            var parametros = new[] { "Vehículo " + vehicle.Id + " procesado exitosamente luego de " + retry + " intentos.", vehicle.Id.ToString("#0"), DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm") };
-                        }
-                        catch (Exception e)
-                        {
-                            STrace.Exception(GetType().FullName, e);
-                        }
-                    }
-                    if (retry == 5 && !procesado)
-                    {
-                        var parametros = new[] { "No se pudieron generar registros de Datamart Tramos para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm") };
-                        SendMail(parametros);
-                        STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart Tramos para el vehículo: " + vehicle.Id);
-                    }
+                    vehiclesToRetry.Add(vehicleId);
                 }
             }
+
+            STrace.Debug(GetType().FullName, "Vehicle to reprocess " + vehiclesToRetry.Count);
+            i = 0;
+            foreach (var vehicleId in vehiclesToRetry)
+            {
+                i++;
+                STrace.Debug(GetType().FullName, string.Format("Processing {0}/{1}", i, vehiclesToRetry.Count));
+                var vehicle = DaoFactory.CocheDAO.FindById(vehicleId);
+
+                try
+                {
+                    ProcessPeriod(vehicle, StartDate, EndDate);
+                }
+                catch (Exception ex)
+                {
+                    STrace.Exception(GetType().FullName, ex);
+                    var parametros = new[] { "No se pudieron generar registros de Datamart Tramos para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm") };
+                    SendMail(parametros);        
+                }
+            }       
 
             var fin = DateTime.UtcNow;
             var duracion = fin.Subtract(start).TotalMinutes;
 
+            DaoFactory.DataMartsLogDAO.SaveNewLog(start, fin, duracion, DataMartsLog.Moludos.DatamartTramos, "Datamart finalizado exitosamente");
+
             var param = new[] { "Datamart Tramos", start.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), fin.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), duracion + " minutos" };
             SendSuccessMail(param);
-
-            DaoFactory.DataMartsLogDAO.SaveNewLog(start, fin, duracion, DataMartsLog.Moludos.DatamartTramos, "Datamart finalizado exitosamente");
         }
         
         private void ProcessPeriod(Coche vehicle, DateTime from, DateTime to)

@@ -66,6 +66,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 var distribucionesPendientes = distribuciones.Count;
                 STrace.Trace(GetType().FullName, string.Format("Distribuciones a procesar: {0}", distribucionesPendientes));
 
+                var distribucionesToRetry = new List<ViajeDistribucion>();
                 foreach (var distribucion in distribuciones)
                 {
                     try
@@ -76,32 +77,23 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     catch (Exception ex)
                     {
                         STrace.Exception(GetType().FullName, ex);
+                        distribucionesToRetry.Add(distribucion);
+                    }                     
+                }
 
-                        var procesado = false;
-                        var retry = 0;
-                        while (!procesado && retry < 5)
-                        {
-                            retry++;
-                            try
-                            {
-                                ProcesarDistribucion(distribucion.Id, regenera);
-                                STrace.Trace(GetType().FullName, "Distribución " + distribucion.Id + " procesada exitosamente luego de " + retry + " intentos.");
-                                STrace.Trace(GetType().FullName, string.Format("Distribuciones a procesar: {0}", --distribucionesPendientes));
-                                procesado = true;
-                                var parametros = new[] { "Distribución " + distribucion.Id + " procesada exitosamente luego de " + retry + " intentos.", distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
-                                SendMail(parametros);
-                            }
-                            catch (Exception e)
-                            {
-                                STrace.Exception(GetType().FullName, e);
-                            }
-                        }
-                        if (retry == 5 && !procesado)
-                        {
-                            var parametros = new[] { "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id, distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
-                            SendMail(parametros);
-                            STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id);
-                        }
+                distribucionesPendientes = distribucionesToRetry.Count;
+                foreach (var distribucion in distribucionesToRetry)
+                {
+                    try
+                    {
+                        ProcesarDistribucion(distribucion.Id, regenera);
+                        STrace.Trace(GetType().FullName, string.Format("Distribuciones a procesar: {0}", --distribucionesPendientes));
+                    }
+                    catch (Exception ex)
+                    {
+                        STrace.Exception(GetType().FullName, ex);
+                        var parametros = new[] { "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id, distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
+                        SendMail(parametros);
                     }
                 }
 
@@ -110,10 +102,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 var fin = DateTime.UtcNow;
                 var duracion = fin.Subtract(inicio).TotalMinutes;
 
+                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartEntregas, "Datamart finalizado exitosamente");
+
                 var param = new[] { "Datamart Entregas", inicio.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), fin.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), duracion + " minutos" };
                 SendSuccessMail(param);
-
-                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartEntregas, "Datamart finalizado exitosamente");
             }
             catch (Exception exc)
             {

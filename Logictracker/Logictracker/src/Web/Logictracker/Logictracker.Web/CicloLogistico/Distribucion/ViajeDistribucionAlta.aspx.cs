@@ -749,6 +749,8 @@ namespace Logictracker.CicloLogistico.Distribucion
                     var tipoCiclo = cbTipoCicloProg.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloProg.Selected) : null;
                     var codigo = txtCodigoProg.Text;
                     var fecha = dtFechaProg.SelectedDate.Value.ToDataBaseDateTime();
+                    var chofer = cbChoferProg.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbChoferProg.Selected) : null;
+                    var comentario = txtComentarioProg.Text;
 
                     var viaje = new ViajeDistribucion
                     {
@@ -764,7 +766,9 @@ namespace Logictracker.CicloLogistico.Distribucion
                         Vehiculo = vehiculo,
                         TipoCoche = tipoVehiculo,
                         Transportista = transportista,
-                        TipoCicloLogistico = tipoCiclo
+                        TipoCicloLogistico = tipoCiclo,
+                        Empleado = chofer,
+                        Comentario = comentario
                     };                    
 
                     for (var i = 0; i < viajeProg.Detalles.Count; i++)
