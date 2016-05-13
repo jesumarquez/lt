@@ -8,15 +8,13 @@ namespace Logictracker.Utils
     {
         public static IEnumerable<List<T>> InSetsOf<T>(this IEnumerable<T> source, int max)
         {
-            List<T> toReturn = new List<T>(max);
+            var toReturn = new List<T>(max);
             foreach (var item in source)
             {
                 toReturn.Add(item);
-                if (toReturn.Count == max)
-                {
-                    yield return toReturn;
-                    toReturn = new List<T>(max);
-                }
+                if (toReturn.Count != max) continue;
+                yield return toReturn;
+                toReturn = new List<T>(max);
             }
             if (toReturn.Any())
             {
@@ -26,10 +24,7 @@ namespace Logictracker.Utils
 
         public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, bool> predicate)
         {
-            if (condition)
-                return source.Where(predicate);
-            else
-                return source;
+            return condition ? source.Where(predicate) : source;
         }
     }
 }

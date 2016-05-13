@@ -1,9 +1,5 @@
-﻿using Logictracker.Types.BusinessObjects.Ordenes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Logictracker.Types.BusinessObjects.Ordenes;
 
 namespace Logictracker.Web.Models
 {
@@ -18,6 +14,7 @@ namespace Logictracker.Web.Models
         public int Ajuste { get; set; }
         public int ChocheId { get; set; }
         public int Cuaderna { get; set; }
+        public string Descripcion { get; set; }
         public string EstadoDescripcion { get; set; }
         public string ClienteDescripcion { get; set; }
         public string ClienteLocalidad { get; set; }
@@ -38,6 +35,7 @@ namespace Logictracker.Web.Models
             model.Cuaderna = entity.Cuaderna;
             model.Ajuste = entity.Ajuste;
             model.EstadoDescripcion = entity.Estado.ToString();
+            model.Descripcion = string.Format("{0} | {1}", model.OrderId.ToString(), model.Insumo);
             
             if (entity.Order.PuntoEntrega != null)
             {

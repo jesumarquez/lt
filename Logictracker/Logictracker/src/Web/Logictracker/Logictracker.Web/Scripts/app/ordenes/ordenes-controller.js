@@ -2,6 +2,7 @@
     .module("logictracker.ordenes.controller", ["kendo.directives", "ngAnimate", 'openlayers-directive', "vrp"])
     .controller("OrdenesController", ["$scope", "$log", "EntitiesService", "OrdenesService", "UserDataInfo", OrdenesController])
     .controller('OrdenesAsignarController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarController])
+    .controller('OrdenesAsignarCisternaController', ["$scope", "$log", "EntitiesService", "OrdenesService", "$filter", OrdenesAsignarCisternaController])
     .controller('OrdenesAsignarAutoController', [
         "$scope",
         "$timeout",
@@ -75,6 +76,29 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
         }
     };
     $scope.orderSelected = {};
+
+    $scope.$watch("distritoSelected", onDistritoSelected);
+
+    // Flag para identificar si la programación es por producto o por cisterna
+    $scope.disableProgramByProduct = false;
+
+    function onDistritoSelected(newValue, oldValue) {
+        if (newValue != null && newValue !== oldValue) {
+            EntitiesService.resources.parametros.query({ distritoId: $scope.distritoSelected.Key }, paramOnLoad);
+        }
+    }
+
+    function paramOnLoad(e) {
+        if (e !== undefined && e.length > 0) {
+            angular.forEach(e, function (value) {
+                switch (value.Key) {
+                    case "ordenes.disableProgramByProduct":
+                        $scope.disableProgramByProduct = (value.Value === "true");
+                        break;
+                }
+            });
+        }
+    }
 
     function onFail(error) {
         if (error.errorThrown)
@@ -155,7 +179,7 @@ function OrdenesController($scope, $log, EntitiesService, OrdenesService, UserDa
 
     $scope.disabledButton = true;
 
-    $scope.getOrden = function(id){
+    $scope.getOrden = function (id) {
         var orden = $scope.Orders.data().find(function (item) {
             return item.Id === id;
         });
@@ -176,7 +200,7 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
             { field: "Id", hidden: true },
             { field: "ClienteDescripcion", title: "Cliente", width: "15em" },
             { field: "ClienteLocalidad", title: "Localidad", width: "10em" },
-            { field: "OrderId", title: "Pedido", width: "10em" },
+            { field: "OrderId", title: "Pedido", width: "5em" },
             { field: "Insumo", title: "Producto" },
             { field: "Cantidad", title: "Litros", width: "10em" },
             { field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
@@ -245,13 +269,13 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
                 var seleccionados = 0;
 
                 items.forEach(function (item) {
-                    if(item.Cuaderna === cuaderna.Orden){
+                    if (item.Cuaderna === cuaderna.Orden) {
                         asignado += item.Cantidad + item.Ajuste;
                         seleccionados += 1;
                     }
 
                     if (item.Cuaderna != 0) disabledProgramar = false;
-                });                
+                });
 
                 cuaderna.set('Asignado', asignado);
                 cuaderna.set('Seleccionados', seleccionados);
@@ -263,7 +287,7 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
 
 
     $scope.getCuadernaDesc = function (data) {
-        return $filter('filter') ($scope.cuadernasDs.data(), { Orden : data.Cuaderna  })[0].Descripcion;
+        return $filter('filter')($scope.cuadernasDs.data(), { Orden: data.Cuaderna })[0].Descripcion;
     }
 
     function onFail(error) {
@@ -280,7 +304,7 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
     };
 
     $scope.ok = function () {
-       
+
         if ($scope.$parent.disabledButton) return;
 
         $scope.$parent.disabledButton = true;
@@ -309,13 +333,12 @@ function OrdenesAsignarController($scope, $log, EntitiesService, OrdenesService,
         );
     }
 
-    function onSuccess()
-    {
+    function onSuccess() {
         $('#myModal').modal('hide');
 
         if ($scope.accessor.invoke)
             $scope.accessor.invoke();
-            
+
         $scope.onBuscar();
     }
 
@@ -345,8 +368,7 @@ function OrdenesAsignarAutoController(
     Problema,
     TipoVehiculo,
     Costo,
-    OrdenesService)
-{
+    OrdenesService) {
     $scope.tipoCocheSelected = {};
     $scope.asignarDisabledButton = false;
 
@@ -354,7 +376,7 @@ function OrdenesAsignarAutoController(
         columns: [
                 { field: "NumRuta", title: "Ruta" },
                 { field: "OrdenRuta", title: "Orden" },
-                { field: "ClienteDescripcion", title: "Cliente", width: "15em"},
+                { field: "ClienteDescripcion", title: "Cliente", width: "15em" },
                 { field: "ClienteLocalidad", title: "Localidad", width: "10em" },
                 { field: "Insumo", title: "Producto" },
                 { field: "Cantidad", title: "Litros" },
@@ -362,8 +384,8 @@ function OrdenesAsignarAutoController(
         ],
         // Template para pintar el row cuando no tiene definido una ruta y un orden
         rowTemplate: '<tr style="#:NumRuta==undefined? \"background-color:\\#ffdad8;\":\"\"#" data-uid="#= uid #">' +
-        '<td>#:NumRuta==undefined?\'\':NumRuta#</td><td>#: OrdenRuta==undefined?\'\':OrdenRuta #</td>'+
-        '<td>#:ClienteDescripcion #</td><td>#:ClienteLocalidad #</td><td>#:Insumo #</td><td>#:Cantidad #</td>'+
+        '<td>#:NumRuta==undefined?\'\':NumRuta#</td><td>#: OrdenRuta==undefined?\'\':OrdenRuta #</td>' +
+        '<td>#:ClienteDescripcion #</td><td>#:ClienteLocalidad #</td><td>#:Insumo #</td><td>#:Cantidad #</td>' +
         '<td>#:EstadoDescripcion #</td></tr>'
     };
 
@@ -402,7 +424,7 @@ function OrdenesAsignarAutoController(
 
         //intenta obtener la ruta
         vrpService.newRoute(problema).then(function (res) {
-            
+
             //valida si hay una solucion
             if (angular.isUndefined(res.status) || res.status !== 1) {
                 //intenta 5 veces obtener la ruta cada segundo. 
@@ -500,8 +522,7 @@ function OrdenesAsignarAutoController(
         return 0;
     }
 
-    $scope.programar = function ()
-    {
+    $scope.programar = function () {
         var newOrder = new OrdenesService.ordenes();
 
         newOrder.OrderDetailList = $scope.solution;
@@ -518,8 +539,7 @@ function OrdenesAsignarAutoController(
         );
     }
 
-    function onSuccess()
-    {
+    function onSuccess() {
         $scope.solution = [];
 
         $('#modalAuto').modal('hide');
@@ -530,11 +550,211 @@ function OrdenesAsignarAutoController(
         $scope.onBuscar();
     }
 
-    function onFail(error)
-    {
+    function onFail(error) {
         if (error.errorThrown)
             $scope.notify.show(error.errorThrown, "error");
         else
             $scope.notify.show(error.statusText, "error");
     }
+}
+
+function OrdenesAsignarCisternaController($scope, $log, EntitiesService, OrdenesService, $filter) {
+
+    $scope.vehicleTypeSelected = {};
+    $scope.ds = new kendo.data.DataSource({
+        data: $scope.productsSelected//,
+        //change: onDataChanged
+    });
+    $scope.productosGridOptions =
+    {
+        columns: [
+            { field: "Id", hidden: true },
+            { field: "ClienteDescripcion", title: "Cliente", width: "15em" },
+            { field: "ClienteLocalidad", title: "Localidad", width: "10em" },
+            { field: "OrderId", title: "Pedido", width: "10em" },
+            { field: "Insumo", title: "Producto" },
+            { field: "Cantidad", title: "Litros", width: "10em" },
+            //{ field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
+            { field: "Cuaderna", title: "Cisterna", width: "10em" },
+            { field: "Ajuste", title: "Ajuste", width: "10em" },
+            { field: "Ajuste", title: "Total", template: "{{ dataItem.Cantidad + dataItem.Ajuste }}" },
+        ]//,
+        //editable: {
+        //    update: true,
+        //    destroy: false
+        //}
+    };
+    $scope.cuadernasDs = new kendo.data.DataSource({
+        data: null
+    });
+    $scope.cuadernasGridOptions =
+    {
+        columns:
+             [
+                 { field: "Id", hidden: true },
+                 { field: "Orden", title: "", width: "3em" },
+                 { field: "Descripcion", title: "" },
+                 { field: "Capacidad", title: "Capacidad", width: "9em" },
+                 { field: "Seleccionados", title: "N°", editor: ordenProductoEditor, template: "{{ getProductoDesc(dataItem) }}" },
+                 { field: "Asignado", title: "Asignado" },
+                 { field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
+             ],
+        editable: {
+            update: true,
+            destroy: false
+        }
+    };
+
+    $scope.semaforo = function (dataItem) {
+        if (dataItem.Orden === 0) return "";
+        return dataItem.Capacidad - (dataItem.Asignado ? dataItem.Asignado : 0) < 0 ? "tex-red" : "";
+    }
+
+    $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
+
+    //function cuadernaEditor(container, options) {
+    //    var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
+    //    l.appendTo(container);
+    //}
+
+    function ordenProductoEditor(container, options) {
+        debugger;
+        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Id'\" k-data-source=\"ds\" data-bind=\"value:" + options.field + '"/>');
+        l.appendTo(container);
+    }
+
+    function onvehicleTypeSelected(newValue, oldValue) {
+        if (newValue != null && newValue !== oldValue) {
+            $scope.cuadernasDs.data(newValue.Contenedores);
+            // limio los seleccionados del anterior
+            if (oldValue != null)
+                cleanSeleccionados(oldValue.Contenedores);
+
+            cleanEditableProducts();
+        }
+    }
+
+
+    function cleanSeleccionados(contenedor) {
+        contenedor.forEach(
+            function (o) {
+                o.set('Seleccionados', null);
+            });
+    }
+    function cleanEditableProducts() {
+
+        var data = $scope.cuadernasDs.data();
+        // limpia los seleccionados
+        if (data!=null)
+            cleanSeleccionados(data.Contenedores);
+
+        // Limpio si hay algo ya editado
+        $scope.productsSelected.forEach(
+            function (o) {
+                o.set('Cuaderna', 0);
+                o.set('Ajuste', 0);
+            });
+    }
+
+    function onDataChanged(evt) {
+        if (evt.action === "itemchange" || evt.action === "remove") {
+            var data = $scope.cuadernasDs.data();
+
+            var disabledProgramar = true;
+
+            data.forEach(function (cuaderna) {
+                var items = $scope.ds.data();
+                var asignado = 0;
+                var seleccionados = 0;
+
+                items.forEach(function (item) {
+                    if (item.Cuaderna === cuaderna.Orden) {
+                        asignado += item.Cantidad + item.Ajuste;
+                        seleccionados += 1;
+                    }
+
+                    if (item.Cuaderna != 0) disabledProgramar = false;
+                });
+
+                cuaderna.set('Asignado', asignado);
+                cuaderna.set('Seleccionados', seleccionados);
+            });
+
+            $scope.$parent.disabledButton = disabledProgramar;
+        }
+    }
+
+    $scope.getProductoDesc = function (data) {
+        if (data.Seleccionados != undefined)
+            return $filter('filter')($scope.ds.data(), { Id: data.Seleccionados.Id })[0].Descripcion;
+
+        return "";
+    }
+
+    $scope.getCuadernaDesc = function (data) {
+        return $filter('filter')($scope.cuadernasDs.data(), { Orden: data.Cuaderna })[0].Descripcion;
+    }
+
+    function onFail(error) {
+        try {
+            $scope.$parent.disabledButton = false;
+
+            if (error.data.ExceptionMessage) {
+                $scope.modalNotify.show(error.data.ExceptionMessage, "error");
+                return;
+            }
+        } catch (x) {
+        }
+        $scope.modalNotify.show(error.errorThrown, "error");
+    };
+
+    $scope.ok = function () {
+
+        if ($scope.$parent.disabledButton) return;
+
+        $scope.$parent.disabledButton = true;
+
+        var selectOrders = [];
+
+        $scope.newOrder = new OrdenesService.ordenes();
+        $scope.newOrder.OrderList = selectOrders;
+
+        // Obtener solo los productos que tienen cuaderna seleccionada
+        var productsSelectedAssigned = new Array();
+        $scope.productsSelected.forEach(function (item)
+        { if (item.Cuaderna > 0) productsSelectedAssigned.push(item.toJSON()); });
+
+        $scope.newOrder.OrderDetailList = productsSelectedAssigned;
+        $scope.newOrder.IdVehicle = $scope.$parent.order.Vehicle.Key;
+        $scope.newOrder.IdVehicleType = $scope.vehicleTypeSelected.Id;
+        $scope.newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
+        $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
+        $scope.newOrder.$save(
+            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
+            function (value) {
+                onSuccess();
+            },
+            function (error) { onFail(error); }
+        );
+    }
+
+    function onSuccess() {
+        $('#myModal').modal('hide');
+
+        if ($scope.accessor.invoke)
+            $scope.accessor.invoke();
+
+        $scope.onBuscar();
+    }
+
+    $scope.cancel = function () {
+        $log.debug("cancel");
+        //cleanEditableProducts();
+        //$uibModalInstance.dismiss();
+    }
+
+    $scope.clean = function () {
+        cleanEditableProducts();
+    }
+
 }

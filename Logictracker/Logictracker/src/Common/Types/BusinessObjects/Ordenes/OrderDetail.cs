@@ -1,6 +1,8 @@
 ﻿using System;
 using Logictracker.Types.BusinessObjects.Mantenimiento;
 using Logictracker.Types.InterfacesAndBaseClasses;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Logictracker.Types.BusinessObjects.Ordenes
 {
@@ -25,5 +27,6 @@ namespace Logictracker.Types.BusinessObjects.Ordenes
         public virtual decimal Descuento { get; set; }        
         public virtual Order Order { get; set; }
         public virtual int Cuaderna { get; set; }
+        public virtual IList<OrderDetailContenedor> Contenedores { get; set; }
     }
 }
