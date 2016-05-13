@@ -331,6 +331,7 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
                         var demora = detalle.TipoServicio != null ? detalle.TipoServicio.Demora : 0;
                         detalle.Programado = hora.AddHours(horas).AddMinutes(demora);
                         detalle.ProgramadoHasta = detalle.Programado.AddMinutes(Empresa.MarginMinutes);
+                        detalle.KmCalculado = distancia;
                         dirBase = detalle.ReferenciaGeografica;
                         hora = detalle.Programado;
                     }

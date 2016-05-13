@@ -13,6 +13,7 @@ using Logictracker.Types.BusinessObjects.Components;
 using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
+using Logictracker.Services.Helpers;
 
 namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 {
@@ -374,18 +375,27 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
 
                 listPuntos.Add(puntoEntrega);
 
+                var kms = 0.0;
+                var orden = item.Detalles.Count - 1;
+                var anterior = item.Detalles.FirstOrDefault(d => d.Orden == orden - 1);
+                if (anterior != null)
+                {
+                    kms = GeocoderHelper.CalcularDistacia(anterior.ReferenciaGeografica.Latitude, anterior.ReferenciaGeografica.Longitude, puntoEntrega.ReferenciaGeografica.Latitude, puntoEntrega.ReferenciaGeografica.Longitude);
+                }
+
                 var entrega = new EntregaDistribucion
                 {
                     Cliente = puntoEntrega.Cliente,
                     PuntoEntrega = puntoEntrega,
                     Descripcion = codEntrega,
                     Estado = EntregaDistribucion.Estados.Pendiente,
-                    Orden = item.Detalles.Count - 1,
+                    Orden = orden,
                     Programado = date,
                     ProgramadoHasta = date,
                     TipoServicio = tipoServicio,
                     Viaje = item,
-                    Bultos = cajas
+                    Bultos = cajas,
+                    KmCalculado = kms
                 };
 
                 item.Detalles.Add(entrega);
