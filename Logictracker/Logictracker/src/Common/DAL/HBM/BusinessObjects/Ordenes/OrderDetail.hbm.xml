@@ -19,5 +19,11 @@
     <many-to-one column="rela_parenti58" name="Insumo" lazy="proxy" not-null="true" />
     <many-to-one column="rela_parenti104" name="Order"  lazy="proxy" not-null="true" />
 
+    <bag name="Contenedores" cascade="all-delete-orphan">
+      <cache usage="read-write" />
+      <key column="rela_parenti105" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.Ordenes.OrderDetailContenedor, Logictracker.Types" />
+    </bag>
+
   </class>
 </hibernate-mapping>

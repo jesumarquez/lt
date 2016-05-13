@@ -95,6 +95,7 @@
     <Compile Include="BusinessObjects\Messages\EvenDistri.cs" />
     <Compile Include="BusinessObjects\Ordenes\Order.cs" />
     <Compile Include="BusinessObjects\Ordenes\OrderDetail.cs" />
+    <Compile Include="BusinessObjects\Ordenes\OrderDetailContenedor.cs" />
     <Compile Include="BusinessObjects\ParameterType.cs" />
     <Compile Include="BusinessObjects\ParametroReportesProg.cs" />
     <Compile Include="BusinessObjects\Positions\Coordinate.cs" />

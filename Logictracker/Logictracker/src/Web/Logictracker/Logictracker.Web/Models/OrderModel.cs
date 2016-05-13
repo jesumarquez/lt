@@ -40,17 +40,17 @@ namespace Logictracker.Web.Models
             model.Cuaderna = entity.Cuaderna;
             if (entity.Insumo != null) model.Insumo = entity.Insumo.Descripcion;
             model.EstadoDescripcion = entity.Estado.ToString();
+            model.Descripcion = string.Format("{0} | {1} | {2}", model.OrderId, model.Insumo , model.Cantidad );
 
-            if (entity.Order.PuntoEntrega != null)
-            {
-                model.ClienteDescripcion = entity.Order.PuntoEntrega.Descripcion;
-                if (entity.Order.PuntoEntrega.ReferenciaGeografica != null)
-                {
-                    model.ClienteLocalidad = entity.Order.PuntoEntrega.ReferenciaGeografica.Direccion.Partido;
-                    model.PuntoEntregaLatitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Latitude;
-                    model.PuntoEntregaLongitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Longitude;
-                }
-            }
+            if (entity.Order.PuntoEntrega == null) return model;
+            
+            model.ClienteDescripcion = entity.Order.PuntoEntrega.Descripcion;
+            
+            if (entity.Order.PuntoEntrega.ReferenciaGeografica == null) return model;
+            
+            model.ClienteLocalidad = entity.Order.PuntoEntrega.ReferenciaGeografica.Direccion.Partido;
+            model.PuntoEntregaLatitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Latitude;
+            model.PuntoEntregaLongitud = entity.Order.PuntoEntrega.ReferenciaGeografica.Longitude;
 
             return model;
         }
@@ -97,13 +97,12 @@ namespace Logictracker.Web.Models
                 model.IdTransportista = entity.Transportista.Id;
             }
 
-            if (entity.PuntoEntrega != null)
-            {
-                model.PuntoEntrega = entity.PuntoEntrega.Descripcion;
-                model.IdPuntoEntrega = entity.PuntoEntrega.Id;
-                model.PuntoEntregaLatitud = entity.PuntoEntrega.ReferenciaGeografica.Latitude;
-                model.PuntoEntregaLongitud = entity.PuntoEntrega.ReferenciaGeografica.Longitude;
-            }
+            if (entity.PuntoEntrega == null) return model;
+            
+            model.PuntoEntrega = entity.PuntoEntrega.Descripcion;
+            model.IdPuntoEntrega = entity.PuntoEntrega.Id;
+            model.PuntoEntregaLatitud = entity.PuntoEntrega.ReferenciaGeografica.Latitude;
+            model.PuntoEntregaLongitud = entity.PuntoEntrega.ReferenciaGeografica.Longitude;
 
             return model;
         }
