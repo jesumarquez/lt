@@ -613,7 +613,10 @@
                                     <C1:c1GridView ID="gridEntregas" runat="server" OnRowDataBound="GridEntregasRowDataBound" SkinID="SmallGrid" ScrollSettings="AllowColMoving: true;" >
                                         <Columns>
                                             <C1:C1TemplateField HeaderText="Orden" >
-                                                <ItemStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Center" />
+                                                <ItemTemplate> 
+                                                    <asp:LinkButton ID="lnkEntrega" runat="server" OnClick="LnkEntregaOnClick" Font-Bold="true" ForeColor="Black" />
+                                                </ItemTemplate>
                                             </C1:C1TemplateField>
                                             <C1:C1TemplateField HeaderText="Estado" />
                                             <C1:C1TemplateField HeaderText="Entrega" />

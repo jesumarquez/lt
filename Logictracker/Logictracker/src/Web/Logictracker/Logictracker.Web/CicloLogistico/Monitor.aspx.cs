@@ -390,9 +390,8 @@ namespace Logictracker.CicloLogistico
             var entrega = e.Row.DataItem as EntregaDistribucion;
             if (entrega == null) return;
 
-            //var lnk = e.Row.FindControl("lnkEntrega") as LinkButton;
-            //lnk.Text = entrega.Orden.ToString("#0");
-            e.Row.Cells[0].Text = entrega.Orden.ToString("#0");
+            var lnk = e.Row.FindControl("lnkEntrega") as LinkButton;
+            lnk.Text = entrega.Orden.ToString("#0");
             e.Row.Cells[1].Text = CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado));
             e.Row.Cells[2].Text = entrega.Descripcion;
             e.Row.Cells[3].Text = entrega.PuntoEntrega.Descripcion;
