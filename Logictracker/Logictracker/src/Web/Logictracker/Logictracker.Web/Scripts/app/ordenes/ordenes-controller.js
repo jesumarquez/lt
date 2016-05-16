@@ -581,17 +581,44 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
             { field: "Insumo", title: "Producto" },
             { field: "Cantidad", title: "Litros", width: "10em" },
             //{ field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
-            { field: "Cuaderna", title: "Cisterna", width: "10em" },
-            { field: "Ajuste", title: "Ajuste", width: "10em" },
-            { field: "Ajuste", title: "Total", template: "{{ dataItem.Cantidad + dataItem.Ajuste }}" },
+            //{ field: "Cuaderna", title: "Cisterna", width: "10em" },
+            //{ field: "Ajuste", title: "Ajuste", width: "10em" },
+            { field: "Total", title: "Total"},
         ]//,
         //editable: {
         //    update: true,
         //    destroy: false
         //}
     };
+    vm.onCuadernasDSChange = function (evt) {
+        if (evt.action === "itemchange" || evt.action === "remove") {
+            var productos = vm.ds.data();
+            var cuadernas = vm.cuadernasDs.data();
+
+            productos.forEach(function (producto) {
+                var total = 0;
+
+                cuadernas.forEach(function (cuaderna) {
+                    if (cuaderna.Seleccionados == null) {
+                        cuaderna.set('Ajuste', undefined);
+                        cuaderna.set('Asignado', undefined);
+                    }
+                    else if (cuaderna.Seleccionados.Id === producto.Id) {
+                        var asignado = angular.isUndefined(cuaderna.Asignado) ? 0 : parseInt(cuaderna.Asignado);
+                        var ajuste = angular.isUndefined(cuaderna.Ajuste) ? 0 : parseInt(cuaderna.Ajuste);
+
+                        total = total + asignado + ajuste;
+                    }
+                    
+                });
+
+                producto.set('Total', total);
+            });
+        }
+    }
     vm.cuadernasDs = new kendo.data.DataSource({
-        data: null
+        data: null,
+        change: vm.onCuadernasDSChange
     });
     vm.cuadernasGridOptions =
     {
@@ -603,7 +630,8 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
                  { field: "Capacidad", title: "Capacidad", width: "9em" },
                  { field: "Seleccionados", title: "N°", editor: ordenProductoEditor, template: "{{ cisternaCtrl.getProductoDesc(dataItem) }}" },
                  { field: "Asignado", title: "Asignado" },
-                 { field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
+                 { field: "Ajuste", title: "Ajuste" },
+                 //{ field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
              ],
         editable: {
             update: true,
@@ -655,6 +683,8 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
                 o.set('Ajuste', 0);
             });
     }
+
+
 
     vm.onDataChanged = function (evt) {
         if (evt.action === "itemchange" || evt.action === "remove") {
