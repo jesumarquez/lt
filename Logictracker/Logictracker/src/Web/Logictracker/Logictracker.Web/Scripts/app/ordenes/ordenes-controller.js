@@ -559,13 +559,19 @@ function OrdenesAsignarAutoController(
 }
 
 function OrdenesAsignarCisternaController($scope, $log, EntitiesService, OrdenesService, $filter) {
-
-    $scope.vehicleTypeSelected = {};
-    $scope.ds = new kendo.data.DataSource({
-        data: $scope.productsSelected//,
+    var vm = this;
+    vm.OrdenesService = OrdenesService;
+    vm.StartDateTime = new Date();
+    vm.StartDateTime.setDate(vm.StartDateTime.getDate() + 1);
+    vm.disabledButton = false;
+    vm.vehicleSelected = {};
+    vm.vehicleTypeSelected = {};
+    vm.logisticsCycleType = {};
+    vm.ds = new kendo.data.DataSource({
+        data: $scope.$parent.productsSelected//,
         //change: onDataChanged
     });
-    $scope.productosGridOptions =
+    vm.productosGridOptions =
     {
         columns: [
             { field: "Id", hidden: true },
@@ -575,19 +581,46 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
             { field: "Insumo", title: "Producto" },
             { field: "Cantidad", title: "Litros", width: "10em" },
             //{ field: "Cuaderna", title: "Cuaderna", editor: cuadernaEditor, template: "{{ getCuadernaDesc(dataItem) }}" },
-            { field: "Cuaderna", title: "Cisterna", width: "10em" },
-            { field: "Ajuste", title: "Ajuste", width: "10em" },
-            { field: "Ajuste", title: "Total", template: "{{ dataItem.Cantidad + dataItem.Ajuste }}" },
+            //{ field: "Cuaderna", title: "Cisterna", width: "10em" },
+            //{ field: "Ajuste", title: "Ajuste", width: "10em" },
+            { field: "Total", title: "Total"},
         ]//,
         //editable: {
         //    update: true,
         //    destroy: false
         //}
     };
-    $scope.cuadernasDs = new kendo.data.DataSource({
-        data: null
+    vm.onCuadernasDSChange = function (evt) {
+        if (evt.action === "itemchange" || evt.action === "remove") {
+            var productos = vm.ds.data();
+            var cuadernas = vm.cuadernasDs.data();
+
+            productos.forEach(function (producto) {
+                var total = 0;
+
+                cuadernas.forEach(function (cuaderna) {
+                    if (cuaderna.Seleccionados == null) {
+                        cuaderna.set('Ajuste', undefined);
+                        cuaderna.set('Asignado', undefined);
+                    }
+                    else if (cuaderna.Seleccionados.Id === producto.Id) {
+                        var asignado = angular.isUndefined(cuaderna.Asignado) ? 0 : parseInt(cuaderna.Asignado);
+                        var ajuste = angular.isUndefined(cuaderna.Ajuste) ? 0 : parseInt(cuaderna.Ajuste);
+
+                        total = total + asignado + ajuste;
+                    }
+                    
+                });
+
+                producto.set('Total', total);
+            });
+        }
+    }
+    vm.cuadernasDs = new kendo.data.DataSource({
+        data: null,
+        change: vm.onCuadernasDSChange
     });
-    $scope.cuadernasGridOptions =
+    vm.cuadernasGridOptions =
     {
         columns:
              [
@@ -595,9 +628,10 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
                  { field: "Orden", title: "", width: "3em" },
                  { field: "Descripcion", title: "" },
                  { field: "Capacidad", title: "Capacidad", width: "9em" },
-                 { field: "Seleccionados", title: "N°", editor: ordenProductoEditor, template: "{{ getProductoDesc(dataItem) }}" },
+                 { field: "Seleccionados", title: "N°", editor: ordenProductoEditor, template: "{{ cisternaCtrl.getProductoDesc(dataItem) }}" },
                  { field: "Asignado", title: "Asignado" },
-                 { field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
+                 { field: "Ajuste", title: "Ajuste" },
+                 //{ field: "Asignado", title: "Disponible", template: "<span ng-class='semaforo(dataItem)'>{{ dataItem.Capacidad - (dataItem.Asignado?dataItem.Asignado:0)}}</span>" },
              ],
         editable: {
             update: true,
@@ -605,65 +639,61 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
         }
     };
 
-    $scope.semaforo = function (dataItem) {
+    $scope.$watch(function () { return vm.vehicleTypeSelected; }, function (newValue, oldValue) {
+        if (newValue != null && newValue !== oldValue) {
+            vm.cuadernasDs.data(newValue.Contenedores);
+            // limio los seleccionados del anterior
+            if (oldValue != null)
+                vm.cleanSeleccionados(oldValue.Contenedores);
+
+            vm.cleanEditableProducts();
+        }
+    });
+
+    vm.semaforo = function (dataItem) {
         if (dataItem.Orden === 0) return "";
         return dataItem.Capacidad - (dataItem.Asignado ? dataItem.Asignado : 0) < 0 ? "tex-red" : "";
     }
 
-    $scope.$watch("vehicleTypeSelected", onvehicleTypeSelected);
-
-    //function cuadernaEditor(container, options) {
-    //    var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Orden'\" k-data-source=\"cuadernasDs\" data-bind=\"value:" + options.field + '"/>');
-    //    l.appendTo(container);
-    //}
-
     function ordenProductoEditor(container, options) {
-        debugger;
-        var l = $("<input kendo-drop-down-list required k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Id'\" k-data-source=\"ds\" data-bind=\"value:" + options.field + '"/>');
+        var l = $("<input kendo-drop-down-list k-option-label=\"'Ninguno'\" k-data-text-field=\"'Descripcion'\" k-data-value-field=\"'Id'\" k-data-source=\"cisternaCtrl.ds\" data-bind=\"value:" + options.field + '"/>');
         l.appendTo(container);
     }
 
-    function onvehicleTypeSelected(newValue, oldValue) {
-        if (newValue != null && newValue !== oldValue) {
-            $scope.cuadernasDs.data(newValue.Contenedores);
-            // limio los seleccionados del anterior
-            if (oldValue != null)
-                cleanSeleccionados(oldValue.Contenedores);
-
-            cleanEditableProducts();
+    vm.cleanSeleccionados = function (contenedor) {
+        if (!angular.isUndefined(contenedor)) {
+            contenedor.forEach(
+                function (o) {
+                    o.set('Seleccionados', null);
+                });
         }
     }
 
+    vm.cleanEditableProducts = function () {
 
-    function cleanSeleccionados(contenedor) {
-        contenedor.forEach(
-            function (o) {
-                o.set('Seleccionados', null);
-            });
-    }
-    function cleanEditableProducts() {
-
-        var data = $scope.cuadernasDs.data();
+        var data = vm.cuadernasDs.data();
         // limpia los seleccionados
-        if (data!=null)
-            cleanSeleccionados(data.Contenedores);
+        if (data != null)
+            vm.cleanSeleccionados(data);
 
         // Limpio si hay algo ya editado
-        $scope.productsSelected.forEach(
+        $scope.$parent.productsSelected.forEach(
             function (o) {
                 o.set('Cuaderna', 0);
                 o.set('Ajuste', 0);
             });
     }
 
-    function onDataChanged(evt) {
+
+
+    vm.onDataChanged = function (evt) {
         if (evt.action === "itemchange" || evt.action === "remove") {
-            var data = $scope.cuadernasDs.data();
+            var data = vm.cuadernasDs.data();
 
             var disabledProgramar = true;
 
             data.forEach(function (cuaderna) {
-                var items = $scope.ds.data();
+                var items = vm.ds.data();
                 var asignado = 0;
                 var seleccionados = 0;
 
@@ -684,31 +714,36 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
         }
     }
 
-    $scope.getProductoDesc = function (data) {
+    vm.getProductoDesc = function (data) {
         if (data.Seleccionados != undefined)
-            return $filter('filter')($scope.ds.data(), { Id: data.Seleccionados.Id })[0].Descripcion;
+            return $filter('filter')(vm.ds.data(), { Id: data.Seleccionados.Id })[0].Descripcion;
 
         return "";
     }
 
-    $scope.getCuadernaDesc = function (data) {
-        return $filter('filter')($scope.cuadernasDs.data(), { Orden: data.Cuaderna })[0].Descripcion;
-    }
-
-    function onFail(error) {
+    vm.onFail = function (error) {
         try {
-            $scope.$parent.disabledButton = false;
+            vm.disabledButton = false;
 
             if (error.data.ExceptionMessage) {
-                $scope.modalNotify.show(error.data.ExceptionMessage, "error");
+                vm.modalNotify.show(error.data.ExceptionMessage, "error");
                 return;
             }
         } catch (x) {
         }
-        $scope.modalNotify.show(error.errorThrown, "error");
-    };
+        vm.modalNotify.show(error.errorThrown, "error");
+    }
 
-    $scope.ok = function () {
+    vm.onSuccess = function () {
+        $('#myModal').modal('hide');
+
+        if (this.accessor.invoke)
+            this.accessor.invoke();
+
+        $scope.$parent.onBuscar();
+    }
+
+    vm.ok = function () {
 
         if ($scope.$parent.disabledButton) return;
 
@@ -716,45 +751,40 @@ function OrdenesAsignarCisternaController($scope, $log, EntitiesService, Ordenes
 
         var selectOrders = [];
 
-        $scope.newOrder = new OrdenesService.ordenes();
-        $scope.newOrder.OrderList = selectOrders;
+        vm.newOrder = new this.OrdenesService.ordenes();
+        vm.newOrder.OrderList = selectOrders;
 
         // Obtener solo los productos que tienen cuaderna seleccionada
         var productsSelectedAssigned = new Array();
-        $scope.productsSelected.forEach(function (item)
+        $scope.$parent.productsSelected.forEach(function (item)
         { if (item.Cuaderna > 0) productsSelectedAssigned.push(item.toJSON()); });
 
-        $scope.newOrder.OrderDetailList = productsSelectedAssigned;
-        $scope.newOrder.IdVehicle = $scope.$parent.order.Vehicle.Key;
-        $scope.newOrder.IdVehicleType = $scope.vehicleTypeSelected.Id;
-        $scope.newOrder.StartDateTime = $scope.$parent.order.StartDateTime;
-        $scope.newOrder.LogisticsCycleType = $scope.$parent.order.LogisticsCycleType.Key;
-        $scope.newOrder.$save(
-            { distritoId: $scope.distritoSelected.Key, baseId: $scope.baseSelected.Key },
+        vm.newOrder.OrderDetailList = productsSelectedAssigned;
+        vm.newOrder.IdVehicle = vm.vehicleSelected.Key;
+        vm.newOrder.IdVehicleType = vm.vehicleTypeSelected.Id;
+        vm.newOrder.StartDateTime = vm.StartDateTime;
+        vm.newOrder.LogisticsCycleType = vm.logisticsCycleType.Key;
+        vm.newOrder.$save(
+            { distritoId: $scope.$parent.distritoSelected.Key, baseId: $scope.$parent.baseSelected.Key },
             function (value) {
-                onSuccess();
+                vm.onSuccess();
             },
-            function (error) { onFail(error); }
+            function (error) { vm.onFail(error); }
         );
     }
 
-    function onSuccess() {
-        $('#myModal').modal('hide');
-
-        if ($scope.accessor.invoke)
-            $scope.accessor.invoke();
-
-        $scope.onBuscar();
-    }
-
-    $scope.cancel = function () {
+    vm.cancel = function () {
         $log.debug("cancel");
         //cleanEditableProducts();
         //$uibModalInstance.dismiss();
     }
 
-    $scope.clean = function () {
-        cleanEditableProducts();
+    vm.clean = function () {
+        vm.cleanEditableProducts();
     }
-
 }
+
+
+
+
+

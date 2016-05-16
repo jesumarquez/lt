@@ -289,7 +289,7 @@
         </div><!-- modal-dialog -->
     </div><!-- modal -->
 
-    <div class="modal fade" id="modalCisterna" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="OrdenesAsignarCisternaController">
+    <div class="modal fade" id="modalCisterna" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-controller="OrdenesAsignarCisternaController as cisternaCtrl">
         <div class="modal-dialog" style="width: 75%">
             <div class="modal-content">
 
@@ -305,13 +305,13 @@
                                 <div class="form-group">
                                     <label for="startDateTime" class="col-md-4 control-label">Fecha/Hora Inicio</label>
                                     <div class="col-md-8">
-                                        <input id="startDateTime" class="form-control" kendo-date-time-picker k-ng-model="order.StartDateTime" />
+                                        <input id="startDateTime" class="form-control" kendo-date-time-picker k-ng-model="cisternaCtrl.StartDateTime" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Tipo Vehículo</label>
                                     <div class="col-md-8">
-                                        <lt-ddl-tipo-coche lt-ng-model="vehicleTypeSelected"
+                                        <lt-ddl-tipo-coche lt-ng-model="cisternaCtrl.vehicleTypeSelected"
                                                            lt-data-base="baseSelected"
                                                            lt-data-distrito="distritoSelected" />
                                     </div>
@@ -322,18 +322,18 @@
                                 <div class="form-group">
                                     <label for="tipoCiclo" class="col-md-4 control-label">Ciclo Logistico</label>
                                     <div class="col-md-8">
-                                        <lt-ddl-tipo-ciclo-logistico lt-ng-model="order.LogisticsCycleType"
+                                        <lt-ddl-tipo-ciclo-logistico lt-ng-model="cisternaCtrl.logisticsCycleType"
                                                                      lt-dependent-on="distritoSelected" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Camión</label>
                                     <div class="col-md-8">
-                                        <lt-ddl-coche lt-ng-model="order.Vehicle"
-                                                      lt-depends-on="vehicleTypeSelected"
+                                        <lt-ddl-coche lt-ng-model="cisternaCtrl.Vehicle"
+                                                      lt-depends-on="cisternaCtrl.vehicleTypeSelected"
                                                       lt-data-base="baseSelected"
                                                       lt-data-distrito="distritoSelected"
-                                                      lt-data-tipo-coche="vehicleTypeSelected" />
+                                                      lt-data-tipo-coche="cisternaCtrl.vehicleTypeSelected" />
                                     </div>
                                 </div>
                             </div>
@@ -343,25 +343,25 @@
 
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div kendo-grid="cuadernasGrid" k-options="cuadernasGridOptions" k-data-source="cuadernasDs"></div>
+                            <div kendo-grid="cuadernasGrid" k-options="cisternaCtrl.cuadernasGridOptions" k-data-source="cisternaCtrl.cuadernasDs"></div>
                         </div>
                     </div>
 
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div kendo-grid="productosGrid" k-options="productosGridOptions" k-data-source="ds"></div>
+                            <div kendo-grid="productosGrid" k-options="cisternaCtrl.productosGridOptions" k-data-source="cisternaCtrl.ds"></div>
                         </div>
                     </div>
 
-                    <span kendo-notification="modalNotify" k-auto-hide-after="10000"></span>
+                    <span kendo-notification="cisternaCtrl.modalNotify" k-auto-hide-after="10000"></span>
 
                     <div class="clearfix"></div>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="clean()">Limpiar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Cancelar</button>
-                    <a class="btn btn-primary" ng-disabled="disabledButton" ng-click="ok()">Programar</a>
+                    <button type="button" class="btn btn-default" ng-click="cisternaCtrl.clean()">Limpiar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cisternaCtrl.cancel()">Cancelar</button>
+                    <a class="btn btn-primary" ng-disabled="cisternaCtrl.disabledButton" ng-click="cisternaCtrl.ok()">Programar</a>
                 </div>
             </div>
         </div>
