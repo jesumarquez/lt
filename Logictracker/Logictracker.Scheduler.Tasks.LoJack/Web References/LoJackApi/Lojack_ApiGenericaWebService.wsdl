@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Webservice de consultas de estado actual de flota y recorridos</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetInfoEntidades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoEntidadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoEntidadesResult" type="tns:ResultadoInfoEntidades" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoInfoEntidades">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Entidades" type="tns:ArrayOfEntidad" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Resultado">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Valido" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodigoError" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEntidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Entidad" nillable="true" type="tns:Entidad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Entidad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Movil" type="tns:Movil" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosGeograficos" type="tns:DatosGeograficosGeoRef" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreEntidad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Movil">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MovilResumen">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Marca" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Modelo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Color" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Anio" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="NroMotor" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="NroChasis" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Seguro" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Poliza" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MovilResumen">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DatosGeograficosGeoRef">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:DatosGeograficos">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ReferenciaGeografica" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="DatosGeograficos">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FechaPosicion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Latitud" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Longitud" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Velocidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rumbo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Evento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PosicionGPS" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="EdadDato" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaControl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetInfoEntidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dominio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoEntidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoEntidadResult" type="tns:ResultadoInfoEntidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoInfoEntidad">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="entidad" type="tns:Entidad" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetRecorrido">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dominio" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecorridoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecorridoResult" type="tns:ResultadoRecorrido" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoRecorrido">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Posiciones" type="tns:ArrayOfDatosGeograficosGeoRef" />
+              <s:element minOccurs="1" maxOccurs="1" name="DistanciaRecorrida" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="TiempoEnMovimiento" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="VelocidadMaxima" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDatosGeograficosGeoRef">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DatosGeograficosGeoRef" nillable="true" type="tns:DatosGeograficosGeoRef" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUltimosSucesos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idSucesoRegistro" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUltimosSucesosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUltimosSucesosResult" type="tns:ResultadoUltimosSucesos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoUltimosSucesos">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UltimosSucesos" type="tns:ArrayOfSucesoPosicion" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSucesoPosicion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SucesoPosicion" nillable="true" type="tns:SucesoPosicion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SucesoPosicion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Suceso" type="tns:Suceso" />
+          <s:element minOccurs="0" maxOccurs="1" name="DatosGeograficos" type="tns:DatosGeograficosGeoRef" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Suceso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NombreSuceso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idSucesoRegistro" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaGeneracion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FechaFinalizacion" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValorSuceso" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetNombreEntidad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dominio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreEntidad" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetNombreEntidadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetNombreEntidadResult" type="tns:Resultado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AltaAreaCircular">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="areas" type="tns:ArrayOfAreaItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAreaItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AreaItem" nillable="true" type="tns:AreaItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AreaItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idCliente" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombreArea" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="latitud" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="longitud" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="radio" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ErrorArea">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:AreaItem">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CodigoError" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="AltaAreaCircularResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AltaAreaCircularResult" type="tns:ResultadoInsertAreas" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoInsertAreas">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ErroresInsert" type="tns:ArrayOfErrorArea" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfErrorArea">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErrorArea" nillable="true" type="tns:ErrorArea" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetInfoEntidadArea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idEntidad" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoEntidadAreaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoEntidadAreaResult" type="tns:ResultadoInfoEntidadArea" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoInfoEntidadArea">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="NombreEntidad" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Latitud" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Longitud" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="FechaPosicion" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Evento" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Velocidad" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Rumbo" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdAreaControl" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetIdEntidadFromDominio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dominio" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdEntidadFromDominioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIdEntidadFromDominioResult" type="tns:ResultadoEntidad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoEntidad">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="IdEntidad" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetAreaControlFromId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAreaControl" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAreaControlFromIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAreaControlFromIdResult" type="tns:ResultadoArea" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoArea">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="NombreArea" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ConsultarEventosTemperatura">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userLogin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dominios" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaDesde" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaHasta" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsultarEventosTemperaturaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarEventosTemperaturaResult" type="tns:ResultadoEventosTemperatura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultadoEventosTemperatura">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Resultado">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Entidades" type="tns:ArrayOfEntidadEventoTemperatura" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfEntidadEventoTemperatura">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EntidadEventoTemperatura" nillable="true" type="tns:EntidadEventoTemperatura" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EntidadEventoTemperatura">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdEntidad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TempEquipo" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TempAmbiente" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Entregados" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Parciales" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rechazados" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetInfoEntidadesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoEntidades" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoEntidadesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoEntidadesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoEntidadSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoEntidad" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoEntidadSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoEntidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecorridoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecorrido" />
+  </wsdl:message>
+  <wsdl:message name="GetRecorridoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecorridoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUltimosSucesosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUltimosSucesos" />
+  </wsdl:message>
+  <wsdl:message name="GetUltimosSucesosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUltimosSucesosResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetNombreEntidadSoapIn">
+    <wsdl:part name="parameters" element="tns:SetNombreEntidad" />
+  </wsdl:message>
+  <wsdl:message name="SetNombreEntidadSoapOut">
+    <wsdl:part name="parameters" element="tns:SetNombreEntidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="AltaAreaCircularSoapIn">
+    <wsdl:part name="parameters" element="tns:AltaAreaCircular" />
+  </wsdl:message>
+  <wsdl:message name="AltaAreaCircularSoapOut">
+    <wsdl:part name="parameters" element="tns:AltaAreaCircularResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoEntidadAreaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoEntidadArea" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoEntidadAreaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoEntidadAreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIdEntidadFromDominioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdEntidadFromDominio" />
+  </wsdl:message>
+  <wsdl:message name="GetIdEntidadFromDominioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdEntidadFromDominioResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAreaControlFromIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAreaControlFromId" />
+  </wsdl:message>
+  <wsdl:message name="GetAreaControlFromIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAreaControlFromIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarEventosTemperaturaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarEventosTemperatura" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarEventosTemperaturaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarEventosTemperaturaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="GetInfoEntidades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para obtener la información de todas las entidades del cliente</wsdl:documentation>
+      <wsdl:input message="tns:GetInfoEntidadesSoapIn" />
+      <wsdl:output message="tns:GetInfoEntidadesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoEntidad">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para obtener la información de una entidad</wsdl:documentation>
+      <wsdl:input message="tns:GetInfoEntidadSoapIn" />
+      <wsdl:output message="tns:GetInfoEntidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecorrido">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para obtener la información de el recorrido de una entidad</wsdl:documentation>
+      <wsdl:input message="tns:GetRecorridoSoapIn" />
+      <wsdl:output message="tns:GetRecorridoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimosSucesos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para obtener los últimos sucesos de una entidad</wsdl:documentation>
+      <wsdl:input message="tns:GetUltimosSucesosSoapIn" />
+      <wsdl:output message="tns:GetUltimosSucesosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetNombreEntidad">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para modificar el nombre de una entidad</wsdl:documentation>
+      <wsdl:input message="tns:SetNombreEntidadSoapIn" />
+      <wsdl:output message="tns:SetNombreEntidadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AltaAreaCircular">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo para dar de alta areas de control circulares</wsdl:documentation>
+      <wsdl:input message="tns:AltaAreaCircularSoapIn" />
+      <wsdl:output message="tns:AltaAreaCircularSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoEntidadArea">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para consultar informacion de entidad especifica y area circular</wsdl:documentation>
+      <wsdl:input message="tns:GetInfoEntidadAreaSoapIn" />
+      <wsdl:output message="tns:GetInfoEntidadAreaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdEntidadFromDominio">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para obtener el IdEntidad de un dominio dado</wsdl:documentation>
+      <wsdl:input message="tns:GetIdEntidadFromDominioSoapIn" />
+      <wsdl:output message="tns:GetIdEntidadFromDominioSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaControlFromId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para obtener el nombre de un area de control de un IdAreaControl dado</wsdl:documentation>
+      <wsdl:input message="tns:GetAreaControlFromIdSoapIn" />
+      <wsdl:output message="tns:GetAreaControlFromIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarEventosTemperatura">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Método para obtener los valores de 2 sensores de temperatura actuales, y la cantidad de entregas, entregas parciales y rechazos a partir del dominio del vehículo y el rango de fechas desde/hasta</wsdl:documentation>
+      <wsdl:input message="tns:ConsultarEventosTemperaturaSoapIn" />
+      <wsdl:output message="tns:ConsultarEventosTemperaturaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetInfoEntidades">
+      <soap:operation soapAction="http://tempuri.org/GetInfoEntidades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoEntidad">
+      <soap:operation soapAction="http://tempuri.org/GetInfoEntidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecorrido">
+      <soap:operation soapAction="http://tempuri.org/GetRecorrido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimosSucesos">
+      <soap:operation soapAction="http://tempuri.org/GetUltimosSucesos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNombreEntidad">
+      <soap:operation soapAction="http://tempuri.org/SetNombreEntidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaAreaCircular">
+      <soap:operation soapAction="http://tempuri.org/AltaAreaCircular" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoEntidadArea">
+      <soap:operation soapAction="http://tempuri.org/GetInfoEntidadArea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdEntidadFromDominio">
+      <soap:operation soapAction="http://tempuri.org/GetIdEntidadFromDominio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaControlFromId">
+      <soap:operation soapAction="http://tempuri.org/GetAreaControlFromId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarEventosTemperatura">
+      <soap:operation soapAction="http://tempuri.org/ConsultarEventosTemperatura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetInfoEntidades">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoEntidades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoEntidad">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoEntidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecorrido">
+      <soap12:operation soapAction="http://tempuri.org/GetRecorrido" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimosSucesos">
+      <soap12:operation soapAction="http://tempuri.org/GetUltimosSucesos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetNombreEntidad">
+      <soap12:operation soapAction="http://tempuri.org/SetNombreEntidad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaAreaCircular">
+      <soap12:operation soapAction="http://tempuri.org/AltaAreaCircular" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoEntidadArea">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoEntidadArea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdEntidadFromDominio">
+      <soap12:operation soapAction="http://tempuri.org/GetIdEntidadFromDominio" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaControlFromId">
+      <soap12:operation soapAction="http://tempuri.org/GetAreaControlFromId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarEventosTemperatura">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarEventosTemperatura" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Webservice de consultas de estado actual de flota y recorridos</wsdl:documentation>
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://www.lojackgis.com.ar/ApiLogisticaService/Lojack_ApiGenericaWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://www.lojackgis.com.ar/ApiLogisticaService/Lojack_ApiGenericaWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

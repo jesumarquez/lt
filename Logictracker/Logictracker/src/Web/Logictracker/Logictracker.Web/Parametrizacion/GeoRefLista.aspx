@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="GeoRefLista.aspx.cs" Inherits="Logictracker.Parametrizacion.GeoRefLista" Title="Domicilios" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="True" Inherits="Logictracker.Parametrizacion.GeoRefLista" Title="Domicilios" Codebehind="GeoRefLista.aspx.cs" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">
     <table>
@@ -18,6 +18,12 @@
                 <br />
                 <cwc:TipoReferenciaGeograficaDropDownList ID="cbTipoReferenciaGeografica" runat="server" Width="200px" AutoPostBack="True" OnSelectedIndexChanged="FilterChangedHandler" ParentControls="cbEmpresa, cbLinea" />
             </td>
+            <td>
+                <cwc:ResourceCheckBox ID="CheckBoxActivarPaginacion" Checked="true" runat="server" Font-Bold="true" ResourceName="Labels" VariableName="PAGINAR_CONSULTA" />
+                <br />
+            </td>
+
+
         </tr>
     </table>
 </asp:Content>

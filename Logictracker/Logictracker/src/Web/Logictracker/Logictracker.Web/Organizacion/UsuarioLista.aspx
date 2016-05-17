@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="UsuarioLista.aspx.cs"
-    Inherits="Logictracker.Organizacion.ListaUsuario" Title="Usuarios" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Organizacion.ListaUsuario" Title="Usuarios" Codebehind="UsuarioLista.aspx.cs" %>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">

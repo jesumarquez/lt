@@ -24,6 +24,9 @@
     <property column="opetick04_salida" name="Salida" />
     <property column="opetick04_estado" name="Estado" />
     <property column="opetick04_bultos" name="Bultos" />
+    <property column="opetick04_volumen" name="Volumen" />
+    <property column="opetick04_peso" name="Peso" />
+    <property column="opetick04_valor" name="Valor" />
 
     <property column="opetick04_comentario1" name="Comentario1" />
     <property column="opetick04_comentario2" name="Comentario2" />
@@ -40,12 +43,16 @@
     <property column="opetick04_garmin_eta" name="GarminETA" />
     <property column="opetick04_garmin_eta_informed_at" name="GarminETAInformedAt" />
 
-    <bag name="EventosDistri"
-          table="[ope.ope_even_09_even_distri]"
-          inverse="true">
+    <bag name="EventosDistri" table="[ope.ope_even_09_even_distri]" inverse="true">
       <cache usage="read-write" />
       <key column="rela_opetick04" />
       <one-to-many class="Logictracker.Types.BusinessObjects.Messages.EvenDistri, Logictracker.Types" />
     </bag>
+
+    <set name="_remitos" access="field" table="opetick21" lazy="true" cascade="all">
+      <key column="rela_opetick04" />
+      <many-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.Remito,Logictracker.Types" column="rela_opetick18" />
+    </set>
+    
   </class>
 </hibernate-mapping>

@@ -18,7 +18,7 @@ namespace Logictracker.Web.BaseClasses.Util
         public event EventHandler<C1GridViewRowEventArgs> CreateRowTemplate;
         public event EventHandler<RowEventArgs<T>> RowDataBound;
         public event EventHandler SelectedIndexChanged;
-        public event EventHandler Binding;
+        public event EventHandler Binding;         
         public event EventHandler<C1GridViewCommandEventArgs> RowCommand;
         public event EventHandler<CustomFormatEventArgs> AggregateCustomFormat;
 
@@ -26,6 +26,7 @@ namespace Logictracker.Web.BaseClasses.Util
         private readonly IGridded<T> Page;
         public bool AnyIncludedInSearch { get; private set; }
         private bool RealizarBusqueda { get; set; }
+        public bool CustomPagination = false;
         private bool CalculateAggragateSums { get { return Grid.GroupedColumns.Count > 0 && RealizarBusqueda; } }
         
         public GridUtils(C1GridView grid, IGridded<T> page)
@@ -389,6 +390,8 @@ namespace Logictracker.Web.BaseClasses.Util
             {
                 var groupColumnIndex = Grid.GroupedColumns.IndexOf(e.GroupCol);
                 var listIndex = (Grid.PageIndex*Grid.PageSize) + e.StartItemIndex;
+                if (listIndex > Page.Data.Count - 1)
+                    listIndex = e.StartItemIndex;
                 var refValue = Page.Data[listIndex];
                 var list = Page.Data.ToList();
                 //var key = groupColumnIndex + listIndex;
@@ -721,8 +724,11 @@ namespace Logictracker.Web.BaseClasses.Util
 
             var list = Search(Page.Data, Page.SearchString);
 
-            if (Grid.PageIndex > Math.Floor((double)list.Count / Grid.PageSize))
-                Grid.PageIndex = 0;
+            if (!CustomPagination)
+            { 
+                if (Grid.PageIndex > Math.Floor((double)list.Count / Grid.PageSize))
+                    Grid.PageIndex = 0;
+            }
 
             Sort(list);
 
@@ -749,6 +755,10 @@ namespace Logictracker.Web.BaseClasses.Util
         private void ShowTotalCount(int count)
         {
             var text = string.Format(CultureManager.GetControl("GRID_CANT_RESULTADOS"), count);
+            if (Grid.AllowCustomPaging && Grid.VirtualItemCount > 0)
+            {
+                text = text + " de un total de " + Grid.VirtualItemCount;
+            }
             var litTop = new Label { Text = text };
             litTop.Style.Add("float", "left");
             var litBottom = new Label { Text = text };

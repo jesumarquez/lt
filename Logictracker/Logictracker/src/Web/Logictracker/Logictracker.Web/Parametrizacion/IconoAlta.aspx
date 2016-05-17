@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="IconoAlta.aspx.cs"
-    Inherits="Logictracker.Parametrizacion.Parametrizacion_Icono_Alta" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Parametrizacion.Parametrizacion_Icono_Alta" Title="Untitled Page" Codebehind="IconoAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <%--TOOLBAR--%>

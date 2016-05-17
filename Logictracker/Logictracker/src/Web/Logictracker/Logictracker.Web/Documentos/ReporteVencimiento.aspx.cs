@@ -51,6 +51,7 @@ namespace Logictracker.Documentos
                            {
                                Empresa = cbLocacion.Selected,
                                Linea = cbPlanta.Selected,
+                               Transportista = cbTransportista.Selected,
                                TiposDocumento = cbTipoDocumento.SelectedValues.ToArray(),
                                Fecha = dtFecha.SelectedDate.GetValueOrDefault(),
                                DiasAviso = dias,
@@ -74,11 +75,11 @@ namespace Logictracker.Documentos
             //    lineas.AddRange((from Linea l in DAOFactory.LineaDAO.GetList(new[]{-1}) select l.Id).ToList());
             //}
 
-            var list = DAOFactory.DocumentoDAO.FindByTipo(data.TiposDocumento, new List<int> { data.Empresa }, new List<int> { data.Linea });
+            var list = DAOFactory.DocumentoDAO.FindByTipo(data.TiposDocumento, new List<int> { data.Empresa }, new List<int> { data.Linea }, new List<int> { data.Transportista });
         
-            if(data.SoloConAviso)
+            if (data.SoloConAviso)
                 return (from Documento d in list 
-                        where d.Vencimiento.HasValue &&  d.Vencimiento.Value.Subtract(data.Fecha).TotalDays < data.DiasAviso
+                        where d.Vencimiento.HasValue && d.Vencimiento.Value.Subtract(data.Fecha).TotalDays < data.DiasAviso
                         orderby d.Vencimiento
                         select new ReporteVencimientoVo(d, data.Fecha)).ToList();
 
@@ -123,6 +124,7 @@ namespace Logictracker.Documentos
         {
             public int Empresa;
             public int Linea;
+            public int Transportista;
             public DateTime Fecha;
             public int[] TiposDocumento;
             public int DiasAviso;

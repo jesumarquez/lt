@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="InfoEventM2M.aspx.cs" Inherits="Logictracker.Monitor.MonitorDeEntidades.InfoEventM2M" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Monitor.MonitorDeEntidades.InfoEventM2M" Codebehind="InfoEventM2M.aspx.cs" %>
 
 <%@ Register TagPrefix="cc1" Namespace="Logictracker.Web.Monitor" Assembly="Logictracker.Web.Monitor" %>
 

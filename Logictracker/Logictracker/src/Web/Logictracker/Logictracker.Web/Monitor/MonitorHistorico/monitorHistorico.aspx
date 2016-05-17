@@ -1,4 +1,4 @@
- <%@ Page Language="C#" AutoEventWireup="true" CodeFile="monitorHistorico.aspx.cs" Inherits="Logictracker.Monitor.MonitorHistorico.MonitorHistorico" %>
+ <%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Monitor.MonitorHistorico.MonitorHistorico" Codebehind="monitorHistorico.aspx.cs" %>
 
 <%@ Import Namespace="Logictracker.Culture"%>
 
@@ -78,7 +78,11 @@
                                     <cwc:ResourceLabel ID="lblDistrito" runat="server" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI01" />
                                 </td>
                                 <td>
-                                    <cwc:LocacionDropDownList ID="ddlDistrito" runat="server" Width="100%" OnInitialBinding="DdlDistritoInitialBinding" />
+                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                        <ContentTemplate>
+                                            <cwc:LocacionDropDownList ID="ddlDistrito" runat="server" Width="100%" OnInitialBinding="DdlDistritoInitialBinding" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </td>
                             </tr>
                             <tr>
@@ -162,7 +166,11 @@
                                 </td>
                                 <td>
                                     <cwc:DateTimePicker runat="server" ID="dtHasta" Mode="DateTime" IsValidEmpty="False"></cwc:DateTimePicker>
-                                    <cwc:DateTimeRangeValidator runat="server" ID="dtvalidator" StartControlID="dtDesde" EndControlID="dtHasta" MaxRange="23:59"></cwc:DateTimeRangeValidator>
+                                    <asp:UpdatePanel ID="updRange" runat="server">
+                                        <ContentTemplate>
+                                            <cwc:DateTimeRangeValidator runat="server" ID="dtvalidator" StartControlID="dtDesde" EndControlID="dtHasta" MaxRange="23:59"></cwc:DateTimeRangeValidator>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </td>
                             </tr>
                         </table>

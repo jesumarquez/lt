@@ -207,13 +207,7 @@ namespace Logictracker.Web.Helpers.ExportHelpers
                         if (excelColumn.PropertyType == typeof (TimeSpan).FullName)
                         {
                             var tmv = (TimeSpan) data.GetReflectedValue(excelColumn.PropertyName);
-
-                            //if (tmv.Days > 0 || tmv.Hours > 0)
-                              //  value = string.Format("{0:00} - {1:00}:{2:00}", tmv.Days, tmv.Hours, tmv.Minutes);
-                            //else
-                                value = string.Format("{0:00}:{1:00}", tmv.Hours, tmv.Minutes);
-//                                value = string.Format("{0:00}:{1:00}:{2:00}", tmv.Hours, tmv.Minutes, tmv.Seconds);
-
+                            value = string.Format("{0:00}:{1:00}:{2:00}", tmv.Hours, tmv.Minutes, tmv.Seconds);
                         }
                         else if (excelColumn.PropertyType == typeof (DateTime).FullName ||
                                  excelColumn.PropertyType == typeof (DateTime?).FullName)

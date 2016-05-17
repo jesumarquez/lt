@@ -269,6 +269,9 @@ namespace Logictracker.Web.Documentos
                 case TipoParametroDocumento.String:
                     AddParameterString(par, id, style);
                     break;
+                case TipoParametroDocumento.Barcode:
+                    AddParameterString(par, id, style);
+                    break;
                 case TipoParametroDocumento.DateTime:
                     AddParameterDateTime(par, id, style);
                     break;
@@ -447,6 +450,9 @@ namespace Logictracker.Web.Documentos
                     SetFloatValue(ctl, val, repeticion);
                     break;
                 case TipoParametroDocumento.String:
+                    SetStringValue(ctl, val, repeticion);
+                    break;
+                case TipoParametroDocumento.Barcode:
                     SetStringValue(ctl, val, repeticion);
                     break;
                 case TipoParametroDocumento.DateTime:

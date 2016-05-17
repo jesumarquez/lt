@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="AccionesAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionAccionAlta" Title="Acciones" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionAccionAlta" Title="Acciones" Codebehind="AccionesAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/IconPicker.ascx" TagName="IconPicker" TagPrefix="uc" %>  
 <%@ Register Src="../App_Controls/ColorPicker.ascx" TagName="ColorPicker" TagPrefix="uc" %>  
@@ -26,7 +26,7 @@
                         <cwc:ResourceLabel ID="lblMensaje" runat="server" ResourceName="Entities" VariableName="PAREVEN01" Width="100%" />
                         <asp:UpdatePanel ID="upMensaje" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                             <ContentTemplate>
-                                <cwc:MensajesDropDownList ID="ddlMensaje" runat="server" Width="100%" ParentControls="ddlDistrito,ddlBase" />
+                                <cwc:MensajesDropDownList ID="ddlMensaje" runat="server" Width="100%" ParentControls="ddlDistrito,ddlBase" BindIds="true" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="ddlDistrito" EventName="SelectedIndexChanged" />
@@ -289,6 +289,32 @@
                                 <asp:TextBox ID="txtCodigoAssistCargo" runat="server" Width="90%" MaxLength="3" CssClass="LogicTextbox" />
                                 <cwc:ResourceWatermarkExtender ID="wexCodigoAssistCargo" runat="server" TargetControlID="txtCodigoAssistCargo" WatermarkCssClass="LogicWatermark" ResourceName="Labels" VariableName="CODIGO_ASSISTCARGO" />
                             </cwc:SecuredPanel> 
+
+                            <cwc:ResourceCheckBox ID="chkReporte" runat="server" AutoPostBack="true" OnCheckedChanged="ChkComportamientoCheckedChanged" ResourceName="Labels" VariableName="ENVIA_REPORTE"/>
+                            <asp:Panel ID="panelReporte" runat="server" Visible="false">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            <cwc:ResourceLabel ID="lblReporte" runat="server" ResourceName="Labels" VariableName="REPORTE" />
+                                            <asp:UpdatePanel runat="server" ID="pnlReporte">
+                                                <ContentTemplate>
+                                                    <cwc:ReporteDropDownList ID="cbReporte" runat="server" Width="90%" CssClass="LogicCombo" ParentControls="ddlMensaje" AddNoneItem="true" />
+                                                </ContentTemplate>
+                                                <Triggers>
+                                                    <asp:AsyncPostBackTrigger ControlID="ddlMensaje" EventName="SelectedIndexChanged" />
+                                                </Triggers>
+                                            </asp:UpdatePanel>
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtMailReporte" runat="server" Width="90%" CssClass="LogicTextbox" />
+                                            <cwc:ResourceWatermarkExtender ID="ResourceWatermarkExtender3" runat="server" TargetControlID="txtMailReporte" WatermarkCssClass="LogicWatermark" ResourceName="Labels" VariableName="DESTINATARIOS" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </asp:Panel>
+                            
+                            <cwc:ResourceCheckBox ID="chkReportaResponsable" runat="server" Checked="false" ResourceName="Labels" VariableName="REPORTA_RESPONSABLE_CUENTA" />
+                            <div></div>
                                          
                         </cwc:AbmTitledPanel>
                     </ContentTemplate>
@@ -302,6 +328,7 @@
                         <asp:AsyncPostBackTrigger ControlID="chkChangeIcon" EventName="CheckedChanged" />
                         <asp:AsyncPostBackTrigger ControlID="chkCambiaMensaje" EventName="CheckedChanged" />
                         <asp:AsyncPostBackTrigger ControlID="chkPideFoto" EventName="CheckedChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="chkReporte" EventName="CheckedChanged" />
                     </Triggers>
                 </asp:UpdatePanel>
                 </td>

@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="FeriadoAlta.aspx.cs"
-    Inherits="Logictracker.Parametrizacion.Parametrizacion_FeriadoAlta" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Parametrizacion.Parametrizacion_FeriadoAlta" Title="Untitled Page" Codebehind="FeriadoAlta.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/Pickers/DatePicker.ascx" TagName="DatePicker" TagPrefix="uc3" %>
 

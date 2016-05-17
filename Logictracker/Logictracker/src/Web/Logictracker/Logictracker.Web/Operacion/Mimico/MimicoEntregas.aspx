@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MimicoEntregas.aspx.cs" Inherits="Logictracker.Operacion.Mimico.MimicoEntregas" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Mimico.MimicoEntregas" Codebehind="MimicoEntregas.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 
@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Mímico Entregas</title>
-    <script type="text/javascript" src="mimicoEntregas.js"></script>
+    <script type="text/javascript" src="mimicoEntregas.js"></script>    
 </head>
 <body id="monitor">
     <form id="form1" runat="server">
@@ -149,7 +149,7 @@
                 <table>
                     <tr>
                         <td class="vehiculo">
-                            <div class="vehiculo_info" style="background-image: url({{{ICON}}});" ><span class="{{{VEHICLE_STATE}}}">{{{VEHICLE}}}</span></div>                                                
+                            <div class="vehiculo_info" style="background-image: url({{{ICON}}}); cursor:pointer;" onclick="window.open('../../CicloLogistico/Monitor.aspx?t=D&i={{{ID_RUTA}}}&c=0','Monitor Ciclo');"><span class="{{{VEHICLE_STATE}}}">{{{VEHICLE}}}</span></div>
                         </td>
                         <td>
                             <div class="mimico">

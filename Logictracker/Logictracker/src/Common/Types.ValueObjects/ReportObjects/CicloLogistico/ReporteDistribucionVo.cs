@@ -6,6 +6,8 @@ using Logictracker.DAL.Factories;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ReportObjects.Datamart;
+using Logictracker.Utils;
+using Logictracker.Messaging;
 
 namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 {
@@ -20,18 +22,20 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
         public const int IndexOrden = 5;
         public const int IndexOrdenReal = 6;
         public const int IndexPuntoEntrega = 7;
-        public const int IndexDescripcion = 8;
-        public const int IndexManual = 9;
-        public const int IndexEntrada = 10;
-        public const int IndexSalida = 11;
-        public const int IndexDuracion = 12;
-        public const int IndexKm = 13;
-        public const int IndexEstado = 14;
-        public const int IndexTieneFoto = 15;
-        public const int IndexConfirmacion = 16;
-        public const int IndexHorario = 17;
-        public const int IndexUnreadInactive = 18;
-        public const int IndexReadInactive = 19;
+        public const int IndexDescripcion = 8;        
+        public const int IndexEntrada = 9;
+        public const int IndexSalida = 10;
+        public const int IndexManual = 11;
+        public const int IndexDelta = 12;
+        public const int IndexDuracion = 13;
+        public const int IndexKm = 14;
+        public const int IndexEstado = 15;
+        public const int IndexDistancia = 16;
+        public const int IndexTieneFoto = 17;        
+        public const int IndexConfirmacion = 18;
+        public const int IndexHorario = 19;
+        public const int IndexUnreadInactive = 20;
+        public const int IndexReadInactive = 21;
 
         public int Id { get; set; }
         public int IdDispositivo { get; set; }
@@ -59,7 +63,7 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
         [GridMapping(Index = IndexEmpleado, ResourceName = "Entities", VariableName = "PARENTI09", AllowGroup = true)]
         public string Empleado { get; set; }
 
-        [GridMapping(Index = IndexFecha, ResourceName = "Labels", VariableName = "DATE", AllowGroup = false)]
+        [GridMapping(Index = IndexFecha, ResourceName = "Labels", VariableName = "DATE", AllowGroup = true)]
         public string Fecha { get; set; }
 
         [GridMapping(Index = IndexOrden, ResourceName = "Labels", VariableName = "ORDEN", AllowGroup = false)]
@@ -73,15 +77,18 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
         [GridMapping(Index = IndexDescripcion, ResourceName = "Labels", VariableName = "DESCRIPCION", AllowGroup = true)]
         public string Descripcion { get; set; }
-
-        [GridMapping(Index = IndexManual, ResourceName = "Labels", VariableName = "MANUAL", AllowGroup = false)]
-        public string Manual { get; set; }
-
+        
         [GridMapping(Index = IndexEntrada, ResourceName = "Labels", VariableName = "ENTRADA", AllowGroup = false)]
         public string Entrada { get; set; }
 
         [GridMapping(Index = IndexSalida, ResourceName = "Labels", VariableName = "SALIDA", AllowGroup = false)]
         public string Salida { get; set; }
+        
+        [GridMapping(Index = IndexManual, ResourceName = "Labels", VariableName = "MANUAL", AllowGroup = false)]
+        public string Manual { get; set; }
+
+        [GridMapping(Index = IndexDelta, ResourceName = "Labels", VariableName = "DIFERENCIA", AllowGroup = false)]
+        public string Diferencia { get; set; }
 
         [GridMapping(Index = IndexDuracion, ResourceName = "Labels", VariableName = "DURACION", AllowGroup = false)]
         public string Duracion { get; set; }
@@ -91,7 +98,10 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
         [GridMapping(Index = IndexEstado, ResourceName = "Labels", VariableName = "STATE", AllowGroup = true)]
         public string Estado { get; set; }
-        
+
+        [GridMapping(Index = IndexDistancia, ResourceName = "Labels", VariableName = "DISTANCIA", AllowGroup = false, DataFormatString = "{0: 0.00}")]
+        public double? Distancia { get; set; }
+
         [GridMapping(Index = IndexTieneFoto, IsTemplate = true, HeaderText = "", AllowGroup = false)]
         public bool TieneFoto { get; set; }
 
@@ -100,12 +110,14 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
         [GridMapping(Index = IndexHorario, ResourceName = "Labels", VariableName = "HORARIO")]
         public DateTime? Horario { get; set; }
-
+        
         [GridMapping(Index = IndexUnreadInactive, ResourceName = "Labels", VariableName = "UNREAD_INACTIVE")]
         public string UnreadInactive { get; set; }
 
         [GridMapping(Index = IndexReadInactive, ResourceName = "Labels", VariableName = "READ_INACTIVE")]
         public string ReadInactive { get; set; }
+
+        public int Radio { get; set; }
 
         public ReporteDistribucionVo(EntregaDistribucion entrega, EntregaDistribucion anterior, int orden, double km, bool verConfirmacion)
         {
@@ -141,10 +153,26 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
             Salida = entrega.Salida.HasValue
                          ? entrega.Salida.Value.ToDisplayDateTime().ToString("HH:mm")
                          : string.Empty;
+            var diferencia = entrega.Manual.HasValue && entrega.Salida.HasValue
+                   ? entrega.Salida.Value.Subtract(entrega.Manual.Value)
+                   : new TimeSpan(0);
+            if (diferencia.Ticks != 0)
+            {
+                if (diferencia.TotalSeconds > 0)
+                {
+                    Diferencia = diferencia.Hours.ToString("00") + ":" + diferencia.Minutes.ToString("00") + ":" + diferencia.Seconds.ToString("00");
+                }
+                else
+                {
+                    diferencia = new TimeSpan(-diferencia.Ticks);
+                    Diferencia = "- " + diferencia.Hours.ToString("00") + ":" + diferencia.Minutes.ToString("00") + ":" + diferencia.Seconds.ToString("00");
+                }
+            }
+            
             var duracion = entrega.Entrada.HasValue && entrega.Salida.HasValue
                                ? entrega.Salida.Value.Subtract(entrega.Entrada.Value)
                                : new TimeSpan(0);
-            Duracion = duracion.TotalSeconds >= 0
+            Duracion = duracion.TotalSeconds > 0
                            ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
                            : string.Empty;
             Estado = CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado));
@@ -184,12 +212,29 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
 
             if (verConfirmacion && entrega.Viaje.Vehiculo != null)
             {
+                var mensajes = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                                  MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
+                                                  MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
+                var confirmaciones = dao.MensajeDAO.GetMensajesDeConfirmacion(new[] { entrega.Viaje.Empresa.Id }, new int[]{}).Select(m => m.Codigo);
+                var rechazos = dao.MensajeDAO.GetMensajesDeRechazo(new[] { entrega.Viaje.Empresa.Id }, new int[]{}).Select(m => m.Codigo);
+                mensajes.AddRange(confirmaciones);
+                mensajes.AddRange(rechazos);
+
                 Confirmacion = entrega.MensajeConfirmacion != null
-                                ? entrega.MensajeConfirmacion.Mensaje.Descripcion
-                                : string.Empty;
+                                    ? entrega.MensajeConfirmacion.Mensaje.Descripcion
+                                    : string.Empty;
                 Horario = entrega.RecepcionConfirmacion.HasValue
                               ? entrega.RecepcionConfirmacion.Value.ToDisplayDateTime()
                               : (DateTime?) null;
+                var eventos = entrega.EventosDistri.Where(e => mensajes.Contains(e.LogMensaje.Mensaje.Codigo));
+                var evento = eventos.Any() 
+                                ? eventos.OrderBy(e => e.Fecha).FirstOrDefault() 
+                                : null;
+
+                Distancia = evento != null ? Distancias.Loxodromica(evento.LogMensaje.Latitud, evento.LogMensaje.Longitud, entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude) : (double?)null;
+                if (entrega.PuntoEntrega != null && entrega.PuntoEntrega.ReferenciaGeografica != null
+                 && entrega.PuntoEntrega.ReferenciaGeografica.Poligono != null)
+                    Radio = entrega.PuntoEntrega.ReferenciaGeografica.Poligono.Radio;
             }
         }
 
@@ -225,8 +270,23 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
             Salida = dm.Salida.HasValue
                          ? dm.Salida.Value.ToDisplayDateTime().ToString("HH:mm")
                          : string.Empty;
+            var diferencia = dm.Manual.HasValue && dm.Salida.HasValue
+                   ? dm.Salida.Value.Subtract(dm.Manual.Value)
+                   : new TimeSpan(0);
+            if (diferencia.Ticks != 0)
+            {
+                if (diferencia.TotalSeconds > 0)
+                {
+                    Diferencia = diferencia.Hours.ToString("00") + ":" + diferencia.Minutes.ToString("00") + ":" + diferencia.Seconds.ToString("00");
+                }
+                else
+                {
+                    diferencia = new TimeSpan(-diferencia.Ticks);
+                    Diferencia = "- " + diferencia.Hours.ToString("00") + ":" + diferencia.Minutes.ToString("00") + ":" + diferencia.Seconds.ToString("00");
+                }
+            }
             var duracion = new TimeSpan(0, 0, (int)dm.TiempoEntrega*60);
-            Duracion = dm.TiempoEntrega >= 0
+            Duracion = dm.TiempoEntrega > 0
                            ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
                            : string.Empty;
             Estado = dm.Estado;
@@ -244,6 +304,10 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
                 Horario = dm.Detalle.RecepcionConfirmacion.HasValue
                               ? dm.Detalle.RecepcionConfirmacion.Value.ToDisplayDateTime()
                               : (DateTime?)null;
+                Distancia = dm.Distancia;
+                if (dm.PuntoEntrega != null && dm.PuntoEntrega.ReferenciaGeografica != null
+                 && dm.PuntoEntrega.ReferenciaGeografica.Poligono != null)
+                    Radio = dm.PuntoEntrega.ReferenciaGeografica.Poligono.Radio;
             }
         }
 
@@ -261,7 +325,6 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
             Descripcion = dm.Descripcion;
             Km = dm.Km;
             Estado = dm.Estado;
-            Confirmacion = dm.Confirmacion;
 
             Fecha = dm.Date.ToDisplayDateTime().ToString("dd/MM/yyyy");
             Manual = dm.DateManual.HasValue
@@ -273,8 +336,23 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
             Salida = dm.DateSalida.HasValue
                          ? dm.DateSalida.Value.ToDisplayDateTime().ToString("HH:mm")
                          : string.Empty;
+            var diferencia = dm.DateManual.HasValue && dm.DateSalida.HasValue
+                               ? dm.DateSalida.Value.Subtract(dm.DateManual.Value)
+                               : new TimeSpan(0);
+            if (diferencia.Ticks != 0)
+            {
+                if (diferencia.TotalSeconds > 0)
+                {
+                    Diferencia = diferencia.Hours.ToString("00") + ":" + diferencia.Minutes.ToString("00") + ":" + diferencia.Seconds.ToString("00");
+                }
+                else
+                {
+                    diferencia = new TimeSpan(-diferencia.Ticks);
+                    Diferencia = "- " + diferencia.Hours.ToString("00") + ":" + diferencia.Minutes.ToString("00") + ":" + diferencia.Seconds.ToString("00");
+                }
+            }
             var duracion = new TimeSpan(0, 0, (int)dm.TiempoEntrega * 60);
-            Duracion = duracion.TotalSeconds >= 0
+            Duracion = duracion.TotalSeconds > 0
                            ? duracion.Hours.ToString("00") + ":" + duracion.Minutes.ToString("00") + ":" + duracion.Seconds.ToString("00")
                            : string.Empty;
             UnreadInactive = dm.DateGarminUnreadInactive.HasValue
@@ -287,6 +365,8 @@ namespace Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico
             Horario = dm.DateConfirmacion.HasValue 
                             ? dm.DateConfirmacion.Value.ToDisplayDateTime()
                             : (DateTime?) null;
+            Distancia = dm.Distancia;
+            Radio = dm.Radio;
         }
 
         public ReporteDistribucionVo() { }

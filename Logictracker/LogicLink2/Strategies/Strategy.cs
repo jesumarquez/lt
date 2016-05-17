@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
+using LinqToExcel;
 using Logictracker.Process.Import.Client;
 using Logictracker.Process.Import.Client.Types;
 using Logictracker.Process.Import.EntityParser;
@@ -49,6 +51,63 @@ namespace Logictracker.Scheduler.Tasks.Logiclink2.Strategies
             }
             csv.Close();
             return table;
+        }
+
+        protected static List<Row> ParseExcelFile(string file, bool hasHeader)
+        {   
+            return ParseExcelFile(file, hasHeader, 1);
+        }
+
+        protected static List<Row> ParseExcelFile(string file, bool hasHeader, int breakAfter)
+        {
+            var table = new Table();
+            var excel = new ExcelQueryFactory(file);
+
+            var rows = CreateRows(excel, hasHeader, breakAfter);
+
+            return rows;
+        }
+
+        protected static List<Row> CreateRows(ExcelQueryFactory excel, bool hasHeader)
+        {
+            return CreateRows(excel, hasHeader, 1);
+        }
+
+        protected static List<Row> CreateRows(ExcelQueryFactory excel, bool hasHeader, int breakAfter)
+        {
+            var currentWorkSheet = excel.GetWorksheetNames().First();
+
+            var sheet = hasHeader
+                            ? excel.Worksheet(currentWorkSheet).Select(t => t as List<Cell>)
+                            : excel.WorksheetNoHeader(currentWorkSheet).Select(t => t as List<Cell>);
+            List<string> columns = null;
+
+            var xls = new ExcelQueryFactory(excel.FileName);
+            columns = hasHeader
+                        ? xls.GetColumnNames(currentWorkSheet).ToList()
+                        : xls.GetColumnNames(currentWorkSheet).Select((c, i) => "Column" + 1).ToList();
+
+            var list = new List<Row>(sheet.Count());
+
+            var emptyCount = 0;
+
+            foreach (var row in sheet)
+            {
+                var importRow = new Row();
+                for (var i = 0; i < columns.Count(); i++)
+                {
+                    importRow.Insert(i, row[i]);
+                }
+
+                var empty = row.All(v => string.IsNullOrEmpty(v.Value.ToString().Trim()));
+                if (empty) emptyCount++;
+                else emptyCount = 0;
+
+                if (emptyCount > breakAfter) break;
+
+                if (!empty) list.Add(importRow);
+            }
+            return list;
         }
 
         protected static Record ParseLine(string line, Table table)

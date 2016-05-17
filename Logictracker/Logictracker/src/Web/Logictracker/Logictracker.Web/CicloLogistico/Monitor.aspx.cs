@@ -122,18 +122,37 @@ namespace Logictracker.CicloLogistico
                 dtDesde.SelectedDate = ciclo.Inicio.ToDisplayDateTime();
                 dtHasta.SelectedDate = ciclo.Inicio.ToDisplayDateTime().AddMinutes(1);
 
-                BtnSearchClick(null, null);
-                var row = gridTickets.Rows.Cast<C1GridViewRow>().FirstOrDefault(r => (r.FindControl("hidId") as HiddenField).Value == string.Format("{0}:{1}", t, id));
-                if (row != null) gridTickets.SelectedIndex = row.RowIndex;
+                var list = new List<Ciclo>();
+                list.Add(new Ciclo(ciclo));                
 
+                gridTickets.DataSource = list;
+                gridTickets.DataBind();
+                gridTickets.SelectedIndex = 0;
+
+                tab.ActiveTab = tabTickets;
+                Clear();
+
+                updTickets.Update();
+                updTabCompleto.Update();
+                updEast.Update();
+                
                 if (ciclo.InicioReal.HasValue)
                 {
-                    SelectCiclo(ciclo, false, Modos.Ninguno);
+                    SelectCiclo(ciclo, true, Modos.Ninguno);
                     UpdateLinks(ciclo);
                     dtDesde.SelectedDate = ciclo.InicioReal.Value.ToDisplayDateTime();
+                    if (ciclo.Estado == ViajeDistribucion.Estados.Cerrado)
+                        dtHasta.SelectedDate = ciclo.Fin.ToDisplayDateTime();
+                    else
+                        dtHasta.SelectedDate = DateTime.UtcNow.ToDisplayDateTime();
+
+
+                    if (ciclo.EntregasTotalCountConBases > 0)
+                    {
+                        gridEntregas.DataSource = ciclo.Detalles.Where(d => d.PuntoEntrega != null);
+                        gridEntregas.DataBind();
+                    }                    
                 }
-                
-                dtHasta.SelectedDate = ciclo.Fin.ToDisplayDateTime();
             }
         }
 
@@ -279,6 +298,7 @@ namespace Logictracker.CicloLogistico
             }
             else if (ciclo.Value[0] == 'D')
             {
+                lblDistancia.Visible = false;
                 var distribucion = DAOFactory.ViajeDistribucionDAO.FindById(id);
                 SelectCiclo(distribucion, posicionar, modo);
                 UpdateLinks(distribucion);
@@ -370,7 +390,8 @@ namespace Logictracker.CicloLogistico
             var entrega = e.Row.DataItem as EntregaDistribucion;
             if (entrega == null) return;
 
-            e.Row.Cells[0].Text = entrega.Orden.ToString("#0");
+            var lnk = e.Row.FindControl("lnkEntrega") as LinkButton;
+            lnk.Text = entrega.Orden.ToString("#0");
             e.Row.Cells[1].Text = CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado));
             e.Row.Cells[2].Text = entrega.Descripcion;
             e.Row.Cells[3].Text = entrega.PuntoEntrega.Descripcion;
@@ -384,6 +405,17 @@ namespace Logictracker.CicloLogistico
                 case EntregaDistribucion.Estados.EnZona: e.Row.BackColor = Color.Gray; break;
                 case EntregaDistribucion.Estados.SinVisitar:
                 case EntregaDistribucion.Estados.Pendiente: e.Row.BackColor = Color.Orange; break;
+            }
+        }
+
+        protected void LnkEntregaOnClick(object sender, EventArgs e)
+        {
+            var lnk = sender as LinkButton;
+            if (lnk != null)
+            {
+                var ordenProg = lnk.Text;
+                txtOrdenProg.Text = ordenProg;
+                BtnOrdenProgOnClick(sender, e);
             }
         }
 
@@ -444,22 +476,40 @@ namespace Logictracker.CicloLogistico
         protected void SelectCiclo(ViajeDistribucion ciclo, bool posicionar, short modo)
         {
             monitor.ClearLayers();
-            monitor.SetCenter(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude);
-            monitor.SetDefaultCenter(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude);
+            var lat = 0.0;
+            var lon = 0.0;
+            if (ciclo.Linea != null && ciclo.Linea.ReferenciaGeografica != null)
+            {
+                lat = ciclo.Linea.ReferenciaGeografica.Latitude;
+                lon = ciclo.Linea.ReferenciaGeografica.Longitude;
+            }
+            else if (ciclo.Detalles.Any())
+            {
+                lat = ciclo.Detalles[0].ReferenciaGeografica.Latitude;
+                lon = ciclo.Detalles[0].ReferenciaGeografica.Longitude;
+            }
+            monitor.SetCenter(lat, lon);
+            monitor.SetDefaultCenter(lat, lon);
 
             var inicio = Ciclo.GetFechaInicio(ciclo);
             var fin = Ciclo.GetFechaFin(ciclo);
 
             ShowPosicionesReportadas(ciclo.Vehiculo, inicio, fin.AddSeconds(1), Color.ForestGreen);
 
-            var puntos = ciclo.Detalles.Where(e=>e.PuntoEntrega != null).Select(e=>new LatLon(e.ReferenciaGeografica.Latitude, e.ReferenciaGeografica.Longitude)).ToList();
-            puntos.Insert(0, new LatLon(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude));
+            var puntos = ciclo.Detalles.Where(e => e.PuntoEntrega != null).Select(e => new LatLon(e.ReferenciaGeografica.Latitude, e.ReferenciaGeografica.Longitude)).ToList();
+            if (ciclo.Linea != null)
+            {
+                puntos.Insert(0, new LatLon(ciclo.Linea.ReferenciaGeografica.Latitude, ciclo.Linea.ReferenciaGeografica.Longitude));
+            }
+
             if (chkRecorridoCalculado.Checked)
             {
                 ShowRecorridoCalculado(Color.Red, puntos.ToArray());
                 ReferenciaGeografica anterior = null;
                 var kmCalculados = 0.0;
-                foreach (var detalle in ciclo.Detalles)
+                var duracion = new TimeSpan();
+                var dets = ciclo.Detalles.OrderBy(d => d.Orden);
+                foreach (var detalle in dets)
                 {
                     var actual = detalle.PuntoEntrega != null 
                                     ? detalle.PuntoEntrega.ReferenciaGeografica
@@ -472,17 +522,18 @@ namespace Logictracker.CicloLogistico
                         if (dir != null)
                         {
                             kmCalculados += (dir.Distance/1000.0);
+                            duracion = duracion.Add(dir.Duration);
                         }
                     }
 
                     anterior = actual;
                 }
-                lblKmCalculados.Text = kmCalculados.ToString("#0.00") + " Km";
+                lblKmCalculados.Text = kmCalculados.ToString("#0.00") + " Km - " + string.Format("{0}:{1}:{2} Hs", ((int)duracion.TotalHours).ToString("00"), duracion.Minutes.ToString("00"), duracion.Seconds.ToString("00"));
             }
             
             ShowEventos(ciclo.Vehiculo, inicio, fin, ciclo.Id);
             ShowMensajes(ciclo.Vehiculo, inicio, fin);
-            ShowPuntos(new[] {ciclo.Linea.ReferenciaGeografica}, 0);
+            if (ciclo.Linea != null) ShowPuntos(new[] {ciclo.Linea.ReferenciaGeografica}, 0);
             ShowPuntos(posicionar, modo, ciclo.Detalles.Where(e => e.PuntoEntrega != null).ToArray());
 
             panelReferenciaSimple.Visible = true;
@@ -490,11 +541,34 @@ namespace Logictracker.CicloLogistico
             trCalculado.Visible = chkRecorridoCalculado.Checked;
 
             var kmReales = 0.0;
+            var duracionReal = new TimeSpan();
             if (ciclo.InicioReal.HasValue)
-                kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, inicio, fin);
-            
-            lblKmReales.Text = kmReales.ToString("#0.00") + " Km";
-            lblKmProgramados.Text = ciclo.Detalles.Sum(d => d.KmCalculado).Value.ToString("#0.00") + " Km";
+            {
+                if (ciclo.Estado == ViajeDistribucion.Estados.EnCurso)
+                {
+                    kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, ciclo.InicioReal.Value, DateTime.UtcNow);
+                    duracionReal = DateTime.UtcNow.Subtract(ciclo.InicioReal.Value);
+                }
+                else if (ciclo.Estado == ViajeDistribucion.Estados.Cerrado)
+                {
+                    duracionReal = ciclo.Fin.Subtract(ciclo.InicioReal.Value);
+                    if (ciclo.Fin < DateTime.Today)
+                    {
+                        var dmViaje = DAOFactory.DatamartViajeDAO.GetRecords(ciclo.Id).FirstOrDefault();
+                        if (dmViaje != null) kmReales = dmViaje.KmTotales;
+                    }
+                    else
+                    {
+                        kmReales = DAOFactory.CocheDAO.GetDistance(ciclo.Vehiculo.Id, ciclo.InicioReal.Value, ciclo.Fin);
+                    }
+                }
+            }
+
+            lblKmReales.Text = kmReales.ToString("#0.00") + " Km - " + string.Format("{0}:{1}:{2} Hs", ((int)duracionReal.TotalHours).ToString("00"), duracionReal.Minutes.ToString("00"), duracionReal.Seconds.ToString("00"));
+            var inicioProgramado = ciclo.Detalles.Min(d => d.Programado);
+            var finProgramado = ciclo.Detalles.Max(d => d.Programado);
+            var duracionProgramada = finProgramado.Subtract(inicioProgramado);
+            lblKmProgramados.Text = ciclo.Detalles.Sum(d => d.KmCalculado).Value.ToString("#0.00") + " Km - " + string.Format("{0}:{1}:{2} Hs", ((int)duracionProgramada.TotalHours).ToString("00"), duracionProgramada.Minutes.ToString("00"), duracionProgramada.Seconds.ToString("00"));
         }
 
         protected void ShowPosicionesReportadas(Coche vehiculo, DateTime desde, DateTime hasta, Color color)
@@ -528,7 +602,15 @@ namespace Logictracker.CicloLogistico
         protected void ShowEventos(Coche vehiculo, DateTime desde, DateTime hasta, int viajeId)
         {
             if (vehiculo == null) return;
-            var codigos = new[] { MessageCode.CicloLogisticoIniciado.GetMessageCode(), MessageCode.EstadoLogisticoCumplido.GetMessageCode(), MessageCode.CicloLogisticoCerrado.GetMessageCode(), MessageCode.StoppedEvent.GetMessageCode() };
+            var codigos = new[] { MessageCode.CicloLogisticoIniciado.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplido.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode(),
+                                  MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), 
+                                  MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(), 
+                                  MessageCode.CicloLogisticoCerrado.GetMessageCode(), 
+                                  MessageCode.StoppedEvent.GetMessageCode() };
             var maxMonths = vehiculo.Empresa != null ? vehiculo.Empresa.MesesConsultaPosiciones : 3;
             var events = DAOFactory.LogMensajeDAO.GetEventos(new[] { vehiculo.Id }, codigos, desde, hasta, maxMonths);
             
@@ -538,16 +620,15 @@ namespace Logictracker.CicloLogistico
                 if (!el.HasValidLatitudes()) continue;
                 
                 var messageIconUrl = el.GetIconUrl();
-                if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplido.GetMessageCode())
-                {
-                    if (el.Texto.Contains("Entrada"))
-                        messageIconUrl = "flag_1_right_green_32.png";
-                    else if (el.Texto.Contains("Salida"))
-                        messageIconUrl = "flag_2_left_red_32.png";
-                    else if (el.Texto.Contains("Manual"))
-                        messageIconUrl = "flag_3_right_blue_32.png";
-                }
-                
+                if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode())
+                    messageIconUrl = "flag_1_right_green_32.png";
+                else if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode())
+                    messageIconUrl = "flag_2_left_red_32.png";
+                else if (el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode()
+                    || el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()
+                    || el.Mensaje.Codigo == MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode())
+                    messageIconUrl = "flag_3_right_blue_32.png";
+                                
                 var iconUrl = string.IsNullOrEmpty(messageIconUrl) ? ResolveUrl("~/point.png") : Path.Combine(IconDir, messageIconUrl);
                 var popupText = string.Format("{0}<br/><b>{1}</b>",el.Fecha.ToDisplayDateTime().ToString("dd-MM-yyyy HH:mm"), el.Texto);
                 
@@ -623,11 +704,10 @@ namespace Logictracker.CicloLogistico
             {
                 e.PuntoEntrega.ReferenciaGeografica.Observaciones = GetPuntoEntregaPopupContent(e.Id);
             }
-            ShowPuntos(entregas.OrderBy(e => e.Orden), 1, posicionar, modo);
+            ShowPuntos(entregas.OrderBy(e => e.Orden), posicionar, modo);
         }
-        protected void ShowPuntos(IEnumerable<EntregaDistribucion> entregas, int index, bool posicionar, int modo)
+        protected void ShowPuntos(IEnumerable<EntregaDistribucion> entregas, bool posicionar, int modo)
         {
-            var orden = index;
             ReferenciaGeografica toPosition = null;
             var viaje = entregas.First().Viaje;
             var vehiculo = viaje.Vehiculo;
@@ -701,7 +781,7 @@ namespace Logictracker.CicloLogistico
                     }
                 }
 
-                var text = orden.ToString("#0") + horario + eta;
+                var text = entrega.Orden.ToString("#0") + horario + eta;
                 var marker = MarkerFactory.CreateLabeledMarker("P:" + punto.Id, icono, punto.Latitude, punto.Longitude, text, style, punto.Observaciones);
                 monitor.AddMarkers(Layers.Puntos, marker);
                 if (posicionar)
@@ -709,7 +789,7 @@ namespace Logictracker.CicloLogistico
                     switch (modo)
                     {
                         case Modos.OrdenProgramado:
-                            if (txtOrdenProg.Text.Trim() == orden.ToString("#0"))
+                            if (txtOrdenProg.Text.Trim() == entrega.Orden.ToString("#0"))
                                 toPosition = punto;
                             break;
                         case Modos.OrdenReal:
@@ -738,8 +818,6 @@ namespace Logictracker.CicloLogistico
                     }
                 }
 
-                orden++;
-
                 if (punto.Poligono != null)
                 {
                     Geometry geocerca;
@@ -762,6 +840,13 @@ namespace Logictracker.CicloLogistico
             if (toPosition != null)
             {
                 PosicionarPunto(toPosition);
+                if (viajeEnCurso)
+                {
+                    var lastPosition = DAOFactory.LogPosicionDAO.GetLastVehiclePosition(vehiculo);
+                    var distancia = GeocoderHelper.CalcularDistacia(toPosition.Latitude, toPosition.Longitude, lastPosition.Latitud, lastPosition.Longitud);
+                    lblDistancia.Text = "Distancia: " + distancia.ToString("#0.00") + "km";
+                    lblDistancia.Visible = true;
+                }
                 if (toPosition.Poligono != null)
                 {
                     var color = Color.Black;

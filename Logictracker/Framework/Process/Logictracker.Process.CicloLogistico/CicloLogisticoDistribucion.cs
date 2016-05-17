@@ -16,8 +16,12 @@ using Logictracker.Process.CicloLogistico.Exceptions;
 using Logictracker.Process.Geofences.Classes;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
+using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Utils;
+using Logictracker.AVL.Messages;
+using Logictracker.Types.BusinessObjects.Rechazos;
+using Logictracker.Tracker.Application.Integration;
 
 namespace Logictracker.Process.CicloLogistico
 {
@@ -120,6 +124,10 @@ namespace Logictracker.Process.CicloLogistico
 
             DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
             SaveMessage(MessageCode.CicloLogisticoIniciado.GetMessageCode(), data.Date, Distribucion, null);
+
+            var docs = DaoFactory.DocumentoDAO.FindByVehiculo(Distribucion.Vehiculo.Id);
+            if (docs.Count() > 0 && docs.Any(d => d.EnviadoAviso3))
+                SaveMessage(MessageCode.CicloLogisticoIniciadoDocumentosInvalidos.GetMessageCode(), data.Date, Distribucion, null);
         }
 
         #endregion
@@ -128,9 +136,9 @@ namespace Logictracker.Process.CicloLogistico
 
         protected override void Process(CloseEvent data)
         {
-            if (Distribucion.Estado == ViajeDistribucion.Estados.Cerrado)
+            if (Distribucion.Estado != ViajeDistribucion.Estados.EnCurso)
             {
-                STrace.Debug(GetType().FullName, Distribucion.Vehiculo.Dispositivo.Id, "Se esta intentando cerrar un Ciclo Logistico de Distribucion que ya estaba cerrado");
+                STrace.Debug(GetType().FullName, Distribucion.Vehiculo.Dispositivo.Id, "Se esta intentando cerrar un Ciclo Logistico de Distribucion que no esta iniciado");
                 return;
             }
 
@@ -142,6 +150,15 @@ namespace Logictracker.Process.CicloLogistico
             {
                 detalle.Estado = detalle.Viaje.Empresa.EstadoCierreDistribucion;
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
+            }
+            foreach (var estadoCumplido in Distribucion.EstadosCumplidos)
+            {
+                if (!estadoCumplido.Inicio.HasValue || !estadoCumplido.Fin.HasValue)
+                {
+                    Distribucion.EstadosCumplidos.Remove(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                    DaoFactory.EstadoDistribucionDAO.Delete(estadoCumplido);
+                }   
             }
 
             // Informar al dispositivo que cierre la distribución
@@ -167,6 +184,12 @@ namespace Logictracker.Process.CicloLogistico
 
             SaveMessage(MessageCode.CicloLogisticoCerrado.GetMessageCode(), data.Date, Distribucion, null);
             ClearGeocercasCache();
+
+            if (Distribucion.Vehiculo.Empresa.IntegrationServiceEnabled)
+            {
+                var iService = new IntegrationService(DaoFactory);
+                iService.FinishReport(Distribucion);
+            }
 
             if (Distribucion.Empresa.InicioDistribucionSiguienteAlCerrar)
             {
@@ -216,6 +239,7 @@ namespace Logictracker.Process.CicloLogistico
                                     {
                                         detalle.Estado = EntregaDistribucion.Estados.Pendiente;
                                         detalle.Entrada = null;
+                                        detalle.Salida = null;
                                         var viaje = detalle.Viaje;                                        
                                         viaje.Estado = ViajeDistribucion.Estados.Pendiente;                                        
                                         viaje.InicioReal = null;
@@ -283,7 +307,7 @@ namespace Logictracker.Process.CicloLogistico
                 detalle.Entrada = data.Date;
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
 
-                SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Entrada (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                SaveMessage(MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                 SaveMessageAtraso(data, detalle);
             }
             else if (detalle.Salida.HasValue && !detalle.Viaje.Detalles.Any(entrega => entrega.Id != detalle.Id && entrega.Entrada.HasValue && entrega.Entrada.Value > detalle.Salida.Value))
@@ -298,7 +322,7 @@ namespace Logictracker.Process.CicloLogistico
                 detalle.Entrada = data.Date;
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
 
-                SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Entrada (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                SaveMessage(MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                 SaveMessageAtraso(data, detalle);
             }
         }
@@ -338,7 +362,7 @@ namespace Logictracker.Process.CicloLogistico
                     detalle.Estado = EntregaDistribucion.Estados.Visitado;
 
                 DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
-                SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Salida (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                SaveMessage(MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                 //SaveMessageAtraso(data, detalle);
 
                 //EnviarAvisoSiguienteDestino(detalle);
@@ -356,7 +380,7 @@ namespace Logictracker.Process.CicloLogistico
 
                     DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
                     
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), "Salida (" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode(), "(" + detalle.Orden + ") -> " + detalle.Viaje.Codigo + " - " + detalle.Descripcion, data, detalle.Viaje, detalle);
                     
                     //EnviarAvisoSiguienteDestino(detalle);
                 }
@@ -556,10 +580,10 @@ namespace Logictracker.Process.CicloLogistico
                     detalle.Estado = EntregaDistribucion.Estados.Completado;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
                     
-                    SaveMessage(MessageCode.GarminStopStatus.GetMessageCode(), ", <b>realizada satisfactoriamente<b>: " + destDetail, data);
+                    SaveMessage(MessageCode.GarminStopStatus.GetMessageCode(), ": " + destDetail, data);
                     
-                    var descriptiva = "Manual -> " + detalle.Viaje.Codigo + " - " + destDetail;
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
+                    var descriptiva = "-> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
                     SaveMessageAtraso(data, detalle);
 
                     var dest = new Destination(detalle.Id, 
@@ -573,6 +597,16 @@ namespace Logictracker.Process.CicloLogistico
                     var ms = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver)
                                           .AddDestinations(new[] { dest });
                     ms.Send();
+
+                    if (Distribucion.Vehiculo.Empresa.IntegrationServiceEnabled)
+                    {
+                        // Si no es la última entrega
+                        if (Distribucion.Detalles.Last().Id != detalle.Id)
+                        {
+                            var intService = new IntegrationService(DaoFactory);
+                            intService.ArrivalReport(Distribucion);
+                        }
+                    }
                     break;
                 case EntregaDistribucion.Estados.Completado:
                 case EntregaDistribucion.Estados.Cancelado:
@@ -665,7 +699,10 @@ namespace Logictracker.Process.CicloLogistico
             DaoFactory.Session.Refresh(detalle);
 
             var destDetail = detalle.Descripcion + " (" + detalle.Orden + ")";
-
+            
+            var gpsPoint = new GPSPoint(data.Date,
+                (float)detalle.ReferenciaGeografica.Latitude,
+                (float)detalle.ReferenciaGeografica.Longitude);
 
             switch (data.Estado)
             {
@@ -675,11 +712,11 @@ namespace Logictracker.Process.CicloLogistico
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, Distribucion.Vehiculo.Dispositivo.Id, "Error generando pregunta: Ya se ha confirmado la realización de la entrega(" + destDetail + ")");
                         return;
                     }
-                    if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado)
+                  /*  if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado && detalle.Viaje.Fin < data.Date)
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: El viaje " + detalle.Viaje.Codigo + " se encuentra cerrado.");
                         return;
-                    }
+                    }*/
 
                     detalle.Manual = data.Date;
                     detalle.Estado = EntregaDistribucion.Estados.Completado;
@@ -690,15 +727,13 @@ namespace Logictracker.Process.CicloLogistico
                     var text = "***";
                     if (messageDesc != null) text = messageDesc.Descripcion;
                     
-                    var descriptiva = "(Manual) <b>realizada satisfactoriamente<b>: " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + text;
+                    var descriptiva = ": " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + text;
                     
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descriptiva, data, detalle.Viaje, detalle);
                     SaveMessageAtraso(data, detalle);
 
                     var dest = new Destination(detalle.Id,
-                                               new GPSPoint(data.Date,
-                                                           (float)detalle.ReferenciaGeografica.Latitude,
-                                                           (float)detalle.ReferenciaGeografica.Longitude),
+                                               gpsPoint,
                                                detalle.Descripcion,
                                                detalle.PuntoEntrega.Descripcion,
                                                detalle.ReferenciaGeografica.Direccion.Descripcion);
@@ -712,22 +747,42 @@ namespace Logictracker.Process.CicloLogistico
                     detalle.Estado = EntregaDistribucion.Estados.Completado;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), ", <b>reactivada y confirmada<b>: " + destDetail, data);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), ", <b>reactivada y confirmada<b>: " + destDetail, data);
 
-                    var descripcion = "Manual -> " + detalle.Viaje.Codigo + " - " + destDetail;
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
+                    var descripcion = "-> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
                     SaveMessageAtraso(data, detalle);
 
                     var destiny = new Destination(detalle.Id,
-                                               new GPSPoint(data.Date,
-                                                           (float)detalle.ReferenciaGeografica.Latitude,
-                                                           (float)detalle.ReferenciaGeografica.Longitude),
+                                               gpsPoint,
                                                detalle.Descripcion,
                                                detalle.PuntoEntrega.Descripcion,
                                                detalle.ReferenciaGeografica.Direccion.Descripcion);
 
                     var msg = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver).AddDestinations(new[] { destiny });
                     msg.Send();
+
+                    break;
+                case EntregaDistribucion.Estados.Pendiente:
+                    detalle.Manual = null;
+                    detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                    DaoFactory.ViajeDistribucionDAO.Update(detalle.Viaje);
+
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), ", <b>reactivada y pendiente<b>: " + destDetail, data);
+
+                    descripcion = "-> " + detalle.Viaje.Codigo + " - " + destDetail;
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(), descripcion, data, detalle.Viaje, detalle);
+                    SaveMessageAtraso(data, detalle);
+
+                    destiny = new Destination(detalle.Id,
+                                               gpsPoint,
+                                               detalle.Descripcion,
+                                               detalle.PuntoEntrega.Descripcion,
+                                               detalle.ReferenciaGeografica.Direccion.Descripcion);
+
+                    msg = MessageSender.CreateUnloadStop(Distribucion.Vehiculo.Dispositivo, MessageSaver).AddDestinations(new[] { destiny });
+                    msg.Send();
+
                     break;
                 case EntregaDistribucion.Estados.Cancelado:
                 case EntregaDistribucion.Estados.NoCompletado:
@@ -736,13 +791,14 @@ namespace Logictracker.Process.CicloLogistico
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: Ya se ha confirmado la realización de la entrega(" + destDetail + ")");
                         return;
                     }
-                    if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado)
+                   /* if (detalle.Viaje.Estado == ViajeDistribucion.Estados.Cerrado)
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, detalle.Viaje.Vehiculo.Dispositivo.Id, "Error generando pregunta: El viaje " + detalle.Viaje.Codigo + " se encuentra cerrado.");
                         return;
-                    }
+                    }*/
 
                     detalle.Manual = data.Date;
+                    detalle.Estado = EntregaDistribucion.Estados.NoCompletado;
                     DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
 
                     var textMessage = DaoFactory.MensajeDAO.GetByCodigo(data.MessageId.ToString(), detalle.Viaje.Vehiculo.Dispositivo.Id);
@@ -750,9 +806,9 @@ namespace Logictracker.Process.CicloLogistico
                     var textMessageDesc = "***";
                     if (textMessage != null) textMessageDesc = textMessage.Descripcion;
 
-                    var descriptiva2 = "(Manual) <b>no realizada<b>: " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + textMessageDesc;
+                    var descriptiva2 = ": " + detalle.Viaje.Codigo + " - " + destDetail + " -> " + textMessageDesc;
                     
-                    SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), descriptiva2, data, detalle.Viaje, detalle);
+                    SaveMessage(MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(), descriptiva2, data, detalle.Viaje, detalle);
                     
                     //SaveMessage(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), ", <b>se ha arribado al destino</b>: " + destDetail, data);
                     //SaveMessage(MessageCode.GarminStopStatusDeleted.GetMessageCode(), ", <b>entrega eliminada del dispositivo remoto</b>: " + destDetail, data);
@@ -773,13 +829,82 @@ namespace Logictracker.Process.CicloLogistico
                     {
                         STrace.Error(typeof(CicloLogisticoDistribucion).FullName, Distribucion.Vehiculo.Dispositivo.Id, "Error generando pregunta: No se han encontrado Canned Responses (" + destDetail + ")");
                     }
+
+                    if (detalle.Viaje.Empresa.DistribucionGeneraRechazo)
+                    {
+                        STrace.Error("RECHAZO", "DistribucionGeneraRechazo");
+                        var chofer = detalle.Viaje.Vehiculo.Chofer;
+                        if (chofer != null)
+                        {
+                            try
+                            {
+                                var rechazo = new TicketRechazo(textMessageDesc, chofer, data.Date);
+                                rechazo.Empresa = detalle.Viaje.Empresa;
+                                rechazo.Linea = detalle.Viaje.Linea;
+                                rechazo.Transportista = detalle.Viaje.Transportista ?? detalle.Viaje.Vehiculo.Transportista;
+                                rechazo.Cliente = detalle.PuntoEntrega.Cliente;
+                                rechazo.Entrega = detalle.PuntoEntrega;
+                                rechazo.Bultos = detalle.Bultos;
+                                var vendedor = detalle.PuntoEntrega.Responsable;
+                                rechazo.Vendedor = vendedor;
+                                var supervisorVenta = vendedor != null ? vendedor.Reporta1 : null;
+                                rechazo.SupervisorVenta = supervisorVenta;
+                                var supervisorRuta = supervisorVenta != null ? supervisorVenta.Reporta1 : null;
+                                rechazo.SupervisorRuta = supervisorRuta;
+                                rechazo.Motivo = (TicketRechazo.MotivoRechazo) data.MessageId;
+
+                                STrace.Error("RECHAZO", "Guardando");                            
+                                DaoFactory.TicketRechazoDAO.SaveOrUpdate(rechazo);
+
+                                if (vendedor != null)
+                                {
+                                    var coche = DaoFactory.CocheDAO.FindByChofer(vendedor.Id);
+                                    if (coche != null)
+                                    {
+                                        var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(data.MessageId.ToString(), coche.Empresa, coche.Linea);
+                                        if (mensajeVo != null)
+                                        {
+                                            var mensaje = DaoFactory.MensajeDAO.FindById(mensajeVo.Id);
+
+                                            var newEvent = new LogMensaje
+                                            {
+                                                Coche = coche,
+                                                Chofer = vendedor,
+                                                Dispositivo = coche.Dispositivo,
+                                                Expiracion = data.Date.AddDays(1),
+                                                Fecha = data.Date,
+                                                FechaAlta = DateTime.UtcNow,
+                                                FechaFin = data.Date,
+                                                IdCoche = coche.Id,
+                                                Latitud = data.Latitud,
+                                                LatitudFin = data.Latitud,
+                                                Longitud = data.Longitud,
+                                                LongitudFin = data.Longitud,
+                                                Mensaje = mensaje,
+                                                Texto = "INFORME DE RECHAZO NRO " + rechazo.Id + ": " + mensaje.Descripcion + " -> " + rechazo.Entrega.Descripcion
+                                            };
+
+                                            DaoFactory.LogMensajeDAO.Save(newEvent);
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                STrace.Exception("RECHAZO", ex);
+                            }
+                        }                        
+                        else
+                        {
+                            STrace.Error("RECHAZO", "chofer == null");
+                        }
+                    }
                     break;
                 default:
                     return;
             }
-            detalle.Estado = data.Estado == EntregaDistribucion.Estados.Cancelado ? EntregaDistribucion.Estados.NoCompletado : data.Estado;
 
-            DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(detalle.Viaje);
+            SaveConfirmationMessage(gpsPoint, detalle, data.MessageId.ToString());
 
             try
             {
@@ -804,6 +929,7 @@ namespace Logictracker.Process.CicloLogistico
                 STrace.Exception(GetType().FullName, ex);
             }
         }
+
 
         #endregion
 
@@ -855,11 +981,123 @@ namespace Logictracker.Process.CicloLogistico
 
         #endregion
 
+        #region EstadoLogistico
+
+        public void ProcessEstadoLogistico(Event evento, string code)
+        {
+            if (Distribucion.TipoCicloLogistico != null)
+            {
+                var estados = Distribucion.TipoCicloLogistico.Estados;
+                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == code);
+                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == code);
+
+                foreach (var item in aCerrar)
+                {
+                    if (item.ControlInverso)
+                    {
+                        if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id))
+                            continue;
+
+                        var inicio = DaoFactory.LogMensajeDAO.GetLastByVehicleAndCode(Distribucion.Vehiculo.Id, item.MensajeInicio.Codigo, Distribucion.InicioReal.Value, evento.GeoPoint.Date, 1);
+                        if (inicio != null)
+                        {
+                            var estadoCumplido = new EstadoDistribucion();
+                            estadoCumplido.EstadoLogistico = item;
+                            estadoCumplido.Inicio = inicio.Fecha;
+                            estadoCumplido.Fin = evento.GeoPoint.Date;
+                            estadoCumplido.Viaje = Distribucion;
+                            Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                        }
+                    }
+                    else
+                    {
+                        var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                        foreach (var abierto in abiertos)
+                        {
+                            abierto.Fin = evento.GeoPoint.Date;
+                        }
+                    }
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+
+                foreach (var item in aIniciar)
+                {
+                    if (item.ControlInverso) continue;
+                    if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id)) continue;
+
+                    var estadoCumplido = new EstadoDistribucion();
+                    estadoCumplido.EstadoLogistico = item;
+                    estadoCumplido.Inicio = evento.GeoPoint.Date;
+                    estadoCumplido.Viaje = Distribucion;
+                    Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+            }
+        }
+
+        public void ProcessEstadoLogistico(string codigo, DateTime fecha, int idGeocerca)
+        {
+            if (Distribucion.TipoCicloLogistico != null)
+            {
+                var estados = Distribucion.TipoCicloLogistico.Estados;
+                var tipoGeocerca = DaoFactory.ReferenciaGeograficaDAO.FindById(idGeocerca).TipoReferenciaGeografica;
+                var aIniciar = estados.Where(e => e.MensajeInicio != null && e.MensajeInicio.Codigo == codigo);
+                var aCerrar = estados.Where(e => e.MensajeFin != null && e.MensajeFin.Codigo == codigo);
+
+                foreach (var item in aCerrar)
+                {
+                    if (item.TipoGeocercaFin != null && item.TipoGeocercaFin.Id != tipoGeocerca.Id) continue;
+
+                    if (item.ControlInverso)
+                    {
+                        if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id)) continue;
+
+                        var inicio = DaoFactory.LogMensajeDAO.GetLastBySPVehicleAndCode(Distribucion.Vehiculo.Id, item.MensajeInicio.Codigo, Distribucion.InicioReal.Value, fecha);
+                        if (inicio != null)
+                        {
+                            var estadoCumplido = new EstadoDistribucion();
+                            estadoCumplido.EstadoLogistico = item;
+                            estadoCumplido.Inicio = inicio.Fecha;
+                            estadoCumplido.Fin = fecha;
+                            estadoCumplido.Viaje = Distribucion;
+                            Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                        }
+                    }
+                    else
+                    {
+                        var abiertos = Distribucion.EstadosCumplidos.Where(ec => ec.EstadoLogistico.Id == item.Id && ec.Inicio.HasValue && !ec.Fin.HasValue);
+                        foreach (var abierto in abiertos)
+                        {
+                            abierto.Fin = fecha;
+                        }
+                    }
+
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+
+                foreach (var item in aIniciar)
+                {
+                    if (item.ControlInverso) continue;
+                    if (!item.Iterativo && Distribucion.EstadosCumplidos.Any(e => e.EstadoLogistico.Id == item.Id)) continue;
+                    if (item.TipoGeocercaInicio != null && item.TipoGeocercaInicio.Id != tipoGeocerca.Id) continue;
+
+                    var estadoCumplido = new EstadoDistribucion();
+                    estadoCumplido.EstadoLogistico = item;
+                    estadoCumplido.Inicio = fecha;
+                    estadoCumplido.Viaje = Distribucion;
+                    Distribucion.EstadosCumplidos.Add(estadoCumplido);
+                    DaoFactory.ViajeDistribucionDAO.SaveOrUpdate(Distribucion);
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region AutoClose
 
-        protected override void AutoCloseTicket()
+        protected override void AutoCloseTicket(DateTime date)
         {
             if (Distribucion.Estado == ViajeDistribucion.Estados.Eliminado ||
                 Distribucion.Estado == ViajeDistribucion.Estados.Anulado ||
@@ -872,7 +1110,7 @@ namespace Logictracker.Process.CicloLogistico
                 var ultimo = Distribucion.Detalles.Last(d => d.Linea != null);
                 if (ultimo.Entrada.HasValue)
                 {
-                    CerrarDistribucion();
+                    CerrarDistribucion(ultimo.Entrada.Value);
                     STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por regreso a base.", Distribucion.Id));
                     return;
                 }
@@ -886,7 +1124,7 @@ namespace Logictracker.Process.CicloLogistico
                         Distribucion.EntregasTotalCountConBases > 0 && 
                         Distribucion.Detalles.Last().Salida.HasValue)
                     {
-                        CerrarDistribucion();
+                        CerrarDistribucion(Distribucion.Detalles.Last().Salida.Value);
                         STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por cumplir última entrega.", Distribucion.Id));
                         return;
                     }
@@ -894,10 +1132,11 @@ namespace Logictracker.Process.CicloLogistico
                 else
                 {
                     // Si todas las entregas ya fueron realizadas cierro el ticket.
+                    var entregas = Distribucion.Detalles.Where(d => d.PuntoEntrega != null);
                     if (Distribucion.Empresa.CierreDistribucionCompleta &&
-                        Distribucion.Detalles.Where(d => d.PuntoEntrega != null).All(d => EntregaDistribucion.Estados.EstadosFinales.Contains(d.Estado)))
+                        entregas.All(d => EntregaDistribucion.Estados.EstadosFinales.Contains(d.Estado)))
                     {
-                        CerrarDistribucion();
+                        CerrarDistribucion(date);
                         STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por cumplir todas las entregas.", Distribucion.Id));
                         return;
                     }
@@ -909,14 +1148,14 @@ namespace Logictracker.Process.CicloLogistico
             var close = cerrarPorTiempo && Distribucion.Fin.AddMinutes(Distribucion.Empresa.EndMarginMinutes) < DateTime.UtcNow;
             if (close)
             {
-                CerrarDistribucion();
+                CerrarDistribucion(date);
                 STrace.Trace("CierreCicloLogistico", Distribucion.Vehiculo != null && Distribucion.Vehiculo.Dispositivo != null ? Distribucion.Vehiculo.Dispositivo.Id : 0, string.Format("Viaje {0} a cerrar por tiempo.", Distribucion.Id));
             }
         }
 
-        public void CerrarDistribucion()
+        public void CerrarDistribucion(DateTime date)
         {
-            var evento = EventFactory.GetCloseEvent(DateTime.UtcNow, true);
+            var evento = EventFactory.GetCloseEvent(date, true);
             Process(evento as CloseEvent);
         }
 
@@ -949,7 +1188,7 @@ namespace Logictracker.Process.CicloLogistico
             // Descarto si no hay detalles a procesar
             if (Entregas.Count == 0) return true;
 
-            // Si esta eliminado, no se procesa un carajo
+            // Si esta eliminado, no se procesa 
             if (Distribucion.Estado == ViajeDistribucion.Estados.Eliminado) return true;
 
             bool isInit = data.EventType == EventTypes.Init;
@@ -1004,6 +1243,28 @@ namespace Logictracker.Process.CicloLogistico
                             new GPSPoint(data.Date, (float) data.Latitud, (float) data.Longitud),
                             data.Date);
             }
+        }
+
+        private void SaveConfirmationMessage(GPSPoint gpsPoint, EntregaDistribucion entrega, string codigoMensaje)
+        {
+            //static IEvent GetEvent(DAOFactory daoFactory, GPSPoint inicio, string codigo, Int32? idPuntoDeInteres,
+            //Int64 extraData, Int64 extraData2, Int64 extraData3, Coche vehiculo, Empleado chofer)
+            // extraData = ID Device
+            // extraData2 = ID Entrega
+            // extraData3 = Codigo Mensaje
+            //var mensajeVo = DaoFactory.MensajeDAO.GetByCodigo(codigoMensaje.ToString("#0"), veh.Empresa, veh.Linea);
+
+            var descriptiva = " - " + entrega.Viaje.Codigo + " - " + entrega.Descripcion;
+
+            var ms = new MessageSaver(DaoFactory);
+            var log = ms.Save(null, Convert.ToString(codigoMensaje), entrega.Viaje.Vehiculo.Dispositivo, entrega.Viaje.Vehiculo, entrega.Viaje.Empleado, gpsPoint.Date, gpsPoint, descriptiva, entrega.Viaje, entrega);
+
+            try
+            {
+                entrega.MensajeConfirmacion = log as LogMensaje;
+                DaoFactory.EntregaDistribucionDAO.SaveOrUpdate(entrega);
+            }
+            catch (Exception){ }
         }
 
         #endregion
@@ -1144,5 +1405,29 @@ namespace Logictracker.Process.CicloLogistico
         }
 
         #endregion
+
+        public void Regenerar(DateTime desde, DateTime hasta)
+        {
+            Regeneracion = true;
+            var maxMonths = Vehiculo.Empresa != null ? Vehiculo.Empresa.MesesConsultaPosiciones : 3;
+            var logMensajes = DaoFactory.LogMensajeDAO.GetEvents(Vehiculo.Id, desde, hasta, maxMonths);
+
+            foreach (var logMensaje in logMensajes)
+            {
+                if (logMensaje.Latitud == 0 || logMensaje.Longitud == 0)
+                {
+                    var pos = DaoFactory.LogPosicionDAO.GetFirstPositionOlderThanDate(Vehiculo.Id, logMensaje.Fecha, maxMonths);
+                    logMensaje.Latitud = pos.Latitud;
+                    logMensaje.Longitud = pos.Longitud;
+                    DaoFactory.LogMensajeDAO.SaveOrUpdate(logMensaje);
+                }
+                var evento = EventFactory.GetEvent(DaoFactory, logMensaje);
+                if (evento == null) continue;
+                ProcessEvent(evento, true);
+                
+                if (Distribucion.Estado == ViajeDistribucion.Estados.Cerrado) break;
+            }
+            Regeneracion = false;
+        } 
     }
 }

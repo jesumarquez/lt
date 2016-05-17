@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DateTimePicker.ascx.cs" Inherits="Logictracker.App_Controls.Pickers.App_Controls_DateTimePicker" %>
+<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="DateTimePicker.ascx.cs" Inherits="Logictracker.App_Controls.Pickers.App_Controls_DateTimePicker" %>
 
 <style type="text/css">
     .ajax__calendar_container {width:130px;font-size:9px;}

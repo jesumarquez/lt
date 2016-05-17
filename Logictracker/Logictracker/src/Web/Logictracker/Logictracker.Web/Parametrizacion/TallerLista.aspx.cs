@@ -15,10 +15,13 @@ namespace Logictracker.Parametrizacion
 
         protected override List<TallerVo> GetListData()
         {
-            return DAOFactory.TallerDAO.FindAll().Where(t => !t.Baja)
-                             .Select(t => new TallerVo(t))
-                             .ToList();
+                return DAOFactory.TallerDAO.GetList(ddlDistrito.SelectedValues, 
+                                               ddlBase.SelectedValues)
+                            .Where(t=>!t.Baja)
+                            .Select(t=> new TallerVo(t))
+                            .ToList();
         }
+    
 
         protected override void OnRowDataBound(C1GridView grid, C1GridViewRowEventArgs e, TallerVo dataItem)
         {

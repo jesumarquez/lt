@@ -15,6 +15,21 @@ namespace Logictracker.Types.BusinessObjects.Messages
             public const short FrenadaBrusca = 3;
             public const short AceleracionBrusca = 4;
             public const short BateriaDesconectada = 5;
+            public const short Panico = 6;
+
+            public static string GetLabelVariableName(short codigo)
+            {
+                switch (codigo)
+                {
+                    case ExcesoVelocidad: return "EXCESO_VELOCIDAD";
+                    case ExcesoRpm: return "EXCESO_RPM";
+                    case FrenadaBrusca: return "FRENADA_BRUSCA";
+                    case AceleracionBrusca: return "ACELERACION_BRUSCA";
+                    case BateriaDesconectada: return "BATERIA_DESCONECTADA";
+                    case Panico: return "PANICO";
+                    default: return string.Empty;
+                }
+            }
         }
         public virtual int Id { get; set; }
         public virtual Type TypeOf() { return GetType(); }

@@ -4,6 +4,9 @@ using System.Web.UI.WebControls;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.CicloLogistico;
 using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.Web.Controls;
+using Logictracker.Messages.Saver;
+using Logictracker.Messaging;
 
 namespace Logictracker.Web.CicloLogistico
 {
@@ -24,6 +27,18 @@ namespace Logictracker.Web.CicloLogistico
             {
                 dtpDesde.SetDate();
                 dtpHasta.SetDate();
+                SetContextKey();
+
+                if (EditMode)
+                {
+                    auEmpleado.Visible = false;
+                    cbEmpleado.Visible = true;
+                }
+                else
+                {
+                    auEmpleado.Visible = true;
+                    cbEmpleado.Visible = false;
+                }
             }
         }
 
@@ -31,10 +46,12 @@ namespace Logictracker.Web.CicloLogistico
         {
             cbEmpresa.SetSelectedValue(EditObject.Empresa.Id);
             cbLinea.SetSelectedValue(EditObject.Linea.Id);
+            cbDepartamento.SetSelectedValue(EditObject.Departamento != null ? EditObject.Departamento.Id : cbDepartamento.AllValue);
             dtpDesde.SelectedDate = EditObject.FechaDesde.ToDisplayDateTime();
             dtpHasta.SelectedDate = EditObject.FechaHasta.ToDisplayDateTime();
             lblDtDesde.Text = EditObject.FechaDesde.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm");
             lblDtHasta.Text = EditObject.FechaHasta.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm");
+            txtDestino.Text = EditObject.Destino;
 
             cbVehiculo.Items.Clear();
             cbVehiculo.Items.Add(new ListItem(EditObject.Vehiculo.Interno, EditObject.Vehiculo.Id.ToString("#0")));
@@ -48,6 +65,7 @@ namespace Logictracker.Web.CicloLogistico
                 btnCancelar.Visible = true;
                 cbEmpresa.Enabled = false;
                 cbLinea.Enabled = false;
+                cbDepartamento.Enabled = false;
                 cbVehiculo.Enabled = false;
                 cbEmpleado.Enabled = false;
                 cbTurno.Enabled = false;
@@ -57,6 +75,14 @@ namespace Logictracker.Web.CicloLogistico
                 lblDtHasta.Visible = true;
                 btnConsultar.Enabled = false;
                 btnCancelar.Visible = EditObject.Estado != AgendaVehicular.Estados.Cancelado;
+                auEmpleado.Visible = false;
+                cbEmpleado.Visible = true;
+                txtDestino.Enabled = false;
+            }
+            else
+            {
+                auEmpleado.Visible = true;
+                cbEmpleado.Visible = false;
             }
         }
 
@@ -91,8 +117,8 @@ namespace Logictracker.Web.CicloLogistico
             ValidateEntity(int.Parse(cbVehiculo.SelectedValue), "PARENTI03");
             ValidateEntity(int.Parse(cbEmpleado.SelectedValue), "PARENTI09");
 
-            if (dtpDesde.SelectedDate.Value < DateTime.UtcNow) ThrowInvalidValue("FECHA_DESDE");
-            if (dtpHasta.SelectedDate.Value <= dtpDesde.SelectedDate.Value) ThrowInvalidValue("FECHA_HASTA");
+            if (dtpDesde.SelectedDate.Value < DateTime.UtcNow.ToDisplayDateTime()) ThrowInvalidValue("DESDE");
+            if (dtpHasta.SelectedDate.Value <= dtpDesde.SelectedDate.Value) ThrowInvalidValue("HASTA");
 
             var documentos = DAOFactory.DocumentoDAO.FindVencidosForEmpleado(int.Parse(cbEmpleado.SelectedValue), dtpHasta.SelectedDate.Value);
             if (documentos.Any()) ThrowError("EMPLEADO_DOC_VENCIDO");
@@ -102,30 +128,41 @@ namespace Logictracker.Web.CicloLogistico
         {
             EditObject.Empresa = DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected);
             EditObject.Linea = DAOFactory.LineaDAO.FindById(cbLinea.Selected);
+            EditObject.Departamento = cbDepartamento.Selected > 0 ? DAOFactory.DepartamentoDAO.FindById(cbDepartamento.Selected) : null;
             EditObject.Vehiculo = DAOFactory.CocheDAO.FindById(int.Parse(cbVehiculo.SelectedValue));
-            EditObject.Empleado = DAOFactory.EmpleadoDAO.FindById(int.Parse(cbEmpleado.SelectedValue));
+            EditObject.Empleado = DAOFactory.EmpleadoDAO.FindById(auEmpleado.Selected);
             EditObject.Turno = cbTurno.Selected > 0 ? DAOFactory.ShiftDAO.FindById(cbTurno.Selected) : null;
 
             EditObject.FechaDesde = dtpDesde.SelectedDate.Value.ToDataBaseDateTime();
             EditObject.FechaHasta = dtpHasta.SelectedDate.Value.ToDataBaseDateTime();
+            EditObject.Destino = txtDestino.Text;
 
             DAOFactory.AgendaVehicularDAO.SaveOrUpdate(EditObject);
+
+            var msgSaver = new MessageSaver(DAOFactory);
+            msgSaver.Save(MessageCode.VehiculoAgendado.GetMessageCode(), EditObject.Vehiculo, EditObject.Empleado, DateTime.UtcNow, null, string.Format("Vehículo {0} asignado a {1}", EditObject.Vehiculo.Patente, EditObject.Empleado.Entidad != null ? EditObject.Empleado.Entidad.Descripcion : string.Empty));
         }
 
         protected void BtnConsultarOnClick(object sender, EventArgs e)
         {
             var agendas = DAOFactory.AgendaVehicularDAO.GetList(cbEmpresa.SelectedValues,
                                                                 cbLinea.SelectedValues,
-                                                                new[] {-1},
+                                                                new[] { -1 },
+                                                                new[] { -1 },
                                                                 dtpDesde.SelectedDate.Value.ToDataBaseDateTime(),
-                                                                dtpHasta.SelectedDate.Value.ToDataBaseDateTime());
+                                                                dtpHasta.SelectedDate.Value.ToDataBaseDateTime())
+                                                       .Where(a => a.Estado == AgendaVehicular.Estados.EnCurso || a.Estado == AgendaVehicular.Estados.Reservado);
 
             var asignados = agendas.Select(a => a.Vehiculo).Distinct();
-            var vehiculos = DAOFactory.CocheDAO.GetList(cbEmpresa.SelectedValues, cbLinea.SelectedValues);
+            var vehiculos = DAOFactory.CocheDAO.GetList(cbEmpresa.SelectedValues, cbLinea.SelectedValues, new[]{-1}, new[]{-1}, new[]{-1});
             var noAsignados = vehiculos.Where(v => !asignados.Contains(v));
 
+            var disponibles = noAsignados.Where(v => v.Departamento != null && v.Departamento.Id == cbDepartamento.Selected);
+            if (!disponibles.Any())
+                disponibles = noAsignados.Where(v => v.Departamento == null);
+            
             cbVehiculo.Items.Clear();
-            foreach (var vehiculo in noAsignados) cbVehiculo.Items.Add(new ListItem(vehiculo.Interno, vehiculo.Id.ToString("#0")));
+            foreach (var vehiculo in disponibles) cbVehiculo.Items.Add(new ListItem(vehiculo.Interno, vehiculo.Id.ToString("#0")));
             cbVehiculo.Enabled = true;
         }
 
@@ -133,6 +170,15 @@ namespace Logictracker.Web.CicloLogistico
         {
             cbVehiculo.Items.Clear();
             cbVehiculo.Enabled = false;
+        }
+        protected void SetContextKey()
+        {
+            auEmpleado.ContextKey = AutoCompleteTextBox.CreateContextKey(new[] { cbEmpresa.Selected },
+                                                                         new[] { cbLinea.Selected },
+                                                                         new[] { -1 },
+                                                                         new[] { -1 },
+                                                                         new[] { -1 },
+                                                                         new[] { cbDepartamento.Selected });
         }
     }
 }

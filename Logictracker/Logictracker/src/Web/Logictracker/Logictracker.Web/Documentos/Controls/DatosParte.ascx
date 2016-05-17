@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DatosParte.ascx.cs" Inherits="Logictracker.Documentos.Controls.DatosParte" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Logictracker.Documentos.Controls.DatosParte" Codebehind="DatosParte.ascx.cs" %>
 <style type="text/css">
 .parte_tit
 {

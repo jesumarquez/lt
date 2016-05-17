@@ -122,8 +122,8 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         /// <returns></returns>
         public IEnumerable<Coche> FindAllActivos()
         {
-            var dc = GetDetachedCriteria(false);
-            dc.Add(Restrictions.Lt("Estado", Coche.Estados.Inactivo));
+            var dc = GetDetachedCriteria(true);
+            dc.Add(Restrictions.Lt("Estado", Coche.Estados.EnMantenimiento));
             var c = GetCriteria(dc, null);
             return c.List<Coche>();
         }
@@ -135,7 +135,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         public IEnumerable<Coche> FindAllAssigned()
         {
             var dc = GetDetachedCriteria(true);
-            dc.Add(Restrictions.Lt("Estado", Coche.Estados.Inactivo));
+            dc.Add(Restrictions.Not(Restrictions.Eq("Estado", Coche.Estados.Inactivo)));
             var c = GetCriteria(dc, null);
             return c.List<Coche>();
         }
@@ -149,6 +149,18 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         public Coche FindByPatente(int empresa, string patente)
         {
             return Query.FilterEmpresa(Session, new[]{ empresa }).FirstOrDefault(c => c.Patente == patente);
+        }
+
+        public Coche FindByPatente(IEnumerable<int> empresas, string patente)
+        {
+            return Query.FilterEmpresa(Session, empresas).FirstOrDefault(c => c.Patente == patente);
+        }
+
+        public IEnumerable<Coche> FindByPatentes(int empresa, IEnumerable<string> patentes)
+        {
+            return Query.FilterEmpresa(Session, new[] { empresa })
+                        .Where(v => patentes.Contains(v.Patente))
+                        .ToList();
         }
 
         public Coche FindByInterno(IEnumerable<int> empresas, IEnumerable<int> lineas, string interno)
@@ -234,14 +246,18 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         {
             return Query.FilterEmpresa(Session, empresas, user)
                         .FilterLinea(Session, empresas, lineas, user)
-                        .FilterTipoVehiculo(Session, empresas, lineas, tipoVehiculo, user)
-                        ;
+                        .FilterTipoVehiculo(Session, empresas, lineas, tipoVehiculo, user);
         }
 
         public List<Coche> FindByModelo(int modelo)
         {
             var dc = GetDetachedCriteriaForModelo(0, modelo);
             return GetCriteria(dc, null).List<Coche>().ToList();
+        }
+
+        public List<Coche> FindByTipo(int tipo)
+        {
+            return Query.FilterTipoVehiculo(Session, new[]{-1}, new[]{-1}, new[]{tipo}).ToList();
         }
 
         #endregion
@@ -290,7 +306,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
                 coche.NroChasis = generico;
                 coche.NroMotor = generico;
                 coche.Patente = generico;
-                coche.Poliza = generico;
+                coche.Poliza = generico.Length > 16 ? generico.Substring(0, 16) : generico;
                 coche.TipoCoche = tipoCocheDAO.FindByEmpresasAndLineas(new List<int> {idEmpresa}, new List<int> {-1}, null)
                                               .Cast<TipoCoche>().First();
             }
@@ -442,6 +458,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
             var includesAllLineas = QueryExtensions.IncludesAll(lineas);
             var includesAllCostCenters = QueryExtensions.IncludesAll(costCenters);
             var includesAllDepartamentos = QueryExtensions.IncludesAll(departamentos);
+            var includesNoneDepartamentos = QueryExtensions.IncludesNone(departamentos);
             var includesAllCostSubCenters = QueryExtensions.IncludesAll(costSubCenters);
             var includesAllTransportistas = QueryExtensions.IncludesAll(transportistas);
             var includesAllTipoEmpleados = QueryExtensions.IncludesAll(tipoEmpleados);
@@ -493,12 +510,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
             if (!includesAllTipoVehiculo)
                 dc.CreateAlias("TipoCoche", "tc").Add(Restrictions.In("tc.Id", tipoVehiculo.ToArray()));
 
-            if (!includesAllDepartamentos)
+            if (includesNoneDepartamentos)
+                dc.Add(Restrictions.IsNull("Departamento"));
+            else if (!includesAllDepartamentos)
                 dc.CreateAlias("Departamento", "dep").Add(Restrictions.In("dep.Id", departamentos.ToArray()));
-
+            
             if (!includesAllCostCenters || !includesAllDepartamentos || (user != null && user.PorCentroCostos))
             {
-                dc.CreateAlias("CentroDeCostos", "cdc");
+                
                 //if (!includesAllDepartamentos)
                 //{
                 //    var dcD = DetachedCriteria.For<CentroDeCostos>("dcdc")
@@ -509,7 +528,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
                 //}
 
                 if (!includesAllCostCenters || user.PorCentroCostos)
-                    dc.Add(Restrictions.In("cdc.Id", costCenters.ToArray()));
+                    dc.CreateAlias("CentroDeCostos", "cdc").Add(Restrictions.In("cdc.Id", costCenters.ToArray()));
             }
 
             if (!includesAllCostSubCenters)
@@ -669,11 +688,9 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         /// <returns></returns>
         public double GetDistance(int coche, DateTime inicio, DateTime fin)
         {
-
-
             var distance = 0.0;
 
-            if (fin < DateTime.Today)
+            if (fin < DateTime.Today.ToDataBaseDateTime())
             {
                 var dmDAO = new DatamartDAO();
                 var dm = dmDAO.GetMobilesKilometers(inicio, fin, new List<int> {coche}).FirstOrDefault();
@@ -710,6 +727,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Vehiculos
         public double GetRunningHours(int coche, DateTime inicio, DateTime fin)
         {
             var time = 0.0;
+
+            if (fin < DateTime.Today.ToDataBaseDateTime())
+            {
+                var dmDAO = new DatamartDAO();
+                var dm = dmDAO.GetMobilesTimes(inicio, fin, new List<int> { coche }).FirstOrDefault();
+                return dm != null ? dm.ElapsedTime : 0.0;
+            }
 
             var lpDAO = new LogPosicionDAO();
             var results = lpDAO.GetPositionsBetweenDates(coche, inicio, fin);

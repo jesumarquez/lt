@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
@@ -9,6 +10,7 @@ using Logictracker.Types.BusinessObjects.Tickets;
 using Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces;
 using Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces.BussinessObjects;
 using Logictracker.Web.CustomWebControls.DropDownLists;
+using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 
 namespace Logictracker.Web.CustomWebControls.Binding
 {
@@ -152,8 +154,29 @@ namespace Logictracker.Web.CustomWebControls.Binding
                            {
                                {DataMartsLog.Moludos.DatamartEntregas, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.DatamartEntregas) },
                                {DataMartsLog.Moludos.DatamartRecorridos, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.DatamartRecorridos) },
-                               {DataMartsLog.Moludos.DatamartRutas, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.DatamartRutas)}
+                               {DataMartsLog.Moludos.DatamartRutas, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.DatamartRutas)},
+                               {DataMartsLog.Moludos.DatamartEstadoVehiculos, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.DatamartEstadoVehiculos)},
+                               {DataMartsLog.Moludos.DatamartTramos, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.DatamartTramos)},
+                               {DataMartsLog.Moludos.ExcesoVelocidadSitrack, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.ExcesoVelocidadSitrack)},
+                               {DataMartsLog.Moludos.ReportScheduler, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.ReportScheduler)},
+                               {DataMartsLog.Moludos.VehicleData, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.VehicleData)},
+                               {DataMartsLog.Moludos.VencimientoDocumentos, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.VencimientoDocumentos)},
+                               {DataMartsLog.Moludos.GeneracionInversa, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.GeneracionInversa)},
+                               {DataMartsLog.Moludos.InformeViajeDescarga, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.InformeViajeDescarga)},
+                               {DataMartsLog.Moludos.UpdateOdometers, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.UpdateOdometers)},
+                               {DataMartsLog.Moludos.ReporteEstadoDiario, DataMartsLog.Moludos.GetString(DataMartsLog.Moludos.ReporteEstadoDiario)}
+                           };
+            }
+        }
 
+        private static Dictionary<int, string> ReportStatus
+        {
+            get
+            {
+                return new Dictionary<int, string>
+                           {
+                               {0, "Correctos"},
+                               {1, "Erroneos"}
                            };
             }
         }
@@ -301,6 +324,15 @@ namespace Logictracker.Web.CustomWebControls.Binding
             foreach (var modulo in ModulosDatamart.OrderBy(e => e.Value)) autoBindeable.AddItem(modulo.Value, modulo.Key);
         }
 
+        public void BindReportExecution(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+
+            AddDefaultItems(autoBindeable);
+
+            foreach (var exec in ReportStatus.OrderBy(e => e.Value)) autoBindeable.AddItem(exec.Value, exec.Key);
+        }
+
         public void BindEstadoArchivo(IAutoBindeable autoBindeable)
         {
             autoBindeable.ClearItems();
@@ -335,6 +367,32 @@ namespace Logictracker.Web.CustomWebControls.Binding
             var zonasAcceso = DaoFactory.ZonaAccesoDAO.GetList(new[] { idEmpresa }, new[] { idLinea }, idsTipoZonaAcceso).OrderBy(z => z.Descripcion);
 
             foreach (var zonaAcceso in zonasAcceso) autoBindeable.AddItem(zonaAcceso.Descripcion, zonaAcceso.Id);
+        }
+
+        public void BindZona(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            var idLinea = autoBindeable.ParentSelected<Linea>();
+            var idsTipoZona = autoBindeable.ParentSelectedValues<TipoZona>();
+
+            var zonas = DaoFactory.ZonaDAO.GetList(new[] { idEmpresa }, new[] { idLinea }, idsTipoZona).OrderBy(z => z.Descripcion);
+
+            foreach (var zona in zonas) autoBindeable.AddItem(zona.Descripcion, zona.Id);
+        }
+
+        public void BindTipoCicloLogistico(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            
+            var tipos = DaoFactory.TipoCicloLogisticoDAO.GetByEmpresa(idEmpresa).OrderBy(z => z.Descripcion);
+
+            foreach (var tipo in tipos) autoBindeable.AddItem(tipo.Descripcion, tipo.Id);
         }
 
         #endregion

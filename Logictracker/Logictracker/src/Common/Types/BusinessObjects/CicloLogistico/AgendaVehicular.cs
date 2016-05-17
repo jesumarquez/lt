@@ -4,7 +4,7 @@ using Logictracker.Types.InterfacesAndBaseClasses;
 
 namespace Logictracker.Types.BusinessObjects.CicloLogistico
 {
-    public class AgendaVehicular: IAuditable, ISecurable, IHasVehiculo
+    public class AgendaVehicular: IAuditable, ISecurable, IHasVehiculo, IHasDepartamento
     {
         public static class Estados
         {
@@ -31,6 +31,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
         public virtual int Id { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual Linea Linea { get; set; }
+        public virtual Departamento Departamento { get; set; }
         public virtual Coche Vehiculo { get; set; }
         public virtual Empleado Empleado { get; set; }
         public virtual Shift Turno { get; set; }
@@ -38,5 +39,6 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico
         public virtual DateTime FechaDesde { get; set; }
         public virtual DateTime FechaHasta { get; set; }
         public virtual int Estado { get; set; }
+        public virtual string Destino { get; set; }
     }
 }

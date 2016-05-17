@@ -19,6 +19,7 @@ using Logictracker.Web.Monitor.ContextMenu;
 using Logictracker.Culture;
 using Logictracker.Types.BusinessObjects;
 using NHibernate.Util;
+using Logictracker.QuadTree.Data;
 
 namespace Logictracker.Monitor.MonitorDeCalidad
 {
@@ -37,7 +38,7 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         private FullVsProperty<DateTime> FinalDate { get { return this.CreateFullVsProperty("FinalDate", DateTime.UtcNow.Date.ToDataBaseDateTime().AddHours(23).AddMinutes(59)); } }
         private FullVsProperty<bool> LockFilters { get { return this.CreateFullVsProperty<bool>("LockFilters"); } }
 
-        private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0).ToDataBaseDateTime();
+        private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0);
 
         protected void LnkReporteDeEventosClick(object sender, EventArgs e)
         {         
@@ -52,11 +53,8 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         }
 
 
-
-
         protected override void OnInit(EventArgs e)
         {
-
             base.OnInit(e);
             if (Request.QueryString["qs"] != null)
             {
@@ -122,9 +120,14 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         protected override void OnLoad(EventArgs e)
         {
             Monitor.ContextMenuPostback += Monitor_ContextMenuPostback;
-            chkQtree.Visible = WebSecurity.IsSecuredAllowed(Securables.ViewQtree);
+            
+            LoadQtreeInfo();
 
             base.OnLoad(e);
+
+            var empresa = DAOFactory.EmpresaDAO.FindById(ddlDistrito.Selected);
+            var maxHours = empresa != null && empresa.Id > 0 ? empresa.MaxHorasMonitor : 24;
+            dtvalidator.MaxRange = new TimeSpan(maxHours, 0, 0);
 
             if (!IsPostBack)
             {
@@ -154,8 +157,6 @@ namespace Logictracker.Monitor.MonitorDeCalidad
             }
         }
 
-
-
         #region Serialization
         private string SerializePosition(RoutePosition x)
         {
@@ -167,7 +168,7 @@ namespace Logictracker.Monitor.MonitorDeCalidad
                         x.Course.ToString(CultureInfo.InvariantCulture),
                         x.Id,
                         x.Historical ? "true" : "false",
-                        (long)new TimeSpan(x.Recieved.ToUniversalTime().Ticks - Epoch.Ticks).TotalMilliseconds,
+                        SerializeDate(x.Recieved.ToDisplayDateTime()),
                         x.MotivoDescarte
                        );
         }
@@ -240,7 +241,7 @@ namespace Logictracker.Monitor.MonitorDeCalidad
         }
         private long SerializeDate(DateTime date)
         {
-            return (long)new TimeSpan(date.ToUniversalTime().Ticks - Epoch.Ticks).TotalMilliseconds;
+            return (long)new TimeSpan(date.Ticks - Epoch.ToDisplayDateTime().Ticks).TotalMilliseconds;
         } 
         #endregion
 
@@ -464,6 +465,72 @@ namespace Logictracker.Monitor.MonitorDeCalidad
                 }
             }
             return toAdd;
+        }
+
+        private void LoadQtreeInfo()
+        {
+            chkQtree.Visible = WebSecurity.IsSecuredAllowed(Securables.ViewQtree);
+            tblVersion.Visible = chkQtree.Checked;
+            tblEditar.Visible = chkQtree.Checked && WebSecurity.IsSecuredAllowed(Securables.EditQtree);
+
+            if (chkQtree.Checked)
+            {
+                var vehicle = DAOFactory.CocheDAO.FindById(ddlMovil.Selected);
+                if (vehicle.Dispositivo == null) return;
+                var qtreeDir = DAOFactory.DetalleDispositivoDAO.GetQtreeFileNameValue(vehicle.Dispositivo.Id);
+                var qtreeVersion = DAOFactory.DetalleDispositivoDAO.GetQtreeRevisionNumberValue(vehicle.Dispositivo.Id);
+                lblArchivo.Text = qtreeDir;
+                lblVersionEquipo.Text = qtreeVersion;
+
+                var gg = new GeoGrillas { Repository = new Repository { BaseFolderPath = Path.Combine(Config.Qtree.QtreeGteDirectory, qtreeDir) } };
+                var revision = 0;
+                var base_revision = 0;
+                int.TryParse(qtreeVersion, out base_revision);
+                var changedSectorsList = new TransactionLog(gg.Repository, vehicle.Dispositivo.Id).GetChangedSectorsAndRevision(base_revision, out revision);
+
+                lblVersionServer.Text = revision.ToString();
+                pnlQtree.Update();
+            }
+        }
+
+        protected void btnGenerarOnClick(object sender, EventArgs e)
+        {
+            var vehicle = DAOFactory.CocheDAO.FindById(ddlMovil.Selected);
+            if (vehicle.Dispositivo == null) return;
+
+            var qtreeDir = DAOFactory.DetalleDispositivoDAO.GetQtreeFileNameValue(vehicle.Dispositivo.Id);
+            var qtreeType = DAOFactory.DetalleDispositivoDAO.GetQtreeTypeValue(vehicle.Dispositivo.Id);
+
+            if (string.IsNullOrEmpty(qtreeType) || !Enum.IsDefined(typeof(QtreeFormats), qtreeType))
+                return;
+
+            var qtreeFormat = (QtreeFormats)Enum.Parse(typeof(QtreeFormats), qtreeType);
+            qtreeDir = Path.Combine(qtreeFormat.Equals(QtreeFormats.Gte)
+                                        ? Config.Qtree.QtreeGteDirectory
+                                        : Config.Qtree.QtreeTorinoDirectory, qtreeDir);
+
+            var maxMonths = vehicle.Empresa.MesesConsultaPosiciones;
+            var positions = DAOFactory.RoutePositionsDAO.GetPositions(vehicle.Id, dtDesde.SelectedDate.Value.ToDataBaseDateTime(), dtHasta.SelectedDate.Value.ToDataBaseDateTime(), maxMonths);
+
+            using (var qtree = BaseQtree.Open(qtreeDir, qtreeFormat))
+            {
+                for (var i = 1; i < positions.Count; i++)
+                {
+                    var ini = positions[i - 1];
+                    var fin = positions[i];
+
+                    var qs = qtree.MakeLeafLine(ini.Longitude, ini.Latitude, fin.Longitude, fin.Latitude, 2);
+                    foreach (var item in qs)
+                    {
+                        var latlon = qtree.GetCenterLatLon(item.Posicion);
+                        qtree.SetValue(latlon.Latitud, latlon.Longitud, lvlSel.SelectedLevel);
+                        qtree.Commit();
+                    }
+                }
+                qtree.Close();
+            }
+            
+            btnSearch_Click(sender, e);
         }
 
         protected void GenerateScriptBase()

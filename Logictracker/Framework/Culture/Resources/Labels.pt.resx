@@ -477,6 +477,9 @@
   <data name="VENCIMIENTO" xml:space="preserve">
     <value>Maturidade</value>
   </data>
+  <data name="PRESENTACION" xml:space="preserve">
+    <value>Apresentação</value>
+  </data>
   <data name="VENCIMIENTO_POLIZA" xml:space="preserve">
     <value>Política de Expiração</value>
   </data>
@@ -485,6 +488,9 @@
   </data>
   <data name="REVISION" xml:space="preserve">
     <value>Revisão</value>
+  </data>
+  <data name="TRANSPORTISTA" xml:space="preserve">
+    <value>Transportista</value>
   </data>
   <data name="VALOR" xml:space="preserve">
     <value>Valor</value>
@@ -930,6 +936,9 @@
   <data name="FECHA_ALTA" xml:space="preserve">
     <value>Data</value>
   </data>
+  <data name="FECHA_PEDIDO" xml:space="preserve">
+    <value>Data Pedido</value>
+  </data>
   <data name="FECHA_INICIO" xml:space="preserve">
     <value>Data Inicio</value>
   </data>
@@ -980,6 +989,9 @@
   </data>
   <data name="VOLUMEN" xml:space="preserve">
     <value>Volume</value>
+  </data>
+  <data name="PESO" xml:space="preserve">
+    <value>Peso</value>
   </data>
   <data name="FECHA" xml:space="preserve">
     <value>Data</value>
@@ -1392,6 +1404,9 @@
   <data name="ASIGNADOS" xml:space="preserve">
     <value>Atribuído</value>
   </data>
+  <data name="NO_ASIGNADOS" xml:space="preserve">
+    <value>Não atribuído</value>
+  </data>
   <data name="DISPONIBLES" xml:space="preserve">
     <value>Disponível</value>
   </data>
@@ -1424,6 +1439,9 @@
   </data>
   <data name="CANTIDAD_AJUSTES" xml:space="preserve">
     <value>Ajuste m3</value>
+  </data>
+  <data name="AJUSTE" xml:space="preserve">
+    <value>Ajuste</value>
   </data>
   <data name="HORA_CARGA" xml:space="preserve">
     <value>Tempo de carga</value>
@@ -2568,6 +2586,9 @@
   <data name="DOC_FIELDTYPE_INTEGER" xml:space="preserve">
     <value>Numérico Integer</value>
   </data>
+  <data name="DOC_FIELDTYPE_BARCODE" xml:space="preserve">
+    <value>TextBarcode   </value>
+  </data>
   <data name="DOC_FIELDTYPE_TANQUE" xml:space="preserve">
     <value>Tanque</value>
   </data>
@@ -3319,6 +3340,12 @@
   <data name="VER_MONITOR_SUBENTIDADES" xml:space="preserve">
     <value>Ver en Monitor do Medidores</value>
   </data>
+  <data name="PAGINAR_CONSULTA" xml:space="preserve">
+    <value>Consulta paginado</value>
+  </data>
+  <data name="FILTRAR_CONSULTA" xml:space="preserve">
+    <value>Consulta filtrado</value>
+  </data>
   <data name="PLANO" xml:space="preserve">
     <value>Mapa</value>
   </data>
@@ -3390,6 +3417,24 @@
   </data>
   <data name="HS_RALENTI" xml:space="preserve">
     <value>Horas Ociosas</value>
+  </data>
+  <data name="HS_DETENIDO" xml:space="preserve">
+    <value>Horas Detenido</value>
+  </data>
+  <data name="HS_SIN_REPORTAR" xml:space="preserve">
+    <value>Horas Sem Reporte</value>
+  </data>
+  <data name="HS_DETENIDO_TALLER" xml:space="preserve">
+    <value>Horas Detenido em Talher</value>
+  </data>
+  <data name="HS_DETENIDO_BASE" xml:space="preserve">
+    <value>Horas Detenido em Base</value>
+  </data>
+  <data name="HS_DETENIDO_CON_TAREA" xml:space="preserve">
+    <value>Horas Detenido com Trabalho</value>
+  </data>
+  <data name="HS_DETENIDO_SIN_TAREA" xml:space="preserve">
+    <value>Horas Detenido sem Trabalho</value>
   </data>
   <data name="CONSUMO_$_NO_COMBUSTIBLE" xml:space="preserve">
     <value>Custo Consumo (Sem Combustível)</value>
@@ -3639,6 +3684,9 @@
   </data>
   <data name="ES_PUERTA" xml:space="preserve">
     <value>É o controle de acesso</value>
+  </data>
+  <data name="GENERAR_ACCESOS" xml:space="preserve">
+    <value>Crear acessos</value>
   </data>
   <data name="SOLO_HUERFANOS" xml:space="preserve">
     <value>Apenas os órfãos</value>
@@ -4283,7 +4331,7 @@
     <value>Verificação</value>
   </data>
   <data name="FECHA_ENTREGA" xml:space="preserve">
-    <value>Entrega</value>
+    <value>Data Entrega</value>
   </data>
   <data name="FECHA_TRABAJO_TERMINADO" xml:space="preserve">
     <value>Trabalho Finalizado</value>
@@ -4504,6 +4552,9 @@
   <data name="CALCULAR_KM_RECORRIDOS" xml:space="preserve">
     <value>Calcular Kms percorridos</value>
   </data>
+  <data name="PAGINARGEOCERCAS" xml:space="preserve">
+    <value>ativar paginação</value>
+  </data>
   <data name="AGRUPADOR" xml:space="preserve">
     <value>Garoupa</value>
   </data>
@@ -4518,5 +4569,65 @@
   </data>
   <data name="FORMATO" xml:space="preserve">
     <value>Formato</value>
+  </data>
+  <data name="ENVIA_REPORTE" xml:space="preserve">
+    <value>Envía Relatório</value>
+  </data>
+  <data name="PRODUCTIVO" xml:space="preserve">
+    <value>Produtivo</value>
+  </data>
+  <data name="PARENTI10_INICIO" xml:space="preserve">
+    <value>Tipo Geogerca Inicio</value>
+  </data>
+  <data name="PARENTI10_FIN" xml:space="preserve">
+    <value>Tipo Geocerca Fim</value>
+  </data>
+  <data name="EDITAR_TRAMO" xml:space="preserve">
+    <value>Editar tramo</value>
+  </data>
+  <data name="VERSION_SERVER" xml:space="preserve">
+    <value>Verção server</value>
+  </data>
+  <data name="VERSION_EQUIPO" xml:space="preserve">
+    <value>Verção equipo</value>
+  </data>
+  <data name="ITERATIVO" xml:space="preserve">
+    <value>Iterativo</value>
+  </data>
+  <data name="CONTROL_INVERSO" xml:space="preserve">
+    <value>Controle Inverso</value>
+  </data>
+  <data name="REPORTA_RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Reporta Responsável do Conta</value>
+  </data>
+  <data name="RESPONSABLE_CUENTA" xml:space="preserve">
+    <value>Responsável do Conta</value>
+  </data>
+  <data name="EXCESO_VELOCIDAD" xml:space="preserve">
+    <value>Excesso de velocidade</value>
+  </data>
+  <data name="EXCESO_RPM" xml:space="preserve">
+    <value>Excesso de RPM</value>
+  </data>
+  <data name="FRENADA_BRUSCA" xml:space="preserve">
+    <value>Travagens bruscas</value>
+  </data>
+  <data name="ACELERACION_BRUSCA" xml:space="preserve">
+    <value>Aceleração brusca</value>
+  </data>
+  <data name="BATERIA_DESCONECTADA" xml:space="preserve">
+    <value>Bateria desconectada</value>
+  </data>
+  <data name="PANICO" xml:space="preserve">
+    <value>Pânico</value>
+  </data>
+  <data name="TIPO_INFRACCION" xml:space="preserve">
+    <value>Tipo do violação</value>
+  </data>
+  <data name="CONTENEDORES" xml:space="preserve">
+    <value>Contentores</value>
+  </data>
+  <data name="CISTERNA" xml:space="preserve">
+    <value>Cisterna</value>
   </data>
 </root>

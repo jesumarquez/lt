@@ -22,6 +22,7 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico.Distribucion
         public int IdEmpresa { get; set; }
         public int IdLinea { get; set; }
         public int IdVehiculo { get; set; }
+        public int IdTipoVehiculo { get; set; }
 
         [GridMapping(Index = IndexTipo, ResourceName = "Labels", VariableName = "TYPE", AllowGroup = true)]
         public string Tipo { get; set; }
@@ -66,8 +67,9 @@ namespace Logictracker.Types.ValueObjects.CicloLogistico.Distribucion
             Distribucion = viaje;
             Id = viaje.Id;
             IdEmpresa = viaje.Empresa.Id;
-            IdLinea = viaje.Linea.Id;
+            IdLinea = viaje.Linea != null ? viaje.Linea.Id : 0;
             IdVehiculo = viaje.Vehiculo != null ? viaje.Vehiculo.Id : 0;
+            IdTipoVehiculo = viaje.TipoCoche != null ? viaje.TipoCoche.Id : 0;
             Codigo = viaje.Codigo;
             Inicio = viaje.Inicio.ToDisplayDateTime();
             InicioReal = viaje.InicioReal.HasValue ? viaje.InicioReal.Value.ToDisplayDateTime() : (DateTime?) null;

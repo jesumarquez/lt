@@ -23,8 +23,13 @@ namespace Logictracker.QueueStatus
         /// <returns></returns>
         public static Int32 GetMaxEnqueuedMessagesCount()
         {
-            var values = GetEnqueuedMessagesPerQueue().Select(result => result.Value).ToList();
+            var colas = GetEnqueuedMessagesPerQueue();
+            return GetMaxEnqueuedMessagesCount(colas);
+        }
 
+        public static Int32 GetMaxEnqueuedMessagesCount(Dictionary<string, int> colas)
+        {
+            var values = colas.Select(result => result.Value).ToList();
             return values.Any() ? values.Max() : 0;
         }
 
@@ -44,11 +49,8 @@ namespace Logictracker.QueueStatus
                 }
                 else
                 {
-
                     var queue = GetQueue(queueName);
-
                     var count = GetMessageCount(queue);
-
                     results.Add(queueName, count);
                 }
             }

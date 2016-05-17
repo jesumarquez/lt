@@ -33,6 +33,12 @@ namespace Logictracker.Types.ReportObjects.RankingDeOperadores
         public string Operador { get; set; }
 
         /// <summary>
+        /// The operator responsable of the infraction.
+        /// </summary>
+        public string Transportista { get; set; }
+
+
+        /// <summary>
         /// The mobile envolved in the infraction.
         /// </summary>
         public string Vehiculo { get; set; }
@@ -91,6 +97,8 @@ namespace Logictracker.Types.ReportObjects.RankingDeOperadores
         /// The elapsed time of the infraction in seconds. 
         /// </summary>
         public int DuracionSegundos { get; set; }
+
+        public string TipoInfraccion { get; set; }
 
         #endregion
     }

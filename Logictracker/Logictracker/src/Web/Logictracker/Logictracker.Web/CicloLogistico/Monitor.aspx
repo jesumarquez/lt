@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Monitor.aspx.cs" Inherits="Logictracker.CicloLogistico.Monitor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.Monitor" Codebehind="Monitor.aspx.cs" %>
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register TagPrefix="mon" Namespace="Logictracker.Web.Monitor" Assembly="Logictracker.Web.Monitor" %>
 
@@ -11,7 +11,7 @@
     <script type="text/javascript">
         function getPuntoEntrega(id)
         {
-            return "<iframe width=\"250\" height=\"145\" style=\"border:none;\" src=\"InfoCiclo.aspx?id=" + id + "\" />";
+            return "<iframe width=\"300\" height=\"145\" style=\"border:none;\" src=\"InfoCiclo.aspx?id=" + id + "\" />";
         }
         function getDetencion(idEvento, idViaje) {
             return "<iframe width=\"500\" height=\"300\" style=\"border:none;\" src=\"InfoDetencion.aspx?idEvento=" + idEvento + "&idViaje=" + idViaje + "\" />";
@@ -461,31 +461,31 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td colspan="2" class="Grid_Header">
-                                    <cwc:ResourceLabel runat="server" ID="lblReferencia" ResourceName="Labels" VariableName="REFFERENCE" />
+                                    <cwc:ResourceLabel runat="server" ID="lblRecorrido" ResourceName="Labels" VariableName="RECORRIDO" />
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px; background-color: #228b22"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel23" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_REAL" />.<cwc:ResourceLabel ID="ResourceLabel24" runat="server"  ResourceName="Labels" VariableName="IDA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel23" runat="server"  ResourceName="Labels" VariableName="REAL" />.<cwc:ResourceLabel ID="ResourceLabel24" runat="server"  ResourceName="Labels" VariableName="IDA" />
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px;background-color: #0000FF"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel25" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_REAL" />.<cwc:ResourceLabel ID="ResourceLabel26" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel25" runat="server"  ResourceName="Labels" VariableName="REAL" />.<cwc:ResourceLabel ID="ResourceLabel26" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
                                 </td>
                             </tr>
                             <tr runat="server" ID="trCalculadoIda">
                                 <td style="width: 20px; height: 20px;background-color: #FF0000"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel27" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel28" runat="server"  ResourceName="Labels" VariableName="IDA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel27" runat="server"  ResourceName="Labels" VariableName="CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel28" runat="server"  ResourceName="Labels" VariableName="IDA" />
                                 </td>
                             </tr>
                             <tr runat="server" ID="trCalculadoVuelta">
                                 <td style="width: 20px; height: 20px;background-color: #9400d3"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel29" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel30" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
+                                    <cwc:ResourceLabel ID="ResourceLabel29" runat="server"  ResourceName="Labels" VariableName="CALCULADO" />.<cwc:ResourceLabel ID="ResourceLabel30" runat="server"  ResourceName="Labels" VariableName="VUELTA" />
                                 </td>
                             </tr>
                         </table>
@@ -493,26 +493,26 @@
                     <asp:Panel runat="server" ID="panelReferenciaSimple" Visible="False">
                         <table style="width: 100%;">
                             <tr>
-                                <td colspan="2" class="Grid_Header"><cwc:ResourceLabel runat="server" ID="ResourceLabel5" ResourceName="Labels" VariableName="REFFERENCE" /></td>
+                                <td colspan="2" class="Grid_Header"><cwc:ResourceLabel runat="server" ID="ResourceLabel5" ResourceName="Labels" VariableName="RECORRIDO" /></td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px; background-color: #228b22"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel31" runat="server" ResourceName="Labels" VariableName="RECORRIDO_REAL" />: 
+                                    <cwc:ResourceLabel ID="ResourceLabel31" runat="server" ResourceName="Labels" VariableName="REAL" />: 
                                     <asp:Label ID="lblKmReales" runat="server" />
                                 </td>
                             </tr>
                             <tr>
                                 <td style="width: 20px; height: 20px; background-color: #ff7f50"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel21" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_PROGRAMADO" />: 
+                                    <cwc:ResourceLabel ID="ResourceLabel21" runat="server"  ResourceName="Labels" VariableName="PROGRAMADO" />: 
                                     <asp:Label ID="lblKmProgramados" runat="server" />
                                 </td>
                             </tr>
                             <tr runat="server" ID="trCalculado">
                                 <td style="width: 20px; height: 20px;background-color: #FF0000"></td>
                                 <td>
-                                    <cwc:ResourceLabel ID="ResourceLabel32" runat="server"  ResourceName="Labels" VariableName="RECORRIDO_CALCULADO" />: 
+                                    <cwc:ResourceLabel ID="ResourceLabel32" runat="server"  ResourceName="Labels" VariableName="CALCULADO" />: 
                                     <asp:Label ID="lblKmCalculados" runat="server" />
                                 </td>
                             </tr>
@@ -582,6 +582,11 @@
                                 <cwc:ResourceButton ID="btnEntrega" runat="server" ResourceName="Controls" VariableName="BUTTON_SEARCH" OnClick="BtnEntregaOnClick" CssClass="LogicButton_Big" />
                             </td>
                         </tr>
+                        <tr>
+                            <td align="left" colspan="3">
+                                <asp:Label ID="lblDistancia" runat="server" Visible="false" Font-Bold="true" />
+                            </td>
+                        </tr>
                     </table>
                     <br/>
                     <table width="100%" border="0">
@@ -608,7 +613,10 @@
                                     <C1:c1GridView ID="gridEntregas" runat="server" OnRowDataBound="GridEntregasRowDataBound" SkinID="SmallGrid" ScrollSettings="AllowColMoving: true;" >
                                         <Columns>
                                             <C1:C1TemplateField HeaderText="Orden" >
-                                                <ItemStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Center" />
+                                                <ItemTemplate> 
+                                                    <asp:LinkButton ID="lnkEntrega" runat="server" OnClick="LnkEntregaOnClick" Font-Bold="true" ForeColor="Black" />
+                                                </ItemTemplate>
                                             </C1:C1TemplateField>
                                             <C1:C1TemplateField HeaderText="Estado" />
                                             <C1:C1TemplateField HeaderText="Entrega" />

@@ -55,7 +55,7 @@ namespace Logictracker.Process.CicloLogistico
         {
             if (IgnoreEvent(data))
             {
-                AutoCloseTicket();
+                AutoCloseTicket(data.Date);
 
                 if (data.EventType == EventTypes.Garmin)
                     Process(data as GarminEvent);
@@ -87,7 +87,7 @@ namespace Logictracker.Process.CicloLogistico
             finally
             {
                 // Cierre automatico de tickets viejos
-                if (!isChildEvent) AutoCloseTicket();
+                if (!isChildEvent) AutoCloseTicket(data.Date);
             }
         }
         protected virtual void Process(InitEvent data) {}
@@ -104,7 +104,7 @@ namespace Logictracker.Process.CicloLogistico
         #endregion
 
         protected abstract bool IgnoreEvent(IEvent data);
-        protected abstract void AutoCloseTicket();
+        protected abstract void AutoCloseTicket(DateTime date);
 
         #region Geocercas
 

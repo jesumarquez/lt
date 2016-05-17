@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="SubCentroCostoAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.SubCentroCostoAlta" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.SubCentroCostoAlta" Codebehind="SubCentroCostoAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">
     <table style="width: 100%; border-spacing: 10px;">

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Logictracker.Security;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.ReportObjects;
 using Logictracker.Types.ValueObjects.ReportObjects.CicloLogistico;
@@ -12,7 +13,7 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public class DeliverStatusReportGenerator   
     {
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.DeliverStatusReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.DeliverStatusReport.xls";
         private const string DataSheet1 = "Informe";
         //private const string DataSheet2 = "Datos";
 
@@ -83,7 +84,7 @@ namespace Logictracker.Tracker.Application.Reports
                     row.CreateCell(Fecha).SetCellValue(data.Fecha);
                     row.CreateCell(Orden).SetCellValue(data.Orden);
                     row.CreateCell(OrdenReal).SetCellValue(data.OrdenReal);
-                    row.CreateCell(Cliente).SetCellValue("");
+                    row.CreateCell(Cliente).SetCellValue(data.PuntoEntrega);
                     row.CreateCell(Descripcion).SetCellValue(data.Descripcion);
                     row.CreateCell(Manual).SetCellValue(data.Manual);
                     row.CreateCell(Entrada).SetCellValue(data.Entrada);
@@ -92,10 +93,15 @@ namespace Logictracker.Tracker.Application.Reports
                     row.CreateCell(Km).SetCellValue(data.Km);
                     row.CreateCell(Estado).SetCellValue(data.Estado);
                     row.CreateCell(Confirmacion).SetCellValue(data.Confirmacion);
-                    row.CreateCell(Horario).SetCellValue(data.Horario.ToString());
-                    row.CreateCell(Recepcion).SetCellValue(data.DateManual.ToString());
-                    row.CreateCell(Lectura).SetCellValue(data.DateConfirmacion.ToString());
-                    
+
+                    DateTime? dateTime = data.DateConfirmacion.HasValue 
+                        ? data.DateConfirmacion.Value.ToDisplayDateTime()
+                        : (DateTime?) null;
+                    if (dateTime != null)
+                        row.CreateCell(Horario).SetCellValue((DateTime) dateTime);
+
+                    if (data.UnreadInactive != null) row.CreateCell(Recepcion).SetCellValue(data.UnreadInactive);
+                    if (data.ReadInactive != null) row.CreateCell(Lectura).SetCellValue(data.ReadInactive);
                     //
                     rowCounter++;
                 }

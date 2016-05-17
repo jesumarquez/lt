@@ -31,15 +31,14 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IQueryable<TQuery> FilterLinea<TQuery>(this IQueryable<TQuery> q, ISession session, IEnumerable<int> empresas, IEnumerable<int> lineas, Usuario user)
             where TQuery : IHasLinea
         {
-            var lineasU = GetLineas(session, empresas, lineas, user).ToList();
-
-            return FilterLinea(q, lineasU);
+            return FilterLinea(q, GetLineas(session, empresas, lineas, user));
         }
 
         public static IQueryable<TQuery> FilterLinea<TQuery>(this IQueryable<TQuery> q, IEnumerable<Linea> lineas)
             where TQuery : IHasLinea
         {
-            if (lineas != null) q = q.Where(t => t.Linea == null || lineas.Contains(t.Linea));
+            var lineasList = lineas.ToList();
+            if (lineas != null) q = q.Where(t => t.Linea == null || lineasList.Contains(t.Linea));
             return q;
         }
 
@@ -52,7 +51,8 @@ namespace Logictracker.DAL.DAO.BaseClasses
         public static IEnumerable<TQuery> FilterLinea<TQuery>(this IEnumerable<TQuery> q, IEnumerable<Linea> lineas)
             where TQuery : IHasLinea
         {
-            if (lineas != null) q = q.Where(t => t.Linea == null || lineas.Contains(t.Linea));
+            var lineasList = lineas.ToList();
+            if (lineas != null) q = q.Where(t => t.Linea == null || lineasList.Contains(t.Linea));
             return q;
         }
 

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	xmlns="http://walks.ath.cx/framework"
+	xmlns:x="http://walks.ath.cx/statics"
+	xmlns:g="http://walks.ath.cx/generics"
+	xmlns:torino="http://walks.ath.cx/e/torino/v1"
+	RunMode="WinService">
+
+  <Resources>
+    <MessageQueue x:Key="eventsQueue" Path=".\private$\eventos_controlsat" Transactional="false" Recoverable="true" />
+    <MessageQueue x:Key="commanderQueue" Path=".\private$\comandos_controlsat" Transactional="false" Recoverable="false" />
+    <SQLDataProvider Comment="Deshabilitar para el gateway 911" />
+    <!--VirtualDataProvider Comment="Habilitar para el gateway 911" /-->
+
+    <LinksTree />
+    <NodesTree MessageQueue="{StaticResource commanderQueue}" />
+    <DataLinkLayer />
+    <!--TasaTranslatorOnline MessageQueue="{StaticResource eventsQueue}" Comentario="Habilitar para el gateway 911" /-->
+  </Resources>
+
+  <Resources>
+    <!-- puede repetirse por cada parser deseado -->
+    <UDPNetworkServer>
+      <ReplicationClient></ReplicationClient>
+    </UDPNetworkServer>
+    <ControlSatParser				Port="6065" />
+  </Resources>
+
+  <StackChannel>
+    <DataTransportLayer />
+    <!--torino:TorinoGatewayLayer Comment="El gateway de torino solo requiere NodesTree y las colas, reemplaza todas los otros layers" /-->
+    <!--FiltrarRepetidos Persistente="true" Comment="para filtrar los mensajes que tambien vienen por la red orbcomm; utiliza la base para persistir los hash de los mensajes" /-->
+    <!--FiltrarRepetidos Persistente="false" Comment="para filtrar los mensajes que los equipos sistelcom-torino envian repetidos" /-->
+    <MessageDispatcher>
+      <MessageHandler g:Type="Logictracker.AVL.Messages.Position, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+      <MessageHandler g:Type="Logictracker.AVL.Messages.Event, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+      <MessageHandler g:Type="Logictracker.AVL.Messages.SpeedingTicket, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+      <MessageHandler g:Type="Logictracker.AVL.Messages.TextEvent, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+      <MessageHandler g:Type="Logictracker.AVL.Messages.SetDetail, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Deshabilitar para el gateway 911" />
+
+      <!--TasaTranslator g:Type="Logictracker.AVL.Messages.Position, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+      <!--TasaTranslator g:Type="Logictracker.AVL.Messages.Event, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+      <!--TasaTranslator g:Type="Logictracker.AVL.Messages.UserMessage, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+      <!--TasaTranslator g:Type="Logictracker.AVL.Messages.ConfigRequest, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+      <!--TasaTranslator g:Type="Logictracker.AVL.Messages.HardwareStatus, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+      <!--TasaTranslator g:Type="Logictracker.AVL.Messages.SpeedingTicket, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+      <!--TasaTranslator g:Type="Logictracker.AVL.Messages.TextEvent, Logictracker.AVL" MessageQueue="{StaticResource eventsQueue}" Comment="Habilitar para el gateway 911" /-->
+    </MessageDispatcher>
+  </StackChannel>
+
+</Application>

@@ -1,11 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using Logictracker.DAL.DAO.BaseClasses;
 using Logictracker.DAL.Factories;
 using Logictracker.Types.BusinessObjects;
 using Logictracker.Utils;
-using NHibernate;
 using NHibernate.Linq;
-using System.Collections.Generic;
 
 namespace Logictracker.DAL.DAO.BusinessObjects
 {
@@ -16,7 +15,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
     /// </remarks>
     public class ClienteDAO : GenericDAO<Cliente>
     {
-//        public ClienteDAO(ISession session) : base(session) { }
+        //        public ClienteDAO(ISession session) : base(session) { }
 
 
         #region Find Methods
@@ -28,7 +27,19 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .Where(c => !c.Baja)
                 .Where(c => c.Codigo == code)
                 .Cacheable()
-				.SafeFirstOrDefault();
+                .SafeFirstOrDefault();
+        }
+
+
+
+        public Cliente FindByDescripcion(IEnumerable<int> empresas, IEnumerable<int> lineas, string descripcion)
+        {
+            return Query.FilterEmpresa(Session, empresas, null)
+                .FilterLinea(Session, empresas, lineas, null)
+                .Where(c => !c.Baja)
+                .Where(c => c.Descripcion == descripcion)
+                .Cacheable()
+                .SafeFirstOrDefault();
         }
 
         #endregion
@@ -42,7 +53,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects
                 .Where(c => !c.Baja)
                 .Where(c => c.Codigo == code)
                 .Cacheable()
-				.SafeFirstOrDefault();
+                .SafeFirstOrDefault();
         }
 
         public List<Cliente> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas)
@@ -72,5 +83,17 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         #endregion
 
+        public IQueryable<Cliente> FindByCodeLike(IEnumerable<int> empresas, IEnumerable<int> lineas, string code)
+        {
+            return
+                Session.QueryOver<Cliente>()
+                    .WhereRestrictionOn(c => c.Codigo).IsInsensitiveLike("%" + code + "%")
+                    .WhereNot(c=>c.Baja)
+                    .Cacheable()
+                    .Future()
+                    .AsQueryable()
+                    .FilterEmpresa(Session, empresas)
+                    .FilterLinea(Session, empresas, lineas);
+        }
     }
 }

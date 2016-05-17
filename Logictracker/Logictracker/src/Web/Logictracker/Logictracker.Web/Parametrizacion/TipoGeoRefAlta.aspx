@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TipoGeoRefAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoGeoRefAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoGeoRefAlta" Codebehind="TipoGeoRefAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/IconPicker.ascx" TagName="SelectIcon" TagPrefix="uc1" %>  
 <%@ Register Src="../App_Controls/ColorPicker.ascx" TagName="ColorPicker" TagPrefix="uc1" %>
@@ -41,6 +41,19 @@
                         <br /><cwc:ResourceCheckBox ID="chkInhibeAlarma" runat="server" ResourceName="Labels" VariableName="INHIBE_ALARMA" Width="100%"/>
                         <br /><cwc:ResourceCheckBox ID="chkExcluyeMonitor" runat="server" ResourceName="Labels" VariableName="EXCLUIR_MONITOR" Width="100%"/>
                         <br /><cwc:ResourceCheckBox ID="chkEsTaller" runat="server" ResourceName="Labels" VariableName="ES_TALLER" Width="100%"/>
+                        
+                        <br />
+                        <asp:UpdatePanel ID="updChkEsControlAcceso" runat="server">
+                            <ContentTemplate>
+                                <cwc:ResourceCheckBox ID="chkEsControlAcceso" runat="server" ResourceName="Labels" VariableName="ES_PUERTA" Width="100%" OnCheckedChanged="ChkEsControlAccesoOnCheckedChanged" AutoPostBack="true" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <br />
+                        <asp:UpdatePanel runat="server" ID="pnlControlAcceso">
+                            <ContentTemplate>                                
+                                <cwc:ResourceButton ID="btnGenerar" runat="server" ResourceName="Labels" VariableName="GENERAR_ACCESOS" OnClick="BtnGenerarOnClick" Enabled="false" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                         
                         <br />
                         <asp:UpdatePanel ID="updChkControlaPermanencia" runat="server">

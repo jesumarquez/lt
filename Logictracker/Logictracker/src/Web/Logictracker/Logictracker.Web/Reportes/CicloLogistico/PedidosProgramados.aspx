@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="PedidosProgramados.aspx.cs" Inherits="Logictracker.Reportes.CicloLogistico.PedidosProgramados" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CicloLogistico.PedidosProgramados" Codebehind="PedidosProgramados.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 

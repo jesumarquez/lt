@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="AnalizadorRecorridos.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.Reportes_DatosOperativos_AnalizadorRecorridos" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.DatosOperativos.Reportes_DatosOperativos_AnalizadorRecorridos" Title="Untitled Page" Codebehind="AnalizadorRecorridos.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/Pickers/TimePicker.ascx" TagName="TimePicker" TagPrefix="uc1" %>
 

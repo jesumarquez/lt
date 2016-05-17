@@ -1,4 +1,4 @@
- <%@ Page Language="C#" AutoEventWireup="true" CodeFile="monitorDeCalidad.aspx.cs" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" %>
+ <%@ Page Language="C#" AutoEventWireup="True" Inherits="Logictracker.Monitor.MonitorDeCalidad.MonitorCalidad" Codebehind="monitorDeCalidad.aspx.cs" %>
 
 <%@ Import Namespace="Logictracker.Culture"%>
 
@@ -6,6 +6,8 @@
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register TagPrefix="mon" Namespace="Logictracker.Web.Monitor" Assembly="Logictracker.Web.Monitor" %>
+<%@ Register src="../../Operacion/Qtree/AutoGenConfig.ascx" tagname="AutoGenConfig" tagprefix="uc" %>
+<%@ Register src="../../Operacion/Qtree/LevelSelector.ascx" tagname="LevelSelector" tagprefix="uc" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -117,7 +119,11 @@
                         <cwc:ResourceLabel ID="lblDistrito" runat="server" Font-Bold="true" ResourceName="Entities" VariableName="PARENTI01" />
                     </td>
                     <td>
-                        <cwc:LocacionDropDownList ID="ddlDistrito" runat="server" Width="100%" />
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
+                            <ContentTemplate>
+                                <cwc:LocacionDropDownList ID="ddlDistrito" runat="server" Width="100%" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </td>
                 </tr>
                 <tr>
@@ -200,7 +206,11 @@
                     </td>
                     <td>
                         <cwc:DateTimePicker runat="server" ID="dtHasta" Mode="DateTime" IsValidEmpty="False"></cwc:DateTimePicker>
-                        <cwc:DateTimeRangeValidator ID="dtvalidator" runat="server" StartControlID="dtDesde" EndControlID="dtHasta" MaxRange="23:59"></cwc:DateTimeRangeValidator>
+                        <asp:UpdatePanel ID="updrange" runat="server">
+                            <ContentTemplate>
+                                <cwc:DateTimeRangeValidator ID="dtvalidator" runat="server" StartControlID="dtDesde" EndControlID="dtHasta" MaxRange="23:59"></cwc:DateTimeRangeValidator>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </td>
                 </tr>
                 <tr>
@@ -220,36 +230,70 @@
                         </asp:UpdatePanel>
                     </td>
                 </tr>
-                
-                                    
             </table>
-            <tr>
+            
             </div>
             
             <div class="x-panel-body" style="text-align: center; padding-top: 10px;">
-                <div style="text-align: left; padding: 10px;">
-                    <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />    
-                </div>
-                
-                <td align="center" colspan="2">
-                    <br/>
-                    <asp:UpdatePanel runat="server" ID="pnlLnk">
-                        <ContentTemplate>
-                            <cwc:ResourceLinkButton ID="lnkReporteDeEventos" runat="server" VariableName="IR_REPORTE_DE_EVENTOS" ResourceName="Labels" OnClick="LnkReporteDeEventosClick" />      
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                      
-                </td>
-                
-                <td align="center" colspan="2">
-                    <br/>
-                    <br/>
-                    <cwc:ResourceButton ID="btnSearch" runat="server" CssClass="LogicButton_Big" ToolTip="Buscar" Width="75px" OnClick="btnSearch_Click" ResourceName="Controls" VariableName="BUTTON_SEARCH" />
             
-                    </td>
+                <asp:CheckBox ID="chkQtree" runat="server" Text="Mostrar Qtree" Visible="true" />
                 
+                <br />
+                <br />
+
+                <asp:UpdatePanel ID="pnlQtree" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Inline">
+                    <ContentTemplate>
+                        <table width="100%" id="tblVersion" runat="server">
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl1" runat="server" VariableName="ARCHIVO" ResourceName="Labels" />: <asp:Label ID="lblArchivo" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl2" runat="server" VariableName="VERSION_SERVER" ResourceName="Labels" />: <asp:Label ID="lblVersionServer" runat="server" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <cwc:ResourceLabel ID="lbl3" runat="server" VariableName="VERSION_EQUIPO" ResourceName="Labels" />: <asp:Label ID="lblVersionEquipo" runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br />
+
+                        <table width="100%" id="tblEditar" runat="server">
+                            <tr>
+                                <td align="center">
+                                    <cwc:ResourceLabel ID="lblEditarTramo" runat="server" VariableName="EDITAR_TRAMO" ResourceName="Labels" />
+                                </td>
+                                <td align="left">
+                                    <uc:LevelSelector ID="lvlSel" runat="server" />
+                                </td>
+                                <td align="left">
+                                    <asp:Button ID="btnGenerar" runat="server" OnClick="btnGenerarOnClick" CssClass="LogicButton_Big" Text="Editar Qtree" Width="100%" style="padding: 5px;" />
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+
+                <br />
+                <br />
+
+                <asp:UpdatePanel runat="server" ID="pnlLnk">
+                    <ContentTemplate>
+                        <cwc:ResourceLinkButton ID="lnkReporteDeEventos" runat="server" VariableName="IR_REPORTE_DE_EVENTOS" ResourceName="Labels" OnClick="LnkReporteDeEventosClick" />      
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                      
+                <br/>
+                <br/>
                 
-                </div>
+                <cwc:ResourceButton ID="btnSearch" runat="server" CssClass="LogicButton_Big" ToolTip="Buscar" Width="75px" OnClick="btnSearch_Click" ResourceName="Controls" VariableName="BUTTON_SEARCH" />
+                
+            </div>
             
             <a href="../../Home.aspx">
                 <div class="Logo"></div>
@@ -263,7 +307,6 @@
                 <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="botonEliminar" EventName="Click" />
                 <asp:AsyncPostBackTrigger ControlID="botonEliminarEvento" EventName="Click" />
-                
             </Triggers>
         </asp:UpdatePanel>
                     

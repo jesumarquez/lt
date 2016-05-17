@@ -72,6 +72,8 @@ namespace Logictracker.Operacion
                 RegisterStatusCheck();
                 RegisterEvents();
                 Monitor.AddCallbackScript(string.Format("startClock(new Date({0},{1},{2},{3},{4},{5}));", DateTime.UtcNow.ToDisplayDateTime().Year, DateTime.UtcNow.ToDisplayDateTime().Month, DateTime.UtcNow.ToDisplayDateTime().Day, DateTime.UtcNow.ToDisplayDateTime().Hour, DateTime.UtcNow.ToDisplayDateTime().Minute, DateTime.UtcNow.ToDisplayDateTime().Second));
+                
+
 
                 var autUser = WebSecurity.AuthenticatedUser;
                 if (autUser != null)
@@ -710,7 +712,7 @@ namespace Logictracker.Operacion
                     if (distribucion != null)
                     {
                         coche = distribucion.Vehiculo;
-                        var georefs = distribucion.Detalles.Select(d => d.ReferenciaGeografica);
+                        var georefs = distribucion.Detalles.Select(d => d.ReferenciaGeografica).ToList();
                         foreach (var georef in georefs)
                         {
                             AddReferenciaGeografica(LayerPoi, LayerAreasPoi, georef, GetPoiPopupContent(georef));
@@ -1518,7 +1520,7 @@ namespace Logictracker.Operacion
             }
         }
 
-        protected static string GetMessage(SharedPopup popup)
+        protected static string GetMessage(Logictracker.SharedPopup popup)
         {
             var posTime = popup.DateTime.ToDisplayDateTime().ToString("HH:mm");
             var posTimeAlta = popup.DateTimeAlta.ToDisplayDateTime().ToString("HH:mm");

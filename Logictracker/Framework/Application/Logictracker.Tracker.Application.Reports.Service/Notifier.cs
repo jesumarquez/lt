@@ -10,14 +10,15 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public static class Notifier
     {
-        public static void SmtpMail(string from, List<string> destiny, string subject, string body, Stream reportStream, string fileName, int smtpPort, string smtpAddress, string passwd)
+        public static void SmtpMail(string @from, List<string> destiny, string subject, string body, Stream reportStream, string fileName, int smtpPort, string smtpAddress, string passwd, bool isHtml)
         {
             var mail = new MailMessage();
 
             mail.From = new MailAddress(from);
             mail.Subject = subject;
             mail.Body = body;
-
+            mail.IsBodyHtml = isHtml;
+            
             foreach (var address in destiny)
             {
                 mail.To.Add(new MailAddress(address));                    

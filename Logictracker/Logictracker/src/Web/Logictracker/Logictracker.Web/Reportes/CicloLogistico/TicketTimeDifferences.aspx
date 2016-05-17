@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" 
-    CodeFile="TicketTimeDifferences.aspx.cs" Inherits="Logictracker.Reportes.CicloLogistico.Tickets_TicketTimeDifferences" Title="Reporte de Diferencias" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.CicloLogistico.Tickets_TicketTimeDifferences" Title="Reporte de Diferencias" Codebehind="TicketTimeDifferences.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" Runat="Server">    

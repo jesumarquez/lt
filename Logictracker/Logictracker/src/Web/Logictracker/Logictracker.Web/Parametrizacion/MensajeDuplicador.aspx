@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MensajeDuplicador.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionMensajeDuplicador" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionMensajeDuplicador" Codebehind="MensajeDuplicador.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 

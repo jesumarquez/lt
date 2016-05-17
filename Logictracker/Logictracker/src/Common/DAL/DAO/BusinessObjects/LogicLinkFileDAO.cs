@@ -21,9 +21,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects
 
         public LogicLinkFile GetNextPendiente(int idEmpresa)
         {
+            return GetPendientes(idEmpresa).FirstOrDefault();
+        }
+
+        public IEnumerable<LogicLinkFile> GetPendientes(int idEmpresa)
+        {
             return Query.Where(f => f.Status == LogicLinkFile.Estados.Pendiente && f.Empresa.Id == idEmpresa)
-                        .OrderBy(f => f.DateAdded)
-                        .FirstOrDefault();
+                        .OrderBy(f => f.DateAdded);
         }
     }
 }

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="EntidadAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.EntidadAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.EntidadAlta" Codebehind="EntidadAlta.aspx.cs" %>
 
 <%@ Register TagPrefix="uc1" TagName="SelectGeoRefference" Src="~/App_Controls/SelectGeoRefference.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="EditEntityGeoRef" Src="~/App_Controls/EditEntityGeoRef.ascx" %>

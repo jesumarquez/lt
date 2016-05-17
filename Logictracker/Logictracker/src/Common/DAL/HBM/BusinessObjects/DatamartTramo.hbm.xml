@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: LogPosicion.hbm.xml 170 2006-09-02 09:24:29Z joseg $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.ReportObjects.Datamart.DatamartTramo,Logictracker.Types" table="opeposi10" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_opeposi10" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one column="rela_parenti01" name="Empresa" lazy="proxy" cascade="none" />
+    <many-to-one column="rela_parenti02" name="Linea" lazy="proxy" cascade="none" />
+    <many-to-one column="rela_parenti03" name="Vehicle" lazy="proxy" cascade="none" />
+    
+    <property column="opeposi10_inicio" name="Inicio" />
+    <property column="opeposi10_fin" name="Fin" />
+    <property column="opeposi10_km" name="Kilometros" />
+    <property column="opeposi10_horas" name="Horas" />
+    <property column="opeposi10_horas_mov" name="HorasMovimiento" />
+    <property column="opeposi10_horas_det" name="HorasDetenido" />
+    <property column="opeposi10_horas_det_dentro" name="HorasDetenidoDentro" />
+    <property column="opeposi10_horas_det_fuera" name="HorasDetenidoFuera" />
+    <property column="opeposi10_detenciones_mayores" name="DetencionesMayores" />
+    <property column="opeposi10_detenciones_menores" name="DetencionesMenores" />
+    <property column="opeposi10_velocidad_promedio" name="VelocidadPromedio" />
+    <property column="opeposi10_geocercas_base" name="GeocercasBase" />
+    <property column="opeposi10_geocercas_entregas" name="GeocercasEntregas" />
+    <property column="opeposi10_geocercas_otras" name="GeocercasOtras" />   
+    <property column="opeposi10_motor_on" name="MotorOn" />   
+
+  </class>
+</hibernate-mapping>

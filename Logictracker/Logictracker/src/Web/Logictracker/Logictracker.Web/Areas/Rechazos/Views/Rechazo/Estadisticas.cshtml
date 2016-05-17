@@ -1,0 +1,107 @@
+﻿@using Logictracker.Web
+@{
+    ViewBag.Title = "Estadisticas";
+}
+
+<div ng-controller="RechazoEstadisticasController" class="container">
+    <div class="row nl-filterpanel">
+        <div class="col-md-2">
+            @Html.ResourceLabel("Entities", "PARENTI01"):
+            <lt-ddl-distrito lt-ng-model="distritoSelected" lt-default-value="UserData.DistritoSelected" />
+        </div>
+        <div class="col-md-2">
+            @Html.ResourceLabel("Entities", "PARENTI02"):
+            <lt-ddl-base lt-ng-model="baseSelected" lt-default-value="UserData.BaseSelected" lt-dependent-on="distritoSelected" />
+        </div>
+        <div class="col-md-4">
+            @Html.ResourceLabel("Entities", "PARENTI07"):
+            <lt-ms-transportista lt-ng-model="transportistaSelected" lt-data-distrito="distritoSelected" lt-depends-on-base="baseSelected" />
+        </div>
+        <div class="col-md-2">
+            <br/>
+            <input type="checkbox" ng-model="autoRefesh" ng-click="onAutoRefreshClick()" />
+            @Html.ResourceLabel("Labels", "Autorefresh")<br/>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="form-control" kendo-button style="margin-top: 1.5em;min-width: 10em" ng-click="onBuscar()">@Html.ResourceLabel("Labels", "Buscar")</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12 GaugeContainer">
+                    <div>Promedio Vendedor</div>
+                    <span kendo-radialgauge
+                          k-scale="averageScale"
+                          ng-model="promedioVendedor"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 GaugeContainer">
+                    <div>Promedio Sup. Ventas</div>
+                    <span kendo-radialgauge
+                          k-scale="averageScale"
+                          ng-model="promedioSupervisorVentas"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 GaugeContainer">
+                    <div>Promedio Jefe Ventas</div>
+                    <span kendo-radialgauge
+                          k-scale="averageScale"
+                          ng-model="promedioJefeVentas"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row StatsContent-top">
+                <div class="col-md-8 ">
+                    <div>Promedio de atención por Vendedor</div>
+                    <div kendo-grid k-options="opcionesGrillaVendedor" k-data-source="datosGrillaVendedor"></div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>Promedio de atención por estados</div>
+                            <div kendo-grid k-options="opcionesGrillaEstados" k-data-source="datosGrillaEstados"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row StatsContent-bottom">      
+                <div class="col-md-8">
+                    <div kendo-chart
+                         k-title="{text: 'Cantidad de ticket por estado / hora'}"
+                         k-legend="{ position: 'bottom' }"
+                         k-series-defaults="{type: 'line'}"
+                         k-value-axis="{ majorUnit: 1}"
+                         k-series="[{field: 'CantidadPendiente', name: 'Pendiente' },
+                                     {field: 'CantidadDuplicado', name: 'Duplicado' },
+                                     {field: 'CantidadErroneo', name: 'Erroneo' },
+                                     {field: 'CantidadSinEntrega', name: 'Sin Entrega' },
+                                     {field: 'CantidadAnulado', name: 'Anulado' },
+                                     {field: 'CantidadResueltoEntregado', name: 'Resuelto Entregado' }]"
+                         k-category-axis="{field: 'Hora', labels: { rotation: -45}}"
+                         k-data-source="chartDataSource"
+                         style="height: 190px;"></div>
+                </div>
+                <div class="col-md-4">
+                    <div>Cantidad por Estado</div>
+                    <div kendo-chart
+                         k-series-defaults="chartCantitdadPorEstadoSerieDefault"
+                         k-series="[{
+	                                    field: 'Cantidad',
+	                                    categoryField: 'Estado',
+	                                    padding: 0}]"
+                         k-legend="{ visible:true, position:'bottom' }"
+                         k-chart-area="{background:''}"
+                         k-data-source="chartCantitdadPorEstado"
+                         style="height: 150px;">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <span kendo-notification="notify"></span>
+</div>

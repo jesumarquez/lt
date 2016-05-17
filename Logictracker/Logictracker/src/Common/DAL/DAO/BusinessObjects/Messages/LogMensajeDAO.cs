@@ -59,11 +59,28 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return GetEvents(top, vehiculosId, codigosMensaje, estados, from, to, expiresOn, maxMonths, esPopup, reqAtencion, order, null);
         }
 
+        private IList<LogMensaje> GetEvents(Int32 top, Int32[] vehiculosId, string[] codigosMensaje, Byte[] estados, DateTime? from, DateTime? to, DateTime? expiresOn, int? maxMonths, Boolean? esPopup, Boolean? reqAtencion, Order order, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            return GetEvents(top, vehiculosId, codigosMensaje, estados, from, to, expiresOn, maxMonths, esPopup, reqAtencion, order, null, page, pageSize, ref totalRows, reCount);
+        }
+
+        
+        private IList<LogMensaje> GetEvents(Int32 top, Int32[] vehiculosId, string[] codigosMensaje, Byte[] estados, DateTime? from, DateTime? to, DateTime? expiresOn, int? maxMonths, Boolean? esPopup, Boolean? reqAtencion, Order order, int? lastId, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            var dc = getDetachedEvents(0, codigosMensaje, estados, from, to, expiresOn, maxMonths, esPopup, reqAtencion, lastId)
+                .FilterByVehicle(vehiculosId);
+            if (reCount)
+            {
+                var rowcount = GetEventsRowCount(top, dc, order, true).FutureValue<Int32>();
+                totalRows = rowcount.Value;
+            }
+            return GetEvents(top, dc, order, true, page, pageSize).List<LogMensaje>();
+        }
+
         private IList<LogMensaje> GetEvents(Int32 top, Int32[] vehiculosId, string[] codigosMensaje, Byte[] estados, DateTime? from, DateTime? to, DateTime? expiresOn, int? maxMonths, Boolean? esPopup, Boolean? reqAtencion, Order order, int? lastId)
         {
             var dc = getDetachedEvents(0, codigosMensaje, estados, from, to, expiresOn, maxMonths, esPopup, reqAtencion, lastId)
                 .FilterByVehicle(vehiculosId);
-
             return GetEvents(top, dc, order, true).List<LogMensaje>();
         }
 
@@ -71,6 +88,11 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
         {
             return GetEvents(top, dc, order, p, true);
         }
+
+        private ICriteria GetEventsRowCount(Int32 top, DetachedCriteria dc, Order order, IProjection p)
+        {
+            return GetEventsRowCount(top, dc, order, p, true);
+        }        
 
         private ICriteria GetEvents(Int32 top, DetachedCriteria dc, Order order, IProjection p, bool existsWithDate)
         {
@@ -82,6 +104,50 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             dc.SetProjection(Projections.Property("dlm.Id"));
 
             return GetEvents(top, Subqueries.Exists(dc), order, p);
+        }
+
+         private ICriteria GetEvents(Int32 top, DetachedCriteria dc, Order order, IProjection p, bool existsWithDate,  int page, int pageSize)
+        {
+            dc.Add(Restrictions.EqProperty("lm.Id", "dlm.Id"));
+
+            if (existsWithDate)
+                dc.Add(Restrictions.EqProperty("lm.Fecha", "dlm.Fecha"));
+
+            dc.SetProjection(Projections.Property("dlm.Id"));
+
+            return GetEvents(top, Subqueries.Exists(dc), order, p, page, pageSize);
+        }
+
+       
+
+        private ICriteria GetEventsRowCount(Int32 top, DetachedCriteria dc, Order order, IProjection p, bool existsWithDate)
+        {
+            dc.Add(Restrictions.EqProperty("lm.Id", "dlm.Id"));
+
+            if (existsWithDate)
+                dc.Add(Restrictions.EqProperty("lm.Fecha", "dlm.Fecha"));
+
+            dc.SetProjection(Projections.Property("dlm.Id"));
+
+            return GetEventsRowCount(top, Subqueries.Exists(dc), order, p);
+        }
+
+
+        private ICriteria GetEvents(Int32 top, AbstractCriterion ac, Order order, IProjection p, int page, int pageSize)
+        {
+            var eventosCriteria = Session.CreateCriteria<LogMensaje>("lm")
+                     .Add(ac);
+
+            if (order != null)
+                eventosCriteria.AddOrder(order);
+
+            if (p != null)
+                eventosCriteria.SetProjection(p);
+
+            eventosCriteria.SetFirstResult(page * pageSize);
+            eventosCriteria.SetMaxResults(pageSize);
+
+            return eventosCriteria;
         }
 
         private ICriteria GetEvents(Int32 top, AbstractCriterion ac, Order order, IProjection p)
@@ -101,9 +167,34 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return eventosCriteria;
         }
 
+        private ICriteria GetEventsRowCount(Int32 top, AbstractCriterion ac, Order order, IProjection p)
+        {
+            var eventosCriteria = Session.CreateCriteria<LogMensaje>("lm")
+                .Add(ac)
+                .SetProjection(Projections.RowCount());
+
+
+            if (p != null)
+                eventosCriteria.SetProjection(p);
+
+            return eventosCriteria;
+        }
+
+        
+
+        private ICriteria GetEventsRowCount(Int32 top, DetachedCriteria dc, Order order, bool existsWithDate)
+        {
+            return GetEventsRowCount(top, dc, order, null, existsWithDate);
+        }
+
         private ICriteria GetEvents(Int32 top, DetachedCriteria dc, Order order, bool existsWithDate)
         {
             return GetEvents(top, dc, order, null, existsWithDate);
+        }
+
+        private ICriteria GetEvents(Int32 top, DetachedCriteria dc, Order order, bool existsWithDate, int page, int pageSize)
+        {
+            return GetEvents(top, dc, order, null, existsWithDate, page, pageSize);
         }
 
         private ICriteria GetEvents(Int32 top, DetachedCriteria dc, Order order)
@@ -131,14 +222,14 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             {
                 result.CreateAlias("Accion", "a", JoinType.InnerJoin)
                       .Add(Restrictions.Eq("a.EsPopUp", esPopup.Value));
-            }            
+            }
 
             #region Por Id/Estado o RequiereAtencion
 
             if ((esPopup ?? false) && (reqAtencion ?? false))
             {
                 var conj2 = Restrictions.Conjunction()
-                    .Add(Restrictions.Eq("Estado", (byte) 0))
+                    .Add(Restrictions.Eq("Estado", (byte)0))
                     .Add(Restrictions.Eq("a.RequiereAtencion", true));
 
                 result.Add(conj2);
@@ -177,9 +268,10 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                 result.SetMaxResults(top);
 
             result.SetProjection(Projections.Property<LogMensaje>(lm => lm.Id));
-
+            
             return result;
         }
+
 
         private void refreshMensajesToPopup(int empresa, Int32 minutes, int refreshTime)
         {
@@ -351,7 +443,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                                    {
                                        MessageCode.CicloLogisticoCerrado.GetMessageCode(),
                                        MessageCode.CicloLogisticoIniciado.GetMessageCode(),
-                                       MessageCode.EstadoLogisticoCumplido.GetMessageCode()
+                                       MessageCode.EstadoLogisticoCumplido.GetMessageCode(),
+                                       MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                       MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode(),
+                                       MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
+                                       MessageCode.EstadoLogisticoCumplidoEntrada.GetMessageCode(),
+                                       MessageCode.EstadoLogisticoCumplidoSalida.GetMessageCode()
                                    };
             return GetMensajesConsola(coches, mensajesList, lastId, maxResults);
         }
@@ -360,7 +457,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
         {
             if (!coche.HasLastMessageDate(codigo))
             {
-                var maxMonths = coche.Empresa != null ? coche.Empresa.MesesConsultaPosiciones : 3;
+                var maxMonths = 2;
 
                 var result = GetUniqueEventDateTime(new[] { coche.Id }, new[] { codigo }, new Byte[] { }, null, null, null, maxMonths, null, Order.Desc("Fecha"));
 
@@ -418,6 +515,18 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
             return eventos.LastOrDefault();
         }
+        public LogMensaje GetLastBySPVehicleAndCode(int vehiculo, string codigo,DateTime desde, DateTime hasta)
+        {
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetLastByVehicleAndCode] :id, :codigo, :dateFrom, :dateTo;");
+            sqlQ.AddEntity(typeof(LogMensaje));
+            sqlQ.SetInt32("id", vehiculo);
+            sqlQ.SetString("codigo", codigo);
+            sqlQ.SetDateTime("dateFrom", desde);
+            sqlQ.SetDateTime("dateTo", hasta);
+
+            var results = sqlQ.List<LogMensaje>();
+            return results.FirstOrDefault();
+        }
         public LogMensaje GetLastByVehicleAndCodes(int vehicleId, string[] codes, DateTime desde, DateTime hasta, int maxMonths)
         {
             var eventos = GetEvents(1, new[] { vehicleId }, codes, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Desc("Fecha"));
@@ -425,9 +534,30 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return eventos.LastOrDefault();
         }
 
+        public LogMensaje GetLastByVehicleAndCodes(int vehiculo, string codigo1, string codigo2, DateTime desde, DateTime hasta)
+        {
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetLastByVehicleAndCodes] :id, :codigo1, :codigo2, :dateFrom, :dateTo;");
+            sqlQ.AddEntity(typeof(LogMensaje));
+            sqlQ.SetInt32("id", vehiculo);
+            sqlQ.SetString("codigo1", codigo1);
+            sqlQ.SetString("codigo2", codigo2);
+            sqlQ.SetDateTime("dateFrom", desde);
+            sqlQ.SetDateTime("dateTo", hasta);
+            
+            var results = sqlQ.List<LogMensaje>();
+            return results.FirstOrDefault();
+        }
+
         public IList<LogMensaje> GetByVehicleAndCode(int vehicleId, string code, DateTime desde, DateTime hasta, int maxMonths)
         {
             var eventos = GetEvents(0, new[] { vehicleId }, new[] { code }, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Asc("Fecha"));
+
+            return eventos;
+        }
+
+        public IList<LogMensaje> GetByVehicleAndCode(int vehicleId, string code, DateTime desde, DateTime hasta, int maxMonths, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            var eventos = GetEvents(0, new[] { vehicleId }, new[] { code }, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Asc("Fecha"), page, pageSize, ref totalRows, reCount);
 
             return eventos;
         }
@@ -448,6 +578,12 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
 
             return eventos;
         }
+
+        public IList<LogMensaje> GetByVehiclesAndCodesLinq(List<int> vehicleIds, List<string> codes, DateTime desde, DateTime hasta, int maxMonths, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            return GetByVehiclesAndCodes(vehicleIds.ToArray(), codes.ToArray(), desde, hasta, maxMonths, page, pageSize, ref totalRows, reCount);
+        }
+        
 
         public IList<LogMensaje> GetByVehiclesAndCodes(List<int> vehicleIds, List<string> codes, DateTime desde, DateTime hasta, int maxMonths)
         {
@@ -479,6 +615,17 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                 codes = new string[] { };
 
             var eventos = GetEvents(0, vehicleIds, codes, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Asc("Fecha"));
+
+
+            return eventos;
+        }
+
+        public IList<LogMensaje> GetByVehiclesAndCodes(Int32[] vehicleIds, string[] codes, DateTime desde, DateTime hasta, int maxMonths, int page, int pageSize, ref int totalRows, bool reCount)
+        {
+            if (codes.Contains("0"))
+                codes = new string[] { };
+
+            var eventos = GetEvents(0, vehicleIds, codes, new Byte[] { }, desde, hasta, null, maxMonths, null, null, Order.Asc("Fecha"), page, pageSize, ref totalRows, reCount);
 
 
             return eventos;
@@ -538,6 +685,21 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
             return coche.RetrieveLastMessageDate(code);
         }
 
+        public DateTime? GetLastGeoRefferenceEventDate(Coche coche, string codigo, int georeferenceId, DateTime from)
+        {
+            var code = codigo + '-' + georeferenceId;
+
+            if (!coche.HasLastMessageDate(code))
+            {   
+
+                var result = GetUniqueEventDateTime(new[] { coche.Id }, new[] { codigo }, new Byte[] { }, from, null, null, null, null, Order.Desc("Fecha"));
+
+                coche.StoreLastMessageDate(code, result);
+            }
+
+            return coche.RetrieveLastMessageDate(code);
+        }
+
         #endregion
 
         #region Protected Methods
@@ -566,6 +728,44 @@ namespace Logictracker.DAL.DAO.BusinessObjects.Messages
                               .SetDateTime("hasta", finalDate);
             var results = sqlQ.List<LogMensaje>();
             return results;
+        }
+
+        public IList<LogMensaje> GetByVehiclesAndCodesSQL(List<int> vehicleIds, List<string> codes, DateTime desde, DateTime hasta, int maxMonths, ref int pageNum, int pageSize, ref List<Object> totalRows, bool reCount)
+        {
+            var tableVehiculos = Ids2DataTable(vehicleIds);
+            var dao = new DAOFactory();
+            var mensajesIds = dao.MensajeDAO.FindByCodes(codes).Select(m => m.Id);
+            var tableMensajes = Ids2DataTable(mensajesIds);
+
+            var minDate = DateTime.UtcNow.AddMonths(-maxMonths);
+
+            if (desde < minDate) desde = minDate;
+            if (hasta < minDate) hasta = minDate;
+            var newpageSize = (pageSize * pageNum);
+            var sqlQ = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetByVehiclesAndMessagesPaging] @vehiculosIds = :vehiculosIds, @mensajesIds = :mensajesIds, @desde = :desde, @hasta = :hasta, @pageSize = :pageSize, @pageNum = :pageNum;")
+                              .AddEntity(typeof(LogMensaje))
+                              .SetStructured("vehiculosIds", tableVehiculos)
+                              .SetStructured("mensajesIds", tableMensajes)
+                              .SetDateTime("desde", desde)
+                              .SetDateTime("hasta", hasta)
+                              .SetInt32("pageSize", newpageSize)
+                              .SetInt64("pageNum", pageNum);
+            var results = sqlQ.List<LogMensaje>().Skip((pageSize * (pageNum-1))).ToList();
+
+            if (reCount)
+            {
+                var sqlQcount = Session.CreateSQLQuery("exec [dbo].[sp_LogMensajeDAO_GetByVehiclesAndMessagesCount] @vehiculosIds = :vehiculosIds, @mensajesIds = :mensajesIds, @desde = :desde, @hasta = :hasta;")
+                                .SetStructured("vehiculosIds", tableVehiculos)
+                              .SetStructured("mensajesIds", tableMensajes)
+                              .SetDateTime("desde", desde)
+                              .SetDateTime("hasta", hasta)
+                              .SetTimeout(0);
+                totalRows = sqlQcount.List<object>().ToList();
+            }
+            
+            return results;
+
+            //return GetByVehiclesAndCodes(vehicleIds.ToArray(), codes.ToArray(), desde, hasta, maxMonths);
         }
     }
 }

@@ -280,7 +280,7 @@ namespace Logictracker.Reportes.Estadistica
 
         }
 
-        private IEnumerable<MobileRoutes> GetRoutes(int vehicleId)
+        private IEnumerable<Logictracker.Types.ReportObjects.MobileRoutes> GetRoutes(int vehicleId)
         {
             var desde = dtFecha.SelectedDate != null ? SecurityExtensions.ToDataBaseDateTime(dtFecha.SelectedDate.GetValueOrDefault().AddHours(npHoraDesde.Value)) : DateTime.Today.ToDataBaseDateTime().AddHours(npHoraDesde.Value);
             var hasta = dtFecha.SelectedDate != null ? SecurityExtensions.ToDataBaseDateTime(dtFecha.SelectedDate.GetValueOrDefault().AddHours(npHoraHasta.Value)).AddMinutes(59) : DateTime.Today.ToDataBaseDateTime().AddHours(npHoraHasta.Value).AddMinutes(59);
@@ -290,10 +290,10 @@ namespace Logictracker.Reportes.Estadistica
             return MergeResults(routes);
         }
 
-        private static IEnumerable<MobileRoutes> MergeResults(List<MobileRoutes> routes)
+        private static IEnumerable<Logictracker.Types.ReportObjects.MobileRoutes> MergeResults(List<Logictracker.Types.ReportObjects.MobileRoutes> routes)
         {
             if (routes == null || routes.Count.Equals(0))
-                routes = new List<MobileRoutes>();
+                routes = new List<Logictracker.Types.ReportObjects.MobileRoutes>();
 
             for (var i = 1; i < routes.Count; i++)
             {
@@ -308,7 +308,7 @@ namespace Logictracker.Reportes.Estadistica
             return routes;
         }
 
-        private static void MergeRouteFragments(MobileRoutes pastFragment, MobileRoutes currentFragment)
+        private static void MergeRouteFragments(Logictracker.Types.ReportObjects.MobileRoutes pastFragment, Logictracker.Types.ReportObjects.MobileRoutes currentFragment)
         {
             pastFragment.AverageSpeed = pastFragment.AverageSpeed >= currentFragment.AverageSpeed ? pastFragment.AverageSpeed : currentFragment.AverageSpeed;
             pastFragment.Duration += currentFragment.Duration;

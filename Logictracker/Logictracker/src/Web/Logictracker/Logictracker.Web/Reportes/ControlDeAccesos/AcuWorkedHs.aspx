@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" CodeFile="AcuWorkedHs.aspx.cs" Inherits="Logictracker.Reportes.ControlDeAccesos.Reportes_ControlDeAccesos_AcuWorkedHs" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ReportGraphPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.ControlDeAccesos.Reportes_ControlDeAccesos_AcuWorkedHs" Title="Untitled Page" Codebehind="AcuWorkedHs.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Filtros" runat="Server">
     <%--FILTROS--%>

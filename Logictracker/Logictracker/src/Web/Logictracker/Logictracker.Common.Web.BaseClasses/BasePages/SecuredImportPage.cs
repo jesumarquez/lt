@@ -215,8 +215,11 @@ namespace Logictracker.Web.BaseClasses.BasePages
             try
             {
                 if (!FileUpload.HasFile) ThrowError("FILE_EXPECTED");
-                if (FileUpload.PostedFile.ContentType != "application/vnd.ms-excel") ThrowError("FILE_BAD_EXTENSION");
-
+                if (FileUpload.PostedFile.ContentType != "application/vnd.ms-excel" &&
+                    FileUpload.PostedFile.ContentType != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                {
+                    ThrowError("FILE_BAD_EXTENSION");
+                }
                 var path = Server.MapPath(Config.Directory.TmpDir);
                 var filename = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMdd_HHmmss"), FileUpload.FileName);
 
@@ -432,7 +435,9 @@ namespace Logictracker.Web.BaseClasses.BasePages
                     sheets = excel.GetWorksheetNames().ToList();
                     break;
                 case FileTypes.Csv:
-                    sheets.Add(excel.GetWorksheetNames().LastOrDefault());
+                    var last = excel.GetWorksheetNames().LastOrDefault();
+                    if (last == null) last = "0";                    
+                    sheets.Add(last);                    
                     break;
                 default:
                     break;
@@ -677,15 +682,18 @@ namespace Logictracker.Web.BaseClasses.BasePages
                                   Vigencia = new Vigencia { Inicio = DateTime.Now }
                               };
 
+
+
+
                 var pol = new Poligono
-                              {
-                                  Radio = 100,
-                                  Vigencia = new Vigencia { Inicio = DateTime.Now }
-                              };
+                {
+                    Radio = 100,
+                    Vigencia = new Vigencia { Inicio = DateTime.Now }
+                };
                 pol.AddPoints(new[]
                                   {
-                                      new PointF((float) direccionNomenclada.Longitud,
-                                                 (float) direccionNomenclada.Latitud)
+                                      new PointF((float) dir.Longitud,
+                                                 (float) dir.Latitud)
                                   });
 
 
@@ -717,7 +725,28 @@ namespace Logictracker.Web.BaseClasses.BasePages
         }
         protected static IList<DireccionVO> NomenclarByLatLon(double latitud, double longitud)
         {
-            return new List<DireccionVO> { GeocoderHelper.Cleaning.GetDireccionMasCercana(latitud, longitud) };
+            var vo = GeocoderHelper.Cleaning.GetDireccionMasCercana(latitud, longitud);
+            var lst = new List<DireccionVO>(1);
+            if (vo == null)
+            {
+               vo = new DireccionVO
+                {
+                    Altura = -1,
+                    Calle = string.Empty,
+                    Direccion = string.Format("({0}, {1})", latitud, longitud),
+                    IdEsquina = -1,
+                    IdMapaUrbano = -1,
+                    IdPoligonal = -1,
+                    IdProvincia = -1,
+                    Partido = string.Empty,
+                    Provincia = string.Empty,
+                    Latitud = latitud,
+                    Longitud = longitud
+                };             
+            }
+             
+            lst.Add(vo);
+            return lst;
         }
         protected static IList<DireccionVO> NomenclarByCalle(string calle, int altura, string esquina, string partido, string provincia)
         {

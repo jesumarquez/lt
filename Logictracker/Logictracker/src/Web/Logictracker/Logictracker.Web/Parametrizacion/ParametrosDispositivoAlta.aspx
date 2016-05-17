@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ParametrosDispositivoAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionParametrosDispositivoAlta" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionParametrosDispositivoAlta" Codebehind="ParametrosDispositivoAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" Runat="Server">
  

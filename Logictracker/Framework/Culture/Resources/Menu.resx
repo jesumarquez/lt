@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ACC_DET_INFRACCIONES_X_CHOFER" xml:space="preserve">
     <value>Detalle de Infracciones por Chofer</value>
@@ -322,7 +322,7 @@
     <value>Equipos</value>
   </data>
   <data name="PAR_ESTADOLOG" xml:space="preserve">
-    <value>Estados Logísticos</value>
+    <value>Estados Logísticos (Hormigón)</value>
   </data>
   <data name="PAR_FIRMUPLOAD" xml:space="preserve">
     <value>Firmware Upload</value>
@@ -448,7 +448,7 @@
     <value>Resumen por Operador</value>
   </data>
   <data name="STAT_RESUMEN_RUTA" xml:space="preserve">
-    <value>Resumen de Ruta</value>
+    <value>Resumen de Recorrido</value>
   </data>
   <data name="STAT_REPORTE_CONSUMOS" xml:space="preserve">
     <value>Reporte de Combustible</value>
@@ -849,6 +849,9 @@
   <data name="RANKING_VEHICULOS" xml:space="preserve">
     <value>Ranking de Vehículos</value>
   </data>
+  <data name="RANKING_TRANSPORTISTAS" xml:space="preserve">
+    <value>Ranking de Transportistas</value>
+  </data>
   <data name="PAR_TIPO_ZONA" xml:space="preserve">
     <value>Tipo de Zona</value>
   </data>
@@ -928,7 +931,7 @@
     <value>Datamart Log</value>
   </data>
   <data name="KPI_ESTADO_ENTREGAS" xml:space="preserve">
-    <value>KPI Estado Entregas</value>
+    <value>Monitor KPI Estado Entregas</value>
   </data>
   <data name="PAR_AGENDA" xml:space="preserve">
     <value>Agenda Vehicular</value>
@@ -944,5 +947,41 @@
   </data>
   <data name="REPORT_LOG" xml:space="preserve">
     <value>Log de Reportes Ejecutados</value>
+  </data>
+  <data name="PAR_ESTADO_LOGISTICO" xml:space="preserve">
+    <value>Estados Logísticos</value>
+  </data>
+  <data name="PAR_TIPO_CICLO_LOGISTICO" xml:space="preserve">
+    <value>Tipo de Ciclo Logístico</value>
+  </data>
+  <data name="REP_ESTADOS_LOGISTICOS" xml:space="preserve">
+    <value>Reporte de Estados Logísticos</value>
+  </data>
+  <data name="CLOG_RECHAZO" xml:space="preserve">
+    <value>Rechazo</value>
+  </data>
+  <data name="PAR_ORDENES" xml:space="preserve">
+    <value>Ordenes</value>
+  </data>
+  <data name="CLOG_RECHAZO_ESTADISTICAS" xml:space="preserve">
+    <value>Estadísticas de Rechazos</value>
+  </data>
+  <data name="PAR_VIAJE_PROGRAMADO" xml:space="preserve">
+    <value>Viajes Programados</value>
+  </data>
+  <data name="PAR_STOCK_VEHICULAR" xml:space="preserve">
+    <value>Stock Vehicular</value>
+  </data>
+  <data name="REP_PROYECCION_STOCK" xml:space="preserve">
+    <value>Proyección de Stock</value>
+  </data>
+  <data name="MON_CHECK_OUT" xml:space="preserve">
+    <value>Monitor Check In / Check Out</value>
+  </data>
+  <data name="REP_IN_OUT" xml:space="preserve">
+    <value>Reporte In / Out</value>
+  </data>
+  <data name="REPORTE_ASIGNO" xml:space="preserve">
+    <value>Reporte de Asigno</value>
   </data>
 </root>

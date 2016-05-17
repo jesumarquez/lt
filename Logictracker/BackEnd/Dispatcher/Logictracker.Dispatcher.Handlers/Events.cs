@@ -22,6 +22,7 @@ using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.BusinessObjects.Vehiculos;
 using Logictracker.Types.ValueObject.Messages;
 using Logictracker.Utils;
+using System.Collections.Generic;
 
 namespace Logictracker.Dispatcher.Handlers
 {
@@ -50,11 +51,10 @@ namespace Logictracker.Dispatcher.Handlers
 
             #endregion protect garmin on/off messages from be banned because of invalid date
 
-		    if (IsGarbageMessage(code))
-		    {
-                STrace.Error(GetType().FullName, Dispositivo.Id, string.Format("Mensaje ignorado. Código {0}", code));
-		        return HandleResults.BreakSuccess;
-		    }
+            //if (IsGarbageMessage(code))
+            //{
+            //    return HandleResults.BreakSuccess;
+            //}
 
 		    if (IsInvalidMessage(code, message))
 		    {
@@ -95,43 +95,20 @@ namespace Logictracker.Dispatcher.Handlers
 			string applicationCode;
 		    var esConfirmacionUbox = false;
 
-            if (Coche.Empresa.InicioDistribucionPorMensaje &&
-                code == Coche.Empresa.InicioDistribucionCodigoMensaje &&
-                DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche) == null)
-            {
-                var distribucion = DaoFactory.ViajeDistribucionDAO.FindPendiente(new[] {Coche.Empresa.Id},
-                                                                                 new[] {-1}, new[] {Coche.Id},
-                                                                                 DateTime.Today,
-                                                                                 DateTime.Today.AddDays(1));
-                if (distribucion != null)
-                {
-                    var evento = new InitEvent(generico.Tiempo);
-                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
-                    ciclo.ProcessEvent(evento);
-                }
-            }
+            ControlarInicioDistribucionPorMensaje(code, generico);
 
-            if (Coche.Empresa.CierreDistribucionPorMensaje &&
-                code == Coche.Empresa.CierreDistribucionCodigoMensaje)
-            {
-                var distribucion = DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche);
-                if (distribucion != null)
-                {
-                    var evento = new CloseEvent(generico.Tiempo);
-                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
-                    ciclo.ProcessEvent(evento);
-                }
-            }
+            ControlarCierreDistribucionPorMensaje(code, generico);
 
 		    if (MessageIdentifierX.IsRfidEvent(generico.Code)) applicationCode = ProcessRfidEvent(code, generico);
             else if (MessageIdentifierX.IsEstadoLogistico(generico.GetData())) applicationCode = ProcessEstadoLogistico(code, generico);
+            else if (MessageIdentifierX.IsPanicEvent(code)) applicationCode = ProcessPanicEvent(generico, code);
             else if (code.Equals(MessageCode.SpeedingTicket.GetMessageCode())) applicationCode = ProcessVelocidadExcedidaGenericEvent(generico);
             else if (MessageIdentifierX.IsConfirmacionUbox(generico.GetData())) 
             {
                 applicationCode = code;
                 esConfirmacionUbox = true;
                 // DEFINE EL PROCESAMIENTO CUANDO SABE SI TIENE UN PUNTO
-            }
+            }            
             else applicationCode = ProcessGenericEvent(generico, code);
             
             if (DaoFactory.DetalleDispositivoDAO.GetProcesarCicloLogisticoFlagValue(generico.DeviceId))
@@ -151,11 +128,49 @@ namespace Logictracker.Dispatcher.Handlers
                 if (point != null)
                 {
                     if (esConfirmacionUbox) ProcessConfirmacionUbox(code, generico, point);
-                    else CicloLogisticoFactory.Process(DaoFactory, applicationCode, Coche, point, generico, false, GetChofer(generico.GetRiderId()));
+                    else
+                    {
+                        CicloLogisticoFactory.Process(DaoFactory, applicationCode, Coche, point, generico, false, GetChofer(generico.GetRiderId()));
+                        CicloLogisticoFactory.ProcessEstadoLogistico(Coche, generico, applicationCode);
+                    }
                 }
                 else if (esConfirmacionUbox) ProcessGenericEvent(generico, code);
 			}
 		}
+
+        private void ControlarInicioDistribucionPorMensaje(string code, Event generico)
+        {
+            if (Coche.Empresa.InicioDistribucionPorMensaje &&
+                code == Coche.Empresa.InicioDistribucionCodigoMensaje &&
+                DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche) == null)
+            {
+                var distribucion = DaoFactory.ViajeDistribucionDAO.FindPendiente(new[] { Coche.Empresa.Id },
+                                                                                 new[] { -1 }, new[] { Coche.Id },
+                                                                                 DateTime.Today,
+                                                                                 DateTime.Today.AddDays(1));
+                if (distribucion != null)
+                {
+                    var evento = new InitEvent(generico.Tiempo);
+                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
+                    ciclo.ProcessEvent(evento);
+                }
+            }
+        }
+
+        private void ControlarCierreDistribucionPorMensaje(string code, Event generico)
+        {
+            if (Coche.Empresa.CierreDistribucionPorMensaje &&
+                code == Coche.Empresa.CierreDistribucionCodigoMensaje)
+            {
+                var distribucion = DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche);
+                if (distribucion != null)
+                {
+                    var evento = new CloseEvent(generico.Tiempo);
+                    var ciclo = new CicloLogisticoDistribucion(distribucion, DaoFactory, new MessageSaver(DaoFactory));
+                    ciclo.ProcessEvent(evento);
+                }
+            }
+        }
 
 	    private void ProcessEntityEvent(Event evento, string code)
 		{
@@ -290,6 +305,35 @@ namespace Logictracker.Dispatcher.Handlers
 		    return MessageCode.SpeedingTicket.GetMessageCode();
 		}
 
+        private string ProcessPanicEvent(Event generico, string code)
+        {
+            var text = ExtraText.GetExtraText(generico, code).Trim().ToUpperInvariant();
+            var chofer = GetChofer(generico.GetRiderId());
+            var fecha = generico.GetDateTime();
+            var evento = MessageSaver.Save(generico, code, Dispositivo, Coche, chofer, fecha, generico.GeoPoint, text, ZonaManejo);
+
+            var infraccion = new Infraccion
+            {
+                Vehiculo = Coche,
+                Alcanzado = generico.GeoPoint.Speed.Unpack(),
+                CodigoInfraccion = Infraccion.Codigos.Panico,
+                Empleado = evento.Chofer,
+                Fecha = fecha,
+                Latitud = generico.GeoPoint.Lat,
+                Longitud = generico.GeoPoint.Lon,
+                FechaFin = null,
+                LatitudFin = 0,
+                LongitudFin = 0,
+                Permitido = 0,
+                Zona = ZonaManejo,
+                FechaAlta = DateTime.UtcNow
+            };
+
+            DaoFactory.InfraccionDAO.Save(infraccion);
+
+            return code;
+        }
+
 		private string ProcessGenericEvent(Event generico, string code)
 		{
             var text = ExtraText.GetExtraText(generico, code).Trim().ToUpperInvariant();
@@ -325,11 +369,10 @@ namespace Logictracker.Dispatcher.Handlers
             }
             
             var textoEvento = ExtraText.GetExtraText(generico, code) + extraText;
-            var textoManual = "Manual" + textoEvento;
             var chofer = GetChofer(generico.GetRiderId());
 
             MessageSaver.Save(generico, code, Dispositivo, Coche, chofer, generico.GetDateTime(), generico.GeoPoint, textoEvento, ZonaManejo);
-            MessageSaver.Save(MessageCode.EstadoLogisticoCumplido.GetMessageCode(), Coche, chofer, generico.GetDateTime(), generico.GeoPoint, textoManual);
+            MessageSaver.Save(MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(), Coche, chofer, generico.GetDateTime(), generico.GeoPoint, textoEvento);
         }
 
 		private string ProcessEstadoLogistico(string code, IGeoPoint generico)
@@ -388,14 +431,16 @@ namespace Logictracker.Dispatcher.Handlers
                         if (puerta != null)
                         {
                             verif.PuertaAcceso = puerta;
-                            if (code.Equals(MessageCode.RfidEmployeeLogin.GetMessageCode()))
+                            if (code.Equals(MessageCode.RfidEmployeeLogin.GetMessageCode())
+                             || code.Equals(MessageCode.RfidDriverLogin.GetMessageCode()))
                             {
                                 verif.TipoFichada = Empleado.VerificadorEmpleado.TipoDeFichada.Entrada;
                                 if (puerta.ZonaAccesoEntrada != null) verif.ZonaAcceso = puerta.ZonaAccesoEntrada;
                             }
-                            else if (code.Equals(MessageCode.RfidEmployeeLogout.GetMessageCode()))
+                            else if (code.Equals(MessageCode.RfidEmployeeLogout.GetMessageCode())
+                                  || code.Equals(MessageCode.RfidDriverLogout.GetMessageCode()))
                             {
-                                verif.TipoFichada = Empleado.VerificadorEmpleado.TipoDeFichada.Entrada;
+                                verif.TipoFichada = Empleado.VerificadorEmpleado.TipoDeFichada.Salida;
                                 if (puerta.ZonaAccesoSalida != null) verif.ZonaAcceso = puerta.ZonaAccesoSalida;
                             }
                         }
@@ -408,7 +453,9 @@ namespace Logictracker.Dispatcher.Handlers
 		    // Eventos Acceso
             if (driver != null && 
                 (code == MessageCode.RfidEmployeeLogin.GetMessageCode() 
-                || code == MessageCode.RfidEmployeeLogout.GetMessageCode()))
+                || code == MessageCode.RfidEmployeeLogout.GetMessageCode()
+                || code == MessageCode.RfidDriverLogin.GetMessageCode()
+                || code == MessageCode.RfidDriverLogout.GetMessageCode()))
             {
                 var puerta = DaoFactory.PuertaAccesoDAO.FindByVehiculo(Coche.Id);
                 if (puerta != null)
@@ -417,7 +464,8 @@ namespace Logictracker.Dispatcher.Handlers
                                      {
                                          Alta = DateTime.UtcNow,
                                          Empleado = driver,
-                                         Entrada = code == MessageCode.RfidEmployeeLogin.GetMessageCode(),
+                                         Entrada = code == MessageCode.RfidEmployeeLogin.GetMessageCode()
+                                                || code == MessageCode.RfidDriverLogin.GetMessageCode(),
 										 Fecha = generico.GetDateTime(),
                                          Puerta = puerta
                                      };

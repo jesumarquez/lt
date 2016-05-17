@@ -53,7 +53,7 @@ namespace Logictracker.QuadTree.Data
             lock (syncLock) 
             {
                 if (State == newState) return;
-                STrace.Debug(typeof(GR2).FullName, String.Format("QT/GR2: Store File Transition. {0} -> {1}", State.ToString(), newState.ToString()));
+          //      STrace.Debug(typeof(GR2).FullName, String.Format("QT/GR2: Store File Transition. {0} -> {1}", State.ToString(), newState.ToString()));
                 State = newState;
             }
         }

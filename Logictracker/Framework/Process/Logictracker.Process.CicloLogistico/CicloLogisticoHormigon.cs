@@ -336,11 +336,11 @@ namespace Logictracker.Process.CicloLogistico
 
         #region AutoClose
 
-        protected override void AutoCloseTicket()
+        protected override void AutoCloseTicket(DateTime date)
         {
             // Si pasaron mas de EndMarginMinutes horas desde la hora final del ticket, lo cierro.
             var maxdate = GetMaxDate();
-            var close = maxdate.AddMinutes(EndMarginMinutes) < DateTime.UtcNow;
+            var close = maxdate.AddMinutes(EndMarginMinutes) < date;
 
             // Si el ultimo evento del ciclo ya fue procesado y está configurado como automático, cierro el ticket.
             var ultimoDetalle = Detalles.Last();
@@ -349,9 +349,9 @@ namespace Logictracker.Process.CicloLogistico
 
             if (close)
             {
-                Ticket.FechaFin = DateTime.UtcNow;
+                Ticket.FechaFin = date;
                 Ticket.Estado = Ticket.Estados.Cerrado;
-                Ticket.UserField3 += "(auto cerrado "+EndMarginMinutes+"min)";
+                Ticket.UserField3 += "(auto cerrado " + EndMarginMinutes + " min)";
                 
                 DaoFactory.TicketDAO.SaveOrUpdate(Ticket);
                 SaveMessage(MessageCode.CicloLogisticoCerrado.GetMessageCode(), Ticket.FechaFin.Value);

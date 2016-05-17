@@ -58,7 +58,13 @@ namespace Logictracker.Parametrizacion
             ValidateDuplicated(byCode, "CODE");
 
             var georef = EditEntityGeoRef1.GetNewGeoRefference();
-            if(georef == null) ThrowMustEnter("DIRECCION");
+            if (georef == null)
+            {
+                if (SelectGeoRef1.Selected > 0) 
+                    georef = DAOFactory.ReferenciaGeograficaDAO.FindById(SelectGeoRef1.Selected);
+                else 
+                    ThrowMustEnter("DIRECCION");
+            } 
         }
 
         protected override void OnSave()

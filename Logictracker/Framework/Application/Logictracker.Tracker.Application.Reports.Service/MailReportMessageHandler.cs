@@ -2,21 +2,18 @@
 using log4net;
 using Logictracker.DAL.NHibernate;
 using Logictracker.Reports.Messaging;
+using Logictracker.Tracker.Services;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Tracker.Application.Reports
 {
     public class MailReportMessageHandler
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(MailReportMessageHandler));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof (MailReportMessageHandler));
 
-        public static ReportService ReportService { get; set; }
+        public static IReportService ReportService { get; set; }
 
-        //MailReportMessageHandler()
-        //{
-        //    ReportService = new ReportService();
-        //}
-
-        //handlers
+        #region Handlers
         public void HandleMessage(EventReportCommand command)
         {
             Logger.DebugFormat("Received message command of type {0} ", command.GetType());
@@ -37,11 +34,12 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -65,11 +63,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -93,14 +93,16 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
-        
+
         public void HandleMessage(VehicleInfractionsReportCommand command)
         {
             Logger.DebugFormat("Received message command of type {0} ", command.GetType());
@@ -121,11 +123,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -149,11 +153,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -177,11 +183,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -205,11 +213,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -233,11 +243,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -261,11 +273,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -289,11 +303,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -317,11 +333,13 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -345,11 +363,43 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
             finally
             {
-                ReportService.LogReportExecution(statusReport);
+                ReportService.LogReportExecution(command.ReportId, statusReport);
+            }
+        }
+
+        public void HandleMessage(VehicleVerifierCommand command)
+        {
+            Logger.DebugFormat("Received message command of type {0} ", command.GetType());
+
+            var statusReport = new ReportStatus();
+            try
+            {
+                NHibernateHelper.CreateSession();
+                Logger.Debug("Nhibernate session created");
+
+                ProcessVehicleVerifierReportCommand(command, statusReport);
+
+                NHibernateHelper.CloseSession();
+                Logger.Debug("Nhibernate close session");
+
+            }
+            catch (Exception e)
+            {
+                statusReport.Error = true;
+                Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
+                throw;
+            }
+            finally
+            {
+                ReportService.LogReportExecution(command.ReportId, statusReport);
             }
         }
 
@@ -373,6 +423,8 @@ namespace Logictracker.Tracker.Application.Reports
             {
                 statusReport.Error = true;
                 Logger.Error(e);
+                ReportService.NotifyError(command, e.Message);
+
                 throw;
             }
         }
@@ -382,62 +434,82 @@ namespace Logictracker.Tracker.Application.Reports
             Logger.WarnFormat("Does not exist a report generator implementation for {0}", command.GetType());
         }
 
-        //processors
+        #endregion
+        
+        #region processors
+        private void ProcessVehicleVerifierReportCommand(VehicleVerifierCommand command, ReportStatus statusReport)
+        {
+            var reportExecution = ReportService.GenerateVehicleVerifierReport(command, statusReport);
+            ReportService.SendHtmlReport(reportExecution, command.Email, "Verificador de Vehiculos");
+        }
+
         private void ProcessGenerateFinalExceutionReportCommand(FinalExecutionCommand command, ReportStatus statusReport)
         {
             var reportExecution = ReportService.GenerateFinalExcecutionReport(command, statusReport);
-            ReportService.SendReport(reportExecution,  "Reporte de Ejecucion");
+            ReportService.SendReport(reportExecution, "Reporte de Ejecucion");
         }
 
-        private void ProcessGenerateVehicleInfractionsReportCommand(VehicleInfractionsReportCommand command, ReportStatus statusReport)
+        private void ProcessGenerateVehicleInfractionsReportCommand(VehicleInfractionsReportCommand command,
+            ReportStatus statusReport)
         {
             using (
                 var reportStream = ReportService.GenerateVehicleInfractionsReport(command, statusReport))
-                        {
-                            if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+            {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
-                            ReportService.SendReport(reportStream, command, command.ReportName);
-                        }
+                ReportService.SendReport(reportStream, command, command.ReportName);
+            }
         }
 
-        private void ProcessGenerateAccumulatedKilometersReportCommand(AccumulatedKilometersReportCommand command, ReportStatus statusReport)
+        private void ProcessGenerateAccumulatedKilometersReportCommand(AccumulatedKilometersReportCommand command,
+            ReportStatus statusReport)
         {
             using (
                 var reportStream = ReportService.GenerateAccumulatedKilometersReport(command, statusReport))
-                {
-                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+            {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
-                    ReportService.SendReport(reportStream, command, command.ReportName);
-                }
+                ReportService.SendReport(reportStream, command, command.ReportName);
+            }
         }
 
-        private void ProcessGenerateVehicleActivityReportCommand(VehicleActivityReportCommand command, ReportStatus statusReport)
+        private void ProcessGenerateVehicleActivityReportCommand(VehicleActivityReportCommand command,
+            ReportStatus statusReport)
         {
             using (
                 var reportStream = ReportService.GenerateVehicleActivityReport(command, statusReport))
-                {
-                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+            {
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
-                    ReportService.SendReport(reportStream, command, command.ReportName);
-                }
+                ReportService.SendReport(reportStream, command, command.ReportName);
+            }
         }
 
         private void ProcessGenerateDriversInfractionsReportCommand(DriversInfractionsReportCommand command, ReportStatus statusReport)
         {
-            using (
-                var reportStream = ReportService.GenerateDriversInfractionReport(command, statusReport))
-                        {
-                            if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
-
-                            ReportService.SendReport(reportStream, command, command.ReportName);
-                        }
+            if (ProgramacionReporte.FormatoReporte.Excel.Equals(command.ReportFormat))
+            {
+                using (var reportStream = ReportService.GenerateDriversInfractionReport(command, statusReport))
+                {
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
+                    ReportService.SendReport(reportStream, command, command.ReportName);
+                }
+            }
+            else
+            {
+                var report = ReportService.GenerateSummarizedDriversInfractionReport(command, statusReport);
+                
+                if (report == null) ReportService.SendEmptyReport(command, command.ReportName, false);
+                
+                ReportService.SendHtmlReport(report, command.Email, command.ReportName );
+            }
         }
 
         private void ProcessGenerateGeofenceEventsReportCommand(GeofenceEventsReportCommand command, ReportStatus statusReport)
         {
             using ( var reportStream = ReportService.GenerateGeofenceEventsReport(command, statusReport))
                 {
-                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
@@ -447,7 +519,7 @@ namespace Logictracker.Tracker.Application.Reports
         {
             using (var reportStream = ReportService.GenerateMobilesTimeReport(command, statusReport))
             {
-                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
@@ -456,67 +528,88 @@ namespace Logictracker.Tracker.Application.Reports
         private void ProcessGenerateEventDailyReportCommand(EventReportCommand command, ReportStatus statusReport)
         {
             using (
-                var reportStream = ReportService.GenerateDailyEventReport(command, statusReport))
+                var reportStream = ReportService.GenerateEventReport(command, statusReport))
             {
-                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
 
         private void ProcessGenerateDocumentsExpirationReportCommand(DocumentsExpirationReportCommand command, ReportStatus statusReport)
         {
-            using (
-                var reportStream = ReportService.GenerateDocumentExpirationReport(command, statusReport))
-                        {
-                            if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+            if (ProgramacionReporte.FormatoReporte.Excel.Equals(command.ReportFormat))
+            {
+                using (var reportStream = ReportService.GenerateDocumentExpirationReport(command, statusReport))
+                {
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
-                            ReportService.SendReport(reportStream, command, command.ReportName);
-                        }
+                    ReportService.SendReport(reportStream, command, command.ReportName);
+                }
+            }
+            else
+            {
+                var report = ReportService.GenerateSummarizedDocumentExpirationReport(command, statusReport);
+
+                if (report == null) ReportService.SendEmptyReport(command, command.ReportName, false);
+
+                ReportService.SendHtmlReport(report, command.Email, command.ReportName);
+            }
         }
 
         private void ProcessGenerateOdometersReportCommand(OdometersReportCommand command, ReportStatus statusReport)
         {
-            using (
-                var reportStream = ReportService.GenerateOdometersReport(command, statusReport))
+            if (ProgramacionReporte.FormatoReporte.Excel.Equals(command.ReportFormat))
+            {
+                using (var reportStream = ReportService.GenerateOdometersReport(command, statusReport))
                 {
-                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+                    if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false);
 
                     ReportService.SendReport(reportStream, command, command.ReportName);
                 }
+            }
+            else
+            {
+                var report = ReportService.GenerateSummarizedOdometersReport(command, statusReport);
+
+                if (report == null) ReportService.SendEmptyReport(command, command.ReportName, false);
+
+                ReportService.SendHtmlReport(report, command.Email, command.ReportName);
+            }
         }
 
-        private void ProcessGenerateTransfersPerTripReportCommand(TransfersPerTripReportCommand command, ReportStatus statusReport)
+        private void ProcessGenerateTransfersPerTripReportCommand(TransfersPerTripReportCommand command, ReportStatus statusReport )
         {
             using (
                 var reportStream = ReportService.GenerateTransfersPerTripReport(command, statusReport))
             {
-                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false );
 
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
 
-        private void ProcessGenerateDeliverStatusReportCommand(DeliverStatusReportCommand command, ReportStatus statusReport)
+        private void ProcessGenerateDeliverStatusReportCommand(DeliverStatusReportCommand command, ReportStatus statusReport )
         {
             using (
                 var reportStream = ReportService.GenerateDeliverStatusReport(command, statusReport))
             {
-                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false );
 
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
 
-        private void ProcessGenerateSummaryRoutesReportCommand(SummaryRoutesReportCommand command, ReportStatus statusReport)
+        private void ProcessGenerateSummaryRoutesReportCommand(SummaryRoutesReportCommand command, ReportStatus statusReport )
         {
             using (
                 var reportStream = ReportService.GenerateSummaryRoutesReport(command, statusReport))
             {
-                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName);
+                if (reportStream == null) ReportService.SendEmptyReport(command, command.ReportName, false );
 
                 ReportService.SendReport(reportStream, command, command.ReportName);
             }
         }
 
+        #endregion
     }
 }

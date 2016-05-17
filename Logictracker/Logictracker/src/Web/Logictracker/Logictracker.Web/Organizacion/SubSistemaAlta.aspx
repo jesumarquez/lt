@@ -1,5 +1,5 @@
- <%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="SubSistemaAlta.aspx.cs"
-    Inherits="Logictracker.Organizacion.AltaSistema" Title="Sub Sistemas" %>
+ <%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Organizacion.AltaSistema" Title="Sub Sistemas" Codebehind="SubSistemaAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">
     <table id="tbTipoPunto" style="width: 90%; margin: auto; margin-top: 30px;" cellpadding="5">

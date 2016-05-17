@@ -33,6 +33,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,6 +81,7 @@
     <Compile Include="DAO\AuditedClassesHelper.cs" />
     <Compile Include="DAO\BaseClasses\QueryExtensions.Taller.cs" />
     <Compile Include="DAO\BaseClasses\QueryExtensions.SubCentroDeCosto.cs" />
+    <Compile Include="DAO\BaseClasses\QueryExtensions.Zona.cs" />
     <Compile Include="DAO\BaseClasses\QueryExtensions.TipoZona.cs" />
     <Compile Include="DAO\BaseClasses\QueryExtensions.TipoZonaAcceso.cs" />
     <Compile Include="DAO\BaseClasses\QueryExtensions.CategoriaAcceso.cs" />
@@ -127,7 +130,14 @@
     <Compile Include="DAO\BusinessObjects\Auditoria\EntityAuditDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Auditoria\LoginAuditDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\AgendaVehicularDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucionDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogisticoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\PreasignacionViajeVehiculoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EstadoLogisticoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\ViajeProgramadoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\SosTicketDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\DetalleStockVehicularDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\CicloLogistico\StockVehicularDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\TipoServicioCicloDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\EntregaDistribucionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\CicloLogistico\Distribucion\RecorridoDistribucionDAO.cs" />
@@ -136,16 +146,21 @@
     <Compile Include="DAO\BusinessObjects\CicloLogistico\TimeTracking\EventoViajeDAO.cs" />
     <Compile Include="DAO\BusinessObjects\ControlAcceso\CategoriaAccesoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\ControlDeCombustible\EventoCombustibleDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\DatamartTramoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\DataMartsLogDAO.cs" />
     <Compile Include="DAO\BusinessObjects\LogicLinkFileDAO.cs" />
     <Compile Include="DAO\BusinessObjects\DatamartViajeDAO.cs" />
     <Compile Include="DAO\BusinessObjects\DatamartDistribucionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Mantenimiento\TicketMantenimientoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\ColaMensajesDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\AtencionEventoDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Messages\MensajeTraducidoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\MensajeIgnoradoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\LogMensajeAdminDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\LastVehicleEventDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\EvenDistriDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Ordenes\OrderDAO.cs" />
+    <Compile Include="DAO\BusinessObjects\Rechazos\TicketRechazoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\SubCentroDeCostosDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Messages\InfraccionDAO.cs" />
     <Compile Include="DAO\BusinessObjects\ReferenciasGeograficas\TipoZonaDAO.cs" />
@@ -234,6 +249,10 @@
     <Compile Include="DAO\BusinessObjects\Dispositivos\TipoDispositivoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Dispositivos\TipoParametroDispositivoDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Vehiculos\ShiftDAO.cs" />
+    <Compile Include="DAO\ReportObjects\CheckOutDAO.cs" />
+    <Compile Include="DAO\ReportObjects\EstadoDiarioDAO.cs" />
+    <Compile Include="DAO\ReportObjects\InformeViajeRecargaDAO.cs" />
+    <Compile Include="DAO\ReportObjects\RankingTransportistasDAO.cs" />
     <Compile Include="NHibernate\Interceptors\ReferenciaGeograficaLifeCycleInterceptor.cs" />
     <Compile Include="DAO\ReportObjects\AcumulatedHoursDAO.cs" />
     <Compile Include="DAO\ReportObjects\ControlDeCombustible\CentroDeCargaRemitosDAO.cs" />
@@ -290,7 +309,6 @@
     <Compile Include="DAO\ReportObjects\TransportActivityDAO.cs" />
     <Compile Include="DAO\ReportObjects\VehicleUtilizationDAO.cs" />
     <Compile Include="DAO\ReportObjects\WorkedHoursDAO.cs" />
-    <Compile Include="DAO\SindicaturaDAO.cs" />
     <Compile Include="Factories\DaoFactory.cs" />
     <Compile Include="DAO\BusinessObjects\Tickets\DetalleTicketDAO.cs" />
     <Compile Include="DAO\BusinessObjects\Dispositivos\DispositivoDAO.cs" />
@@ -321,6 +339,7 @@
     <Compile Include="Filtros\Filtro.cs" />
     <Compile Include="NHibernate\DriverConnectionProvider.cs" />
     <Compile Include="NHibernate\NHibernateHelper.cs" />
+    <Compile Include="NHibernate\NHSQLInterceptor.cs" />
     <Compile Include="NHibernate\SessionHelper.cs" />
     <Compile Include="NHibernate\SmartTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -618,9 +637,6 @@
     <EmbeddedResource Include="HBM\BusinessObjects\Organizacion\AseguradoEnPerfil.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HBM\BusinessObjects\sindicatura.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Mantenimiento\ConsumoCabecera.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -800,7 +816,82 @@
   <ItemGroup>
     <EmbeddedResource Include="HBM\BusinessObjects\Messages\MensajeIgnorado.hbm.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\EstadoLogistico.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\TipoCicloLogistico.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\EstadoDistribucion.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Ordenes\Order.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HBM\BusinessObjects\Ordenes\OrderDetail.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\RechazoMov.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\SosTicket.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\DetalleTicketRechazo.hbm.xml" />
+    <EmbeddedResource Include="HBM\BusinessObjects\Rechazos\TicketRechazo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\DatamartTramo.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\MensajeTraducido.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\ViajeProgramado.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\EntregaProgramada.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\StockVehicular.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\DetalleStockVehicular.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Vehiculos\Contenedor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\InformeViajeRecarga.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Messages\ColaMensajes.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\Remito.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\CicloLogistico\Distribucion\DetalleRemito.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\ReportObjects\EstadoDiario.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HBM\BusinessObjects\Ordenes\OrderDetailContenedor.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

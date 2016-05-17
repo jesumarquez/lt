@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TicketMantenimientoAlta.aspx.cs" Inherits="Logictracker.Mantenimiento.TicketMantenimientoAlta" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Mantenimiento.TicketMantenimientoAlta" ValidateRequest="false" Codebehind="TicketMantenimientoAlta.aspx.cs" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" Runat="Server">

@@ -9,10 +9,10 @@ using NPOI.Util;
 
 namespace Logictracker.Tracker.Application.Reports
 {
-    public class DailyEventReportGenerator  
+    public class EventReportGenerator  
     {
 
-        private const string TemplateName = "Logictracker.Tracker.Application.Reports.EventReport.xls";
+        private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.EventReport.xls";
         private const string DataSheet1 = "Informe";
         //private const string DataSheet2 = "Grafico";
 

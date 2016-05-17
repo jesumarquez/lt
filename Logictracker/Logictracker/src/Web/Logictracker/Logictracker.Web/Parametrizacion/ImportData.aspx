@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ImportData.aspx.cs" MasterPageFile="~/MasterPages/MasterPage.master" Inherits="Logictracker.Parametrizacion.ParametrizacionImportData" Title="Importador Masivo" %>
+<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPages/MasterPage.master" Inherits="Logictracker.Parametrizacion.ParametrizacionImportData" Title="Importador Masivo" Codebehind="ImportData.aspx.cs" %>
 
 <%@ Register src="~/App_Controls/Pickers/NumberPicker.ascx" tagname="NumberPicker" tagprefix="uc1" %> 
 <%@ Register src="~/App_Controls/DireccionImport.ascx" tagname="DireccionImport" tagprefix="uc1" %>
@@ -456,6 +456,31 @@
                 </Header>
                 <Content>
                     <uc1:TicketImport ID="TicketImport1" runat="server" />
+                </Content>
+            </AjaxToolkit:AccordionPane>
+
+
+            <%-- Nomenclador --%>
+
+            <AjaxToolkit:AccordionPane runat="server" ID="apNomenclador">
+                <Header>
+                    <asp:Label ID="lblNomenclador" runat="server" Text="Nomenclador" Font-Bold="true" />
+                </Header>
+                <Content>
+                    <table width="100%" style="font-weight: bold">
+                        <tr>
+                            <td align="left" style="width: 225px">
+                                <cwc:ResourceLabel ID="ResourceLabel3" runat="server" ResourceName="Entities" VariableName="PARENTI01" />
+                                <cwc:LocacionDropDownList ID="cbEmpreaNomenclador" runat="server" Width="175px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" style="width: 100%">
+                                <br />
+                                <cwc:ResourceButton ID="btnNomenclar" runat="server" Width="85px" ResourceName="Controls" OnClick="btnNomenclar_Click" VariableName="BUTTON_NOMENCLAR" />
+                            </td>
+                        </tr>
+                    </table>
                 </Content>
             </AjaxToolkit:AccordionPane>
             

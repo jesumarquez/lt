@@ -56,7 +56,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
             get
             {
                 var endDate = GetDateTime("Hasta");
-                return endDate.HasValue ? endDate.Value : DateTime.UtcNow;
+                return endDate.HasValue ? endDate.Value : DateTime.UtcNow.Date.AddHours(3).AddMinutes(-1);
             }
         }
         /// <summary>
@@ -67,7 +67,6 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private DateTime GetStartDate(int vehicle)
         {
             var startDate = GetDateTime("Desde");
-
             return startDate != null ? startDate.Value : GetLastDatamartUpdate(vehicle);
         }
 
@@ -77,7 +76,11 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
         protected override void OnExecute(Timer timer)
         {
+            var inicio = DateTime.UtcNow;
+
             base.OnExecute(timer);
+
+            RecompileStores();
 
             var today = EndDate;
             
@@ -85,9 +88,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
 			STrace.Trace(GetType().FullName, "Processing vehicles.");
 
-            var inicio = DateTime.UtcNow;
-
             SetVehicles();
+            var vehiclesToRetry = new List<int>();
 
             foreach (var vehicleId in Vehicles)
             {
@@ -99,53 +101,51 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 catch (Exception ex)
                 {
                     STrace.Exception(GetType().FullName, ex);
+                    vehiclesToRetry.Add(vehicleId);
+                }
+            }
 
-                    var procesado = false;
-                    var retry = 0;
-                    while (!procesado && retry < 5)
-                    {
-                        retry++;
-                        try
-                        {
-                            ProcessVehicle(vehicle, today);
-                            procesado = true;
-                            var parametros = new[] { "Vehículo " + vehicle.Id + " procesado exitosamente luego de " + retry + " intentos.", vehicle.Id.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
-                            SendMail(parametros);
-                            STrace.Trace(GetType().FullName, "Vehículo " + vehicle.Id + " procesado exitosamente luego de " + retry + " intentos.");
-                        }
-                        catch (Exception e)
-                        {
-                            STrace.Exception(GetType().FullName, e);
-                        }
-                    }
-                    if (retry == 5 && !procesado)
-                    {
-                        var parametros = new[] { "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
-                        SendMail(parametros);
-                        STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Id);
-                    }
+            VehiclesToProcess = vehiclesToRetry.Count;
+            foreach (var vehicleId in vehiclesToRetry)
+            {
+                var vehicle = DaoFactory.CocheDAO.FindById(vehicleId);
+                try
+                {
+                    ProcessVehicle(vehicle, today);
+                }
+                catch (Exception ex)
+                {
+                    STrace.Exception(GetType().FullName, ex);
+                    var parametros = new[] { "No se pudieron generar registros de Datamart para el vehículo: " + vehicle.Interno, vehicle.Id.ToString("#0"), today.ToString("dd/MM/yyyy HH:mm") };
+                    SendMail(parametros);
                 }
             }
 
             var fin = DateTime.UtcNow;
             var duracion = fin.Subtract(inicio).TotalMinutes;
 
+            DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRecorridos, "Datamart finalizado exitosamente");
+
             var param = new[] { "Datamart Recorridos", inicio.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), fin.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), duracion + " minutos" };
             SendSuccessMail(param);
+        }
 
-            DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartRecorridos, "Datamart finalizado exitosamente");
+        private void RecompileStores()
+        {
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetPositionsBetweenDates_3");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationStartDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetRegenerationEndDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionOlderThanDate_2");
+            DaoFactory.LogPosicionDAO.RecompileSP("sp_LogPosicionDAO_GetFirstPositionNewerThanDate_2");
         }
 
         private void SetVehicles()
         {
-            var ids = GetListOfInt("Ids");
             var distrito = GetInt32("Distrito");
 
             if (distrito.HasValue)
-                Vehicles = DaoFactory.CocheDAO.GetList(new[] { distrito.Value }, new[] { -1 }).Select(v => v.Id).ToList();
-            else if (ids != null && ids.Count > 0)
-                Vehicles = ids;
-
+                Vehicles = DaoFactory.CocheDAO.FindAllActivos().Where(v => v.Empresa != null && v.Empresa.Id == distrito).Select(v => v.Id).ToList();
+            
             VehiclesToProcess = Vehicles.Count;
         }
 
@@ -156,6 +156,11 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private void ProcessVehicle(Coche coche, DateTime today)
         {
             var lastUpdate = GetStartDate(coche.Id);
+
+            if (today.AddDays(-7) > lastUpdate)
+            {
+                lastUpdate = today.AddDays(-7);
+            }
 
 			var dispo = coche.Dispositivo != null ? coche.Dispositivo.Id : 0;
             STrace.Trace(GetType().FullName, dispo, String.Format("Processing vehicle with id: {0}", coche.Id));
@@ -177,6 +182,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         private void ProcessCurrentPeriods(DateTime lastUpdate, Coche vehicle, DateTime today)
         {
             var dispo = vehicle.Dispositivo != null ? vehicle.Dispositivo.Id : 0;
+
+            
             while (lastUpdate < today)
             {
                 var lastDay = lastUpdate.AddDays(1) > today ? today : lastUpdate.AddDays(1);
@@ -235,7 +242,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 {
                     // Set environment data
                     var inicio = new DateTime(from.Year, from.Month, from.Day, from.Hour, 0, 0);
-                    var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 0, 0);
+                    var fin = new DateTime(to.Year, to.Month, to.Day, to.Hour, 59, 59);
 
                     // Deletes all previously generated datamart records for the current vehicle and time span.
                     var t = new TimeElapsed();
@@ -245,19 +252,13 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
                     var records = new List<Datamart>();
                     var registrosValidos = false;
-                    var retry = 0;
-
-                    while (!registrosValidos && retry < 5)
+                    
+                    using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
                     {
-                        retry++;
-
-                        using (var data = new PeriodData(DaoFactory, vehicle, inicio, fin))
-                        {
-                            records = GenerateRecords(data);
-                            registrosValidos = ValidateRecords(data, records);
-                            if (!registrosValidos) STrace.Error(GetType().FullName, string.Format("Registros no válidos para el vehículo: {0}", vehicle.Id));
-                        }
-                    }
+                        records = GenerateRecords(data);
+                        registrosValidos = ValidateRecords(data, records);
+                        if (!registrosValidos) STrace.Error(GetType().FullName, string.Format("Registros no válidos para el vehículo: {0}", vehicle.Id));
+                    }                    
 
                     t.Restart();
                     foreach (var record in records) DaoFactory.DatamartDAO.Save(record);
@@ -267,7 +268,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
 
                     transaction.Commit();
 
-                    if (retry == 5 && !registrosValidos)
+                    if (!registrosValidos)
                     {
                         var parametros = new[] { "Se generaron registros de Datamart posiblemente inválidos para el vehículo: " + vehicle.Id, vehicle.Id.ToString("#0"), DateTime.Today.ToString("dd/MM/yyyy HH:mm") };
                         SendMail(parametros);

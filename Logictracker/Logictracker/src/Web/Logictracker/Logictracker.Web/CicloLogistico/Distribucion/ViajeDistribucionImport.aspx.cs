@@ -30,7 +30,6 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
         private List<Coche> _cochesBuffer = new List<Coche>();
         private List<ViajeDistribucion> _viajesBuffer = new List<ViajeDistribucion>();
         private List<PuntoEntrega> _puntosBuffer = new List<PuntoEntrega>();
-        private Dictionary<int, List<int>> _empresasLineas = new Dictionary<int, List<int>>();
 
         private static class Modes
         {
@@ -40,6 +39,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
             public const string Roadshow = "Roadshow";
             public const string RoadshowCsv = "RoadshowCsv";
             public const string RoadshowCsv2 = "RoadshowCsv2";
+            public const string RoadshowCsv2ByInterno = "RoadshowCsv2ByInterno";
             public const string Roadnet = "Roadnet";
             public const string ExcelTemplate = "ExcelTemplate";
             public const string RL = "RL";
@@ -47,7 +47,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
 
         protected override string[] ImportModes
         {
-            get { return new[] { Modes.Default, Modes.Axiodis, Modes.AxiodisF, Modes.Roadshow, Modes.RoadshowCsv, Modes.RoadshowCsv2, Modes.Roadnet, Modes.ExcelTemplate, Modes.RL }; }
+            get { return new[] { Modes.Default, Modes.Axiodis, Modes.AxiodisF, Modes.Roadshow, Modes.RoadshowCsv, Modes.RoadshowCsv2, Modes.RoadshowCsv2ByInterno, Modes.Roadnet, Modes.ExcelTemplate, Modes.RL }; }
         }
         protected override List<FieldValue> GetMappingFields()
         {
@@ -58,6 +58,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 case Modes.Roadshow: return Fields.Roadshow;
                 case Modes.RoadshowCsv: return Fields.RoadshowCsv;
                 case Modes.RoadshowCsv2: return Fields.RoadshowCsv;
+                case Modes.RoadshowCsv2ByInterno: return Fields.RoadshowCsv;
                 case Modes.Roadnet: return Fields.Roadnet;
                 case Modes.ExcelTemplate: return Fields.ExcelTemplate;
                 case Modes.RL: return Fields.ReginaldLee;
@@ -100,6 +101,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 case Modes.Roadshow:
                 case Modes.RoadshowCsv:
                 case Modes.RoadshowCsv2:
+                case Modes.RoadshowCsv2ByInterno:
                     ValidateEntity(cbLinea.Selected, "PARENTI02");
                     ValidateEntity(cbClienteRoadshow.Selected, "CLIENT");
                     var vigenciaRoadshow = ValidateEmpty(txtVigencia.Text, "VIGENCIA_HORAS");
@@ -194,7 +196,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
             {
                 txtVigencia.Text = "20";
             }
-            panelRoadshow.Visible = CurrentImportMode == Modes.Roadshow || CurrentImportMode == Modes.RoadshowCsv || CurrentImportMode == Modes.RoadshowCsv2;
+            panelRoadshow.Visible = CurrentImportMode == Modes.Roadshow || CurrentImportMode == Modes.RoadshowCsv || CurrentImportMode == Modes.RoadshowCsv2 || CurrentImportMode == Modes.RoadshowCsv2ByInterno;
             panelExcel.Visible = CurrentImportMode == Modes.ExcelTemplate;
             panelRoadnet.Visible = CurrentImportMode == Modes.Roadnet;
             updPanelAxiodis.Update();
@@ -212,6 +214,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 case Modes.Roadshow: ImportRoadshow(rows); break;
                 case Modes.RoadshowCsv: ImportRoadshowCsv(rows); break;
                 case Modes.RoadshowCsv2: ImportRoadshowCsv2(rows); break;
+                case Modes.RoadshowCsv2ByInterno: ImportRoadshowCsv2ByInterno(rows); break;
                 case Modes.Roadnet: ImportRoadnet(rows); break;
                 case Modes.ExcelTemplate: ImportExcelTemplate(rows); break;
                 case Modes.RL: ImportRL(rows); break;
@@ -315,8 +318,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -546,8 +549,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -623,8 +625,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
 
                             puntoEntrega.ReferenciaGeografica.Linea = linea;
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             puntoEntrega.Nombre = nombre;
                             puntoEntrega.Importe = importe;
 
@@ -667,12 +668,12 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             var hora = viajeDistribucion.Inicio;
                             foreach (var detalle in viajeDistribucion.Detalles)
                             {
-                                var distancia = GeocoderHelper.CalcularDistacia(dirBase.Latitude, dirBase.Longitude, detalle.ReferenciaGeografica.Latitude,
-                                    detalle.ReferenciaGeografica.Longitude);
+                                var distancia = GeocoderHelper.CalcularDistacia(dirBase.Latitude, dirBase.Longitude, detalle.ReferenciaGeografica.Latitude, detalle.ReferenciaGeografica.Longitude);
                                 var horas = distancia/velocidadPromedio;
                                 var demora = detalle.TipoServicio != null ? detalle.TipoServicio.Demora : 0;
                                 detalle.Programado = hora.AddHours(horas).AddMinutes(demora);
                                 detalle.ProgramadoHasta = detalle.Programado.AddMinutes(empresa.MarginMinutes);
+                                detalle.KmCalculado = distancia;
                                 dirBase = detalle.ReferenciaGeografica;
                                 hora = detalle.Programado;
                             }
@@ -690,8 +691,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -874,8 +875,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -947,8 +947,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             puntoEntrega.Nombre = nombre;
 
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
@@ -1004,8 +1003,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -1323,8 +1322,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -1398,8 +1396,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -1428,8 +1425,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -1621,8 +1618,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -1696,8 +1692,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -1727,8 +1722,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -2069,8 +2064,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow);
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -2143,8 +2137,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -2191,8 +2184,476 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+            }
+            STrace.Trace("ImportRoadshowCsv2", "la transacción duró " + te.getTimeElapsed().TotalSeconds + " segundos.");
+        }
+
+        private void PreBufferRowsByInterno(IEnumerable<ImportRow> rows)
+        {
+            var lastInterno = string.Empty;
+            var lastCodRuta = string.Empty;
+            var lastCodPunto = string.Empty;
+
+            var internosStrList = new List<string>();
+            var codrutaStrList = new List<string>();
+            var codPuntoStrList = new List<string>();
+
+            foreach (var row in rows)
+            {
+                var campos = parseRoadshowCsv2Row(row);
+
+                #region Buffer Coches
+
+                var interno = ValidateEmpty(campos[2], "INTERNO").Trim();
+
+                if (interno != lastInterno)
+                {
+                    if (!internosStrList.Contains(interno))
+                        internosStrList.Add(interno);
+                    lastInterno = interno;
+                }
+                #endregion
+
+                #region Buffer Viajes
+
+                var codigoRuta = ValidateEmpty(campos[0], "CODIGO_RUTA").Trim();
+                var dia = ValidateInt32(campos[3].Substring(0, 2), "DIA");
+                var mes = ValidateInt32(campos[3].Substring(2, 2), "MES");
+                var anio = ValidateInt32(campos[3].Substring(4, 2), "AÑO") + 2000;
+                var horario = ValidateEmpty(campos[6], "HORARIO").Trim();
+                if (horario.Length == 3) horario = "0" + horario;
+                else if (horario.Length != 4) ThrowInvalidValue("HORARIO");
+                var hora = ValidateInt32(horario.Substring(0, 2), "HORA");
+                var min = ValidateInt32(horario.Substring(2, 2), "MINUTOS");
+                var fecha = new DateTime(anio, mes, dia, hora, min, 0);
+                codigoRuta = fecha.ToString("ddMMyy") + codigoRuta;
+
+                if (lastCodRuta != codigoRuta)
+                {
+                    if (!codrutaStrList.Contains(codigoRuta))
+                        codrutaStrList.Add(codigoRuta);
+
+                    lastCodRuta = codigoRuta;
+                }
+
+                #endregion
+
+                #region Buffer PuntoEntrega
+
+                var codigoPuntoEntrega = ValidateEmpty(campos[7], "CODIGO_PUNTO_ENTREGA").Trim();
+
+                if (lastCodPunto != codigoPuntoEntrega)
+                {
+                    if (!codPuntoStrList.Contains(codigoPuntoEntrega))
+                        codPuntoStrList.Add(codigoPuntoEntrega);
+
+                    lastCodPunto = codigoPuntoEntrega;
+                }
+
+                #endregion
+            }
+
+            #region fetch
+
+            const int batchSize = 1000;
+
+            if (internosStrList.Any())
+            {
+                foreach (var l in IEnumerableExtensions.InSetsOf(internosStrList, batchSize))
+                {
+                    var coches = DAOFactory.CocheDAO.GetByInternos(new[] { cbEmpresa.Selected }, new[] { cbLinea.Selected }, l);
+                    if (coches != null && coches.Any())
+                    {
+                        _cochesBuffer.AddRange(coches);
+                    }
+                }
+            }
+
+            if (codPuntoStrList.Any())
+            {
+                foreach (var l in IEnumerableExtensions.InSetsOf(codPuntoStrList, batchSize))
+                {
+                    var puntos = DAOFactory.PuntoEntregaDAO.FindByCodes(new[] { cbEmpresa.Selected },
+                                                                        new[] { cbLinea.Selected },
+                                                                        new[] { cbClienteRoadshow.Selected },
+                                                                        l);
+                    if (puntos != null && puntos.Any())
+                    {
+                        _puntosBuffer.AddRange(puntos);
+                    }
+                }
+            }
+
+            if (codrutaStrList.Any())
+            {
+                foreach (var l in IEnumerableExtensions.InSetsOf(codrutaStrList, batchSize))
+                {
+                    var viajes = DAOFactory.ViajeDistribucionDAO.FindByCodigos(new[] { cbEmpresa.Selected },
+                                                                               new[] { cbLinea.Selected },
+                                                                               l);
+                    if (viajes != null && viajes.Any())
+                    {
+                        _viajesBuffer.AddRange(viajes);
+                    }
+                }
+            }
+
+            #endregion
+        }
+        protected void ImportRoadshowCsv2ByInterno(List<ImportRow> rows)
+        {
+            var te = new TimeElapsed();
+            PreBufferRowsByInterno(rows);
+            STrace.Trace("ImportRoadshowCsv2", "preBufferRows demoró " + te.getTimeElapsed().TotalSeconds + " segundos.");
+
+            var empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
+            var linea = cbLinea.Selected > 0 ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+            var cliente = cbClienteRoadshow.Selected > 0 ? DAOFactory.ClienteDAO.FindById(cbClienteRoadshow.Selected) : null;
+            var vigencia = Convert.ToInt32((string)txtVigenciaRoadshow.Text.Trim());
+
+            TipoServicioCiclo tipoServicio = null;
+            var tipoServ = DAOFactory.TipoServicioCicloDAO.FindDefault(new[] { linea.Empresa.Id },
+                                                                       new[] { linea.Id });
+            if (tipoServ != null && tipoServ.Id > 0)
+                tipoServicio = tipoServ;
+
+            te.Restart();
+            using (var transaction = SmartTransaction.BeginTransaction())
+            {
+                try
+                {
+                    var list = new List<ViajeDistribucion>(rows.Count);
+
+                    foreach (var row in rows)
+                    {
+                        #region Properties
+
+                        var campos = parseRoadshowCsv2Row(row);
+
+                        var esBase = campos[1].Trim().Equals(string.Empty) && campos[9].Trim().Equals(string.Empty) && campos[10].Trim().Equals(string.Empty);
+
+                        var codigoRuta = ValidateEmpty(campos[0], "CODIGO_RUTA").Trim();
+                        var numeroViaje = esBase ? list.Last().NumeroViaje : ValidateInt32(campos[1], "VIAJE");
+                        var interno = ValidateEmpty(campos[2], "INTERNO").Trim();
+                        var dia = ValidateInt32(campos[3].Substring(0, 2), "DIA");
+                        var mes = ValidateInt32(campos[3].Substring(2, 2), "MES");
+                        var anio = ValidateInt32(campos[3].Substring(4, 2), "AÑO") + 2000;
+                        //var secuencia = ValidateInt32(campos[4], "SECUENCIA");
+                        //var codigoPedido = ValidateEmpty(campos[5], "CODIGO_PEDIDO").Trim();
+                        var horario = ValidateEmpty(campos[6], "HORARIO").Trim();
+
+                        if (horario.Length == 3) horario = "0" + horario;
+                        else if (horario.Length != 4) ThrowInvalidValue("HORARIO");
+
+                        var hora = ValidateInt32(horario.Substring(0, 2), "HORA");
+                        var min = ValidateInt32(horario.Substring(2, 2), "MINUTOS");
+                        var codigoPuntoEntrega = ValidateEmpty(campos[7], "CODIGO_PUNTO_ENTREGA").Trim();
+                        var nombre = campos[8].Trim() != string.Empty ? campos[8].Trim() : "SIN NOMBRE";
+                        var latitud = esBase ? 0.0 : ValidateDouble(campos[9], "LATITUD");
+                        var longitud = esBase ? 0.0 : ValidateDouble(campos[10], "LONGITUD");
+                        var km = ValidateDouble(campos[11], "KM");
+                        var direccion = campos[12].Trim();
+                        var localidad = campos[13].Trim();
+                        var bultos = esBase ? 0 : ValidateDouble(campos[14], "BULTOS");
+                        var peso = esBase ? 0.0 : ValidateDouble(campos[15], "PESO");
+                        var volumen = esBase ? 0.0 : ValidateDouble(campos[16], "VOLUMEN");
+
+                        var fecha = new DateTime(anio, mes, dia, hora, min, 0);
+                        codigoRuta = fecha.ToString("ddMMyy") + codigoRuta;
+
+                        #endregion
+
+                        if (list.Count == 0 ||
+                            codigoRuta != list.Last().Codigo)
+                        {
+                            var byCode = _viajesBuffer.SingleOrDefault(v => v.Codigo == codigoRuta);
+                            if (byCode != null) continue;
+                        }
+
+                        ViajeDistribucion viaje;
+
+                        if (list.Count > 0 &&
+                            codigoRuta == list.Last().Codigo)
+                        {
+                            viaje = list.Last();
+                        }
+                        else
+                        {
+                            #region viaje = new ViajeDistribucion()
+
+                            var vehiculo = _cochesBuffer.SingleOrDefault(c => c.Interno == interno);
+                            var chofer = vehiculo != null && !vehiculo.IdentificaChoferes ? vehiculo.Chofer : null;
+                            var cc = vehiculo != null ? vehiculo.CentroDeCostos : null;
+                            var scc = vehiculo != null ? vehiculo.SubCentroDeCostos : null;
+                            viaje = new ViajeDistribucion
+                            {
+                                Empresa = empresa,
+                                Linea = linea,
+                                Vehiculo = vehiculo,
+                                Empleado = chofer,
+                                CentroDeCostos = cc,
+                                SubCentroDeCostos = scc,
+                                Codigo = codigoRuta,
+                                Estado = ViajeDistribucion.Estados.Pendiente,
+                                Inicio = fecha.ToDataBaseDateTime(),
+                                Fin = fecha.ToDataBaseDateTime(),
+                                NumeroViaje = Convert.ToInt32(numeroViaje),
+                                Tipo = ViajeDistribucion.Tipos.Desordenado,
+                                RegresoABase = true,
+                                Alta = DateTime.UtcNow
+                            };
+
+                            #endregion
+
+                            list.Add(viaje);
+                        }
+                        viaje.Fin = fecha.ToDataBaseDateTime();
+
+                        if (esBase)
+                        {
+                            var llegada = new EntregaDistribucion
+                            {
+                                Linea = linea,
+                                Descripcion = linea.Descripcion,
+                                Estado = EntregaDistribucion.Estados.Pendiente,
+                                Orden = viaje.Detalles.Count,
+                                Programado = fecha.ToDataBaseDateTime(),
+                                ProgramadoHasta = fecha.ToDataBaseDateTime(),
+                                Viaje = viaje,
+                                KmCalculado = km
+                            };
+                            viaje.Detalles.Add(llegada);
+
+                            var isNew = !DAOFactory.Session.Contains(viaje);
+                            DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
+                            if (isNew) _viajesBuffer.Add(viaje);
+                            continue;
+                        }
+
+                        if (viaje.Detalles.Count == 0)
+                        {
+                            //el primer elemento es la base
+                            var origen = new EntregaDistribucion
+                            {
+                                Linea = linea,
+                                Descripcion = linea.Descripcion,
+                                Estado = EntregaDistribucion.Estados.Pendiente,
+                                Orden = 0,
+                                Programado = fecha.ToDataBaseDateTime(),
+                                ProgramadoHasta = fecha.ToDataBaseDateTime(),
+                                Viaje = viaje
+                            };
+                            viaje.Detalles.Add(origen);
+                        }
+
+                        //var direccion = GeocoderHelper.GetEsquinaMasCercana(latitud, longitud);
+                        if (viaje.Detalles.Any(d => d.PuntoEntrega != null && d.PuntoEntrega.Codigo == codigoPuntoEntrega))
+                        {
+                            var detalle = viaje.Detalles.FirstOrDefault(d => d.PuntoEntrega != null && d.PuntoEntrega.Codigo == codigoPuntoEntrega);
+                            detalle.Bultos += (int) bultos;
+                            detalle.Volumen += volumen;
+                            detalle.Peso += peso;
+                            continue;
+                        }
+                        #region var puntoEntrega = [Find By Empresa, Linea, Codigo, Cliente].FirstOrDefault()
+
+                        var puntoEntrega = _puntosBuffer.SingleOrDefault(p => p.Codigo == codigoPuntoEntrega);
+
+                        #endregion
+
+                        if (puntoEntrega == null)
+                        {
+                            #region var puntoDeInteres = new ReferenciaGeografica()
+
+                            var empresaGeoRef = viaje.Vehiculo != null && viaje.Vehiculo.Empresa == null ? null : cliente.Empresa == null ? null : empresa;
+                            var lineaGeoRef = viaje.Vehiculo != null && viaje.Vehiculo.Linea == null ? null : cliente.Linea == null ? null : linea;
+
+                            var puntoDeInteres = new ReferenciaGeografica
+                            {
+                                Codigo = codigoPuntoEntrega,
+                                Descripcion = nombre,
+                                Empresa = empresaGeoRef,
+                                Linea = lineaGeoRef,
+                                EsFin = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsFin,
+                                EsInicio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsInicio,
+                                EsIntermedio = cliente.ReferenciaGeografica.TipoReferenciaGeografica.EsIntermedio,
+                                InhibeAlarma = cliente.ReferenciaGeografica.TipoReferenciaGeografica.InhibeAlarma,
+                                TipoReferenciaGeografica = cliente.ReferenciaGeografica.TipoReferenciaGeografica,
+                                Vigencia =
+                                    new Vigencia
+                                    {
+                                        Inicio = DateTime.UtcNow.AddHours(-3),
+                                        Fin = fecha.AddHours(vigencia).ToDataBaseDateTime()
+                                    },
+                                Icono = cliente.ReferenciaGeografica.TipoReferenciaGeografica.Icono
+                            };
+
+                            #endregion
+
+                            #region var posicion = new Direccion()
+
+                            var posicion = new Direccion
+                            {
+                                Altura = -1,
+                                IdMapa = -1,
+                                Provincia = string.Empty,
+                                IdCalle = -1,
+                                IdEsquina = -1,
+                                IdEntrecalle = -1,
+                                Latitud = latitud,
+                                Longitud = longitud,
+                                Partido = localidad,
+                                Pais = string.Empty,
+                                Calle = string.Empty,
+                                Descripcion = direccion != string.Empty ? direccion : string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
+                                Vigencia = new Vigencia { Inicio = DateTime.UtcNow.AddHours(-3) }
+                            };
+
+                            #endregion
+
+                            #region var poligono = new Poligono()
+
+                            var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow.AddHours(-3) } };
+                            poligono.AddPoints(new[] { new PointF((float)longitud, (float)latitud) });
+
+                            #endregion
+
+                            puntoDeInteres.AddHistoria(posicion, poligono, DateTime.UtcNow.AddHours(-3));
+
+                            DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
+                            
+                            #region puntoEntrega = new PuntoEntrega()
+
+                            puntoEntrega = new PuntoEntrega
+                            {
+                                Cliente = cliente,
+                                Codigo = codigoPuntoEntrega,
+                                Descripcion = nombre,
+                                Telefono = string.Empty,
+                                Baja = false,
+                                ReferenciaGeografica = puntoDeInteres,
+                                Nomenclado = true,
+                                DireccionNomenclada = direccion + ", " + localidad,
+                                Nombre = nombre
+                            };
+
+                            #endregion
+
+                            DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
+                        }
+                        else
+                        {
+                            if (!puntoEntrega.ReferenciaGeografica.IgnoraLogiclink &&
+                                chkSobreescribir.Checked &&
+                                (puntoEntrega.ReferenciaGeografica.Latitude != latitud || puntoEntrega.ReferenciaGeografica.Longitude != longitud))
+                            {
+                                puntoEntrega.ReferenciaGeografica.Direccion.Vigencia.Fin = DateTime.UtcNow;
+                                puntoEntrega.ReferenciaGeografica.Poligono.Vigencia.Fin = DateTime.UtcNow;
+
+                                #region var posicion = new Direccion()
+
+                                var posicion = new Direccion
+                                {
+                                    Altura = -1,
+                                    IdMapa = -1,
+                                    Provincia = string.Empty,
+                                    IdCalle = -1,
+                                    IdEsquina = -1,
+                                    IdEntrecalle = -1,
+                                    Latitud = latitud,
+                                    Longitud = longitud,
+                                    Partido = localidad,
+                                    Pais = string.Empty,
+                                    Calle = string.Empty,
+                                    Descripcion = direccion != string.Empty ? direccion : string.Format("({0}, {1})", latitud.ToString(CultureInfo.InvariantCulture), longitud.ToString(CultureInfo.InvariantCulture)),
+                                    Vigencia = new Vigencia { Inicio = DateTime.UtcNow }
+                                };
+
+                                #endregion
+
+                                #region var poligono = new Poligono()
+
+                                var poligono = new Poligono { Radio = 50, Vigencia = new Vigencia { Inicio = DateTime.UtcNow } };
+                                poligono.AddPoints(new[] { new PointF((float)longitud, (float)latitud) });
+
+                                #endregion
+
+                                puntoEntrega.ReferenciaGeografica.AddHistoria(posicion, poligono, DateTime.UtcNow);
+
+                                puntoEntrega.Nombre = nombre;
+                            }
+
+                            #region puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end
+
+                            var end = fecha.AddHours(vigencia).ToDataBaseDateTime();
+                            if (puntoEntrega.ReferenciaGeografica.Vigencia.Fin < end)
+                                puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
+
+                            #endregion
+
+                            DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
+                            
+                            puntoEntrega.DireccionNomenclada = direccion + ", " + localidad;
+
+                            DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
+                        }
+
+                        #region var entrega = new EntregaDistribucion()
+
+                        var entrega = new EntregaDistribucion
+                        {
+                            Cliente = cliente,
+                            PuntoEntrega = puntoEntrega,
+                            Descripcion = codigoPuntoEntrega,
+                            Estado = EntregaDistribucion.Estados.Pendiente,
+                            Orden = viaje.Detalles.Count,
+                            Programado = fecha.ToDataBaseDateTime(),
+                            ProgramadoHasta = fecha.ToDataBaseDateTime(),
+                            TipoServicio = tipoServicio,
+                            Viaje = viaje,
+                            KmCalculado = km,
+                            Bultos = (int) bultos,
+                            Peso = peso,
+                            Volumen = volumen
+                        };
+
+                        #endregion
+
+                        viaje.Detalles.Add(entrega);
+                    }
+
+                    foreach (var viajeDistribucion in list)
+                    {
+                        if (viajeDistribucion.Detalles.Last().Linea != null) continue;
+                        //el ultimo elemento es la base
+                        var llegada = new EntregaDistribucion
+                        {
+                            Linea = linea,
+                            Descripcion = linea.Descripcion,
+                            Estado = EntregaDistribucion.Estados.Pendiente,
+                            Orden = viajeDistribucion.Detalles.Count,
+                            Programado = viajeDistribucion.Detalles.Last().Programado,
+                            ProgramadoHasta = viajeDistribucion.Detalles.Last().ProgramadoHasta,
+                            Viaje = viajeDistribucion
+                        };
+                        viajeDistribucion.Detalles.Add(llegada);
+
+                        var isNew = !DAOFactory.Session.Contains(viajeDistribucion);
+                        DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(viajeDistribucion);
+                        if (isNew) _viajesBuffer.Add(viajeDistribucion);
+                    }
+
+                    transaction.Commit();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -2314,8 +2775,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
                         DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                        AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                        
                         #region var entrega = new EntregaDistribucion()
 
                         var entrega = new EntregaDistribucion
@@ -2355,8 +2815,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -2555,8 +3015,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                             #endregion
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoDeInteres);
-                            AddReferenciasGeograficas(puntoDeInteres);
-
+                            
                             #region puntoEntrega = new PuntoEntrega()
 
                             puntoEntrega = new PuntoEntrega
@@ -2583,8 +3042,7 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                                 puntoEntrega.ReferenciaGeografica.Vigencia.Fin = end;
 
                             DAOFactory.ReferenciaGeograficaDAO.SaveOrUpdate(puntoEntrega.ReferenciaGeografica);
-                            AddReferenciasGeograficas(puntoEntrega.ReferenciaGeografica);
-
+                            
                             DAOFactory.PuntoEntregaDAO.SaveOrUpdate(puntoEntrega);
                         }
 
@@ -2628,8 +3086,8 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                     }
 
                     transaction.Commit();
-                    DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(_empresasLineas);
-                    _empresasLineas.Clear();
+
+                    UpdateGeocercas();
                 }
                 catch (Exception ex)
                 {
@@ -2638,33 +3096,16 @@ namespace Logictracker.Web.CicloLogistico.Distribucion
                 }
             }
         }
-
-        private void AddReferenciasGeograficas(ReferenciaGeografica rg)
+        
+        private void UpdateGeocercas()
         {
-            if (rg == null)
-                STrace.Error(GetType().FullName, "AddReferenciasGeograficas: rg is null");
-            else if (rg.Empresa == null)
-                STrace.Error(GetType().FullName, "AddReferenciasGeograficas: rg.Empresa is null");
-            else
-            {
-                if (!_empresasLineas.ContainsKey(rg.Empresa.Id))
-                    _empresasLineas.Add(rg.Empresa.Id, new List<int> { -1 });
-
-                if (rg.Linea != null)
-                {
-                    if (!_empresasLineas[rg.Empresa.Id].Contains(rg.Linea.Id))
-                        _empresasLineas[rg.Empresa.Id].Add(rg.Linea.Id);
-                }
-                else
-                {
-                    var todaslaslineas = DAOFactory.LineaDAO.GetList(new[] { rg.Empresa.Id });
-                    foreach (var linea in todaslaslineas)
-                    {
-                        if (!_empresasLineas.ContainsKey(linea.Id))
-                            _empresasLineas[rg.Empresa.Id].Add(linea.Id);
-                    }
-                }
-            }
+            var lineas = new List<int>();
+            var dict = new Dictionary<int, List<int>>();
+            var todaslaslineas = DAOFactory.LineaDAO.GetList(new[] { cbEmpresa.Selected });
+            lineas.Add(-1);
+            lineas.AddRange(todaslaslineas.Select(l => l.Id));
+            dict.Add(cbEmpresa.Selected, lineas);
+            DAOFactory.ReferenciaGeograficaDAO.UpdateGeocercas(dict);
         }
 
         #region SubClasses

@@ -1,15 +1,11 @@
 ﻿#region Usings
-
 using System;
-using System.IO;
 using System.ServiceProcess;
 using System.Threading;
 using System.Windows.Forms;
 using Logictracker.DatabaseTracer.Core;
 using Logictracker.Description.Common;
-using Logictracker.Diagnostics;
 using Logictracker.Utils;
-
 #endregion
 
 namespace Logictracker.Description.Runtime
@@ -26,9 +22,9 @@ namespace Logictracker.Description.Runtime
 			var appFile = String.Format(@"{0}\{1}", Process.GetApplicationFolder(), ((args.Length == 0) ? "AutoRun.xml" : args[0]));
 
 		    STrace.Debug(typeof(ApplicationLoader).FullName, "Creating Backend Category into PerformanceCounterHelper");
-			PerformanceCounterHelper.Create(new BackendCategory());
-            STrace.Debug(typeof(ApplicationLoader).FullName, "Launching Debugger...");
-			Debugger.LaunchDebugger(1);
+            PerformanceCounterHelper.Create(new BackendCategory());
+            //STrace.Debug(typeof(ApplicationLoader).FullName, "Launching Debugger...");
+            //Debugger.LaunchDebugger(1);
 
             STrace.Debug(typeof(ApplicationLoader).FullName, "Initiating AppDomain...");
 			Process.InitAppDomain();
@@ -124,7 +120,7 @@ namespace Logictracker.Description.Runtime
 		{
 			try
 			{
-				Debugger.LaunchDebugger(2);
+		//		Debugger.LaunchDebugger(2);
 
 				var servicesToRun = new ServiceBase[] {new ServiceApplicationHost(svcName, file)};
 

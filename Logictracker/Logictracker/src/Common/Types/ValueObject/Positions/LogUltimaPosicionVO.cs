@@ -95,20 +95,14 @@ namespace Logictracker.Types.ValueObject.Positions
         /// </summary>
         private int GetReportStatus()
         {
-            var fechaUltimoDescarte = FechaUltimoMensajesDescartado;
+            var minutosDesdeUltimaPosicion = DateTime.UtcNow.Subtract(FechaMensaje).TotalMinutes;
+            var minutosDesdeUltimaRecepcion = DateTime.UtcNow.Subtract(FechaRecepcion).TotalMinutes;
 
-            DateTime ultimaFecha = (fechaUltimoDescarte != null && (fechaUltimoDescarte.Value > FechaMensaje)) ? fechaUltimoDescarte.Value : FechaMensaje;
-            
-            var minutosDesdeDescarteOPosicion = DateTime.UtcNow.Subtract(ultimaFecha).TotalMinutes;
+            var isRojo = minutosDesdeUltimaPosicion > (TimeSpan.FromHours(HorasEnRojo).TotalMinutes);
+            var isAmarillo = minutosDesdeUltimaPosicion > MinutosEnAmarillo;
+            var isDescargando = isAmarillo && minutosDesdeUltimaRecepcion < MinutosEnAmarillo;
 
-            var isRojo = (minutosDesdeDescarteOPosicion > (TimeSpan.FromHours(HorasEnRojo).TotalMinutes));
-            var isAmarillo = (minutosDesdeDescarteOPosicion > MinutosEnAmarillo);
-
-            var isDescargando = (isAmarillo) &&
-                (FechaRecepcion.Subtract(FechaMensaje).TotalMinutes > (MinutosEnAmarillo/2)) && 
-                (DateTime.UtcNow.Subtract(FechaRecepcion).TotalMinutes < MinutosEnAmarillo);
-
-            return (isDescargando ? 1 : (isRojo ? 3 : (isAmarillo ? 2 : 0)));
+            return isDescargando ? 1 : (isRojo ? 3 : (isAmarillo ? 2 : 0));
         }
 
         #endregion

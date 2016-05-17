@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TallerAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionTallerAlta" Title="Talleres" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionTallerAlta" Title="Talleres" Codebehind="TallerAlta.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/SelectGeoRefference.ascx" TagName="SelectGeoRefference" TagPrefix="uc1" %>
 <%@ Register Src="~/App_Controls/EditEntityGeoRef.ascx" TagName="EditEntityGeoRef" TagPrefix="uc1" %>
@@ -9,12 +9,27 @@
             <td style="width: 50%; vertical-align: top;">
                 <cwc:AbmTitledPanel ID="panelTopLeft" runat="server" TitleVariableName="DATOS_GENERALES" TitleResourceName="Labels">
                     
-                    <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="Labels" VariableName="NAME" ></cwc:ResourceLabel>
-                    <asp:TextBox ID="txtDescripcion" runat="server" Width="98%" MaxLength="32" />
+                   <cwc:ResourceLabel ID="lblBase" runat="server" ResourceName="Entities" VariableName="PARENTI01" />
+                        <cwc:LocacionDropDownList ID="ddlEmpresa" runat="server" Width="98%" AddAllItem="true" />
+            
+                        <cwc:ResourceLabel ID="lblParenti02" runat="server" ResourceName="Entities" VariableName="PARENTI02" />
+                        <asp:UpdatePanel ID="upBase" runat="server" UpdateMode="Conditional" >
+                            <ContentTemplate>
+                                <cwc:PlantaDropDownList ID="cbLinea" runat="server" Width="98%" ParentControls="ddlEmpresa" AddAllItem="true" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="ddlEmpresa" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+
+                    
                     
                     <cwc:ResourceLabel ID="ResourceLabel4" runat="server" ResourceName="Labels" VariableName="CODE" ></cwc:ResourceLabel>
                     <asp:TextBox ID="txtCodigo" runat="server" Width="98%" MaxLength="32" />
                     
+                    <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="Labels" VariableName="NAME" ></cwc:ResourceLabel>
+                    <asp:TextBox ID="txtDescripcion" runat="server" Width="98%" MaxLength="32" />
+
                     <cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="Labels" VariableName="TELEFONO" ></cwc:ResourceLabel>
                     <asp:TextBox ID="txtTelefono" runat="server" MaxLength="32" Width="98%" />
                     

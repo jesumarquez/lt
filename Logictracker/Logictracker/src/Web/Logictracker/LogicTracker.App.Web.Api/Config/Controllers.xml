@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
 
-  <object type="Logictracker.App.Web.Api.Controllers.ValuesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect">
-    <property name="Message" value="Welcome to ASP.NET MVC3 powered by Spring.NET!" />
-  </object>
-  
+  <object type="Logictracker.App.Web.Api.Controllers.ValuesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.RoutesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
+  <object type="Logictracker.App.Web.Api.Controllers.RoutingController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
+  <object type="Logictracker.App.Web.Api.Controllers.GeocercasController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
+  <object type="Logictracker.App.Web.Api.Controllers.FormulariosController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
+  <object type="Logictracker.App.Web.Api.Controllers.RejectionController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.ProfilesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.MessagesController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
   <object type="Logictracker.App.Web.Api.Controllers.OrdersController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
+  <object type="Logictracker.App.Web.Api.Controllers.ReceptionController, Logictracker.App.Web.Api" singleton="false" autowire="autodetect"/>
 
 </objects>

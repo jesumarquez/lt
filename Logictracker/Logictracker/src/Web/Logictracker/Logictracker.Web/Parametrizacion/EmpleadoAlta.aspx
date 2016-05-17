@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="EmpleadoAlta.aspx.cs"
-    Inherits="Logictracker.Parametrizacion.ParametrizacionEmpleadoAlta" Title="Choferes" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="True"
+    Inherits="Logictracker.Parametrizacion.ParametrizacionEmpleadoAlta" Title="Choferes" Codebehind="EmpleadoAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/altaEntidad.ascx" TagName="altaEntidad" TagPrefix="uc1" %>
 <%@ Register Src="../App_Controls/DocumentList.ascx" TagName="DocumentList" TagPrefix="uc1" %>
@@ -12,7 +12,7 @@
                     <cwc:AbmTitledPanel ID="lblDatosAsignacion" runat="server" TitleVariableName="DATOS_GENERALES" TitleResourceName="Labels" Height="220px">
                         
                         <cwc:ResourceLabel ID="lblParenti01" runat="server" ResourceName="Entities" VariableName="PARENTI01" />
-                        <cwc:LocacionDropDownList ID="cbEmpresa" runat="server" Width="200px" AddAllItem="true" />
+                        <cwc:LocacionDropDownList ID="cbEmpresa" runat="server" Width="200px" AddAllItem="false" />
                         
                         <cwc:ResourceLabel ID="lblParenti02" runat="server" ResourceName="Entities" VariableName="PARENTI02"/>
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
@@ -85,7 +85,7 @@
                         <cwc:ResourceLabel ID="lblDevice" runat="server" ResourceName="Entities" VariableName="PARENTI08" />
                         <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <cwc:DispositivoDropDownList ID="DispositivoDropDownList" runat="server" Width="200px" ParentControls="cbEmpresa, cbLinea" AddNoneItem="true" HideAssigned="True" />
+                                <cwc:DispositivoDropDownList ID="cbDispositivo" runat="server" Width="200px" ParentControls="cbEmpresa, cbLinea" AddNoneItem="true" HideAssigned="True" OnInitialBinding="CbDispositivoPreBind" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />

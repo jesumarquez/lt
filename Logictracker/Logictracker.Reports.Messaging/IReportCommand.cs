@@ -1,4 +1,5 @@
 ﻿using System;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Reports.Messaging
 {
@@ -6,6 +7,9 @@ namespace Logictracker.Reports.Messaging
     {
         DateTime InitialDate { get; set; }
         DateTime FinalDate { get; set; }
+        string ReportName { get; set; }
         string Email { get; set; }
+        int BaseId { get; set; }
+        ProgramacionReporte.FormatoReporte ReportFormat { get; set; }
     }
 }

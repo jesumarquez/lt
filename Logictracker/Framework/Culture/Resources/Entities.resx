@@ -340,6 +340,12 @@
   <data name="OPETICK03" xml:space="preserve">
     <value>Viaje</value>
   </data>
+  <data name="OPETICK04" xml:space="preserve">
+    <value>Entrega</value>
+  </data>
+  <data name="OPETICK13" xml:space="preserve">
+    <value>Viaje Programado</value>
+  </data>
   <data name="PARENTI35" xml:space="preserve">
     <value>Taller</value>
   </data>
@@ -348,5 +354,14 @@
   </data>
   <data name="SOCUSUA02" xml:space="preserve">
     <value>Perfil</value>
+  </data>
+  <data name="PARTICK08" xml:space="preserve">
+    <value>Estado Logístico</value>
+  </data>
+  <data name="PARTICK09" xml:space="preserve">
+    <value>Tipo de Ciclo Logístico</value>
+  </data>
+  <data name="PARENTI105" xml:space="preserve">
+    <value>Orden</value>
   </data>
 </root>

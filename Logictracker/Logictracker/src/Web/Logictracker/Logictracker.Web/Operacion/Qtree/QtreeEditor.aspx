@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="QtreeEditor.aspx.cs" Inherits="Logictracker.Operacion.Qtree.Parametrizacion_QtreeEditor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.Qtree.Parametrizacion_QtreeEditor" Codebehind="QtreeEditor.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register src="LevelSelector.ascx" tagname="LevelSelector" tagprefix="uc" %>

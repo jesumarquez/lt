@@ -84,6 +84,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Logictracker.Mailing.DatamartSuccess.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logictracker.Mailing.DatamartError.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Logictracker.Mailing.VerificadorVehiculos.config" />
     <None Include="Logictracker.Mailing.MessageCount.config" />
   </ItemGroup>

@@ -14,6 +14,7 @@ using Logictracker.Model;
 using Logictracker.Model.EnumTypes;
 using Logictracker.Model.Utils;
 using System.Collections.Concurrent;
+using Logictracker.Utils;
 using NHibernate;
 
 #endregion
@@ -42,9 +43,12 @@ namespace Logictracker.Layers
                     return BackwardReply.None;
                 }
 
+                var pcInstanceName = STrace.Module + "_" + msg.GetType().Name;
                 //Update Performance Counters
-                //var cat = new BackendCategory();
-                //PerformanceCounterHelper.Increment(cat.CategoryName, cat.MsmqCount, cat.MsmqProm, STrace.Module + msg.GetType().Name);
+             //   PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess, pcInstanceName);
+                PerformanceCounterHelper.Increment(BackendCategory.Instance.CategoryName, BackendCategory.Instance.DispatcherProcess);
+
+                var sw = Stopwatch.StartNew();
 
                 var handlers = GetHandlers(msgType);
                 //STrace.Debug(GetType().FullName, 0, String.Format("Dispatch {0} T={1} Id={2} HCount={3}", msg.Tiempo, msg.GetType().Name, msg.DeviceId, (Handlers == null) ? -1 : Handlers.Count()));
@@ -78,6 +82,11 @@ namespace Logictracker.Layers
                         }
                         NHibernateHelper.CloseSession();
                     }
+               //     PerformanceCounterHelper.IncrementBy(BackendCategory.Instance.CategoryName,
+                 //       BackendCategory.Instance.DispatcherProcess, pcInstanceName, sw.ElapsedTicks);
+                    PerformanceCounterHelper.IncrementBy(BackendCategory.Instance.CategoryName,
+                          BackendCategory.Instance.DispatcherProcess, STrace.Module, sw.ElapsedTicks);
+                
                 }
             }
             catch (Exception e)

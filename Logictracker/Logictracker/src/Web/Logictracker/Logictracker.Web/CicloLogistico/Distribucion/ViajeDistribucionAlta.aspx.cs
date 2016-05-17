@@ -32,6 +32,8 @@ using Logictracker.Types.BusinessObjects.ReferenciasGeograficas;
 using Point = Logictracker.Web.Monitor.Geometries.Point;
 using Logictracker.DAL.NHibernate;
 using ListItem = System.Web.UI.WebControls.ListItem;
+using C1.Web.UI.Controls.C1GridView;
+using Logictracker.Web.Controls;
 
 namespace Logictracker.CicloLogistico.Distribucion
 {
@@ -112,11 +114,14 @@ namespace Logictracker.CicloLogistico.Distribucion
                 if (!EditMode)
                 {
                     dtFecha.SetDate();
+                    dtFechaProg.SetDate();
                     dtRegeneraDesde.SetDate();
                     dtRegeneraHasta.SetDate();
                     BindEntregas();
                 }
                 SetCancelState();
+                AbmTabPanel3.Visible = !EditMode;
+                SetContextKey();
             }
         }
 
@@ -127,15 +132,19 @@ namespace Logictracker.CicloLogistico.Distribucion
             base.OnDuplicate();
         }
 
-
         protected override void Bind()
         {
+            DAOFactory.Session.Refresh(EditObject);
+
             cbEmpresa.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : cbEmpresa.AllValue);
             cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.AllValue);
+            cbTransportista.SetSelectedValue(EditObject.Transportista != null ? EditObject.Transportista.Id : cbTransportista.AllValue);
             cbCentroDeCosto.SetSelectedValue(EditObject.CentroDeCostos != null ? EditObject.CentroDeCostos.Id : cbCentroDeCosto.AllValue);
             cbSubCentroDeCosto.SetSelectedValue(EditObject.SubCentroDeCostos != null ? EditObject.SubCentroDeCostos.Id : cbSubCentroDeCosto.AllValue);
+            cbTipoVehiculo.SetSelectedValue(EditObject.TipoCoche != null ? EditObject.TipoCoche.Id : cbTipoVehiculo.NoneValue);
             cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.AllValue);
             cbChofer.SetSelectedValue(EditObject.Empleado != null ? EditObject.Empleado.Id : cbChofer.AllValue);
+            cbTipoCicloLogistico.SetSelectedValue(EditObject.TipoCicloLogistico != null ? EditObject.TipoCicloLogistico.Id : cbTipoCicloLogistico.AllValue);
 
             txtCodigo.Text = EditObject.Codigo.ToUpperInvariant();
             dtFecha.SelectedDate = EditObject.Inicio.ToDisplayDateTime();
@@ -165,6 +174,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             Entregas.Set(entregas);
 
             BindEntregas();
+            BindEstadosCumplidos();
 
             var points = EditObject.Recorrido.Select(detalle => new PointF((float)detalle.Longitud, (float)detalle.Latitud)).ToList();
             EditLine1.SetLine(points);
@@ -222,6 +232,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             cbTransportista.Enabled = pendiente;
             cbVehiculo.Enabled = pendiente;
             cbChofer.Enabled = pendiente;
+            cbTipoCicloLogistico.Enabled = pendiente;
            // txtCodigo.Enabled = pendiente;
             dtFecha.Enabled = pendiente;
             txtUmbral.Enabled = pendiente;
@@ -253,12 +264,15 @@ namespace Logictracker.CicloLogistico.Distribucion
                 {
                     EditObject.Empresa = cbEmpresa.Selected > 0 ? DAOFactory.EmpresaDAO.FindById(cbEmpresa.Selected) : null;
                     EditObject.Linea = cbLinea.Selected > 0 ? DAOFactory.LineaDAO.FindById(cbLinea.Selected) : null;
+                    EditObject.Transportista = cbTransportista.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(cbTransportista.Selected) : null;
                     EditObject.CentroDeCostos = cbCentroDeCosto.Selected > 0 ? DAOFactory.CentroDeCostosDAO.FindById(cbCentroDeCosto.Selected) : null;
                     EditObject.SubCentroDeCostos = cbSubCentroDeCosto.Selected > 0
                         ? DAOFactory.SubCentroDeCostosDAO.FindById(cbSubCentroDeCosto.Selected)
                         : null;
+                    EditObject.TipoCoche = cbTipoVehiculo.Selected > 0 ? DAOFactory.TipoCocheDAO.FindById(cbTipoVehiculo.Selected) : null;
                     EditObject.Vehiculo = cbVehiculo.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculo.Selected) : null;
                     EditObject.Empleado = cbChofer.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbChofer.Selected) : null;
+                    EditObject.TipoCicloLogistico = cbTipoCicloLogistico.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloLogistico.Selected) : null;
 
                     EditObject.Codigo = txtCodigo.Text.ToUpperInvariant();
                     EditObject.NumeroViaje = 0;
@@ -424,37 +438,77 @@ namespace Logictracker.CicloLogistico.Distribucion
             dtRegeneraDesde.SelectedDate = EditObject.InicioReal.HasValue
                                                ? EditObject.InicioReal.Value.ToDisplayDateTime()
                                                : EditObject.Inicio.ToDisplayDateTime();
-            dtRegeneraHasta.SelectedDate = EditObject.Fin;
+            dtRegeneraHasta.SelectedDate = EditObject.Fin.ToDisplayDateTime();
 
             mpePanel.Show();
         }
 
         protected void BtRegeneraAceptarClick(object sender, EventArgs e)
         {
-            var desde = dtRegeneraDesde.SelectedDate.Value.ToDataBaseDateTime();
-            var hasta = dtRegeneraHasta.SelectedDate.Value.ToDataBaseDateTime();
-            var cerrar = !chkNoCerrar.Checked;
-
-            var ruta = DAOFactory.ViajeDistribucionDAO.FindById(EditObject.Id);
-            ruta.InicioReal = desde;
-            if (cerrar) ruta.Fin = hasta;
-            ruta.Estado = ViajeDistribucion.Estados.EnCurso;
-            DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
-
-            var ciclo = new CicloLogisticoDistribucion(ruta, DAOFactory, null);
-            ciclo.Regenerate(desde, hasta);
-
-            if (cerrar)
+            using (var transaction = SmartTransaction.BeginTransaction())
             {
-                ruta.Estado = ViajeDistribucion.Estados.Cerrado;
-                DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
-            }
+                try
+                {
+                    var desde = dtRegeneraDesde.SelectedDate.Value.ToDataBaseDateTime();
+                    var hasta = dtRegeneraHasta.SelectedDate.Value.ToDataBaseDateTime();
+                    var cerrar = !chkNoCerrar.Checked;
 
+                    var ruta = DAOFactory.ViajeDistribucionDAO.FindById(EditObject.Id);
+
+                    ruta.InicioReal = desde;
+                    ruta.Estado = ViajeDistribucion.Estados.EnCurso;
+
+                    foreach (var detalle in ruta.Detalles)
+                    {
+                        if (detalle.Estado != EntregaDistribucion.Estados.Completado && detalle.Estado != EntregaDistribucion.Estados.Cancelado)
+                        {
+                            detalle.Estado = EntregaDistribucion.Estados.Pendiente;
+                            detalle.Entrada = null;
+                            detalle.Manual = null;
+                            detalle.Salida = null;
+
+                            DAOFactory.EntregaDistribucionDAO.SaveOrUpdate(detalle);
+                        }
+                    }
+
+                    DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
+
+                    var ciclo = new CicloLogisticoDistribucion(ruta, DAOFactory, null);
+                    ciclo.Regenerar(desde, hasta);
+
+                    if (cerrar)
+                    {
+                        ruta.Fin = hasta;
+                        ruta.Estado = ViajeDistribucion.Estados.Cerrado;
+                        DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(ruta);
+                    }
+
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                }
+            }
             Response.Redirect(RedirectUrl);
         }
 
         #endregion
 
+        private void BindEstadosCumplidos()
+        {
+            gridEstadosCumplidos.Columns[0].HeaderText = string.Empty;
+            gridEstadosCumplidos.Columns[1].HeaderText = CultureManager.GetEntity("PARTICK08");
+            gridEstadosCumplidos.Columns[2].HeaderText = CultureManager.GetLabel("INICIO");
+            gridEstadosCumplidos.Columns[3].HeaderText = CultureManager.GetLabel("FIN");
+            gridEstadosCumplidos.Columns[4].HeaderText = CultureManager.GetLabel("TOTAL");
+            gridEstadosCumplidos.Columns[5].HeaderText = CultureManager.GetLabel("DEMORA");
+            gridEstadosCumplidos.Columns[6].HeaderText = CultureManager.GetLabel("DESVIO");
+
+            var dt = EditObject.EstadosCumplidos;
+            gridEstadosCumplidos.DataSource = dt;
+            gridEstadosCumplidos.DataBind();
+        }
         private void BindEntregas()
         {
             CreateOrigen();
@@ -507,6 +561,40 @@ namespace Logictracker.CicloLogistico.Distribucion
                 var dt = item.FindControl("dtHasta") as DateTimePicker;
                 if (dt != null) dt.SelectedDate = hasta[i].ToDisplayDateTime();
                 if (updHasta != null) updHasta.Update();
+            }
+        }
+
+        protected void GridEstadosCumplidosOnRowDataBound(object sender, C1GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == C1GridViewRowType.DataRow)
+            {
+                var result = e.Row.DataItem as EstadoDistribucion;
+                if (result != null)
+                {
+                    var img = e.Row.FindControl("imgIcono") as System.Web.UI.WebControls.Image;
+                    if (img != null) img.ImageUrl = "../../iconos/" + result.EstadoLogistico.Icono.PathIcono;
+
+                    var lbl = e.Row.FindControl("lblEstadoLogistico") as Label;
+                    if (lbl != null) lbl.Text = result.EstadoLogistico.Descripcion;
+
+                    lbl = e.Row.FindControl("lblDesde") as Label;
+                    if (lbl != null) lbl.Text = result.Inicio.HasValue ? result.Inicio.Value.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm") : string.Empty;
+
+                    lbl = e.Row.FindControl("lblHasta") as Label;
+                    if (lbl != null) lbl.Text = result.Fin.HasValue ? result.Fin.Value.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm") : string.Empty;
+
+                    var total = result.Inicio.HasValue && result.Fin.HasValue ? result.Fin.Value.Subtract(result.Inicio.Value) : new TimeSpan();
+                    lbl = e.Row.FindControl("lblTotal") as Label;
+                    if (lbl != null) lbl.Text = total.ToString();
+
+                    var demora = new TimeSpan(0, result.EstadoLogistico.Demora, 0);
+                    lbl = e.Row.FindControl("lblDemora") as Label;
+                    if (lbl != null) lbl.Text = demora.ToString();
+
+                    var desvio = total.TotalSeconds > 0 ? total.Subtract(demora) : new TimeSpan();
+                    lbl = e.Row.FindControl("lblDesvio") as Label;
+                    if (lbl != null) lbl.Text = desvio.ToString();
+                }
             }
         }
 
@@ -588,6 +676,172 @@ namespace Logictracker.CicloLogistico.Distribucion
                 var scc = DAOFactory.SubCentroDeCostosDAO.FindById(cbSubCentroDeCosto.Selected);
                 SetFechaInicio(scc.CentroDeCostos);
             }
+        }
+
+        protected void CbViajeProgramadoSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var detalles = new List<EntregaProgramada>();
+            if (cbViajeProgramado.Selected > 0)
+            {
+                var viajeProgramado = DAOFactory.ViajeProgramadoDAO.FindById(cbViajeProgramado.Selected);
+                if (viajeProgramado != null)
+                {
+                    detalles = viajeProgramado.Detalles.ToList();
+                    btnGuardar.Visible = true;
+                }
+                else
+                {
+                    btnGuardar.Visible = false;
+                }
+            }
+
+            gridEntregas.Columns[0].HeaderText = CultureManager.GetEntity("PARENTI44");
+            gridEntregas.Columns[1].HeaderText = CultureManager.GetLabel("BULTOS");
+            gridEntregas.Columns[2].HeaderText = CultureManager.GetLabel("PESO");
+            gridEntregas.Columns[3].HeaderText = CultureManager.GetLabel("VOLUMEN");
+            gridEntregas.Columns[4].HeaderText = CultureManager.GetLabel("VALOR");
+
+            gridEntregas.DataSource = detalles;
+            gridEntregas.DataBind();
+        }
+
+        protected void GridEntregasOnRowDataBound(object sender, C1GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == C1GridViewRowType.DataRow)
+            {
+                var entrega = e.Row.DataItem as EntregaProgramada;
+                if (entrega != null)
+                {
+                    var lbl = e.Row.FindControl("lblPuntoEntrega") as Label;
+                    if (lbl != null) lbl.Text = entrega.PuntoEntrega.Descripcion;
+
+                    var txt = e.Row.FindControl("txtBultos") as TextBox;
+                    if (txt != null) txt.Text = "0";
+
+                    txt = e.Row.FindControl("txtPeso") as TextBox;
+                    if (txt != null) txt.Text = "0.0";
+
+                    txt = e.Row.FindControl("txtVolumen") as TextBox;
+                    if (txt != null) txt.Text = "0.0";
+
+                    txt = e.Row.FindControl("txtValor") as TextBox;
+                    if (txt != null) txt.Text = "0.0";
+
+                    var dt = e.Row.FindControl("dtDateProg") as DateTimePicker;
+                    if (dt != null) dt.SelectedDate = dtFechaProg.SelectedDate;
+                }
+            }
+        }
+
+        protected void BtnGuardarOnClick(object sender, EventArgs e)
+        {
+            ValidateSaveProgramado();
+
+            if (cbViajeProgramado.Selected > 0)
+            {
+                var viajeProg = DAOFactory.ViajeProgramadoDAO.FindById(cbViajeProgramado.Selected);
+                if (viajeProg != null && viajeProg.Detalles.Any())
+                {
+                    var empresa = DAOFactory.EmpresaDAO.FindById(cbEmpresaProg.Selected);
+                    var vehiculo = cbVehiculoProg.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculoProg.Selected) : null;
+                    var tipoVehiculo = cbTipoVehiculoProg.Selected > 0 ? DAOFactory.TipoCocheDAO.FindById(cbTipoVehiculoProg.Selected) : null;
+                    var transportista = cbTransportistaProg.Selected > 0 ? DAOFactory.TransportistaDAO.FindById(cbTransportistaProg.Selected) : null;
+                    var tipoCiclo = cbTipoCicloProg.Selected > 0 ? DAOFactory.TipoCicloLogisticoDAO.FindById(cbTipoCicloProg.Selected) : null;
+                    var codigo = txtCodigoProg.Text;
+                    var fecha = dtFechaProg.SelectedDate.Value.ToDataBaseDateTime();
+                    var chofer = cbChoferProg.Selected > 0 ? DAOFactory.EmpleadoDAO.FindById(cbChoferProg.Selected) : null;
+                    var comentario = txtComentarioProg.Text;
+
+                    var viaje = new ViajeDistribucion
+                    {
+                        Alta = DateTime.UtcNow,
+                        Codigo = codigo,
+                        Empresa = empresa,
+                        Estado = ViajeDistribucion.Estados.Pendiente,
+                        Inicio = fecha,
+                        Fin = fecha,
+                        NumeroViaje = 1,
+                        RegresoABase = false,
+                        Tipo = ViajeDistribucion.Tipos.Desordenado,
+                        Vehiculo = vehiculo,
+                        TipoCoche = tipoVehiculo,
+                        Transportista = transportista,
+                        TipoCicloLogistico = tipoCiclo,
+                        Empleado = chofer,
+                        Comentario = comentario
+                    };                    
+
+                    for (var i = 0; i < viajeProg.Detalles.Count; i++)
+                    {
+                        var entregaProg = viajeProg.Detalles[i];
+                        var km = 0.0;
+
+                        if (i > 0)
+                        {
+                            var origen = new LatLon(viajeProg.Detalles[i - 1].PuntoEntrega.ReferenciaGeografica.Latitude, viajeProg.Detalles[i - 1].PuntoEntrega.ReferenciaGeografica.Longitude);
+                            var destino = new LatLon(viajeProg.Detalles[i].PuntoEntrega.ReferenciaGeografica.Latitude, viajeProg.Detalles[i].PuntoEntrega.ReferenciaGeografica.Longitude);
+                            var directions = GoogleDirections.GetDirections(origen, destino, GoogleDirections.Modes.Driving, string.Empty, null);
+
+                            if (directions != null)
+                            {
+                                var duracion = directions.Duration;
+                                fecha = fecha.Add(duracion);
+                                km = (directions.Distance / 1000.0);
+                            }
+                        }
+
+                        var fila = gridEntregas.Rows[i];
+                        var txtBultos = fila.FindControl("txtBultos") as TextBox;
+                        var txtPeso = fila.FindControl("txtPeso") as TextBox;
+                        var txtVolumen = fila.FindControl("txtVolumen") as TextBox;
+                        var txtValor = fila.FindControl("txtValor") as TextBox;
+                        
+                        var bultos = 0;
+                        var peso = 0.0;
+                        var volumen = 0.0;
+                        var valor = 0.0;
+
+                        int.TryParse(txtBultos.Text.Replace(".",","), out bultos);
+                        double.TryParse(txtPeso.Text.Replace(".", ","), out peso);
+                        double.TryParse(txtVolumen.Text.Replace(".", ","), out volumen);
+                        double.TryParse(txtValor.Text.Replace(".", ","), out valor);
+
+                        var entrega = new EntregaDistribucion
+                        {
+                            Cliente = entregaProg.PuntoEntrega.Cliente,
+                            PuntoEntrega = entregaProg.PuntoEntrega,
+                            Descripcion = entregaProg.PuntoEntrega.Descripcion,
+                            Estado = EntregaDistribucion.Estados.Pendiente,
+                            Orden = viaje.Detalles.Count,
+                            Programado = fecha,
+                            ProgramadoHasta = fecha.AddHours(1),
+                            KmCalculado = km,
+                            Viaje = viaje,
+                            Bultos = bultos,
+                            Peso = peso,
+                            Volumen = volumen,
+                            Valor = valor                            
+                        };
+
+                        viaje.Detalles.Add(entrega);
+
+                        viaje.Fin = fecha.AddHours(1);
+                    }
+
+                    DAOFactory.ViajeDistribucionDAO.SaveOrUpdate(viaje);
+                }
+            }
+
+            Response.Redirect(RedirectUrl);
+        }
+
+        private void ValidateSaveProgramado()
+        {
+            var codigo = ValidateEmpty(txtCodigoProg.Text, "CODE");
+            var byCode = DAOFactory.ViajeDistribucionDAO.FindByCodigo(cbEmpresaProg.Selected, -1, codigo);
+            ValidateDuplicated(byCode, "CODE");
+            ValidateEmpty(dtFechaProg.SelectedDate, "FECHA");
+            ValidateEntity(cbViajeProgramado.Selected, "OPETICK13");
         }
 
         private void SetFechaInicio(CentroDeCostos cc)
@@ -1061,6 +1315,7 @@ namespace Logictracker.CicloLogistico.Distribucion
             var combo = (sender as TipoServicioCicloDropDownList);
 
             var newValue = combo != null && combo.SelectedIndex >= 0 ? combo.Selected : 0;
+            if (index >= entregas.Count) return;
             var oldValue = entregas[index].TipoServicio;
 
             var oldTipo = oldValue > 0 ? DAOFactory.TipoServicioCicloDAO.FindById(oldValue) : null;
@@ -1374,20 +1629,24 @@ namespace Logictracker.CicloLogistico.Distribucion
                     horario = dtFecha.SelectedDate.HasValue ? dtFecha.SelectedDate.Value : Inicio;
                     hasta = horario;
                 }
-                var linea = DAOFactory.LineaDAO.FindById(cbLinea.Selected);
-                var entrega = new Entrega(new EntregaDistribucion { Descripcion = linea.Descripcion, Linea = linea, Viaje = EditObject });
+                
+                if (cbLinea.Selected > 0)
+                {
+                    var linea = DAOFactory.LineaDAO.FindById(cbLinea.Selected);
+                    var entrega = new Entrega(new EntregaDistribucion { Descripcion = linea.Descripcion, Linea = linea, Viaje = EditObject });
 
-                if (entregas.Count > 0)
-                {
-                    entregas.Insert(0, entrega);
-                    horarios.Insert(0, horario);
-                    hastas.Insert(0, hasta);
-                }
-                else
-                {
-                    entregas.Add(entrega);
-                    horarios.Add(horario);
-                    hastas.Add(hasta);
+                    if (entregas.Count > 0)
+                    {
+                        entregas.Insert(0, entrega);
+                        horarios.Insert(0, horario);
+                        hastas.Insert(0, hasta);
+                    }
+                    else
+                    {
+                        entregas.Add(entrega);
+                        horarios.Add(horario);
+                        hastas.Add(hasta);
+                    }
                 }
 
                 Horarios.Set(horarios);
@@ -1451,7 +1710,12 @@ namespace Logictracker.CicloLogistico.Distribucion
         } 
         #endregion
 
-        
+
+        protected void SetContextKey()
+        {
+            cbPuntoEntrega.ContextKey = AutoCompleteTextBox.CreateContextKey(new[] { cbEmpresa.Selected },
+                                                                           new[] { cbLinea.Selected } , new[] {cbCliente.Selected});
+        }
     }
 
     [Serializable]

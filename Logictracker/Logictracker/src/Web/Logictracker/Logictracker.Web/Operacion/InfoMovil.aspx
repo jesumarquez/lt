@@ -1,4 +1,4 @@
-﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeFile="InfoMovil.aspx.cs" Inherits="Logictracker.Operacion.InfoMovil" %> <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %> <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
+﻿ <%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Operacion.InfoMovil" Codebehind="InfoMovil.aspx.cs" %> <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %> <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -53,6 +53,9 @@
                                     </div>
                                     <div style="font-size: 11px; font-weight: bold;">
                                         <asp:Label ID="lblPatente" runat="server" Text="" />
+                                    </div>
+                                    <div style="font-size: 11px; font-weight: bold;">
+                                        <asp:Label ID="lblTransportista" runat="server" Text="" />
                                     </div>
                                 </td>
                             </tr>

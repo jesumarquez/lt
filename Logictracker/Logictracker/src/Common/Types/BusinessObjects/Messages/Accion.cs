@@ -74,6 +74,11 @@ namespace Logictracker.Types.BusinessObjects.Messages
         /// </summary>
         public virtual TipoReferenciaGeografica TipoGeocerca { get; set; }
 
+        public virtual bool EnviaReporte { get; set; }
+        public virtual string Reporte { get; set; }
+        public virtual string DestinatariosMailReporte { get; set; }
+        public virtual bool ReportaResponsableCuenta { get; set; }
+
         public virtual string RGB
         {
             get

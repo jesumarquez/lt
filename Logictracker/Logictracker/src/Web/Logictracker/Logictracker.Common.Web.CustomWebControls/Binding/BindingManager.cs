@@ -27,6 +27,8 @@ using Logictracker.Web.CustomWebControls.BaseControls.CommonInterfaces.Bussiness
 using Logictracker.Web.CustomWebControls.DropDownLists;
 using Logictracker.Web.CustomWebControls.DropDownLists.ControlDeCombustible;
 using Logictracker.Web.CustomWebControls.ListBoxs;
+using Logictracker.Messaging;
+using Logictracker.Types.InterfacesAndBaseClasses;
 
 namespace Logictracker.Web.CustomWebControls.Binding
 {
@@ -300,11 +302,11 @@ namespace Logictracker.Web.CustomWebControls.Binding
             AddDefaultItems(autoBindeable);
 
             if (autoBindeable.UseOptionGroup) coches = OrderMobilesByOptionGroupProperty(autoBindeable.OptionGroupProperty, coches);
-            var puertas  = autoBindeable.ShowOnlyAccessControl ? DaoFactory.PuertaAccesoDAO.GetList(idsEmpresa, idsLinea).Select(p=>p.Vehiculo.Id).ToList() : new List<int>(0);
+            var puertas = autoBindeable.ShowOnlyAccessControl ? DaoFactory.PuertaAccesoDAO.GetList(idsEmpresa, idsLinea).Where(p => p.Vehiculo != null).Select(p => p.Vehiculo.Id).ToList() : new List<int>(0);
 
             foreach (var movil in coches)
             {
-                if (autoBindeable.ShowOnlyAccessControl && !movil.EsPuerta) continue;
+                if (autoBindeable.ShowOnlyAccessControl && !movil.EsPuerta && !movil.TipoCoche.EsControlAcceso) continue;
                 if (autoBindeable.HideWithNoDevice && movil.Dispositivo == null) continue;
                 if (autoBindeable.HideWithNoDevice && movil.Dispositivo.Codigo.Contains("No borrar.")) continue;
                 if (autoBindeable.HideInactive && movil.Estado == Coche.Estados.Inactivo) continue;
@@ -724,6 +726,13 @@ namespace Logictracker.Web.CustomWebControls.Binding
                 autoBindeable.AddItem(coche.Dispositivo.Codigo, coche.Dispositivo.Id);
             }
 
+            if (autoBindeable.HideAssigned && autoBindeable.Empleado > 0)
+            {
+                var empleado = DaoFactory.EmpleadoDAO.FindById(autoBindeable.Empleado);
+                if (empleado == null || empleado.Dispositivo == null) return;
+                autoBindeable.AddItem(empleado.Dispositivo.Codigo, empleado.Dispositivo.Id);
+            }
+
             foreach (var dispositivo in dispositivos.OrderBy(d => d.Codigo)) autoBindeable.AddItem(dispositivo.Codigo, dispositivo.Id);
         }
 
@@ -794,7 +803,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
 
             foreach (var pair in OrigenesMensaje) autoBindeable.Items.Add(new ListItem(pair.Second.ToString(), pair.First.ToString()));
         }
-        
+
         public void BindReferenciaGeografica(IAutoBindeable autoBindeable)
         {    
             autoBindeable.ClearItems();
@@ -807,6 +816,30 @@ namespace Logictracker.Web.CustomWebControls.Binding
                 .Where(d => d.Vigencia == null || d.Vigencia.Vigente(DateTime.UtcNow))
                 .OrderBy(d => d.Descripcion);
             
+            foreach (var domicilio in domicilios) autoBindeable.AddItem(domicilio.Descripcion, domicilio.Id);            
+        }
+
+        public void BindReferenciaGeografica(ReferenciaGeograficaDropDownList autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            if (autoBindeable.AddNoneItem) autoBindeable.AddItem(autoBindeable.NoneItemsName, autoBindeable.NoneValue.ToString("#0"));
+
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            var idLinea = autoBindeable.ParentSelected<Linea>();
+            var idsTiposGeoRef = autoBindeable.ParentSelectedValues<TipoReferenciaGeografica>();
+
+            if (autoBindeable.ShowOnlyAccessControl)
+            {
+                idsTiposGeoRef = DaoFactory.TipoReferenciaGeograficaDAO.GetList(new[] { idEmpresa }, new[] { idLinea })
+                                                                       .Where(t => t.EsControlAcceso)
+                                                                       .Select(t => t.Id)
+                                                                       .ToList();
+            }
+            
+            var domicilios = DaoFactory.ReferenciaGeograficaDAO.GetList(new[] { idEmpresa }, new[] { idLinea }, idsTiposGeoRef)
+                                                               .Where(d => d.Vigencia == null || d.Vigencia.Vigente(DateTime.UtcNow))
+                                                               .OrderBy(d => d.Descripcion);
+
             foreach (var domicilio in domicilios) autoBindeable.AddItem(domicilio.Descripcion, domicilio.Id);
         }
 
@@ -1037,7 +1070,7 @@ namespace Logictracker.Web.CustomWebControls.Binding
             foreach (var punto in DaoFactory.PuntoEntregaDAO.GetList(idEmpresa, idLinea, idCliente)) autoBindeable.AddItem(punto.Descripcion, punto.Id);
         }
 
-        public void BindDepartamento(IAutoBindeable autoBindeable)
+        public void BindDepartamento(DepartamentoDropDownList autoBindeable)
         {
             autoBindeable.ClearItems();
             AddDefaultItems(autoBindeable);
@@ -1045,6 +1078,28 @@ namespace Logictracker.Web.CustomWebControls.Binding
             var idEmpresa = autoBindeable.ParentSelectedValues<Empresa>();
             var idLinea = autoBindeable.ParentSelectedValues<Linea>();
             var departamentos = DaoFactory.DepartamentoDAO.GetList(idEmpresa, idLinea);
+            if (autoBindeable.FiltraPorUsuario)
+            {
+                var idUsuario = WebSecurity.AuthenticatedUser.EmpleadoId;
+                if (idUsuario > 0)
+                {
+                    var usuario = DaoFactory.EmpleadoDAO.FindById(idUsuario);
+                    if (usuario.Departamento != null)
+                        departamentos = departamentos.Where(d => d == usuario.Departamento);
+                }
+            }
+
+            foreach (var item in departamentos) autoBindeable.AddItem(item.Descripcion, item.Id);
+        }
+
+        public void BindDepartamento(DepartamentoListBox autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idEmpresa = autoBindeable.ParentSelectedValues<Empresa>();
+            var idLinea = autoBindeable.ParentSelectedValues<Linea>();
+            var departamentos = DaoFactory.DepartamentoDAO.GetList(idEmpresa, idLinea);            
 
             foreach (var item in departamentos) autoBindeable.AddItem(item.Descripcion, item.Id);
         }
@@ -1083,6 +1138,22 @@ namespace Logictracker.Web.CustomWebControls.Binding
             autoBindeable.AddItem("Orbcom", 4);
         }
 
+        public void BindEstrategia(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();            
+            var idEmpresa = autoBindeable.ParentSelected<Empresa>();
+            var empresa = DaoFactory.EmpresaDAO.FindById(idEmpresa);
+
+            var items = empresa != null 
+                            ? LogicLinkFile.Estrategias.GetList().Where(e => e.ToUpperInvariant().Contains(empresa.RazonSocial.ToUpperInvariant())).ToList()
+                            : new List<string>();
+            
+            for (int i = 0; i < items.Count; i++)
+            {
+                autoBindeable.AddItem(items[i], i);
+            }
+        }
+
         public void BindTipoLineaTelefonica(IAutoBindeable autoBindeable)
         {
             autoBindeable.ClearItems();
@@ -1099,6 +1170,19 @@ namespace Logictracker.Web.CustomWebControls.Binding
 
             autoBindeable.AddItem("KB", 1);
             autoBindeable.AddItem("MB", 2);
+        }
+
+        public void BindReporte(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var idMensaje = autoBindeable.ParentSelected<Mensaje>().ToString();
+
+            if (idMensaje == MessageCode.CicloLogisticoCerrado.GetMessageCode())
+            {
+                autoBindeable.AddItem(CultureManager.GetMenu("REP_DISTRIBUCION"), ProgramacionReporte.Reportes.GetDropDownListIndex(ProgramacionReporte.Reportes.EstadoEntregas));
+            }
         }
 
         public void BindTiposEntidad(IAutoBindeable autoBindeable)
@@ -1575,6 +1659,19 @@ namespace Logictracker.Web.CustomWebControls.Binding
             var items = DaoFactory.ShiftDAO.GetList(empresas, lineas).OrderBy(t => t.Descripcion);
 
             foreach (var item in items) autoBindeable.AddItem(item.Descripcion, item.Id);
+        }
+
+        public void BindViajesProgramados(IAutoBindeable autoBindeable)
+        {
+            autoBindeable.ClearItems();
+            AddDefaultItems(autoBindeable);
+
+            var empresas = autoBindeable.ParentSelectedValues<Empresa>();
+            var transportistas = autoBindeable.ParentSelectedValues<Transportista>();
+
+            var items = DaoFactory.ViajeProgramadoDAO.GetList(empresas, transportistas).OrderBy(t => t.Codigo);
+
+            foreach (var item in items) autoBindeable.AddItem(item.Codigo, item.Id);
         }
 
         #endregion

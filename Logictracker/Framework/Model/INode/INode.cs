@@ -5,7 +5,10 @@ namespace Logictracker.Model
 {
     public enum NodeTypes
     {
-        Trax, Skypatrol, Castel, Coyote, Cusat, Digitax, Fulmar, Gstraq, Maxtrack, Minimt, Mobileapps, Orbcomm, Redsos, Simcom, Simcomlite, Unetelv1, Unetelv2, Melano, Virloc, Novatel, Absolut
+        Trax, Skypatrol, Castel, Coyote, Cusat, Digitax, Fulmar, Gstraq, Maxtrack, Minimt, Mobileapps, Orbcomm, Redsos, Simcom, Simcomlite, Unetelv1, Unetelv2, Melano, Virloc, Novatel, Absolut, Siac, Vigilia, ControlSat, Hawk, Alas, CusatUniv6,
+        G4S,
+        Globalis,
+        Pressa
     }
     
     /// <summary>

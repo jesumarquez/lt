@@ -38,11 +38,17 @@ namespace Logictracker.Types.BusinessObjects
             public const string SegundosMinimosEnDetencion = "distribucion.segundos.minimos.detencion";
             public const string TipoCalculoCostoKm = "tipo.calculo.costo.km";
             public const string InicioDistribucionPorSalidaDeBase = "distribucion.inicio.salida.base";
+            public const string InicioDistribucionPorSalidaDeGeocerca = "distribucion.inicio.salida.geocerca";
+            public const string InicioDistribucionPorEntradaDeGeocerca = "distribucion.inicio.entrada.geocerca";
+            public const string InicioDistribucionIdTipoGeocerca = "distribucion.inicio.id.tipo.geocerca";
             public const string InicioDistribucionPorMensaje = "distribucion.inicio.mensaje";
             public const string InicioDistribucionCodigoMensaje = "distribucion.inicio.mensaje.codigo";
             public const string InicioDistribucionSiguienteAlCerrar = "distribucion.inicio.siguiente";
+            public const string DistribucionReportaEmpleado = "distribucion.reporta.empleado";
+            public const string DistribucionGeneraRechazo = "distribucion.genera.rechazo";
 
             public const string MesesConsultaPosiciones = "meses.consulta.posiciones";
+            public const string MaxHorasMonitor = "max.horas.monitor";
             public const string EliminaRutas = "elimina.rutas";
             public const string EliminaPuntosDeEntrega = "elimina.puntos";
             public const string EliminaAntiguedadMeses = "elimina.antiguedad.meses";
@@ -54,6 +60,7 @@ namespace Logictracker.Types.BusinessObjects
             public const string ProductKey = "product.key";
             public const string OrdenRutaGarmin = "orden.ruta.garmin";
             public const string MonitoreoGarmin = "monitoreo.garmin";
+            public const string MonitoreoRechazos = "monitoreo.rechazos";
             public const string Totalizadores = "totalizadores.lista";
             public const string IconoPorCentroDeCosto = "icono.por.cc";
             public const string Icono = "icono.";
@@ -69,6 +76,26 @@ namespace Logictracker.Types.BusinessObjects
 
             public const string DistribucionEvaluaSoloGeocercasViaje = "distribucion.geocercas.solo.viaje";
             public const string TiposGeocercaViaje = "distribucion.tipos.geocerca.viaje";
+
+            public const string KpiCantidadPagina = "kpi.cantidad.pagina";
+            public const string MonitorHistoricoDiaEntero = "monitor.historico.dia.entero";
+
+            public const string LogiclinkMinutosUpdate = "logiclink.minutos.update";
+
+            public const string IntegrationServiceEnabled = "integration.service.enabled";
+            public const string IntegrationServiceCodigoMensajeAceptacion = "integration.service.codigo.aceptacion";
+            public const string IntegrationServiceCodigoMensajeRechazo = "integration.service.codigo.rechazo";
+            public const string IntegrationServicePrefixConfirmation = "integration.service.prefix.confirmation";  
+            
+            public const string GeneraInfraccionesSitrack = "genera.infracciones.sitrack";
+
+            public const string GeneraRutaInversa = "genera.ruta.inversa";
+            public const string GeneraInformeViajeRecarga = "genera.informe.viaje.recarga";
+            public const string GeneraReporteEstadoDiario = "genera.reporte.estado.diario";
+            public const string ControlaDescanso = "controla.descanso";
+            public const string ActualizaStockVehicular = "actualiza.stock.vehicular";
+
+            public const string AsignoInfraccionPorAgenda = "asigno.infraccion.agenda";
         }
         public static class OrdenRuta
         {
@@ -314,6 +341,36 @@ namespace Logictracker.Types.BusinessObjects
                 return aplica;
             }
         }
+        public virtual bool InicioDistribucionPorSalidaDeGeocerca
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionPorSalidaDeGeocerca);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+        public virtual bool InicioDistribucionPorEntradaDeGeocerca
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionPorEntradaDeGeocerca);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+        public virtual int InicioDistribucionIdTipoGeocerca
+        {
+            get
+            {
+                var valor = GetParameter(Params.InicioDistribucionIdTipoGeocerca);
+                int id;
+                if (valor == null || !int.TryParse(valor, out id)) return 0;
+                return id;
+            }
+        }
         public virtual bool InicioDistribucionPorMensaje
         {
             get
@@ -380,6 +437,16 @@ namespace Logictracker.Types.BusinessObjects
                 return valor == null ? string.Empty : valor.Trim().ToLowerInvariant();
             }
         }
+        public virtual bool DistribucionGeneraRechazo
+        {
+            get
+            {
+                var valor = GetParameter(Params.DistribucionGeneraRechazo);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
 
         public virtual int MesesConsultaPosiciones
         {
@@ -388,6 +455,16 @@ namespace Logictracker.Types.BusinessObjects
                 var valor = GetParameter(Params.MesesConsultaPosiciones);
                 int cant;
                 if (valor == null || !int.TryParse(valor, out cant)) return 3;
+                return cant;
+            }
+        }
+        public virtual int MaxHorasMonitor
+        {
+            get
+            {
+                var valor = GetParameter(Params.MaxHorasMonitor);
+                int cant;
+                if (valor == null || !int.TryParse(valor, out cant)) return 24;
                 return cant;
             }
         }
@@ -511,6 +588,17 @@ namespace Logictracker.Types.BusinessObjects
             }
         }
 
+        public virtual bool MonitoreoRechazos
+        {
+            get
+            {
+                var valor = GetParameter(Params.MonitoreoRechazos);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
         public virtual List<short> Totalizadores
         {
             get
@@ -608,6 +696,155 @@ namespace Logictracker.Types.BusinessObjects
                 }
 
                 return lista;
+            }
+        }
+
+        public virtual int KpiCantidadPagina
+        {
+            get
+            {
+                var valor = GetParameter(Params.KpiCantidadPagina);
+                int cant;
+                if (valor == null || !int.TryParse(valor, out cant)) return 10;
+                return cant;
+            }
+        }
+
+        public virtual bool MonitorHistoricoDiaEntero
+        {
+            get
+            {
+                var valor = GetParameter(Params.MonitorHistoricoDiaEntero);
+                bool v;
+                if (valor == null || !bool.TryParse(valor, out v)) return false;
+                return v;
+            }
+        }
+
+        public virtual int LogiclinkMinutosUpdate
+        {
+            get
+            {
+                var valor = GetParameter(Params.LogiclinkMinutosUpdate);
+                int v;
+                if (valor == null || !int.TryParse(valor, out v)) return 0;
+                return v;
+            }
+        }
+
+        public virtual bool IntegrationServiceEnabled
+        {
+            get
+            {
+                var valor = GetParameter(Params.IntegrationServiceEnabled);
+                bool enabled;
+                if (valor == null || !bool.TryParse(valor, out enabled)) return false;
+                return enabled;
+            }
+        }
+        public virtual string IntegrationServiceCodigoMensajeAceptacion
+        {
+            get
+            {
+                var valor = GetParameter(Params.IntegrationServiceCodigoMensajeAceptacion);
+                if (valor == null || valor.Trim() == string.Empty) return "21";
+                return valor.ToLowerInvariant();
+            }
+        }
+        public virtual string IntegrationServiceCodigoMensajeRechazo
+        {
+            get
+            {
+                var valor = GetParameter(Params.IntegrationServiceCodigoMensajeRechazo);
+                if (valor == null || valor.Trim() == string.Empty) return "0";
+                return valor.ToLowerInvariant();
+            }
+        }
+
+        public virtual bool GeneraInfraccionesSitrack
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraInfraccionesSitrack);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual string IntegrationServicePrefixConfirmation
+        {
+            get
+            {
+                var valor = GetParameter(Params.IntegrationServicePrefixConfirmation);
+                if (valor == null || valor.Trim() == string.Empty) return "PAT";
+                return valor.ToLowerInvariant();
+            }
+        }
+
+        public virtual bool GeneraRutaInversa
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraRutaInversa);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool GeneraInformeViajeRecarga
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraInformeViajeRecarga);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool GeneraReporteEstadoDiario
+        {
+            get
+            {
+                var valor = GetParameter(Params.GeneraReporteEstadoDiario);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool ControlaDescanso
+        {
+            get
+            {
+                var valor = GetParameter(Params.ControlaDescanso);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool ActualizaStockVehicular
+        {
+            get
+            {
+                var valor = GetParameter(Params.ActualizaStockVehicular);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
+            }
+        }
+
+        public virtual bool AsignoInfraccionPorAgenda
+        {
+            get
+            {
+                var valor = GetParameter(Params.AsignoInfraccionPorAgenda);
+                bool aplica;
+                if (valor == null || !bool.TryParse(valor, out aplica)) return false;
+                return aplica;
             }
         }
 

@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="UsuarioAlta.aspx.cs"
-    Inherits="Logictracker.Organizacion.AltaUsuario" Title="Usuarios" MaintainScrollPositionOnPostback="true" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Organizacion.AltaUsuario" Title="Usuarios" MaintainScrollPositionOnPostback="true" Codebehind="UsuarioAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/IpRangeEditor.ascx" TagName="IpRangeEditor" TagPrefix="uc2" %>
 <%@ Register Src="../App_Controls/altaEntidad.ascx" TagName="altaEntidad" TagPrefix="uc1" %>
@@ -197,6 +197,17 @@
                         <asp:UpdatePanel ID="updTipoMensaje" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                             <ContentTemplate>
                                 <cwc:TipoMensajeDropDownCheckList ID="cbTipoMensaje" runat="server" Width="200px" ParentControls="cbEmpresa,cbLinea" Todos="(Todos los actuales)" Ninguno="(Todos)" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresa" />
+                                <asp:AsyncPostBackTrigger ControlID="cbLinea" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+
+                        <cwc:ResourceLabel ID="lblEmpleado" runat="server" ResourceName="Entities" VariableName="PARENTI09" />
+                        <asp:UpdatePanel ID="updEmpleado" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:EmpleadoDropDownList ID="cbEmpleado" runat="server" Width="200px" ParentControls="cbEmpresa,cbLinea" AddNoneItem="true" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbEmpresa" />

@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="false" CodeFile="ReportGridPage.master.cs" Inherits="Logictracker.MasterPages.ReportGridPage" %>
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="True" CodeBehind="ReportGridPage.master.cs" Inherits="Logictracker.MasterPages.ReportGridPage" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" Runat="Server">
@@ -90,6 +90,12 @@
                             </td>
                             <td align="left">
                                 <asp:TextBox ID="TextBoxEmailSendReport" runat="server" MaxLength="500" TextMode="SingleLine" Width="300px" Height="40px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <asp:RadioButton ID="rbutExcelSend" runat="server" Font-Bold="true" Text="Excel Completo" GroupName="FormatList" ValidationGroup="FormatList" Checked="true" />
+                                <asp:RadioButton ID="rbutHtmlSend" Visible="False" runat="server" Font-Bold="true" Text="Email Resumido" GroupName="FormatList" ValidationGroup="FormatList" Checked="false" />
                             </td>
                         </tr>
                         <tr>

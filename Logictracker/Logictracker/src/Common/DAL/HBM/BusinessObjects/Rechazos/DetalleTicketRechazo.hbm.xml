@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.Rechazos.DetalleTicketRechazo,Logictracker.Types" table="opetick11" lazy="true"  dynamic-update="true">
+    <cache usage="read-write" />
+    <id name="Id" column="id_opetick11" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Ticket" column="rela_opetick10" lazy="proxy" />
+    <many-to-one name="Empleado" column="rela_parenti09" lazy="proxy" />
+
+    <property column="opetick11_fecha" type="DateTime" not-null="true"  name="FechaHora" />
+    <property name="Estado" column="opetick11_estado"  not-null="true"  />
+    <property column="opetick11_observacion" type="string" name="Observacion" />
+
+  </class>
+</hibernate-mapping>

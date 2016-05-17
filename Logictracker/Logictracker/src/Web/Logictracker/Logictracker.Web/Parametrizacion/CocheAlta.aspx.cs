@@ -161,7 +161,11 @@ namespace Logictracker.Parametrizacion
                     EditObject.Interno = txtInterno.Text.Trim();
                     //EditObject.Marca = AltaMarca1.MarcaId >= 0 ? DAOFactory.MarcaDAO.FindById(AltaMarca1.MarcaId) : null;
                     EditObject.Modelo = cbModelo.Selected > 0 ? DAOFactory.ModeloDAO.FindById(cbModelo.Selected) : null;
-                    EditObject.ModeloDescripcion = EditObject.Modelo != null ? EditObject.Modelo.Descripcion : string.Empty;
+                    EditObject.ModeloDescripcion = EditObject.Modelo != null 
+                        ? EditObject.Modelo.Descripcion.Length > 32
+                            ? EditObject.Modelo.Descripcion.Substring(0,32) 
+                            : EditObject.Modelo.Descripcion
+                        : string.Empty;
                     EditObject.Patente = txtPatente.Text;
                     EditObject.AnioPatente = Convert.ToInt16(npAnio.Value);
                     EditObject.NroChasis = txtNumeroChasis.Text;

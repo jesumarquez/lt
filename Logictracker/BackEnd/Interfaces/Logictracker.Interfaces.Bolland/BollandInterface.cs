@@ -491,7 +491,7 @@ namespace Logictracker.Interfaces.Bolland
 															Convert.ToInt32(datos[6], CultureInfo.InvariantCulture)*60, //durationmarcha
 														};
 													chofer = GetChoferPin(empresa, datos[2], dev.Id);
-													DispatcherDispatch(MessageIdentifier.TraveledLeg.FactoryEvent(dev.Id, 0, null, dt, chofer, lista), lastdt, repro, ref latestdt);
+													//DispatcherDispatch(MessageIdentifier.TraveledLeg.FactoryEvent(dev.Id, 0, null, dt, chofer, lista), lastdt, repro, ref latestdt);
 													break;
 												}
 											case "31": //"Ultimo dato de detenido?"

@@ -150,11 +150,9 @@ namespace Logictracker.Web.Reportes.Accidentologia
             var inicio = DateTime.UtcNow;
             try
             {
-                var results =
-                    ReportFactory.InfractionDetailDAO.GetInfractionsDetails(ddlDistrito.SelectedValues,
-                        ddlBase.SelectedValues, ddlTransportista.SelectedValues, GetOperators(), desde, hasta)
-                        .Select(o => new InfractionDetailVo(o) {HideCornerNearest = !chkVerEsquinas.Checked})
-                        .ToList();
+                var results = ReportFactory.InfractionDetailDAO.GetInfractionsDetails(ddlDistrito.SelectedValues, ddlBase.SelectedValues, ddlTransportista.SelectedValues, GetOperators(), desde, hasta)
+                                                               .Select(o => new InfractionDetailVo(o) {HideCornerNearest = !chkVerEsquinas.Checked})
+                                                               .ToList();
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 
                 STrace.Trace("Detalle de Infracciones", String.Format("Duración de la consulta: {0} segundos", duracion));
@@ -250,19 +248,18 @@ namespace Logictracker.Web.Reportes.Accidentologia
 
         private void AddSessionParameters()
         {
-            var message = DAOFactory.LogMensajeDAO.FindById(Convert.ToInt32(Grid.SelectedDataKey.Values[0]));
+            var infraccion = DAOFactory.InfraccionDAO.FindById(Convert.ToInt32(Grid.SelectedDataKey.Values[0]));
 
-            Session.Add("Distrito", message.Coche.Empresa != null ? message.Coche.Empresa.Id : message.Coche.Linea != null ? message.Coche.Linea.Empresa.Id : -1);
-            Session.Add("Location", message.Coche.Linea != null ? message.Coche.Linea.Id : -1);
-            Session.Add("TypeMobile", message.Coche.TipoCoche.Id);
-            Session.Add("Mobile", message.Coche.Id);
-            Session.Add("InitialDate", message.Fecha.AddMinutes(-1).ToDisplayDateTime());
-            Session.Add("FinalDate", (message.FechaFin.HasValue ? message.FechaFin.Value : message.Fecha).AddMinutes(1).ToDisplayDateTime());
-            Session.Add("MessageType", message.Mensaje.TipoMensaje.Id);
+            Session.Add("Distrito", infraccion.Vehiculo.Empresa != null ? infraccion.Vehiculo.Empresa.Id : infraccion.Vehiculo.Linea != null ? infraccion.Vehiculo.Linea.Empresa.Id : -1);
+            Session.Add("Location", infraccion.Vehiculo.Linea != null ? infraccion.Vehiculo.Linea.Id : -1);
+            Session.Add("TypeMobile", infraccion.Vehiculo.TipoCoche.Id);
+            Session.Add("Mobile", infraccion.Vehiculo.Id);
+            Session.Add("InitialDate", infraccion.Fecha.AddMinutes(-1));
+            Session.Add("FinalDate", (infraccion.FechaFin.HasValue ? infraccion.FechaFin.Value : infraccion.Fecha).AddMinutes(1));
+            //Session.Add("MessageType", infraccion.Mensaje.TipoMensaje.Id);
+            //Session.Add("MessagesIds", new List<string> { infraccion.Mensaje.Codigo });
 
-            Session.Add("MessagesIds", new List<string>{message.Mensaje.Codigo});
-
-            Session.Add("MessageCenterIndex", message.Id);
+            //Session.Add("MessageCenterIndex", infraccion.Id);
             Session.Add("ShowPOIS", 0);
         }
 

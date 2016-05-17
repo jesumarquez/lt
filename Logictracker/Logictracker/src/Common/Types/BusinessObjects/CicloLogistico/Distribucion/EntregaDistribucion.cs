@@ -41,7 +41,12 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
             }
 
             public static List<short> EstadosOk { get { return new List<short> { Completado, Visitado, EnSitio, EnZona }; } }
-            public static List<short> EstadosFinales { get { return new List<short> { Completado, Visitado, Cancelado}; } }
+            public static List<short> EstadosFinales { get { return new List<short> { Completado, Visitado, Cancelado, NoCompletado }; } }
+
+            public static List<int> TodosEstados
+            {
+                get { return new List<int> { Completado, Visitado, Cancelado, EnSitio, EnZona, Pendiente, SinVisitar, NoCompletado}; }
+            }
         }
 
         public virtual int Id { get; set; }
@@ -59,6 +64,9 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
         public virtual short Estado { get; set; }
         public virtual TipoServicioCiclo TipoServicio { get; set; }
         public virtual int Bultos { get; set; }
+        public virtual double Volumen { get; set; }
+        public virtual double Peso { get; set; }
+        public virtual double Valor { get; set; }
 
         public virtual string Comentario1 { get; set; }
         public virtual string Comentario2 { get; set; }
@@ -123,6 +131,7 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
                 return fechaMin;
             }
         }
+
         public virtual DateTime? SalidaOManualExclusiva
         {
             get
@@ -145,13 +154,16 @@ namespace Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion
                                  : (DateTime?)null;
             }
         }
-
+        
         private IList<EvenDistri> _eventos;
         public virtual IList<EvenDistri> EventosDistri
         {
             get { return _eventos ?? (_eventos = new List<EvenDistri>()); }
             set { _eventos = value; }
         }
+
+        private ISet<Remito> _remitos;
+        public virtual ISet<Remito> Remitos { get { return _remitos ?? (_remitos = new HashSet<Remito>()); } }
 
         public virtual IEnumerable<LogMensaje> GetEventos()
         {

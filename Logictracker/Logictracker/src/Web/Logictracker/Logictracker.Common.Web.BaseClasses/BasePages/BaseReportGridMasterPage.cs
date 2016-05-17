@@ -24,5 +24,7 @@ namespace Logictracker.Web.BaseClasses.BasePages
 
         public abstract RadioButton RadioButtonExcel { get; }
         public abstract RadioButton RadioButtonHtml { get; }
+        public abstract RadioButton RadioBtnExcelSendReport { get; }
+        public abstract RadioButton RadioBtnHtmlSendReport { get; }
     }
 }

@@ -39,9 +39,22 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LinqToExcel">
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\LinqToExcel.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion">
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces">
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resources\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -59,7 +72,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties.cs" />
+    <Compile Include="Strategies\AsignacionCodigoViaje.cs" />
+    <Compile Include="Strategies\AsignacionClienteEmpleado.cs" />
+    <Compile Include="Strategies\PedidosPetrobras.cs" />
+    <Compile Include="Strategies\DistribucionMusimundo.cs" />
     <Compile Include="Strategies\DistribucionReginaldLee.cs" />
+    <Compile Include="Strategies\DistribucionCCU.cs" />
     <Compile Include="Strategies\DistribucionSos.cs" />
     <Compile Include="Strategies\DistribucionQuilmes.cs" />
     <Compile Include="Strategies\DistribucionFemsa.cs" />
@@ -68,6 +86,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Geocoder\Geocoder.Core.csproj">
+      <Project>{52186fb0-923b-48a5-8411-d60f88cfae1b}</Project>
+      <Name>Geocoder.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework\Configuration\Logictracker.Configuration.csproj">
       <Project>{D695BBF0-26F4-415C-A619-99C3B6DC8C40}</Project>
       <Name>Logictracker.Configuration</Name>
@@ -132,6 +154,10 @@
       <Project>{AC8BC64C-65C6-43F6-A266-AE32B59D83B1}</Project>
       <Name>Logictracker.Scheduler.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

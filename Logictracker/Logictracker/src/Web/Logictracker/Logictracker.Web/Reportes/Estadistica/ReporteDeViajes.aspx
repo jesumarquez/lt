@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ReporteDeViajes.aspx.cs" Inherits="Logictracker.Reportes.Estadistica.ReporteDeViajes" %>
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Logictracker.Reportes.Estadistica.ReporteDeViajes" Codebehind="ReporteDeViajes.aspx.cs" %>
 
 <%@ Register Assembly="ExtExtenders" Namespace="ExtExtenders" TagPrefix="cc1" %>
 <%@ Register assembly="C1.Web.C1WebChart.2" namespace="C1.Web.C1WebChart" tagprefix="C1WebChart" %>

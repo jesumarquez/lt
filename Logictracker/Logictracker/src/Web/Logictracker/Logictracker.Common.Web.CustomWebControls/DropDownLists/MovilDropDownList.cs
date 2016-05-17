@@ -59,7 +59,7 @@ namespace Logictracker.Web.CustomWebControls.DropDownLists
         /// </summary>
         protected override void Bind()
         {
-            BindingManager.BindMovil( this );
+            BindingManager.BindMovil(this);
         }
 
         #endregion

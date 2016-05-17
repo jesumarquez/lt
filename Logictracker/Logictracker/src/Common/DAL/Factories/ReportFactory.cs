@@ -293,6 +293,10 @@ namespace Logictracker.DAL.Factories
 
         public RankingVehiculosDAO RankingVehiculosDAO { get { return GetDao<RankingVehiculosDAO>(); } }
 
+        public RankingTransportistasDAO RankingTransportistasDAO { get { return GetDao<RankingTransportistasDAO>(); } }
+
+        public CheckOutDAO CheckOutDAO { get { return GetDao<CheckOutDAO>(); } }        
+
         #endregion
 
         #region Private Methods

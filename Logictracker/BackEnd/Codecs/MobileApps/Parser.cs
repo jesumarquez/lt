@@ -571,6 +571,11 @@ namespace Logictracker.MobileApps.v1
             return true;
         }
 
+        public bool ClearDeviceQueue(ulong messageId)
+        {
+            return true;
+        }
+
         public bool ContainsMessage(string line)
         {
             return line.Trim().StartsWith(">");

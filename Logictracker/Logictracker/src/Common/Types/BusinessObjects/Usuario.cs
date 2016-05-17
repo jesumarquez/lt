@@ -57,6 +57,8 @@ namespace Logictracker.Types.BusinessObjects
         /// Information about the user name, address, etc.
         /// </summary>
         public virtual Entidad Entidad { get; set; }
+
+        public virtual Empleado Empleado { get; set; }
         /// <summary>
         /// Creation date.
         /// </summary>

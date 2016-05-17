@@ -9,7 +9,7 @@ namespace Logictracker.Tracker.Services
 {
     public interface IReportStatus
     {
-        ProgramacionReporte ReportProg { get; set; }
+        //ProgramacionReporte ReportProg { get; set; }
         DateTime StartReport { get; set; }
         int RowCount { get; set; }
         bool Error { get; set; }

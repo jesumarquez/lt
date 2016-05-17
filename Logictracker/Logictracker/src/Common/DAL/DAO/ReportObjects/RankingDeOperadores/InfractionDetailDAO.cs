@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using Logictracker.DAL.DAO.BaseClasses;
+using Logictracker.DAL.DAO.BusinessObjects;
 using Logictracker.DAL.Factories;
 using Logictracker.Security;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Types.ReportObjects.RankingDeOperadores;
 using NHibernate.Linq;
+using Logictracker.Culture;
 
 namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
 {
@@ -60,6 +64,7 @@ namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
                                        new InfractionDetail
                                        {
                                            Id = infraction.Id,
+                                           Transportista = infraction.Vehiculo.Transportista != null ? infraction.Vehiculo.Transportista.Descripcion : "Sin Transportista",  
                                            Latitude = infraction.Latitud,
                                            Longitude = infraction.Longitud,
                                            Vehiculo = infraction.Vehiculo.Interno,
@@ -69,8 +74,45 @@ namespace Logictracker.DAL.DAO.ReportObjects.RankingDeOperadores
                                            Exceso = (int)(infraction.Alcanzado - infraction.Permitido),
                                            Inicio = infraction.Fecha.ToDisplayDateTime(),
                                            Pico = (int)infraction.Alcanzado,
-                                           DuracionSegundos = (int)(infraction.FechaFin.HasValue ? ((DateTime)infraction.FechaFin).Subtract(infraction.Fecha).TotalSeconds : 0)
+                                           DuracionSegundos = (int)(infraction.FechaFin.HasValue ? ((DateTime)infraction.FechaFin).Subtract(infraction.Fecha).TotalSeconds : 0),
+                                           TipoInfraccion = CultureManager.GetLabel(Infraccion.Codigos.GetLabelVariableName(infraction.CodigoInfraccion))
                                        });
+        }
+
+        public DataTable GetInfractionsSummary(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> transportistas, List<int> operators, DateTime initialDate, DateTime endDate)
+        {
+            var infracciones = DAOFactory.InfraccionDAO.GetByEmpleados(operators, initialDate, endDate);
+
+            var infractionsTable = new DataTable("Infractions");
+            DataColumn workCol = infractionsTable.Columns.Add("DriverId", typeof(Int32));
+            workCol.AllowDBNull = false;
+            //workCol.Unique = true;
+
+            infractionsTable.Columns.Add("Conductor", typeof(String));
+            infractionsTable.Columns.Add("Vehiculo", typeof(String));
+            infractionsTable.Columns.Add("Grave", typeof(int));
+            infractionsTable.Columns.Add("Media", typeof(int));
+            infractionsTable.Columns.Add("Leve", typeof(int));
+
+            foreach (var operador in operators)
+            {
+                var infraccionesOperador = infracciones.Where(i => i.Empleado.Id == operador);
+
+                if (infraccionesOperador.Count() > 0)
+                {
+
+                    var row = infractionsTable.NewRow();
+                    row["DriverId"] = operador;
+                    row["Conductor"] = infraccionesOperador.FirstOrDefault().Empleado.Entidad.Descripcion;
+                    row["Vehiculo"] = infraccionesOperador.FirstOrDefault().Vehiculo.Interno;
+                    row["Grave"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 3);
+                    row["Media"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 2);
+                    row["Leve"] = infraccionesOperador.Count(i => GetGravedadInfraccion(i) == 1);
+
+                    infractionsTable.Rows.Add(row);
+                }
+            }
+            return infractionsTable;
         }
 
         #endregion

@@ -22,15 +22,18 @@ namespace Logictracker.Types.BusinessObjects
         public virtual bool Active{ get; set; }
         public virtual string Mail { get; set; }
         public virtual DateTime Created { get; set; }
-        public virtual short Format { get; set; }
+        public virtual FormatoReporte Format { get; set; }
         public virtual string ReportName { get; set; }
         public virtual string Description { get; set; }
 
         public virtual IList<ParametroReportesProg> Parametros { get; set; }
+        public virtual IList<LogProgramacionReporte> ReportLogs { get; set; }
 
         public ProgramacionReporte()
         {
-            Parametros=new List<ParametroReportesProg>();
+            Parametros = new List<ParametroReportesProg>();
+            ReportLogs= new List<LogProgramacionReporte>();
+            Format = FormatoReporte.Excel;
         }
 
         public static class Reportes
@@ -48,15 +51,46 @@ namespace Logictracker.Types.BusinessObjects
             public const string TrasladosViaje = "TransfersPerTripReport";
             public const string EstadoEntregas = "DeliverStatusReport";
             public const string ResumenRutas = "SummaryRoutes";
+            public const string EjecucionReportes = "ExecutionReport";
+
+            public static int GetDropDownListIndex(string reporte)
+            {
+                switch (reporte)
+                {
+                    case EstadoEntregas:
+                        return 1;
+                    default:
+                        return 0;
+                }
+            }
+        }        
+
+        public enum FormatoReporte
+        {
+            Excel,
+            Html,
+            HtmlAttached,
+            Csv,
+            CsvAttached
         }
 
-        public static class FormatoReporte
+        public virtual void AddParameterList(IList<int> idList, ParameterType parameterType)
         {
-            public const short Excel = 0;
-            public const short Html = 1;
-            public const short HtmlAttached = 2;
-            public const short Csv = 3;
-            public const short CsvAttached = 4;
+            foreach (var selectedId in idList)
+            {
+                if (selectedId!=0)
+                    Parametros.Add(new ParametroReportesProg
+                    {
+                        EntityId = selectedId,
+                        ParameterType = parameterType,
+                        ProgramacionReporte = this
+                    });
+            }
+        }
+
+        public virtual List<int> GetParameters(ParameterType parameterType)
+        {
+            return (from parametro in Parametros where parametro.ParameterType.Equals(parameterType) select parametro.EntityId).ToList();
         }
 
         public virtual void AddParameterList(IList<int> idList, ParameterType parameterType)

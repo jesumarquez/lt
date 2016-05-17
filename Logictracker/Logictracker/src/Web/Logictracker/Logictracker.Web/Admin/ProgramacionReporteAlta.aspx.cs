@@ -37,7 +37,7 @@ namespace Logictracker.Admin
         protected override void OnDelete()
         {
             EditObject.Active = false;            
-            DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
+            DAOFactory.ProgramacionReporteDAO.Delete(EditObject); // SaveOrUpdate(EditObject);
         }
 
         protected override void OnSave()
@@ -49,6 +49,7 @@ namespace Logictracker.Admin
                 EditObject.Periodicity = cbPeriodicidad.SelectedValue[0];
                 EditObject.Mail = txtMail.Text;
                 EditObject.Active = chkActivo.Checked;
+                EditObject.Format = rbutExcel.Checked ? ProgramacionReporte.FormatoReporte.Excel : ProgramacionReporte.FormatoReporte.Html;
 
                 DAOFactory.ProgramacionReporteDAO.SaveOrUpdate(EditObject);
 

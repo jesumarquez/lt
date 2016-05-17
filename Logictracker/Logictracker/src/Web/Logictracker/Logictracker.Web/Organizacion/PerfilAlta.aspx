@@ -1,4 +1,4 @@
- <%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" EnableEventValidation="false" CodeFile="PerfilAlta.aspx.cs"  Inherits="Logictracker.Organizacion.AltaPerfil" Title="Perfiles" %>
+ <%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" EnableEventValidation="false"  Inherits="Logictracker.Organizacion.AltaPerfil" Title="Perfiles" Codebehind="PerfilAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" runat="Server">
 

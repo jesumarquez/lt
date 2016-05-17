@@ -35,6 +35,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,9 +62,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\App_Licenses.dll</HintPath>
     </Reference>
-    <Reference Include="Commons">
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Commons.dll</HintPath>
-    </Reference>
     <Reference Include="Geocoder.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Geocoder\bin\Debug\Geocoder.Core.dll</HintPath>
@@ -83,21 +82,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="KafkaNET.Library">
+      <HintPath>..\..\Resources\KafkaNet\KafkaNET.Library.dll</HintPath>
     </Reference>
-    <Reference Include="LinqToExcel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\LinqToExcel.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Memcached.ClientLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42c0400964dcc297, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Memcached.ClientLibrary.1.0\lib\net20\Memcached.ClientLibrary.dll</HintPath>
+    <Reference Include="Memcached.ClientLibrary">
+      <HintPath>..\..\Resources\Memcached.ClientLibrary\Memcached.ClientLibrary.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.Caches.MemCache">
       <HintPath>..\..\Resources\nhibernate-cache\4.0.3\NHibernate.Caches.MemCache.dll</HintPath>
@@ -107,15 +100,15 @@
     </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\Remotion.dll</HintPath>
+      <HintPath>..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\Remotion.Data.Linq.dll</HintPath>
+      <HintPath>..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Resources\Remotion.Interfaces.dll</HintPath>
+      <HintPath>..\..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -137,6 +130,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZooKeeperNet">
+      <HintPath>..\..\Resources\KafkaNet\ZooKeeperNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Instalador.cs">
@@ -157,6 +153,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="Applications\00DispatcherHAWK.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Applications\DispatcherControlSat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Applications\GatewayControlSat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Geocoder.NHibernate.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -178,6 +183,22 @@
       <Project>{6BC4CD8F-48BB-405D-8E0C-EF08FA17DD6A}</Project>
       <Name>Absolut</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Alas\Alas.csproj">
+      <Project>{69ad7149-433d-4d81-beb1-c9c3d611c578}</Project>
+      <Name>Alas</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\CusatUniversal6\CusatUniversal6.csproj">
+      <Project>{8b4b6801-43fe-4ec2-a061-55da5ab0df20}</Project>
+      <Name>CusatUniversal6</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\G4S\G4S.csproj">
+      <Project>{08fda8e2-a657-4b3a-bf85-847aa89dc2e3}</Project>
+      <Name>G4S</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Globalis\Globalis.csproj">
+      <Project>{b231bb3d-cfdf-4c2f-965f-77c2da5ba953}</Project>
+      <Name>Globalis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\Gte\Trax.csproj">
       <Project>{5E21FE40-F8AC-4182-997B-11E6B83DB504}</Project>
       <Name>Trax</Name>
@@ -190,9 +211,17 @@
       <Project>{4B6EDE70-D8CE-4483-AF0B-CACF6814ADC7}</Project>
       <Name>MobileApps</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Pressa\Pressa.csproj">
+      <Project>{7c0cd0ad-ff66-4473-abde-d292f426fc9a}</Project>
+      <Name>Pressa</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\PumpControl\PumpControl.csproj">
       <Project>{E06AA9E5-BBF6-42BD-BAC6-2F7C5478CB77}</Project>
       <Name>PumpControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Codecs\Siac\Siac.csproj">
+      <Project>{868f6750-be88-40d4-9fdc-4c1caff876a4}</Project>
+      <Name>Siac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Codecs\SkyPatrol\SkyPatrol.csproj">
       <Project>{EA1DABAA-B52D-4FC0-A636-A315ED216710}</Project>
@@ -246,6 +275,10 @@
       <Project>{9353DB7D-85AB-49F2-BA17-5D54AA0D480B}</Project>
       <Name>Logictracker.Scheduler.Tasks.Mantenimiento</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.MonitoreoRechazos\Logictracker.Scheduler.Tasks.MonitoreoRechazos.csproj">
+      <Project>{01d2b01f-8415-4a07-82d5-499adeb37b3c}</Project>
+      <Name>Logictracker.Scheduler.Tasks.MonitoreoRechazos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.OrbComm\Logictracker.Scheduler.Tasks.OrbComm.csproj">
       <Project>{F892AC8A-2521-460A-8581-997F7D8100A7}</Project>
       <Name>Logictracker.Scheduler.Tasks.OrbComm</Name>
@@ -253,6 +286,10 @@
     <ProjectReference Include="..\..\BackEnd\Scheduler\Tasks\Logictracker.Scheduler.Tasks.ReportsScheduler\Logictracker.Scheduler.Tasks.ReportsScheduler.csproj">
       <Project>{E50B84D3-EBDC-4BAC-91E7-892A73418017}</Project>
       <Name>Logictracker.Scheduler.Tasks.ReportsScheduler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ControlSat\ControlSat.csproj">
+      <Project>{2b61c112-f882-4fa2-a2a9-6bc847b950f6}</Project>
+      <Name>ControlSat</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\DDL\Logictracker.DDL.csproj">
       <Project>{C28913BF-9CB0-4B7D-BA27-4CC7259AF83E}</Project>
@@ -282,17 +319,9 @@
       <Project>{F67C8673-0361-41E7-8EC9-A1357BAD1ED1}</Project>
       <Name>Logictracker.Description</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Framework\Diagnostics\Logictracker.Diagnostics.csproj">
-      <Project>{7FBF3686-AE82-4EE7-B164-7F5AFE5ECED6}</Project>
-      <Name>Logictracker.Diagnostics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Inet\Logictracker.Inet.csproj">
       <Project>{7FA87A8B-B2F1-42D5-A1F6-A224BEF84C9B}</Project>
       <Name>Logictracker.Inet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Framework\InterQueue\Logictracker.InterQueue.csproj">
-      <Project>{E5BDF62C-26DB-45B0-8F41-41E00133059F}</Project>
-      <Name>Logictracker.InterQueue</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\MemCache\Logictracker.Cache.csproj">
       <Project>{EC6FD7C5-92F4-4BB2-A805-7564AABA9069}</Project>
@@ -318,6 +347,10 @@
       <Project>{71A47BE2-1A18-4628-B66A-120640D22AF0}</Project>
       <Name>Logictracker.XSynq</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Hawk\Hawk.csproj">
+      <Project>{0dcc7407-03c7-4226-9507-1fd677aa781d}</Project>
+      <Name>Hawk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\LogicLink2\Logictracker.Scheduler.Tasks.Logiclink2.csproj">
       <Project>{812CCB47-FB25-4DFB-8B20-313C6C3E8E6E}</Project>
       <Name>Logictracker.Scheduler.Tasks.Logiclink2</Name>
@@ -325,10 +358,6 @@
     <ProjectReference Include="..\..\Logictracker.Interfaces.LoJackApi\Logictracker.Interfaces.LoJackApi.csproj">
       <Project>{A4CBB9B0-1C0B-4112-B9EC-D7F2BF58397C}</Project>
       <Name>Logictracker.Interfaces.LoJackApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Logictracker.Messaging.RabbitmqQueue\Logictracker.Messaging.RabbitmqQueue.csproj">
-      <Project>{e3be14d6-2bf7-4b97-96f5-026a96465337}</Project>
-      <Name>Logictracker.Messaging.RabbitmqQueue</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Logictracker.Novatec\Novatel.csproj">
       <Project>{27C99A0E-3146-4E44-ACDB-2E55528F608A}</Project>
@@ -378,6 +407,10 @@
       <Project>{6F5126F4-A682-4DBA-A270-5DF2B113852B}</Project>
       <Name>Logictracker.Scheduler.Tasks.ServiceStatus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Vigilia\Vigilia.csproj">
+      <Project>{14e9e531-14d7-497c-8066-5b86928d00cb}</Project>
+      <Name>Vigilia</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Applications\DispatcherAbsolut.xml">
@@ -409,7 +442,7 @@
     <Content Include="Applications\Instalar y Mantener Servicios.xml">
     </Content>
     <Content Include="Applications\Scheduler.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Applications\Gateway.xml">
     </Content>
@@ -467,4 +500,11 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Mensajeria.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_Mensajeria" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="Mensajeria.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_Mensajeria" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Ajax" Assembly="Logictracker.Web.CustomWebControls" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 

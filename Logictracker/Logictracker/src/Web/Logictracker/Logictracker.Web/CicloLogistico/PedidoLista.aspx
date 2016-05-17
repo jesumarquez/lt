@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" CodeFile="PedidoLista.aspx.cs" Inherits="Logictracker.CicloLogistico.ListaPedido" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master" AutoEventWireup="true" Inherits="Logictracker.CicloLogistico.ListaPedido" Title="Untitled Page" Codebehind="PedidoLista.aspx.cs" %>
       
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentFiltros" runat="Server">
     <table>

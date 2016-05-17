@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="OdometroAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.OdometroAlta" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.OdometroAlta" Codebehind="OdometroAlta.aspx.cs" %>
 
 <%@ Register Src="../App_Controls/ColorPicker.ascx" TagName="ColorPicker" TagPrefix="uc" %>
 

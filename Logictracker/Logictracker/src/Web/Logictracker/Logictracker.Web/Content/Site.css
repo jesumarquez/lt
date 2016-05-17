@@ -1,0 +1,336 @@
+﻿/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background-color: #F7FDFF;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+
+/*select,
+textarea {
+    max-width: 280px;
+}*/
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}
+
+/*  Site */
+.nl-filterpanel {
+    background-color: #e7e7e7;
+    border: solid 1px #cccccc;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.spacer5 {
+    height: 5px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer10 {
+    height: 10px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer15 {
+    height: 15px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer20 {
+    height: 20px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer25 {
+    height: 25px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer30 {
+    height: 30px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer35 {
+    height: 35px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer40 {
+    height: 40px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer45 {
+    height: 45px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer50 {
+    height: 50px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer100 {
+    height: 100px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.spacer200 {
+    height: 200px;
+    width: 100%;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+.k-widget .border-box-sizing,
+.k-widget .border-box-sizing * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+/*
+    InputContainer
+*/
+
+.InputContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.InputContainer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.InputGroup {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding: 4px;
+}
+
+.InputGroup__label {
+    width: 150px;
+}
+
+.InputGroup__control {
+    display: flex;
+    flex-grow: 1;
+}
+
+    .InputGroup__control > .form-control {
+        flex-grow: 1;
+    }
+
+.InputContainer--50 {
+    width: 50%;
+}
+
+/*
+    TextArea
+*/
+.InputGroup__control table.k-editor {
+    height: 5em;
+    table-layout: auto;
+}
+
+.InputGroup__control .k-editor .k-editable-area {
+    height: 5em;
+}
+
+
+/**/
+.GaugeContainer {
+    /*border: 1px lightgray solid;*/
+    padding: 0;
+    text-align: center;
+    height: 175px;
+}
+
+    .GaugeContainer > span[kendo-radialgauge] {
+        height: 80%;
+        width: 100%;
+        display: inline-block;
+    }
+
+    .GaugeContainer > div[kendo-chart] {
+        height: 180px;
+    }
+
+.StatsContent-top {
+    /*border: 1px lightgray solid;*/
+    text-align: center;
+    height: 320px;
+}
+
+.StatsContent-bottom {
+    /*border: 1px lightgray solid;*/
+    text-align: center;
+}
+
+.k-invalid, .k-invalid > span:first-child {
+    border-color: red !important;
+}
+
+.k-widget.k-tooltip-validation {
+    display: none !important;
+}
+
+.k-grid {
+    font-size: .8em;
+}
+
+@media (max-width: 700px) {
+    .grid-colVisible {
+        display: none;
+    }
+}
+
+.grid-colVisible {
+}
+
+.sem {
+    height: 12px;
+    width: 12px;
+    border-radius: 6px;
+}
+
+.sem-red {
+    background-color: red;
+}
+
+.sem-green {
+    background-color: green;
+}
+
+.sem-yellow {
+    background-color: yellow;
+}
+
+.sem-grey {
+    background-color: grey;
+}
+
+.SummaryContainer{
+    background: papayawhip;
+    border-radius: 5px;
+    padding: 5px;
+    margin: .5em .1em;
+}
+    .SummaryContainer-clear{
+        float: left;
+        margin-top: .2em;
+        cursor: pointer;
+        background: gray;
+        color: #FFFFFF;
+        padding: .1em .2em;
+        font-weight: bold;
+        border-radius: .2em;        
+    }
+    .SummaryContainer > ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .SummaryItem{
+        background: lightblue;
+        padding: .5em;
+        display: inline-block;
+        margin: .3em;
+        font-size: 10px;
+        border-radius: 5px;
+    }
+
+.form-group {
+	margin-bottom: 5px;
+}
+.form-group > label{
+	font-weight: normal;
+}
+
+.tex-red {
+    color: red;
+}

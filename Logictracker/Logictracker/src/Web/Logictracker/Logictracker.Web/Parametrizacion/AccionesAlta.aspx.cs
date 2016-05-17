@@ -3,6 +3,8 @@ using Logictracker.Configuration;
 using Logictracker.DAL.NHibernate;
 using Logictracker.Types.BusinessObjects.Messages;
 using Logictracker.Web.BaseClasses.BasePages;
+using Logictracker.Culture;
+using Logictracker.Types.BusinessObjects;
 
 namespace Logictracker.Parametrizacion
 {
@@ -31,7 +33,7 @@ namespace Logictracker.Parametrizacion
         {
             ddlDistrito.SetSelectedValue(EditObject.Empresa != null ? EditObject.Empresa.Id : ddlDistrito.AllValue);
             ddlBase.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : ddlBase.AllValue);
-            ddlMensaje.SetSelectedValue(EditObject.Mensaje != null ? Convert.ToInt32(EditObject.Mensaje.Codigo) : ddlMensaje.NoneValue);
+            ddlMensaje.SetSelectedValue(EditObject.Mensaje != null ? EditObject.Mensaje.Id : ddlMensaje.NoneValue);
             ddlTipoVehiculo.SetSelectedValue(EditObject.TipoVehiculo != null ? EditObject.TipoVehiculo.Id : ddlTipoVehiculo.AllValue);
             ddlTransportista.SetSelectedValue(EditObject.Transportista != null ? EditObject.Transportista.Id : ddlTransportista.AllValue);
             ddlDepartamento.SetSelectedValue(EditObject.Departamento != null ? EditObject.Departamento.Id : ddlDepartamento.AllValue);
@@ -102,6 +104,14 @@ namespace Logictracker.Parametrizacion
             txtCodigoAssistCargo.Text = EditObject.CodigoAssistCargo;
 
             if (EditObject.TipoGeocerca != null) cbTipoGeocerca.SetSelectedValue(EditObject.TipoGeocerca.Id);
+
+            chkReporte.Checked = EditObject.EnviaReporte;
+            txtMailReporte.Text = EditObject.DestinatariosMailReporte;
+            cbReporte.SetSelectedValue(ProgramacionReporte.Reportes.GetDropDownListIndex(EditObject.Reporte));
+                
+            panelReporte.Visible = chkReporte.Checked;
+
+            chkReportaResponsable.Checked = EditObject.ReportaResponsableCuenta;
         }
 
         protected override void OnDelete() { DAOFactory.AccionDAO.Delete(EditObject); }
@@ -116,15 +126,15 @@ namespace Logictracker.Parametrizacion
                     EditObject.Empresa = ddlDistrito.Selected > 0
                         ? DAOFactory.EmpresaDAO.FindById(ddlDistrito.Selected)
                         : EditObject.Linea != null ? EditObject.Linea.Empresa : null;
-                    EditObject.Mensaje =
-                        DAOFactory.MensajeDAO.FindById(
-                            DAOFactory.MensajeDAO.GetByCodigo(ddlMensaje.Selected.ToString("#0"), EditObject.Empresa, EditObject.Linea).Id);
+                    EditObject.Mensaje = DAOFactory.MensajeDAO.FindById(ddlMensaje.Selected);
                     EditObject.Descripcion = txtDescripcion.Text;
                     EditObject.GrabaEnBase = chkGrabaEnBase.Checked;
 
                     EditObject.EvaluaGeocerca = chkEvaluaGeocerca.Checked;
                     EditObject.DentroGeocerca = !EditObject.EvaluaGeocerca || radDentro.Checked;
                     EditObject.TipoGeocerca = EditObject.EvaluaGeocerca ? DAOFactory.TipoReferenciaGeograficaDAO.FindById(cbTipoGeocerca.Selected) : null;
+
+                    EditObject.ReportaResponsableCuenta = chkReportaResponsable.Checked;
 
                     if (cpColor.Color != string.Empty) EditObject.RGB = cpColor.Color;
 
@@ -147,6 +157,8 @@ namespace Logictracker.Parametrizacion
                     SetDisabledUserAttributes();
 
                     SetChangeIconAttributes();
+
+                    SetEnviaReporteAttributes();
 
                     #region SetFotoAttributes
 
@@ -257,6 +269,7 @@ namespace Logictracker.Parametrizacion
             panelPideFoto.Visible = chkPideFoto.Checked;
             panelChangeIcon.Visible = chkChangeIcon.Checked;
             panelAssistCargo.Visible = chkAssistCargo.Checked;
+            panelReporte.Visible = chkReporte.Checked;
         }
 
         #endregion
@@ -347,6 +360,19 @@ namespace Logictracker.Parametrizacion
             EditObject.PopUpTitle = txtTituloPopUp.Text;
 
             if (selectIcon.Selected > 0) EditObject.PopIcon = selectIcon.Selected;
+        }
+
+        private void SetEnviaReporteAttributes()
+        {
+            EditObject.EnviaReporte = chkReporte.Checked;
+            EditObject.Reporte = null;
+            if (chkReporte.Checked && cbReporte.Selected > 0)
+            {
+                if (cbReporte.Selected == ProgramacionReporte.Reportes.GetDropDownListIndex(ProgramacionReporte.Reportes.EstadoEntregas))
+                    EditObject.Reporte = ProgramacionReporte.Reportes.EstadoEntregas;
+            }
+                                     
+            EditObject.DestinatariosMailReporte = chkReporte.Checked ? txtMailReporte.Text : null;
         }
 
         #endregion

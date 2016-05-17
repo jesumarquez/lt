@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ConsumosList.ascx.cs" Inherits="Logictracker.App_Controls.AppControlsConsumosList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="ConsumosList.ascx.cs" Inherits="Logictracker.App_Controls.AppControlsConsumosList" %>
 
 <asp:UpdatePanel ID="updGrid" runat="server" ChildrenAsTriggers="true">
     <ContentTemplate>

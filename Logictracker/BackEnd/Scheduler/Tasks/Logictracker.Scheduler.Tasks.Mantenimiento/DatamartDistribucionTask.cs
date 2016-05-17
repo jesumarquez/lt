@@ -13,6 +13,7 @@ using Logictracker.Types.BusinessObjects;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Types.ReportObjects.Datamart;
 using Logictracker.Utils;
+using Logictracker.Messaging;
 
 namespace Logictracker.Scheduler.Tasks.Mantenimiento
 {
@@ -65,6 +66,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 var distribucionesPendientes = distribuciones.Count;
                 STrace.Trace(GetType().FullName, string.Format("Distribuciones a procesar: {0}", distribucionesPendientes));
 
+                var distribucionesToRetry = new List<ViajeDistribucion>();
                 foreach (var distribucion in distribuciones)
                 {
                     try
@@ -75,32 +77,23 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                     catch (Exception ex)
                     {
                         STrace.Exception(GetType().FullName, ex);
+                        distribucionesToRetry.Add(distribucion);
+                    }                     
+                }
 
-                        var procesado = false;
-                        var retry = 0;
-                        while (!procesado && retry < 5)
-                        {
-                            retry++;
-                            try
-                            {
-                                ProcesarDistribucion(distribucion.Id, regenera);
-                                STrace.Trace(GetType().FullName, "Distribución " + distribucion.Id + " procesada exitosamente luego de " + retry + " intentos.");
-                                STrace.Trace(GetType().FullName, string.Format("Distribuciones a procesar: {0}", --distribucionesPendientes));
-                                procesado = true;
-                                var parametros = new[] { "Distribución " + distribucion.Id + " procesada exitosamente luego de " + retry + " intentos.", distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
-                                SendMail(parametros);
-                            }
-                            catch (Exception e)
-                            {
-                                STrace.Exception(GetType().FullName, e);
-                            }
-                        }
-                        if (retry == 5 && !procesado)
-                        {
-                            var parametros = new[] { "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id, distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
-                            SendMail(parametros);
-                            STrace.Error(GetType().FullName, "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id);
-                        }
+                distribucionesPendientes = distribucionesToRetry.Count;
+                foreach (var distribucion in distribucionesToRetry)
+                {
+                    try
+                    {
+                        ProcesarDistribucion(distribucion.Id, regenera);
+                        STrace.Trace(GetType().FullName, string.Format("Distribuciones a procesar: {0}", --distribucionesPendientes));
+                    }
+                    catch (Exception ex)
+                    {
+                        STrace.Exception(GetType().FullName, ex);
+                        var parametros = new[] { "No se pudieron generar registros de Datamart para la distribución " + distribucion.Id, distribucion.Id.ToString("#0"), distribucion.Inicio.ToString("dd/MM/yyyy HH:mm") };
+                        SendMail(parametros);
                     }
                 }
 
@@ -109,10 +102,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                 var fin = DateTime.UtcNow;
                 var duracion = fin.Subtract(inicio).TotalMinutes;
 
+                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartEntregas, "Datamart finalizado exitosamente");
+
                 var param = new[] { "Datamart Entregas", inicio.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), fin.ToDisplayDateTime().ToString("dd/MM/yyyy HH:mm:ss"), duracion + " minutos" };
                 SendSuccessMail(param);
-
-                DaoFactory.DataMartsLogDAO.SaveNewLog(inicio, fin, duracion, DataMartsLog.Moludos.DatamartEntregas, "Datamart finalizado exitosamente");
             }
             catch (Exception exc)
             {
@@ -171,6 +164,14 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
         {
             var entregas = distribucion.Detalles;
 
+            var mensajes = new List<string> { MessageCode.EstadoLogisticoCumplidoManual.GetMessageCode(),
+                                              MessageCode.EstadoLogisticoCumplidoManualNoRealizado.GetMessageCode(),
+                                              MessageCode.EstadoLogisticoCumplidoManualRealizado.GetMessageCode()};
+            var confirmaciones = DaoFactory.MensajeDAO.GetMensajesDeConfirmacion(new[] { distribucion.Empresa.Id }, new int[] { }).Select(m => m.Codigo);
+            var rechazos = DaoFactory.MensajeDAO.GetMensajesDeRechazo(new[] { distribucion.Empresa.Id }, new int[] { }).Select(m => m.Codigo);
+            mensajes.AddRange(confirmaciones);
+            mensajes.AddRange(rechazos);
+
             EntregaDistribucion anterior = null;
 
             if (distribucion.Tipo == ViajeDistribucion.Tipos.Desordenado)
@@ -207,6 +208,10 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                 ? entrega.Entrada.Value.Subtract(entrega.Programado)
                                 : new TimeSpan();
 
+                var eventos = entrega.EventosDistri.Where(e => mensajes.Contains(e.LogMensaje.Mensaje.Codigo));
+                var evento = eventos.Any() ? eventos.OrderBy(e => e.Fecha).FirstOrDefault() : null;
+                var distancia = evento != null ? Distancias.Loxodromica(evento.LogMensaje.Latitud, evento.LogMensaje.Longitud, entrega.ReferenciaGeografica.Latitude, entrega.ReferenciaGeografica.Longitude) : (double?)null;
+
                 var registro = new DatamartDistribucion
                                    {
                                        Empresa = entrega.Viaje.Empresa,
@@ -218,6 +223,7 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                        Fecha = entrega.Viaje.Inicio,
                                        Ruta = entrega.Viaje.Codigo.Trim(),
                                        Entrega = entrega.Descripcion.Trim().Length > 50 ? entrega.Descripcion.Trim().Substring(0, 50) : entrega.Descripcion.Trim(),
+                                       IdEstado = entrega.Estado,
                                        Estado = CultureManager.GetLabel(EntregaDistribucion.Estados.GetLabelVariableName(entrega.Estado)),
                                        Km = kms,
                                        Recorrido = tiempoRecorrido.TotalMinutes,
@@ -234,7 +240,8 @@ namespace Logictracker.Scheduler.Tasks.Mantenimiento
                                                         ? entrega.MensajeConfirmacion.Mensaje.Descripcion
                                                         : string.Empty,
                                        Cliente = entrega.PuntoEntrega != null && entrega.PuntoEntrega.Cliente != null 
-                                                    ? entrega.PuntoEntrega.Cliente.Descripcion : string.Empty
+                                                    ? entrega.PuntoEntrega.Cliente.Descripcion : string.Empty,
+                                       Distancia = distancia
                                    };
 
                 DaoFactory.DatamartDistribucionDAO.Save(registro);

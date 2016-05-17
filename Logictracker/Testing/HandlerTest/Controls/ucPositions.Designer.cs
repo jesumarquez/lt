@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.chkMostrarBase = new System.Windows.Forms.CheckBox();
             this.lnkUltima = new System.Windows.Forms.LinkLabel();
             this.chkRandomSpeed = new System.Windows.Forms.CheckBox();
             this.txtVelocidad = new System.Windows.Forms.NumericUpDown();
@@ -39,7 +40,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.mapControl1 = new Compumap.Controls.Map.MapControl();
-            this.chkMostrarBase = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -54,6 +56,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.button2);
             this.splitContainer2.Panel1.Controls.Add(this.chkMostrarBase);
             this.splitContainer2.Panel1.Controls.Add(this.lnkUltima);
             this.splitContainer2.Panel1.Controls.Add(this.chkRandomSpeed);
@@ -71,6 +74,19 @@
             this.splitContainer2.Size = new System.Drawing.Size(903, 504);
             this.splitContainer2.SplitterDistance = 269;
             this.splitContainer2.TabIndex = 1;
+            // 
+            // chkMostrarBase
+            // 
+            this.chkMostrarBase.AutoSize = true;
+            this.chkMostrarBase.Checked = true;
+            this.chkMostrarBase.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMostrarBase.Location = new System.Drawing.Point(13, 177);
+            this.chkMostrarBase.Name = "chkMostrarBase";
+            this.chkMostrarBase.Size = new System.Drawing.Size(88, 17);
+            this.chkMostrarBase.TabIndex = 13;
+            this.chkMostrarBase.Text = "Mostrar Base";
+            this.chkMostrarBase.UseVisualStyleBackColor = true;
+            this.chkMostrarBase.CheckedChanged += new System.EventHandler(this.chkMostrarBase_CheckedChanged);
             // 
             // lnkUltima
             // 
@@ -133,8 +149,8 @@
             // 
             // txtLatitud
             // 
-            this.txtLatitud.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLatitud.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLatitud.Location = new System.Drawing.Point(76, 15);
             this.txtLatitud.Name = "txtLatitud";
             this.txtLatitud.Size = new System.Drawing.Size(168, 20);
@@ -143,8 +159,8 @@
             // 
             // txtLongitud
             // 
-            this.txtLongitud.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLongitud.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLongitud.Location = new System.Drawing.Point(76, 41);
             this.txtLongitud.Name = "txtLongitud";
             this.txtLongitud.Size = new System.Drawing.Size(168, 20);
@@ -177,18 +193,16 @@
             this.mapControl1.Size = new System.Drawing.Size(630, 504);
             this.mapControl1.TabIndex = 1;
             // 
-            // chkMostrarBase
+            // button2
             // 
-            this.chkMostrarBase.AutoSize = true;
-            this.chkMostrarBase.Checked = true;
-            this.chkMostrarBase.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMostrarBase.Location = new System.Drawing.Point(13, 177);
-            this.chkMostrarBase.Name = "chkMostrarBase";
-            this.chkMostrarBase.Size = new System.Drawing.Size(88, 17);
-            this.chkMostrarBase.TabIndex = 13;
-            this.chkMostrarBase.Text = "Mostrar Base";
-            this.chkMostrarBase.UseVisualStyleBackColor = true;
-            this.chkMostrarBase.CheckedChanged += new System.EventHandler(this.chkMostrarBase_CheckedChanged);
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button2.Location = new System.Drawing.Point(72, 298);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(127, 49);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Meter posiciones";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ucPositions
             // 
@@ -201,6 +215,7 @@
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtVelocidad)).EndInit();
             this.ResumeLayout(false);
@@ -221,5 +236,6 @@
         private System.Windows.Forms.Label label4;
         private Compumap.Controls.Map.MapControl mapControl1;
         private System.Windows.Forms.CheckBox chkMostrarBase;
+        private System.Windows.Forms.Button button2;
     }
 }

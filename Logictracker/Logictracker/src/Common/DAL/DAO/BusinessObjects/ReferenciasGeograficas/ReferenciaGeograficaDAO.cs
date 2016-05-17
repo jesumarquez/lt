@@ -144,19 +144,117 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
                 .ToList();
         }
 
+        public List<ReferenciaGeografica> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tiposGeoRef, string SearchString)
+        {
+            if (string.IsNullOrEmpty(SearchString))
+            {
+                var q = Query.FilterEmpresa(Session, empresas)
+                             .FilterLinea(Session, empresas, lineas);
+
+                if (!QueryExtensions.IncludesAll(tiposGeoRef))
+                    q = q.FilterTipoReferenciaGeografica(Session, empresas, lineas, tiposGeoRef);
+
+                return q.Where(r => !r.Baja)
+                        .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow))
+                        .Cacheable()
+                        .ToList();
+            }
+            else
+            {
+                var q = Query.FilterEmpresa(Session, empresas)
+                             .FilterLinea(Session, empresas, lineas);
+
+                if (!QueryExtensions.IncludesAll(tiposGeoRef))
+                    q = q.FilterTipoReferenciaGeografica(Session, empresas, lineas, tiposGeoRef);
+
+                return q.Where(r => !r.Baja && (r.Codigo.ToUpper().Contains(SearchString.ToUpper()) || r.Descripcion.ToUpper().Contains(SearchString.ToUpper())))
+                        .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow))
+                        .Cacheable()
+                        .ToList();
+            }
+        }
+
         public List<ReferenciaGeografica> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tiposGeoRef)
-        {   
+        {
             var q = Query.FilterEmpresa(Session, empresas)
                          .FilterLinea(Session, empresas, lineas);
 
             if (!QueryExtensions.IncludesAll(tiposGeoRef))
                 q = q.FilterTipoReferenciaGeografica(Session, empresas, lineas, tiposGeoRef);
-            
+
             return q.Where(r => !r.Baja)
                     .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow))
                     .Cacheable()
                     .ToList();
         }
+
+        public List<ReferenciaGeografica> GetListVigentes(int idEmpresa, int idLinea, List<int> idsTipos, DateTime fecha)
+        {
+            var list = GetListByEmpresaLineaTipos(idEmpresa, idLinea, idsTipos);
+
+            return list.Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > fecha))
+                       .Where(r => !r.Vigencia.Inicio.HasValue || (r.Vigencia.Inicio.HasValue && r.Vigencia.Inicio.Value < fecha))
+                       .ToList();
+        }
+
+        public List<ReferenciaGeografica> GetList(IEnumerable<int> empresas, IEnumerable<int> lineas, IEnumerable<int> tiposGeoRef, int page, int pageSize, ref int totalRows, bool reCount, string SearchString)
+        {
+
+            if (string.IsNullOrEmpty(SearchString))
+            {
+                var q = Query.FilterEmpresa(Session, empresas)
+                      .FilterLinea(Session, empresas, lineas);
+
+                if (!QueryExtensions.IncludesAll(tiposGeoRef))
+                    q = q.FilterTipoReferenciaGeografica(Session, empresas, lineas, tiposGeoRef);
+                if (reCount)
+                {
+                    int count = q.Where(r => !r.Baja)
+                          .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow))
+                          .Count();
+
+                    if (!totalRows.Equals(count))
+                    {
+                        totalRows = count;
+                    }
+                }
+
+                return q.Where(r => !r.Baja)
+                        .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow))
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .Cacheable()
+                        .ToList();
+            }
+            else
+            {
+                var q = Query.FilterEmpresa(Session, empresas)
+                        .FilterLinea(Session, empresas, lineas);
+
+                if (!QueryExtensions.IncludesAll(tiposGeoRef))
+                    q = q.FilterTipoReferenciaGeografica(Session, empresas, lineas, tiposGeoRef);
+                if (reCount)
+                {
+                    int count = q.Where(r => !r.Baja)
+                          .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow)
+                          && (r.Codigo.ToUpper().Contains(SearchString.ToUpper()) || r.Descripcion.ToUpper().Contains(SearchString.ToUpper())))
+                          .Count();
+
+                    if (!totalRows.Equals(count))
+                    {
+                        totalRows = count;
+                    }
+                }
+
+                return q.Where(r => !r.Baja)
+                        .Where(r => !r.Vigencia.Fin.HasValue || (r.Vigencia.Fin.HasValue && r.Vigencia.Fin.Value > DateTime.UtcNow)
+                        && (r.Codigo.ToUpper().Contains(SearchString.ToUpper()) || r.Descripcion.ToUpper().Contains(SearchString.ToUpper())))
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .Cacheable()
+                        .ToList();
+            }
+        }        
         
         public IEnumerable<ReferenciaGeografica> GetListForVehicle(Coche vehiculo)
         {
@@ -299,7 +397,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
                     if (direcciones.ContainsKey(geo.DireccionId.Value))
                         direccion = direcciones[geo.DireccionId.Value];
                     else
-                        STrace.Debug("DispatcherLock", string.Format("ERROR DIRECCION NO ENCONTRADA EN CACHE !!! {0} ({1},{2}) ", geo.DireccionId.Value, empresaId, lineaId));
+                        STrace.Error("DispatcherLock", string.Format("ERROR DIRECCION NO ENCONTRADA EN CACHE !!! {0} ({1},{2}) ", geo.DireccionId.Value, empresaId, lineaId));
                 }
 
                 Poligono poligono = null;
@@ -308,7 +406,7 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
                     if (poligonos.ContainsKey(geo.PoligonoId.Value))
                         poligono = poligonos[geo.PoligonoId.Value];
                     else
-                        STrace.Debug("DispatcherLock", string.Format("ERROR POLIGONO NO ENCONTRADO EN CACHE !!! {0} ({1},{2}) ", geo.PoligonoId.Value, empresaId, lineaId));
+                        STrace.Error("DispatcherLock", string.Format("ERROR POLIGONO NO ENCONTRADO EN CACHE !!! {0} ({1},{2}) ", geo.PoligonoId.Value, empresaId, lineaId));
                 }
                 
                 if (direccion != null || poligono != null)
@@ -391,8 +489,13 @@ namespace Logictracker.DAL.DAO.BusinessObjects.ReferenciasGeograficas
             if (empresasLineas.Count > 0)
             {
                 foreach (var k in empresasLineas.Keys)
+                {
                     foreach (var v in empresasLineas[k])
+                    {
                         ResetLastModQtree(k, v);
+                        STrace.Error("ResetQtree", "qtree RESET ---> Empresa: " + k + " - Linea: " + v);
+                    }
+                }
             }           
         }
 

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TipoCocheAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoCocheAlta" %>  
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionTipoCocheAlta" Codebehind="TipoCocheAlta.aspx.cs" %>  
 
 <%@ Register Src="~/App_Controls/IconPicker.ascx" TagName="IconPicker" TagPrefix="uc" %>
 
@@ -24,10 +24,10 @@
                         </asp:UpdatePanel>
                         
                         <cwc:ResourceLabel ID="ResourceLabel1" runat="server" ResourceName="Labels" VariableName="CODE" />
-                        <asp:TextBox ID="txtCodigo" runat="server" Width="100%" MaxLength="6" />
+                        <asp:TextBox ID="txtCodigo" runat="server" Width="98%" MaxLength="6" />
                         
                         <cwc:ResourceLabel ID="ResourceLabel2" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" /> 
-                        <asp:TextBox ID="txtDescripcion" runat="server" Width="100%" MaxLength="32" />
+                        <asp:TextBox ID="txtDescripcion" runat="server" Width="98%" MaxLength="32" />
                         
                     </cwc:AbmTitledPanel>
                 </td>
@@ -90,22 +90,64 @@
                         
                         <cwc:ResourceLabel ID="ResourceLabel10" runat="server" ResourceName="Labels" VariableName="DESVIO_MAXIMO" />
                         <c1:C1NumericInput runat="server" ID="npDesvioMaximo" DecimalPlaces="0" MaxValue="999" MinValue="0" Width="100px" Height="15px" Value="0" SmartInputMode="true" />
-                        
+
                     </cwc:AbmTitledPanel>
                 </td>
                 <td style="width: 50%; vertical-align: top;"> 
                     <cwc:AbmTitledPanel ID="AbmTitledPanel4" runat="server" Height="120px" TitleVariableName="COMPORTAMIENTO" TitleResourceName="Labels">
+                        
+                        <br /><cwc:ResourceCheckBox ID="chkControlaKilometraje" runat="server" ResourceName="Labels" VariableName="CONTROLA_KILOMETRAJE" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkControlaTurno" ResourceName="Labels" VariableName="CONTROLA_TURNO" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkControlaConsumo" ResourceName="Labels" VariableName="CONTROLA_CONSUMOS" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkSeguimientoPersona" ResourceName="Labels" VariableName="SEGUIMIENTO_PERSONA" />
+                        <br /><cwc:ResourceCheckBox runat="server" ID="chkNoEsVehiculo" ResourceName="Labels" VariableName="NO_ES_VEHICULO" />
+
                         <br />
-                        <cwc:ResourceCheckBox ID="chkControlaKilometraje" runat="server" ResourceName="Labels" VariableName="CONTROLA_KILOMETRAJE" />
+                        <asp:UpdatePanel ID="updChkEsControlAcceso" runat="server">
+                            <ContentTemplate>
+                                <cwc:ResourceCheckBox ID="chkEsControlAcceso" runat="server" ResourceName="Labels" VariableName="ES_PUERTA" Width="100%" OnCheckedChanged="ChkEsControlAccesoOnCheckedChanged" AutoPostBack="true" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                         <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkControlaTurno" ResourceName="Labels" VariableName="CONTROLA_TURNO" />
-                        <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkControlaConsumo" ResourceName="Labels" VariableName="CONTROLA_CONSUMOS" />
-                        <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkSeguimientoPersona" ResourceName="Labels" VariableName="SEGUIMIENTO_PERSONA" />
-                        <br />
-                        <cwc:ResourceCheckBox runat="server" ID="chkNoEsVehiculo" ResourceName="Labels" VariableName="NO_ES_VEHICULO" />
+                        <asp:UpdatePanel runat="server" ID="pnlControlAcceso">
+                            <ContentTemplate>                                
+                                <cwc:ResourceButton ID="btnGenerar" runat="server" ResourceName="Labels" VariableName="GENERAR_ACCESOS" OnClick="BtnGenerarOnClick" Enabled="false" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </cwc:AbmTitledPanel>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <cwc:TitledPanel ID="tpContenedores" runat="server" TitleVariableName="CONTENEDORES" TitleResourceName="Labels" >
+                        <asp:UpdatePanel ID="updContenedores" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
+                            <ContentTemplate>
+        
+                            <C1:C1GridView id="gridContenedores" runat="server" Width="100%" cssclass="SmallGrid" autogeneratecolumns="False" OnRowDataBound="gridContenedores_RowDataBound">
+                                <Columns>
+                                    <c1h:C1ResourceTemplateColumn ResourceName="Labels" VariableName="DESCRIPCION" SortDirection="Ascending" SortExpression="Descripcion">
+                                        <ItemStyle Width="50%" />
+                                        <ItemTemplate>
+                                        <asp:TextBox ID="txtDescripcion" runat="server" Width="100%" />
+                                        </ItemTemplate>
+                                    </c1h:C1ResourceTemplateColumn>
+                                    <c1h:C1ResourceTemplateColumn ResourceName="Labels" VariableName="CAPACIDAD">
+                                        <ItemStyle Width="50%" />
+                                        <ItemTemplate>
+                                        <asp:TextBox ID="txtCapacidad" runat="server" Width="100%" />
+                                        </ItemTemplate>
+                                    </c1h:C1ResourceTemplateColumn>
+                                </Columns>
+                            </C1:C1GridView>
+                            <div style="text-align: right;">
+                                <asp:Button  ID="btAddContenedor" runat="server" Text="Agregar contenedor" CssClass="LogicButton" OnClick="btAddContenedor_Click"/>
+                            </div>
+                            </ContentTemplate>
+                            </asp:UpdatePanel>
+                    </cwc:TitledPanel>
+                </td>
+                <td>
+
                 </td>
             </tr>
         </table>

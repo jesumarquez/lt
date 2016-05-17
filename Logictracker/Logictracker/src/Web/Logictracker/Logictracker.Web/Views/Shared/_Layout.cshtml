@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html ng-app="logictracker">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/bundles/css-kendo-ui")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @RenderSection("csssection", required: false)
+</head>
+<body>
+    @RenderSection("PageScripts", required: false)
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angularjs")
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/global")
+    @Styles.Render("~/bundles/css-openlayer")
+    @Scripts.Render("~/bundles/js-openlayer")
+    @Scripts.Render("~/bundles/angularjs-logictracker")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        // Asigna la cultura del lado del cliente en base a la configurada para el servidor (Ver <globalization>)
+        kendo.culture("es-AR");
+        //Globalize.culture("es-AR");
+        _baseUrl = "@(Url.Content("~/"))";
+    </script>
+</body>
+</html>

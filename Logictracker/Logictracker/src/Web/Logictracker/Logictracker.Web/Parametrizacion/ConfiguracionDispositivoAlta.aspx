@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ConfiguracionDispositivoAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.ParametrizacionConfiguracionDispositivoAlta" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.ParametrizacionConfiguracionDispositivoAlta" Title="Untitled Page" Codebehind="ConfiguracionDispositivoAlta.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AbmContent" Runat="Server">
     <table style="width: 50%; border-spacing: 10px;">

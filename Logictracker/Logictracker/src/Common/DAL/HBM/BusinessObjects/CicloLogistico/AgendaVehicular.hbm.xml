@@ -10,6 +10,7 @@
 
         <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
         <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+        <many-to-one name="Departamento" column="rela_parenti04" lazy="proxy" />
         <many-to-one name="Vehiculo" column="rela_parenti03" lazy="proxy" />
         <many-to-one name="Empleado" column="rela_parenti09" lazy="proxy" />
         <many-to-one name="Turno" column="rela_parenti46" lazy="proxy" />
@@ -17,6 +18,7 @@
         <property column="parenti102_fecha_desde" name="FechaDesde" />
         <property column="parenti102_fecha_hasta" name="FechaHasta" />
         <property column="parenti102_estado" name="Estado" />
-        
-    </class>
+        <property column="parenti102_destino" name="Destino" />
+      
+    </class>        
 </hibernate-mapping>

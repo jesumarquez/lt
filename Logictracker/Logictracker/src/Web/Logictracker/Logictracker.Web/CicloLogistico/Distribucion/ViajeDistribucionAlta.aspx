@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="ViajeDistribucionAlta.aspx.cs" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="True" Inherits="Logictracker.CicloLogistico.Distribucion.ViajeDistribucionAlta" Codebehind="ViajeDistribucionAlta.aspx.cs" %>
 <%@ Import Namespace="System.IO" %>
 
 <%@ Import Namespace="Logictracker.CicloLogistico.Distribucion" %>
@@ -40,7 +40,7 @@
                         <cwc:ResourceLabel ID="lblLinea" runat="server" ResourceName="Entities" VariableName="PARENTI02" Width="100px" />
                         <asp:UpdatePanel ID="upLinea" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                             <ContentTemplate>
-                                <cwc:PlantaDropDownList ID="cbLinea" runat="server" Width="100%" ParentControls="cbEmpresa" AutoPostBack="True" OnSelectedIndexChanged="CbLineaSelectedIndexChanged" />
+                                <cwc:PlantaDropDownList ID="cbLinea" runat="server" Width="100%" ParentControls="cbEmpresa" AutoPostBack="True" OnSelectedIndexChanged="CbLineaSelectedIndexChanged" AddAllItem="true" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
@@ -81,10 +81,21 @@
                             </Triggers>
                         </asp:UpdatePanel>
                         
+                        <cwc:ResourceLabel ID="lblTipoVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI17" />
+                        <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:TipoDeVehiculoDropDownList ID="cbTipoVehiculo" runat="server" Width="100%" AddAllItem="true" ParentControls="cbEmpresa,cbLinea" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="cbLinea" EventName="SelectedIndexChanged" />                                
+                            </Triggers>
+                        </asp:UpdatePanel>
+
                         <cwc:ResourceLabel ID="lblVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
                         <asp:UpdatePanel ID="updMovil" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <cwc:MovilDropDownList ID="cbVehiculo" runat="server" Width="100%" AddAllItem="true" ParentControls="cbEmpresa,cbLinea,cbTransportista,cbCentroDeCosto,cbSubCentroDeCosto" OnSelectedIndexChanged="CbVehiculoSelectedIndexChanged" TabIndex="20" />
+                                <cwc:MovilDropDownList ID="cbVehiculo" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa,cbLinea,cbTransportista,cbCentroDeCosto,cbSubCentroDeCosto,cbTipoVehiculo" OnSelectedIndexChanged="CbVehiculoSelectedIndexChanged" TabIndex="20" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
@@ -92,6 +103,7 @@
                                 <asp:AsyncPostBackTrigger ControlID="cbTransportista" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbCentroDeCosto" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbSubCentroDeCosto" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="cbTipoVehiculo" EventName="SelectedIndexChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
                         
@@ -106,6 +118,16 @@
                                 <asp:AsyncPostBackTrigger ControlID="cbCentroDeCosto" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbTransportista" EventName="SelectedIndexChanged" />
                                 <asp:AsyncPostBackTrigger ControlID="cbVehiculo" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+
+                        <cwc:ResourceLabel ID="lblTipoCiclo" runat="server" ResourceName="Entities" VariableName="PARTICK09" />
+                        <asp:UpdatePanel ID="updTipoCiclo" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:TipoCicloLogisticoDropDownList ID="cbTipoCicloLogistico" runat="server" Width="100%" AddNoneItem="true" ParentControls="cbEmpresa" TabIndex="26" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresa" EventName="SelectedIndexChanged" />
                             </Triggers>
                         </asp:UpdatePanel>
                         
@@ -426,7 +448,7 @@
                 <tr>
                     <td style="width: 80px;">&nbsp;</td>
                     <td style="width: 120px;">
-                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" />
+                        <cwc:ResourceLabel ID="ResourceLabel8" runat="server" ResourceName="Entities" VariableName="OPETICK04" />
                     </td>
                     <td style="width: 100px;">
                         <cwc:ResourceLabel ID="ResourceLabel6" runat="server" ResourceName="Entities" VariableName="PARENTI44" />
@@ -530,4 +552,212 @@
             </asp:UpdatePanel>
         </div>
     </cwc:AbmTabPanel>
+
+    <cwc:AbmTabPanel ID="AbmTabPanel2" runat="server" ResourceName="Menu" VariableName="PAR_ESTADO_LOGISTICO">        
+        <asp:UpdatePanel ID="pnlUpdate" runat="server">
+            <ContentTemplate>
+                <table width="100%" border="0">
+                    <tr>
+                        <td align="center" valign="top"> 
+                            <c1:C1GridView ID="gridEstadosCumplidos" runat="server" OnRowDataBound="GridEstadosCumplidosOnRowDataBound" AutoGenerateColumns="false" Width="100%" Visible="true" SkinID="ListGridNoGroupNoPage" >
+                                <Columns>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Image ID="imgIcono" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEstadoLogistico" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDesde" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblHasta" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTotal" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDemora" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                    <c1:C1TemplateField>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDesvio" runat="server" />
+                                        </ItemTemplate>                                            
+                                    </c1:C1TemplateField>
+                                </Columns>
+                            </c1:C1GridView>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </cwc:AbmTabPanel>
+
+    <cwc:AbmTabPanel ID="AbmTabPanel3" runat="server" ResourceName="Menu" VariableName="PAR_VIAJE_PROGRAMADO" >
+        <asp:UpdatePanel ID="pnlUpdateViajeProg" runat="server">
+            <ContentTemplate>
+                <table width="100%" border="0">
+                    <tr>
+                        <td align="center" valign="top" width="50%">
+                            <cwc:AbmTitledPanel ID="AbmTitledPanel2" runat="server" TitleVariableName="DATOS_GENERALES" TitleResourceName="Labels" Height="320px">
+                                
+                                <cwc:ResourceLabel ID="ResourceLabel24" runat="server" ResourceName="Entities" VariableName="PARENTI01" />
+                                <cwc:LocacionDropDownList ID="cbEmpresaProg" runat="server" AddAllItem="false" Width="75%" />
+
+                                <cwc:ResourceLabel ID="ResourceLabel25" runat="server" ResourceName="Entities" VariableName="PARENTI07" />
+                                <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:TransportistaDropDownList ID="cbTransportistaProg" AddAllItem="true" runat="server" Width="75%" ParentControls="cbEmpresaProg" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="lblViajeProg" runat="server" ResourceName="Entities" VariableName="OPETICK13" />
+                                <asp:UpdatePanel ID="updViajeProg" runat="server" RenderMode="Inline" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:ViajeProgramadoDropDownList ID="cbViajeProgramado" runat="server" Width="75%" ParentControls="cbEmpresaProg,cbTransportistaProg" OnSelectedIndexChanged="CbViajeProgramadoSelectedIndexChanged" AddNoneItem="true" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbTransportistaProg" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="ResourceLabel28" runat="server" ResourceName="Entities" VariableName="PARENTI17" />
+                                <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:TipoDeVehiculoDropDownList ID="cbTipoVehiculoProg" runat="server" Width="75%" AddAllItem="true" ParentControls="cbEmpresaProg" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="ResourceLabel22" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
+                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:MovilDropDownList ID="cbVehiculoProg" runat="server" Width="75%" AddAllItem="true" ParentControls="cbEmpresaProg,cbTransportistaProg,cbTipoVehiculoProg" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />                                        
+                                        <asp:AsyncPostBackTrigger ControlID="cbTransportistaProg" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="cbTipoVehiculoProg" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="ResourceLabel26" runat="server" ResourceName="Entities" VariableName="PARTICK09" />
+                                <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:TipoCicloLogisticoDropDownList ID="cbTipoCicloProg" runat="server" Width="75%" AddNoneItem="true" ParentControls="cbEmpresaProg" />
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                                <cwc:ResourceLabel ID="ResourceLabel29" runat="server" ResourceName="Entities" VariableName="PARENTI09" />
+                        <asp:UpdatePanel ID="UpdatePanel10" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:EmpleadoDropDownList ID="cbChoferProg" runat="server" Width="75%" AddNoneItem="true" ParentControls="cbEmpresaProg,cbTransportistaProg" TabIndex="25" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="cbEmpresaProg" EventName="SelectedIndexChanged" />                                                               
+                                <asp:AsyncPostBackTrigger ControlID="cbTransportistaProg" EventName="SelectedIndexChanged" />
+                                <asp:AsyncPostBackTrigger ControlID="cbVehiculoProg" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                        
+                                <cwc:ResourceLabel ID="ResourceLabel27" runat="server" ResourceName="Labels" VariableName="CODE_DISTRIBUCION" />
+                                <asp:TextBox ID="txtCodigoProg" runat="server" Width="75%" MaxLength="32" />
+
+                                <cwc:ResourceLabel ID="ResourceLabel23" runat="server" ResourceName="Labels" VariableName="DATE" />     
+                                <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <cwc:DateTimePicker ID="dtFechaProg" runat="server" IsValidEmpty="false" Mode="DateTime" TimeMode="Now" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+
+                            <cwc:ResourceLabel ID="ResourceLabel30" runat="server" ResourceName="Labels" VariableName="COMENTARIO" />
+                            <asp:TextBox ID="txtComentarioProg" runat="server" Width="75%" MaxLength="128" TextMode="MultiLine" />
+
+                            </cwc:AbmTitledPanel>
+                        </td>
+                        <td style="vertical-align: top;" width="50%">
+                            <cwc:TitledPanel ID="pnlEntregas" runat="server" TitleVariableName="ENTREGAS" TitleResourceName="Labels" Height="320px">
+
+                                <table width="100%" border="0">
+                                    <tr>
+                                        <td align="center" valign="top"> 
+                                            <c1:C1GridView ID="gridEntregas" runat="server" OnRowDataBound="GridEntregasOnRowDataBound" AutoGenerateColumns="false" Width="100%" SkinID="ListGridNoGroupNoPage" >
+                                                <Columns>
+                                                    <c1:C1TemplateField>
+                                                        <ItemStyle HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblPuntoEntrega" runat="server" />
+                                                        </ItemTemplate>                                            
+                                                    </c1:C1TemplateField>
+                                                    <c1:C1TemplateField>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:TextBox ID="txtBultos" Width="100px" runat="server" Text="0" />
+                                                        </ItemTemplate>                                            
+                                                    </c1:C1TemplateField>
+                                                    <c1:C1TemplateField>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:TextBox ID="txtPeso" Width="100px" runat="server" Text="0.0" />
+                                                        </ItemTemplate>                                            
+                                                    </c1:C1TemplateField>
+                                                    <c1:C1TemplateField>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:TextBox ID="txtVolumen" Width="100px" runat="server" Text="0.0" />
+                                                        </ItemTemplate>                                            
+                                                    </c1:C1TemplateField>
+                                                    <c1:C1TemplateField>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:TextBox ID="txtValor" Width="100px" runat="server" Text="0.0" />
+                                                        </ItemTemplate>                                            
+                                                    </c1:C1TemplateField>
+                                                </Columns>
+                                            </c1:C1GridView>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <cwc:ResourceButton runat="server" ID="btnGuardar" CssClass="LogicButton_Big" VariableName="GUARDAR" ResourceName="Labels" OnClick="BtnGuardarOnClick" Visible="false" />
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </cwc:TitledPanel>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </cwc:AbmTabPanel>
+
 </asp:Content>

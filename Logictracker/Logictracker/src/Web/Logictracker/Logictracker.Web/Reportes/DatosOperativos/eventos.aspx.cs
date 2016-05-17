@@ -20,7 +20,12 @@ namespace Logictracker.Reportes.DatosOperativos
         protected override bool ExcelButton { get { return true; } }
         protected override bool ScheduleButton { get { return true; } }
         protected override bool SendReportButton { get { return true; } }
+
+        
+        public Boolean recount = true;
         private const int Interval = 5;
+
+        protected List<Object> totalVirtualRows;
 
         [Serializable]
         public class SearchData
@@ -36,11 +41,11 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             ViewState["SearchData"] = data;
         }
-        
-        private SearchData LoadSearchData() 
+
+        private SearchData LoadSearchData()
         {
             var data = ViewState["SearchData"] as SearchData;
-            if(data != null) return data;
+            if (data != null) return data;
 
             var desde = dpDesde.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
             var hasta = dpHasta.SelectedDate.GetValueOrDefault().ToDataBaseDateTime();
@@ -56,8 +61,59 @@ namespace Logictracker.Reportes.DatosOperativos
                            InitialDate = desde,
                            FinalDate = hasta
                        };
+
+
+            if (Session["SearchData"] != null &&
+               compare(data,(SearchData)Session["SearchData"]))
+            {
+                recount = false;
+            }
+            else
+            {
+                recount = true;
+                Session["SearchData"] = data;
+            }
+
             SaveSearchData(data);
             return data;
+        }
+
+        public bool compare(SearchData x, SearchData y)
+        {
+            bool equal = true;
+            if (!y.DriverId.Count.Equals(x.DriverId.Count))
+                return false;
+            int index = 0;
+            foreach (var itemy in y.DriverId)
+            {
+                if (!itemy.Equals(x.DriverId[index]))
+                    return false;
+                index++;
+            }
+            if (!x.FinalDate.Equals(y.FinalDate))
+                return false;
+            if (!x.InitialDate.Equals(y.InitialDate))
+                return false;
+            if (!y.MessageId.Count().Equals(x.MessageId.Count()))
+                return false;
+            index = 0;
+            foreach (var itemy in y.MessageId.OrderBy(a => a).ToList())
+            {
+                if (!itemy.Equals(x.MessageId.OrderBy(a => a).ToList()[index]))
+                    return false;
+                index++;
+            }
+            if (!x.VehiclesId.Count().Equals(y.VehiclesId.Count()))
+                return false;
+
+            index = 0;
+            foreach (var itemy in y.VehiclesId.OrderBy(a => a).ToList())
+            {
+                if (!itemy.Equals(x.VehiclesId.OrderBy(a => a).ToList()[index]))
+                    return false;
+                index++;
+            }
+            return equal;
         }
 
         protected override Empresa GetEmpresa()
@@ -94,6 +150,19 @@ namespace Logictracker.Reportes.DatosOperativos
                 }
 
                 return ViewState["EventsCompany"] != null ? Convert.ToInt32(ViewState["EventsCompany"]) : 0;
+            }
+        }
+        private int Transportista
+        {
+            get
+            {
+                if (ViewState["EventsTransportista"] == null)
+                {
+                    ViewState["EventsTransportista"] = Session["EventsTransportista"];
+                    Session["EventsTransportista"] = null;
+                }
+
+                return ViewState["EventsTransportista"] != null ? Convert.ToInt32(ViewState["EventsTransportista"]) : 0;
             }
         }
         private int MobileType
@@ -203,26 +272,63 @@ namespace Logictracker.Reportes.DatosOperativos
             var inicio = DateTime.UtcNow;
             LblInfo.Visible = false;
 
-            if (data.FinalDate.Subtract(data.InitialDate).TotalDays > 31)
+            ClearError();
+
+            if (data.FinalDate.Subtract(data.InitialDate).TotalDays > 31 && chkPaginar.Checked == false)
             {
                 ShowError("No es posible consultar períodos mayores a 31 días.");
                 return new List<MobileEventVo>();
             }
-
             try
             {
                 var empresa = DAOFactory.EmpresaDAO.FindById(ddlLocacion.Selected);
                 var maxMonths = empresa != null && empresa.Id > 0 ? empresa.MesesConsultaPosiciones : 3;
+                var results = new List<MobileEventVo>();
 
                 
-                var results = ReportFactory.MobileEventDAO.GetMobilesEvents(data.VehiclesId, 
-                                                                            data.MessageId,
-                                                                            data.DriverId, 
-                                                                            data.InitialDate, 
-                                                                            data.FinalDate,
-                                                                            maxMonths)
-                                                          .Select(o => new MobileEventVo(o) { HideCornerNearest = !chkVerEsquinas.Checked })
-                                                          .ToList();
+
+                if (chkPaginar.Checked)
+                {
+                    if (recount)
+                    {
+                        Session["totalVirtualRows"] = null;
+                    }
+                    int pageNum = 1;                
+                    if (Grid.PageIndex != 0 && !recount)
+                    {
+                        pageNum = pageNum + Grid.PageIndex;
+                    }
+                    results = ReportFactory.MobileEventDAO.GetMobilesEventsSQL(data.VehiclesId,
+                                                                                data.MessageId,
+                                                                                data.DriverId,
+                                                                                data.InitialDate,
+                                                                                data.FinalDate,
+                                                                                maxMonths,
+                                                                                ref pageNum,
+                                                                                this.PageSize,
+                                                                                ref totalVirtualRows,
+                                                                                recount)
+                                                              .Select(o => new MobileEventVo(o) { HideCornerNearest = !chkVerEsquinas.Checked })
+                                                             .ToList();
+
+                    if (recount)
+                    {
+                        Session["totalVirtualRows"] = totalVirtualRows;
+                        var count = totalVirtualRows[0];
+                        Grid.VirtualItemCount = int.Parse(count.ToString());                        
+                    }
+                }
+                else
+                {
+                    results = ReportFactory.MobileEventDAO.GetMobilesEvents(data.VehiclesId,
+                                                                                data.MessageId,
+                                                                                data.DriverId,
+                                                                                data.InitialDate,
+                                                                                data.FinalDate,
+                                                                                maxMonths)
+                                                              .Select(o => new MobileEventVo(o) { HideCornerNearest = !chkVerEsquinas.Checked })
+                                                              .ToList();
+                }
 
                 var duracion = (DateTime.UtcNow - inicio).TotalSeconds.ToString("##0.00");
 
@@ -245,6 +351,32 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             base.OnLoad(e);
 
+            if (chkPaginar.Checked)
+            {
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+                recount = true;
+            }
+            else
+            {
+
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+
+            chkPaginar.CheckedChanged += chkPaginar_CheckedChanged;
+
             if (!IsPostBack)
             {
                 dpDesde.SetDate();
@@ -260,6 +392,38 @@ namespace Logictracker.Reportes.DatosOperativos
             Bind();
         }
 
+        void chkPaginar_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["SelectedClient"] = null;
+            if (chkPaginar.Checked)
+            {               
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = true;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+                GridUtils.CustomPagination = true;
+                recount = true;
+            }
+            else
+            {
+                if (Session["totalVirtualRows"] == null)
+                    Session["totalVirtualRows"] = totalVirtualRows;
+                Grid.AllowPaging = true;
+                Grid.AllowCustomPaging = false;
+                Grid.PagerSettings.Mode = System.Web.UI.WebControls.PagerButtons.NumericFirstLast;
+                Grid.PageIndexChanging += Grid_PageIndexChanging;
+
+                GridUtils.CustomPagination = true;
+            }
+        }
+
+        void Grid_PageIndexChanging(object sender, C1GridViewPageEventArgs e)
+        {
+            Grid.PageIndex = e.NewPageIndex;
+        }
+
         /// <summary>
         /// Location initial binding when called from another report.
         /// </summary>
@@ -273,6 +437,8 @@ namespace Logictracker.Reportes.DatosOperativos
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void DdlPlantaInitialBinding(object sender, EventArgs e) { if (!IsPostBack && Company > 0) ddlPlanta.EditValue = Company; }
+
+        protected void DdlTransportistaInitialBinding(object sender, EventArgs e) { if (!IsPostBack && Transportista > 0) ddlTransportista.EditValue = Transportista; }
 
         /// <summary>
         /// Vehicle T initial binding when called from another report.
@@ -291,41 +457,41 @@ namespace Logictracker.Reportes.DatosOperativos
                        };
         }
 
-        protected override Dictionary<string, string> GetFilterValuesProgramados()
-        {
-            var dic = new Dictionary<string, string>();
-            var sVehiculos = new StringBuilder();
-            var sMensajes = new StringBuilder();
-            var sChoferes = new StringBuilder();
+        //protected override Dictionary<string, string> GetFilterValuesProgramados()
+        //{
+        //    var dic = new Dictionary<string, string>();
+        //    var sVehiculos = new StringBuilder();
+        //    var sMensajes = new StringBuilder();
+        //    var sChoferes = new StringBuilder();
 
-            foreach (var vehiculo in lbCamiones.SelectedValues)
-            {
-                if (!sVehiculos.ToString().Equals(""))
-                    sVehiculos.Append(",");
+        //    foreach (var vehiculo in lbCamiones.SelectedValues)
+        //    {
+        //        if (!sVehiculos.ToString().Equals(""))
+        //            sVehiculos.Append(",");
 
-                sVehiculos.Append(vehiculo.ToString("#0"));
-            }
-            foreach (var mensaje in lbMensajes.SelectedValues)
-            {
-                if (!sMensajes.ToString().Equals(""))
-                    sMensajes.Append(",");
+        //        sVehiculos.Append(vehiculo.ToString("#0"));
+        //    }
+        //    foreach (var mensaje in lbMensajes.SelectedValues)
+        //    {
+        //        if (!sMensajes.ToString().Equals(""))
+        //            sMensajes.Append(",");
 
-                sMensajes.Append(mensaje.ToString("#0"));
-            }
-            foreach (var chofer in lbChoferes.SelectedValues)
-            {
-                if (!sChoferes.ToString().Equals(""))
-                    sChoferes.Append(",");
+        //        sMensajes.Append(mensaje.ToString("#0"));
+        //    }
+        //    foreach (var chofer in lbChoferes.SelectedValues)
+        //    {
+        //        if (!sChoferes.ToString().Equals(""))
+        //            sChoferes.Append(",");
 
-                sChoferes.Append(chofer.ToString("#0"));
-            }
+        //        sChoferes.Append(chofer.ToString("#0"));
+        //    }
 
-            dic.Add("VEHICULOS", sVehiculos.ToString());
-            dic.Add("MENSAJES", sMensajes.ToString());
-            dic.Add("CHOFERES", sChoferes.ToString());
+        //    dic.Add("VEHICULOS", sVehiculos.ToString());
+        //    dic.Add("MENSAJES", sMensajes.ToString());
+        //    dic.Add("CHOFERES", sChoferes.ToString());
 
-            return dic;
-        }
+        //    return dic;
+        //}
 
         protected override List<int> GetVehicleList()
         {
@@ -333,7 +499,7 @@ namespace Logictracker.Reportes.DatosOperativos
             return lbCamiones.SelectedValues;
         }
 
-        protected override IList<int> GetMessageTypeList()
+        protected override List<int> GetMessageTypeList()
         {
             if (lbMensajes.SelectedValues.Contains(0)) lbMensajes.ToogleItems();
             return lbMensajes.SelectedValues;
@@ -343,7 +509,7 @@ namespace Logictracker.Reportes.DatosOperativos
         {
             return lbChoferes.SelectedValues;
         }
-
+        
         protected override string GetDescription(string reporte)
         {
             var linea = GetLinea();

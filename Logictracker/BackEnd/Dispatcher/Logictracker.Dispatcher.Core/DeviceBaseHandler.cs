@@ -1,7 +1,6 @@
 using System;
 using Logictracker.Cache;
 using Logictracker.DAL.NHibernate;
-using Logictracker.DatabaseTracer.Core;
 using Logictracker.Dispatcher.Core.AuxClasses;
 using Logictracker.Model;
 using Logictracker.Model.EnumTypes;
@@ -52,23 +51,14 @@ namespace Logictracker.Dispatcher.Core
             try
             {
                 SessionHelper.CreateSession();
-                var te = new TimeElapsed();
                 Dispositivo = DaoFactory.DispositivoDAO.FindById(message.DeviceId);
-                var totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", message.DeviceId, "DispositivoDAO.FindById: " + totalSecs);
-
+                
                 if (Dispositivo == null) return HandleResults.BreakSuccess;
 
-                te.Restart();
                 CalculateDeviceParameters();
-                totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", message.DeviceId, "CalculateDeviceParameters: " + totalSecs);
-
-                te.Restart();
+                
                 Coche = DaoFactory.CocheDAO.FindMobileByDevice(Dispositivo.Id);
-                totalSecs = te.getTimeElapsed().TotalSeconds;
-                if (totalSecs > 1) STrace.Error("DispatcherLock", message.DeviceId, "FindMobileByDevice: " + totalSecs);
-
+                
                 var result = OnDeviceHandleMessage(message);
 
                 SessionHelper.CloseSession();

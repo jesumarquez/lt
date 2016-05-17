@@ -1,4 +1,4 @@
-<%@ Page Title="Cercania a Puntos de Interes" Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" CodeFile="MobilePois.aspx.cs" Inherits="Logictracker.Reportes.DatosOperativos.MobilePois" %>
+<%@ Page Title="Cercania a Puntos de Interes" Language="C#" MasterPageFile="~/MasterPages/ReportGridPage.master" AutoEventWireup="true" Inherits="Logictracker.Reportes.DatosOperativos.MobilePois" Codebehind="MobilePois.aspx.cs" %>
 
 <%@ Register src="~/App_Controls/Pickers/NumberPicker.ascx" tagname="NumberPicker" tagprefix="uc1" %>
 

@@ -11,10 +11,11 @@ namespace Logictracker.Types.ValueObjects.Empleados
         public const int IndexNroTarjeta = 1;
         public const int IndexDescripcion = 2;
         public const int IndexCoche = 3;
-        public const int IndexTransportista = 4;
-        public const int IndexEmpresa = 5;
-        public const int IndexLinea = 6;
-        public const int IndexCategoriaAcceso = 7;
+        public const int IndexDispositivo = 4;
+        public const int IndexTransportista = 5;
+        public const int IndexEmpresa = 6;
+        public const int IndexLinea = 7;
+        public const int IndexCategoriaAcceso = 8;
 
         public int Id { get; set; }
 
@@ -41,7 +42,10 @@ namespace Logictracker.Types.ValueObjects.Empleados
             }
         }
         private string _coche;
-                
+
+        [GridMapping(Index = IndexDispositivo, ResourceName = "Entities", VariableName = "PARENTI08")]
+        public string Dispositivo { get; set; }
+
         [GridMapping(Index = IndexTransportista, ResourceName = "Entities", VariableName = "PARENTI07")]
         public string Transportista { get; set; }
 
@@ -70,8 +74,7 @@ namespace Logictracker.Types.ValueObjects.Empleados
         public DateTime? Falta { get; set; }
         public string Licencia { get; set; }
 
-        private DAOFactory DAOFactory { get; set; }
-        
+        private DAOFactory DAOFactory { get; set; }        
 
         public EmpleadoVo(Empleado empleado, DAOFactory daoFactory)
         {
@@ -97,6 +100,7 @@ namespace Logictracker.Types.ValueObjects.Empleados
             NroTarjeta = (empleado.Tarjeta != null)? empleado.Tarjeta.Numero : string.Empty;
             Transportista = empleado.Transportista != null ? empleado.Transportista.Descripcion : string.Empty;
             CategoriaAcceso = empleado.Categoria != null ? empleado.Categoria.Nombre : string.Empty;
+            Dispositivo = empleado.Dispositivo != null ? empleado.Dispositivo.Codigo : string.Empty;
         }
     }
 }

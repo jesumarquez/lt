@@ -10,11 +10,14 @@
 
     <many-to-one name="Empresa" column="rela_parenti01" lazy="proxy" />
     <many-to-one name="Linea" column="rela_parenti02" lazy="proxy" />
+    <many-to-one name="Transportista" column="rela_parenti07" lazy="proxy" />
     <many-to-one name="CentroDeCostos" column="rela_parenti37" lazy="proxy" />
     <many-to-one name="SubCentroDeCostos" column="rela_parenti99" lazy="proxy" />
     <many-to-one name="Vehiculo" column="rela_parenti03" lazy="proxy" />
     <many-to-one name="Empleado" column="rela_parenti09" lazy="proxy" />
     <many-to-one name="UsuarioControl" column="rela_socusua01_control" lazy="proxy" />
+    <many-to-one name="TipoCicloLogistico" column="rela_partick09" lazy="proxy" />
+    <many-to-one name="TipoCoche" column="rela_parenti17" lazy="proxy" />
 
     <property column="opetick03_codigo" name="Codigo" />
     <property column="opetick03_numero" name="NumeroViaje" />
@@ -61,6 +64,16 @@
       <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EntregaDistribucion, Logictracker.Types" />
     </bag>
 
+    <bag name="EstadosCumplidos"
+          table="[ope.ope_tick_09_estado_x_viaje]"
+          order-by="opetick09_inicio ASC"
+          inverse="true"
+          cascade="all-delete-orphan" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_opetick03" />
+      <one-to-many class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EstadoDistribucion, Logictracker.Types" />
+    </bag>
+
     <bag name="Recorrido"
           table="[ope.ope_tick_05_det_recorrido]"
           order-by="opetick05_orden ASC"
@@ -77,6 +90,7 @@
       <cache usage="read-write" />
       <key column="rela_opetick03" />
       <one-to-many class="Logictracker.Types.BusinessObjects.Messages.EvenDistri, Logictracker.Types" />
-    </bag>    
+    </bag>
+
   </class>
 </hibernate-mapping>

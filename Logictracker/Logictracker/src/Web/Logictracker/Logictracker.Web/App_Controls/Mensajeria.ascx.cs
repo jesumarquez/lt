@@ -1,13 +1,11 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.ServiceModel;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Logictracker.Configuration;
 using Logictracker.Culture;
 using Logictracker.DatabaseTracer.Core;
-using Logictracker.Layers;
 using Logictracker.Messages.Saver;
 using Logictracker.Messages.Sender;
 using Logictracker.Security;
@@ -95,7 +93,7 @@ namespace Logictracker.App_Controls
         {
             if (Usuario == null) return;
 
-            AccPaneConfig.Visible = Usuario.AccessLevel >= Logictracker.Types.BusinessObjects.Usuario.NivelAcceso.AdminUser;
+            AccPaneConfig.Visible = Usuario.AccessLevel >= Types.BusinessObjects.Usuario.NivelAcceso.AdminUser;
 
             if(!IsPostBack)
             {
@@ -233,9 +231,11 @@ namespace Logictracker.App_Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnClearQueues_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ResetStateMachine); }
+        //protected void btnClearQueues_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ResetStateMachine); }
+        protected void btnClearQueues_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ClearDeviceQueue); }
 
         protected void btnClearFota_Click(object sender, EventArgs e) { SendMessage(MessageSender.Comandos.ClearFota); }
+        
 
         /// <summary>
         /// Envia mensaje para purgar la configuracion del dispositivo.
@@ -302,7 +302,7 @@ namespace Logictracker.App_Controls
                 if (cmd == "PurgeConfiguration")
                 {
                     DAOFactory.DispositivoDAO.PurgeConfiguration(dispositivo);
-                    if (dispositivo.DetallesDispositivo.Cast<DetalleDispositivo>().Any(detail => detail.TipoParametro.RequiereReset))
+                    if (dispositivo.DetallesDispositivo.Any(detail => detail.TipoParametro.RequiereReset))
                         MessageSender.CreateReboot(dispositivo, null);
                     sendState = true;
                 }
@@ -336,7 +336,6 @@ namespace Logictracker.App_Controls
                         case MessageSender.Comandos.DisableFuel: message.AddInmediately(param == "1"); break;
                         case MessageSender.Comandos.EnableFuel: break;
                         case MessageSender.Comandos.ClearFota: DeleteFota(dispositivo); return;
-                        default: sendState = false; break;
                     }
                     sendState = message.Send();
                 }

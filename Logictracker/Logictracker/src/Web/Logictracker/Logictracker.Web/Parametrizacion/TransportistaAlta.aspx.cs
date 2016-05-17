@@ -166,6 +166,7 @@ namespace Logictracker.Parametrizacion
         {
             cbEmpresa.SelectedValue = EditObject.Empresa != null ? EditObject.Empresa.Id.ToString() : cbEmpresa.AllValue.ToString();
             cbLinea.SelectedValue = EditObject.Linea != null ? EditObject.Linea.Id.ToString() : cbLinea.AllValue.ToString();
+            txtCodigo.Text = EditObject.Codigo;
             txtDescripcion.Text = EditObject.Descripcion;
             txtContacto.Text = EditObject.Contacto;
             txtMail.Text = EditObject.Mail;
@@ -190,6 +191,10 @@ namespace Logictracker.Parametrizacion
         /// </summary>
         protected override void ValidateSave()
         {
+            var codigo = ValidateEmpty(txtDescripcion.Text, "CODE");
+            var byCode = DAOFactory.TransportistaDAO.FindByCodigo(cbEmpresa.Selected, cbLinea.Selected, codigo);
+            ValidateDuplicated(byCode, "CODE");
+
             ValidateEmpty(txtDescripcion.Text, "DESCRIPCION");
 
             ValidateDouble(txtTarifaCorto.Text, "TRAMO_CORTO");
@@ -262,6 +267,7 @@ namespace Logictracker.Parametrizacion
         {
             var identificaChoferesChanged = EditObject.IdentificaChoferes != chkIdentificaChoferes.Checked;
 
+            EditObject.Codigo = txtCodigo.Text;
             EditObject.Descripcion = txtDescripcion.Text;
             EditObject.Mail = txtMail.Text;
             EditObject.Telefono = txtTelefono.Text;

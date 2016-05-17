@@ -5,16 +5,13 @@ echo Copiando Web
 xcopy /E/I/Q PrecompiledWeb\Logictracker.Web Actualizacion\Web
 echo Copiando Express
 xcopy /E/I/Q Applications\run\bin\Debug Actualizacion\Express
-echo Copiando Tester
-xcopy /E/I/Q Testing\HandlerTest\bin\Debug Actualizacion\Tester
-echo Copiando UrbeOut
-xcopy /E/I/Q Applications\LogicOut\LogicOut\bin\Debug Actualizacion\LogicOut\
-echo Copiando LogicOut Intaller
-xcopy /E/I/Q Applications\LogicOut\LogicOut.Install\Debug Actualizacion\LogicOut.Install\
-echo Copiando LogicLink
-xcopy /E/I/Q Applications\LogicLink\bin\Debug Actualizacion\LogicLink\
-echo Copiando LogicLink Intaller
-xcopy /E/I/Q Applications\LogicLinkInstall\Debug Actualizacion\LogicLink.Install\
+echo Copiando Report Host
+xcopy /E/I/Q BackEnd\Hosts\Logictracker.Tracker.Application.Reports.Host\bin\Debug Actualizacion\ReportsHost
+echo Copiando Parser Host
+
+xcopy /E/I/Q BackEnd\Hosts\Logictracker.Tracker.Application.Parser.Host\bin\Debug Actualizacion\ParserHost
+echo Copiando Web Api
+xcopy /E/I/Q Logictracker\src\Web\Logictracker\LogicTracker.App.Web.Api\bin Actualizacion\WebApi
 
 
 cd Actualizacion\Web
@@ -55,7 +52,7 @@ rd /s/q Config
 cd..
 cd..
 
-cd Actualizacion\Tester
+cd Actualizacion\WebApi
 echo Borrando .config
 del *.config
 echo Borrando .xml
@@ -63,7 +60,7 @@ del *.xml
 cd..
 cd..
 
-cd Actualizacion\LogicOut
+cd Actualizacion\ReportsHost
 echo Borrando .config
 del *.config
 echo Borrando .xml
@@ -71,7 +68,7 @@ del *.xml
 cd..
 cd..
 
-cd Actualizacion\LogicLink
+cd Actualizacion\ParserHost
 echo Borrando .config
 del *.config
 echo Borrando .xml

@@ -327,6 +327,12 @@
   <data name="OPETICK03" xml:space="preserve">
     <value>Trip</value>
   </data>
+  <data name="OPETICK04" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="OPETICK13" xml:space="preserve">
+    <value>Programmed Trip</value>
+  </data>
   <data name="PARENTI35" xml:space="preserve">
     <value>Workshop</value>
   </data>
@@ -341,5 +347,14 @@
   </data>
   <data name="BUTTON_SENDREPORT" xml:space="preserve">
     <value>Send Report to e-mail</value>
+  </data>
+  <data name="PARTICK08" xml:space="preserve">
+    <value>Logistic Status</value>
+  </data>
+  <data name="PARTICK09" xml:space="preserve">
+    <value>Logistic Cycle Type</value>
+  </data>
+  <data name="PARENTI105" xml:space="preserve">
+    <value>Order</value>
   </data>
 </root>

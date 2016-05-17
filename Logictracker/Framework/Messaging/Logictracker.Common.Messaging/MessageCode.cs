@@ -66,12 +66,19 @@ namespace Logictracker.Messaging
 
         AtrasoTicket,
         EstadoLogisticoCumplido,
+        EstadoLogisticoCumplidoManual,
+        EstadoLogisticoCumplidoManualRealizado,
+        EstadoLogisticoCumplidoManualNoRealizado,
+        EstadoLogisticoCumplidoEntrada,
+        EstadoLogisticoCumplidoSalida,
         CicloLogisticoIniciado,
         CicloLogisticoCerrado,
         CicloLogisticoIniciadoDocumentosInvalidos,
-
+        
         DesvioRecorrido,
         VueltaAlRecorrido,
+
+        TareaRevertida,
 
         RutaAceptada,
         RutaRechazada,
@@ -143,6 +150,22 @@ namespace Logictracker.Messaging
 
         UnloadRouteSuccess,
         GarminCannedMessageReceived,
+
+        PanicButtonOn,
+        SirenOn,
+
+        ServicioAsignado,
+        ServicioAsignadoRechazado,
+        ServicioAsignadoAceptado,
+        LlegadaServicio,
+        SolicitaAsistencia,
+        ServicioFinalizado,
+        ServicioPreasignado,
+        ServicioPreasignadoRechazado,
+        ServicioPreasignadoAceptado,
+        ServicioPreasignadoCancelado,
+
+        VehiculoAgendado
 	}
 
 	public static class MessageCodeX
@@ -203,8 +226,11 @@ namespace Logictracker.Messaging
                 case MessageCode.DesaccelerationEvent:return "3002";
                 case MessageCode.RpmEvent: return "90";
                     
+                // mensajes de pánico
+                case MessageCode.PanicButtonOn: return "513";
+                case MessageCode.SirenOn: return "2311";
 
-				//mensajes generados por el dispatcher
+				// mensajes generados por el dispatcher
 				case MessageCode.StoppedEvent: return "100";
 				case MessageCode.KilometersExceded: return "101";
 				case MessageCode.OutOfShiftActivity: return "102";
@@ -220,7 +246,7 @@ namespace Logictracker.Messaging
 				case MessageCode.DocumentSecondWarning: return "302";
 				case MessageCode.OdometerExpired: return "310";
 				case MessageCode.OdometerFirstWarning: return "311";
-				case MessageCode.OdometerSecondWarning: return "312";
+				case MessageCode.OdometerSecondWarning: return "312";                
 				case MessageCode.InsideGeoRefference: return "910";
 				case MessageCode.OutsideGeoRefference: return "920";
 				case MessageCode.TextEvent: return "999";
@@ -235,22 +261,31 @@ namespace Logictracker.Messaging
 				case MessageCode.TolvaActivated: return "2081";
 
 				// CicloLogístico
-				case MessageCode.AtrasoTicket: return "1001";
+                case MessageCode.EstadoLogisticoCumplidoManual: return "1000";
+                case MessageCode.AtrasoTicket: return "1001";
 				case MessageCode.EstadoLogisticoCumplido: return "1002";
 				case MessageCode.CicloLogisticoIniciado: return "1003";
 				case MessageCode.CicloLogisticoCerrado: return "1004";
                 case MessageCode.CicloLogisticoIniciadoDocumentosInvalidos: return "1005";
+                case MessageCode.EstadoLogisticoCumplidoEntrada: return "1009";
+                case MessageCode.EstadoLogisticoCumplidoSalida: return "1010";
+                case MessageCode.EstadoLogisticoCumplidoManualRealizado: return "1013";
+                case MessageCode.EstadoLogisticoCumplidoManualNoRealizado: return "1014";
 
-                
+                // Agenda Vehicular
+                case MessageCode.VehiculoAgendado: return "1050";
 
                 // Desvío de Recorrido
                 case MessageCode.DesvioRecorrido: return "1006";
                 case MessageCode.VueltaAlRecorrido: return "1007";
 
+                // Tarea revertida
+                case MessageCode.TareaRevertida: return "1008";
+
                 // Mensajes Garmin
                 case MessageCode.GarminStopStatus: return "145"; 
                 case MessageCode.GarminOff: return "2305";
-                case MessageCode.GarminOn: return "2306";
+                case MessageCode.GarminOn: return "2306";                
                 case MessageCode.GarminStopStatusActive: return "3010";
                 case MessageCode.GarminStopStatusDone: return "3011";
 		        case MessageCode.GarminStopStatusUnreadInactive: return "3012";
@@ -312,10 +347,23 @@ namespace Logictracker.Messaging
                 case MessageCode.TrailerHooked: return "2817";
 
                 //Tiempo Máximo en Geocerca
-                case MessageCode.PermanenciaEnGeocercaExcedida: return "5000";
-                case MessageCode.PermanenciaEnGeocercaExcedidaEnCicloLogistico: return "5001";
+                case MessageCode.PermanenciaEnGeocercaExcedida: return "5500";
+                case MessageCode.PermanenciaEnGeocercaExcedidaEnCicloLogistico: return "5501";
 
                 // del 6000 al 6099 son eventos definibles para Estado Logistico (Categoria ESLO0 y ESLO1)
+
+                    // SOS
+                case MessageCode.ServicioAsignado: return "10035";
+                case MessageCode.ServicioAsignadoRechazado: return "10040";
+                case MessageCode.ServicioAsignadoAceptado: return "10045";
+                case MessageCode.LlegadaServicio: return "10050";
+                case MessageCode.SolicitaAsistencia: return "10055";
+                case MessageCode.ServicioFinalizado: return "10060";
+                case MessageCode.ServicioPreasignado: return "10100";
+                case MessageCode.ServicioPreasignadoRechazado: return "10105";
+                case MessageCode.ServicioPreasignadoAceptado: return "10110";
+                case MessageCode.ServicioPreasignadoCancelado: return "10115";
+
 				default: return String.Empty;
 			}
 		}

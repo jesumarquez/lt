@@ -58,6 +58,8 @@ namespace Logictracker.Services.Helpers
                 if (waypoints != null && waypoints.Length > 0)
                 {
                     baseUrl += "&waypoints=" + waypoints.Aggregate(string.Empty, (w, y) => string.Concat(w, "|", y));
+                    var index = baseUrl.IndexOf('|');
+                    baseUrl = baseUrl.Remove(index, 1);
                 }
 
                 var xml = new XmlDocument();

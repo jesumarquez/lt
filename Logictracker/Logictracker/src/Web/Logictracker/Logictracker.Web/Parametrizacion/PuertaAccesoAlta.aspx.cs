@@ -12,10 +12,11 @@ namespace Logictracker.Parametrizacion
 
         protected override void Bind()
         {
-            cbVehiculo.Coche = EditObject.Vehiculo.Id;
+            cbVehiculo.Coche = EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : 0;
             cbEmpresa.SetSelectedValue(EditObject.Empresa.Id);
             cbLinea.SetSelectedValue(EditObject.Linea != null ? EditObject.Linea.Id : cbLinea.NullValue);
-            cbVehiculo.SetSelectedValue(EditObject.Vehiculo.Id);
+            cbVehiculo.SetSelectedValue(EditObject.Vehiculo != null ? EditObject.Vehiculo.Id : cbVehiculo.NoneValue);
+            cbGeocerca.SetSelectedValue(EditObject.ReferenciaGeografica != null ? EditObject.ReferenciaGeografica.Id : cbGeocerca.NoneValue);
             txtDescripcion.Text = EditObject.Descripcion;
             npPuerta.Value = EditObject.Codigo;
             cbZonaAccesoEntrada.SetSelectedValue(EditObject.ZonaAccesoEntrada != null ? EditObject.ZonaAccesoEntrada.Id : cbZonaAccesoEntrada.NoneValue);
@@ -26,7 +27,7 @@ namespace Logictracker.Parametrizacion
         {
             ValidateEntity(cbEmpresa.Selected, "PARENTI01");
             ValidateEmpty(txtDescripcion.Text, "DESCRIPCION");
-            ValidateEntity(cbVehiculo.Selected, "PARENTI03");
+            //ValidateEntity(cbVehiculo.Selected, "PARENTI03");
 
             var puerta = DAOFactory.PuertaAccesoDAO.FindByCodigo(cbEmpresa.Selected, cbLinea.Selected, Convert.ToInt16(npPuerta.Value));
             ValidateDuplicated(puerta, "CODE");
@@ -39,7 +40,8 @@ namespace Logictracker.Parametrizacion
 
             EditObject.Codigo = Convert.ToInt16(npPuerta.Value);
             EditObject.Descripcion = txtDescripcion.Text;
-            EditObject.Vehiculo = DAOFactory.CocheDAO.FindById(cbVehiculo.Selected);
+            EditObject.Vehiculo = cbVehiculo.Selected > 0 ? DAOFactory.CocheDAO.FindById(cbVehiculo.Selected) : null;
+            EditObject.ReferenciaGeografica = cbGeocerca.Selected > 0 ? DAOFactory.ReferenciaGeograficaDAO.FindById(cbGeocerca.Selected) : null;
             EditObject.ZonaAccesoEntrada = cbZonaAccesoEntrada.Selected > 0 ? DAOFactory.ZonaAccesoDAO.FindById(cbZonaAccesoEntrada.Selected) : null;
             EditObject.ZonaAccesoSalida = cbZonaAccesoSalida.Selected > 0 ? DAOFactory.ZonaAccesoDAO.FindById(cbZonaAccesoSalida.Selected) : null;
 

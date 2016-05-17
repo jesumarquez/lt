@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" CodeFile="TransportistaAlta.aspx.cs" Inherits="Logictracker.Parametrizacion.TransportistaAlta" Title="Transportista" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/AbmPage.master" AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.TransportistaAlta" Title="Transportista" Codebehind="TransportistaAlta.aspx.cs" %>
 
 <%@ Register Src="~/App_Controls/SelectGeoRefference.ascx" TagName="SelectGeoRefference" TagPrefix="uc1" %>
 <%@ Register Src="~/App_Controls/EditEntityGeoRef.ascx" TagName="EditEntityGeoRef" TagPrefix="uc1" %>
@@ -27,6 +27,9 @@
                             </Triggers>
                         </asp:UpdatePanel>
     
+                        <cwc:ResourceLabel ID="ResourceLabel12" runat="server" ResourceName="Labels" VariableName="CODE" />
+                        <asp:TextBox runat="server" id="txtCodigo" Width="99%" MaxLength="32" />
+
                         <cwc:ResourceLabel ID="ResourceLabel3" runat="server" ResourceName="Labels" VariableName="DESCRIPCION" />
                         <asp:TextBox runat="server" id="txtDescripcion" Width="99%" MaxLength="64" />
     

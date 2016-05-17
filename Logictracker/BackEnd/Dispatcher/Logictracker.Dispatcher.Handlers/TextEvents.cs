@@ -15,6 +15,7 @@ using Logictracker.Process.CicloLogistico;
 using Logictracker.Process.CicloLogistico.Events;
 using Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion;
 using Logictracker.Utils;
+using Logictracker.Tracker.Application.Integration;
 
 #endregion
 
@@ -37,6 +38,25 @@ namespace Logictracker.Dispatcher.Handlers
 			}
 
         	MessageSaver.Save(message, MessageCode.TextEvent.GetMessageCode(), Dispositivo, Coche, employee, pos.Date, pos, message.Text);
+
+            if (Coche.Empresa.IntegrationServiceEnabled)
+            {
+                var text = message.Text.Trim().ToUpperInvariant();
+                var ruta = DaoFactory.ViajeDistribucionDAO.FindEnCurso(Coche);
+                if (ruta != null && text.Contains(Coche.Empresa.IntegrationServicePrefixConfirmation))
+                {   
+                    var sosTicket = DaoFactory.SosTicketDAO.FindByCodigo(ruta.Codigo);
+                    if (sosTicket != null)
+                    {
+                        text = text.Replace(Coche.Empresa.IntegrationServicePrefixConfirmation, string.Empty);
+                        var intService = new IntegrationService(DaoFactory);
+                        if (sosTicket.Patente.ToUpperInvariant().Contains(text))
+                            intService.ConfirmaPatente(sosTicket, true);
+                        else
+                            intService.ConfirmaPatente(sosTicket, false);
+                    }
+                }
+            }
 
             if (Coche.Empresa.AsignoDistribucionPorMensaje)
             {

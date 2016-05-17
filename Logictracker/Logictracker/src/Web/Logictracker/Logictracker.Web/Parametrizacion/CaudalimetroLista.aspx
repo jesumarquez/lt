@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master"  AutoEventWireup="true" CodeFile="CaudalimetroLista.aspx.cs" Inherits="Logictracker.Parametrizacion.Parametrizacion_CaudalimetroLista" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPages/ListPage.master"  AutoEventWireup="true" Inherits="Logictracker.Parametrizacion.Parametrizacion_CaudalimetroLista" Codebehind="CaudalimetroLista.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.DropDownLists" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentFiltros" Runat="Server">

@@ -209,8 +209,9 @@ namespace Logictracker.InetLayer
 
                     if (_parent.DataLinkLayer.OnFrameReceived(_iLink, activeChunk, _parent.Parser))
                     {
-                        SendTo(activeChunk);
+                        SendTo(activeChunk);                       
                     }
+                    OsSocket.Disconnect(false);
                 }
             }
 

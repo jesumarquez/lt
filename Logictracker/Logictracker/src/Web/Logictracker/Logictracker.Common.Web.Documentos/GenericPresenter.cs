@@ -278,6 +278,7 @@ namespace Logictracker.Web.Documentos
                 case TipoParametroDocumento.Integer:
                 case TipoParametroDocumento.Float:
                 case TipoParametroDocumento.String:
+                case TipoParametroDocumento.Barcode:
                     AddTextBox(id, style);
                     break;
                 case TipoParametroDocumento.DateTime:
@@ -1027,6 +1028,7 @@ namespace Logictracker.Web.Documentos
                 case TipoParametroDocumento.Integer:
                 case TipoParametroDocumento.Float:
                 case TipoParametroDocumento.String:
+                case TipoParametroDocumento.Barcode:
                     SetTextValue(control, valor);
                     break;
                 case TipoParametroDocumento.DateTime:

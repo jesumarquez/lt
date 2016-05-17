@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- $Id: Accion.hbm.xml 381 2007-05-23 16:32:58Z rbugallo $ -->
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.TipoCicloLogistico,Logictracker.Types" table="partick09" lazy="true">
+    <cache usage="read-write" />
+
+    <id name="Id" column="id_partick09" type="Int32" unsaved-value="0">
+      <generator class="native" />
+    </id>
+
+    <property column="partick09_codigo" name="Codigo" />
+    <property column="partick09_descripcion" name="Descripcion" />
+    <property column="partick09_default" name="Default" />
+    <property column="partick09_baja" name="Baja" />
+    
+    <many-to-one name="Empresa" column="rela_parenti01" class="Logictracker.Types.BusinessObjects.Empresa,Logictracker.Types" lazy="proxy" />
+
+    <set name="_estados" access="field" table="partick10" lazy="true">
+      <cache usage="read-write" />
+      <key column="rela_partick09" />
+      <many-to-many column="rela_partick08" class="Logictracker.Types.BusinessObjects.CicloLogistico.Distribucion.EstadoLogistico, Logictracker.Types" />
+    </set>
+    
+  </class>
+</hibernate-mapping>

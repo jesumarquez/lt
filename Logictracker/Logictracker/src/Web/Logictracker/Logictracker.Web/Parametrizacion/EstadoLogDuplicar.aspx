@@ -1,5 +1,5 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true" CodeFile="EstadoLogDuplicar.aspx.cs"
-    Inherits="Logictracker.Parametrizacion.Parametrizacion_EstadoLogDuplicar" Title="Estados Logisticos" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="true"
+    Inherits="Logictracker.Parametrizacion.Parametrizacion_EstadoLogDuplicar" Title="Estados Logisticos" Codebehind="EstadoLogDuplicar.aspx.cs" %>
 <%@ Register TagPrefix="cwc" Namespace="Logictracker.Web.CustomWebControls.Buttons" Assembly="Logictracker.Web.CustomWebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

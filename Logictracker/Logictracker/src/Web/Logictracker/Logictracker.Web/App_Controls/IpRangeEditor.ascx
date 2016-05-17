@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="IpRangeEditor.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_IpRangeEditor" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="IpRangeEditor.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_IpRangeEditor" %>
 
 <table>
 <tr>

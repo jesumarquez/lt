@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DireccionImport.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_DireccionImport" %>
+﻿<%@ Control Language="C#" AutoEventWireup="True" CodeBehind="DireccionImport.ascx.cs" Inherits="Logictracker.App_Controls.App_Controls_DireccionImport" %>
 
 <div>
     <asp:Panel ID="panelUpload" runat="server" DefaultButton="btUpload" CssClass="filterpanel">

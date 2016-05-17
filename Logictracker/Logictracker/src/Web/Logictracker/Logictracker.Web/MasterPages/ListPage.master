@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="false" CodeFile="ListPage.master.cs" Inherits="Logictracker.MasterPages.ListPage" %>
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPages/MasterPage.master" AutoEventWireup="True" CodeBehind="ListPage.master.cs" Inherits="Logictracker.MasterPages.ListPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <%--TOOLBAR--%>

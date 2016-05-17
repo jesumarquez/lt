@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" CodeFile="KPIEstadoEntregas.aspx.cs" Inherits="Logictracker.Web.Reportes.CicloLogistico.KPIEstadoEntregas" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/ReportPage.master" AutoEventWireup="true" Inherits="Logictracker.Web.Reportes.CicloLogistico.KPIEstadoEntregas" Codebehind="KPIEstadoEntregas.aspx.cs" %>
 
 <%@ Register Assembly="C1.Web.UI.Controls.3" Namespace="C1.Web.UI.Controls.C1Gauge" TagPrefix="c1" %>
 
@@ -10,18 +10,38 @@
                     <td>
                         <cwc:ResourceLabel ID="lblDistrito" runat="server" ResourceName="Entities" VariableName="PARENTI01" />
                         <br />
-                        <cwc:LocacionDropDownList ID="ddlEmpresa" runat="server" Width="200px" />
+                        <cwc:LocacionDropDownList ID="ddlEmpresa" runat="server" Width="200px" OnSelectedIndexChanged="FiltersSelectedIndexChanged" />
                     </td>
                     <td>
                         <cwc:ResourceLabel ID="lblPlanta" runat="server" ResourceName="Entities" VariableName="PARENTI02" />
                         <br />
                         <asp:UpdatePanel ID="upPlantas" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <cwc:PlantaDropDownList id="ddlPlanta" runat="server" Width="200px" ParentControls="ddlEmpresa" AddAllItem="true" />
+                                <cwc:PlantaDropDownList id="ddlPlanta" runat="server" Width="200px" ParentControls="ddlEmpresa" AddAllItem="true" OnSelectedIndexChanged="FiltersSelectedIndexChanged" />
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="ddlEmpresa" EventName="SelectedIndexChanged" />
                             </Triggers>
+                        </asp:UpdatePanel>
+                    </td>
+                    <td>
+                        <cwc:ResourceLabel ID="lblVehiculo" runat="server" ResourceName="Entities" VariableName="PARENTI03" />
+                        <br />
+                        <asp:UpdatePanel ID="upVehiculos" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:MovilDropDownList id="ddlVehiculo" runat="server" Width="200px" ParentControls="ddlEmpresa,ddlPlanta" AddAllItem="true" OnSelectedIndexChanged="FiltersSelectedIndexChanged" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="ddlPlanta" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                    </td>
+                    <td>
+                        <br />
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <cwc:ResourceButton id="btnSiguiente" runat="server" ResourceName="Labels" VariableName="SIGUIENTE" OnClick="BtnSiguienteOnClick" />
+                            </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
                 </tr>
@@ -31,39 +51,43 @@
 </asp:Content>
     
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="ContentReport">
-    <asp:UpdatePanel ID="Panel1" runat="server">
+    <asp:UpdatePanel ID="CenterPanel" runat="server">
         <ContentTemplate>
             <asp:UpdatePanel ID="pnlUpdate" runat="server">
                 <ContentTemplate>
                     <table width="100%" border="0">
                         <tr>
                             <td align="center" valign="top"> 
-                                <c1:C1GridView ID="gridTransportistas" runat="server" OnRowDataBound="GridTransportistasOnRowDataBound" AutoGenerateColumns="false" Width="100%" Visible="true">
+                                <c1:C1GridView ID="gridTransportistas" runat="server" OnRowDataBound="GridTransportistasOnRowDataBound" AutoGenerateColumns="false" Width="100%" Visible="true" SkinID="ListGridNoGroupNoPage" >
                                     <Columns>
                                         <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Left" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblTransportista" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRutas" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEntregas" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="green" />
+                                            <ItemStyle HorizontalAlign="Right" ForeColor="green" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRealizados" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
+                                            <ItemStyle HorizontalAlign="Center" />
                                             <ItemTemplate>
-                                                <c1:C1Gauge ID="gaugeCompletados" runat="server" EnableAjax="True" ImageRenderMethod="HttpHandler" BackImageLayout="None" Height="75px" ImageFormat="Png" TextRenderingHint="AntiAlias" Width="150px">
+                                                <c1:C1Gauge ID="gaugeCompletados" runat="server" EnableAjax="True" ImageRenderMethod="HttpHandler" BackImageLayout="None" Height="25px" ImageFormat="Png" TextRenderingHint="AntiAlias" Width="50px">
                                                     <Gauges>
                                                         <c1:C1LinearGauge AxisLength="0.85" AxisStart="0.08" Maximum="100" Minimum="0" Name="linearGaugeCompletados" Viewport-AspectRatio="3">
                                                             <Decorators>
@@ -125,58 +149,89 @@
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="green" />
+                                            <ItemStyle ForeColor="green" HorizontalAlign="Right" />
                                             <ItemTemplate >
                                                 <asp:Label ID="lblCompletados" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="greenyellow" />
+                                            <ItemStyle ForeColor="Gold" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblVisitados" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="blue" />
+                                            <ItemStyle ForeColor="blue" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEnSitio" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="gray" />
+                                            <ItemStyle ForeColor="gray" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEnZona" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="red" />
+                                            <ItemStyle ForeColor="red" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblNoCompletados" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="orange" />
+                                            <ItemStyle ForeColor="orange" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblNoVisitados" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                         <c1:C1TemplateField>
-                                            <ItemStyle ForeColor="orange" />
+                                            <ItemStyle ForeColor="orange" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPendientes" runat="server" />
                                             </ItemTemplate>                                            
                                         </c1:C1TemplateField>
                                     </Columns>
                                 </c1:C1GridView>
+                                <a style="color: black"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="top">
+                                <asp:Panel ID="SouthPanel" runat="server" ScrollBars="Vertical" Height="600px" style="background-color: #CCCCCC;">
+                                    <div id="content"></div>
+                                </asp:Panel>
                             </td>
                         </tr>
                     </table>
+
+                    <div id="item_template" style="display: none;">        
+                        <div class="vehiculo_mimico_kpi">
+                            <table>
+                                <tr>
+                                    <td class="vehiculo">
+                                        <div class="vehiculo_info" style="background-image: url({{{ICON}}}); cursor:pointer;" onclick="window.open('../../CicloLogistico/Monitor.aspx?t=D&i={{{ID_RUTA}}}&c=0','Monitor Ciclo');"><span class="{{{VEHICLE_STATE}}}">{{{VEHICLE}}}</span></div>
+                                    </td>
+                                    <td>
+                                        <div class="mimico">
+                                            <div class="bars">
+                                                {{{STATE_BARS}}}
+                                            </div>
+                                        </div>          
+                                    </td>
+                                </tr>
+                            </table>    
+                        </div>
+                    </div>
+
+                    <script type="text/javascript" src="mimicoKpi.js"></script>
+
                 </ContentTemplate>
             </asp:UpdatePanel>
         </ContentTemplate>
     </asp:UpdatePanel>
-    
-    <asp:Timer runat="server" ID="timer" Interval="60000" OnTick="BtnSearchClick"></asp:Timer>
+
+    <asp:Timer runat="server" ID="timer" Interval="60000" OnTick="OnTick" />
+
 </asp:Content>    
     
             

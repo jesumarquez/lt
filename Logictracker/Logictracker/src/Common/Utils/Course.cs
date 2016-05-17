@@ -22,10 +22,14 @@ namespace Logictracker.Utils
 		}
 
 		//debe ser public para la serializacion
-		public Course()
+		public Course(double course)
 		{
-			Pack(0);
+			Pack((float) course);
 		}
+        public Course()
+        {
+            Pack(0);
+        }
 
 		public void Pack(float data)
         {

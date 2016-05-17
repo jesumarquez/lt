@@ -12,7 +12,7 @@ namespace Logictracker.Tracker.Application.Reports
 {
     public class GeofenceEventsReportGenerator  
     {
-         private const string TemplateName = "Logictracker.Tracker.Application.Reports.GeofenceEventsReport.xls";
+         private const string TemplateName = "Logictracker.Tracker.Application.Reports.Templates.GeofenceEventsReport.xls";
         private const string DataSheet1 = "Informe";
         //private const string DataSheet2 = "Datos";
 

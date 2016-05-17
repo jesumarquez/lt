@@ -136,15 +136,27 @@ namespace Logictracker.Messaging
 		TextEvent = 999,
 
 		// CicloLogístico
-		TicketOverdue = 1001,
+        LogisticStateFulfilledManual = 1000,
+        TicketOverdue = 1001,
 		LogisticStateFulfilled = 1002,
 		LogisticsCycleInitiated = 1003,
 		LogisticsCycleTerminated = 1004,
+        LogisticsCycleInitiatedWithInvalidDocuments = 1005,
 
-		TraveledLeg = 1010,
+        DesvioRecorrido = 1006,
+        VueltaAlRecorrido = 1007,
+
+        TareaRevertida = 1008,
+
+        LogisticStateFulfilledEnter = 1009,
+        LogisticStateFulfilledExit = 1010,
 
 		JammingOn = 1011,
 		JammingOff = 1012,
+
+        LogisticStateFulfilledManualRealized = 1013,
+        LogisticStateFulfilledManualNotRealized = 1014,
+
 		RfidDetected = 1024,
         NoDriverMovement = 1025,
 
@@ -160,6 +172,8 @@ namespace Logictracker.Messaging
         DigitalInput03Closed = 1113,
         DigitalInput04Closed = 1114,
         DigitalInput05Closed = 1115,
+
+        VehiculoAgendado = 1050,
 
         MixerStopped = 2064,
         MixerClockwise = 2065,
@@ -296,8 +310,8 @@ namespace Logictracker.Messaging
         UserMessageDisableFuel = 4020,
         UserMessageEnableFuel = 4021,
 
-        PermanenciaEnGeocercaExcedida = 5000,
-        PermanenciaEnGeocercaExcedidaEnCicloLogistico = 5001,
+        PermanenciaEnGeocercaExcedida = 5500,
+        PermanenciaEnGeocercaExcedidaEnCicloLogistico = 5501,
 
         CustomEvent0001 = 7000,
         CustomEvent0002 = 7001,
@@ -402,7 +416,18 @@ namespace Logictracker.Messaging
 
         // del 6000 al 6099 son eventos definibles para Estado Logistico (Categoria ESLO0 y ESLO1)        
 		GenericMessage = Event.GenericMessage, // = 32767; //0x7FFF,
-        NoMessage = 9999
+        NoMessage = 9999,
+
+        ServicioAsignado = 10035,
+        ServicioAsignadoRechazado = 10040,
+        ServicioAsignadoAceptado = 10045,
+        LlegadaServicio = 10050,
+        SolicitaAsistencia = 10055,
+        ServicioFinalizado = 10060,
+        ServicioPreasignado = 10100,
+        ServicioPreasignadoRechazado = 10105,
+        ServicioPreasignadoAceptado = 10110,
+        ServicioPreasignadoCancelado = 10115
     }
 
 	public static class MessageIdentifierX
@@ -494,6 +519,12 @@ namespace Logictracker.Messaging
         {
             return msg.Codigo == MessageCode.PrivacyOn.GetMessageCode()
                 || msg.Codigo == MessageCode.PrivacyOff.GetMessageCode();
+        }
+
+        public static bool IsPanicEvent(string code)
+        {
+            return code == MessageCode.PanicButtonOn.GetMessageCode()
+                || code == MessageCode.SirenOn.GetMessageCode();
         }
 
 		#endregion
